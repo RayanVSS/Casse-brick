@@ -8,4 +8,4 @@
  */
 
 rootProject.name = '2023-ad1-c'
-include('app')
+include('physics')
