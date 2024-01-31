@@ -19,17 +19,6 @@ public final class GraphicsToolkit { // Biblio de generation des composants grap
     private static Font originalGameFont = initGameFont();
     private static Font boldDerivedFont = originalGameFont.deriveFont(Font.BOLD, 14);
 
-    public static JButton getQuitButton(JFrame frame) {
-
-        JButton button = new JButton("Quitter");
-
-        button.addActionListener(e -> {
-            frame.dispose();
-        });
-
-        return button;
-    }
-
     // Fonction qui garde les proportions de l'image
     public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
         double aspectRatio = (double) originalImage.getWidth() / originalImage.getHeight();
