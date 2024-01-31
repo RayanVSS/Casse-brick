@@ -17,6 +17,12 @@ public class Racket extends Entite{
         this.direction = direction;
     }
 
+    public Racket(int type) {
+        this.c = new Coordonnee(0,0);
+        this.type = type ;
+        this.direction = new Vector(c);
+    }
+
     public Coordonnee getC() {
         return c;
     }
