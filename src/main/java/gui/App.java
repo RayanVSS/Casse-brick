@@ -32,6 +32,7 @@ public class App extends Application{
 
 
         bouton1.setOnAction(e -> {
+            root.getChildren().clear();
             new GameView(primaryStage,1);
            
         });

@@ -33,6 +33,7 @@ public class GameView extends App{
                     last = now;
                     return;
                 }
+                System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
                 var deltaT = now - last;
                 game.update(deltaT);
                 last = now;
