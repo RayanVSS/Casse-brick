@@ -11,6 +11,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.10'
     id 'java-library'
+    id 'checkstyle'
 }
 
 javafx {
@@ -34,5 +35,9 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClass = 'gui.App'
+}
+
+checkstyle {
+        toolVersion = '10.0'
 }
 
