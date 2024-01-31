@@ -25,12 +25,6 @@ plugins {
     id 'checkstyle'
 }
 
-java{
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-
 javafx {
     version = "17.0.1"
     modules = ['javafx.controls', 'javafx.media', 'javafx.base', 'javafx.graphics']

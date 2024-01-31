@@ -1,7 +1,5 @@
 package gui;
 
-import java.util.Stack;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -64,8 +62,9 @@ public class App extends Application{
         Label label = new Label("Implementation du Jeu");
         root.getChildren().clear();
         root.getChildren().add(label);
-
     }
+
+    
     public static void main(String[] args) {
         launch(args);
     }
