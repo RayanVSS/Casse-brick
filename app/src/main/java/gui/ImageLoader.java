@@ -1,86 +1,51 @@
 package gui;
 
-import java.awt.image.BufferedImage;
+import javafx.scene.image.Image;
+
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
+public class ImageLoader {
 
-public class ImageLoader { //à adapter pour prendre en compte la hauteur et largeur
+    private static final Map<String, Image> imageCache = new HashMap<>();
 
-    private static final Map<String, BufferedImage> imageCache = new HashMap<>();
-
-    public static BufferedImage loadImage(String imagePath) {
+    public static Image loadImage(String imagePath) {
         if (imageCache.containsKey(imagePath)) {
-
             return imageCache.get(imagePath);
-
         } else {
-
-            try {
-
-                BufferedImage image = ImageIO.read(new File(imagePath));
-
-                imageCache.put(imagePath, image);
-                return image;
-
-            } catch (IOException e) {
-
-                e.printStackTrace();
-                return null;
-            }
+            Image image = new Image(new File(imagePath).toURI().toString());
+            imageCache.put(imagePath, image);
+            return image;
         }
     }
 
-    public static BufferedImage loadImage(String imagePath, int resizeWidth, int resizeHeight) {
+    public static Image loadImage(String imagePath, int resizeWidth, int resizeHeight) {
         if (imageCache.containsKey(imagePath)) {
-
             return imageCache.get(imagePath);
-
         } else {
-
-            try {
-
-                BufferedImage image = ImageIO.read(new File(imagePath));
-                image = GraphicsToolkit.resizeImage(image, resizeWidth, resizeHeight);
-                imageCache.put(imagePath, image);
-                return image;
-
-            } catch (IOException e) {
-
-                e.printStackTrace();
-                return null;
-            }
+            Image originalImage = new Image(new File(imagePath).toURI().toString());
+            Image resizedImage = GraphicsToolkit.resizeImage(originalImage, resizeWidth, resizeHeight);
+            imageCache.put(imagePath, resizedImage);
+            return resizedImage;
         }
     }
 
-    public static BufferedImage loadImage(String imagePath, double ratioWidth, double ratioHeight) {
+    public static Image loadImage(String imagePath, double ratioWidth, double ratioHeight) {
         if (imageCache.containsKey(imagePath)) {
-
             return imageCache.get(imagePath);
-
         } else {
-            try {
+            Image originalImage = new Image(new File(imagePath).toURI().toString());
+            Image resizedImage = GraphicsToolkit.resizeImage(originalImage,
+                    originalImage.getWidth() * ratioWidth,
+                    originalImage.getHeight() * ratioHeight);
 
-                BufferedImage image = ImageIO.read(new File(imagePath));
-                image = GraphicsToolkit.resizeImage(image,
-                        (int) (image.getWidth() * ratioWidth),
-                        (int) (image.getHeight() * ratioHeight));
-
-                imageCache.put(imagePath, image);
-                return image;
-
-            } catch (IOException e) {
-                System.out.println(imagePath);
-                return null;
-            }
+            imageCache.put(imagePath, resizedImage);
+            return resizedImage;
         }
     }
 
-    public static Map<String, BufferedImage> getImageCache() {
+    public static Map<String, Image> getImageCache() {
         return imageCache;
     }
-
 }
