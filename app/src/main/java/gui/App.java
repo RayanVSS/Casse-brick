@@ -20,7 +20,7 @@ public class App extends Application{
         Label label = new Label("Implementation du Menu");
         root = new StackPane();
         root.getChildren().add(label);
-        root.setMargin(label, new javafx.geometry.Insets(100, 100, 100, 100));
+        root.setMargin(label, new javafx.geometry.Insets(0, 100, 50, 0));
         scene = new Scene(root, 1000, 800);
         primaryStage.setTitle("Casse Brique");
         primaryStage.setScene(scene);
@@ -30,16 +30,33 @@ public class App extends Application{
 
     public void Menu() {
         // TODO implement here
-        Button bouton = new Button("Jouer");
+        Button bouton1 = new Button("Jouer");
 
-        // Ajouter un gestionnaire d'événements au bouton (dans cet exemple, afficher une alerte)
-        bouton.setOnAction(e -> {
+
+        bouton1.setOnAction(e -> {
             Play();
-            // Vous pouvez ajouter ici le code que vous souhaitez exécuter lors du clic sur le bouton.
+           
         });
 
-        root.getChildren().add(bouton);
-        root.setMargin(bouton, new javafx.geometry.Insets(0, 100, 100, 0));
+        Button bouton2 = new Button("Options");
+
+        bouton2.setOnAction(e -> {
+            Options();
+        });
+
+        
+        root.getChildren().add(bouton1);
+        root.setMargin(bouton1, new javafx.geometry.Insets(0, 100, 100, 0));
+        root.getChildren().add(bouton2);
+        root.setMargin(bouton2, new javafx.geometry.Insets(0, 100, 200, 000));
+
+    }
+
+    public void Options() {
+        // TODO implement here
+        Label label = new Label("Implementation des Options");
+        root.getChildren().clear();
+        root.getChildren().add(label);
     }
 
     public void Play() {
@@ -47,7 +64,7 @@ public class App extends Application{
         Label label = new Label("Implementation du Jeu");
         root.getChildren().clear();
         root.getChildren().add(label);
-        
+
     }
     public static void main(String[] args) {
         launch(args);
