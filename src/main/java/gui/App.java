@@ -32,7 +32,7 @@ public class App extends Application{
 
 
         bouton1.setOnAction(e -> {
-            Play();
+            new GameView(primaryStage,1);
            
         });
 
@@ -53,13 +53,6 @@ public class App extends Application{
     public void Options() {
         // TODO implement here
         Label label = new Label("Implementation des Options");
-        root.getChildren().clear();
-        root.getChildren().add(label);
-    }
-
-    public void Play() {
-        // TODO implement here
-        Label label = new Label("Implementation du Jeu");
         root.getChildren().clear();
         root.getChildren().add(label);
     }
