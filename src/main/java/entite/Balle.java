@@ -85,6 +85,5 @@ public class Balle extends Entite {
         // Mettre à jour la position
         this.c.setX(newX);
         this.c.setY(newY);
-        System.out.println("largeur : " + l + " hauteur : " + h);
     }
 }

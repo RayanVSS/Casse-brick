@@ -2,7 +2,6 @@ package config;
 
 import java.util.ArrayList;
 import entite.*;
-import geometry.*;
 
 public class Game {
 

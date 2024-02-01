@@ -1,7 +1,6 @@
 package gui;
 
 import javafx.animation.*;
-import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -64,11 +63,6 @@ public class GameView extends App {
         Balle balle = game.getBalle();
         ball.setCenterX(balle.getC().getX());
         ball.setCenterY(balle.getC().getY());
-
-        // System.out.println("Position dans update : (" + game.getBalle().getC().getX() + ", "
-        //         + game.getBalle().getC().getY() + ")");
-        // System.out.println("parent Balle:" + ball.getParent());
-        // System.out.println("Position balle dans update : (" + ball.getCenterX() + ", " + ball.getCenterY() + ")");
     }
 
 }
