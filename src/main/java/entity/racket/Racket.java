@@ -7,27 +7,16 @@ import javafx.scene.input.MouseEvent;
 
 public class Racket extends Entity {
 
-    Coordinates c;
     Vector direction;
-    int type;
 
-    public Racket(Coordinates c, int type, Vector direction) {
-        this.c = c;
+    public Racket() {
+        super(new Coordinates(0, 0));
+        this.direction = new Vector(new Coordinates(0, 0));
+    }
+
+    public Racket(Coordinates c, Vector direction) {
+        super(c);
         this.direction = direction;
-    }
-
-    public Racket(int type) {
-        this.c = new Coordinates(0, 0);
-        this.type = type;
-        this.direction = new Vector(c);
-    }
-
-    public Coordinates getC() {
-        return c;
-    }
-
-    public void setC(Coordinates c) {
-        this.c = c;
     }
 
     public Vector getDirection() {
@@ -36,14 +25,6 @@ public class Racket extends Entity {
 
     public void setDirection(Vector direction) {
         this.direction = direction;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public int getType() {
-        return type;
     }
 
     public void mMouseMove(MouseEvent e) {
@@ -55,15 +36,15 @@ public class Racket extends Entity {
     }
 
     public void mX(int pX) {
-        this.c.setX(pX);
+        this.getC().setX(pX);
     }
 
     public void mY(int pY) {
-        this.c.setY(pY);
+        this.getC().setY(pY);
     }
 
     public int mX() {
-        return this.c.getX();
+        return this.getC().getX();
     }
 
 }

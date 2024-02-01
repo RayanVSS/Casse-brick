@@ -11,18 +11,17 @@ import javafx.stage.Stage;
 
 import config.*;
 
+public class GameView extends App {
 
-public class GameView extends App{
-    
     Stage primaryStage;
     Scene scene;
-    StackPane root ;
+    StackPane root;
     Game game;
 
-    public GameView(Stage p,int level) {
+    public GameView(Stage p, int level) {
         // TODO implement here
         this.primaryStage = p;
-        game = new Game(1);
+        game = new GameClassic();
 
         AnimationTimer animationTimer = new AnimationTimer() {
             long last = 0;
@@ -40,7 +39,6 @@ public class GameView extends App{
             }
         };
         animationTimer.start();
-
 
     }
 

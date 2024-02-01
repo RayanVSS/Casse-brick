@@ -1,8 +1,9 @@
 package geometry;
 
 public class Coordinates {
-    int x;
-    int y;
+
+    private int x;
+    private int y;
 
     public Coordinates(int x, int y) {
         this.x = x;
@@ -25,7 +26,7 @@ public class Coordinates {
         return y;
     }
 
-    public void setCoordonnee(int x, int y) {
+    public void setCoordinates(int x, int y) {
         this.x = x;
         this.y = y;
     }

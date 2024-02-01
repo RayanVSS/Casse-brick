@@ -4,21 +4,23 @@ import java.util.ArrayList;
 
 import entity.*;
 import entity.ball.Ball;
+import entity.brick.Brick;
 import entity.racket.Racket;
 import geometry.*;
 
-public class Game {
+public abstract class Game {
 
-    ArrayList<Entity> listebriques;
-    Ball balle;
-    Racket racket;
+    private Ball ball;
+    private Racket racket;
+    private ArrayList<Brick> bricks;
 
-    public Game(int level) {
-        listebriques = new ArrayList<Entity>();
-        balle = new Ball();
-        racket = new Racket(1);
+    protected Game(Ball ball, Racket racket) {
 
-        // TODO implement here
+        this.ball = ball;
+        this.racket = racket;
+    }
+
+    public void createBricks() {
 
     }
 
