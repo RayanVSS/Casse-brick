@@ -1,33 +1,32 @@
-package entite;
+package entity.racket;
 
-import geometry.Coordonnee;
+import entity.Entity;
+import geometry.Coordinates;
 import geometry.Vector;
 import javafx.scene.input.MouseEvent;
 
+public class Racket extends Entity {
 
-public class Racket extends Entite{
-
-    Coordonnee c;
+    Coordinates c;
     Vector direction;
     int type;
 
-
-    public Racket(Coordonnee c, int type, Vector direction) {
+    public Racket(Coordinates c, int type, Vector direction) {
         this.c = c;
         this.direction = direction;
     }
 
     public Racket(int type) {
-        this.c = new Coordonnee(0,0);
-        this.type = type ;
+        this.c = new Coordinates(0, 0);
+        this.type = type;
         this.direction = new Vector(c);
     }
 
-    public Coordonnee getC() {
+    public Coordinates getC() {
         return c;
     }
 
-    public void setC(Coordonnee c) {
+    public void setC(Coordinates c) {
         this.c = c;
     }
 
@@ -47,25 +46,24 @@ public class Racket extends Entite{
         return type;
     }
 
-    public void mMouseMove(MouseEvent e){
-    	this.mOnMouseMoved(e);
+    public void mMouseMove(MouseEvent e) {
+        this.mOnMouseMoved(e);
     }
 
-    private void mOnMouseMoved(MouseEvent e){
-    	this.mX((int) e.getX());		
+    private void mOnMouseMoved(MouseEvent e) {
+        this.mX((int) e.getX());
     }
-        
-    public void mX(int pX){
+
+    public void mX(int pX) {
         this.c.setX(pX);
     }
 
-    public void mY(int pY){
+    public void mY(int pY) {
         this.c.setY(pY);
     }
 
-    public int mX(){
+    public int mX() {
         return this.c.getX();
     }
 
-    
 }
