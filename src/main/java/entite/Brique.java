@@ -1,7 +1,7 @@
 package entite;
 import geometry.*;
 
-public class Brique extends Entite{
+public class Brique  extends Entite{
     Coordonnee c;
     int durabilite;
     int type;

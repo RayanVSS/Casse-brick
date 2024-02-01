@@ -63,7 +63,7 @@ public class Racket extends Entite{
         this.c.setY(pY);
     }
 
-    public int mX(){
+    public double mX(){
         return this.c.getX();
     }
 
