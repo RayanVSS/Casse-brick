@@ -2,11 +2,9 @@ package config;
 
 import java.util.ArrayList;
 
-import entity.*;
 import entity.ball.Ball;
 import entity.brick.Brick;
 import entity.racket.Racket;
-import geometry.*;
 
 public abstract class Game {
 
