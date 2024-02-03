@@ -1,10 +1,10 @@
 package geometry;
 
-public class Coordonnee {
+public class Cordinates {
     double x;
     double y;
 
-    public Coordonnee(double x, double y) {
+    public Cordinates(double x, double y) {
         this.x = x;
         this.y = y;
     }

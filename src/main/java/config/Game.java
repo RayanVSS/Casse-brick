@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import entity.*;
 import entity.ball.Ball;
 import entity.racket.Racket;
-import geometry.Coordonnee;
+import geometry.Cordinates;
 import geometry.Vector;
 
 public class Game {
@@ -13,10 +13,10 @@ public class Game {
     Ball ball;
     Racket racket;
 
-    public Game(int level, Coordonnee centre) {
+    public Game(int level, Cordinates centre) {
         // TODO implement here
         listebriques = new ArrayList<Entity>();
-        ball = new Ball(new Coordonnee(centre.getX(), centre.getY()), 1, 1, new Vector(new Coordonnee(1, -1)), 2, 5);
+        ball = new Ball(new Cordinates(centre.getX(), centre.getY()), 1, 1, new Vector(new Cordinates(1, -1)), 2, 5);
         racket = new Racket(1);
 
     }
