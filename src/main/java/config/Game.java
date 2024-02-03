@@ -1,27 +1,36 @@
 package config;
 
 import java.util.ArrayList;
-import entite.*;
-import geometry.*;
+
+import entity.ball.Ball;
+import entity.brick.Brick;
+import entity.racket.Racket;
 
 public class Game {
-    
-    ArrayList<Entite> listebriques;
-    Balle balle;
-    Racket racket;
-    
 
-    public Game(int level) {
-        listebriques = new ArrayList<Entite>();
-        balle = new Balle();
-        racket = new Racket(1);
+    private Ball ball;
+    private Racket racket;
+    private ArrayList<Brick> bricks;
 
-        // TODO implement here
-
+    public Game(Ball ball, Racket racket) {
+        this.ball = ball;
+        this.racket = racket;
     }
 
-    public void update(long deltaT) {
-        // TODO implement here
+    public void createBricks() {}
 
+    public Ball getBall() {
+        return ball;
+    }
+    public void update(long deltaT, double l, double h) {
+        // TODO implement here
+        // Quand la balle arrive au sud on perds (tres primaire comme code)
+        if (!ball.mouvement(l, h)) {
+            perdu();
+        }
+    }
+
+    public void perdu() {
+        System.exit(0);
     }
 }
