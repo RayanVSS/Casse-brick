@@ -1,34 +1,34 @@
 package entity.racket;
 
 import entity.Entity;
-import geometry.Cordinates;
+import geometry.Coordinates;
 import geometry.Vector;
 import javafx.scene.input.MouseEvent;
 
 
 public class Racket extends Entity {
 
-    Cordinates c;
+    Coordinates c;
     Vector direction;
     int type;
 
 
-    public Racket(Cordinates c, int type, Vector direction) {
+    public Racket(Coordinates c, int type, Vector direction) {
         this.c = c;
         this.direction = direction;
     }
 
     public Racket(int type) {
-        this.c = new Cordinates(0,0);
+        this.c = new Coordinates(0,0);
         this.type = type ;
         this.direction = new Vector(c);
     }
 
-    public Cordinates getC() {
+    public Coordinates getC() {
         return c;
     }
 
-    public void setC(Cordinates c) {
+    public void setC(Coordinates c) {
         this.c = c;
     }
 

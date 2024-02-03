@@ -3,11 +3,11 @@ import entity.Entity;
 import geometry.*;
 
 public class Brick extends Entity {
-    Cordinates c;
+    Coordinates c;
     int durabilite;
     int type;
 
-    public Brick(Cordinates c, int type) {
+    public Brick(Coordinates c, int type) {
         this.c = c;
         this.type = type;
     }
@@ -28,7 +28,7 @@ public class Brick extends Entity {
         this.type = type;
     }
 
-    public Cordinates getC() {
+    public Coordinates getC() {
         return c;
     }
 

@@ -4,7 +4,7 @@ import geometry.*;
 
 public abstract class Entity {
 
-    public abstract Cordinates getC();
+    public abstract Coordinates getC();
 
     public abstract void setType(int type);
 

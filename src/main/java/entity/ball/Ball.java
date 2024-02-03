@@ -12,21 +12,21 @@ import geometry.*;
  */
 public class Ball extends Entity {
 
-    private Cordinates c;
+    private Coordinates c;
     private int type;
     private Vector direction;
     private double vitesse;
     private int diametre;
 
     public Ball(int d) {
-        this.c = new Cordinates(1, 1);
+        this.c = new Coordinates(1, 1);
         this.diametre = d;
         this.type = 1;
-        this.direction = new Vector(new Cordinates(1, 1));
+        this.direction = new Vector(new Coordinates(1, 1));
         this.vitesse = 1;
     }
 
-    public Ball(Cordinates c, int type, int degat, Vector direction, int vitesse, int diametre) {
+    public Ball(Coordinates c, int type, int degat, Vector direction, int vitesse, int diametre) {
         this.c = c;
         this.type = type;
         this.direction = direction;
@@ -34,11 +34,11 @@ public class Ball extends Entity {
         this.diametre = diametre;
     }
 
-    public Cordinates getC() {
+    public Coordinates getC() {
         return c;
     }
 
-    public void setC(Cordinates c) {
+    public void setC(Coordinates c) {
         this.c = c;
     }
 

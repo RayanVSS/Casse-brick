@@ -4,7 +4,7 @@ public class Vector {
     private double x;
     private double y;
 
-    public Vector(Cordinates c) {
+    public Vector(Coordinates c) {
         this.x = c.getX();
         this.y = c.getY();
     }
