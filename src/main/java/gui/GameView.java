@@ -3,11 +3,10 @@ package gui;
 import javafx.animation.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import config.*;
-import entite.Balle;
+import entity.ball.Ball;
 import geometry.Coordonnee;
 
 public class GameView extends App {
@@ -26,10 +25,10 @@ public class GameView extends App {
 
         game = new Game(1, new Coordonnee(800 / 3, 600 / 3));
 
-        Balle balle = game.getBalle();
-        ball = new Circle(balle.getC().getX(), balle.getC().getY(), balle.getDiametre() * 2);
+        Ball ball = game.getBalle();
+        this.ball = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
 
-        root.getChildren().add(ball);
+        root.getChildren().add(this.ball);
         this.scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -60,14 +59,13 @@ public class GameView extends App {
             }
         };
         animationTimer.start();
-
     }
 
     public void update() {
         // TODO implement here
-        Balle balle = game.getBalle();
-        ball.setCenterX(balle.getC().getX());
-        ball.setCenterY(balle.getC().getY());
+        Ball ball = game.getBalle();
+        this.ball.setCenterX(ball.getC().getX());
+        this.ball.setCenterY(ball.getC().getY());
     }
 
 }

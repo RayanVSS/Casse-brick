@@ -1,12 +1,13 @@
-package entite;
+package entity.brick;
+import entity.Entity;
 import geometry.*;
 
-public class Brique  extends Entite{
+public class Brick extends Entity {
     Coordonnee c;
     int durabilite;
     int type;
 
-    public Brique(Coordonnee c, int type) {
+    public Brick(Coordonnee c, int type) {
         this.c = c;
         this.type = type;
     }

@@ -1,11 +1,12 @@
-package entite;
+package entity.racket;
 
+import entity.Entity;
 import geometry.Coordonnee;
 import geometry.Vector;
 import javafx.scene.input.MouseEvent;
 
 
-public class Racket extends Entite{
+public class Racket extends Entity {
 
     Coordonnee c;
     Vector direction;

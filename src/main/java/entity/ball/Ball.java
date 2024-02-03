@@ -1,5 +1,6 @@
-package entite;
+package entity.ball;
 
+import entity.Entity;
 import geometry.*;
 
 /**
@@ -9,7 +10,7 @@ import geometry.*;
  * 
  * @version 1.0
  */
-public class Balle extends Entite {
+public class Ball extends Entity {
 
     private Coordonnee c;
     private int type;
@@ -17,7 +18,7 @@ public class Balle extends Entite {
     private double vitesse;
     private int diametre;
 
-    public Balle(int d) {
+    public Ball(int d) {
         this.c = new Coordonnee(1, 1);
         this.diametre = d;
         this.type = 1;
@@ -25,7 +26,7 @@ public class Balle extends Entite {
         this.vitesse = 1;
     }
 
-    public Balle(Coordonnee c, int type, int degat, Vector direction, int vitesse,int diametre) {
+    public Ball(Coordonnee c, int type, int degat, Vector direction, int vitesse, int diametre) {
         this.c = c;
         this.type = type;
         this.direction = direction;

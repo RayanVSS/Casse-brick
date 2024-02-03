@@ -1,8 +1,8 @@
-package entite;
+package entity;
 
 import geometry.*;
 
-public abstract class Entite {
+public abstract class Entity {
 
     public abstract Coordonnee getC();
 
