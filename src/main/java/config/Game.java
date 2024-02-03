@@ -1,27 +1,27 @@
 package config;
 
 import java.util.ArrayList;
-import entity.*;
+
 import entity.ball.Ball;
+import entity.brick.Brick;
 import entity.racket.Racket;
-import geometry.Coordinates;
-import geometry.Vector;
 
 public class Game {
 
-    ArrayList<Entity> listebriques;
-    Ball ball;
-    Racket racket;
+    private Ball ball;
+    private Racket racket;
+    private ArrayList<Brick> bricks;
 
-    public Game(int level, Coordinates centre) {
-        // TODO implement here
-        listebriques = new ArrayList<Entity>();
-        ball = new Ball(new Coordinates(centre.getX(), centre.getY()), 1, 1, new Vector(new Coordinates(1, -1)), 2, 5);
-        racket = new Racket(1);
-
+    public Game(Ball ball, Racket racket) {
+        this.ball = ball;
+        this.racket = racket;
     }
 
-    
+    public void createBricks() {}
+
+    public Ball getBall() {
+        return ball;
+    }
     public void update(long deltaT, double l, double h) {
         // TODO implement here
         // Quand la balle arrive au sud on perds (tres primaire comme code)
@@ -32,9 +32,5 @@ public class Game {
 
     public void perdu() {
         System.exit(0);
-    }
-
-    public Ball getBalle() {
-        return ball;
     }
 }

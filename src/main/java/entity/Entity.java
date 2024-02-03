@@ -4,9 +4,17 @@ import geometry.*;
 
 public abstract class Entity {
 
-    public abstract Coordinates getC();
+    private Coordinates c;
 
-    public abstract void setType(int type);
+    protected Entity(Coordinates c) {
+        this.c = c;
+    }
 
-    public abstract int getType();
+    public Coordinates getC() {
+        return c;
+    }
+
+    public void setC(Coordinates c) {
+        this.c = c;
+    }
 }

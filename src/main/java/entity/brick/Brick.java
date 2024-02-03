@@ -1,37 +1,22 @@
 package entity.brick;
+
 import entity.Entity;
 import geometry.*;
 
 public class Brick extends Entity {
-    Coordinates c;
-    int durabilite;
-    int type;
 
-    public Brick(Coordinates c, int type) {
-        this.c = c;
-        this.type = type;
+    private int durability;
+
+    public Brick(Coordinates c) {
+        super(c);
     }
 
-    public int getDurabilite() {
-        return durabilite;
+    public int getDurability() {
+        return durability;
     }
 
-    public void setDurabilite(int durabilite) {
-        this.durabilite = durabilite;
+    public void setDurability(int durability) {
+        this.durability = durability;
     }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public Coordinates getC() {
-        return c;
-    }
-
-
 
 }

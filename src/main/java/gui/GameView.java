@@ -7,6 +7,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import config.*;
 import entity.ball.Ball;
+import entity.racket.Racket;
 import geometry.Coordinates;
 
 public class GameView extends App {
@@ -23,9 +24,9 @@ public class GameView extends App {
         this.primaryStage = p;
         this.root = new Pane();
 
-        game = new Game(1, new Coordinates(800 / 3, 600 / 3));
+        game = new Game(new Ball(5),new Racket());
 
-        Ball ball = game.getBalle();
+        Ball ball = game.getBall();
         this.ball = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
 
         root.getChildren().add(this.ball);
@@ -63,7 +64,7 @@ public class GameView extends App {
 
     public void update() {
         // TODO implement here
-        Ball ball = game.getBalle();
+        Ball ball = game.getBall();
         this.ball.setCenterX(ball.getC().getX());
         this.ball.setCenterY(ball.getC().getY());
     }

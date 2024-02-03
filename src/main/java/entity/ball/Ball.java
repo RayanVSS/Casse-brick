@@ -12,54 +12,35 @@ import geometry.*;
  */
 public class Ball extends Entity {
 
-    private Coordinates c;
-    private int type;
-    private Vector direction;
-    private double vitesse;
-    private int diametre;
+    Vector direction;
+    int diametre;
+    int vitesse;
 
     public Ball(int d) {
-        this.c = new Coordinates(1, 1);
+        super(new Coordinates(0, 0));
+        this.direction = new Vector(new Coordinates(0, 0));
+        this.vitesse = 0;
         this.diametre = d;
-        this.type = 1;
-        this.direction = new Vector(new Coordinates(1, 1));
-        this.vitesse = 1;
     }
 
-    public Ball(Coordinates c, int type, int degat, Vector direction, int vitesse, int diametre) {
-        this.c = c;
-        this.type = type;
+    public Ball(Coordinates c, Vector direction, int vitesse,int d) {
+        super(c);
         this.direction = direction;
         this.vitesse = vitesse;
-        this.diametre = diametre;
-    }
-
-    public Coordinates getC() {
-        return c;
-    }
-
-    public void setC(Coordinates c) {
-        this.c = c;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public int getType() {
-        return type;
+        this.diametre = d;
     }
 
     public int getDiametre() {
-        return diametre;
+        return this.diametre;
     }
-
     public Vector getDirection() {
-        return direction;
+        return this.direction;
     }
-
-    public double getVitesse() {
-        return vitesse;
+    public int getVitesse() {
+        return this.vitesse;
+    }
+    public void setDiametre(int d) {
+        this.diametre = d;
     }
 
     /**
@@ -76,17 +57,17 @@ public class Ball extends Entity {
     public boolean deplacer(double l, double h) {
         boolean res=true;
 
-        double newX = this.c.getX() + this.direction.getX() * this.vitesse;
-        double newY = this.c.getY() + this.direction.getY() * this.vitesse;
+        double newX = this.getC().getX() + this.direction.getX() * this.vitesse;
+        double newY = this.getC().getY() + this.direction.getY() * this.vitesse;
 
         if (newX < 0 || newX > l - this.diametre) {
             this.direction.setX(-this.direction.getX());
-            newX = this.c.getX() + this.direction.getX() * this.vitesse; // Recalculer newX
+            newX = this.getC().getX() + this.direction.getX() * this.vitesse; // Recalculer newX
             res=true;
         }
         if (newY < 0 ) {
             this.direction.setY(-this.direction.getY());
-            newY = this.c.getY() + this.direction.getY() * this.vitesse; // Recalculer newY
+            newY = this.getC().getY() + this.direction.getY() * this.vitesse; // Recalculer newY
             res=true;
         }
         if(newY > h - this.diametre){
@@ -95,8 +76,8 @@ public class Ball extends Entity {
 
 
         // Mettre à jour la position
-        this.c.setX(newX);
-        this.c.setY(newY);
+        this.getC().setX(newX);
+        this.getC().setY(newY);
         return res;
     }
 }

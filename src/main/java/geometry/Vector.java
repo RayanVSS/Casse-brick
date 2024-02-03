@@ -1,6 +1,7 @@
 package geometry;
 
 public class Vector {
+
     private double x;
     private double y;
 
@@ -24,7 +25,6 @@ public class Vector {
     public void setY(double y) {
         this.y = y;
     }
-
 
     public void add(Vector other) {
         x += other.x;
