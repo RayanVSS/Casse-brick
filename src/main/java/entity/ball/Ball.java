@@ -10,7 +10,7 @@ import geometry.*;
  * 
  * @version 1.0
  */
-public class Ball extends Entity {
+public abstract class Ball extends Entity {
 
     Vector direction;
     int diametre;
@@ -43,41 +43,5 @@ public class Ball extends Entity {
         this.diametre = d;
     }
 
-    /**
-     * Déplace la balle en fonction de sa direction et de sa vitesse actuelles.
-     * Si la balle atteint les limites de la fenêtre, elle rebondit en inversant sa
-     * direction.
-     * Si la balle atteint le bas de la fenêtre, on perd la partie.
-     * 
-     * @param l La largeur de la fenêtre.
-     * @param h La hauteur de la fenêtre.
-     * @return true si la balle est toujours en jeu, false sinon.
-
-     */
-    public boolean deplacer(double l, double h) {
-        boolean res=true;
-
-        double newX = this.getC().getX() + this.direction.getX() * this.vitesse;
-        double newY = this.getC().getY() + this.direction.getY() * this.vitesse;
-
-        if (newX < 0 || newX > l - this.diametre) {
-            this.direction.setX(-this.direction.getX());
-            newX = this.getC().getX() + this.direction.getX() * this.vitesse; // Recalculer newX
-            res=true;
-        }
-        if (newY < 0 ) {
-            this.direction.setY(-this.direction.getY());
-            newY = this.getC().getY() + this.direction.getY() * this.vitesse; // Recalculer newY
-            res=true;
-        }
-        if(newY > h - this.diametre){
-            res=false;
-        }
-
-
-        // Mettre à jour la position
-        this.getC().setX(newX);
-        this.getC().setY(newY);
-        return res;
-    }
+    public abstract boolean mouvement(double l, double h);
 }

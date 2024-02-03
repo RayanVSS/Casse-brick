@@ -25,7 +25,7 @@ public class Game {
     public void update(long deltaT, double l, double h) {
         // TODO implement here
         // Quand la balle arrive au sud on perds (tres primaire comme code)
-        if (!ball.deplacer(l, h)) {
+        if (!ball.mouvement(l, h)) {
             perdu();
         }
     }

@@ -7,8 +7,10 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import config.*;
 import entity.ball.Ball;
+import entity.ball.ClassicBall;
 import entity.racket.Racket;
 import geometry.Coordinates;
+import geometry.Vector;
 
 public class GameView extends App {
 
@@ -17,19 +19,20 @@ public class GameView extends App {
     private Scene scene;
     private Pane root;
     private Game game;
-    private Circle ball;
+    private Circle graphBall;
 
     public GameView(Stage p, int level) {
         // TODO implement here
         this.primaryStage = p;
         this.root = new Pane();
+        
+        Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth()/3, primaryStage.getHeight()/3), new Vector(new Coordinates(1, 0)),5,5);
 
-        game = new Game(new Ball(5),new Racket());
+        game = new Game(ball,new Racket());
 
-        Ball ball = game.getBall();
-        this.ball = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
+        this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
 
-        root.getChildren().add(this.ball);
+        root.getChildren().add(this.graphBall);
         this.scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -65,8 +68,8 @@ public class GameView extends App {
     public void update() {
         // TODO implement here
         Ball ball = game.getBall();
-        this.ball.setCenterX(ball.getC().getX());
-        this.ball.setCenterY(ball.getC().getY());
+        this.graphBall.setCenterX(ball.getC().getX());
+        this.graphBall.setCenterY(ball.getC().getY());
     }
 
 }
