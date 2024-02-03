@@ -12,10 +12,11 @@ import entity.racket.Racket;
 import geometry.Coordinates;
 import geometry.Vector;
 
+import java.util.Random;
+
 public class GameView extends App {
 
     private Stage primaryStage;
-    private int i;
     private Scene scene;
     private Pane root;
     private Game game;
@@ -25,8 +26,14 @@ public class GameView extends App {
         // TODO implement here
         this.primaryStage = p;
         this.root = new Pane();
-        
-        Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth()/3, primaryStage.getHeight()/3), new Vector(new Coordinates(1, 0)),5,5);
+        Random random = new Random();
+
+        // randomiser la direction de la balle
+        double i = -1 + (1 - (-1)) * random.nextDouble();
+        double j = -1 + (1 - (-1)) * random.nextDouble();
+
+        Vector v = new Vector(new Coordinates(i, j));
+        Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth()/3, primaryStage.getHeight()/3),v,5,5);
 
         game = new Game(ball,new Racket());
 
