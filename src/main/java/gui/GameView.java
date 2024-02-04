@@ -35,12 +35,12 @@ public class GameView extends App {
         Vector v = new Vector(new Coordinates(i, j));
         Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth()/3, primaryStage.getHeight()/3),v,5,5);
 
-        game = new Game(ball,new Racket());
+        game = new Game(ball,new Racket(1));
 
         this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
 
         root.getChildren().add(this.graphBall);
-        this.scene = new Scene(root, 800, 600);
+        this.scene = new Scene(root, 1000, 800);
         primaryStage.setScene(scene);
         primaryStage.show();
 
