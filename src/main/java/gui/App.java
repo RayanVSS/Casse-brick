@@ -1,9 +1,7 @@
 package gui;
 
-import gui.Menu.StartMenu;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -16,6 +14,8 @@ public class App extends Application{
     @Override
     public void start(Stage p) throws Exception {
         this.primaryStage = p;
+        StartMenu startMenu = new StartMenu();
+
         Label label = new Label("Implementation du Menu");
         root.getChildren().add(label);
         root.setMargin(label, new javafx.geometry.Insets(0, 100, 50, 0));
@@ -24,6 +24,7 @@ public class App extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
         new StartMenu();
+
     }
 
 

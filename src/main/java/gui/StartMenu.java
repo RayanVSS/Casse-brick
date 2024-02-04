@@ -1,10 +1,17 @@
-package gui.Menu;
+package gui;
 
 import gui.App;
 import gui.GameView;
 import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
 
 public class StartMenu extends App {
+    private Scene scene;
+    private Stage primaryStage;
+    private StackPane root = new StackPane();
+
     public StartMenu() {
         super();
             // TODO implement here
