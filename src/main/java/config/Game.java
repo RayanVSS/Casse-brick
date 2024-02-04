@@ -91,6 +91,10 @@ public class Game {
         System.exit(0);
     }
 
+    public Racket getRacket() {
+        return racket;
+    }
+
     // public static void main(String[] args) {
     // Game g = new Game(new Ball(), new Racket(), BricksArrangement.DEFAULT);
     // g.displayBricksInTerminal();

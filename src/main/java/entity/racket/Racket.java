@@ -8,62 +8,60 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
+import utils.GameConstants;
 
-import org.checkerframework.checker.units.qual.s;
 
 import entity.Entity;
 
 /***************************************************************************
- * Explication de classe pour la raquette *
+ *                  Explication de classe pour la raquette                 *
  * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*
- * Base: *
+ *      Base: 
+ * @var Coordonnee c : Coordonnée de la raquette 
+ * @var Vector direction : Direction de la raquette 
+ * @var int type : Type de raquette 
+ * @var int speed : Vitesse de la raquette 
+ * @var int longueur : Longueur de la raquette 
+ * @var int largeur : Largeur de la raquette 
+ * @var boolean fixeY : Si la raquette est fixe en y 
+ * @var boolean jump : Si la raquette peut sauter 
+ *      
+ *      boost: 
+ * @var Boolean vitesseP :raquette a un boost de vitesse 
+ * @var Boolean vitesseM :raquette a un malus de vitesse 
+ * @var Boolean largeurP :raquette a un boost de largeur 
+ * @var Boolean largeurM :raquette a un malus de largeur 
+ * @var boolean freeze :le temps est freeze 
+ *      
+ *      creation de la raquette: 
+ * @param type : type de raquette 
+ * @error : si le type de raquette n'est pas connu 
  * 
- * @var Coordonnee c : Coordonnée de la raquette *
- * @var Vector direction : Direction de la raquette *
- * @var int type : Type de raquette *
- * @var int speed : Vitesse de la raquette *
- * @var int longueur : Longueur de la raquette *
- * @var int largeur : Largeur de la raquette *
- * @var boolean fixeY : Si la raquette est fixe en y *
- * @var boolean jump : Si la raquette peut sauter *
- *      *
- *      boost: *
- * @var Boolean vitesseP :raquette a un boost de vitesse *
- * @var Boolean vitesseM :raquette a un malus de vitesse *
- * @var Boolean largeurP :raquette a un boost de largeur *
- * @var Boolean largeurM :raquette a un malus de largeur *
- * @var boolean freeze :le temps est freeze *
- *      *
- *      creation de la raquette: *
- * @param type : type de raquette *
- * @error : si le type de raquette n'est pas connu *
- *        chaque type de raquette a des variables différentes *
- *        charger les variables de la raquette en fonction du type *
- *        *
- *        il y a pour l'instant 2 types de raquette: *
- *        1 : raquette de base *
- *        2 : raquette de base pouvant se déplacer en y *
- *        *
- *        GET et SET: *
- *        je pense pas qui'il y ait besoin d'expliquer ;) *
- *        *
- *        Collision: *
- * @param c : Coordonnée de l'objet avec lequel on veut vérifier la *
- *          collision *
- * @return : true si il y a collision, false sinon *
- *         *
- *         Mouvement a l'appui des touches: *
- * @param keysPressed : toutes les touches appuyées *
- *                    *
- *                    Mouvement au relachement des touches: *
- * @param event       : touche relachée *
- *                    (pas utiliser pour l'instant) *
- *                    *
- *                    Saut: *
- *                    pas fini pour l'instant *
- *                    *
- *                    *
- * @author Rayan Belhasse *
+ * chaque type de raquette a des variables différentes 
+ * charger les variables de la raquette en fonction du type 
+ *        
+ * il y a pour l'instant 2 types de raquette: 
+ *  -1 : raquette de base 
+ *  -2 : raquette de base pouvant se déplacer en y 
+ *        
+ *      GET et SET: 
+ *je pense pas qui'il y ait besoin d'expliquer ;) 
+ *        
+ *      Collision: 
+ * @param c : Coordonnée de l'objet avec lequel on veut vérifier la collision
+ * @return : true si il y a collision, false sinon 
+ *         
+ *      Mouvement a l'appui des touches: :
+ * @param keysPressed : toutes les touches appuyées 
+ *
+ *      Mouvement au relachement des touches: *
+ * @param event: touche relachée 
+ * (pas utiliser pour l'instant) 
+ *                    
+ *      Saut: 
+ *pas fini pour l'instant 
+ *
+ * @author Rayan Belhasse 
  **************************************************************************/
 
 public class Racket {
@@ -105,19 +103,19 @@ public class Racket {
 
     public Racket(int type) {
         if (type == 1) { // raquette de base
-            this.c = new Coordinates(0, -730);
+            this.c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH/2.5, GameConstants.DEFAULT_WINDOW_HEIGHT-50);
             this.longueur = 200;
             this.largeur = 20;
-            this.speed = 4;
+            this.speed = 8;
             this.type = type;
             this.direction = new Vector(c);
             this.fixeY = true;
             this.jump = true;
         } else if (type == 2) { // raquette de base pouvant se déplacer en y
-            this.c = new Coordinates(0, -730);
+            this.c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH/2.5, GameConstants.DEFAULT_WINDOW_HEIGHT-50);
             this.longueur = 200;
             this.largeur = 20;
-            this.speed = 4;
+            this.speed = 8;
             this.type = type;
             this.direction = new Vector(c);
             this.fixeY = false;
@@ -281,23 +279,23 @@ public class Racket {
             switch (key) {
                 case Q:
                 case LEFT:
-                    if (this.mX() < 165)
-                        this.mX(this.mX() + speed);
+                    if (this.mX() > -longueur/2)
+                        this.mX(this.mX() - speed);
                     break;
                 case D:
                 case RIGHT:
-                    if (this.mX() > -165)
-                        this.mX(this.mX() - speed);
+                    if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH-largeur-70)
+                        this.mX(this.mX() + speed);
                     break;
                 case Z:
                 case UP:
-                    if (this.mY() < 730 && !fixeY)
-                        this.mY(this.mY() + speed * 2);
+                    if (this.mY() > 50 && !fixeY)
+                        this.mY(this.mY() - speed );
                     break;
                 case S:
                 case DOWN:
-                    if (this.mY() > -730 && !fixeY)
-                        this.mY(this.mY() - speed * 2);
+                    if (this.mY() < GameConstants.DEFAULT_WINDOW_HEIGHT-50 && !fixeY)
+                        this.mY(this.mY() + speed );
                     break;
                 case SPACE:
                     if (jump) {

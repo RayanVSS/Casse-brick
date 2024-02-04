@@ -2,8 +2,10 @@ package gui;
 
 import javafx.animation.*;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import config.*;
 import entity.ball.Ball;
@@ -13,6 +15,9 @@ import geometry.Coordinates;
 import geometry.Vector;
 import utils.*;
 import java.util.Random;
+import java.util.Set;
+import java.util.HashSet;
+
 
 public class GameView extends App {
 
@@ -21,6 +26,8 @@ public class GameView extends App {
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
     private Circle graphBall;
+    private Rectangle graphRacket;
+    private final Set<KeyCode> keysPressed = new HashSet<>();
 
     public GameView(Stage p, int level) {
 
@@ -28,11 +35,20 @@ public class GameView extends App {
 
         Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
                 randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
-        game = new Game(ball, new Racket(1), BricksArrangement.DEFAULT);
+                
+        game = new Game(ball, new Racket(2), BricksArrangement.DEFAULT);
 
+        // Création des éléments graphiques
         this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
 
+        this.graphRacket = new Rectangle(game.getRacket().getC().getX(), game.getRacket().getC().getY(),
+                game.getRacket().getLongueur(), game.getRacket().getLargeur());
+
+        // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
+        root.getChildren().add(this.graphRacket);
+
+        // Affichage de la fenêtre
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -41,6 +57,8 @@ public class GameView extends App {
             double delay = 0.0;
             @Override
             public void handle(long now) {
+                handleInput();
+                update();
                 if (last == 0) { // ignore the first tick, just compute the first deltaT
                     last = now;
                     return;
@@ -50,22 +68,39 @@ public class GameView extends App {
                 System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
 
                 // laisser un delai de 5 seconde avant de deplacer la balle
-                if (delay < 2.0) {
+                if (delay < 2000.0) {
                     delay += deltaT / 1000000000.0;
                 } else {
                     game.update(deltaT);
-                    update();
                 }
                 last = now;
             }
         };
         animationTimer.start();
+
+        scene.setOnKeyPressed(event -> {
+            keysPressed.add(event.getCode());
+        });
+        
+        scene.setOnKeyReleased(event -> {
+            keysPressed.remove(event.getCode());
+            KeyCode code = event.getCode();
+            game.getRacket().handleKeyRelease(code);
+        });
+    }
+
+    private void handleInput() {
+        game.getRacket().handleKeyPress(keysPressed);
     }
 
     public void update() {
-        // TODO implement here
+        // Mise à jour de la position de la balle
         this.graphBall.setCenterX(game.getBall().getC().getX());
         this.graphBall.setCenterY(game.getBall().getC().getY());
+
+        // Mise à jour de la position de la raquette
+        this.graphRacket.setX(game.getRacket().getC().getX());
+        this.graphRacket.setY(game.getRacket().getC().getY());
     }
 
     public Vector randomDirection() {
