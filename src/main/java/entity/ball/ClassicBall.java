@@ -4,6 +4,8 @@ import geometry.Coordinates;
 import geometry.Vector;
 import utils.GameConstants;
 
+
+
 public class ClassicBall extends Ball {
 
     public ClassicBall(Coordinates c, Vector direction, int vitesse, int d) {
@@ -33,9 +35,10 @@ public class ClassicBall extends Ball {
             this.direction.setX(-this.direction.getX());
             newX = this.getC().getX() + this.direction.getX() * this.vitesse;
         }
-        if (newY < 0) {
+        if (newY < 0 || CollisionR ) {
             this.direction.setY(-this.direction.getY());
             newY = this.getC().getY() + this.direction.getY() * this.vitesse;
+            CollisionR = false;
         }
         if (newY > w - this.diametre) {
             aux = false;
@@ -44,5 +47,6 @@ public class ClassicBall extends Ball {
         this.setC(new Coordinates(newX, newY));
         return aux;
     }
+
 
 }

@@ -36,7 +36,7 @@ public class GameView extends App {
         Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
                 randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
                 
-        game = new Game(ball, new Racket(2), BricksArrangement.DEFAULT);
+        game = new Game(ball, new Racket(1), BricksArrangement.DEFAULT);
 
         // Création des éléments graphiques
         this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
@@ -65,10 +65,10 @@ public class GameView extends App {
                 }
                 var deltaT = now - last;
 
-                System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
+                // System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
 
                 // laisser un delai de 5 seconde avant de deplacer la balle
-                if (delay < 2000.0) {
+                if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
                 } else {
                     game.update(deltaT);
