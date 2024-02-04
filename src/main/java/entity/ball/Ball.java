@@ -14,7 +14,7 @@ public abstract class Ball extends Entity {
 
     Vector direction;
     int diametre;
-    int vitesse;
+    double vitesse;
 
     //colision avec racket
     boolean CollisionR = false;
@@ -41,7 +41,7 @@ public abstract class Ball extends Entity {
         return this.direction;
     }
 
-    public int getVitesse() {
+    public double getVitesse() {
         return this.vitesse;
     }
 

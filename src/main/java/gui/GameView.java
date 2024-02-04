@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 import config.*;
 import entity.ball.Ball;
 import entity.ball.ClassicBall;
+import entity.ball.GravityBall;
+import entity.ball.HyperBall;
 import entity.racket.Racket;
 import geometry.Coordinates;
 import geometry.Vector;
@@ -33,9 +35,18 @@ public class GameView extends App {
 
         this.primaryStage = p;
 
-        Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
+        /* differentes balles *
+
+        Ball ball = new GravityBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
                 randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
                 
+        Ball ball = new HyperBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
+                randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
+        */
+
+        Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
+                randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
+
         game = new Game(ball, new Racket(1), BricksArrangement.DEFAULT);
 
         // Création des éléments graphiques
@@ -67,8 +78,8 @@ public class GameView extends App {
 
                 // System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
 
-                // laisser un delai de 5 seconde avant de deplacer la balle
-                if (delay < 2.0) {
+                // laisser un delai de 3 seconde avant de deplacer la balle
+                if (delay < 3.0) {
                     delay += deltaT / 1000000000.0;
                 } else {
                     game.update(deltaT);
