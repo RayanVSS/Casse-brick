@@ -1,7 +1,5 @@
 package config;
 
-import java.util.ArrayList;
-
 import entity.ball.Ball;
 import entity.brick.Brick;
 import entity.brick.BrickClassic;

@@ -1,7 +1,7 @@
 package entity.brick;
 
 import entity.Entity;
-import geometry.*;
+import geometry.Coordinates;
 
 public abstract class Brick extends Entity {
 
@@ -17,16 +17,15 @@ public abstract class Brick extends Entity {
         return durability;
     }
 
-    public void setDurability(int durability) {
-        this.durability = durability;
-    }
-
     public boolean isDestroyed() {
         return destroyed;
     }
 
-    public void setDestroyed(boolean destroyed) {
-        this.destroyed = destroyed;
+    public void absorb(int damage) {
+        durability -= damage;
+        if (durability <= 0) {
+            durability = 0;
+            destroyed = true;
+        }
     }
-
 }

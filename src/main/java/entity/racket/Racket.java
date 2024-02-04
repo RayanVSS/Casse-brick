@@ -7,7 +7,7 @@ import javafx.scene.input.MouseEvent;
 
 public class Racket extends Entity {
 
-    Vector direction;
+    private Vector direction;
 
     public Racket() {
         super(new Coordinates(0, 0));
