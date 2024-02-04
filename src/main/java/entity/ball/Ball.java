@@ -23,7 +23,7 @@ public abstract class Ball extends Entity {
         this.diametre = d;
     }
 
-    public Ball(Coordinates c, Vector direction, int vitesse,int d) {
+    public Ball(Coordinates c, Vector direction, int vitesse, int d) {
         super(c);
         this.direction = direction;
         this.vitesse = vitesse;
@@ -33,12 +33,15 @@ public abstract class Ball extends Entity {
     public int getDiametre() {
         return this.diametre;
     }
+
     public Vector getDirection() {
         return this.direction;
     }
+
     public int getVitesse() {
         return this.vitesse;
     }
+
     public void setDiametre(int d) {
         this.diametre = d;
     }

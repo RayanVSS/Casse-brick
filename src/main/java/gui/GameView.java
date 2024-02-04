@@ -23,7 +23,7 @@ public class GameView extends App {
     private Circle graphBall;
 
     public GameView(Stage p, int level) {
-        // TODO implement here
+
         this.primaryStage = p;
         this.root = new Pane();
         Random random = new Random();
@@ -33,9 +33,10 @@ public class GameView extends App {
         double j = -1 + (1 - (-1)) * random.nextDouble();
 
         Vector v = new Vector(new Coordinates(i, j));
-        Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth()/3, primaryStage.getHeight()/3),v,5,5);
+        Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 3, primaryStage.getHeight() / 3), v, 5,
+                5);
 
-        game = new Game(ball,new Racket(1));
+        game = new Game(ball, new Racket(1), BricksArrangement.DEFAULT);
 
         this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
 
@@ -46,7 +47,7 @@ public class GameView extends App {
 
         AnimationTimer animationTimer = new AnimationTimer() {
             long last = 0;
-            double delay=0.0;
+            double delay = 0.0;
 
             @Override
             public void handle(long now) {
@@ -56,13 +57,13 @@ public class GameView extends App {
                 }
 
                 var deltaT = now - last;
-                
+
                 System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
-                
+
                 // laisser un delai de 5 seconde avant de deplacer la balle
                 if (delay < 4.0) {
-                    delay+=deltaT/1000000000.0;
-                }else{
+                    delay += deltaT / 1000000000.0;
+                } else {
                     game.update(deltaT, root.getWidth(), root.getHeight());
                     update();
                 }
