@@ -26,7 +26,7 @@ public class GameView extends App {
 
         this.primaryStage = p;
 
-        Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 4, primaryStage.getHeight() / 3),
+        Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
                 randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
         game = new Game(ball, new Racket(1), BricksArrangement.DEFAULT);
 
@@ -50,7 +50,7 @@ public class GameView extends App {
                 System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
 
                 // laisser un delai de 5 seconde avant de deplacer la balle
-                if (delay < 4.0) {
+                if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
                 } else {
                     game.update(deltaT);
