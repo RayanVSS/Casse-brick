@@ -46,5 +46,5 @@ public abstract class Ball extends Entity {
         this.diametre = d;
     }
 
-    public abstract boolean mouvement(double l, double h);
+    public abstract boolean movement();
 }

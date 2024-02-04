@@ -71,18 +71,23 @@ public class Game {
     }
 
     public void update(long deltaT, double l, double h) {
-        // TODO implement here
-        // Quand la balle arrive au sud on perds (tres primaire comme code)
-        if (!ball.mouvement(l, h)) {
-            perdu();
-        }
     }
+
+    public void createBricks() {}
 
     public Ball getBall() {
         return ball;
     }
+    public void update(long deltaT) {
+        // TODO implement here
+        // Quand la balle arrive au sud on perds (tres primaire comme code)
+        if (!ball.movement()) {
+            lost();
+        }
+    }
 
-    public void perdu() {
+
+    public void lost() {
         System.exit(0);
     }
 

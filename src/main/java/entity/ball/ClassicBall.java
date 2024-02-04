@@ -2,8 +2,9 @@ package entity.ball;
 
 import geometry.Coordinates;
 import geometry.Vector;
+import utils.GameConstants;
 
-public class ClassicBall extends Ball{
+public class ClassicBall extends Ball {
 
     public ClassicBall(Coordinates c, Vector direction, int vitesse, int d) {
         super(c, direction, vitesse, d);
@@ -13,13 +14,22 @@ public class ClassicBall extends Ball{
         super(d);
     }
 
-    public boolean mouvement(double l, double h) {
-        boolean res=true;
-
+    @Override
+    /**
+     * Déplace la balle dans un espace défini par la largeur et la hauteur de la fenetre.
+     * @return Retourne 'true' si la balle ne touche pas la limite sud de
+     *         l'espace, 'false' sinon. (boolean pour géré les condition de défaite
+     *         ou de victoire dans le jeu)
+     * @author Benmalek Majda
+     */
+    public boolean movement() {
+        boolean aux = true;
+        double w= GameConstants.DEFAULT_WINDOW_WIDTH;
+        double h= GameConstants.DEFAULT_WINDOW_HEIGHT;
         double newX = this.getC().getX() + this.direction.getX() * this.vitesse;
         double newY = this.getC().getY() + this.direction.getY() * this.vitesse;
 
-        if (newX < 0 || newX > l - this.diametre) {
+        if (newX < 0 || newX > h - this.diametre) {
             this.direction.setX(-this.direction.getX());
             newX = this.getC().getX() + this.direction.getX() * this.vitesse;
         }
@@ -27,12 +37,12 @@ public class ClassicBall extends Ball{
             this.direction.setY(-this.direction.getY());
             newY = this.getC().getY() + this.direction.getY() * this.vitesse;
         }
-        if (newY > h - this.diametre) {
-            res = false;
+        if (newY > w - this.diametre) {
+            aux = false;
         }
 
         this.setC(new Coordinates(newX, newY));
-        return res;
+        return aux;
     }
-    
+
 }
