@@ -12,8 +12,8 @@ import geometry.*;
  */
 public class Ball extends Entity {
 
-    Vector direction;
-    int vitesse;
+    private Vector direction;
+    private int vitesse;
 
     public Ball() {
         super(new Coordinates(0, 0));
@@ -24,6 +24,22 @@ public class Ball extends Entity {
     public Ball(Coordinates c, Vector direction, int vitesse) {
         super(c);
         this.direction = direction;
+        this.vitesse = vitesse;
+    }
+
+    public Vector getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Vector direction) {
+        this.direction = direction;
+    }
+
+    public int getVitesse() {
+        return vitesse;
+    }
+
+    public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
     }
 

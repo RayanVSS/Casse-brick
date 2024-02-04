@@ -10,6 +10,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import config.*;
+import entity.ball.Ball;
+import entity.racket.Racket;
 
 public class GameView extends App {
 
@@ -19,9 +21,9 @@ public class GameView extends App {
     Game game;
 
     public GameView(Stage p, int level) {
-        // TODO implement here
+
         this.primaryStage = p;
-        game = new GameClassic();
+        game = new Game(new Ball(), new Racket(), BricksArrangement.DEFAULT);
 
         AnimationTimer animationTimer = new AnimationTimer() {
             long last = 0;
