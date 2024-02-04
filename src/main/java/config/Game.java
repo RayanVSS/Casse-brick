@@ -70,9 +70,20 @@ public class Game {
         }
     }
 
-    public void update(long deltaT) {
+    public void update(long deltaT, double l, double h) {
         // TODO implement here
+        // Quand la balle arrive au sud on perds (tres primaire comme code)
+        if (!ball.mouvement(l, h)) {
+            perdu();
+        }
+    }
 
+    public Ball getBall() {
+        return ball;
+    }
+
+    public void perdu() {
+        System.exit(0);
     }
 
     // public static void main(String[] args) {

@@ -10,37 +10,41 @@ import geometry.*;
  * 
  * @version 1.0
  */
-public class Ball extends Entity {
+public abstract class Ball extends Entity {
 
-    private Vector direction;
-    private int vitesse;
+    Vector direction;
+    int diametre;
+    int vitesse;
 
-    public Ball() {
+    public Ball(int d) {
         super(new Coordinates(0, 0));
         this.direction = new Vector(new Coordinates(0, 0));
         this.vitesse = 0;
+        this.diametre = d;
     }
 
-    public Ball(Coordinates c, Vector direction, int vitesse) {
+    public Ball(Coordinates c, Vector direction, int vitesse, int d) {
         super(c);
         this.direction = direction;
         this.vitesse = vitesse;
+        this.diametre = d;
+    }
+
+    public int getDiametre() {
+        return this.diametre;
     }
 
     public Vector getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Vector direction) {
-        this.direction = direction;
+        return this.direction;
     }
 
     public int getVitesse() {
-        return vitesse;
+        return this.vitesse;
     }
 
-    public void setVitesse(int vitesse) {
-        this.vitesse = vitesse;
+    public void setDiametre(int d) {
+        this.diametre = d;
     }
 
+    public abstract boolean mouvement(double l, double h);
 }
