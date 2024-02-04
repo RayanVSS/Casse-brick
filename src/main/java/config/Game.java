@@ -21,6 +21,11 @@ public class Game {
         this.arrangement = arrangement;
         initBricks();
     }
+    //Setters/getters
+    public Ball getBall() {
+        return ball;
+    }
+
 
     private void initBricks() {
         switch (arrangement) {
@@ -69,10 +74,16 @@ public class Game {
             System.out.println();
         }
     }
-
     public void update(long deltaT) {
         // TODO implement here
+        // Quand la balle arrive au sud on perds (tres primaire comme code)
+        if (!ball.movement()) {
+            lost();
+        }
+    }
 
+    public void lost() {
+        System.exit(0);
     }
 
     // public static void main(String[] args) {
