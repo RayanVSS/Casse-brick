@@ -1,28 +1,53 @@
 package gui;
 
-import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import config.*;
+import entite.Brique;
+import geometry.Coordonnee;
 
+public class GameView extends App {
 
-public class GameView extends App{
-    
     Stage primaryStage;
     Scene scene;
-    StackPane root ;
+    Pane root;
     Game game;
 
-    public GameView(Stage p,int level) {
+    public GameView(Stage p, int level) {
+
         // TODO implement here
         this.primaryStage = p;
         game = new Game(1);
+        Brique[][] tab = new Brique[12][13];
+        for (int i = 0; i < tab.length; i++) {
+            for (int j = 0; j < tab[0].length; j++) {
+                tab[i][j] = new Brique(new Coordonnee(i, j), j);
+            }
+        }
+
+        root = new StackPane();
+        Ensemble ensemble = new Ensemble(tab);
+        root.getChildren().add(ensemble);
+        StackPane.setAlignment(ensemble, Pos.TOP_CENTER);
+
+        // System.out.println("Ensemble ajoute a la racine.");
+        // System.out.println("Visibilite de root : " + root.isVisible());
+        int screenWidth = (int) Screen.getPrimary().getVisualBounds().getWidth();
+        int screenHeight = (int) Screen.getPrimary().getVisualBounds().getHeight();
+        scene = new Scene(root, screenWidth, screenHeight);
+        // System.out.println("Visibilite de la grille dans Ensemble : " +
+        // ensemble.grid.isVisible());
+
+        // System.out.println("Scene configuree.");
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
         AnimationTimer animationTimer = new AnimationTimer() {
             long last = 0;
@@ -33,7 +58,7 @@ public class GameView extends App{
                     last = now;
                     return;
                 }
-                System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
+                // System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
                 var deltaT = now - last;
                 game.update(deltaT);
                 last = now;
@@ -41,10 +66,10 @@ public class GameView extends App{
         };
         animationTimer.start();
 
-
     }
 
     public void update() {
+
         // TODO implement here
     }
 }

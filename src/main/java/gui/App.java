@@ -5,13 +5,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class App extends Application{
+public class App extends Application {
 
     Stage primaryStage;
     Scene scene;
-    StackPane root ;
+    StackPane root;
+
     @Override
     public void start(Stage p) throws Exception {
         this.primaryStage = p;
@@ -19,7 +21,9 @@ public class App extends Application{
         root = new StackPane();
         root.getChildren().add(label);
         root.setMargin(label, new javafx.geometry.Insets(0, 100, 50, 0));
-        scene = new Scene(root, 1000, 800);
+        int screenWidth = (int) Screen.getPrimary().getVisualBounds().getWidth();
+        int screenHeight = (int) Screen.getPrimary().getVisualBounds().getHeight();
+        scene = new Scene(root, screenWidth, screenHeight);
         primaryStage.setTitle("Casse Brique");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -30,11 +34,10 @@ public class App extends Application{
         // TODO implement here
         Button bouton1 = new Button("Jouer");
 
-
         bouton1.setOnAction(e -> {
             root.getChildren().clear();
-            new GameView(primaryStage,1);
-           
+            new GameView(primaryStage, 1);
+
         });
 
         Button bouton2 = new Button("Options");
@@ -43,7 +46,6 @@ public class App extends Application{
             Options();
         });
 
-        
         root.getChildren().add(bouton1);
         root.setMargin(bouton1, new javafx.geometry.Insets(0, 100, 100, 0));
         root.getChildren().add(bouton2);
@@ -58,7 +60,6 @@ public class App extends Application{
         root.getChildren().add(label);
     }
 
-    
     public static void main(String[] args) {
         launch(args);
     }
