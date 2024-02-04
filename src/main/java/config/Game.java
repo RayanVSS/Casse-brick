@@ -22,15 +22,15 @@ public class Game {
     public Ball getBall() {
         return ball;
     }
-    public void update(long deltaT, double l, double h) {
+    public void update(long deltaT) {
         // TODO implement here
         // Quand la balle arrive au sud on perds (tres primaire comme code)
-        if (!ball.mouvement(l, h)) {
-            perdu();
+        if (!ball.movement()) {
+            lost();
         }
     }
 
-    public void perdu() {
+    public void lost() {
         System.exit(0);
     }
 }

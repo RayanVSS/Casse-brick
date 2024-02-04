@@ -11,59 +11,47 @@ import entity.ball.ClassicBall;
 import entity.racket.Racket;
 import geometry.Coordinates;
 import geometry.Vector;
-
+import utils.*;
 import java.util.Random;
 
 public class GameView extends App {
 
     private Stage primaryStage;
-    private Scene scene;
-    private Pane root;
+    private Pane root = new Pane();
+    private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
     private Circle graphBall;
 
     public GameView(Stage p, int level) {
         // TODO implement here
         this.primaryStage = p;
-        this.root = new Pane();
-        Random random = new Random();
 
-        // randomiser la direction de la balle
-        double i = -1 + (1 - (-1)) * random.nextDouble();
-        double j = -1 + (1 - (-1)) * random.nextDouble();
-
-        Vector v = new Vector(new Coordinates(i, j));
-        Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth()/3, primaryStage.getHeight()/3),v,5,5);
-
-        game = new Game(ball,new Racket());
+        Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 4, primaryStage.getHeight() / 3),
+                randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
+        game = new Game(ball, new Racket());
 
         this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
 
         root.getChildren().add(this.graphBall);
-        this.scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
 
         AnimationTimer animationTimer = new AnimationTimer() {
             long last = 0;
-            double delay=0.0;
-
+            double delay = 0.0;
             @Override
             public void handle(long now) {
                 if (last == 0) { // ignore the first tick, just compute the first deltaT
                     last = now;
                     return;
                 }
-
                 var deltaT = now - last;
-                
                 System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
-                
                 // laisser un delai de 5 seconde avant de deplacer la balle
                 if (delay < 4.0) {
-                    delay+=deltaT/1000000000.0;
-                }else{
-                    game.update(deltaT, root.getWidth(), root.getHeight());
+                    delay += deltaT / 1000000000.0;
+                } else {
+                    game.update(deltaT);
                     update();
                 }
                 last = now;
@@ -74,9 +62,15 @@ public class GameView extends App {
 
     public void update() {
         // TODO implement here
-        Ball ball = game.getBall();
-        this.graphBall.setCenterX(ball.getC().getX());
-        this.graphBall.setCenterY(ball.getC().getY());
+        this.graphBall.setCenterX(game.getBall().getC().getX());
+        this.graphBall.setCenterY(game.getBall().getC().getY());
+    }
+
+    public Vector randomDirection() {
+        Random random = new Random();
+        double i = -1 + (1 - (-1)) * random.nextDouble();
+        double j = -1 + (1 - (-1)) * random.nextDouble();
+        return new Vector(new Coordinates(i, j));
     }
 
 }
