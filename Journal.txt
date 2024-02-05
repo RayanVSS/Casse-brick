@@ -1,0 +1,7 @@
+Semaine 1:
+    Benmalek Majda
+    Fait:
+        Un debut primaire de la balle, avec juste les collisions avec les 3 (nord, est, ouest) limites de la fenetre
+    A Faire:
+        Les menu (acceuil(pour s2), option, game over, fin de niveau, une bonne gestion de l'animation)
+    
