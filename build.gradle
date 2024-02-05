@@ -41,10 +41,6 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
-    implementation 'org.openjfx:javafx-controls:17.0.1'
-    implementation 'org.openjfx:javafx-media:17.0.1'
-    implementation 'org.openjfx:javafx-base:17.0.1'
-    implementation 'org.openjfx:javafx-graphics:17.0.1'
 }
 
 application {
@@ -53,19 +49,6 @@ application {
 }
 
 checkstyle {
-    toolVersion = '10.0'
+        toolVersion = '10.0'
 }
 
-task physic(type: JavaExec) {
-    description = "Exécute l'application PhysicsApp"
-    group = "custom"
-    main = 'physics.AppPhysic'
-    classpath = sourceSets.main.runtimeClasspath
-
-    doFirst {
-        jvmArgs = [
-            '--module-path', classpath.asPath,
-            '--add-modules', 'javafx.controls,javafx.media,javafx.base,javafx.graphics'
-        ]
-    }
-}
