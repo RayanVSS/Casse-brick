@@ -15,15 +15,15 @@ public class App extends Application{
     public void start(Stage p) throws Exception {
         this.primaryStage = p;
         StartMenu startMenu = new StartMenu();
+        startMenu.menu(primaryStage);
+
+        
 
         Label label = new Label("Implementation du Menu");
         root.getChildren().add(label);
         root.setMargin(label, new javafx.geometry.Insets(0, 100, 50, 0));
         scene = new Scene(root, 1000, 800);
         primaryStage.setTitle("Casse Brique");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        new StartMenu();
 
     }
 
