@@ -11,7 +11,7 @@ public class Particle extends Circle {
     private double speed;
 
     public Particle(double x, double y) {
-        super(x, y, 1, applyRandomColor()); // ajustez le rayon et la couleur selon vos besoins
+        super(x, y, 1.4, applyRandomColor()); // ajustez le rayon et la couleur selon vos besoins
         this.angle = Math.random() * 360;
         this.speed = Math.random() * 0.5 + 0.1;
     }
@@ -25,7 +25,7 @@ public class Particle extends Circle {
     }
 
     public void applyRandomFluctuation() {
-        double fluctuation = 3.5; // Ajustez l'amplitude de la fluctuation selon vos préférences
+        double fluctuation = 4.0; // Ajustez l'amplitude de la fluctuation selon vos préférences
         setCenterX(getCenterX() + (Math.random() * fluctuation - fluctuation / 2));
         setCenterY(getCenterY() + (Math.random() * fluctuation - fluctuation / 2));
     }

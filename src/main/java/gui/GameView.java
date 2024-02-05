@@ -35,7 +35,7 @@ public class GameView extends App {
     private final Set<KeyCode> keysPressed = new HashSet<>();
 
     private List<List<Particle>> particleTrails = new ArrayList<>();
-    private int trailLength = 50; // longueur de la traînée 
+    private int trailLength = 80; // longueur de la traînée 
 
 
     public GameView(Stage p, int level) {
