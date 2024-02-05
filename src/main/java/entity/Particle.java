@@ -25,7 +25,7 @@ public class Particle extends Circle {
     }
 
     public void applyRandomFluctuation() {
-        double fluctuation = 4.0; // Ajustez l'amplitude de la fluctuation selon vos préférences
+        double fluctuation = 5; // Ajustez l'amplitude de la fluctuation selon vos préférences
         setCenterX(getCenterX() + (Math.random() * fluctuation - fluctuation / 2));
         setCenterY(getCenterY() + (Math.random() * fluctuation - fluctuation / 2));
     }
