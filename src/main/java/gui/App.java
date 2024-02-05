@@ -39,6 +39,7 @@ public class App extends Application{
         Button bouton2 = new Button("Options");
 
         bouton2.setOnAction(e -> {
+            root.getChildren().clear();
             Options();
         });
 
@@ -55,6 +56,17 @@ public class App extends Application{
         Label label = new Label("Implementation des Options");
         root.getChildren().clear();
         root.getChildren().add(label);
+        root.setMargin(label, new javafx.geometry.Insets(0, 100, 50, 0));
+        
+        Button bouton1 = new Button("Retour");
+        bouton1.setOnAction(e -> {
+            root.getChildren().clear();
+            Menu();
+        });
+        
+        
+        root.getChildren().add(bouton1);
+        root.setMargin(bouton1, new javafx.geometry.Insets(0, -870, -700, 0));
     }
 
     

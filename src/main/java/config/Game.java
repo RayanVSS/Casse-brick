@@ -1,5 +1,7 @@
 package config;
 
+import org.checkerframework.checker.units.qual.C;
+
 import entity.ball.Ball;
 import entity.brick.Brick;
 import entity.brick.BrickClassic;
@@ -84,11 +86,26 @@ public class Game {
         if (!ball.movement()) {
             lost();
         }
+        // Si la balle touche la raquette
+        if(collisionRacket(ball.getC())){
+            ball.setCollisionR(true);
+            System.out.println("collisionX");
+        }
     }
 
 
     public void lost() {
         System.exit(0);
+    }
+
+    public Racket getRacket() {
+        return racket;
+    }
+
+
+    public boolean collisionRacket(Coordinates c) {
+        return c.getX() >= racket.getC().getX() && c.getX() <= racket.getC().getX() + racket.getLongueur()
+                && c.getY() >= racket.getC().getY() && c.getY() <= racket.getC().getY() + racket.getLargeur();
     }
 
     // public static void main(String[] args) {

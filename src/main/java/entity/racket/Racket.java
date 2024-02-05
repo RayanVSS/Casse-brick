@@ -8,8 +8,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
+import utils.GameConstants;
 
-import org.checkerframework.checker.units.qual.s;
 
 import entity.Entity;
 
@@ -106,19 +106,19 @@ public class Racket {
 
     public Racket(int type) {
         if (type == 1) { // raquette de base
-            this.c = new Coordinates(0, -730);
+            this.c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH/2.5, GameConstants.DEFAULT_WINDOW_HEIGHT-50);
             this.longueur = 200;
             this.largeur = 20;
-            this.speed = 4;
+            this.speed = 8;
             this.type = type;
             this.direction = new Vector(c);
             this.fixeY = true;
             this.jump = true;
         } else if (type == 2) { // raquette de base pouvant se déplacer en y
-            this.c = new Coordinates(0, -730);
+            this.c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH/2.5, GameConstants.DEFAULT_WINDOW_HEIGHT-50);
             this.longueur = 200;
             this.largeur = 20;
-            this.speed = 4;
+            this.speed = 8;
             this.type = type;
             this.direction = new Vector(c);
             this.fixeY = false;
@@ -282,23 +282,23 @@ public class Racket {
             switch (key) {
                 case Q:
                 case LEFT:
-                    if (this.mX() < 165)
-                        this.mX(this.mX() + speed);
+                    if (this.mX() > -longueur/2)
+                        this.mX(this.mX() - speed);
                     break;
                 case D:
                 case RIGHT:
-                    if (this.mX() > -165)
-                        this.mX(this.mX() - speed);
+                    if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH-largeur-70)
+                        this.mX(this.mX() + speed);
                     break;
                 case Z:
                 case UP:
-                    if (this.mY() < 730 && !fixeY)
-                        this.mY(this.mY() + speed * 2);
+                    if (this.mY() > 50 && !fixeY)
+                        this.mY(this.mY() - speed );
                     break;
                 case S:
                 case DOWN:
-                    if (this.mY() > -730 && !fixeY)
-                        this.mY(this.mY() - speed * 2);
+                    if (this.mY() < GameConstants.DEFAULT_WINDOW_HEIGHT-50 && !fixeY)
+                        this.mY(this.mY() + speed );
                     break;
                 case SPACE:
                     if (jump) {
