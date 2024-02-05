@@ -8,6 +8,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import config.*;
+import entity.Particle;
 import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
@@ -18,7 +19,9 @@ import geometry.Vector;
 import utils.*;
 import java.util.Random;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 
 public class GameView extends App {
@@ -30,6 +33,10 @@ public class GameView extends App {
     private Circle graphBall;
     private Rectangle graphRacket;
     private final Set<KeyCode> keysPressed = new HashSet<>();
+
+    private List<List<Particle>> particleTrails = new ArrayList<>();
+    private int trailLength = 50; // longueur de la traînée 
+
 
     public GameView(Stage p, int level) {
 
@@ -46,6 +53,16 @@ public class GameView extends App {
 
         Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
                 randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
+
+                for (int i = 0; i < trailLength; i++) {
+                    List<Particle> trail = new ArrayList<>();
+                    for (int j = 0; j < 10; j++) { // Ajustez le nombre de particules par traînée selon vos préférences
+                        Particle particle = new Particle(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2);
+                        trail.add(particle);
+                        root.getChildren().add(particle);
+                    }
+                    particleTrails.add(trail);
+                }
 
         game = new Game(ball, new Racket(1), BricksArrangement.DEFAULT);
 
@@ -112,6 +129,24 @@ public class GameView extends App {
         // Mise à jour de la position de la raquette
         this.graphRacket.setX(game.getRacket().getC().getX());
         this.graphRacket.setY(game.getRacket().getC().getY());
+        
+        for (int i = 0; i < trailLength; i++) {
+            List<Particle> trail = particleTrails.get(i);
+    
+            for (int j = trail.size() - 1; j > 0; j--) {
+                Particle currentParticle = trail.get(j);
+                Particle previousParticle = trail.get(j - 1);
+    
+                currentParticle.setCenterX(previousParticle.getCenterX());
+                currentParticle.setCenterY(previousParticle.getCenterY());
+                currentParticle.applyRandomFluctuation(); // Appliquer la fluctuation
+            }
+    
+            Particle firstParticle = trail.get(0);
+            firstParticle.setCenterX(game.getBall().getC().getX());
+            firstParticle.setCenterY(game.getBall().getC().getY());
+            firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
+        }
     }
 
     public Vector randomDirection() {
