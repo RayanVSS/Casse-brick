@@ -10,3 +10,9 @@ Semaine 1:
         une 1ère version d'un affichage des briques
     A Faire:
         faire la mise à jour de l'affichage des briques au cours de la partie (càd si des briques se cassent etc...)
+        
+    Olivier
+    Fait:
+        Initialisation de la disposition classique des briques, briques de différents types, préparation pour implémenter les différentes dispositions possibles
+    A Faire:
+        Update de la partie, différentes config de map...
