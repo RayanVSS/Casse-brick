@@ -13,59 +13,56 @@ import utils.GameConstants;
 
 import entity.Entity;
 
-
 /***************************************************************************
  *                  Explication de classe pour la raquette                 *
  * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*
- *  Base:                                                                  *
- * @var Coordonnee c : Coordonnée de la raquette                           *
- * @var Vector direction : Direction de la raquette                        *
- * @var int type : Type de raquette                                        *
- * @var int speed : Vitesse de la raquette                                 * 
- * @var int longueur : Longueur de la raquette                             *
- * @var int largeur : Largeur de la raquette                               *
- * @var boolean fixeY : Si la raquette est fixe en y                       *
- * @var boolean jump : Si la raquette peut sauter                          *
- *                                                                         *
- *  boost:                                                                 *
- * @var Boolean vitesseP :raquette a un boost de vitesse                   *
- * @var Boolean vitesseM :raquette a un malus de vitesse                   *
- * @var Boolean largeurP :raquette a un boost de largeur                   *
- * @var Boolean largeurM :raquette a un malus de largeur                   *
- * @var boolean freeze :le temps est freeze                                *
- *                                                                         * 
- *  creation de la raquette:                                               *
- * @param type : type de raquette                                          *
- * @error : si le type de raquette n'est pas connu                         *
- * chaque type de raquette a des variables différentes                     *
- * charger les variables de la raquette en fonction du type                *
- *                                                                         *
- * il y a pour l'instant 2 types de raquette:                              *
- * 1 : raquette de base                                                    *
- * 2 : raquette de base pouvant se déplacer en y                           *
- *                                                                         *
- *  GET et SET:                                                            *
- * je pense pas qui'il y ait besoin d'expliquer ;)                         *
- *                                                                         *
- *  Collision:                                                             *
- * @param c : Coordonnée de l'objet avec lequel on veut vérifier la        *
- * collision                                                               *
- * @return : true si il y a collision, false sinon                         *
- *                                                                         *
- *  Mouvement a l'appui des touches:                                       *
- * @param keysPressed : toutes les touches appuyées                        *
- *                                                                         *
- *  Mouvement au relachement des touches:                                  *
- * @param event : touche relachée                                          *
- * (pas utiliser pour l'instant)                                           *
- *                                                                         *
- *  Saut:                                                                  *
- * pas fini pour l'instant                                                 *
- *                                                                         *
- *                                                                         *
- *@author Rayan Belhasse                                                   *
+ *      Base: 
+ * @var Coordonnee c : Coordonnée de la raquette 
+ * @var Vector direction : Direction de la raquette 
+ * @var int type : Type de raquette 
+ * @var int speed : Vitesse de la raquette 
+ * @var int longueur : Longueur de la raquette 
+ * @var int largeur : Largeur de la raquette 
+ * @var boolean fixeY : Si la raquette est fixe en y 
+ * @var boolean jump : Si la raquette peut sauter 
+ *      
+ *      boost: 
+ * @var Boolean vitesseP :raquette a un boost de vitesse 
+ * @var Boolean vitesseM :raquette a un malus de vitesse 
+ * @var Boolean largeurP :raquette a un boost de largeur 
+ * @var Boolean largeurM :raquette a un malus de largeur 
+ * @var boolean freeze :le temps est freeze 
+ *      
+ *      creation de la raquette: 
+ * @param type : type de raquette 
+ * @error : si le type de raquette n'est pas connu 
+ * 
+ * chaque type de raquette a des variables différentes 
+ * charger les variables de la raquette en fonction du type 
+ *        
+ * il y a pour l'instant 2 types de raquette: 
+ *  -1 : raquette de base 
+ *  -2 : raquette de base pouvant se déplacer en y 
+ *        
+ *      GET et SET: 
+ *je pense pas qui'il y ait besoin d'expliquer ;) 
+ *        
+ *      Collision: 
+ * @param c : Coordonnée de l'objet avec lequel on veut vérifier la collision
+ * @return : true si il y a collision, false sinon 
+ *         
+ *      Mouvement a l'appui des touches: :
+ * @param keysPressed : toutes les touches appuyées 
+ *
+ *      Mouvement au relachement des touches: *
+ * @param event: touche relachée 
+ * (pas utiliser pour l'instant) 
+ *                    
+ *      Saut: 
+ *pas fini pour l'instant 
+ *
+ * @author Rayan Belhasse 
  **************************************************************************/
-
 
 public class Racket {
 
