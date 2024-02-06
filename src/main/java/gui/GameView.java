@@ -28,7 +28,7 @@ public class GameView extends App {
 
         Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 4, primaryStage.getHeight() / 3),
                 randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
-        game = new Game(ball, new Racket());
+        game = new Game(ball, new Racket(1));
 
         this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
 
