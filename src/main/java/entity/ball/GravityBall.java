@@ -1,29 +1,22 @@
 package entity.ball;
 
+
 import geometry.Coordinates;
 import geometry.Vector;
 import utils.GameConstants;
 
 
+public class GravityBall extends Ball{
 
-public class ClassicBall extends Ball {
 
-    public ClassicBall(Coordinates c, Vector direction, int vitesse, int d) {
+   public GravityBall(Coordinates c, Vector direction, int vitesse, int d) {
         super(c, direction, vitesse, d);
     }
 
-    public ClassicBall(int d) {
+    public GravityBall(int d) {
         super(d);
     }
 
-    @Override
-    /**
-     * Déplace la balle dans un espace défini par la largeur et la hauteur de la fenetre.
-     * @return Retourne 'true' si la balle ne touche pas la limite sud de
-     *         l'espace, 'false' sinon. (boolean pour géré les condition de défaite
-     *         ou de victoire dans le jeu)
-     * @author Benmalek Majda
-     */
     public boolean movement() {
         boolean aux = true;
         double h= GameConstants.DEFAULT_WINDOW_WIDTH;
@@ -44,9 +37,21 @@ public class ClassicBall extends Ball {
             aux = false;
         }
 
+        
+        setGravity();
         this.setC(new Coordinates(newX, newY));
         return aux;
     }
 
+    //Methode qui permet de définir la gravité
+    public void setGravity() {
+        this.direction.setY(this.direction.getY() + 0.01);
+    }
+
+
+
+
+
 
 }
+
