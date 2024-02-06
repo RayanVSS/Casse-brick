@@ -22,3 +22,10 @@ Semaine 1:
          Implementation du gradle et d'une base pour le jeu + commencer a implementer le moteur physique
     A faire :
         finir le moteur du jeu et commencer a approfondir la partie physique
+
+    Belhassen rayan
+    Fait:
+        implémentation du code de la racket 
+    A faire:
+        collisions de la racket
+        affichage de la racket
