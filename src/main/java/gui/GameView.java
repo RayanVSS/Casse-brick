@@ -42,6 +42,9 @@ public class GameView extends App {
     private List<List<Particle>> particleTrails = new ArrayList<>();
     private int trailLength = GameConstants.DEFAULT_trailLength;
 
+    //lire les touches
+    Key key = new Key();
+
 
     public GameView(Stage p, int level) {
 
@@ -92,8 +95,8 @@ public class GameView extends App {
             double delay = 0.0;
             @Override
             public void handle(long now) {
-                handleInput();
-                update();
+                key.touches(scene, game);
+                key.handleInput(game);
                 if (last == 0) { // ignore the first tick, just compute the first deltaT
                     last = now;
                     return;
@@ -115,23 +118,9 @@ public class GameView extends App {
             }
         };
         animationTimer.start();
-
-        //code pour gérer les touches du clavier
-        scene.setOnKeyPressed(event -> {
-            keysPressed.add(event.getCode());
-        });
-        
-        scene.setOnKeyReleased(event -> {
-            keysPressed.remove(event.getCode());
-            KeyCode code = event.getCode();
-            game.getRacket().handleKeyRelease(code);
-        });
     }
 
-    // Gestion des touches du clavier
-    private void handleInput() {
-        game.getRacket().handleKeyPress(keysPressed);
-    }
+
 
     public void update() {
         // Mise à jour de la position de la balle
