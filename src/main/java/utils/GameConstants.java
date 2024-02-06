@@ -13,15 +13,19 @@ public final class GameConstants {
     public static final int DEFAULT_BALL_SPEED = 7; 
     public static final int DEFAULT_BALL_DIAMETER = 5; 
 
-    //feneetre
+    //fenetre
     public static final double DEFAULT_WINDOW_WIDTH = 1000.0; 
     public static final double DEFAULT_WINDOW_HEIGHT = 800.0; 
+    public static final int DEFAULT_FPS = 120;
 
     //particle de traînée
     public static final int DEFAULT_trailLength = 70; // taille de la trainée 
     public static final double DEFAULT_PARTICLE_RADIUS = 1.4;
     public static final double DEFAULT_FLUCTUATION = 5;
     public static final int DEFAULT_PARTICLE = 10; // nombre de particules
+
+
+
 
 
     
