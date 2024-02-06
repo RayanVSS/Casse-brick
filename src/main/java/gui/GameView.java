@@ -30,12 +30,17 @@ public class GameView extends App {
     private Pane root = new Pane();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
+    
+    // Balle
     private Circle graphBall;
+
+    // Raquette
     private Rectangle graphRacket;
     private final Set<KeyCode> keysPressed = new HashSet<>();
 
+    // Particules de traînée
     private List<List<Particle>> particleTrails = new ArrayList<>();
-    private int trailLength = 70; // longueur de la traînée 
+    private int trailLength = GameConstants.DEFAULT_trailLength;
 
 
     public GameView(Stage p, int level) {
@@ -54,15 +59,17 @@ public class GameView extends App {
         Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
                 randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
 
-                for (int i = 0; i < trailLength; i++) {
-                    List<Particle> trail = new ArrayList<>();
-                    for (int j = 0; j < 10; j++) { // Ajustez le nombre de particules par traînée selon vos préférences
-                        Particle particle = new Particle(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2);
-                        trail.add(particle);
-                        root.getChildren().add(particle);
-                    }
-                    particleTrails.add(trail);
-                }
+
+        // Création des particules
+        for (int i = 0; i < trailLength; i++) {
+            List<Particle> trail = new ArrayList<>();
+            for (int j = 0; j < GameConstants.DEFAULT_PARTICLE; j++) { // nombre de particules
+                Particle particle = new Particle(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2);
+                trail.add(particle);
+                root.getChildren().add(particle);
+                           }
+            particleTrails.add(trail);
+        }
 
         game = new Game(ball, new Racket(1), BricksArrangement.DEFAULT);
 
@@ -106,6 +113,7 @@ public class GameView extends App {
         };
         animationTimer.start();
 
+        //code pour gérer les touches du clavier
         scene.setOnKeyPressed(event -> {
             keysPressed.add(event.getCode());
         });
@@ -117,6 +125,7 @@ public class GameView extends App {
         });
     }
 
+    // Gestion des touches du clavier
     private void handleInput() {
         game.getRacket().handleKeyPress(keysPressed);
     }
@@ -129,7 +138,9 @@ public class GameView extends App {
         // Mise à jour de la position de la raquette
         this.graphRacket.setX(game.getRacket().getC().getX());
         this.graphRacket.setY(game.getRacket().getC().getY());
-        
+
+
+        // Mise à jour des particules de traînée
         for (int i = 0; i < trailLength; i++) {
             List<Particle> trail = particleTrails.get(i);
     
@@ -139,7 +150,7 @@ public class GameView extends App {
     
                 currentParticle.setCenterX(previousParticle.getCenterX());
                 currentParticle.setCenterY(previousParticle.getCenterY());
-                currentParticle.applyRandomFluctuation(); // Appliquer la fluctuation
+                currentParticle.applyRandomFluctuation(); //fluctuation des particules
             }
     
             Particle firstParticle = trail.get(0);
@@ -149,6 +160,7 @@ public class GameView extends App {
         }
     }
 
+    // Génère une direction aléatoire pour la balle
     public Vector randomDirection() {
         Random random = new Random();
         double i = -1 + (1 - (-1)) * random.nextDouble();

@@ -43,6 +43,7 @@ public class GravityBall extends Ball{
         return aux;
     }
 
+    //Methode qui permet de définir la gravité
     public void setGravity() {
         this.direction.setY(this.direction.getY() + 0.01);
     }
