@@ -86,7 +86,6 @@ public class GameView extends App {
             @Override
             public void handle(long now) {
                 handleInput();
-                update();
                 if (last == 0) { // ignore the first tick, just compute the first deltaT
                     last = now;
                     return;
@@ -96,10 +95,13 @@ public class GameView extends App {
                 // System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
 
                 // laisser un delai de 2 seconde avant de deplacer la balle
-                if (delay < 2.0) {
+                if (delay < 1.0) {
                     delay += deltaT / 1000000000.0;
-                } else {
+                }
+
+                if (now - last > 1000000000 / 120) {
                     game.update(deltaT);
+                    update();
                 }
                 last = now;
             }
