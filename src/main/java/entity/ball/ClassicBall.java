@@ -29,7 +29,7 @@ public class ClassicBall extends Ball {
         double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
         double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
 
-        if (newX < 0 || newX > h - this.getDiametre()) {
+        if (newX < 0 || newX > w - this.getDiametre()) {
             this.getDirection().setX(-this.getDirection().getX());
             newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
         }
@@ -37,7 +37,7 @@ public class ClassicBall extends Ball {
             this.getDirection().setY(-this.getDirection().getY());
             newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
         }
-        if (newY > w - this.getDiametre()) {
+        if (newY > h - this.getDiametre()) {
             aux = false;
         }
 

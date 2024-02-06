@@ -5,54 +5,37 @@ import gui.GameView;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import utils.GameConstants;
 import javafx.scene.Scene;
 
 public class StartMenu extends App {
-    private Scene scene;
     private Stage primaryStage;
     private StackPane root = new StackPane();
+    private Scene scene=new Scene(root,GameConstants.DEFAULT_WINDOW_WIDTH,GameConstants.DEFAULT_WINDOW_HEIGHT);
+    private Button btn1=new Button("Jouer");
+    private Button btn2=new Button("Options");
 
-    public StartMenu() {
+    public StartMenu(Stage p) {
         super();
 
-        // TODO implement here
-        Button bouton1 = new Button("Jouer");
-
-        bouton1.setOnAction(e -> {
+        btn1.setOnAction(e -> {
             root.getChildren().clear();
-            new GameView(primaryStage, 1);
+            new GameView(p, 1);
         });
 
-        Button bouton2 = new Button("Options");
-
-        bouton2.setOnAction(e -> {
+        btn2.setOnAction(e -> {
             Options();
         });
 
-        root.getChildren().add(bouton1);
-        root.setMargin(bouton1, new javafx.geometry.Insets(0, 100, 100, 0));
-        root.getChildren().add(bouton2);
-        root.setMargin(bouton2, new javafx.geometry.Insets(0, 100, 200, 000));
+        root.getChildren().add(btn1);
+        root.setMargin(btn1, new javafx.geometry.Insets(0, 100, 100, 0));
+        root.getChildren().add(btn2);
+        root.setMargin(btn2, new javafx.geometry.Insets(0, 100, 200, 000));
 
     }
 
-    public void menu(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        scene = new Scene(root, 300, 250);
-        primaryStage.setTitle("Brick Breaker");
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-        Button btn = new Button();
-        btn.setText("Start Game");
-        btn.setOnAction(e -> {
-            new GameView(primaryStage, 1);
-        });
-
-        root.getChildren().add(btn);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
+    public Scene menu() {
+        return this.scene;
     }
 
 }
