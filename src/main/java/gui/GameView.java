@@ -95,11 +95,12 @@ public class GameView extends App {
                 // System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
 
                 // laisser un delai de 2 seconde avant de deplacer la balle
-                if (delay < 1.0) {
+                if (delay < 200.0) {
                     delay += deltaT / 1000000000.0;
+                    return;
                 }
 
-                if (now - last > 1000000000 / 120) {
+                if (deltaT > 1000000000 / 120) {
                     game.update(deltaT);
                     update();
                 }
