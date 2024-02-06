@@ -1,0 +1,31 @@
+Semaine 1:
+    Benmalek Majda
+    Fait:
+        Un debut primaire de la balle, avec juste les collisions avec les 3 (nord, est, ouest) limites de la fenetre
+    A Faire:
+        Les menu (acceuil(pour s2), option, game over, fin de niveau, une bonne gestion de l'animation)
+        
+    Mushtaq Amenah 
+    Fait:
+        une 1ère version d'un affichage des briques
+    A Faire:
+        faire la mise à jour de l'affichage des briques au cours de la partie (càd si des briques se cassent etc...)
+        
+    Olivier
+    Fait:
+        Initialisation de la disposition classique des briques, briques de différents types, préparation pour implémenter les différentes dispositions possibles
+    A Faire:
+        Update de la partie, différentes config de map...
+    
+    Bencheikh Ilias
+    Fait:
+         Implementation du gradle et d'une base pour le jeu + commencer a implementer le moteur physique
+    A faire :
+        finir le moteur du jeu et commencer a approfondir la partie physique
+
+    Belhassen rayan
+    Fait:
+        implémentation du code de la racket 
+    A faire:
+        collisions de la racket
+        affichage de la racket

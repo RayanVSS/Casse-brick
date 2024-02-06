@@ -105,8 +105,11 @@ public class GameView extends App {
                 // laisser un delai de 2 seconde avant de deplacer la balle
                 if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
-                } else {
+                }
+
+                if (now - last > 1000000000 / 120) {
                     game.update(deltaT);
+                    update();
                 }
                 last = now;
             }
