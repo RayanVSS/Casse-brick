@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import config.*;
 import entity.Particle;
@@ -44,6 +45,12 @@ public class GameView extends App {
 
     //lire les touches
     Key key = new Key();
+
+    //fps
+    private FPS fpsCalculator = new FPS();
+    private Text fpsText = new Text();
+    private Text maxfpsText = new Text();
+
 
 
     public GameView(Stage p, int level) {
@@ -86,6 +93,16 @@ public class GameView extends App {
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
 
+        // Ajout du texte des FPS
+        fpsText.setX(10);
+        fpsText.setY(20);
+        root.getChildren().add(fpsText);
+
+        // Ajout du texte des FPS max
+        maxfpsText.setX(10);
+        maxfpsText.setY(40);
+        root.getChildren().add(maxfpsText);
+
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -103,16 +120,14 @@ public class GameView extends App {
                 }
                 var deltaT = now - last;
 
-                // System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
 
                 // laisser un delai de 2 seconde avant de deplacer la balle
                 if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
                 }
-
-                if (now - last > 1000000000 / 120) {
+                else if (now - last > 1000000000 / 120) {
                     game.update(deltaT);
-                    update();
+                    update();                    
                 }
                 last = now;
             }
@@ -150,6 +165,14 @@ public class GameView extends App {
             firstParticle.setCenterY(game.getBall().getC().getY());
             firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
         }
+
+        // Calcul des FPS
+        double fps = fpsCalculator.calculateFPS();
+        double maxfps = fpsCalculator.getMaxFps();
+        // Mise à jour du texte FPS
+        fpsText.setText("FPS: " + String.format("%.2f", fps));
+        maxfpsText.setText("Max FPS: " + String.format("%.2f", maxfps));
+
     }
 
     // Génère une direction aléatoire pour la balle
