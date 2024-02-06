@@ -16,3 +16,9 @@ Semaine 1:
         Initialisation de la disposition classique des briques, briques de différents types, préparation pour implémenter les différentes dispositions possibles
     A Faire:
         Update de la partie, différentes config de map...
+    
+    Bencheikh Ilias
+    Fait:
+         Implementation du gradle et d'une base pour le jeu + commencer a implementer le moteur physique
+    A faire :
+        finir le moteur du jeu et commencer a approfondir la partie physique
