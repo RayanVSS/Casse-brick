@@ -97,8 +97,6 @@ public class GameView extends App {
                     return;
                 }
                 var deltaT = now - last;
-
-
                 // laisser un delai de 2 seconde avant de deplacer la balle
                 if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
