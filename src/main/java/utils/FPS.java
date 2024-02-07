@@ -1,5 +1,20 @@
 package utils;
 
+
+/**
+ * @var lastTime : temps de la dernière mise à jour
+ * @var frameCount : nombre de frames
+ * @var fps : nombre de frames par seconde
+ * @var maxFps : nombre de frames par seconde maximum
+ * 
+ * @function calculateFPS : calculer le nombre de frames par seconde
+ * @set : maxFps
+ * @return : maxFps
+ * 
+ * 
+ * @autor Belhassen rayan
+ */
+
 public class FPS {
     private long lastTime = System.nanoTime();
     private int frameCount = 0;

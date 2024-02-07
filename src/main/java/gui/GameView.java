@@ -14,7 +14,8 @@ import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
-import entity.racket.Racket;
+import entity.racket.ClasssicRacket;
+import entity.racket.YNotFixeRacket;
 import geometry.Coordinates;
 import geometry.Vector;
 import utils.*;
@@ -83,7 +84,7 @@ public class GameView extends App {
             particleTrails.add(trail);
         }
 
-        game = new Game(ball, new Racket(1), BricksArrangement.DEFAULT);
+        game = new Game(ball, new ClasssicRacket(), BricksArrangement.DEFAULT);
 
         // Création des éléments graphiques
         this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
@@ -127,9 +128,13 @@ public class GameView extends App {
                 if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
                 }
-                else if (now - last > 1000000000 / 120) {
+                else if (now - last > 1000000000 / GameConstants.DEFAULT_FPS) {
                     key.touchesR(scene, game);
+                   
+                    //prend les informations de la racquette pour la ball
+                    BougePColision=key.isEmpty();  
                     direction = key.getKeysPressed();
+
                     game.update(deltaT);
                     update();  
                     key.touchesM(scene, game);
@@ -174,6 +179,7 @@ public class GameView extends App {
         // Calcul des FPS
         double fps = fpsCalculator.calculateFPS();
         double maxfps = fpsCalculator.getMaxFps();
+        
         // Mise à jour du texte FPS
         fpsText.setText("FPS: " + String.format("%.2f", fps));
         maxfpsText.setText("Max FPS: " + String.format("%.2f", maxfps));
