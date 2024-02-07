@@ -45,8 +45,8 @@ public class Game {
 
             for (int i = indexFirstColumn; i < indexFirstColumn + GameConstants.COLUMNS_OF_BRICKS; i++) { // espace côté gauche/droit
                 for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) { // 1 espace en haut
-                    bricks[i][j] = new BrickClassic(new Coordinates((i + 0.5) * GameConstants.BRICK_WIDTH,
-                            (j + 0.5) * GameConstants.BRICK_HEIGHT));
+                    bricks[i][j] = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
+                            j * GameConstants.BRICK_HEIGHT));
                 }
             }
         } else {
@@ -55,11 +55,10 @@ public class Game {
     }
 
     private boolean checkDefaultParameters() {
-        return true;
-        // return GameConstants.MAP_HEIGHT >= GameConstants.ROWS_OF_BRICKS + 2
-        //         && GameConstants.MAP_WIDTH >= GameConstants.COLUMNS_OF_BRICKS
-        //         && GameConstants.MAP_HEIGHT
-        //                 - GameConstants.ROWS_OF_BRICKS - 2 >= GameConstants.MIN_SPACE_BETWEEN_RACKET_BRICKS;
+        return GameConstants.MAP_HEIGHT >= GameConstants.ROWS_OF_BRICKS + 2
+                && GameConstants.MAP_WIDTH >= GameConstants.COLUMNS_OF_BRICKS
+                && GameConstants.MAP_HEIGHT
+                        - GameConstants.ROWS_OF_BRICKS - 2 >= GameConstants.MIN_SPACE_BETWEEN_RACKET_BRICKS;
     }
 
     public void displayBricksInTerminal() { // pour les tests
@@ -99,7 +98,7 @@ public class Game {
 
     private boolean checkCollidesBrick() {
         Coordinates ballCoords = ball.getC();
-
+        
         return false;
     }
 

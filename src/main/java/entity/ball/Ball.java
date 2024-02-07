@@ -13,29 +13,29 @@ import geometry.*;
  */
 public abstract class Ball extends Entity {
 
-    Vector direction;
-    int diametre;
-    double vitesse;
+    protected Vector direction;
+    protected int rayon;
+    protected double vitesse;
 
     //colision avec racket
     boolean CollisionR = false;
 
-    public Ball(int d) {
+    public Ball(int r) {
         super(new Coordinates(0, 0));
         this.direction = new Vector(new Coordinates(0, 0));
         this.vitesse = 0;
-        this.diametre = d;
+        this.rayon = r;
     }
 
-    public Ball(Coordinates c, Vector direction, int vitesse, int d) {
+    public Ball(Coordinates c, Vector direction, int vitesse, int r) {
         super(c);
         this.direction = direction;
         this.vitesse = vitesse;
-        this.diametre = d;
+        this.rayon = r;
     }
 
-    public int getDiametre() {
-        return this.diametre;
+    public int getRayon() {
+        return this.rayon;
     }
 
     public Vector getDirection() {
@@ -46,8 +46,8 @@ public abstract class Ball extends Entity {
         return this.vitesse;
     }
 
-    public void setDiametre(int d) {
-        this.diametre = d;
+    public void setRayon(int r) {
+        this.rayon = r;
     }
 
     public void setCollisionR(boolean b) {

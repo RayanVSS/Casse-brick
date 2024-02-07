@@ -1,17 +1,14 @@
 package entity.ball;
 
-
 import geometry.Coordinates;
 import geometry.Vector;
 import gui.GameView;
 import javafx.scene.input.KeyCode;
 import utils.GameConstants;
 
+public class GravityBall extends Ball {
 
-public class GravityBall extends Ball{
-
-
-   public GravityBall(Coordinates c, Vector direction, int vitesse, int d) {
+    public GravityBall(Coordinates c, Vector direction, int vitesse, int d) {
         super(c, direction, vitesse, d);
     }
 
@@ -19,20 +16,20 @@ public class GravityBall extends Ball{
         super(d);
     }
 
-       public boolean movement() {
+    public boolean movement() {
         boolean aux = true;
-        double h= GameConstants.DEFAULT_WINDOW_WIDTH;
-        double w= GameConstants.DEFAULT_WINDOW_HEIGHT;
+        double h = GameConstants.DEFAULT_WINDOW_WIDTH;
+        double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
         double newX = this.getC().getX() + this.direction.getX() * this.vitesse;
         double newY = this.getC().getY() + this.direction.getY() * this.vitesse;
 
-        if(CollisionR) {
-            if(GameView.BougePColision) {
+        if (CollisionR) {
+            if (GameView.BougePColision) {
                 this.direction.setY(-this.direction.getY());
                 newY = this.getC().getY() + this.direction.getY() * this.vitesse;
                 CollisionR = false;
             }
-            if(!GameView.BougePColision) {
+            if (!GameView.BougePColision) {
                 for (KeyCode key : GameView.direction) {
                     switch (key) {
                         case RIGHT:
@@ -58,21 +55,20 @@ public class GravityBall extends Ball{
                 }
             }
         }
-        
-        if (newX < 0 || newX > h - this.diametre) {
+
+        if (newX < 0 || newX > h - this.rayon) {
             this.direction.setX(-this.direction.getX());
             newX = this.getC().getX() + this.direction.getX() * this.vitesse;
         }
-        if (newY < 0 || CollisionR ) {
+        if (newY < 0 || CollisionR) {
             this.direction.setY(-this.direction.getY());
             newY = this.getC().getY() + this.direction.getY() * this.vitesse;
             CollisionR = false;
         }
-        if (newY > w - this.diametre) {
+        if (newY > w - this.rayon) {
             aux = false;
         }
 
-        
         setGravity();
         this.setC(new Coordinates(newX, newY));
         return aux;
@@ -83,10 +79,4 @@ public class GravityBall extends Ball{
         this.direction.setY(this.direction.getY() + 0.01);
     }
 
-
-
-
-
-
 }
-

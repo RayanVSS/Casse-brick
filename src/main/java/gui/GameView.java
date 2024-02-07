@@ -82,7 +82,7 @@ public class GameView extends App {
         game = new Game(ball, new ClassicRacket(), BricksArrangement.DEFAULT);
 
         // Création des éléments graphiques
-        this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
+        this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getRayon());
 
         this.graphRacket = new Rectangle(game.getRacket().getC().getX(), game.getRacket().getC().getY(),
                 game.getRacket().getLongueur(), game.getRacket().getLargeur());
