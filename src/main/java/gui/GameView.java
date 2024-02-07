@@ -14,7 +14,7 @@ import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
-import entity.racket.ClasssicRacket;
+import entity.racket.ClassicRacket;
 import entity.racket.YNotFixeRacket;
 import geometry.Coordinates;
 import geometry.Vector;
@@ -79,7 +79,7 @@ public class GameView extends App {
             particleTrails.add(trail);
         }
 
-        game = new Game(ball, new ClasssicRacket(), BricksArrangement.DEFAULT);
+        game = new Game(ball, new ClassicRacket(), BricksArrangement.DEFAULT);
 
         // Création des éléments graphiques
         this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);

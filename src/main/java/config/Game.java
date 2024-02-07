@@ -1,8 +1,10 @@
 package config;
 
 import entity.ball.Ball;
+import entity.ball.ClassicBall;
 import entity.brick.Brick;
 import entity.brick.BrickClassic;
+import entity.racket.ClassicRacket;
 import entity.racket.Racket;
 import geometry.Coordinates;
 import utils.GameConstants;
@@ -38,11 +40,13 @@ public class Game {
 
         if (checkDefaultParameters()) {
 
-            bricks = new Brick[GameConstants.MAP_HEIGHT][GameConstants.MAP_WIDTH]; // [ligne][colonne]
-            for (int i = 1; i < GameConstants.ROWS_OF_BRICKS + 1; i++) { // 1 espace en haut
-                for (int j = 1; j < GameConstants.COLUMNS_OF_BRICKS + 1; j++) { // 1 espace côté gauche/droit
-                    bricks[i][j] = new BrickClassic(new Coordinates((i + 0.5) * GameConstants.BRICK_HEIGHT,
-                            (j + 0.5) * GameConstants.BRICK_WIDTH));
+            bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT]; //[colonne][ligne]
+            int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;
+
+            for (int i = indexFirstColumn; i < indexFirstColumn + GameConstants.COLUMNS_OF_BRICKS; i++) { // espace côté gauche/droit
+                for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) { // 1 espace en haut
+                    bricks[i][j] = new BrickClassic(new Coordinates((i + 0.5) * GameConstants.BRICK_WIDTH,
+                            (j + 0.5) * GameConstants.BRICK_HEIGHT));
                 }
             }
         } else {
@@ -51,17 +55,18 @@ public class Game {
     }
 
     private boolean checkDefaultParameters() {
-        return GameConstants.MAP_HEIGHT >= GameConstants.ROWS_OF_BRICKS + 2
-                && GameConstants.MAP_WIDTH >= GameConstants.COLUMNS_OF_BRICKS
-                && GameConstants.MAP_HEIGHT
-                        - GameConstants.ROWS_OF_BRICKS - 2 >= GameConstants.MIN_SPACE_BETWEEN_RACKET_BRICKS;
+        return true;
+        // return GameConstants.MAP_HEIGHT >= GameConstants.ROWS_OF_BRICKS + 2
+        //         && GameConstants.MAP_WIDTH >= GameConstants.COLUMNS_OF_BRICKS
+        //         && GameConstants.MAP_HEIGHT
+        //                 - GameConstants.ROWS_OF_BRICKS - 2 >= GameConstants.MIN_SPACE_BETWEEN_RACKET_BRICKS;
     }
 
     public void displayBricksInTerminal() { // pour les tests
 
-        for (int i = 0; i < bricks.length; i++) {
-            for (int j = 0; j < bricks[i].length; j++) {
-                if (bricks[i][j] != null) {
+        for (int i = 0; i < bricks[0].length; i++) {
+            for (int j = 0; j < bricks.length; j++) {
+                if (bricks[j][i] != null) {
                     System.out.print("B "); // "B" pour représenter une brique
                 } else {
                     System.out.print(". "); // "." pour représenter une case vide
@@ -93,10 +98,8 @@ public class Game {
     }
 
     private boolean checkCollidesBrick() {
-        Coordinates ballCoords = ball.getC().floorC();
-        if (ball.intersectBrick(bricks[ballCoords.getIntX() - 1][ballCoords.getIntY()])) {
+        Coordinates ballCoords = ball.getC();
 
-        }
         return false;
     }
 
@@ -113,8 +116,8 @@ public class Game {
                 && c.getY() >= racket.getC().getY() && c.getY() <= racket.getC().getY() + racket.getLargeur();
     }
 
-    // public static void main(String[] args) {
-    // Game g = new Game(new Ball(), new Racket(), BricksArrangement.DEFAULT);
-    // g.displayBricksInTerminal();
-    // }
+    public static void main(String[] args) {
+        Game g = new Game(new ClassicBall(1), new ClassicRacket(), BricksArrangement.DEFAULT);
+        g.displayBricksInTerminal();
+    }
 }

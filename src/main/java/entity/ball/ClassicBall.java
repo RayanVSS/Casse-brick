@@ -8,8 +8,6 @@ import utils.GameConstants;
 import utils.Key;
 import gui.GameView;
 
-
-
 public class ClassicBall extends Ball {
 
     public Key key = new Key();
@@ -32,18 +30,18 @@ public class ClassicBall extends Ball {
      */
     public boolean movement() {
         boolean aux = true;
-        double h= GameConstants.DEFAULT_WINDOW_WIDTH;
-        double w= GameConstants.DEFAULT_WINDOW_HEIGHT;
+        double h = GameConstants.DEFAULT_WINDOW_WIDTH;
+        double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
         double newX = this.getC().getX() + this.direction.getX() * this.vitesse;
         double newY = this.getC().getY() + this.direction.getY() * this.vitesse;
 
-        if(CollisionR) {
-            if(GameView.BougePColision) {
+        if (CollisionR) {
+            if (GameView.BougePColision) {
                 this.direction.setY(-this.direction.getY());
                 newY = this.getC().getY() + this.direction.getY() * this.vitesse;
                 CollisionR = false;
             }
-            if(!GameView.BougePColision) {
+            if (!GameView.BougePColision) {
                 for (KeyCode key : GameView.direction) {
                     switch (key) {
                         case RIGHT:
@@ -73,7 +71,7 @@ public class ClassicBall extends Ball {
             this.direction.setX(-this.direction.getX());
             newX = this.getC().getX() + this.direction.getX() * this.vitesse;
         }
-        if (newY < 0 ) {
+        if (newY < 0) {
             this.direction.setY(-this.direction.getY());
             newY = this.getC().getY() + this.direction.getY() * this.vitesse;
         }
@@ -84,6 +82,5 @@ public class ClassicBall extends Ball {
         this.setC(new Coordinates(newX, newY));
         return aux;
     }
-
 
 }

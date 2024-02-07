@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 import utils.GameConstants;
 
-
 import entity.Entity;
 
 /**
@@ -19,14 +18,12 @@ import entity.Entity;
  * @author Belhassen rayan
  */
 
-public class ClasssicRacket extends Racket {
+public class ClassicRacket extends Racket {
 
     // creation de la raquette
-    public ClasssicRacket() {
-                super(200, 20, 8,false, true);
+    public ClassicRacket() {
+        super(200, 20, 8, false, true);
     }
-
-
 
     // Mouvement a l'appui des touches
     public void handleKeyPress(Set<KeyCode> keysPressed) {
@@ -34,12 +31,12 @@ public class ClasssicRacket extends Racket {
             switch (key) {
                 case Q:
                 case LEFT:
-                    if (this.mX() > -longueur/2)
+                    if (this.mX() > -longueur / 2)
                         this.mX(this.mX() - speed);
                     break;
                 case D:
                 case RIGHT:
-                    if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH-largeur-70)
+                    if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH - largeur - 70)
                         this.mX(this.mX() + speed);
                     break;
                 case SPACE:
@@ -57,5 +54,3 @@ public class ClasssicRacket extends Racket {
         }
     }
 }
-
-
