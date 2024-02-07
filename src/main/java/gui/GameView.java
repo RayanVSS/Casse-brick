@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import config.*;
 import entity.Particle;
@@ -36,11 +37,22 @@ public class GameView extends App {
 
     // Raquette
     private Rectangle graphRacket;
-    private final Set<KeyCode> keysPressed = new HashSet<>();
+    public static boolean BougePColision;
+    public static Set<KeyCode> direction = new HashSet<>();
 
     // Particules de traînée
     private List<List<Particle>> particleTrails = new ArrayList<>();
     private int trailLength = GameConstants.DEFAULT_trailLength;
+
+    //lire les touches
+    Key key = new Key();    
+
+
+    //fps
+    private FPS fpsCalculator = new FPS();
+    private Text fpsText = new Text();
+    private Text maxfpsText = new Text();
+
 
 
     public GameView(Stage p, int level) {
@@ -63,6 +75,16 @@ public class GameView extends App {
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
 
+        // Ajout du texte des FPS
+        fpsText.setX(10);
+        fpsText.setY(20);
+        root.getChildren().add(fpsText);
+
+        // Ajout du texte des FPS max
+        maxfpsText.setX(10);
+        maxfpsText.setY(40);
+        root.getChildren().add(maxfpsText);
+
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -71,47 +93,34 @@ public class GameView extends App {
             long last = 0;
             double delay = 0.0;
             @Override
-            public void handle(long now) {
-                handleInput();
-                update();
+            public void handle(long now) {                
+                BougePColision=key.isEmpty();  
+                key.handleInput(game);
                 if (last == 0) { // ignore the first tick, just compute the first deltaT
                     last = now;
                     return;
                 }
                 var deltaT = now - last;
 
-                // System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
 
                 // laisser un delai de 2 seconde avant de deplacer la balle
                 if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
                 }
-
-                if (now - last > 1000000000 / 120) {
+                else if (now - last > 1000000000 / 120) {
+                    key.touchesR(scene, game);
+                    direction = key.getKeysPressed();
                     game.update(deltaT);
-                    update();
+                    update();  
+                    key.touchesM(scene, game);
                 }
                 last = now;
             }
         };
         animationTimer.start();
-
-        //code pour gérer les touches du clavier
-        scene.setOnKeyPressed(event -> {
-            keysPressed.add(event.getCode());
-        });
-        
-        scene.setOnKeyReleased(event -> {
-            keysPressed.remove(event.getCode());
-            KeyCode code = event.getCode();
-            game.getRacket().handleKeyRelease(code);
-        });
     }
 
-    // Gestion des touches du clavier
-    private void handleInput() {
-        game.getRacket().handleKeyPress(keysPressed);
-    }
+
 
     public void update() {
         // Mise à jour de la position de la balle
@@ -121,6 +130,32 @@ public class GameView extends App {
         this.graphRacket.setX(game.getRacket().getC().getX());
         this.graphRacket.setY(game.getRacket().getC().getY());
 
+
+        // Mise à jour des particules de traînée
+        for (int i = 0; i < trailLength; i++) {
+            List<Particle> trail = particleTrails.get(i);
+    
+            for (int j = trail.size() - 1; j > 0; j--) {
+                Particle currentParticle = trail.get(j);
+                Particle previousParticle = trail.get(j - 1);
+    
+                currentParticle.setCenterX(previousParticle.getCenterX());
+                currentParticle.setCenterY(previousParticle.getCenterY());
+                currentParticle.applyRandomFluctuation(); //fluctuation des particules
+            }
+    
+            Particle firstParticle = trail.get(0);
+            firstParticle.setCenterX(game.getBall().getC().getX());
+            firstParticle.setCenterY(game.getBall().getC().getY());
+            firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
+        }
+
+        // Calcul des FPS
+        double fps = fpsCalculator.calculateFPS();
+        double maxfps = fpsCalculator.getMaxFps();
+        // Mise à jour du texte FPS
+        fpsText.setText("FPS: " + String.format("%.2f", fps));
+        maxfpsText.setText("Max FPS: " + String.format("%.2f", maxfps));
 
     }
 

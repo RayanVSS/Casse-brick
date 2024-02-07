@@ -72,9 +72,6 @@ public class Game {
         }
     }
 
-    public void update(long deltaT, double l, double h) {
-    }
-
     public void createBricks() {}
 
     public Ball getBall() {
