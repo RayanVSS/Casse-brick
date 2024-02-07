@@ -12,7 +12,7 @@ public class BallGraphics extends Circle{
             setCenterX(ball.getC().getX());
             setCenterY(ball.getC().getY());
             setRadius(ball.getRadius());
-            setFill(Color.RED);
+            setFill(Color.BLUEVIOLET);
         }
     
         public void update() {

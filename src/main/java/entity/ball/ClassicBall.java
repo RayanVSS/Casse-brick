@@ -77,7 +77,7 @@ public class ClassicBall extends Ball {
             this.direction.setY(-this.direction.getY());
             newY = this.getC().getY() + this.direction.getY() * this.vitesse;
         }
-        if (newY > h - this.getRadius()) {
+        if (newY > w - this.getRadius()) {
             aux = false;
         }
 

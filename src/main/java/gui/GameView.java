@@ -40,10 +40,6 @@ public class GameView extends App {
     public static boolean BougePColision;
     public static Set<KeyCode> direction = new HashSet<>();
 
-    // Particules de traînée
-    private List<List<Particle>> particleTrails = new ArrayList<>();
-    private int trailLength = GameConstants.DEFAULT_trailLength;
-
     //lire les touches
     Key key = new Key();    
 
@@ -130,25 +126,6 @@ public class GameView extends App {
         this.graphRacket.setX(game.getRacket().getC().getX());
         this.graphRacket.setY(game.getRacket().getC().getY());
 
-
-        // Mise à jour des particules de traînée
-        for (int i = 0; i < trailLength; i++) {
-            List<Particle> trail = particleTrails.get(i);
-    
-            for (int j = trail.size() - 1; j > 0; j--) {
-                Particle currentParticle = trail.get(j);
-                Particle previousParticle = trail.get(j - 1);
-    
-                currentParticle.setCenterX(previousParticle.getCenterX());
-                currentParticle.setCenterY(previousParticle.getCenterY());
-                currentParticle.applyRandomFluctuation(); //fluctuation des particules
-            }
-    
-            Particle firstParticle = trail.get(0);
-            firstParticle.setCenterX(game.getBall().getC().getX());
-            firstParticle.setCenterY(game.getBall().getC().getY());
-            firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
-        }
 
         // Calcul des FPS
         double fps = fpsCalculator.calculateFPS();
