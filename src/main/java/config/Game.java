@@ -1,6 +1,5 @@
 package config;
 
-
 import entity.ball.Ball;
 import entity.brick.Brick;
 import entity.brick.BrickClassic;
@@ -15,7 +14,7 @@ public class Game {
     private Brick[][] bricks;
     private BricksArrangement arrangement;
 
-    public Game(Ball ball,Racket racket, BricksArrangement arrangement) {
+    public Game(Ball ball, Racket racket, BricksArrangement arrangement) {
 
         this.ball = ball;
         this.racket = racket;
@@ -42,7 +41,8 @@ public class Game {
             bricks = new Brick[GameConstants.MAP_HEIGHT][GameConstants.MAP_WIDTH]; // [ligne][colonne]
             for (int i = 1; i < GameConstants.ROWS_OF_BRICKS + 1; i++) { // 1 espace en haut
                 for (int j = 1; j < GameConstants.COLUMNS_OF_BRICKS + 1; j++) { // 1 espace côté gauche/droit
-                    bricks[i][j] = new BrickClassic(new Coordinates(i, j));
+                    bricks[i][j] = new BrickClassic(new Coordinates((i + 0.5) * GameConstants.BRICK_HEIGHT,
+                            (j + 0.5) * GameConstants.BRICK_WIDTH));
                 }
             }
         } else {
@@ -71,23 +71,34 @@ public class Game {
         }
     }
 
-    public void createBricks() {}
-
     public Ball getBall() {
         return ball;
     }
+
     public void update(long deltaT) {
+        //Touche une brique
+        if (checkCollidesBrick()) {
+
+        }
+
         // Quand la balle arrive au sud on perds (tres primaire comme code)
         if (!ball.movement()) {
             lost();
         }
         // Si la balle touche la raquette
-        if(collisionRacket(ball.getC())){
+        if (collisionRacket(ball.getC())) {
             ball.setCollisionR(true);
             System.out.println("collisionX");
         }
     }
 
+    private boolean checkCollidesBrick() {
+        Coordinates ballCoords = ball.getC().floorC();
+        if (ball.intersectBrick(bricks[ballCoords.getIntX() - 1][ballCoords.getIntY()])) {
+
+        }
+        return false;
+    }
 
     public void lost() {
         System.exit(0);
@@ -96,7 +107,6 @@ public class Game {
     public Racket getRacket() {
         return racket;
     }
-
 
     public boolean collisionRacket(Coordinates c) {
         return c.getX() >= racket.getC().getX() && c.getX() <= racket.getC().getX() + racket.getLongueur()

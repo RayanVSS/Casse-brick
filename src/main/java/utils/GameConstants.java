@@ -8,14 +8,16 @@ public final class GameConstants {
     public static final int ROWS_OF_BRICKS = 12;
     public static final int COLUMNS_OF_BRICKS = 13;
     public static final int MIN_SPACE_BETWEEN_RACKET_BRICKS = 5;
+    public static final int BRICK_WIDTH = 18;
+    public static final int BRICK_HEIGHT = 6;
 
     //ball
-    public static final int DEFAULT_BALL_SPEED = 7; 
-    public static final int DEFAULT_BALL_DIAMETER = 5; 
+    public static final int DEFAULT_BALL_SPEED = 7;
+    public static final int DEFAULT_BALL_DIAMETER = 5;
 
     //fenetre
-    public static final double DEFAULT_WINDOW_WIDTH = 1000.0; 
-    public static final double DEFAULT_WINDOW_HEIGHT = 800.0; 
+    public static final double DEFAULT_WINDOW_WIDTH = 1000.0;
+    public static final double DEFAULT_WINDOW_HEIGHT = 800.0;
     public static final int DEFAULT_FPS = 120;
 
     //particle de traînée
@@ -24,10 +26,4 @@ public final class GameConstants {
     public static final double DEFAULT_FLUCTUATION = 5;
     public static final int DEFAULT_PARTICLE = 10; // nombre de particules
 
-
-
-
-
-    
 }
-

@@ -1,6 +1,7 @@
 package entity.ball;
 
 import entity.Entity;
+import entity.brick.Brick;
 import geometry.*;
 
 /**
@@ -53,10 +54,13 @@ public abstract class Ball extends Entity {
         this.CollisionR = b;
     }
 
-    public Boolean getCollisionR() {
+    public boolean getCollisionR() {
         return this.CollisionR;
     }
-   
+
+    public boolean intersectBrick(Brick b) {
+        return false;
+    }
 
     public abstract boolean movement();
 }

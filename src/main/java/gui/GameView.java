@@ -25,14 +25,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-
 public class GameView extends App {
 
     private Stage primaryStage;
     private Pane root = new Pane();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
-    
+
     // Balle
     private Circle graphBall;
 
@@ -46,22 +45,19 @@ public class GameView extends App {
     private int trailLength = GameConstants.DEFAULT_trailLength;
 
     //lire les touches
-    Key key = new Key();    
-
+    Key key = new Key();
 
     //fps
     private FPS fpsCalculator = new FPS();
     private Text fpsText = new Text();
     private Text maxfpsText = new Text();
 
-
-
     public GameView(Stage p, int level) {
 
         this.primaryStage = p;
 
         /* differentes balles *
-
+        
         Ball ball = new GravityBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
                 randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
                 
@@ -72,7 +68,6 @@ public class GameView extends App {
         Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
                 randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
 
-
         // Création des particules
         for (int i = 0; i < trailLength; i++) {
             List<Particle> trail = new ArrayList<>();
@@ -80,7 +75,7 @@ public class GameView extends App {
                 Particle particle = new Particle(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2);
                 trail.add(particle);
                 root.getChildren().add(particle);
-                           }
+            }
             particleTrails.add(trail);
         }
 
@@ -113,9 +108,10 @@ public class GameView extends App {
         AnimationTimer animationTimer = new AnimationTimer() {
             long last = 0;
             double delay = 0.0;
+
             @Override
-            public void handle(long now) {                
-                BougePColision=key.isEmpty();  
+            public void handle(long now) {
+                BougePColision = key.isEmpty();
                 key.handleInput(game);
                 if (last == 0) { // ignore the first tick, just compute the first deltaT
                     last = now;
@@ -123,20 +119,18 @@ public class GameView extends App {
                 }
                 var deltaT = now - last;
 
-
                 // laisser un delai de 2 seconde avant de deplacer la balle
                 if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
-                }
-                else if (now - last > 1000000000 / GameConstants.DEFAULT_FPS) {
+                } else if (now - last > 1000000000 / GameConstants.DEFAULT_FPS) {
                     key.touchesR(scene, game);
-                   
+
                     //prend les informations de la racquette pour la ball
-                    BougePColision=key.isEmpty();  
+                    BougePColision = key.isEmpty();
                     direction = key.getKeysPressed();
 
                     game.update(deltaT);
-                    update();  
+                    update();
                     key.touchesM(scene, game);
                 }
                 last = now;
@@ -144,8 +138,6 @@ public class GameView extends App {
         };
         animationTimer.start();
     }
-
-
 
     public void update() {
         // Mise à jour de la position de la balle
@@ -156,20 +148,19 @@ public class GameView extends App {
         this.graphRacket.setX(game.getRacket().getC().getX());
         this.graphRacket.setY(game.getRacket().getC().getY());
 
-
         // Mise à jour des particules de traînée
         for (int i = 0; i < trailLength; i++) {
             List<Particle> trail = particleTrails.get(i);
-    
+
             for (int j = trail.size() - 1; j > 0; j--) {
                 Particle currentParticle = trail.get(j);
                 Particle previousParticle = trail.get(j - 1);
-    
+
                 currentParticle.setCenterX(previousParticle.getCenterX());
                 currentParticle.setCenterY(previousParticle.getCenterY());
                 currentParticle.applyRandomFluctuation(); //fluctuation des particules
             }
-    
+
             Particle firstParticle = trail.get(0);
             firstParticle.setCenterX(game.getBall().getC().getX());
             firstParticle.setCenterY(game.getBall().getC().getY());
@@ -179,7 +170,7 @@ public class GameView extends App {
         // Calcul des FPS
         double fps = fpsCalculator.calculateFPS();
         double maxfps = fpsCalculator.getMaxFps();
-        
+
         // Mise à jour du texte FPS
         fpsText.setText("FPS: " + String.format("%.2f", fps));
         maxfpsText.setText("Max FPS: " + String.format("%.2f", maxfps));
