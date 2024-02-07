@@ -11,7 +11,7 @@ public final class GameConstants {
 
     //ball
     public static final int DEFAULT_BALL_SPEED = 7; 
-    public static final int DEFAULT_BALL_DIAMETER = 5; 
+    public static final int DEFAULT_BALL_RADIUS= 10; 
 
     //feneetre
     public static final double DEFAULT_WINDOW_WIDTH = 1000.0; 

@@ -32,7 +32,7 @@ public class GameView extends App {
     private Game game;
     
     // Balle
-    private Circle graphBall;
+    private BallGraphics graphBall ;
 
     // Raquette
     private Rectangle graphRacket;
@@ -50,11 +50,11 @@ public class GameView extends App {
         /* differentes balles */
 
         Ball ball = new GravityBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
-                randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
-        game = new Game(ball, new Racket(1), BricksArrangement.DEFAULT);
+                randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS);
+        game = new Game(ball, new Racket(2), BricksArrangement.DEFAULT);
 
         // Création des éléments graphiques
-        this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
+        this.graphBall = new BallGraphics(game.getBall());
 
         this.graphRacket = new Rectangle(game.getRacket().getC().getX(), game.getRacket().getC().getY(),
                 game.getRacket().getLongueur(), game.getRacket().getLargeur());
@@ -115,8 +115,7 @@ public class GameView extends App {
 
     public void update() {
         // Mise à jour de la position de la balle
-        this.graphBall.setCenterX(game.getBall().getC().getX());
-        this.graphBall.setCenterY(game.getBall().getC().getY());
+        this.graphBall.update();
 
         // Mise à jour de la position de la raquette
         this.graphRacket.setX(game.getRacket().getC().getX());

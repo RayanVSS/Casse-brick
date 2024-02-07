@@ -13,7 +13,7 @@ import geometry.*;
 public abstract class Ball extends Entity {
 
     Vector direction;
-    int diametre;
+    int radius;
     double vitesse;
 
     //colision avec racket
@@ -23,18 +23,18 @@ public abstract class Ball extends Entity {
         super(new Coordinates(0, 0));
         this.direction = new Vector(new Coordinates(0, 0));
         this.vitesse = 0;
-        this.diametre = d;
+        this.radius = d;
     }
 
     public Ball(Coordinates c, Vector direction, int vitesse, int d) {
         super(c);
         this.direction = direction;
         this.vitesse = vitesse;
-        this.diametre = d;
+        this.radius = d;
     }
 
-    public int getDiametre() {
-        return this.diametre;
+    public int getRadius() {
+        return this.radius;
     }
 
     public Vector getDirection() {
@@ -45,8 +45,8 @@ public abstract class Ball extends Entity {
         return this.vitesse;
     }
 
-    public void setDiametre(int d) {
-        this.diametre = d;
+    public void setRadius(int d) {
+        this.radius = d;
     }
 
     public void setCollisionR(boolean b) {

@@ -22,7 +22,7 @@ public class HyperBall extends Ball{
         double newX = this.getC().getX() + this.direction.getX() * this.vitesse;
         double newY = this.getC().getY() + this.direction.getY() * this.vitesse;
 
-        if (newX < 0 || newX > h - this.diametre) {
+        if (newX < 0 || newX > h - this.getRadius()) {
             this.direction.setX(-this.direction.getX());
             newX = this.getC().getX() + this.direction.getX() * this.vitesse;
             setBoost();
@@ -33,7 +33,7 @@ public class HyperBall extends Ball{
             CollisionR = false;
             setBoost();
         }
-        if (newY > w - this.diametre) {
+        if (newY > w - this.getRadius()) {
             aux = false;
         }
 
