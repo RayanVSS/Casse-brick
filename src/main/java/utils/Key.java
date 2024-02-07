@@ -63,17 +63,18 @@ public class Key  {
     }
     
     //code qui permet de lire les touches du clavier et qui l'ajoute dans une liste
-    public void touches(Scene scene, Game game){
+    public void touchesM(Scene scene, Game game){
     scene.setOnKeyPressed(event -> {
             keysPressed.add(event.getCode());
         });
-        //quand la touche est relachée, on l'enlève de la liste
-        scene.setOnKeyReleased(event -> {
-            keysPressed.remove(event.getCode());
-            KeyCode code = event.getCode();
-            game.getRacket().handleKeyRelease(code);
-        });
     }
+
+    public void touchesR(Scene scene, Game game){
+                //quand la touche est relachée, on l'enlève de la liste
+                scene.setOnKeyReleased(event -> {
+                    keysPressed.remove(event.getCode());
+                });
+            }
 
     //fonction qui rassemble toutes les fonctions qui agissent avec une touche
     public void handleInput(Game game) {
@@ -85,6 +86,7 @@ public class Key  {
     public Set<KeyCode> getKeysPressed() {
         return keysPressed;
     }
+
 
     public void setKeysPressed(Set<KeyCode> keysPressed) {
         this.keysPressed.clear();
