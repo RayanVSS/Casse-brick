@@ -37,14 +37,16 @@ public class GameView extends App {
 
     // Raquette
     private Rectangle graphRacket;
-    private final Set<KeyCode> keysPressed = new HashSet<>();
+    public static boolean BougePColision;
+    public static Set<KeyCode> direction = new HashSet<>();
 
     // Particules de traînée
     private List<List<Particle>> particleTrails = new ArrayList<>();
     private int trailLength = GameConstants.DEFAULT_trailLength;
 
     //lire les touches
-    Key key = new Key();
+    Key key = new Key();    
+
 
     //fps
     private FPS fpsCalculator = new FPS();
@@ -111,8 +113,8 @@ public class GameView extends App {
             long last = 0;
             double delay = 0.0;
             @Override
-            public void handle(long now) {
-                key.touches(scene, game);
+            public void handle(long now) {                
+                BougePColision=key.isEmpty();  
                 key.handleInput(game);
                 if (last == 0) { // ignore the first tick, just compute the first deltaT
                     last = now;
@@ -126,8 +128,11 @@ public class GameView extends App {
                     delay += deltaT / 1000000000.0;
                 }
                 else if (now - last > 1000000000 / 120) {
+                    key.touchesR(scene, game);
+                    direction = key.getKeysPressed();
                     game.update(deltaT);
-                    update();                    
+                    update();  
+                    key.touchesM(scene, game);
                 }
                 last = now;
             }
