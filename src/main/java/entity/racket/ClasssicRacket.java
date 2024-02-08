@@ -1,17 +1,8 @@
 package entity.racket;
 
-import geometry.Coordinates;
-import geometry.Vector;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.KeyEvent;
-import java.util.HashSet;
 import java.util.Set;
 import utils.GameConstants;
-
-
-import entity.Entity;
 
 /**
  * raquette qui peut aller a droite et a gauche
@@ -34,12 +25,12 @@ public class ClasssicRacket extends Racket {
             switch (key) {
                 case Q:
                 case LEFT:
-                    if (this.mX() > -height/2)
+                    if (this.mX() > -longueur/2)
                         this.mX(this.mX() - speed);
                     break;
                 case D:
                 case RIGHT:
-                    if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH-width-70)
+                    if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH-largeur-70)
                         this.mX(this.mX() + speed);
                     break;
                 case SPACE:
@@ -57,5 +48,3 @@ public class ClasssicRacket extends Racket {
         }
     }
 }
-
-

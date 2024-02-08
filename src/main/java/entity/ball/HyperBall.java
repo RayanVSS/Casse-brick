@@ -7,13 +7,16 @@ import javafx.scene.input.KeyCode;
 import utils.GameConstants;
 
 public class HyperBall extends Ball {
+    private double speedBoost=0.1;
 
     public HyperBall(int d) {
         super(d);
     }
 
-    public HyperBall(Coordinates c, Vector direction,int speed ,int d) {
-        super(c, direction, speed, d);
+    public HyperBall() {
+        super(GameConstants.DEFAULT_BALL_START_COORDINATES, GameConstants.DEFAULT_BALL_START_DIRECTION,
+        GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS
+);
     }
 
     public boolean movement() {
@@ -76,7 +79,7 @@ public class HyperBall extends Ball {
     }
 
     public void setBoost() {
-        this.speed += 0.2;
+        this.speed += speedBoost;
         System.out.println(this.speed);
     }
 

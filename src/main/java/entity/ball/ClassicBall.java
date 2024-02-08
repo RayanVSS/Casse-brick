@@ -13,8 +13,10 @@ public class ClassicBall extends Ball {
 
     public Key key = new Key();
 
-    public ClassicBall(Coordinates c, Vector direction, int speed, int d) {
-        super(c, direction, speed, d);
+    public ClassicBall() {
+        super(GameConstants.DEFAULT_BALL_START_COORDINATES, GameConstants.DEFAULT_BALL_START_DIRECTION,
+        GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS
+);
     }
 
     public ClassicBall(int d) {

@@ -71,8 +71,8 @@ public abstract class Ball extends Entity {
 
     public boolean isOverlap(Racket r) {
         // Trouver le point le plus proche du cercle dans le rectangle
-        double closestX = clamp(this.getC().getX(),r.getC().getX(), this.getC().getX() + r.getWidth());
-        double closestY = clamp(this.getC().getY(),r.getC().getY(), this.getC().getY() + r.getHeight());
+        double closestX = clamp(this.getC().getX(),r.getC().getX(), this.getC().getX() + r.getLargeur());
+        double closestY = clamp(this.getC().getY(),r.getC().getY(), this.getC().getY() + r.getLongueur());
 
         // Calculer la distance entre le centre du cercle et ce point
         double distanceX = this.getC().getX() - closestX;
