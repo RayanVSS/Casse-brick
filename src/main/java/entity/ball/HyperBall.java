@@ -5,6 +5,7 @@ import geometry.Vector;
 import gui.GameView;
 import javafx.scene.input.KeyCode;
 import utils.GameConstants;
+/*BALL QUI ACCELERE A CHAQUE COLISION */
 
 public class HyperBall extends Ball {
 
@@ -12,23 +13,24 @@ public class HyperBall extends Ball {
         super(d);
     }
 
-    public HyperBall(Coordinates c, Vector direction,int speed ,int d) {
-        super(c, direction, speed, d);
+    public HyperBall() {
+        super(GameConstants.DEFAULT_BALL_START_COORDINATES, GameConstants.DEFAULT_BALL_START_getDirection(),GameConstants.DEFAULT_BALL_getSpeed() , GameConstants.DEFAULT_BALL_RADIUS);
     }
 
     public boolean movement() {
         boolean lost = true;
         double h = GameConstants.DEFAULT_WINDOW_WIDTH;
         double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
-        double newX = this.getC().getX() + this.direction.getX() * this.speed;
-        double newY = this.getC().getY() + this.direction.getY() * this.speed;
+        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
 
         // Gestion des collisions avec la raquettes
-        if(CollisionR) {
-            if(GameView.BougePColision) {
-                this.direction.setY(-this.direction.getY());
-                newY = this.getC().getY() + this.direction.getY() * this.speed;
+        if (CollisionR) {
+            if (GameView.BougePColision) {
+                this.getDirection().setY(-this.getDirection().getY());
+                newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                 CollisionR = false;
+                setBoost();
             }
             if (!GameView.BougePColision) {
                 for (KeyCode key : GameView.direction) {
@@ -36,34 +38,36 @@ public class HyperBall extends Ball {
                         case RIGHT:
                         case D:
                             System.out.println("droite");
-                            this.direction.setX(1);
-                            this.direction.setY(-1);
-                            newX = this.getC().getX() + this.direction.getX() * this.speed;
-                            newY = this.getC().getY() + this.direction.getY() * this.speed;
+                            this.getDirection().setX(1);
+                            this.getDirection().setY(-1);
+                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                             CollisionR = false;
+                            setBoost();
 
                             break;
                         case LEFT:
                         case Q:
                             System.out.println("gauche");
-                            this.direction.setX(-1);
-                            this.direction.setY(-1);
-                            newX = this.getC().getX() + this.direction.getX() * this.speed;
-                            newY = this.getC().getY() + this.direction.getY() * this.speed;
+                            this.getDirection().setX(-1);
+                            this.getDirection().setY(-1);
+                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                             CollisionR = false;
+                            setBoost();
                             break;
                     }
                 }
             }
         }
         if (newX < 0 || newX > h - this.getRadius()) {
-            this.direction.setX(-this.direction.getX());
-            newX = this.getC().getX() + this.direction.getX() * this.speed;
+            this.getDirection().setX(-this.getDirection().getX());
+            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
             setBoost();
         }
         if (newY < 0 || CollisionR) {
-            this.direction.setY(-this.direction.getY());
-            newY = this.getC().getY() + this.direction.getY() * this.speed;
+            this.getDirection().setY(-this.getDirection().getY());
+            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
             CollisionR = false;
             setBoost();
         }
@@ -75,9 +79,9 @@ public class HyperBall extends Ball {
         return lost;
     }
 
-    public void setBoost() {
-        this.speed += 0.2;
-        System.out.println(this.speed);
+    void setBoost(){
+        this.setSpeed(this.getSpeed()+0.01); 
+        System.out.println("getSpeed() : " + this.getSpeed());
     }
 
 }

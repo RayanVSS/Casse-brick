@@ -33,7 +33,7 @@ public class GameView extends App {
     private BallGraphics graphBall;
 
     // Raquette
-    private Rectangle graphRacket;
+    private RacketGraphics graphRacket;
     public static boolean BougePColision;
     public static Set<KeyCode> direction = new HashSet<>();
 
@@ -54,19 +54,15 @@ public class GameView extends App {
 
         /* differentes balles */
 
-        Ball ball = new GravityBall(GameConstants.DEFAULT_BALL_START_COORDINATES,
-                GameConstants.DEFAULT_BALL_START_DIRECTION, GameConstants.DEFAULT_BALL_SPEED,
-                GameConstants.DEFAULT_BALL_RADIUS);
-        Ball Cball = new ClassicBall(GameConstants.DEFAULT_BALL_START_COORDINATES,
-                GameConstants.DEFAULT_BALL_START_DIRECTION, GameConstants.DEFAULT_BALL_SPEED,
-                GameConstants.DEFAULT_BALL_RADIUS);
-        game = new Game(Cball, new ClasssicRacket(), BricksArrangement.DEFAULT);
+        Ball ball = new GravityBall();
+        Ball HBall= new HyperBall();
+        Ball Cball = new ClassicBall();
+        game = new Game(HBall, new YNotFixeRacket(), BricksArrangement.DEFAULT);
 
         // Création des éléments graphiques
         this.graphBall = new BallGraphics(game.getBall());
 
-        this.graphRacket = new Rectangle(game.getRacket().getC().getX(), game.getRacket().getC().getY(),
-                game.getRacket().getHeight(), game.getRacket().getWidth());
+        this.graphRacket = new RacketGraphics(game.getRacket());
 
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
@@ -94,8 +90,7 @@ public class GameView extends App {
         this.graphBall.update();
 
         // Mise à jour de la position de la raquette
-        this.graphRacket.setX(game.getRacket().getC().getX());
-        this.graphRacket.setY(game.getRacket().getC().getY());
+        this.graphRacket.update();
 
         // Calcul des FPS
         double fps = fpsCalculator.calculateFPS();
@@ -133,6 +128,8 @@ public class GameView extends App {
                 if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
                 } else if (now - last > 1000000000 / 120) {
+                    key.touchesR(scene, game);
+                    // prend les informations de la racquette pour la ball
                     BougePColision = key.isEmpty();
                     direction = key.getKeysPressed();
                     game.update(deltaT);

@@ -8,22 +8,22 @@ import utils.GameConstants;
 import java.util.Set;
 
 /***************************************************************************
- * Explication de classe pour la raquette *
+ *                  Explication de classe pour la raquette                 *
  * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*
  *      Base: 
  * @var Coordonnee c : Coordonnée de la raquette 
  * @var Vector direction : Direction de la raquette 
  * @var int speed : Vitesse de la raquette 
- * @var int height : height de la raquette 
- * @var int width : width de la raquette 
+ * @var int longueur : Longueur de la raquette 
+ * @var int largeur : Largeur de la raquette 
  * @var boolean fixeY : Si la raquette est fixe en y 
  * @var boolean jump : Si la raquette peut sauter 
  *      
  *      boost: 
  * @var Boolean vitesseP :raquette a un boost de vitesse 
  * @var Boolean vitesseM :raquette a un malus de vitesse 
- * @var Boolean widthP :raquette a un boost de width 
- * @var Boolean widthM :raquette a un malus de width 
+ * @var Boolean largeurP :raquette a un boost de largeur 
+ * @var Boolean largeurM :raquette a un malus de largeur 
  * @var boolean freeze :le temps est freeze 
  *      
  *      GET et SET: 
@@ -31,10 +31,10 @@ import java.util.Set;
  *        
  *      Collision: 
  * @param c : Coordonnée de l'objet avec lequel on veut vérifier la collision
- * @return : true si il y a collision, false sinon
- * 
- *         Mouvement a l'appui des touches: :
- * @param keysPressed : toutes les touches appuyées
+ * @return : true si il y a collision, false sinon 
+ *         
+ *      Mouvement a l'appui des touches: :
+ * @param keysPressed : toutes les touches appuyées 
  *
  *      Mouvement au relachement des touches: 
  * @param event: touche relachée 
@@ -42,7 +42,7 @@ import java.util.Set;
  *      Saut: 
  *pas fini pour l'instant 
  *
- * @author Rayan Belhasse
+ * @author Rayan Belhasse 
  **************************************************************************/
 
 public abstract class Racket {
@@ -51,16 +51,16 @@ public abstract class Racket {
     Coordinates c =  new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH/2.5, GameConstants.DEFAULT_WINDOW_HEIGHT-50);
     Vector direction = new Vector(c);
     double speed;
-    int height;
-    int width;
+    int longueur;
+    int largeur;
     boolean fixeY;
     boolean jump;
 
     // boost
     Boolean vitesseP = false;
     Boolean vitesseM = false;
-    Boolean widthP = false;
-    Boolean widthM = false;
+    Boolean largeurP = false;
+    Boolean largeurM = false;
     boolean freeze = false;
 
     // variables pour le saut
@@ -69,9 +69,9 @@ public abstract class Racket {
     private long jumpStartTime;
 
     // creation de la raquette
-    public Racket(int height, int width, int speed,boolean fixeY, boolean jump) {
-        this.height = height;
-        this.width = width;
+    public Racket(int longueur, int largeur, int speed,boolean fixeY, boolean jump) {
+        this.longueur = longueur;
+        this.largeur = largeur;
         this.speed = speed;
         this.fixeY = fixeY;
         this.jump = jump;
@@ -79,8 +79,8 @@ public abstract class Racket {
 
     // Collision
     public boolean CollisionRacket(Coordinates c) {
-        if (c.getX() > this.c.getX() && c.getX() < this.c.getX() + this.height && c.getY() > this.c.getY()
-                && c.getY() < this.c.getY() + this.width) {
+        if (c.getX() > this.c.getX() && c.getX() < this.c.getX() + this.longueur && c.getY() > this.c.getY()
+                && c.getY() < this.c.getY() + this.largeur) {
             return true;
         }
         return false;
@@ -96,20 +96,20 @@ public abstract class Racket {
         return jump;
     }
 
-    public int getHeight() {
-        return height;
+    public int getLongueur() {
+        return longueur;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public void setLongueur(int longueur) {
+        this.longueur = longueur;
     }
 
-    public int getWidth() {
-        return width;
+    public int getLargeur() {
+        return largeur;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    public void setLargeur(int largeur) {
+        this.largeur = largeur;
     }
 
     public Coordinates getC() {
@@ -188,20 +188,20 @@ public abstract class Racket {
         return vitesseM;
     }
 
-    public void setWidthP(Boolean widthP) {
-        this.widthP = widthP;
+    public void setLargeurP(Boolean largeurP) {
+        this.largeurP = largeurP;
     }
 
-    public Boolean getWidthP() {
-        return widthP;
+    public Boolean getLargeurP() {
+        return largeurP;
     }
 
-    public void setWidthM(Boolean widthM) {
-        this.widthM = widthM;
+    public void setLargeurM(Boolean largeurM) {
+        this.largeurM = largeurM;
     }
 
-    public Boolean getWidthM() {
-        return widthM;
+    public Boolean getLargeurM() {
+        return largeurM;
     }
 
     public void setFreeze(boolean freeze) {

@@ -14,11 +14,9 @@ import utils.GameConstants;
  */
 public abstract class Ball extends Entity {
 
-    Vector direction;
-    int radius;
-    double speed;
-
-    // colision avec racket
+    private Vector direction;
+    private int radius;
+    private int speed;
     boolean CollisionR = false;
 
     public Ball(int d) {
@@ -28,44 +26,39 @@ public abstract class Ball extends Entity {
         this.radius = d;
     }
 
-    public Ball(Coordinates c, Vector direction, int speed, int d) {
+    public Ball(Coordinates c, Vector direction, int speed,int d) {
         super(c);
         this.direction = direction;
         this.speed = speed;
         this.radius = d;
     }
+    //Setters/getters
 
     public int getRadius() {
         return this.radius;
     }
-
     public Vector getDirection() {
         return this.direction;
     }
-
-    public Vector setDirection(Vector v) {
-        return this.direction = v;
+    public int getSpeed() {
+        return this.speed;
     }
-
+    public void setradius(int d) {
+        this.radius = d;
+    }
+    public void setDirection(Vector d) {
+        this.direction = d;
+    }
     public void setSpeed(double v) {
         this.speed = v;
     }
-
-    public double getSpeed() {
-        return this.speed;
-    }
-
-    public void setRadius(int d) {
-        this.radius = d;
-    }
-
     public void setCollisionR(boolean b) {
         this.CollisionR = b;
     }
-
-    public Boolean getCollisionR() {
+    public boolean getCollisionR() {
         return this.CollisionR;
     }
+
 
     public abstract boolean movement();
 
@@ -86,4 +79,5 @@ public abstract class Ball extends Entity {
     public double clamp(double val, double min, double max) {
         return Math.max(min, Math.min(max, val));
     }
+
 }
