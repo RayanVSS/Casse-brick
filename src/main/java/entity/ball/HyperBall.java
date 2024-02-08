@@ -23,8 +23,9 @@ public class HyperBall extends Ball {
         double newX = this.getC().getX() + this.direction.getX() * this.speed;
         double newY = this.getC().getY() + this.direction.getY() * this.speed;
 
-        if (CollisionR) {
-            if (GameView.BougePColision) {
+        // Gestion des collisions avec la raquettes
+        if(CollisionR) {
+            if(GameView.BougePColision) {
                 this.direction.setY(-this.direction.getY());
                 newY = this.getC().getY() + this.direction.getY() * this.speed;
                 CollisionR = false;

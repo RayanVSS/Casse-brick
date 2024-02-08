@@ -1,6 +1,5 @@
 package config;
 
-import org.checkerframework.checker.units.qual.C;
 
 import entity.ball.Ball;
 import entity.brick.Brick;
@@ -16,7 +15,7 @@ public class Game {
     private Brick[][] bricks;
     private BricksArrangement arrangement;
 
-    public Game(Ball ball, Racket racket, BricksArrangement arrangement) {
+    public Game(Ball ball,Racket racket, BricksArrangement arrangement) {
 
         this.ball = ball;
         this.racket = racket;
@@ -80,7 +79,6 @@ public class Game {
     }
 
     public void update(long deltaT) {
-        // TODO implement here
         // Quand la balle arrive au sud on perds (tres primaire comme code)
         if (!ball.movement()) {
             lost();

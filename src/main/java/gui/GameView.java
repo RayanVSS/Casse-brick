@@ -12,7 +12,9 @@ import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
+import entity.racket.ClasssicRacket;
 import entity.racket.Racket;
+import entity.racket.YNotFixeRacket;
 import geometry.Coordinates;
 import geometry.Vector;
 import utils.*;
@@ -58,7 +60,7 @@ public class GameView extends App {
         Ball Cball = new ClassicBall(GameConstants.DEFAULT_BALL_START_COORDINATES,
                 GameConstants.DEFAULT_BALL_START_DIRECTION, GameConstants.DEFAULT_BALL_SPEED,
                 GameConstants.DEFAULT_BALL_RADIUS);
-        game = new Game(Cball, new Racket(2), BricksArrangement.DEFAULT);
+        game = new Game(Cball, new ClasssicRacket(), BricksArrangement.DEFAULT);
 
         // Création des éléments graphiques
         this.graphBall = new BallGraphics(game.getBall());
@@ -98,6 +100,7 @@ public class GameView extends App {
         // Calcul des FPS
         double fps = fpsCalculator.calculateFPS();
         double maxfps = fpsCalculator.getMaxFps();
+
         // Mise à jour du texte FPS
         fpsText.setText("FPS: " + String.format("%.2f", fps));
         maxfpsText.setText("Max FPS: " + String.format("%.2f", maxfps));
@@ -130,7 +133,7 @@ public class GameView extends App {
                 if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
                 } else if (now - last > 1000000000 / 120) {
-                    key.touchesR(scene, game);
+                    BougePColision = key.isEmpty();
                     direction = key.getKeysPressed();
                     game.update(deltaT);
                     update();
