@@ -1,5 +1,6 @@
 package config;
 
+
 import entity.ball.Ball;
 import entity.brick.Brick;
 import entity.brick.BrickClassic;
@@ -14,7 +15,7 @@ public class Game {
     private Brick[][] bricks;
     private BricksArrangement arrangement;
 
-    public Game(Ball ball, Racket racket, BricksArrangement arrangement) {
+    public Game(Ball ball,Racket racket, BricksArrangement arrangement) {
 
         this.ball = ball;
         this.racket = racket;
@@ -74,16 +75,36 @@ public class Game {
             System.out.println();
         }
     }
+
+    public void createBricks() {
+    }
+
+
+
     public void update(long deltaT) {
-        // TODO implement here
         // Quand la balle arrive au sud on perds (tres primaire comme code)
         if (!ball.movement()) {
             lost();
         }
+        // // Si la balle touche la raquette
+        if (racket.CollisionRacket(ball.getC())) {
+            ball.setCollisionR(true);
+            System.out.println("collision");
+        }
+        if (ball.isOverlap(racket)) {
+            ball.setCollisionR(true);
+            System.out.println("overlap");
+        }
     }
 
     public void lost() {
+        // ball.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
+        // ball.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION);
         System.exit(0);
+    }
+
+    public Racket getRacket() {
+        return racket;
     }
 
     // public static void main(String[] args) {

@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 
 public class App extends Application{
 
@@ -38,6 +39,17 @@ public class App extends Application{
         Label label = new Label("Implementation des Options");
         root.getChildren().clear();
         root.getChildren().add(label);
+        root.setMargin(label, new javafx.geometry.Insets(0, 100, 50, 0));
+        
+        Button bouton1 = new Button("Retour");
+        bouton1.setOnAction(e -> {
+            root.getChildren().clear();
+            StartMenu startMenu = new StartMenu(primaryStage);
+        });
+        
+        
+        root.getChildren().add(bouton1);
+        root.setMargin(bouton1, new javafx.geometry.Insets(0, -870, -700, 0));
     }
 
     

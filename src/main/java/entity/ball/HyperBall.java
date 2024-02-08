@@ -1,36 +1,24 @@
 package entity.ball;
 
-import config.Game;
 import geometry.Coordinates;
 import geometry.Vector;
+import gui.GameView;
 import javafx.scene.input.KeyCode;
 import utils.GameConstants;
 
-import utils.Key;
-import gui.GameView;
+public class HyperBall extends Ball {
+    private double speedBoost=0.1;
 
-public class ClassicBall extends Ball {
+    public HyperBall(int d) {
+        super(d);
+    }
 
-    public Key key = new Key();
-
-    public ClassicBall() {
+    public HyperBall() {
         super(GameConstants.DEFAULT_BALL_START_COORDINATES, GameConstants.DEFAULT_BALL_START_DIRECTION,
         GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS
 );
     }
 
-    public ClassicBall(int d) {
-        super(d);
-    }
-
-    @Override
-
-    /**
-     * Cette méthode gère le mouvement de la balle dans le jeu.
-     *
-     * @return un booléen indiquant si la balle est perdue ou non.
-     *         Retourne `true` si la balle est toujours en jeu, `false` sinon.
-     */
     public boolean movement() {
         boolean lost = true;
         double h = GameConstants.DEFAULT_WINDOW_WIDTH;
@@ -38,8 +26,9 @@ public class ClassicBall extends Ball {
         double newX = this.getC().getX() + this.direction.getX() * this.speed;
         double newY = this.getC().getY() + this.direction.getY() * this.speed;
 
-        if (CollisionR) {
-            if (GameView.BougePColision) {
+        // Gestion des collisions avec la raquettes
+        if(CollisionR) {
+            if(GameView.BougePColision) {
                 this.direction.setY(-this.direction.getY());
                 newY = this.getC().getY() + this.direction.getY() * this.speed;
                 CollisionR = false;
@@ -73,11 +62,13 @@ public class ClassicBall extends Ball {
         if (newX < 0 || newX > h - this.getRadius()) {
             this.direction.setX(-this.direction.getX());
             newX = this.getC().getX() + this.direction.getX() * this.speed;
+            setBoost();
         }
         if (newY < 0 || CollisionR) {
             this.direction.setY(-this.direction.getY());
             newY = this.getC().getY() + this.direction.getY() * this.speed;
             CollisionR = false;
+            setBoost();
         }
         if (newY > w - this.getRadius()) {
             lost = false;
@@ -85,6 +76,11 @@ public class ClassicBall extends Ball {
 
         this.setC(new Coordinates(newX, newY));
         return lost;
+    }
+
+    public void setBoost() {
+        this.speed += speedBoost;
+        System.out.println(this.speed);
     }
 
 }
