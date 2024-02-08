@@ -13,9 +13,8 @@ public class ClassicBall extends Ball {
 
     public Key key = new Key();
 
-    public ClassicBall() {
-        super(GameConstants.DEFAULT_BALL_START_COORDINATES, GameConstants.DEFAULT_BALL_START_DIRECTION,
-                GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS);
+    public ClassicBall(Coordinates c, Vector direction, int speed, int d) {
+        super(c, direction, speed, d);
     }
 
     public ClassicBall(int d) {
@@ -34,35 +33,35 @@ public class ClassicBall extends Ball {
         boolean lost = true;
         double h = GameConstants.DEFAULT_WINDOW_WIDTH;
         double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
-        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
-        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+        double newX = this.getC().getX() + this.direction.getX() * this.speed;
+        double newY = this.getC().getY() + this.direction.getY() * this.speed;
 
         if (CollisionR) {
             if (GameView.BougePColision) {
-                this.getDirection().setY(-this.getDirection().getY());
-                newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+                this.direction.setY(-this.direction.getY());
+                newY = this.getC().getY() + this.direction.getY() * this.speed;
                 CollisionR = false;
             }
             if (!GameView.BougePColision) {
-                for (KeyCode key : GameView.direction){
+                for (KeyCode key : GameView.direction) {
                     switch (key) {
                         case RIGHT:
                         case D:
                             System.out.println("droite");
-                            this.getDirection().setX(1);
-                            this.getDirection().setY(-1);
-                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
-                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+                            this.direction.setX(1);
+                            this.direction.setY(-1);
+                            newX = this.getC().getX() + this.direction.getX() * this.speed;
+                            newY = this.getC().getY() + this.direction.getY() * this.speed;
                             CollisionR = false;
 
                             break;
                         case LEFT:
                         case Q:
                             System.out.println("gauche");
-                            this.getDirection().setX(-1);
-                            this.getDirection().setY(-1);
-                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
-                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+                            this.direction.setX(-1);
+                            this.direction.setY(-1);
+                            newX = this.getC().getX() + this.direction.getX() * this.speed;
+                            newY = this.getC().getY() + this.direction.getY() * this.speed;
                             CollisionR = false;
                             break;
                     }
@@ -70,12 +69,12 @@ public class ClassicBall extends Ball {
             }
         }
         if (newX < 0 || newX > h - this.getRadius()) {
-            this.getDirection().setX(-this.getDirection().getX());
-            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+            this.direction.setX(-this.direction.getX());
+            newX = this.getC().getX() + this.direction.getX() * this.speed;
         }
         if (newY < 0 || CollisionR) {
-            this.getDirection().setY(-this.getDirection().getY());
-            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+            this.direction.setY(-this.direction.getY());
+            newY = this.getC().getY() + this.direction.getY() * this.speed;
             CollisionR = false;
         }
         if (newY > w - this.getRadius()) {

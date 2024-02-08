@@ -34,12 +34,12 @@ public class ClasssicRacket extends Racket {
             switch (key) {
                 case Q:
                 case LEFT:
-                    if (this.mX() > -longueur/2)
+                    if (this.mX() > -height/2)
                         this.mX(this.mX() - speed);
                     break;
                 case D:
                 case RIGHT:
-                    if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH-largeur-70)
+                    if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH-width-70)
                         this.mX(this.mX() + speed);
                     break;
                 case SPACE:
@@ -57,7 +57,5 @@ public class ClasssicRacket extends Racket {
         }
     }
 }
-
-
 
 
