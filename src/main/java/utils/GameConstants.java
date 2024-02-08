@@ -17,7 +17,6 @@ public final class GameConstants {
     public static final int DEFAULT_BALL_RADIUS= 10; 
     public static final Vector DEFAULT_BALL_START_DIRECTION=new Vector( new Coordinates(1, 1));
     public static final Coordinates DEFAULT_BALL_START_COORDINATES = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH/2, GameConstants.DEFAULT_WINDOW_HEIGHT/2);
-    public static final int HYPER_BALL_SPEED = 6;
 
     //fenetre
     public static final double DEFAULT_WINDOW_WIDTH = 1000.0; 
