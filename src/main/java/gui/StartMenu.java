@@ -1,5 +1,6 @@
 package gui;
 
+import config.Game;
 import gui.App;
 import gui.GameView;
 import javafx.scene.control.Button;

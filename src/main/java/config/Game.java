@@ -14,6 +14,7 @@ public class Game {
     private Racket racket;
     private Brick[][] bricks;
     private BricksArrangement arrangement;
+    private static boolean lost = false;
 
     public Game(Ball ball,Racket racket, BricksArrangement arrangement) {
 
@@ -84,7 +85,7 @@ public class Game {
     public void update(long deltaT) {
         // Quand la balle arrive au sud on perds (tres primaire comme code)
         if (!ball.movement()) {
-            lost();
+            lost=true;
         }
         // // Si la balle touche la raquette
         if (racket.CollisionRacket(ball.getC())) {
@@ -97,16 +98,12 @@ public class Game {
         }
     }
 
-    public void lost() {
-        // ball.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
-        // ball.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION);
-        System.exit(0);
-    }
-
     public Racket getRacket() {
         return racket;
     }
-
+    public static boolean isLost() {
+        return lost;
+    }
     // public static void main(String[] args) {
     // Game g = new Game(new Ball(), new Racket(), BricksArrangement.DEFAULT);
     // g.displayBricksInTerminal();
