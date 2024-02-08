@@ -12,21 +12,21 @@ public class HyperBall extends Ball {
         super(d);
     }
 
-    public HyperBall(Coordinates c, Vector direction, int vitesse, int d) {
-        super(c, direction, vitesse, d);
+    public HyperBall(Coordinates c, Vector direction,int speed ,int d) {
+        super(c, direction, speed, d);
     }
 
     public boolean movement() {
-        boolean aux = true;
+        boolean lost = true;
         double h = GameConstants.DEFAULT_WINDOW_WIDTH;
         double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
-        double newX = this.getC().getX() + this.direction.getX() * this.vitesse;
-        double newY = this.getC().getY() + this.direction.getY() * this.vitesse;
+        double newX = this.getC().getX() + this.direction.getX() * this.speed;
+        double newY = this.getC().getY() + this.direction.getY() * this.speed;
 
         if (CollisionR) {
             if (GameView.BougePColision) {
                 this.direction.setY(-this.direction.getY());
-                newY = this.getC().getY() + this.direction.getY() * this.vitesse;
+                newY = this.getC().getY() + this.direction.getY() * this.speed;
                 CollisionR = false;
             }
             if (!GameView.BougePColision) {
@@ -37,8 +37,8 @@ public class HyperBall extends Ball {
                             System.out.println("droite");
                             this.direction.setX(1);
                             this.direction.setY(-1);
-                            newX = this.getC().getX() + this.direction.getX() * this.vitesse;
-                            newY = this.getC().getY() + this.direction.getY() * this.vitesse;
+                            newX = this.getC().getX() + this.direction.getX() * this.speed;
+                            newY = this.getC().getY() + this.direction.getY() * this.speed;
                             CollisionR = false;
 
                             break;
@@ -47,8 +47,8 @@ public class HyperBall extends Ball {
                             System.out.println("gauche");
                             this.direction.setX(-1);
                             this.direction.setY(-1);
-                            newX = this.getC().getX() + this.direction.getX() * this.vitesse;
-                            newY = this.getC().getY() + this.direction.getY() * this.vitesse;
+                            newX = this.getC().getX() + this.direction.getX() * this.speed;
+                            newY = this.getC().getY() + this.direction.getY() * this.speed;
                             CollisionR = false;
                             break;
                     }
@@ -57,26 +57,26 @@ public class HyperBall extends Ball {
         }
         if (newX < 0 || newX > h - this.getRadius()) {
             this.direction.setX(-this.direction.getX());
-            newX = this.getC().getX() + this.direction.getX() * this.vitesse;
+            newX = this.getC().getX() + this.direction.getX() * this.speed;
             setBoost();
         }
         if (newY < 0 || CollisionR) {
             this.direction.setY(-this.direction.getY());
-            newY = this.getC().getY() + this.direction.getY() * this.vitesse;
+            newY = this.getC().getY() + this.direction.getY() * this.speed;
             CollisionR = false;
             setBoost();
         }
         if (newY > w - this.getRadius()) {
-            aux = false;
+            lost = false;
         }
 
         this.setC(new Coordinates(newX, newY));
-        return aux;
+        return lost;
     }
 
     public void setBoost() {
-        this.vitesse += 0.2;
-        System.out.println(this.vitesse);
+        this.speed += 0.2;
+        System.out.println(this.speed);
     }
 
 }

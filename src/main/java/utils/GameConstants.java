@@ -1,5 +1,8 @@
 package utils;
 
+import geometry.Coordinates;
+import geometry.Vector;
+
 public final class GameConstants {
 
     //brick
@@ -12,6 +15,8 @@ public final class GameConstants {
     //ball
     public static final int DEFAULT_BALL_SPEED = 5; 
     public static final int DEFAULT_BALL_RADIUS= 10; 
+    public static final Vector DEFAULT_BALL_START_DIRECTION=new Vector( new Coordinates(1, 1));
+    public static final Coordinates DEFAULT_BALL_START_COORDINATES = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH/2, GameConstants.DEFAULT_WINDOW_HEIGHT/2);
 
     //fenetre
     public static final double DEFAULT_WINDOW_WIDTH = 1000.0; 

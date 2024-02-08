@@ -72,37 +72,38 @@ public class Game {
         }
     }
 
-    public void createBricks() {}
+    public void createBricks() {
+    }
 
     public Ball getBall() {
         return ball;
     }
+
     public void update(long deltaT) {
         // TODO implement here
         // Quand la balle arrive au sud on perds (tres primaire comme code)
         if (!ball.movement()) {
             lost();
         }
-        // Si la balle touche la raquette
-        if(collisionRacket(ball.getC())){
+        // // Si la balle touche la raquette
+        if (racket.CollisionRacket(ball.getC())) {
             ball.setCollisionR(true);
-            System.out.println("collisionX");
+            System.out.println("collision");
+        }
+        if (ball.isOverlap(racket)) {
+            ball.setCollisionR(true);
+            System.out.println("overlap");
         }
     }
 
-
     public void lost() {
+        // ball.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
+        // ball.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION);
         System.exit(0);
     }
 
     public Racket getRacket() {
         return racket;
-    }
-
-
-    public boolean collisionRacket(Coordinates c) {
-        return c.getX() >= racket.getC().getX() && c.getX() <= racket.getC().getX() + racket.getLongueur()
-                && c.getY() >= racket.getC().getY() && c.getY() <= racket.getC().getY() + racket.getLargeur();
     }
 
     // public static void main(String[] args) {
