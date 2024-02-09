@@ -17,21 +17,21 @@ faire la mise à jour de l'affichage des briques au cours de la partie (càd si 
 <span style="color:green">**Fait:**</span>
 Initialisation de la disposition classique des briques, briques de différents types, préparation pour implémenter les différentes dispositions possibles
 
-<span style="color:purple">**A Faire:**<\span>
+<span style="color:purple">**A Faire:**</span>
 Update de la partie, différentes config de map...
     
 ### Bencheikh Ilias
-<span style="color:green">**Fait:**<\span>
+<span style="color:green">**Fait:**</span>
 Implementation du gradle et d'une base pour le jeu + commencer a implementer le moteur physique
 
-<span style="color:purple">**A Faire:**<\span>
+<span style="color:purple">**A Faire:**</span>
 finir le moteur du jeu et commencer a approfondir la partie physique
 
 ### Belhassen rayan
-<span style="color:green">**Fait:**<\span>
+<span style="color:green">**Fait:**</span>
 implémentation du code de la racket 
 
-<span style="color:purple">**A Faire:**<\span>
+<span style="color:purple">**A Faire:**</span>
 collisions de la racket
 affichage de la racket
 
@@ -62,5 +62,5 @@ affichage de la racket
 
 -fps: creation de la class qui calcul les fps
 
-<span style="color:purple">**A Faire:**<\span>
+<span style="color:purple">**A Faire:**</span>
 rien
