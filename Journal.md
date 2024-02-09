@@ -1,38 +1,38 @@
-Semaine 1:
-    Benmalek Majda
-    Fait:
+##Semaine 1:
+    ###Benmalek Majda
+    <span style="color:green">**Fait:**<\span>
         Un debut primaire de la balle, avec juste les collisions avec les 3 (nord, est, ouest) limites de la fenetre
-    A Faire:
+    <span style="color:purple">**A Faire:**<\span>
         Les menu (acceuil(pour s2), option, game over, fin de niveau, une bonne gestion de l'animation)
         
-    Mushtaq Amenah 
-    Fait:
+    ###Mushtaq Amenah 
+    <span style="color:green">**Fait:**<\span>
         une 1ère version d'un affichage des briques
-    A Faire:
+    **A Faire:**
         faire la mise à jour de l'affichage des briques au cours de la partie (càd si des briques se cassent etc...)
         
-    Olivier
-    Fait:
+    ###Olivier
+    <span style="color:green">**Fait:**<\span>
         Initialisation de la disposition classique des briques, briques de différents types, préparation pour implémenter les différentes dispositions possibles
-    A Faire:
+    <span style="color:purple">**A Faire:**<\span>
         Update de la partie, différentes config de map...
     
-    Bencheikh Ilias
-    Fait:
+    ###Bencheikh Ilias
+    <span style="color:green">**Fait:**<\span>
          Implementation du gradle et d'une base pour le jeu + commencer a implementer le moteur physique
-    A faire :
+    <span style="color:purple">**A Faire:**<\span>
         finir le moteur du jeu et commencer a approfondir la partie physique
 
-    Belhassen rayan
-    Fait:
+    ###Belhassen rayan
+    <span style="color:green">**Fait:**<\span>
         implémentation du code de la racket 
-    A faire:
+    <span style="color:purple">**A Faire:**<\span>
         collisions de la racket
         affichage de la racket
 
-Semaine 2:
-    Belhassen rayan
-    Fait:
+##Semaine 2:
+    ###Belhassen rayan
+    <span style="color:green">**Fait:**<\span>
         -collisions: collision de la raquette avec la balle + prend en compte que la raquette bouge durant la collision
         -GravityBall: nouvelle balle qui subit la gravité (sans perte de vitesse)
         -HyperBall: nouvelle balle qui à chaque rebond gagne de la vitesse
@@ -45,5 +45,5 @@ Semaine 2:
         -touche: creation de la classe qui gere la lisibilié des touches
         -simplification: rajout des varibles dans "GameConstants" afin de faciliter les modifications
         -fps: creation de la class qui calcul les fps
-    A Faire:
+    <span style="color:purple">**A Faire:**<\span>
         rien
