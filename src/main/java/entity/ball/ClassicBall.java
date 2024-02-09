@@ -70,7 +70,7 @@ public class ClassicBall extends Ball {
                 }
             }
         }
-        if (newX < 0 || newX > h - this.getRadius()) {
+        if (newX < 0 || newX > w - this.getRadius()) {
             this.direction.setX(-this.direction.getX());
             newX = this.getC().getX() + this.direction.getX() * this.speed;
         }
@@ -79,7 +79,7 @@ public class ClassicBall extends Ball {
             newY = this.getC().getY() + this.direction.getY() * this.speed;
             CollisionR = false;
         }
-        if (newY > w - this.getRadius()) {
+        if (newY > h - this.getRadius()) {
             lost = false;
         }
 
