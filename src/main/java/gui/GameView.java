@@ -144,5 +144,4 @@ public class GameView extends App {
     public void animationStop() {
         animationTimer.stop();
     }
-
 }

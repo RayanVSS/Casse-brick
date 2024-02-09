@@ -88,10 +88,10 @@ public class Game {
             ball.setCollisionR(true);
             System.out.println("collision");
         }
-        if (ball.isOverlap(racket)) {
-            ball.setCollisionR(true);
-            System.out.println("overlap");
-        }
+        // if (ball.isOverlap(racket)) {
+        //     ball.setCollisionR(true);
+        //     System.out.println("overlap");
+        // }
     }
 
     public void lost() {
