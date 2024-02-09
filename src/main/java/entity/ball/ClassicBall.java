@@ -33,8 +33,8 @@ public class ClassicBall extends Ball {
      */
     public boolean movement() {
         boolean lost = true;
-        double h = GameConstants.DEFAULT_WINDOW_WIDTH;
-        double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
+        double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
+        double w = GameConstants.DEFAULT_WINDOW_WIDTH;
         double newX = this.getC().getX() + this.direction.getX() * this.speed;
         double newY = this.getC().getY() + this.direction.getY() * this.speed;
 

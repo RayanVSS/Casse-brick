@@ -1,6 +1,5 @@
 package config;
 
-
 import entity.ball.Ball;
 import entity.brick.Brick;
 import entity.brick.BrickClassic;
@@ -14,20 +13,20 @@ public class Game {
     private Racket racket;
     private Brick[][] bricks;
     private BricksArrangement arrangement;
-    private static boolean lost = false;
+    private boolean lost = false;
 
-    public Game(Ball ball,Racket racket, BricksArrangement arrangement) {
+    public Game(Ball ball, Racket racket, BricksArrangement arrangement) {
 
         this.ball = ball;
         this.racket = racket;
         this.arrangement = arrangement;
         initBricks();
     }
-    //Setters/getters
+
+    // Setters/getters
     public Ball getBall() {
         return ball;
     }
-
 
     private void initBricks() {
         switch (arrangement) {
@@ -80,29 +79,32 @@ public class Game {
     public void createBricks() {
     }
 
-
-
     public void update(long deltaT) {
         // Quand la balle arrive au sud on perds (tres primaire comme code)
         if (!ball.movement()) {
-            lost=true;
+            lost = true;
+            System.out.println("Perdu");
         }
         // // Si la balle touche la raquette
         if (racket.CollisionRacket(ball.getC())) {
             ball.setCollisionR(true);
             System.out.println("collision");
         }
-        if (ball.isOverlap(racket)) {
-            ball.setCollisionR(true);
-            System.out.println("overlap");
-        }
+        // if (ball.isOverlap(racket)) {
+        //     ball.setCollisionR(true);
+        //     System.out.println("overlap");
+        // }
     }
 
     public Racket getRacket() {
         return racket;
     }
-    public static boolean isLost() {
+
+    public boolean isLost() {
         return lost;
+    }
+    public void setLost(boolean lost) {
+        this.lost = lost;
     }
     // public static void main(String[] args) {
     // Game g = new Game(new Ball(), new Racket(), BricksArrangement.DEFAULT);
