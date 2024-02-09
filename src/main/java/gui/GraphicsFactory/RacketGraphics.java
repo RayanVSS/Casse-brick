@@ -1,4 +1,4 @@
-package gui;
+package gui.GraphicsFactory;
 
 import javafx.scene.shape.Rectangle;
 import entity.racket.*;

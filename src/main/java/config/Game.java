@@ -1,6 +1,5 @@
 package config;
 
-
 import entity.ball.Ball;
 import entity.brick.Brick;
 import entity.brick.BrickClassic;
@@ -14,13 +13,19 @@ public class Game {
     private Racket racket;
     private Brick[][] bricks;
     private BricksArrangement arrangement;
+    private boolean lost = false;
 
-    public Game(Ball ball,Racket racket, BricksArrangement arrangement) {
+    public Game(Ball ball, Racket racket, BricksArrangement arrangement) {
 
         this.ball = ball;
         this.racket = racket;
         this.arrangement = arrangement;
         initBricks();
+    }
+
+    // Setters/getters
+    public Ball getBall() {
+        return ball;
     }
 
     private void initBricks() {
@@ -74,14 +79,11 @@ public class Game {
     public void createBricks() {
     }
 
-    public Ball getBall() {
-        return ball;
-    }
-
     public void update(long deltaT) {
         // Quand la balle arrive au sud on perds (tres primaire comme code)
         if (!ball.movement()) {
-            lost();
+            lost = true;
+            System.out.println("Perdu");
         }
         // // Si la balle touche la raquette
         if (racket.CollisionRacket(ball.getC())) {
@@ -104,6 +106,12 @@ public class Game {
         return racket;
     }
 
+    public boolean isLost() {
+        return lost;
+    }
+    public void setLost(boolean lost) {
+        this.lost = lost;
+    }
     // public static void main(String[] args) {
     // Game g = new Game(new Ball(), new Racket(), BricksArrangement.DEFAULT);
     // g.displayBricksInTerminal();

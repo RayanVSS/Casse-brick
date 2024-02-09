@@ -34,6 +34,7 @@ public abstract class Ball extends Entity {
         this.speed = speed;
         this.radius = d;
     }
+    //Setters/getters
 
     public int getRadius() {
         return this.radius;
@@ -43,9 +44,6 @@ public abstract class Ball extends Entity {
         return this.direction;
     }
 
-    public Vector setDirection(Vector v) {
-        return this.direction = v;
-    }
 
     public void setSpeed(double v) {
         this.speed = v;
@@ -66,6 +64,13 @@ public abstract class Ball extends Entity {
     public Boolean getCollisionR() {
         return this.CollisionR;
     }
+    public void setDirection(Vector d) {
+        this.direction = d;
+    }
+    public void setSpeed(int v) {
+        this.speed = v;
+    }
+
 
     public abstract boolean movement();
 
