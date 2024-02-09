@@ -1,12 +1,12 @@
-##Semaine 1:
-    ###Benmalek Majda
-    <span style="color:green">**Fait:**<\span>
+## Semaine 1: 
+    ### Benmalek Majda
+    <span style="color:green">**Fait:**</span>
         Un debut primaire de la balle, avec juste les collisions avec les 3 (nord, est, ouest) limites de la fenetre
-    <span style="color:purple">**A Faire:**<\span>
+    <span style="color:purple">**A Faire:**</span>
         Les menu (acceuil(pour s2), option, game over, fin de niveau, une bonne gestion de l'animation)
         
-    ###Mushtaq Amenah 
-    <span style="color:green">**Fait:**<\span>
+    ### Mushtaq Amenah 
+    <span style="color:green">**Fait:**</span>
         une 1ère version d'un affichage des briques
     **A Faire:**
         faire la mise à jour de l'affichage des briques au cours de la partie (càd si des briques se cassent etc...)
@@ -32,7 +32,7 @@
 
 ##Semaine 2:
     ###Belhassen rayan
-    <span style="color:green">**Fait:**<\span>
+    <span style="color:green">**Fait:**</span>
         -collisions: collision de la raquette avec la balle + prend en compte que la raquette bouge durant la collision
         -GravityBall: nouvelle balle qui subit la gravité (sans perte de vitesse)
         -HyperBall: nouvelle balle qui à chaque rebond gagne de la vitesse
