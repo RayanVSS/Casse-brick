@@ -7,7 +7,7 @@ import javafx.scene.input.KeyCode;
 import utils.GameConstants;
 
 public class GravityBall extends Ball {
-    private double gravity=0.01;
+    private double gravity = 0.01;
 
     public GravityBall() {
         super(GameConstants.DEFAULT_BALL_START_COORDINATES, GameConstants.DEFAULT_BALL_START_DIRECTION,
@@ -20,8 +20,8 @@ public class GravityBall extends Ball {
 
     public boolean movement() {
         boolean lost = true;
-        double h = GameConstants.DEFAULT_WINDOW_WIDTH;
-        double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
+        double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
+        double w = GameConstants.DEFAULT_WINDOW_WIDTH;
         double newX = this.getC().getX() + this.direction.getX() * this.speed;
         double newY = this.getC().getY() + this.direction.getY() * this.speed;
 
