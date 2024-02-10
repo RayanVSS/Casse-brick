@@ -30,8 +30,7 @@ public class GravityBall extends Ball {
                 this.direction.setY(-this.direction.getY());
                 newY = this.getC().getY() + this.direction.getY() * this.speed;
                 CollisionR = false;
-            }
-            if (!GameView.BougePColision) {
+            } else {
                 for (KeyCode key : GameView.direction) {
                     switch (key) {
                         case RIGHT:

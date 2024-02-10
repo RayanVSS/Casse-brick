@@ -1,5 +1,7 @@
 package config;
 
+import java.util.Vector;
+
 import entity.ball.Ball;
 import entity.brick.Brick;
 import entity.brick.BrickClassic;
@@ -86,7 +88,6 @@ public class Game {
             System.out.println();
         }
     }
-
     public void createBricks() {
     }
 
@@ -96,15 +97,13 @@ public class Game {
             lost = true;
             System.out.println("Perdu");
         }
-        // // Si la balle touche la raquette
-        if (racket.CollisionRacket(ball.getC())) {
+        // Si la balle touche la raquette
+        if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
+            //garder la balle au dessus de la raquette pour eviter que la balle traverse la raquette
+            // ball.getC().setY(racket.getC().getY() - ball.getRadius());
             System.out.println("collision");
         }
-        // if (ball.isOverlap(racket)) {
-        // ball.setCollisionR(true);
-        // System.out.println("overlap");
-        // }
     }
 
     // public static void main(String[] args) {

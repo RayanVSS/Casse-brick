@@ -34,7 +34,7 @@ public abstract class Ball extends Entity {
         this.speed = speed;
         this.radius = d;
     }
-    //Setters/getters
+    // Setters/getters
 
     public int getRadius() {
         return this.radius;
@@ -43,7 +43,6 @@ public abstract class Ball extends Entity {
     public Vector getDirection() {
         return this.direction;
     }
-
 
     public void setSpeed(double v) {
         this.speed = v;
@@ -64,20 +63,21 @@ public abstract class Ball extends Entity {
     public Boolean getCollisionR() {
         return this.CollisionR;
     }
+
     public void setDirection(Vector d) {
         this.direction = d;
     }
+
     public void setSpeed(int v) {
         this.speed = v;
     }
-
 
     public abstract boolean movement();
 
     public boolean isOverlap(Racket r) {
         // Trouver le point le plus proche du cercle dans le rectangle
-        double closestX = clamp(this.getC().getX(),r.getC().getX(), this.getC().getX() + r.getLargeur());
-        double closestY = clamp(this.getC().getY(),r.getC().getY(), this.getC().getY() + r.getLongueur());
+        double closestX = clamp(this.getC().getX(), r.getC().getX(), this.getC().getX() + r.getLargeur());
+        double closestY = clamp(this.getC().getY(), r.getC().getY(), this.getC().getY() + r.getLongueur());
 
         // Calculer la distance entre le centre du cercle et ce point
         double distanceX = this.getC().getX() - closestX;
@@ -86,6 +86,14 @@ public abstract class Ball extends Entity {
         // Si la distance est inférieure au rayon du cercle, ils se chevauchent
         return (distanceX * distanceX + distanceY * distanceY) < (GameConstants.DEFAULT_BALL_RADIUS
                 * GameConstants.DEFAULT_BALL_RADIUS);
+    }
+
+    public boolean isOverlap2(Racket r) {
+
+        double deltaX = this.getC().getX() - Math.max(r.getC().getX(), Math.min(this.getC().getX(), r.getC().getX() + r.getLongueur()));
+        double deltaY = this.getC().getY() - Math.max(r.getC().getY(), Math.min(this.getC().getY(), r.getC().getY() + r.getLargeur()));
+
+        return (deltaX * deltaX + deltaY * deltaY) < (this.getRadius() * this.getRadius());
     }
 
     public double clamp(double val, double min, double max) {
