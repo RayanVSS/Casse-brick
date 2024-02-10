@@ -13,6 +13,7 @@ import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.racket.ClasssicRacket;
+import entity.racket.YNotFixeRacket;
 import geometry.Coordinates;
 import geometry.Vector;
 import gui.GraphicsFactory.BallGraphics;
@@ -28,8 +29,6 @@ public class GameView extends App {
 
     private Stage primaryStage;
     private Pane root = new Pane();
-    private StackPane overRoot = new StackPane();
-    private VBox vbox = new VBox();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
 
@@ -60,7 +59,7 @@ public class GameView extends App {
 
         Ball ball = new GravityBall();
         Ball Cball = new ClassicBall();
-        game = new Game(Cball, new ClasssicRacket(), BricksArrangement.DEFAULT);
+        game = new Game(Cball, new YNotFixeRacket(), BricksArrangement.DEFAULT);
 
         // Création des éléments graphiques
         this.graphBall = new BallGraphics(game.getBall());

@@ -28,6 +28,18 @@ public class Game {
         return ball;
     }
 
+    public Racket getRacket() {
+        return racket;
+    }
+
+    public boolean isLost() {
+        return lost;
+    }
+
+    public void setLost(boolean lost) {
+        this.lost = lost;
+    }
+
     private void initBricks() {
         switch (arrangement) {
             case DEFAULT:
@@ -43,7 +55,6 @@ public class Game {
     private void initDefaultBricksArrangement() {
 
         if (checkDefaultParameters()) {
-
             bricks = new Brick[GameConstants.MAP_HEIGHT][GameConstants.MAP_WIDTH]; // [ligne][colonne]
             for (int i = 1; i < GameConstants.ROWS_OF_BRICKS + 1; i++) { // 1 espace en haut
                 for (int j = 1; j < GameConstants.COLUMNS_OF_BRICKS + 1; j++) { // 1 espace côté gauche/droit
@@ -90,28 +101,12 @@ public class Game {
             ball.setCollisionR(true);
             System.out.println("collision");
         }
-        if (ball.isOverlap(racket)) {
-            ball.setCollisionR(true);
-            System.out.println("overlap");
-        }
+        // if (ball.isOverlap(racket)) {
+        // ball.setCollisionR(true);
+        // System.out.println("overlap");
+        // }
     }
 
-    public void lost() {
-        // ball.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
-        // ball.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION);
-        System.exit(0);
-    }
-
-    public Racket getRacket() {
-        return racket;
-    }
-
-    public boolean isLost() {
-        return lost;
-    }
-    public void setLost(boolean lost) {
-        this.lost = lost;
-    }
     // public static void main(String[] args) {
     // Game g = new Game(new Ball(), new Racket(), BricksArrangement.DEFAULT);
     // g.displayBricksInTerminal();
