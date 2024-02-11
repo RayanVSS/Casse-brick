@@ -3,6 +3,7 @@ package entity.ball;
 import entity.Entity;
 import entity.brick.Brick;
 import geometry.*;
+import utils.GameConstants;
 
 /**
  * Classe Balle
@@ -59,7 +60,29 @@ public abstract class Ball extends Entity {
     }
 
     public boolean intersectBrick(Brick b) {
-        return false;
+
+        // Coordonnées du centre du cercle
+        double circleCenterX = getC().getX() + getRayon();
+        double circleCenterY = getC().getY() + getRayon();
+
+        double rectLeft = b.getC().getX();
+        double rectTop = b.getC().getY();
+
+        double rectRight = b.getC().getX() + GameConstants.BRICK_WIDTH;
+        double rectBottom = b.getC().getY() + GameConstants.BRICK_HEIGHT;
+
+        // Distance horizontale entre le centre du cercle et le rectangle
+        double distX = Math.abs(circleCenterX - (rectLeft + rectRight) / 2);
+        double halfRectWidth = GameConstants.BRICK_WIDTH / 2;
+
+        // Distance verticale entre le centre du cercle et le rectangle
+        double distY = Math.abs(circleCenterY - (rectTop + rectBottom) / 2);
+        double halfRectHeight = GameConstants.BRICK_HEIGHT / 2;
+
+        // Intersection si la distance horizontale est inférieure à la moitié de la largeur du rectangle plus le rayon du cercle,
+        // et la distance verticale est inférieure à la moitié de la hauteur du rectangle plus le rayon du cercle
+
+        return distX <= halfRectWidth + getRayon() && distY <= halfRectHeight + getRayon();
     }
 
     public abstract boolean movement();

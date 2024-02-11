@@ -7,6 +7,7 @@ import entity.brick.BrickClassic;
 import entity.racket.ClassicRacket;
 import entity.racket.Racket;
 import geometry.Coordinates;
+import geometry.Vector;
 import utils.GameConstants;
 
 public class Game {
@@ -80,10 +81,9 @@ public class Game {
     }
 
     public void update(long deltaT) {
-        //Touche une brique
-        if (checkCollidesBrick()) {
 
-        }
+        //Vérifie si la balle touche une brique
+        handleCollisionBricks(); //gérer la collision des briques
 
         // Quand la balle arrive au sud on perds (tres primaire comme code)
         if (!ball.movement()) {
@@ -96,10 +96,48 @@ public class Game {
         }
     }
 
-    private boolean checkCollidesBrick() {
-        Coordinates ballCoords = ball.getC();
-        
-        return false;
+    private void handleCollisionBricks() {
+
+        // où se trouve la balle
+        int ballBrickX = (int) (ball.getC().getX() / GameConstants.BRICK_WIDTH);
+        int ballBrickY = (int) (ball.getC().getY() / GameConstants.BRICK_HEIGHT);
+
+        // Vector newDirection = new Vector(new Coordinates(ball.getDirection().getX(), ball.getDirection().getY()));
+
+        boolean collide = false;
+
+        if (inMap(ballBrickX, ballBrickY - 1) && bricks[ballBrickX][ballBrickY - 1] != null
+                && ball.intersectBrick(bricks[ballBrickX][ballBrickY - 1])) { //Brique au dessus 
+            ball.getDirection().setY(-ball.getDirection().getY());
+            collide = true;
+        }
+
+        if (inMap(ballBrickX, ballBrickY + 1) && bricks[ballBrickX][ballBrickY + 1] != null
+                && ball.intersectBrick(bricks[ballBrickX][ballBrickY + 1])) { //Brique du dessous
+            ball.getDirection().setY(-ball.getDirection().getY());
+            collide = true;
+        }
+
+        if (inMap(ballBrickX - 1, ballBrickY) && bricks[ballBrickX - 1][ballBrickY] != null
+                && ball.intersectBrick(bricks[ballBrickX - 1][ballBrickY])) { //Brique à gauche
+            ball.getDirection().setY(-ball.getDirection().getY());
+            collide = true;
+        }
+
+        if (inMap(ballBrickX + 1, ballBrickY) && bricks[ballBrickX + 1][ballBrickY] != null
+                && ball.intersectBrick(bricks[ballBrickX + 1][ballBrickY])) { //Brique à droite
+            ball.getDirection().setY(-ball.getDirection().getY());
+            collide = true;
+        }
+
+        if (collide) {
+            System.out.println("COGNE");
+        }
+        //Les 4 if permettent de gérer le cas où la balle arrive pile en diagonale
+    }
+
+    private boolean inMap(int x, int y) {
+        return x >= 0 && x < GameConstants.MAP_WIDTH && y >= 0 && y < GameConstants.MAP_HEIGHT;
     }
 
     public void lost() {
