@@ -1,5 +1,6 @@
 package entity.ball;
 
+import config.Game;
 import entity.Entity;
 import entity.racket.Racket;
 import entity.brick.Brick;
@@ -125,5 +126,8 @@ public abstract class Ball extends Entity {
 
     public double clamp(double val, double min, double max) {
         return Math.max(min, Math.min(max, val));
+    }
+    public void reset(){
+        this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
     }
 }
