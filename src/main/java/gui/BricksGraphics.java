@@ -1,15 +1,15 @@
 package gui;
 
-import entite.Brique;
+import entity.brick.Brick;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 public class BricksGraphics extends StackPane {
     public ImageView imageView;
-    public Brique brique;
+    public Brick brique;
 
-    public BricksGraphics(Image image, Brique brique) {
+    public BricksGraphics(Image image, Brick brique) {
         this.brique = brique;
         this.imageView = new ImageView(image);
         this.imageView.setPreserveRatio(true);
@@ -18,15 +18,15 @@ public class BricksGraphics extends StackPane {
     }
 
     public void update() {
-        if (brique.getDurabilite() == 0) {
+        if (brique.getDurability() == 0) {
             imageView = null;
-        } else if (brique.getDurabilite() < 70 && brique.getDurabilite() > 50) {
+        } else if (brique.getDurability() < 70 && brique.getDurability() > 50) {
             Image im = ImageLoader.loadImage("src/main/ressources/briquec.png");
             imageView = new ImageView(im);
             imageView.setPreserveRatio(true);
             imageView.setFitWidth(60);
             getChildren().add(imageView);
-        } else if (brique.getDurabilite() > 0 && brique.getDurabilite() < 50) {
+        } else if (brique.getDurability() > 0 && brique.getDurability() < 50) {
             Image im = ImageLoader.loadImage("src/main/ressources/briquecc.png");
             imageView = new ImageView(im);
             imageView.setPreserveRatio(true);

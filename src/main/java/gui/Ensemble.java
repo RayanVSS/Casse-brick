@@ -1,6 +1,6 @@
 package gui;
 
-import entite.Brique;
+import entity.brick.Brick;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
@@ -8,7 +8,7 @@ import javafx.scene.layout.GridPane;
 public class Ensemble extends Group {
     public GridPane grid;
 
-    public Ensemble(Brique[][] tab) {
+    public Ensemble(Brick[][] tab) {
         this.grid = new GridPane();
         for (int i = 0; i < tab.length; i++) {
             for (int j = 0; j < tab[0].length; j++) {
