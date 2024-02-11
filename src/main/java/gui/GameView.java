@@ -4,7 +4,6 @@ import javafx.animation.*;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import config.*;
 import entity.ball.*;
@@ -12,9 +11,10 @@ import entity.racket.*;
 import geometry.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
-import gui.Menu.GameOver;
+import gui.Menu.MenuControllers.GameOverController;
 import utils.*;
 import java.util.*;
+import gui.GraphicsFactory.FPSGraphics;
 
 public class GameView extends App {
 
@@ -35,9 +35,8 @@ public class GameView extends App {
     Key key = new Key();
 
     // fps
-    private FPS fpsCalculator = new FPS();
-    private Text fpsText = new Text();
-    private Text maxfpsText = new Text();
+    private FPSGraphics fpsGraphics = new FPSGraphics();
+    
 
     // animation
     AnimationTimer animationTimer;
@@ -47,29 +46,16 @@ public class GameView extends App {
         this.primaryStage = p;
 
         /* differentes balles */
-
-        Ball ball = new GravityBall();
-        Ball Cball = new ClassicBall();
-        game = new Game(Cball, new ClasssicRacket(), BricksArrangement.DEFAULT);
+        game = new Game(new ClassicBall(), new ClasssicRacket(), BricksArrangement.DEFAULT);
 
         // Création des éléments graphiques
         this.graphBall = new BallGraphics(game.getBall());
-
         this.graphRacket = new RacketGraphics(game.getRacket());
 
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
-
-        // Ajout du texte des FPS
-        fpsText.setX(10);
-        fpsText.setY(20);
-        root.getChildren().add(fpsText);
-
-        // Ajout du texte des FPS max
-        maxfpsText.setX(10);
-        maxfpsText.setY(40);
-        root.getChildren().add(maxfpsText);
+        root.getChildren().add(this.fpsGraphics);
 
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
@@ -84,13 +70,8 @@ public class GameView extends App {
         // Mise à jour de la position de la raquette
         this.graphRacket.update();
 
-        // Calcul des FPS
-        double fps = fpsCalculator.calculateFPS();
-        double maxfps = fpsCalculator.getMaxFps();
-
-        // Mise à jour du texte FPS
-        fpsText.setText("FPS: " + String.format("%.2f", fps));
-        maxfpsText.setText("Max FPS: " + String.format("%.2f", maxfps));
+        // Mise à jour des FPS
+        fpsGraphics.update();
 
     }
 
@@ -130,8 +111,9 @@ public class GameView extends App {
                     if (game.isLost()) {
                         game.setLost(false);
                         animationStop();
-                        GameOver over = new GameOver(primaryStage);
-                        over.over();
+                        GameOverController gameover = new GameOverController(primaryStage);
+
+                        //over.over();
                     }
                 }
                 last = now;

@@ -6,6 +6,7 @@ import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
+import gui.ImageLoader;
 
 public class BallGraphics extends Circle {
 

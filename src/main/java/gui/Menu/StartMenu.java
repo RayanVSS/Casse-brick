@@ -29,7 +29,7 @@ public class StartMenu implements Menu {
         btnPlay.setOnAction(e -> {
             root.getChildren().clear();
             GameView game = new GameView(primaryStage, 1);
-            game.getRoot().setStyle("-fx-background-color: #273654;");
+            game.getRoot().setStyle("-fx-background-color: #E0ECF5;");
             game.animation();
         });
         btnOptions.setOnAction(e -> {
