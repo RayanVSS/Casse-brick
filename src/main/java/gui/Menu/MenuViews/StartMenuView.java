@@ -1,7 +1,15 @@
 package gui.Menu.MenuViews;
 
+import gui.ImageLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.*;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import utils.GameConstants;
@@ -14,6 +22,7 @@ public class StartMenuView implements Menu {
     private Button btnOptions;
     private Button btnQuit;
     private Button btnTuto;
+    private Image background;
 
     public StartMenuView(Stage p) {
         this.primaryStage = p;
@@ -24,7 +33,6 @@ public class StartMenuView implements Menu {
         this.btnOptions = createButton("Options", 0, 200);
         this.btnTuto = createButton("Tutoriel", 0, 100);
         this.btnQuit = createButton("Quitter", 0, 0);
-
         root.getChildren().addAll(btnPlay, btnOptions, btnQuit, btnTuto);
         primaryStage.setScene(scene);
     }

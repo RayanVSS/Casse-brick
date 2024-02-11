@@ -13,6 +13,7 @@ import geometry.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
 import gui.Menu.MenuControllers.GameOverController;
+import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
 import java.util.Random;
 import java.util.Set;
@@ -46,17 +47,16 @@ public class GameView extends App {
     private FPSGraphics fpsGraphics = new FPSGraphics();
 
     // animation
-    AnimationTimer animationTimer;
+    private AnimationTimer animationTimer;
+    // life & score
+    private ScoreLifeView scoreLifeView;
 
     public GameView(Stage p, int level) {
 
         this.primaryStage = p;
 
         /* differentes balles */
-
-        Ball ball = new GravityBall();
-        Ball Cball = new ClassicBall();
-        game = new Game(Cball, new YNotFixeRacket(), BricksArrangement.DEFAULT);
+        game = new Game(new ClassicBall(), new YNotFixeRacket(), BricksArrangement.DEFAULT);
         // Création des particules
         for (int i = 0; i < trailLength; i++) {
             List<Particle> trail = new ArrayList<>();
@@ -71,11 +71,13 @@ public class GameView extends App {
         // Création des éléments graphiques
         this.graphBall = new BallGraphics(game.getBall());
         this.graphRacket = new RacketGraphics(game.getRacket());
+        this.scoreLifeView = new ScoreLifeView(game);
 
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
-        root.getChildren().add(this.fpsGraphics);
+        // root.getChildren().add(this.fpsGraphics);
+        root.getChildren().add(this.scoreLifeView);
 
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
@@ -92,6 +94,9 @@ public class GameView extends App {
 
         // Calcul des FPS
         this.fpsGraphics.update();
+
+        // Mise à jour du score et de la vie
+        this.scoreLifeView.update();
 
         for (int i = 0; i < trailLength; i++) {
             List<Particle> trail = particleTrails.get(i);
@@ -148,9 +153,7 @@ public class GameView extends App {
                     if (game.isLost()) {
                         game.setLost(false);
                         animationStop();
-                        GameOverController gameover = new GameOverController(primaryStage);
-
-                        // over.over();
+                        new GameOverController(primaryStage);
                     }
                 }
                 last = now;
