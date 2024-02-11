@@ -11,8 +11,13 @@ public class RacketGraphics extends Rectangle {
         this.racket = racket;
         setX(racket.getC().getX());
         setY(racket.getC().getY());
+        System.out.println("Longeur racket: " + racket.getLongueur() + " " + "Largeur: " + racket.getLargeur());
         setWidth(racket.getLongueur());
         setHeight(racket.getLargeur());
+        System.out.println("Longeur rectangle: "+this.getHeight() + " " + "Largeur: " + this.getWidth());
+        setArcWidth(20);
+        setArcHeight(20);
+
         if (racket instanceof ClassicRacket)
             setFill(Color.RED);
         else if (racket instanceof YNotFixeRacket)

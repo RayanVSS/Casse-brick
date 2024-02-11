@@ -3,27 +3,19 @@ package gui;
 import javafx.animation.*;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import config.*;
 import entity.Particle;
-import entity.ball.Ball;
-import entity.ball.ClassicBall;
-import entity.ball.GravityBall;
-import entity.racket.YNotFixeRacket;
-import geometry.Coordinates;
+import entity.ball.*;
+import entity.racket.*;
+import geometry.*;
 import geometry.Vector;
-import gui.GraphicsFactory.BallGraphics;
-import gui.GraphicsFactory.RacketGraphics;
-import gui.Menu.GameOver;
+import gui.GraphicsFactory.*;
+import gui.Menu.MenuControllers.GameOverController;
 import utils.*;
 import java.util.Random;
 import java.util.Set;
-import java.util.Stack;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -47,13 +39,11 @@ public class GameView extends App {
     private List<List<Particle>> particleTrails = new ArrayList<>();
     private int trailLength = GameConstants.DEFAULT_trailLength;
 
-    //lire les touches
+    // lire les touches
     Key key = new Key();
 
-    //fps
-    private FPS fpsCalculator = new FPS();
-    private Text fpsText = new Text();
-    private Text maxfpsText = new Text();
+    // fps
+    private FPSGraphics fpsGraphics = new FPSGraphics();
 
     // animation
     AnimationTimer animationTimer;
@@ -66,7 +56,8 @@ public class GameView extends App {
 
         Ball ball = new GravityBall();
         Ball Cball = new ClassicBall();
-         // Création des particules
+        game = new Game(Cball, new YNotFixeRacket(), BricksArrangement.DEFAULT);
+        // Création des particules
         for (int i = 0; i < trailLength; i++) {
             List<Particle> trail = new ArrayList<>();
             for (int j = 0; j < GameConstants.DEFAULT_PARTICLE; j++) { // nombre de particules
@@ -76,26 +67,15 @@ public class GameView extends App {
             }
             particleTrails.add(trail);
         }
-        game = new Game(Cball, new YNotFixeRacket(), BricksArrangement.DEFAULT);
 
         // Création des éléments graphiques
         this.graphBall = new BallGraphics(game.getBall());
-
         this.graphRacket = new RacketGraphics(game.getRacket());
 
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
-
-        // Ajout du texte des FPS
-        fpsText.setX(10);
-        fpsText.setY(20);
-        root.getChildren().add(fpsText);
-
-        // Ajout du texte des FPS max
-        maxfpsText.setX(10);
-        maxfpsText.setY(40);
-        root.getChildren().add(maxfpsText);
+        root.getChildren().add(this.fpsGraphics);
 
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
@@ -111,12 +91,7 @@ public class GameView extends App {
         this.graphRacket.update();
 
         // Calcul des FPS
-        double fps = fpsCalculator.calculateFPS();
-        double maxfps = fpsCalculator.getMaxFps();
-
-        // Mise à jour du texte FPS
-        fpsText.setText("FPS: " + String.format("%.2f", fps));
-        maxfpsText.setText("Max FPS: " + String.format("%.2f", maxfps));
+        this.fpsGraphics.update();
 
         for (int i = 0; i < trailLength; i++) {
             List<Particle> trail = particleTrails.get(i);
@@ -127,7 +102,7 @@ public class GameView extends App {
 
                 currentParticle.setCenterX(previousParticle.getCenterX());
                 currentParticle.setCenterY(previousParticle.getCenterY());
-                currentParticle.applyRandomFluctuation(); //fluctuation des particules
+                currentParticle.applyRandomFluctuation(); // fluctuation des particules
             }
 
             Particle firstParticle = trail.get(0);
@@ -172,9 +147,10 @@ public class GameView extends App {
                     key.touchesM(scene, game);
                     if (game.isLost()) {
                         game.setLost(false);
-                        GameOver over = new GameOver(primaryStage);
-                        over.over();
                         animationStop();
+                        GameOverController gameover = new GameOverController(primaryStage);
+
+                        // over.over();
                     }
                 }
                 last = now;
@@ -185,5 +161,17 @@ public class GameView extends App {
 
     public void animationStop() {
         animationTimer.stop();
+    }
+
+    public Pane getRoot() {
+        return root;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 }
