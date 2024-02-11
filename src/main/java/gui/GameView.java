@@ -3,33 +3,23 @@ package gui;
 import javafx.animation.*;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import config.*;
-import entity.ball.Ball;
-import entity.ball.ClassicBall;
-import entity.ball.GravityBall;
-import entity.racket.ClasssicRacket;
-import geometry.Coordinates;
+import entity.ball.*;
+import entity.racket.*;
+import geometry.*;
 import geometry.Vector;
-import gui.GraphicsFactory.BallGraphics;
-import gui.GraphicsFactory.RacketGraphics;
+import gui.GraphicsFactory.*;
 import gui.Menu.GameOver;
 import utils.*;
-import java.util.Random;
-import java.util.Set;
-import java.util.Stack;
-import java.util.HashSet;
+import java.util.*;
 
 public class GameView extends App {
 
     private Stage primaryStage;
     private Pane root = new Pane();
-    private StackPane overRoot = new StackPane();
-    private VBox vbox = new VBox();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
 
@@ -139,9 +129,9 @@ public class GameView extends App {
                     key.touchesM(scene, game);
                     if (game.isLost()) {
                         game.setLost(false);
+                        animationStop();
                         GameOver over = new GameOver(primaryStage);
                         over.over();
-                        animationStop();
                     }
                 }
                 last = now;
@@ -152,6 +142,14 @@ public class GameView extends App {
 
     public void animationStop() {
         animationTimer.stop();
+    }
+
+    public Scene getScene() {
+        return this.scene;
+    }
+
+    public Pane getRoot() {
+        return this.root;
     }
 
 }

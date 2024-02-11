@@ -9,7 +9,7 @@ import gui.GameView;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 
-public class GameOver {
+public class GameOver implements Menu {
     private Stage primaryStage;
     private Scene scene;
     private StackPane root;
@@ -20,33 +20,33 @@ public class GameOver {
         this.primaryStage = p;
         this.root = new StackPane();
         this.scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
+        this.root.setStyle("-fx-background-color: #273654;");
     }
 
     public void over() {
         root.getChildren().clear();
-        Button btnReplay = new Button("Rejouer");
-        Button btnQuit=new Button("Quitter");
-        Button btnMenu = new Button("Menu");
-        StackPane.setMargin(btnReplay, new Insets(0, 100, 100, 0));
-        StackPane.setMargin(btnQuit, new Insets(0, 100, 200, 000));
-        StackPane.setMargin(btnMenu, new Insets(0, 100, 300, 0));
+        Button btnReplay = createButton("Rejouer", 0, 100);
+        Button btnQuit = createButton("Quitter", 0, 200);
+        Button btnMenu = createButton("Menu", 0, 300);
+
         btnReplay.setOnAction(e -> {
             root.getChildren().clear();
-            GameView game=new GameView(primaryStage,1);
+            GameView game = new GameView(primaryStage, 1);
             game.animation();
         });
+
         btnQuit.setOnAction(e -> {
             primaryStage.close();
         });
+
         btnMenu.setOnAction(e -> {
             root.getChildren().clear();
             startMenu = new StartMenu(primaryStage);
-            primaryStage.setScene(startMenu.getScene());
+            startMenu.Menu();
         });
 
-        root.getChildren().add(btnReplay);
-        root.getChildren().add(btnQuit);
-        root.getChildren().add(btnMenu);
+        root.getChildren().addAll(btnReplay, btnQuit, btnMenu);
         primaryStage.setScene(scene);
     }
+
 }

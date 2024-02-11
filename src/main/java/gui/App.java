@@ -1,32 +1,25 @@
 package gui;
 
-import config.Game;
 import gui.Menu.StartMenu;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
 
 public class App extends Application {
 
     protected Stage primaryStage;
-    Scene scene;
+    private Scene scene;
     protected StackPane root = new StackPane();
 
     @Override
     public void start(Stage p) throws Exception {
         this.primaryStage = p;
-
+        this.primaryStage.setResizable(false);
         primaryStage.setTitle("Casse Brique");
-        Label label = new Label("Implementation du Menu");
-        root.getChildren().add(label);
-        StackPane.setMargin(label, new Insets(0, 100, 50, 0));
 
         StartMenu startMenu = new StartMenu(primaryStage);
-        primaryStage.setScene(startMenu.getScene());
+        startMenu.Menu();
         primaryStage.show();
         primaryStage.getOnCloseRequest();
 
