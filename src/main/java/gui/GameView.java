@@ -1,12 +1,17 @@
 package gui;
 
 import javafx.animation.*;
+import javafx.animation.AnimationTimer;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import config.*;
 import entity.Particle;
@@ -54,6 +59,19 @@ public class GameView extends App {
 
     public GameView(Stage p, int level) {
 
+import entite.Brique;
+import geometry.Coordonnee;
+
+public class GameView extends App {
+
+    Stage primaryStage;
+    Scene scene;
+    Pane root;
+    Game game;
+
+    public GameView(Stage p, int level) {
+
+        // TODO implement here
         this.primaryStage = p;
 
         /* differentes balles *
@@ -105,6 +123,27 @@ public class GameView extends App {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        // TODO A ENLEVER
+        Brique[][] tab = new Brique[12][13];
+        for (int i = 0; i < tab.length; i++) {
+            for (int j = 0; j < tab[0].length; j++) {
+                tab[i][j] = new Brique(new Coordonnee(i, j), j);
+            }
+        }
+
+        root = new StackPane();
+        Ensemble ensemble = new Ensemble(tab);
+        root.getChildren().add(ensemble);
+        StackPane.setAlignment(ensemble, Pos.TOP_CENTER);
+        ensemble.update();
+        // TODO A ENLEVER
+        int screenWidth = (int) Screen.getPrimary().getVisualBounds().getWidth();
+        int screenHeight = (int) Screen.getPrimary().getVisualBounds().getHeight();
+        scene = new Scene(root, screenWidth, screenHeight);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
         AnimationTimer animationTimer = new AnimationTimer() {
             long last = 0;
             double delay = 0.0;
@@ -140,6 +179,7 @@ public class GameView extends App {
     }
 
     public void update() {
+
         // Mise à jour de la position de la balle
         this.graphBall.setCenterX(game.getBall().getC().getX());
         this.graphBall.setCenterY(game.getBall().getC().getY());
