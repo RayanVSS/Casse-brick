@@ -24,6 +24,8 @@ public class GameView extends App {
         // TODO implement here
         this.primaryStage = p;
         game = new Game(1);
+
+        // TODO A ENLEVER
         Brique[][] tab = new Brique[12][13];
         for (int i = 0; i < tab.length; i++) {
             for (int j = 0; j < tab[0].length; j++) {
@@ -35,16 +37,11 @@ public class GameView extends App {
         Ensemble ensemble = new Ensemble(tab);
         root.getChildren().add(ensemble);
         StackPane.setAlignment(ensemble, Pos.TOP_CENTER);
-
-        // System.out.println("Ensemble ajoute a la racine.");
-        // System.out.println("Visibilite de root : " + root.isVisible());
+        ensemble.update();
+        // TODO A ENLEVER
         int screenWidth = (int) Screen.getPrimary().getVisualBounds().getWidth();
         int screenHeight = (int) Screen.getPrimary().getVisualBounds().getHeight();
         scene = new Scene(root, screenWidth, screenHeight);
-        // System.out.println("Visibilite de la grille dans Ensemble : " +
-        // ensemble.grid.isVisible());
-
-        // System.out.println("Scene configuree.");
 
         primaryStage.setScene(scene);
         primaryStage.show();
