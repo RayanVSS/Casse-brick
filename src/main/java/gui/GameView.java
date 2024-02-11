@@ -1,26 +1,25 @@
 package gui;
 
 import javafx.animation.*;
-import javafx.animation.AnimationTimer;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import config.*;
 import entity.Particle;
 import entity.ball.Ball;
 import entity.ball.ClassicBall;
-import entity.ball.GravityBall;
-import entity.ball.HyperBall;
-import entity.racket.ClassicRacket;
-import entity.racket.YNotFixeRacket;
+import entity.brick.Brick;
+import entity.brick.BrickClassic;
+// import entity.ball.GravityBall;
+// import entity.ball.HyperBall;
+import entity.racket.ClasssicRacket;
+// import entity.racket.YNotFixeRacket;
 import geometry.Coordinates;
 import geometry.Vector;
 import utils.*;
@@ -29,8 +28,7 @@ import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import entity.brick.Brick;
-import entity.brick.BrickClassic;
+import geometry.Coordinates;
 
 public class GameView extends App {
 
@@ -38,6 +36,8 @@ public class GameView extends App {
     private Pane root = new Pane();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
+
+    private Ensemble ensemble;
 
     // Balle
     private Circle graphBall;
@@ -51,27 +51,31 @@ public class GameView extends App {
     private List<List<Particle>> particleTrails = new ArrayList<>();
     private int trailLength = GameConstants.DEFAULT_trailLength;
 
-    //lire les touches
+    // lire les touches
     Key key = new Key();
 
-    //fps
+    // fps
     private FPS fpsCalculator = new FPS();
     private Text fpsText = new Text();
     private Text maxfpsText = new Text();
 
     public GameView(Stage p, int level) {
 
-        // TODO implement here
         this.primaryStage = p;
 
-        /* differentes balles *
-        
-        Ball ball = new GravityBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
-                randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
-                
-        Ball ball = new HyperBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
-                randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
-        */
+        /*
+         * differentes balles *
+         * 
+         * Ball ball = new GravityBall(new Coordinates(primaryStage.getWidth() / 2,
+         * primaryStage.getHeight() / 2),
+         * randomDirection(), GameConstants.DEFAULT_BALL_SPEED,
+         * GameConstants.DEFAULT_BALL_DIAMETER);
+         * 
+         * Ball ball = new HyperBall(new Coordinates(primaryStage.getWidth() / 2,
+         * primaryStage.getHeight() / 2),
+         * randomDirection(), GameConstants.DEFAULT_BALL_SPEED,
+         * GameConstants.DEFAULT_BALL_DIAMETER);
+         */
 
         Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
                 randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
@@ -87,7 +91,16 @@ public class GameView extends App {
             particleTrails.add(trail);
         }
 
-        game = new Game(ball, new ClassicRacket(), BricksArrangement.DEFAULT);
+        game = new Game(ball, new ClasssicRacket(), BricksArrangement.DEFAULT);
+
+        // Création des briques
+        Brick[][] tab = new Brick[GameConstants.ROWS_OF_BRICKS][GameConstants.COLUMNS_OF_BRICKS];
+        for (int i = 0; i < tab.length; i++) {
+            for (int j = 0; j < tab[0].length; j++) {
+                tab[i][j] = new BrickClassic(new Coordinates(i, j));
+            }
+        }
+        this.ensemble = new Ensemble(tab);
 
         // Création des éléments graphiques
         this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getRayon());
@@ -98,7 +111,8 @@ public class GameView extends App {
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
-
+        this.ensemble.setLayoutX(250);
+        root.getChildren().add(this.ensemble);
         // Ajout du texte des FPS
         fpsText.setX(10);
         fpsText.setY(20);
@@ -154,7 +168,7 @@ public class GameView extends App {
                 } else if (now - last > 1000000000 / GameConstants.DEFAULT_FPS) {
                     key.touchesR(scene, game);
 
-                    //prend les informations de la racquette pour la ball
+                    // prend les informations de la racquette pour la ball
                     BougePColision = key.isEmpty();
                     direction = key.getKeysPressed();
 
@@ -169,7 +183,7 @@ public class GameView extends App {
     }
 
     public void update() {
-
+        ensemble.update();
         // Mise à jour de la position de la balle
         this.graphBall.setCenterX(game.getBall().getC().getX());
         this.graphBall.setCenterY(game.getBall().getC().getY());
@@ -188,7 +202,7 @@ public class GameView extends App {
 
                 currentParticle.setCenterX(previousParticle.getCenterX());
                 currentParticle.setCenterY(previousParticle.getCenterY());
-                currentParticle.applyRandomFluctuation(); //fluctuation des particules
+                currentParticle.applyRandomFluctuation(); // fluctuation des particules
             }
 
             Particle firstParticle = trail.get(0);
