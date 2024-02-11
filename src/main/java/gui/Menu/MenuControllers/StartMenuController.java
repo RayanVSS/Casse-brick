@@ -1,6 +1,7 @@
 package gui.Menu.MenuControllers;
 
 import gui.GameView;
+import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.stage.Stage;
 
@@ -22,7 +23,10 @@ public class StartMenuController {
     }
 
     private void options() {
-        // implémentation des options
+        view.getRoot().getChildren().clear();
+        OptionsView options = new OptionsView(view.getPrimaryStage());
+        OptionsController optionsController = new OptionsController(view.getPrimaryStage());
+        
     }
     private void quit() {
         view.getPrimaryStage().close();

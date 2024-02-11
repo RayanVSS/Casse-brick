@@ -1,28 +1,23 @@
 package gui;
 
-import gui.Menu.StartMenu;
+import gui.Menu.MenuControllers.StartMenuController;
+import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
 
     protected Stage primaryStage;
-    private Scene scene;
-    protected StackPane root = new StackPane();
 
     @Override
     public void start(Stage p) throws Exception {
         this.primaryStage = p;
         this.primaryStage.setResizable(false);
         primaryStage.setTitle("Casse Brique");
-
-        StartMenu startMenu = new StartMenu(primaryStage);
-        startMenu.Menu();
+        new StartMenuView(primaryStage);
+        new StartMenuController(primaryStage);
         primaryStage.show();
         primaryStage.getOnCloseRequest();
-
     }
 
     public static void main(String[] args) {

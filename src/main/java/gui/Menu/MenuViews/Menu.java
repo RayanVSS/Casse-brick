@@ -1,4 +1,4 @@
-package gui.Menu;
+package gui.Menu.MenuViews;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
