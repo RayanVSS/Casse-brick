@@ -76,7 +76,7 @@ public class GameView extends App {
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
-        // root.getChildren().add(this.fpsGraphics);
+        root.getChildren().add(this.fpsGraphics);
         root.getChildren().add(this.scoreLifeView);
 
         // Affichage de la fenêtre

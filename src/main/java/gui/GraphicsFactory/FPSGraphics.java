@@ -18,6 +18,8 @@ public class FPSGraphics extends Pane {
         maxfpsText.setStyle("-fx-font-size: 20; -fx-fill: #d5bbb1;");
         getChildren().add(fpsText);
         getChildren().add(maxfpsText);
+        setLayoutX(100);
+        setLayoutY(10);
     }
 
     public void update() {

@@ -115,7 +115,6 @@ public class Game {
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
-            System.out.println("collisionX");
         }
         // Gere les conditions de perte
         if (!ball.movement()) {
@@ -125,7 +124,6 @@ public class Game {
         if (life == 0) {
             lost = true;
         }
-        System.out.println("Life :" + life + " lost :" + lost);
     }
 
     private void handleCollisionBricks() {
@@ -172,15 +170,6 @@ public class Game {
     private boolean inMap(int x, int y) {
         return x >= 0 && x < GameConstants.MAP_WIDTH && y >= 0 && y < GameConstants.MAP_HEIGHT;
     }
-
-    public void lost() {
-        System.exit(0);
-    }
-
-    // public boolean collisionRacket(Coordinates c) {
-    //     return c.getX() >= racket.getC().getX() && c.getX() <= racket.getC().getX() + racket.getLongueur()
-    //             && c.getY() >= racket.getC().getY() && c.getY() <= racket.getC().getY() + racket.getLargeur();
-    // }
 
     public static void main(String[] args) {
         Game g = new Game(new ClassicBall(1), new ClassicRacket(), BricksArrangement.DEFAULT);
