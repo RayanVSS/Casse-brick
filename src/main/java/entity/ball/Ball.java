@@ -2,6 +2,7 @@ package entity.ball;
 
 import entity.Entity;
 import entity.racket.Racket;
+import entity.brick.Brick;
 import geometry.*;
 import utils.GameConstants;
 
@@ -14,18 +15,18 @@ import utils.GameConstants;
  */
 public abstract class Ball extends Entity {
 
-    Vector direction;
-    int radius;
-    double speed;
+    private Vector direction;
+    private int radius;
+    private double speed;
 
     // colision avec racket
     boolean CollisionR = false;
 
-    public Ball(int d) {
+    public Ball(int r) {
         super(new Coordinates(0, 0));
         this.direction = new Vector(new Coordinates(0, 0));
         this.speed = 0;
-        this.radius = d;
+        this.radius = r;
     }
 
     public Ball(Coordinates c, Vector direction, int speed, int d) {
@@ -60,7 +61,7 @@ public abstract class Ball extends Entity {
         this.CollisionR = b;
     }
 
-    public Boolean getCollisionR() {
+    public boolean getCollisionR() {
         return this.CollisionR;
     }
 
@@ -70,6 +71,32 @@ public abstract class Ball extends Entity {
 
     public void setSpeed(int v) {
         this.speed = v;
+    }
+
+    public boolean intersectBrick(Brick b) {
+
+        // Coordonnées du centre du cercle
+        double circleCenterX = getC().getX() + getRadius();
+        double circleCenterY = getC().getY() + getRadius();
+
+        double rectLeft = b.getC().getX();
+        double rectTop = b.getC().getY();
+
+        double rectRight = b.getC().getX() + GameConstants.BRICK_WIDTH;
+        double rectBottom = b.getC().getY() + GameConstants.BRICK_HEIGHT;
+
+        // Distance horizontale entre le centre du cercle et le rectangle
+        double distX = Math.abs(circleCenterX - (rectLeft + rectRight) / 2);
+        double halfRectWidth = GameConstants.BRICK_WIDTH / 2;
+
+        // Distance verticale entre le centre du cercle et le rectangle
+        double distY = Math.abs(circleCenterY - (rectTop + rectBottom) / 2);
+        double halfRectHeight = GameConstants.BRICK_HEIGHT / 2;
+
+        // Intersection si la distance horizontale est inférieure à la moitié de la largeur du rectangle plus le rayon du cercle,
+        // et la distance verticale est inférieure à la moitié de la hauteur du rectangle plus le rayon du cercle
+
+        return distX <= halfRectWidth + getRadius() && distY <= halfRectHeight + getRadius();
     }
 
     public abstract boolean movement();

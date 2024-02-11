@@ -1,6 +1,5 @@
 package gui;
 
-import config.Game;
 import gui.Menu.StartMenu;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -8,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
 
 public class App extends Application {
 

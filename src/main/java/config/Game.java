@@ -3,8 +3,10 @@ package config;
 import java.util.Vector;
 
 import entity.ball.Ball;
+import entity.ball.ClassicBall;
 import entity.brick.Brick;
 import entity.brick.BrickClassic;
+import entity.racket.ClassicRacket;
 import entity.racket.Racket;
 import geometry.Coordinates;
 import utils.GameConstants;
@@ -57,10 +59,14 @@ public class Game {
     private void initDefaultBricksArrangement() {
 
         if (checkDefaultParameters()) {
-            bricks = new Brick[GameConstants.MAP_HEIGHT][GameConstants.MAP_WIDTH]; // [ligne][colonne]
-            for (int i = 1; i < GameConstants.ROWS_OF_BRICKS + 1; i++) { // 1 espace en haut
-                for (int j = 1; j < GameConstants.COLUMNS_OF_BRICKS + 1; j++) { // 1 espace côté gauche/droit
-                    bricks[i][j] = new BrickClassic(new Coordinates(i, j));
+
+            bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT]; //[colonne][ligne]
+            int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;
+
+            for (int i = indexFirstColumn; i < indexFirstColumn + GameConstants.COLUMNS_OF_BRICKS; i++) { // espace côté gauche/droit
+                for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) { // 1 espace en haut
+                    bricks[i][j] = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
+                            j * GameConstants.BRICK_HEIGHT));
                 }
             }
         } else {
@@ -77,9 +83,9 @@ public class Game {
 
     public void displayBricksInTerminal() { // pour les tests
 
-        for (int i = 0; i < bricks.length; i++) {
-            for (int j = 0; j < bricks[i].length; j++) {
-                if (bricks[i][j] != null) {
+        for (int i = 0; i < bricks[0].length; i++) {
+            for (int j = 0; j < bricks.length; j++) {
+                if (bricks[j][i] != null) {
                     System.out.print("B "); // "B" pour représenter une brique
                 } else {
                     System.out.print(". "); // "." pour représenter une case vide
@@ -88,10 +94,14 @@ public class Game {
             System.out.println();
         }
     }
-    public void createBricks() {
-    }
+
+    public void createBricks() {}
 
     public void update(long deltaT) {
+
+        //Vérifie si la balle touche une brique
+        handleCollisionBricks(); //gérer la collision des briques
+
         // Quand la balle arrive au sud on perds (tres primaire comme code)
         if (!ball.movement()) {
             lost = true;
@@ -100,14 +110,66 @@ public class Game {
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
-            //garder la balle au dessus de la raquette pour eviter que la balle traverse la raquette
-            // ball.getC().setY(racket.getC().getY() - ball.getRadius());
-            System.out.println("collision");
+            System.out.println("collisionX");
         }
     }
 
-    // public static void main(String[] args) {
-    // Game g = new Game(new Ball(), new Racket(), BricksArrangement.DEFAULT);
-    // g.displayBricksInTerminal();
-    // }
+    private void handleCollisionBricks() {
+
+        // où se trouve la balle
+        int ballBrickX = (int) (ball.getC().getX() / GameConstants.BRICK_WIDTH);
+        int ballBrickY = (int) (ball.getC().getY() / GameConstants.BRICK_HEIGHT);
+
+        // Vector newDirection = new Vector(new Coordinates(ball.getDirection().getX(), ball.getDirection().getY()));
+
+        boolean collide = false;
+
+        if (inMap(ballBrickX, ballBrickY - 1) && bricks[ballBrickX][ballBrickY - 1] != null
+                && ball.intersectBrick(bricks[ballBrickX][ballBrickY - 1])) { //Brique au dessus 
+            ball.getDirection().setY(-ball.getDirection().getY());
+            collide = true;
+        }
+
+        if (inMap(ballBrickX, ballBrickY + 1) && bricks[ballBrickX][ballBrickY + 1] != null
+                && ball.intersectBrick(bricks[ballBrickX][ballBrickY + 1])) { //Brique du dessous
+            ball.getDirection().setY(-ball.getDirection().getY());
+            collide = true;
+        }
+
+        if (inMap(ballBrickX - 1, ballBrickY) && bricks[ballBrickX - 1][ballBrickY] != null
+                && ball.intersectBrick(bricks[ballBrickX - 1][ballBrickY])) { //Brique à gauche
+            ball.getDirection().setY(-ball.getDirection().getY());
+            collide = true;
+        }
+
+        if (inMap(ballBrickX + 1, ballBrickY) && bricks[ballBrickX + 1][ballBrickY] != null
+                && ball.intersectBrick(bricks[ballBrickX + 1][ballBrickY])) { //Brique à droite
+            ball.getDirection().setY(-ball.getDirection().getY());
+            collide = true;
+        }
+
+        if (collide) {
+            System.out.println("COGNE");
+        }
+        //Les 4 if permettent de gérer le cas où la balle arrive pile en diagonale
+    }
+
+    private boolean inMap(int x, int y) {
+        return x >= 0 && x < GameConstants.MAP_WIDTH && y >= 0 && y < GameConstants.MAP_HEIGHT;
+    }
+
+    public void lost() {
+        System.exit(0);
+    }
+
+
+    public boolean collisionRacket(Coordinates c) {
+        return c.getX() >= racket.getC().getX() && c.getX() <= racket.getC().getX() + racket.getLongueur()
+                && c.getY() >= racket.getC().getY() && c.getY() <= racket.getC().getY() + racket.getLargeur();
+    }
+
+    public static void main(String[] args) {
+        Game g = new Game(new ClassicBall(1), new ClassicRacket(), BricksArrangement.DEFAULT);
+        g.displayBricksInTerminal();
+    }
 }

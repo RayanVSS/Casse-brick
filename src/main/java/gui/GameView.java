@@ -6,13 +6,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import config.*;
+import entity.Particle;
 import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
-import entity.racket.ClasssicRacket;
 import entity.racket.YNotFixeRacket;
 import geometry.Coordinates;
 import geometry.Vector;
@@ -23,7 +24,9 @@ import utils.*;
 import java.util.Random;
 import java.util.Set;
 import java.util.Stack;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 public class GameView extends App {
 
@@ -40,10 +43,14 @@ public class GameView extends App {
     public static boolean BougePColision;
     public static Set<KeyCode> direction = new HashSet<>();
 
-    // lire les touches
+    // Particules de traînée
+    private List<List<Particle>> particleTrails = new ArrayList<>();
+    private int trailLength = GameConstants.DEFAULT_trailLength;
+
+    //lire les touches
     Key key = new Key();
 
-    // fps
+    //fps
     private FPS fpsCalculator = new FPS();
     private Text fpsText = new Text();
     private Text maxfpsText = new Text();
@@ -59,6 +66,16 @@ public class GameView extends App {
 
         Ball ball = new GravityBall();
         Ball Cball = new ClassicBall();
+         // Création des particules
+        for (int i = 0; i < trailLength; i++) {
+            List<Particle> trail = new ArrayList<>();
+            for (int j = 0; j < GameConstants.DEFAULT_PARTICLE; j++) { // nombre de particules
+                Particle particle = new Particle(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2);
+                trail.add(particle);
+                root.getChildren().add(particle);
+            }
+            particleTrails.add(trail);
+        }
         game = new Game(Cball, new YNotFixeRacket(), BricksArrangement.DEFAULT);
 
         // Création des éléments graphiques
@@ -101,6 +118,23 @@ public class GameView extends App {
         fpsText.setText("FPS: " + String.format("%.2f", fps));
         maxfpsText.setText("Max FPS: " + String.format("%.2f", maxfps));
 
+        for (int i = 0; i < trailLength; i++) {
+            List<Particle> trail = particleTrails.get(i);
+
+            for (int j = trail.size() - 1; j > 0; j--) {
+                Particle currentParticle = trail.get(j);
+                Particle previousParticle = trail.get(j - 1);
+
+                currentParticle.setCenterX(previousParticle.getCenterX());
+                currentParticle.setCenterY(previousParticle.getCenterY());
+                currentParticle.applyRandomFluctuation(); //fluctuation des particules
+            }
+
+            Particle firstParticle = trail.get(0);
+            firstParticle.setCenterX(game.getBall().getC().getX());
+            firstParticle.setCenterY(game.getBall().getC().getY());
+            firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
+        }
     }
 
     // Génère une direction aléatoire pour la balle
