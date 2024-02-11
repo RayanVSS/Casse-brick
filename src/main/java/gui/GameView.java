@@ -29,6 +29,8 @@ import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import entity.brick.Brick;
+import entity.brick.BrickClassic;
 
 public class GameView extends App {
 
@@ -56,18 +58,6 @@ public class GameView extends App {
     private FPS fpsCalculator = new FPS();
     private Text fpsText = new Text();
     private Text maxfpsText = new Text();
-
-    public GameView(Stage p, int level) {
-
-import entite.Brique;
-import geometry.Coordonnee;
-
-public class GameView extends App {
-
-    Stage primaryStage;
-    Scene scene;
-    Pane root;
-    Game game;
 
     public GameView(Stage p, int level) {
 
@@ -124,10 +114,10 @@ public class GameView extends App {
         primaryStage.show();
 
         // TODO A ENLEVER
-        Brique[][] tab = new Brique[12][13];
+        Brick[][] tab = new Brick[12][13];
         for (int i = 0; i < tab.length; i++) {
             for (int j = 0; j < tab[0].length; j++) {
-                tab[i][j] = new Brique(new Coordonnee(i, j), j);
+                tab[i][j] = new BrickClassic(new Coordinates(i, j));
             }
         }
 
