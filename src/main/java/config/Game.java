@@ -94,6 +94,7 @@ public class Game {
             ball.setCollisionR(true);
             System.out.println("collisionX");
         }
+        checkBricksStatus();
     }
 
     private void handleCollisionBricks() {
@@ -102,42 +103,62 @@ public class Game {
         int ballBrickX = (int) (ball.getC().getX() / GameConstants.BRICK_WIDTH);
         int ballBrickY = (int) (ball.getC().getY() / GameConstants.BRICK_HEIGHT);
 
-        // Vector newDirection = new Vector(new Coordinates(ball.getDirection().getX(), ball.getDirection().getY()));
+        Brick targetBrick;
 
-        boolean collide = false;
+        if (inMap(ballBrickX, ballBrickY - 1) && bricks[ballBrickX][ballBrickY - 1] != null) {
 
-        if (inMap(ballBrickX, ballBrickY - 1) && bricks[ballBrickX][ballBrickY - 1] != null
-                && ball.intersectBrick(bricks[ballBrickX][ballBrickY - 1])) { //Brique au dessus 
-            ball.getDirection().setY(-ball.getDirection().getY());
-            collide = true;
+            targetBrick = bricks[ballBrickX][ballBrickY - 1]; //Brique au dessus
+
+            if (ball.intersectBrick(targetBrick)) {
+                ball.getDirection().setY(-ball.getDirection().getY());
+                targetBrick.setDestroyed(true);
+                // Les setDestroyed true sont temporaires, une gestion plus complexe de leur PV viendra plus tard
+            }
         }
 
-        if (inMap(ballBrickX, ballBrickY + 1) && bricks[ballBrickX][ballBrickY + 1] != null
-                && ball.intersectBrick(bricks[ballBrickX][ballBrickY + 1])) { //Brique du dessous
-            ball.getDirection().setY(-ball.getDirection().getY());
-            collide = true;
+        if (inMap(ballBrickX, ballBrickY + 1) && bricks[ballBrickX][ballBrickY + 1] != null) {
+
+            targetBrick = bricks[ballBrickX][ballBrickY + 1]; //Brique du dessous
+
+            if (ball.intersectBrick(targetBrick)) {
+                ball.getDirection().setY(-ball.getDirection().getY());
+                targetBrick.setDestroyed(true);
+            }
         }
 
-        if (inMap(ballBrickX - 1, ballBrickY) && bricks[ballBrickX - 1][ballBrickY] != null
-                && ball.intersectBrick(bricks[ballBrickX - 1][ballBrickY])) { //Brique à gauche
-            ball.getDirection().setY(-ball.getDirection().getY());
-            collide = true;
+        if (inMap(ballBrickX - 1, ballBrickY) && bricks[ballBrickX - 1][ballBrickY] != null) {
+
+            targetBrick = bricks[ballBrickX - 1][ballBrickY]; //Brique à gauche
+
+            if (ball.intersectBrick(targetBrick)) {
+                ball.getDirection().setX(-ball.getDirection().getX());
+                targetBrick.setDestroyed(true);
+            }
         }
 
-        if (inMap(ballBrickX + 1, ballBrickY) && bricks[ballBrickX + 1][ballBrickY] != null
-                && ball.intersectBrick(bricks[ballBrickX + 1][ballBrickY])) { //Brique à droite
-            ball.getDirection().setY(-ball.getDirection().getY());
-            collide = true;
-        }
+        if (inMap(ballBrickX + 1, ballBrickY) && bricks[ballBrickX + 1][ballBrickY] != null) {
 
-        if (collide) {
-            System.out.println("COGNE");
+            targetBrick = bricks[ballBrickX + 1][ballBrickY]; //Brique à droite
+            if (ball.intersectBrick(targetBrick)) {
+                ball.getDirection().setX(-ball.getDirection().getX());
+                targetBrick.setDestroyed(true);
+            }
         }
         //Les 4 if permettent de gérer le cas où la balle arrive pile en diagonale
     }
 
     private boolean inMap(int x, int y) {
         return x >= 0 && x < GameConstants.MAP_WIDTH && y >= 0 && y < GameConstants.MAP_HEIGHT;
+    }
+
+    private void checkBricksStatus() {
+        for (int i = 0; i < bricks.length; i++) {
+            for (int j = 0; j < bricks[0].length; j++) {
+                if (bricks[i][j] != null && bricks[i][j].isDestroyed()) {
+                    bricks[i][j] = null;
+                }
+            }
+        }
     }
 
     public void lost() {

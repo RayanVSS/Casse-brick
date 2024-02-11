@@ -8,7 +8,7 @@ public final class GameConstants {
     public static final int ROWS_OF_BRICKS = 12;
     public static final int COLUMNS_OF_BRICKS = 13;
     public static final int MIN_SPACE_BETWEEN_RACKET_BRICKS = 5;
-    public static final int BRICK_WIDTH = 96;
+    public static final int BRICK_WIDTH = 80;
     public static final int BRICK_HEIGHT = 32;
 
     //ball
