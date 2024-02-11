@@ -18,19 +18,21 @@ public class BricksGraphics extends StackPane {
     }
 
     public void update() {
-        if (brique.getDurability() == 0) {
-            imageView = null;
-        } else if (brique.getDurability() < 70 && brique.getDurability() > 50) {
-            Image im = ImageLoader.loadImage("src/main/ressources/briquec.png");
-            imageView = new ImageView(im);
-            imageView.setPreserveRatio(true);
-            imageView.setFitWidth(60);
-            getChildren().add(imageView);
-        } else if (brique.getDurability() > 0 && brique.getDurability() < 50) {
-            Image im = ImageLoader.loadImage("src/main/ressources/briquecc.png");
-            imageView = new ImageView(im);
-            imageView.setPreserveRatio(true);
-            imageView.setFitWidth(60);
+        if (brique != null) {
+            if (brique.getDurability() == 0) {
+                imageView = null;
+            } else if (brique.getDurability() < 70 && brique.getDurability() > 50) {
+                Image im = ImageLoader.loadImage("src/main/ressources/briquec.png");
+                imageView = new ImageView(im);
+                imageView.setPreserveRatio(true);
+                imageView.setFitWidth(60);
+                getChildren().add(imageView);
+            } else if (brique.getDurability() > 0 && brique.getDurability() < 50) {
+                Image im = ImageLoader.loadImage("src/main/ressources/briquecc.png");
+                imageView = new ImageView(im);
+                imageView.setPreserveRatio(true);
+                imageView.setFitWidth(60);
+            }
         }
     }
 }
