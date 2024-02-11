@@ -174,8 +174,12 @@ public class Game {
                 && c.getY() >= racket.getC().getY() && c.getY() <= racket.getC().getY() + racket.getLargeur();
     }
 
-    public static void main(String[] args) {
-        Game g = new Game(new ClassicBall(1), new ClassicRacket(), BricksArrangement.DEFAULT);
-        g.displayBricksInTerminal();
+    public Brick[][] getMap() {
+        return bricks;
     }
+
+    // public static void main(String[] args) {
+    //     Game g = new Game(new ClassicBall(1), new ClassicRacket(), BricksArrangement.DEFAULT);
+    //     g.displayBricksInTerminal();
+    // }
 }

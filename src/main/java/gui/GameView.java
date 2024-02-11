@@ -9,6 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import config.*;
 import entity.Particle;
@@ -18,7 +19,7 @@ import entity.brick.Brick;
 import entity.brick.BrickClassic;
 // import entity.ball.GravityBall;
 // import entity.ball.HyperBall;
-import entity.racket.ClasssicRacket;
+import entity.racket.ClassicRacket;
 // import entity.racket.YNotFixeRacket;
 import geometry.Coordinates;
 import geometry.Vector;
@@ -90,17 +91,9 @@ public class GameView extends App {
             }
             particleTrails.add(trail);
         }
+        game = new Game(ball, new ClassicRacket(), BricksArrangement.DEFAULT);
 
-        game = new Game(ball, new ClasssicRacket(), BricksArrangement.DEFAULT);
-
-        // Création des briques
-        Brick[][] tab = new Brick[GameConstants.ROWS_OF_BRICKS][GameConstants.COLUMNS_OF_BRICKS];
-        for (int i = 0; i < tab.length; i++) {
-            for (int j = 0; j < tab[0].length; j++) {
-                tab[i][j] = new BrickClassic(new Coordinates(i, j));
-            }
-        }
-        this.ensemble = new Ensemble(tab);
+        this.ensemble = new Ensemble(game.getMap());
 
         // Création des éléments graphiques
         this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getRayon());
@@ -127,16 +120,7 @@ public class GameView extends App {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // TODO A ENLEVER
-        Brick[][] tab = new Brick[12][13];
-        for (int i = 0; i < tab.length; i++) {
-            for (int j = 0; j < tab[0].length; j++) {
-                tab[i][j] = new BrickClassic(new Coordinates(i, j));
-            }
-        }
-
         root = new StackPane();
-        Ensemble ensemble = new Ensemble(tab);
         root.getChildren().add(ensemble);
         StackPane.setAlignment(ensemble, Pos.TOP_CENTER);
         ensemble.update();
