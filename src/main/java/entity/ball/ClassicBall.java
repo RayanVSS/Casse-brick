@@ -35,13 +35,13 @@ public class ClassicBall extends Ball {
         boolean lost = true;
         double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
         double w = GameConstants.DEFAULT_WINDOW_WIDTH;
-        double newX = this.getC().getX() + this.direction.getX() * this.speed;
-        double newY = this.getC().getY() + this.direction.getY() * this.speed;
+        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
 
         if (CollisionR) {
             if (GameView.BougePColision) {
-                this.direction.setY(-this.direction.getY());
-                newY = this.getC().getY() + this.direction.getY() * this.speed;
+                this.getDirection().setY(-this.getDirection().getY());
+                newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                 CollisionR = false;
             }
             if (!GameView.BougePColision) {
@@ -50,20 +50,20 @@ public class ClassicBall extends Ball {
                         case RIGHT:
                         case D:
                             System.out.println("droite");
-                            this.direction.setX(1);
-                            this.direction.setY(-1);
-                            newX = this.getC().getX() + this.direction.getX() * this.speed;
-                            newY = this.getC().getY() + this.direction.getY() * this.speed;
+                            this.getDirection().setX(1);
+                            this.getDirection().setY(-1);
+                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                             CollisionR = false;
 
                             break;
                         case LEFT:
                         case Q:
                             System.out.println("gauche");
-                            this.direction.setX(-1);
-                            this.direction.setY(-1);
-                            newX = this.getC().getX() + this.direction.getX() * this.speed;
-                            newY = this.getC().getY() + this.direction.getY() * this.speed;
+                            this.getDirection().setX(-1);
+                            this.getDirection().setY(-1);
+                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                             CollisionR = false;
                             break;
                     }
@@ -71,12 +71,12 @@ public class ClassicBall extends Ball {
             }
         }
         if (newX < 0 || newX > w - this.getRadius()) {
-            this.direction.setX(-this.direction.getX());
-            newX = this.getC().getX() + this.direction.getX() * this.speed;
+            this.getDirection().setX(-this.getDirection().getX());
+            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
         }
         if (newY < 0 || CollisionR) {
-            this.direction.setY(-this.direction.getY());
-            newY = this.getC().getY() + this.direction.getY() * this.speed;
+            this.getDirection().setY(-this.getDirection().getY());
+            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
             CollisionR = false;
         }
         if (newY > h - this.getRadius()) {

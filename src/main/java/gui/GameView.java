@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import config.*;
+import entity.Particle;
 import entity.ball.*;
 import entity.racket.*;
 import geometry.*;
@@ -13,8 +14,11 @@ import geometry.Vector;
 import gui.GraphicsFactory.*;
 import gui.Menu.MenuControllers.GameOverController;
 import utils.*;
-import java.util.*;
-import gui.GraphicsFactory.FPSGraphics;
+import java.util.Random;
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class GameView extends App {
 
@@ -31,12 +35,15 @@ public class GameView extends App {
     public static boolean BougePColision;
     public static Set<KeyCode> direction = new HashSet<>();
 
+    // Particules de traînée
+    private List<List<Particle>> particleTrails = new ArrayList<>();
+    private int trailLength = GameConstants.DEFAULT_trailLength;
+
     // lire les touches
     Key key = new Key();
 
     // fps
     private FPSGraphics fpsGraphics = new FPSGraphics();
-    
 
     // animation
     AnimationTimer animationTimer;
@@ -46,7 +53,20 @@ public class GameView extends App {
         this.primaryStage = p;
 
         /* differentes balles */
-        game = new Game(new ClassicBall(), new ClasssicRacket(), BricksArrangement.DEFAULT);
+
+        Ball ball = new GravityBall();
+        Ball Cball = new ClassicBall();
+        game = new Game(Cball, new YNotFixeRacket(), BricksArrangement.DEFAULT);
+        // Création des particules
+        for (int i = 0; i < trailLength; i++) {
+            List<Particle> trail = new ArrayList<>();
+            for (int j = 0; j < GameConstants.DEFAULT_PARTICLE; j++) { // nombre de particules
+                Particle particle = new Particle(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2);
+                trail.add(particle);
+                root.getChildren().add(particle);
+            }
+            particleTrails.add(trail);
+        }
 
         // Création des éléments graphiques
         this.graphBall = new BallGraphics(game.getBall());
@@ -70,9 +90,26 @@ public class GameView extends App {
         // Mise à jour de la position de la raquette
         this.graphRacket.update();
 
-        // Mise à jour des FPS
-        fpsGraphics.update();
+        // Calcul des FPS
+        this.fpsGraphics.update();
 
+        for (int i = 0; i < trailLength; i++) {
+            List<Particle> trail = particleTrails.get(i);
+
+            for (int j = trail.size() - 1; j > 0; j--) {
+                Particle currentParticle = trail.get(j);
+                Particle previousParticle = trail.get(j - 1);
+
+                currentParticle.setCenterX(previousParticle.getCenterX());
+                currentParticle.setCenterY(previousParticle.getCenterY());
+                currentParticle.applyRandomFluctuation(); // fluctuation des particules
+            }
+
+            Particle firstParticle = trail.get(0);
+            firstParticle.setCenterX(game.getBall().getC().getX());
+            firstParticle.setCenterY(game.getBall().getC().getY());
+            firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
+        }
     }
 
     // Génère une direction aléatoire pour la balle
@@ -113,7 +150,7 @@ public class GameView extends App {
                         animationStop();
                         GameOverController gameover = new GameOverController(primaryStage);
 
-                        //over.over();
+                        // over.over();
                     }
                 }
                 last = now;

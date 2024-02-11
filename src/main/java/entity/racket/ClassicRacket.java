@@ -1,8 +1,16 @@
 package entity.racket;
 
+import geometry.Coordinates;
+import geometry.Vector;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyEvent;
+import java.util.HashSet;
 import java.util.Set;
 import utils.GameConstants;
+
+import entity.Entity;
 
 /**
  * raquette qui peut aller a droite et a gauche
@@ -10,10 +18,10 @@ import utils.GameConstants;
  * @author Belhassen rayan
  */
 
-public class ClasssicRacket extends Racket {
+public class ClassicRacket extends Racket {
 
     // creation de la raquette
-    public ClasssicRacket() {
+    public ClassicRacket() {
         super(200, 20, 8, false, true);
     }
 

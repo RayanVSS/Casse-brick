@@ -18,7 +18,7 @@ public class RacketGraphics extends Rectangle {
         setArcWidth(20);
         setArcHeight(20);
 
-        if (racket instanceof ClasssicRacket)
+        if (racket instanceof ClassicRacket)
             setFill(Color.RED);
         else if (racket instanceof YNotFixeRacket)
             setFill(Color.BLUE);

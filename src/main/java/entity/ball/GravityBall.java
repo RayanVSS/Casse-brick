@@ -22,16 +22,15 @@ public class GravityBall extends Ball {
         boolean lost = true;
         double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
         double w = GameConstants.DEFAULT_WINDOW_WIDTH;
-        double newX = this.getC().getX() + this.direction.getX() * this.speed;
-        double newY = this.getC().getY() + this.direction.getY() * this.speed;
+        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
 
         if (this.getCollisionR()) {
             if (GameView.BougePColision) {
-                this.direction.setY(-this.direction.getY());
-                newY = this.getC().getY() + this.direction.getY() * this.speed;
+                this.getDirection().setY(-this.getDirection().getY());
+                newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                 CollisionR = false;
-            }
-            if (!GameView.BougePColision) {
+            } else {
                 for (KeyCode key : GameView.direction) {
                     switch (key) {
                         case RIGHT:
@@ -39,18 +38,18 @@ public class GravityBall extends Ball {
                             System.out.println("droite");
                             this.getDirection().setX(1);
                             this.getDirection().setY(-1);
-                            newX = this.getC().getX() + this.direction.getX() * this.speed;
-                            newY = this.getC().getY() + this.direction.getY() * this.speed;
+                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                             CollisionR = false;
 
                             break;
                         case LEFT:
                         case Q:
                             System.out.println("gauche");
-                            this.direction.setX(-1);
-                            this.direction.setY(-1);
-                            newX = this.getC().getX() + this.direction.getX() * this.speed;
-                            newY = this.getC().getY() + this.direction.getY() * this.speed;
+                            this.getDirection().setX(-1);
+                            this.getDirection().setY(-1);
+                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                             CollisionR = false;
                             break;
                     }
@@ -59,27 +58,27 @@ public class GravityBall extends Ball {
         }
 
         if (newX < 0 || newX > w - this.getRadius()) {
-            this.direction.setX(-this.direction.getX());
-            newX = this.getC().getX() + this.direction.getX() * this.speed;
+            this.getDirection().setX(-this.getDirection().getX());
+            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
         }
         if (newY < 0 || CollisionR) {
-            this.direction.setY(-this.direction.getY());
-            newY = this.getC().getY() + this.direction.getY() * this.speed;
-            CollisionR = false;
+            if (newY < 0 || CollisionR) {
+                this.getDirection().setY(-this.getDirection().getY());
+                newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+                CollisionR = false;
+            }
+            if (newY > h - this.getRadius()) {
+                lost = false;
+            }
         }
-        if (newY > h - this.getRadius()) {
-            lost = false;
-        }
-
         setGravity();
         this.setC(new Coordinates(newX, newY));
-
         return lost;
     }
 
     // Methode qui permet de définir la gravité
     public void setGravity() {
-        this.direction.setY(this.direction.getY() + gravity);
+        this.getDirection().setY(this.getDirection().getY() + gravity);
     }
 
 }
