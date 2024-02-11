@@ -63,4 +63,6 @@ affichage de la racket
 -fps: creation de la class qui calcul les fps
 
 <span style="color:purple">**A Faire:**</span>
-rien
+-boost: boost pour la racket 
+
+-sauvegarde : pouvoir enregistrer son avancée
