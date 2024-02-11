@@ -1,16 +1,8 @@
 package entity.racket;
 
-import geometry.Coordinates;
-import geometry.Vector;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.KeyEvent;
-import java.util.HashSet;
 import java.util.Set;
 import utils.GameConstants;
-
-import entity.Entity;
 
 /**
  * raquette qui peut aller a droite et a gauche
