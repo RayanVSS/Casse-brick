@@ -81,7 +81,7 @@ public class Map {
             }
         }
 
-        if (inMap(ballBrickX, ballBrickY + 1) && bricks[ballBrickX][ballBrickY + 1] != null) {
+        else if (inMap(ballBrickX, ballBrickY + 1) && bricks[ballBrickX][ballBrickY + 1] != null) {
 
             targetBrick = bricks[ballBrickX][ballBrickY + 1]; //Brique du dessous
 
@@ -92,7 +92,7 @@ public class Map {
             }
         }
 
-        if (inMap(ballBrickX - 1, ballBrickY) && bricks[ballBrickX - 1][ballBrickY] != null) {
+        else if (inMap(ballBrickX - 1, ballBrickY) && bricks[ballBrickX - 1][ballBrickY] != null) {
 
             targetBrick = bricks[ballBrickX - 1][ballBrickY]; //Brique à gauche
 
@@ -103,7 +103,7 @@ public class Map {
             }
         }
 
-        if (inMap(ballBrickX + 1, ballBrickY) && bricks[ballBrickX + 1][ballBrickY] != null) {
+        else if (inMap(ballBrickX + 1, ballBrickY) && bricks[ballBrickX + 1][ballBrickY] != null) {
 
             targetBrick = bricks[ballBrickX + 1][ballBrickY]; //Brique à droite
             if (ball.intersectBrick(targetBrick)) {
@@ -112,7 +112,6 @@ public class Map {
                 displayBricksInTerminal();
             }
         }
-        //Les 4 if permettent de gérer le cas où la balle arrive pile en diagonale
     }
 
     public void updateBricksStatus() {
