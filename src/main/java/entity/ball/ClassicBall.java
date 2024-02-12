@@ -1,5 +1,6 @@
 package entity.ball;
 
+import config.Game;
 import geometry.Coordinates;
 import geometry.Vector;
 import javafx.scene.input.KeyCode;
@@ -8,14 +9,14 @@ import utils.GameConstants;
 import utils.Key;
 import gui.GameView;
 
-
-
 public class ClassicBall extends Ball {
 
     public Key key = new Key();
 
-    public ClassicBall(Coordinates c, Vector direction, int vitesse, int d) {
-        super(c, direction, vitesse, d);
+    public ClassicBall() {
+        super(GameConstants.DEFAULT_BALL_START_COORDINATES, GameConstants.DEFAULT_BALL_START_DIRECTION,
+        GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS
+);
     }
 
     public ClassicBall(int d) {
@@ -23,67 +24,67 @@ public class ClassicBall extends Ball {
     }
 
     @Override
+
     /**
-     * Déplace la balle dans un espace défini par la largeur et la hauteur de la fenetre.
-     * @return Retourne 'true' si la balle ne touche pas la limite sud de
-     *         l'espace, 'false' sinon. (boolean pour géré les condition de défaite
-     *         ou de victoire dans le jeu)
-     * @author Benmalek Majda
+     * Cette méthode gère le mouvement de la balle dans le jeu.
+     *
+     * @return un booléen indiquant si la balle est perdue ou non.
+     *         Retourne `true` si la balle est toujours en jeu, `false` sinon.
      */
     public boolean movement() {
-        boolean aux = true;
-        double h= GameConstants.DEFAULT_WINDOW_WIDTH;
-        double w= GameConstants.DEFAULT_WINDOW_HEIGHT;
-        double newX = this.getC().getX() + this.direction.getX() * this.vitesse;
-        double newY = this.getC().getY() + this.direction.getY() * this.vitesse;
+        boolean lost = true;
+        double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
+        double w = GameConstants.DEFAULT_WINDOW_WIDTH;
+        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
 
-        if(CollisionR) {
-            if(GameView.BougePColision) {
-                this.direction.setY(-this.direction.getY());
-                newY = this.getC().getY() + this.direction.getY() * this.vitesse;
+        if (CollisionR) {
+            if (GameView.BougePColision) {
+                this.getDirection().setY(-this.getDirection().getY());
+                newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                 CollisionR = false;
             }
-            if(!GameView.BougePColision) {
+            if (!GameView.BougePColision) {
                 for (KeyCode key : GameView.direction) {
                     switch (key) {
                         case RIGHT:
                         case D:
                             System.out.println("droite");
-                            this.direction.setX(1);
-                            this.direction.setY(-1);
-                            newX = this.getC().getX() + this.direction.getX() * this.vitesse;
-                            newY = this.getC().getY() + this.direction.getY() * this.vitesse;
+                            this.getDirection().setX(1);
+                            this.getDirection().setY(-1);
+                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                             CollisionR = false;
 
                             break;
                         case LEFT:
                         case Q:
                             System.out.println("gauche");
-                            this.direction.setX(-1);
-                            this.direction.setY(-1);
-                            newX = this.getC().getX() + this.direction.getX() * this.vitesse;
-                            newY = this.getC().getY() + this.direction.getY() * this.vitesse;
+                            this.getDirection().setX(-1);
+                            this.getDirection().setY(-1);
+                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                             CollisionR = false;
                             break;
                     }
                 }
             }
         }
-        if (newX < 0 || newX > h - this.diametre) {
-            this.direction.setX(-this.direction.getX());
-            newX = this.getC().getX() + this.direction.getX() * this.vitesse;
+        if (newX < 0 || newX > w - this.getRadius()) {
+            this.getDirection().setX(-this.getDirection().getX());
+            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
         }
-        if (newY < 0 ) {
-            this.direction.setY(-this.direction.getY());
-            newY = this.getC().getY() + this.direction.getY() * this.vitesse;
+        if (newY < 0 || CollisionR) {
+            this.getDirection().setY(-this.getDirection().getY());
+            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+            CollisionR = false;
         }
-        if (newY > w - this.diametre) {
-            aux = false;
+        if (newY > h - this.getRadius()) {
+            lost = false;
         }
 
         this.setC(new Coordinates(newX, newY));
-        return aux;
+        return lost;
     }
-
 
 }

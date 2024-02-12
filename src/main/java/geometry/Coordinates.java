@@ -22,8 +22,6 @@ public class Coordinates {
         this.y = y;
     }
 
-    
-
     public double getY() {
         return y;
     }
@@ -31,6 +29,18 @@ public class Coordinates {
     public void setCoordinates(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Coordinates floorC() {
+        return new Coordinates(Math.floor(x), Math.floor(y));
+    }
+
+    public int getIntX() {
+        return (int) x;
+    }
+
+    public int getIntY() {
+        return (int) y;
     }
 
 }

@@ -7,48 +7,51 @@ import javafx.scene.input.MouseEvent;
 import utils.GameConstants;
 import java.util.Set;
 
+import entity.ball.Ball;
+
 /***************************************************************************
- *                  Explication de classe pour la raquette                 *
+ * Explication de classe pour la raquette *
  * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*
- *      Base: 
- * @var Coordonnee c : Coordonnée de la raquette 
- * @var Vector direction : Direction de la raquette 
- * @var int speed : Vitesse de la raquette 
- * @var int longueur : Longueur de la raquette 
- * @var int largeur : Largeur de la raquette 
- * @var boolean fixeY : Si la raquette est fixe en y 
- * @var boolean jump : Si la raquette peut sauter 
- *      
- *      boost: 
- * @var Boolean vitesseP :raquette a un boost de vitesse 
- * @var Boolean vitesseM :raquette a un malus de vitesse 
- * @var Boolean largeurP :raquette a un boost de largeur 
- * @var Boolean largeurM :raquette a un malus de largeur 
- * @var boolean freeze :le temps est freeze 
- *      
- *      GET et SET: 
- *je pense pas qui'il y ait besoin d'expliquer ;) 
- *        
- *      Collision: 
+ * Base:
+ * 
+ * @var Coordonnee c : Coordonnée de la raquette
+ * @var Vector direction : Direction de la raquette
+ * @var int speed : Vitesse de la raquette
+ * @var int longueur : Longueur de la raquette
+ * @var int largeur : Largeur de la raquette
+ * @var boolean fixeY : Si la raquette est fixe en y
+ * @var boolean jump : Si la raquette peut sauter
+ * 
+ *      boost:
+ * @var Boolean vitesseP :raquette a un boost de vitesse
+ * @var Boolean vitesseM :raquette a un malus de vitesse
+ * @var Boolean largeurP :raquette a un boost de largeur
+ * @var Boolean largeurM :raquette a un malus de largeur
+ * @var boolean freeze :le temps est freeze
+ * 
+ *      GET et SET:
+ *      je pense pas qui'il y ait besoin d'expliquer ;)
+ * 
+ *      Collision:
  * @param c : Coordonnée de l'objet avec lequel on veut vérifier la collision
- * @return : true si il y a collision, false sinon 
- *         
- *      Mouvement a l'appui des touches: :
- * @param keysPressed : toutes les touches appuyées 
+ * @return : true si il y a collision, false sinon
+ * 
+ *         Mouvement a l'appui des touches: :
+ * @param keysPressed : toutes les touches appuyées
  *
- *      Mouvement au relachement des touches: 
- * @param event: touche relachée 
- *                    
- *      Saut: 
- *pas fini pour l'instant 
+ *                    Mouvement au relachement des touches:
+ * @param event:      touche relachée
+ * 
+ *                    Saut:
+ *                    pas fini pour l'instant
  *
- * @author Rayan Belhasse 
+ * @author Rayan Belhasse
  **************************************************************************/
 
 public abstract class Racket {
 
     // base
-    Coordinates c =  new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH/2.5, GameConstants.DEFAULT_WINDOW_HEIGHT-50);
+    Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2.5, GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
     Vector direction = new Vector(c);
     double speed;
     int longueur;
@@ -69,7 +72,7 @@ public abstract class Racket {
     private long jumpStartTime;
 
     // creation de la raquette
-    public Racket(int longueur, int largeur, int speed,boolean fixeY, boolean jump) {
+    public Racket(int longueur, int largeur, int speed, boolean fixeY, boolean jump) {
         this.longueur = longueur;
         this.largeur = largeur;
         this.speed = speed;
@@ -86,11 +89,21 @@ public abstract class Racket {
         return false;
     }
 
-    //fonction obligatoire
-    public abstract void handleKeyPress(Set<KeyCode> keysPressed) ;    
-    public abstract void handleKeyRelease(KeyCode event) ;
+    public boolean CollisionRacket(Ball b) {
+        if (b.getC().getX() > this.c.getX() && b.getC().getX() < this.c.getX() + this.longueur
+                && b.getC().getY() > this.c.getY()
+                && b.getC().getY() < this.c.getY() + this.largeur) {
+            b.getC().setY(this.getC().getY() - b.getRadius());
+            return true;
+        }
+        return false;
+    }
 
-    
+    // fonction obligatoire
+    public abstract void handleKeyPress(Set<KeyCode> keysPressed);
+
+    public abstract void handleKeyRelease(KeyCode event);
+
     // GET et SET
     public Boolean getJump() {
         return jump;
@@ -127,7 +140,7 @@ public abstract class Racket {
     public void setDirection(Vector direction) {
         this.direction = direction;
     }
-    
+
     public void mMouseMove(MouseEvent e) {
         this.mOnMouseMoved(e);
     }
@@ -211,7 +224,5 @@ public abstract class Racket {
     public boolean getFreeze() {
         return freeze;
     }
-
-
 
 }
