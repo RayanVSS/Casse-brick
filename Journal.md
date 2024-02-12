@@ -82,3 +82,37 @@ affichage de la racket
 - Map : nouvelle classe pour alleger Game.java + factorisation
 
 <span style="color:purple">**A Faire:**</span>
+
+
+## Majda Benmalek
+
+<span style="color:green">**Fait:**</span>
+
+-RacketGraphics : affiche la racket
+
+-BallGraphics : affiche la balle 
+
+
+-Travail sur la colissions de la balle et de la racket (la balle ne peut plus traverser la raquette)
+
+-FPSGraphics : affiche les FPS
+
+-StartMenu : avec bouton options tutoriel(provisoire) Jouer et Quitter
+
+-GameOver : retour au menu , rejouer et quitter 
+
+-Factorisation de GameView: sortir AnimationTimer du constructeur pour pouvoir l'arreter plus simplement 
+
+-Options : Bouton option dans le StartMenu (avec rien dedans pour l'instant juste un bouton retour)
+
+-MVC pour les menus 
+
+-Affichage des vies et leur maj
+
+<span style="color:purple">**A Faire:**</span>
+
+-Affichage et maj du score 
+
+-Factorisation du code
+
+-Commentaire/explication et javaDoc dans mon code
