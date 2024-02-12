@@ -120,17 +120,17 @@ public class GameView extends App {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        root = new StackPane();
-        root.getChildren().add(ensemble);
-        StackPane.setAlignment(ensemble, Pos.TOP_CENTER);
-        ensemble.update();
-        // TODO A ENLEVER
-        int screenWidth = (int) Screen.getPrimary().getVisualBounds().getWidth();
-        int screenHeight = (int) Screen.getPrimary().getVisualBounds().getHeight();
-        scene = new Scene(root, screenWidth, screenHeight);
+        // root = new StackPane();
+        // root.getChildren().add(ensemble);
+        // StackPane.setAlignment(ensemble, Pos.TOP_CENTER);
+        // ensemble.update();
+        // // TODO A ENLEVER
+        // int screenWidth = (int) Screen.getPrimary().getVisualBounds().getWidth();
+        // int screenHeight = (int) Screen.getPrimary().getVisualBounds().getHeight();
+        // scene = new Scene(root, screenWidth, screenHeight);
 
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        // primaryStage.setScene(scene);
+        // primaryStage.show();
 
         AnimationTimer animationTimer = new AnimationTimer() {
             long last = 0;

@@ -112,6 +112,7 @@ public class Game {
             if (ball.intersectBrick(targetBrick)) {
                 ball.getDirection().setY(-ball.getDirection().getY());
                 targetBrick.setDestroyed(true);
+                displayBricksInTerminal();
                 // Les setDestroyed true sont temporaires, une gestion plus complexe de leur PV viendra plus tard
             }
         }
@@ -123,6 +124,7 @@ public class Game {
             if (ball.intersectBrick(targetBrick)) {
                 ball.getDirection().setY(-ball.getDirection().getY());
                 targetBrick.setDestroyed(true);
+                displayBricksInTerminal();
             }
         }
 
@@ -133,6 +135,7 @@ public class Game {
             if (ball.intersectBrick(targetBrick)) {
                 ball.getDirection().setX(-ball.getDirection().getX());
                 targetBrick.setDestroyed(true);
+                displayBricksInTerminal();
             }
         }
 
@@ -142,6 +145,7 @@ public class Game {
             if (ball.intersectBrick(targetBrick)) {
                 ball.getDirection().setX(-ball.getDirection().getX());
                 targetBrick.setDestroyed(true);
+                displayBricksInTerminal();
             }
         }
         //Les 4 if permettent de gérer le cas où la balle arrive pile en diagonale
