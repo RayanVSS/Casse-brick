@@ -23,6 +23,7 @@ public class Game {
         this.racket = racket;
         this.arrangement = arrangement;
         initBricks();
+        this.displayBricksInTerminal();
     }
 
     private void initBricks() {
@@ -41,10 +42,11 @@ public class Game {
 
         if (checkDefaultParameters()) {
 
-            bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT]; //[colonne][ligne]
+            bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT]; // [colonne][ligne]
             int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;
 
-            for (int i = indexFirstColumn; i < indexFirstColumn + GameConstants.COLUMNS_OF_BRICKS; i++) { // espace côté gauche/droit
+            for (int i = indexFirstColumn; i < indexFirstColumn + GameConstants.COLUMNS_OF_BRICKS; i++) { // espace côté
+                                                                                                          // gauche/droit
                 for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) { // 1 espace en haut
                     bricks[i][j] = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
                             j * GameConstants.BRICK_HEIGHT));
@@ -82,8 +84,8 @@ public class Game {
 
     public void update(long deltaT) {
 
-        //Vérifie si la balle touche une brique
-        handleCollisionBricks(); //gérer la collision des briques
+        // Vérifie si la balle touche une brique
+        handleCollisionBricks(); // gérer la collision des briques
 
         // Quand la balle arrive au sud on perds (tres primaire comme code)
         if (!ball.movement()) {
@@ -92,7 +94,7 @@ public class Game {
         // Si la balle touche la raquette
         if (collisionRacket(ball.getC())) {
             ball.setCollisionR(true);
-            System.out.println("collisionX");
+            // System.out.println("collisionX");
         }
         checkBricksStatus();
     }
@@ -107,18 +109,19 @@ public class Game {
 
         if (inMap(ballBrickX, ballBrickY - 1) && bricks[ballBrickX][ballBrickY - 1] != null) {
 
-            targetBrick = bricks[ballBrickX][ballBrickY - 1]; //Brique au dessus
+            targetBrick = bricks[ballBrickX][ballBrickY - 1]; // Brique au dessus
 
             if (ball.intersectBrick(targetBrick)) {
                 ball.getDirection().setY(-ball.getDirection().getY());
                 targetBrick.setDestroyed(true);
-                // Les setDestroyed true sont temporaires, une gestion plus complexe de leur PV viendra plus tard
+                // Les setDestroyed true sont temporaires, une gestion plus complexe de leur PV
+                // viendra plus tard
             }
         }
 
         if (inMap(ballBrickX, ballBrickY + 1) && bricks[ballBrickX][ballBrickY + 1] != null) {
 
-            targetBrick = bricks[ballBrickX][ballBrickY + 1]; //Brique du dessous
+            targetBrick = bricks[ballBrickX][ballBrickY + 1]; // Brique du dessous
 
             if (ball.intersectBrick(targetBrick)) {
                 ball.getDirection().setY(-ball.getDirection().getY());
@@ -128,7 +131,7 @@ public class Game {
 
         if (inMap(ballBrickX - 1, ballBrickY) && bricks[ballBrickX - 1][ballBrickY] != null) {
 
-            targetBrick = bricks[ballBrickX - 1][ballBrickY]; //Brique à gauche
+            targetBrick = bricks[ballBrickX - 1][ballBrickY]; // Brique à gauche
 
             if (ball.intersectBrick(targetBrick)) {
                 ball.getDirection().setX(-ball.getDirection().getX());
@@ -138,13 +141,13 @@ public class Game {
 
         if (inMap(ballBrickX + 1, ballBrickY) && bricks[ballBrickX + 1][ballBrickY] != null) {
 
-            targetBrick = bricks[ballBrickX + 1][ballBrickY]; //Brique à droite
+            targetBrick = bricks[ballBrickX + 1][ballBrickY]; // Brique à droite
             if (ball.intersectBrick(targetBrick)) {
                 ball.getDirection().setX(-ball.getDirection().getX());
                 targetBrick.setDestroyed(true);
             }
         }
-        //Les 4 if permettent de gérer le cas où la balle arrive pile en diagonale
+        // Les 4 if permettent de gérer le cas où la balle arrive pile en diagonale
     }
 
     private boolean inMap(int x, int y) {
@@ -179,7 +182,8 @@ public class Game {
     }
 
     // public static void main(String[] args) {
-    //     Game g = new Game(new ClassicBall(1), new ClassicRacket(), BricksArrangement.DEFAULT);
-    //     g.displayBricksInTerminal();
+    // Game g = new Game(new ClassicBall(1), new ClassicRacket(),
+    // BricksArrangement.DEFAULT);
+    // g.displayBricksInTerminal();
     // }
 }
