@@ -78,9 +78,12 @@ public class GameView extends App {
          * GameConstants.DEFAULT_BALL_DIAMETER);
          */
 
-        Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
+        // Ball ball = new ClassicBall(new Coordinates(primaryStage.getWidth() / 2,
+        // primaryStage.getHeight() / 2),
+        // randomDirection(), GameConstants.DEFAULT_BALL_SPEED,
+        // GameConstants.DEFAULT_BALL_DIAMETER);
+        Ball ball = new ClassicBall(new Coordinates(600, 500),
                 randomDirection(), GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_DIAMETER);
-
         // Création des particules
         for (int i = 0; i < trailLength; i++) {
             List<Particle> trail = new ArrayList<>();
@@ -104,7 +107,7 @@ public class GameView extends App {
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
-        this.ensemble.setLayoutX(250);
+        this.ensemble.setLayoutX(GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS);
         root.getChildren().add(this.ensemble);
         // Ajout du texte des FPS
         fpsText.setX(10);
@@ -119,18 +122,6 @@ public class GameView extends App {
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        // root = new StackPane();
-        // root.getChildren().add(ensemble);
-        // StackPane.setAlignment(ensemble, Pos.TOP_CENTER);
-        // ensemble.update();
-        // // TODO A ENLEVER
-        // int screenWidth = (int) Screen.getPrimary().getVisualBounds().getWidth();
-        // int screenHeight = (int) Screen.getPrimary().getVisualBounds().getHeight();
-        // scene = new Scene(root, screenWidth, screenHeight);
-
-        // primaryStage.setScene(scene);
-        // primaryStage.show();
 
         AnimationTimer animationTimer = new AnimationTimer() {
             long last = 0;

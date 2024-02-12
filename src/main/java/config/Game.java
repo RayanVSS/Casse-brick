@@ -39,7 +39,7 @@ public class Game {
         // Si la balle touche la raquette
         if (collisionRacket(ball.getC())) {
             ball.setCollisionR(true);
-            System.out.println("collisionX");
+            // System.out.println("collisionX");
         }
 
         map.updateBricksStatus();
