@@ -59,30 +59,64 @@ public abstract class Ball extends Entity {
         return this.CollisionR;
     }
 
+    // public boolean intersectBrick(Brick b) {
+
+    //     // Coordonnées du centre du cercle
+    //     double circleCenterX = getC().getX() + getRayon();
+    //     double circleCenterY = getC().getY() + getRayon();
+
+    //     double rectLeft = b.getC().getX();
+    //     double rectTop = b.getC().getY();
+
+    //     double rectRight = b.getC().getX() + GameConstants.BRICK_WIDTH;
+    //     double rectBottom = b.getC().getY() + GameConstants.BRICK_HEIGHT;
+
+    //     // Distance horizontale entre le centre du cercle et le rectangle
+    //     double distX = Math.abs(circleCenterX - (rectLeft + rectRight) / 2);
+    //     double halfRectWidth = GameConstants.BRICK_WIDTH / 2;
+
+    //     // Distance verticale entre le centre du cercle et le rectangle
+    //     double distY = Math.abs(circleCenterY - (rectTop + rectBottom) / 2);
+    //     double halfRectHeight = GameConstants.BRICK_HEIGHT / 2;
+
+    //     // Intersection si la distance horizontale est inférieure à la moitié de la largeur du rectangle plus le rayon du cercle,
+    //     // et la distance verticale est inférieure à la moitié de la hauteur du rectangle plus le rayon du cercle
+
+    //     return distX <= halfRectWidth + getRayon() && distY <= halfRectHeight + getRayon();
+    // }
+
     public boolean intersectBrick(Brick b) {
 
-        // Coordonnées du centre du cercle
-        double circleCenterX = getC().getX() + getRayon();
-        double circleCenterY = getC().getY() + getRayon();
+        // Calcul des distances horizontales et verticales entre le centre du cercle et le rectangle
+        int distX = Math.abs(getC().getIntX() - b.getC().getIntX() - GameConstants.BRICK_WIDTH / 2);
+        int distY = Math.abs(getC().getIntY() - b.getC().getIntY() - GameConstants.BRICK_HEIGHT / 2);
 
-        double rectLeft = b.getC().getX();
-        double rectTop = b.getC().getY();
+        // Si la distance horizontale est supérieure à la moitié de la largeur du rectangle + le rayon du cercle, pas de collision
+        if (distX > GameConstants.BRICK_WIDTH / 2 + getRayon()) {
+            return false;
+        }
 
-        double rectRight = b.getC().getX() + GameConstants.BRICK_WIDTH;
-        double rectBottom = b.getC().getY() + GameConstants.BRICK_HEIGHT;
+        // Si la distance verticale est supérieure à la moitié de la hauteur du rectangle + le rayon du cercle, pas de collision
+        if (distY > GameConstants.BRICK_HEIGHT / 2 + getRayon()) {
+            return false;
+        }
 
-        // Distance horizontale entre le centre du cercle et le rectangle
-        double distX = Math.abs(circleCenterX - (rectLeft + rectRight) / 2);
-        double halfRectWidth = GameConstants.BRICK_WIDTH / 2;
+        // Si la distance horizontale est inférieure à la moitié de la largeur du rectangle, collision
+        if (distX <= GameConstants.BRICK_WIDTH / 2) {
+            return true;
+        }
 
-        // Distance verticale entre le centre du cercle et le rectangle
-        double distY = Math.abs(circleCenterY - (rectTop + rectBottom) / 2);
-        double halfRectHeight = GameConstants.BRICK_HEIGHT / 2;
+        // Si la distance verticale est inférieure à la moitié de la hauteur du rectangle, collision
+        if (distY <= GameConstants.BRICK_HEIGHT / 2) {
+            return true;
+        }
 
-        // Intersection si la distance horizontale est inférieure à la moitié de la largeur du rectangle plus le rayon du cercle,
-        // et la distance verticale est inférieure à la moitié de la hauteur du rectangle plus le rayon du cercle
+        // Calcul de la distance entre le centre du cercle et le coin du rectangle
+        int dx = distX - GameConstants.BRICK_WIDTH / 2;
+        int dy = distY - GameConstants.BRICK_HEIGHT / 2;
 
-        return distX <= halfRectWidth + getRayon() && distY <= halfRectHeight + getRayon();
+        // Si la distance entre le centre du cercle et le coin du rectangle est inférieure ou égale au rayon au carré, collision
+        return dx * dx + dy * dy <= getRayon() * getRayon();
     }
 
     public abstract boolean movement();
