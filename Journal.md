@@ -13,9 +13,10 @@ une 1ère version d'un affichage des briques
 <span style="color:purple">**A Faire:**</span>
 faire la mise à jour de l'affichage des briques au cours de la partie (càd si des briques se cassent etc...)
 
-### Olivier
+### Guan Olivier
 <span style="color:green">**Fait:**</span>
 Initialisation de la disposition classique des briques, briques de différents types, préparation pour implémenter les différentes dispositions possibles
+Gitlab CI config, checktyle pipeline
 
 <span style="color:purple">**A Faire:**</span>
 Update de la partie, différentes config de map...
@@ -66,3 +67,18 @@ affichage de la racket
 -boost: boost pour la racket 
 
 -sauvegarde : pouvoir enregistrer son avancée
+
+### Guan Olivier
+<span style="color:green">**Fait:**</span>
+
+- update de Game.java : 
+    collision balle-brique, intersection entre une balle et une brique
+    gestion destruction briques (à continuer pour une destruction plus spécifique, en fct de la gravité, vitesse, couleur, pv, etc...)
+        
+- Ball : correction sur le rayon/diamètre
+
+- Brick : x et y de la brique part maintenant du coin supérieur gauche de la brique et adapté directement à l'echelle et les tailles de GameConstants
+
+- Map : nouvelle classe pour alleger Game.java + factorisation
+
+<span style="color:purple">**A Faire:**</span>
