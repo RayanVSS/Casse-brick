@@ -39,6 +39,7 @@ affichage de la racket
 ## Semaine 2:
 ### Belhassen rayan
 <span style="color:green">**Fait:**</span>
+
 -collisions: collision de la raquette avec la balle + prend en compte que la raquette bouge durant la collision
 
 -GravityBall: nouvelle balle qui subit la gravité (sans perte de vitesse)
@@ -64,9 +65,10 @@ affichage de la racket
 -fps: creation de la class qui calcul les fps
 
 <span style="color:purple">**A Faire:**</span>
+
 -boost: boost pour la racket 
 
--sauvegarde : pouvoir enregistrer son avancée
+-sauvegarde: pouvoir enregistrer son avancée
 
 ### Guan Olivier
 <span style="color:green">**Fait:**</span>
