@@ -25,8 +25,8 @@ public class Simulation {
             public boolean movement() {
                 double h = GameConstants.DEFAULT_WINDOW_WIDTH;
                 double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
-                double newX = this.getC().getX() + this.getDirection().getX() * this.getVitesse();
-                double newY = this.getC().getY() + this.getDirection().getY() * this.getVitesse();
+                double newX = this.getC().getX() + this.getDirection().getX() * this.getVitesse() + outline.getVent().getX();
+                double newY = this.getC().getY() + this.getDirection().getY() * this.getVitesse() + outline.getVent().getY();
 
                 if (newX < 0 || newX > h - this.getDiametre()) {
                     this.getDirection().setX(-this.getDirection().getX());
@@ -37,6 +37,8 @@ public class Simulation {
                     newY = this.getC().getY() + this.getDirection().getY() * this.getVitesse();
                 }
                 this.setC(new Coordinates(newX, newY));
+                this.getDirection().add(outline.getGravite());
+
                 return true;
             }
         };
@@ -60,7 +62,7 @@ public class Simulation {
                 // System.out.println("deltaT = " + (now - last) / 1000000000.0 + "s");
                 if (deltaT > 1000000000 / 120) {
                    update();
-                   System.err.println(ball.getC().getX() + " " + ball.getC().getY());
+                   
                 }
                 last = now;
             }

@@ -29,10 +29,11 @@ public class Outline {
         this.vitesse = GameConstants.DEFAULT_BALL_SPEED;
         this.diametre = GameConstants.DEFAULT_BALL_DIAMETER;
         this.direction = randomDirection();
-        this.gravite = new Vector(new Coordinates(0, 0.5));
+        this.gravite = new Vector(new Coordinates(0,0.01));
         this.poid = gravite;
         poid.multiply(diametre);
-        this.vent = new Vector(new Coordinates(0, 0));
+        this.vent = new Vector(new Coordinates(1, 0));
+        direction.add(gravite);
     }
 
     public Vector getDirection() {
@@ -60,6 +61,14 @@ public class Outline {
         double i = -1 + (1 - (-1)) * random.nextDouble();
         double j = -1 + (1 - (-1)) * random.nextDouble();
         return new Vector(new Coordinates(i, j));
+    }
+
+    public Vector getVent() {
+        return this.vent;
+    }
+
+    public void setVitesse(double vitesse) {
+        this.vitesse = (int)vitesse;
     }
    
 }

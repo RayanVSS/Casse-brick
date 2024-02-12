@@ -48,4 +48,11 @@ public class Vector {
         }
     }
 
+    public void normalize() {
+        double length = Math.sqrt(x * x + y * y); // Calcul de la longueur du vecteur
+        if (length != 0) {
+            x /= length; // Redimensionnement de la composante x
+            y /= length; // Redimensionnement de la composante y
+        }
+    }
 }

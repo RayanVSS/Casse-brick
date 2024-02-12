@@ -1,5 +1,6 @@
 package geometry;
 
+import geometry.Vector;
 public class Coordinates {
 
     private double x;
@@ -31,6 +32,11 @@ public class Coordinates {
     public void setCoordinates(double x, double y) {
         this.x = x;
         this.y = y;
+    }
+
+    public void add(Vector other) {
+        x += other.getX();
+        y += other.getY();
     }
 
 }
