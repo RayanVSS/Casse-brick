@@ -4,6 +4,9 @@ import gui.GameView;
 import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.StartMenuView;
 import gui.Menu.MenuViews.TutoView;
+import gui.Menu.MenuViews.SaveView;
+
+
 import javafx.stage.Stage;
 
 public class StartMenuController {
@@ -15,6 +18,7 @@ public class StartMenuController {
         this.view.getBtnOptions().setOnAction(e -> options());
         this.view.getBtnQuit().setOnAction(e -> quit());
         this.view.getBtnTuto().setOnAction(e -> tuto());
+        this.view.getBtnSave().setOnAction(e -> Sauvegarde());
     }
 
     private void play() {
@@ -38,4 +42,12 @@ public class StartMenuController {
         TutoView tuto = new TutoView(view.getPrimaryStage());
         TutoController tutoController = new TutoController(view.getPrimaryStage());
     }
+
+    private void Sauvegarde() {
+        view.getRoot().getChildren().clear();
+        SaveView save = new SaveView(view.getPrimaryStage());
+        SaveController saveController = new SaveController(view.getPrimaryStage());
+    }
+
+
 }

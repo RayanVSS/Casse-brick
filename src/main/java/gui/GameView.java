@@ -56,7 +56,7 @@ public class GameView extends App {
         this.primaryStage = p;
 
         /* differentes balles */
-        game = new Game(new ClassicBall(), new YNotFixeRacket(), BricksArrangement.DEFAULT);
+        game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
         // Création des particules
         for (int i = 0; i < trailLength; i++) {
             List<Particle> trail = new ArrayList<>();

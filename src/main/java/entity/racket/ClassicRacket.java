@@ -23,19 +23,18 @@ public class ClassicRacket extends Racket {
             switch (key) {
                 case Q:
                 case LEFT:
-                    if (this.mX() > -longueur / 2)
+                    if (this.mX() > -largeur / 2)
                         this.mX(this.mX() - speed);
                     break;
                 case D:
                 case RIGHT:
-                    if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH - largeur - 70)
+                    if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH - longueur - 70)
                         this.mX(this.mX() + speed);
                     break;
-                case SPACE:
-                    if (jump) {
-                        long jumpStartTime = System.nanoTime();
+                    case SPACE:
+                        setlargeurP(true);
+                        setVitesseP(true);
                         break;
-                    }
             }
         }
     }

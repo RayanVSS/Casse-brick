@@ -22,6 +22,7 @@ public class StartMenuView implements Menu {
     private Button btnOptions;
     private Button btnQuit;
     private Button btnTuto;
+    private Button btnSave;
     private Image background;
 
     public StartMenuView(Stage p) {
@@ -33,7 +34,8 @@ public class StartMenuView implements Menu {
         this.btnOptions = createButton("Options", 0, 200);
         this.btnTuto = createButton("Tutoriel", 0, 100);
         this.btnQuit = createButton("Quitter", 0, 0);
-        root.getChildren().addAll(btnPlay, btnOptions, btnQuit, btnTuto);
+        this.btnSave = createButton("Sauvegarder", 0, 400);
+        root.getChildren().addAll(btnPlay, btnOptions, btnQuit, btnTuto,btnSave);
         primaryStage.setScene(scene);
     }
 
@@ -60,5 +62,9 @@ public class StartMenuView implements Menu {
 
     public Button getBtnTuto() {
         return btnTuto;
+    }
+
+    public Button getBtnSave() {
+        return btnSave;
     }
 }
