@@ -136,3 +136,18 @@ affichage de la racket
 -Amélioration de la physique 
 
 -Implementation des options pour le jeu 
+
+## Amenah MUSHTAQ
+
+<span style="color:green">**Fait:**</span>
+
+- mise à jour de l'affichage des briques (les briques cassées s'enlèvent)
+
+<span style="color:purple">**A Faire:**</span>
+
+-factorisation du code
+
+-Commentaire/explication et javaDoc dans mon code
+
+
+
