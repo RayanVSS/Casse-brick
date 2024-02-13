@@ -118,3 +118,21 @@ affichage de la racket
 -Factorisation du code
 
 -Commentaire/explication et javaDoc dans mon code
+
+## Ilias Bencheikh
+
+<span style="color:green">**Fait:**</span>
+
+-Implementation d'un système de FPS
+
+-Implementation d'un système de simulation pour le moteur physique
+
+-Setup du gradle physique 
+
+-Début de la piste pour une physique poussée 
+
+<span style="color:purple">**A Faire:**</span>
+
+-Amélioration de la physique 
+
+-Implementation des options pour le jeu 
