@@ -23,15 +23,15 @@ public class BricksGraphics extends StackPane {
     public void update() {
         if (brique != null) {
             if (brique.isDestroyed()) {
-                System.out.println("CASSE");
+                // System.out.println("CASSE");
                 getChildren().remove(imageView);
                 imageView = new ImageView();
                 getChildren().add(imageView);
             } else if (brique.getDurability() < 70 && brique.getDurability() > 50) {
                 getChildren().remove(imageView);
-                System.out.println("---------------------------");
-                System.out.println("1");
-                System.out.println("---------------------------");
+                // System.out.println("---------------------------");
+                // System.out.println("1");
+                // System.out.println("---------------------------");
                 Image im = ImageLoader.loadImage("src/main/ressources/briquec.png");
                 imageView = new ImageView(im);
                 // imageView.setPreserveRatio(true);
@@ -40,9 +40,9 @@ public class BricksGraphics extends StackPane {
                 getChildren().add(imageView);
             } else if (brique.getDurability() > 0 && brique.getDurability() < 50) {
                 getChildren().remove(imageView);
-                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                System.out.println("2");
-                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                // System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                // System.out.println("2");
+                // System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 Image im = ImageLoader.loadImage("src/main/ressources/briquecc.png");
                 imageView = new ImageView(im);
                 // imageView.setPreserveRatio(true);

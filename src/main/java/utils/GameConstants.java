@@ -14,7 +14,7 @@ public final class GameConstants {
     public static final int BRICK_HEIGHT = 32;
 
     // ball
-    public static final int DEFAULT_BALL_SPEED = 6;
+    public static final int DEFAULT_BALL_SPEED = 7;
     public static final int DEFAULT_BALL_DIAMETER = 10;
 
     // fenetre
@@ -25,9 +25,9 @@ public final class GameConstants {
     public static final int DEFAULT_FPS = 120;
 
     // particle de traînée
-    public static final int DEFAULT_trailLength = 70; // taille de la trainée
+    public static final int DEFAULT_trailLength = 0;// 70; // taille de la trainée
     public static final double DEFAULT_PARTICLE_RADIUS = 1.4;
     public static final double DEFAULT_FLUCTUATION = 5;
-    public static final int DEFAULT_PARTICLE = 10; // nombre de particules
+    public static final int DEFAULT_PARTICLE = 0;// 10; // nombre de particules
 
 }

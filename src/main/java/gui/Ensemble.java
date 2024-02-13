@@ -110,13 +110,6 @@ public class Ensemble extends Group {
 
     public Ensemble(Brick[][] tab) {
         int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;
-        // Image im = ImageLoader.loadImage("src/main/ressources/briquee.png");
-        // BricksGraphics b = new BricksGraphics(im, tab[0][0]);
-        // b.setVisible(true);
-        // b.setLayoutX(0);
-        // b.setLayoutY(0);
-        // this.getChildren().add(b);
-
         for (int i = indexFirstColumn; i < indexFirstColumn +
                 GameConstants.COLUMNS_OF_BRICKS; i++) {
             for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) {
