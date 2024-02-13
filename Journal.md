@@ -149,5 +149,7 @@ affichage de la racket
 
 -Commentaire/explication et javaDoc dans mon code
 
+- bouton pause
+
 
 
