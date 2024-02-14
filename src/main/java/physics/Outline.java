@@ -27,7 +27,7 @@ public class Outline {
 
     public Outline(){
         this.vitesse = GameConstants.DEFAULT_BALL_SPEED;
-        this.diametre = GameConstants.DEFAULT_BALL_DIAMETER;
+        this.diametre = GameConstants.DEFAULT_BALL_RADIUS/2;
         this.direction = randomDirection();
         this.gravite = new Vector(new Coordinates(0,0.01));
         this.poid = gravite;
