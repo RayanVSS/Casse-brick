@@ -25,16 +25,16 @@ public class Simulation {
             public boolean movement() {
                 double h = GameConstants.DEFAULT_WINDOW_WIDTH;
                 double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
-                double newX = this.getC().getX() + this.getDirection().getX() * this.getVitesse() + outline.getVent().getX();
-                double newY = this.getC().getY() + this.getDirection().getY() * this.getVitesse() + outline.getVent().getY();
+                double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed() + outline.getVent().getX();
+                double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed() + outline.getVent().getY();
 
-                if (newX < 0 || newX > h - this.getDiametre()) {
+                if (newX < 0 || newX > h - this.getRadius()) {
                     this.getDirection().setX(-this.getDirection().getX());
-                    newX = this.getC().getX() + this.getDirection().getX() * this.getVitesse();
+                    newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                 }
-                if (newY < 0 || newY > w - this.getDiametre()) {
+                if (newY < 0 || newY > w - this.getRadius()) {
                     this.getDirection().setY(-this.getDirection().getY());
-                    newY = this.getC().getY() + this.getDirection().getY() * this.getVitesse();
+                    newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                 }
                 this.setC(new Coordinates(newX, newY));
                 this.getDirection().add(outline.getGravite());
@@ -44,7 +44,7 @@ public class Simulation {
         };
 
 
-        graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getDiametre() * 2);
+        graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getRadius() * 2);
 
         root.getChildren().add(graphBall);
         primaryStage.show();
