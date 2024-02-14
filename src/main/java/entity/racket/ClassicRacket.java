@@ -20,21 +20,17 @@ public class ClassicRacket extends Racket {
     // Mouvement a l'appui des touches
     public void handleKeyPress(Set<KeyCode> keysPressed) {
         for (KeyCode key : keysPressed) {
-            switch (key) {
-                case Q:
-                case LEFT:
-                    if (this.mX() > -largeur / 2)
-                        this.mX(this.mX() - speed);
-                    break;
-                case D:
-                case RIGHT:
-                    if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH - longueur - 70)
-                        this.mX(this.mX() + speed);
-                    break;
-                    case SPACE:
-                        setlargeurP(true);
-                        setVitesseP(true);
-                        break;
+            if(key==GameConstants.LEFT){
+                if (this.mX() > -largeur / 2)
+                    this.mX(this.mX() - speed);
+            }
+            if(key==GameConstants.RIGHT){
+                if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH - longueur - 70)
+                    this.mX(this.mX() + speed);
+            }
+            if(key==GameConstants.SPACE){
+                setlargeurP(true);
+                setVitesseP(true);
             }
         }
     }

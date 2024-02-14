@@ -2,6 +2,7 @@ package utils;
 
 import geometry.Coordinates;
 import geometry.Vector;
+import javafx.scene.input.KeyCode;
 
 public final class GameConstants {
 
@@ -45,6 +46,15 @@ public final class GameConstants {
     public static final int BOOST_LARGEURP = 100;
     public static final int BOOST_LARGEURM = 100;
 
-
+    //Options du jeu
+    public static boolean FPS=false;
+    public static boolean PATH=false;
+    public static boolean PARTICLES=true;
+    public static int SOUND=50;
+    public static int MUSIC=50;
+    public static KeyCode LEFT = KeyCode.LEFT;
+    public static KeyCode RIGHT = KeyCode.RIGHT;
+    public static KeyCode SPACE = KeyCode.SPACE;
     
+
 }

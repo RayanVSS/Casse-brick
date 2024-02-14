@@ -44,7 +44,7 @@ public class GameView extends App {
     Key key = new Key();
 
     // fps
-    private FPSGraphics fpsGraphics = new FPSGraphics();
+    private FPSGraphics fpsGraphics;
 
     // animation
     private AnimationTimer animationTimer;
@@ -54,18 +54,25 @@ public class GameView extends App {
     public GameView(Stage p, int level) {
 
         this.primaryStage = p;
+        if(GameConstants.FPS){
+            fpsGraphics = new FPSGraphics();
+        }
 
         /* differentes balles */
         game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
+
         // Création des particules
-        for (int i = 0; i < trailLength; i++) {
-            List<Particle> trail = new ArrayList<>();
-            for (int j = 0; j < GameConstants.DEFAULT_PARTICLE; j++) { // nombre de particules
-                Particle particle = new Particle(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2);
-                trail.add(particle);
-                root.getChildren().add(particle);
+
+        if(GameConstants.PARTICLES){
+            for (int i = 0; i < trailLength; i++) {
+                List<Particle> trail = new ArrayList<>();
+                for (int j = 0; j < GameConstants.DEFAULT_PARTICLE; j++) { // nombre de particules
+                    Particle particle = new Particle(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2);
+                    trail.add(particle);
+                    root.getChildren().add(particle);
+                }
+                particleTrails.add(trail);
             }
-            particleTrails.add(trail);
         }
 
         // Création des éléments graphiques
@@ -76,7 +83,9 @@ public class GameView extends App {
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
-        root.getChildren().add(this.fpsGraphics);
+        if(GameConstants.FPS){
+            root.getChildren().add(this.fpsGraphics);
+        }
         root.getChildren().add(this.scoreLifeView);
 
         // Affichage de la fenêtre
@@ -93,27 +102,31 @@ public class GameView extends App {
         this.graphRacket.update();
 
         // Calcul des FPS
-        this.fpsGraphics.update();
+        if(GameConstants.FPS){
+            this.fpsGraphics.update();
+        }
 
         // Mise à jour du score et de la vie
         this.scoreLifeView.update();
 
-        for (int i = 0; i < trailLength; i++) {
-            List<Particle> trail = particleTrails.get(i);
-
-            for (int j = trail.size() - 1; j > 0; j--) {
-                Particle currentParticle = trail.get(j);
-                Particle previousParticle = trail.get(j - 1);
-
-                currentParticle.setCenterX(previousParticle.getCenterX());
-                currentParticle.setCenterY(previousParticle.getCenterY());
-                currentParticle.applyRandomFluctuation(); // fluctuation des particules
+        if(GameConstants.PARTICLES){
+            for (int i = 0; i < trailLength; i++) {
+                List<Particle> trail = particleTrails.get(i);
+    
+                for (int j = trail.size() - 1; j > 0; j--) {
+                    Particle currentParticle = trail.get(j);
+                    Particle previousParticle = trail.get(j - 1);
+    
+                    currentParticle.setCenterX(previousParticle.getCenterX());
+                    currentParticle.setCenterY(previousParticle.getCenterY());
+                    currentParticle.applyRandomFluctuation(); // fluctuation des particules
+                }
+    
+                Particle firstParticle = trail.get(0);
+                firstParticle.setCenterX(game.getBall().getC().getX());
+                firstParticle.setCenterY(game.getBall().getC().getY());
+                firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
             }
-
-            Particle firstParticle = trail.get(0);
-            firstParticle.setCenterX(game.getBall().getC().getX());
-            firstParticle.setCenterY(game.getBall().getC().getY());
-            firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
         }
     }
 
