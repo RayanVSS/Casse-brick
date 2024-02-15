@@ -172,7 +172,6 @@ public abstract class Racket {
         if (!largeurP){
             this.largeurP = Largeur;
             if (largeurP) {
-                System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 largeur = this.largeur + GameConstants.BOOST_LARGEURP;
                 startlargeurP(GameConstants.BOOST_DURATION_LARGEURP);
             }

@@ -13,13 +13,14 @@ import utils.GameConstants;
 
 public class Game {
 
-    private Ball ball;
+    private static Ball ball;
     private Racket racket;
     private Brick[][] bricks;
     private BricksArrangement arrangement;
     private boolean lost = false;
     private int score = 0;
     private int life = 3;
+    private static boolean collide;
 
     public Game(Ball ball, Racket racket, BricksArrangement arrangement) {
         this.ball = ball;
@@ -29,8 +30,12 @@ public class Game {
     }
 
     // Setters/getters
-    public Ball getBall() {
+    public static Ball getBall() {
         return ball;
+    }
+
+    public static Boolean getCollide() {
+        return collide;
     }
 
     public Racket getRacket() {
@@ -123,7 +128,7 @@ public class Game {
         }
         if (life == 0) {
             lost = true;
-        }
+        }  
     }
 
     private void handleCollisionBricks() {
@@ -135,7 +140,7 @@ public class Game {
         // Vector newDirection = new Vector(new Coordinates(ball.getDirection().getX(),
         // ball.getDirection().getY()));
 
-        boolean collide = false;
+        collide = false;
 
         if (inMap(ballBrickX, ballBrickY - 1) && bricks[ballBrickX][ballBrickY - 1] != null
                 && ball.intersectBrick(bricks[ballBrickX][ballBrickY - 1])) { // Brique au dessus
