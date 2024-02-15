@@ -21,7 +21,7 @@ public abstract class Ball extends Entity {
     private double speed;
 
     // colision avec racket
-    boolean CollisionR = false;
+    static boolean CollisionR = false;
 
     public Ball(int r) {
         super(new Coordinates(0, 0));
@@ -62,8 +62,8 @@ public abstract class Ball extends Entity {
         this.CollisionR = b;
     }
 
-    public boolean getCollisionR() {
-        return this.CollisionR;
+    public static boolean getCollisionR() {
+        return CollisionR;
     }
 
     public void setDirection(Vector d) {

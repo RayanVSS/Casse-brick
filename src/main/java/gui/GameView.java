@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import config.*;
 import entity.Particle;
 import entity.ball.*;
+import entity.preview.Preview;
 import entity.racket.*;
 import geometry.*;
 import geometry.Vector;
@@ -51,6 +52,10 @@ public class GameView extends App {
     // life & score
     private ScoreLifeView scoreLifeView;
 
+    // direction de la balle
+    private Preview preview;
+    private BallGraphics Ballpreview;
+
     public GameView(Stage p, int level) {
 
         this.primaryStage = p;
@@ -60,9 +65,9 @@ public class GameView extends App {
 
         /* differentes balles */
         game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
+        preview = new Preview(game.getBall());
 
         // Création des particules
-
         if(GameConstants.PARTICLES){
             for (int i = 0; i < trailLength; i++) {
                 List<Particle> trail = new ArrayList<>();
@@ -88,6 +93,12 @@ public class GameView extends App {
         }
         root.getChildren().add(this.scoreLifeView);
 
+        //affichage de la preview
+        if(GameConstants.PATH){
+            this.Ballpreview = new BallGraphics(preview.getInvisibleBall());
+            root.getChildren().add(this.Ballpreview);    
+        }
+
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -104,6 +115,12 @@ public class GameView extends App {
         // Calcul des FPS
         if(GameConstants.FPS){
             this.fpsGraphics.update();
+        }
+
+        if(GameConstants.PATH){
+            this.preview.movementBis(root);
+            this.Ballpreview.update();
+            this.preview.setDot(root);
         }
 
         // Mise à jour du score et de la vie
