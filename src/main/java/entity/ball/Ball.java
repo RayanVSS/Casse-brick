@@ -87,36 +87,29 @@ public abstract class Ball extends Entity {
 
     public boolean intersectBrick(Brick b) {
 
-        // Calcul des distances horizontales et verticales entre le centre du cercle et le rectangle
-        int distX = Math.abs(getC().getIntX() - b.getC().getIntX() - GameConstants.BRICK_WIDTH / 2);
-        int distY = Math.abs(getC().getIntY() - b.getC().getIntY() - GameConstants.BRICK_HEIGHT / 2);
+        double circleDistance_x = Math.abs(getC().getX() - b.getC().getX() - GameConstants.BRICK_WIDTH / 2);
+        double circleDistance_y = Math.abs(getC().getY() - b.getC().getY() - GameConstants.BRICK_HEIGHT / 2);
 
-        // Si la distance horizontale est supérieure à la moitié de la largeur du rectangle + le rayon du cercle, pas de collision
-        if (distX > GameConstants.BRICK_WIDTH / 2 + getRayon()) {
+        if (circleDistance_x > (GameConstants.BRICK_WIDTH / 2 + rayon)) {
+            return false;
+        }
+        if (circleDistance_y > (GameConstants.BRICK_HEIGHT / 2 + rayon)) {
             return false;
         }
 
-        // Si la distance verticale est supérieure à la moitié de la hauteur du rectangle + le rayon du cercle, pas de collision
-        if (distY > GameConstants.BRICK_HEIGHT / 2 + getRayon()) {
-            return false;
+        if (circleDistance_x <= (GameConstants.BRICK_WIDTH / 2)) {
+            return true;
         }
-
-        // Si la distance horizontale est inférieure à la moitié de la largeur du rectangle, collision
-        if (distX <= GameConstants.BRICK_WIDTH / 2) {
+        if (circleDistance_y <= (GameConstants.BRICK_HEIGHT / 2)) {
             return true;
         }
 
-        // Si la distance verticale est inférieure à la moitié de la hauteur du rectangle, collision
-        if (distY <= GameConstants.BRICK_HEIGHT / 2) {
-            return true;
-        }
+        double cornerDistance_sq = (circleDistance_x - GameConstants.BRICK_WIDTH / 2)
+                * (circleDistance_x - GameConstants.BRICK_WIDTH / 2)
+                + (circleDistance_y - GameConstants.BRICK_HEIGHT / 2)
+                        * (circleDistance_y - GameConstants.BRICK_HEIGHT / 2);
 
-        // Calcul de la distance entre le centre du cercle et le coin du rectangle
-        int dx = distX - GameConstants.BRICK_WIDTH / 2;
-        int dy = distY - GameConstants.BRICK_HEIGHT / 2;
-
-        // Si la distance entre le centre du cercle et le coin du rectangle est inférieure ou égale au rayon au carré, collision
-        return dx * dx + dy * dy <= getRayon() * getRayon();
+        return (cornerDistance_sq <= (rayon * rayon));
     }
 
     public abstract boolean movement();

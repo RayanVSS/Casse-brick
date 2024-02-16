@@ -69,47 +69,23 @@ public class Map {
 
         Brick targetBrick;
 
-        if (inMap(ballBrickX, ballBrickY - 1) && bricks[ballBrickX][ballBrickY - 1] != null) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (inMap(ballBrickX + i, ballBrickY + j) && bricks[ballBrickX + i][ballBrickY + j] != null) {
+                    targetBrick = bricks[ballBrickX + i][ballBrickY + j];
 
-            targetBrick = bricks[ballBrickX][ballBrickY - 1]; //Brique au dessus
+                    if (ball.intersectBrick(targetBrick)) {
+                        if (i != 0) {
+                            ball.getDirection().setX(-ball.getDirection().getX());
+                        }
+                        if (j != 0) {
+                            ball.getDirection().setY(-ball.getDirection().getY());
+                        }
 
-            if (ball.intersectBrick(targetBrick)) {
-                ball.getDirection().setY(-ball.getDirection().getY());
-                targetBrick.setDestroyed(true);
-                displayBricksInTerminal();
-                // Les setDestroyed true sont temporaires, une gestion plus complexe de leur PV viendra plus tard
-            }
-        }
-
-        else if (inMap(ballBrickX, ballBrickY + 1) && bricks[ballBrickX][ballBrickY + 1] != null) {
-
-            targetBrick = bricks[ballBrickX][ballBrickY + 1]; //Brique du dessous
-
-            if (ball.intersectBrick(targetBrick)) {
-                ball.getDirection().setY(-ball.getDirection().getY());
-                targetBrick.setDestroyed(true);
-                displayBricksInTerminal();
-            }
-        }
-
-        else if (inMap(ballBrickX - 1, ballBrickY) && bricks[ballBrickX - 1][ballBrickY] != null) {
-
-            targetBrick = bricks[ballBrickX - 1][ballBrickY]; //Brique à gauche
-
-            if (ball.intersectBrick(targetBrick)) {
-                ball.getDirection().setX(-ball.getDirection().getX());
-                targetBrick.setDestroyed(true);
-                displayBricksInTerminal();
-            }
-        }
-
-        else if (inMap(ballBrickX + 1, ballBrickY) && bricks[ballBrickX + 1][ballBrickY] != null) {
-
-            targetBrick = bricks[ballBrickX + 1][ballBrickY]; //Brique à droite
-            if (ball.intersectBrick(targetBrick)) {
-                ball.getDirection().setX(-ball.getDirection().getX());
-                targetBrick.setDestroyed(true);
-                displayBricksInTerminal();
+                        targetBrick.setDestroyed(true);
+                        return;
+                    }
+                }
             }
         }
     }
