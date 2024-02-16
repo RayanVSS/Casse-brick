@@ -85,6 +85,12 @@ affichage de la racket
 
 <span style="color:purple">**A Faire:**</span>
 
+- Optimiser les collisions, régler les bugs en diagonale
+
+- Implementation des niveaux, chargement des niveaux, selecteur du niveau, ...
+
+- UI du jeu en plusieurs panneaux (la partie ne doit plus être la fenêtre de l'application)
+
 
 ## Majda Benmalek
 
