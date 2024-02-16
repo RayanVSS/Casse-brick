@@ -74,7 +74,7 @@ public class Map {
                 if (inMap(ballBrickX + i, ballBrickY + j) && bricks[ballBrickX + i][ballBrickY + j] != null) {
                     targetBrick = bricks[ballBrickX + i][ballBrickY + j];
 
-                    if (ball.intersectBrick(targetBrick)) {
+                    if (!targetBrick.isDestroyed() && ball.intersectBrick(targetBrick)) {
                         if (i != 0) {
                             ball.getDirection().setX(-ball.getDirection().getX());
                         }
