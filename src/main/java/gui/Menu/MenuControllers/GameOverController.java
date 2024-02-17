@@ -8,8 +8,9 @@ public class GameOverController {
     private GameOverView view;
     private StartMenuController startMenu;
 
-    public GameOverController(Stage p) {
-        this.view = new GameOverView(p);
+    public GameOverController(Stage p, GameOverView gameView) {
+        //this.view = new GameOverView(p);
+        this.view=gameView;
         this.view.getBtnReplay().setOnAction(e -> replay());
         this.view.getBtnQuit().setOnAction(e -> quit());
         this.view.getBtnMenu().setOnAction(e -> menu());

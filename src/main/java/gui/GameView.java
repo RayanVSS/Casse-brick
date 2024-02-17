@@ -14,6 +14,7 @@ import geometry.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
 import gui.Menu.MenuControllers.GameOverController;
+import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
 import java.util.Random;
@@ -183,7 +184,7 @@ public class GameView extends App {
                     if (game.isLost()) {
                         game.setLost(false);
                         animationStop();
-                        new GameOverController(primaryStage);
+                        root.getChildren().add(new GameOverView(primaryStage,root).getRoot());
                     }
                 }
                 last = now;
