@@ -72,18 +72,17 @@ public class Map {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (inMap(ballBrickX + i, ballBrickY + j) && bricks[ballBrickX + i][ballBrickY + j] != null) {
+
                     targetBrick = bricks[ballBrickX + i][ballBrickY + j];
 
                     if (!targetBrick.isDestroyed() && ball.intersectBrick(targetBrick)) {
+
                         if (i != 0) {
                             ball.getDirection().setX(-ball.getDirection().getX());
-                        }
-                        if (j != 0) {
+                        } else {
                             ball.getDirection().setY(-ball.getDirection().getY());
                         }
-
                         targetBrick.setDestroyed(true);
-                        return;
                     }
                 }
             }
