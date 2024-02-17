@@ -96,7 +96,7 @@ public class GameView extends App {
         }
         game = new Game(ball, new ClassicRacket(), BricksArrangement.DEFAULT);
 
-        this.brickSet = new BrickSet(game.getMap());
+        this.brickSet = new BrickSet(game.getMap().getBricks());
 
         // Création des éléments graphiques
         this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getRayon());

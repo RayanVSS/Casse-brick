@@ -20,14 +20,14 @@ public final class GameConstants {
     // fenetre
     // public static final double DEFAULT_WINDOW_WIDTH = MAP_WIDTH * BRICK_WIDTH;
     // public static final double DEFAULT_WINDOW_HEIGHT = MAP_HEIGHT * BRICK_HEIGHT;
-    public static final double DEFAULT_WINDOW_WIDTH = Screen.getPrimary().getVisualBounds().getWidth();// 1000.0;
-    public static final double DEFAULT_WINDOW_HEIGHT = Screen.getPrimary().getVisualBounds().getHeight();// 800.0;
+    public static final double DEFAULT_WINDOW_WIDTH = 1000.0;
+    public static final double DEFAULT_WINDOW_HEIGHT = 800.0;
     public static final int DEFAULT_FPS = 120;
 
     // particle de traînée
-    public static final int DEFAULT_trailLength = 0;// 70; // taille de la trainée
+    public static final int DEFAULT_trailLength = 70; // taille de la trainée
     public static final double DEFAULT_PARTICLE_RADIUS = 1.4;
     public static final double DEFAULT_FLUCTUATION = 5;
-    public static final int DEFAULT_PARTICLE = 0;// 10; // nombre de particules
+    public static final int DEFAULT_PARTICLE = 10; // nombre de particules
 
 }
