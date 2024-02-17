@@ -38,7 +38,7 @@ public class GameView extends App {
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
 
-    private Ensemble ensemble;
+    private BrickSet brickSet;
 
     // Balle
     private Circle graphBall;
@@ -96,7 +96,7 @@ public class GameView extends App {
         }
         game = new Game(ball, new ClassicRacket(), BricksArrangement.DEFAULT);
 
-        this.ensemble = new Ensemble(game.getMap());
+        this.brickSet = new BrickSet(game.getMap());
 
         // Création des éléments graphiques
         this.graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getRayon());
@@ -107,8 +107,8 @@ public class GameView extends App {
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
-        this.ensemble.setLayoutX(GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS);
-        root.getChildren().add(this.ensemble);
+        this.brickSet.setLayoutX(GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS);
+        root.getChildren().add(this.brickSet);
         // Ajout du texte des FPS
         fpsText.setX(10);
         fpsText.setY(20);
@@ -158,7 +158,7 @@ public class GameView extends App {
     }
 
     public void update() {
-        ensemble.update();
+        brickSet.update();
         // Mise à jour de la position de la balle
         this.graphBall.setCenterX(game.getBall().getC().getX());
         this.graphBall.setCenterY(game.getBall().getC().getY());
