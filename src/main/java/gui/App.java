@@ -13,7 +13,7 @@ public class App extends Application {
     @Override
     public void start(Stage p) throws Exception {
         this.primaryStage = p;
-        this.primaryStage.setResizable(false);
+        //this.primaryStage.setResizable(false);
         primaryStage.setTitle("Casse Brique");
         new StartMenuView(primaryStage);
         new StartMenuController(primaryStage);

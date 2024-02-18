@@ -32,10 +32,11 @@ public class Map {
 
         if (checkDefaultParameters()) {
 
-            bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT]; //[colonne][ligne]
+            bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT]; // [colonne][ligne]
             int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;
 
-            for (int i = indexFirstColumn; i < indexFirstColumn + GameConstants.COLUMNS_OF_BRICKS; i++) { // espace côté gauche/droit
+            for (int i = indexFirstColumn; i < indexFirstColumn + GameConstants.COLUMNS_OF_BRICKS; i++) { // espace côté
+                                                                                                          // gauche/droit
                 for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) { // 1 espace en haut
                     bricks[i][j] = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
                             j * GameConstants.BRICK_HEIGHT));
@@ -72,11 +73,8 @@ public class Map {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (inMap(ballBrickX + i, ballBrickY + j) && bricks[ballBrickX + i][ballBrickY + j] != null) {
-
                     targetBrick = bricks[ballBrickX + i][ballBrickY + j];
-
                     if (!targetBrick.isDestroyed() && ball.intersectBrick(targetBrick)) {
-
                         if (i != 0) {
                             ball.getDirection().setX(-ball.getDirection().getX());
                         } else {
@@ -89,14 +87,16 @@ public class Map {
         }
     }
 
-    public void updateBricksStatus() {
+    public boolean updateBricksStatus() {
         for (int i = 0; i < bricks.length; i++) {
             for (int j = 0; j < bricks[0].length; j++) {
                 if (bricks[i][j] != null && bricks[i][j].isDestroyed()) {
                     bricks[i][j] = null;
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     public void displayBricksInTerminal() { // pour les tests

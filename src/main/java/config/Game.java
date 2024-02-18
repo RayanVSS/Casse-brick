@@ -57,10 +57,11 @@ public class Game {
     }
 
     public void update(long deltaT) {
-
-        //Vérifie si la balle touche une brique
-        map.handleCollisionBricks(ball); //gérer la collision des briques
-        map.updateBricksStatus();
+        // Vérifie si la balle touche une brique
+        map.handleCollisionBricks(ball); // gérer la collision des briques
+        if (map.updateBricksStatus()) {
+            score += 10;
+        }
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
@@ -73,10 +74,6 @@ public class Game {
         if (life == 0) {
             lost = true;
         }
-    }
-
-    public void lost() {
-        System.exit(0);
     }
 
     public boolean collisionRacket(Coordinates c) {
