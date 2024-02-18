@@ -3,57 +3,101 @@ package physics;
 import geometry.Coordinates;
 import geometry.Vector;
 import utils.GameConstants;
-
+import entity.ball.Ball;
 import java.util.Random;
 
 public class Outline {
 
-    int vitesse;
-    int diametre;
+    Vector vitesse;
+    int radius;
     Vector direction;
-    Vector gravite;
-    Vector poid;
     Vector vent;
     
-    public Outline(int vitesse, int diametre , Vector gravite , Vector vent){
+    public static int Vitesse_Vent = 0;
+    public static int Direction_Vent = 0;
+    public static double Gravite = 1;
+    public static double Mass = 1;
+    public static final double stop_bounce = 0.3;
+    public static final double retention = 0.8;
+    public static final double friction = 0.1;
+    
+    public Outline(Vector vitesse , int radius , double gravite , Vector vent , double mass){
         this.vitesse = vitesse;
-        this.diametre = diametre;
+        this.radius = radius;
         this.direction = randomDirection();
-        this.gravite = gravite;
-        this.poid = gravite;
-        poid.multiply(diametre);
+        Gravite = gravite;
+        Mass = mass;
         this.vent = vent;
     }
 
     public Outline(){
-        this.vitesse = GameConstants.DEFAULT_BALL_SPEED;
-        this.diametre = GameConstants.DEFAULT_BALL_RADIUS/2;
+        this.vitesse = new Vector(new Coordinates(1,1));
+        this.radius = GameConstants.DEFAULT_BALL_RADIUS/2;
         this.direction = randomDirection();
-        this.gravite = new Vector(new Coordinates(0,0.01));
-        this.poid = gravite;
-        poid.multiply(diametre);
-        this.vent = new Vector(new Coordinates(1, 0));
-        direction.add(gravite);
+        this.vent = vectorVent(Vitesse_Vent, Direction_Vent);
+    }
+    /* 
+    public void checkGravity(Ball ball) {
+        if (ball.getC().getY() < GameConstants.DEFAULT_WINDOW_HEIGHT - radius) {
+            vitesse.setY(vitesse.getY() + Gravite);
+        } else {
+            if (vitesse.getY() > stop_bounce) {
+                vitesse.setY(-vitesse.getY()* retention);
+            } else {
+                if (Math.abs(vitesse.getY()) <= stop_bounce) {
+                    vitesse.setY(0);
+                }
+            }
+            if ((ball.getC().getX() < radius && vitesse.getX() < 0) || (ball.getC().getX() > GameConstants.DEFAULT_WINDOW_WIDTH - radius && vitesse.getX() > 0)) {
+                vitesse.setX(-vitesse.getX()* retention);
+                if (Math.abs(vitesse.getX()) < stop_bounce) {
+                    vitesse.setX(0);
+                }
+            }
+            if (vitesse.getY() == 0 && vitesse.getX() != 0) {
+                if (vitesse.getX() > 0) {
+                    vitesse.setX(vitesse.getX()-friction);
+                } else if (vitesse.getX() < 0) {
+                    vitesse.setX(vitesse.getX()+friction);
+                }
+            }
+        }
+    }
+    */
+
+    public Vector vectorVent(int vitesse , int direction){
+       switch (direction) {
+        case 1:
+            return new Vector(new Coordinates(vitesse, 0));
+        case 2:
+            return new Vector(new Coordinates(0, vitesse));
+        case 3:
+            return new Vector(new Coordinates(-vitesse, 0));
+        case 4:
+            return new Vector(new Coordinates(0, -vitesse));
+        default:
+            return new Vector(new Coordinates(0, 0));
+       }
     }
 
     public Vector getDirection() {
         return this.direction;
     }
 
-    public int getVitesse() {
+    public Vector getVitesse() {
         return this.vitesse;
     }
 
     public int getDiametre() {
-        return this.diametre;
+        return this.radius;
     }
 
-    public Vector getGravite() {
-        return this.gravite;
+    public double getGravite() {
+        return Gravite;
     }
 
-    public Vector getPoid() {
-        return this.poid;
+    public double getMass() {
+        return Mass;
     }
 
     public Vector randomDirection() {
@@ -67,8 +111,8 @@ public class Outline {
         return this.vent;
     }
 
-    public void setVitesse(double vitesse) {
-        this.vitesse = (int)vitesse;
+    public void setVitesse(Vector vitesse) {
+        this.vitesse = vitesse;
     }
    
 }

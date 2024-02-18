@@ -80,6 +80,7 @@ public class GameView extends App {
         this.graphRacket = new RacketGraphics(game.getRacket());
         this.scoreLifeView = new ScoreLifeView(game);
 
+
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
@@ -128,6 +129,8 @@ public class GameView extends App {
                 firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
             }
         }
+
+        
     }
 
     // Génère une direction aléatoire pour la balle
