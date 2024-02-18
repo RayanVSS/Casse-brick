@@ -14,7 +14,9 @@ import entity.racket.*;
 import geometry.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
-import gui.Menu.MenuViews.*;
+import gui.Menu.MenuControllers.GameOverController;
+import gui.Menu.MenuViews.GameOverView;
+import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
 import java.util.Random;
 import java.util.Set;
@@ -98,7 +100,7 @@ public class GameView extends App {
         root.getChildren().add(this.scoreLifeView);
         root.getChildren().add(this.brickSet);
 
-        //affichage de la preview
+        // affichage de la preview
         if (GameConstants.PATH) {
             this.Ballpreview = new BallGraphics(preview.getInvisibleBall());
             root.getChildren().add(this.Ballpreview);
@@ -192,7 +194,7 @@ public class GameView extends App {
                     if (game.isLost()) {
                         game.setLost(false);
                         animationStop();
-                        root.getChildren().add(new GameOverView(primaryStage,root).getRoot());
+                        root.getChildren().add(new GameOverView(primaryStage, root).getRoot());
                     }
                 }
                 last = now;
@@ -215,5 +217,9 @@ public class GameView extends App {
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
+    }
+
+    public AnimationTimer getAnimationTimer() {
+        return animationTimer;
     }
 }

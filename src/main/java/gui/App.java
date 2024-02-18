@@ -15,6 +15,8 @@ public class App extends Application {
         this.primaryStage = p;
         //this.primaryStage.setResizable(false);
         primaryStage.setTitle("Casse Brique");
+
+        
         new StartMenuView(primaryStage);
         new StartMenuController(primaryStage);
         primaryStage.show();

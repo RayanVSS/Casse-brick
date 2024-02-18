@@ -22,7 +22,7 @@ public class GameOverView implements Menu {
         this.primaryStage = p;
         this.root = new StackPane();
         this.scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-        this.gameOver = createLabel("Game Over", 0, 400);
+        this.gameOver = createLabel("Game Over", 0, 400,40);
         this.btnMenu = createButton("Menu", 0, 300);
         this.btnReplay = createButton("Rejouer", 0, 200);
         this.btnQuit = createButton("Quitter", 0, 100);

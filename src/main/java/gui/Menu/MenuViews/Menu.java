@@ -1,41 +1,16 @@
 package gui.Menu.MenuViews;
 
-import java.io.InputStream;
-
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
 
 public interface Menu {
     public default Button createButton(String text, double rightMargin, double bottomMargin) {
         Button button = new Button(text);
-        // try {
-        //     Font font = Font.loadFont(getClass().getResourceAsStream("/ressources/font.otf"), 20);
-        //     if(font != null){
-        //         button.setFont(font);
-        //     }else{
-        //         System.out.println("Font not found 1");
-        //     }
-        // } catch (Exception e) {
-        //     System.out.println("Font not found 2");
-        // }
-        try {
-        InputStream is = getClass().getResourceAsStream("/src/main/java/ressources/bla.ttf");
-        if (is == null) {
-            System.out.println("Font file not found");
-        } else {
-            Font font = Font.loadFont(is, 14);
-            if (font == null) {
-                System.out.println("Font not loaded");
-            } else {
-                button.setFont(font);
-            }
-        }
-    } catch (Exception e) {
-        System.out.println("Error loading font: " + e.getMessage());
-    }
         StackPane.setMargin(button, new Insets(100, rightMargin, bottomMargin, 10));
         button.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
         button.setOnMouseEntered(e -> {
@@ -47,11 +22,26 @@ public interface Menu {
         return button;
     };
 
-    public default Label createLabel(String text, double rightMargin, double bottomMargin) {
+    public default Label createLabel(String text, double rightMargin, double bottomMargin, double fontSize) {
         Label label = new Label(text);
         StackPane.setMargin(label, new Insets(0, rightMargin, bottomMargin, 0));
-        label.setStyle("-fx-font-size: 50; -fx-text-fill: black;");
+        label.setStyle("-fx-font-size: " + fontSize + "; -fx-text-fill: #d5bbb1;");
         return label;
     };
+
+    public default ToggleButton createToggleButton(String text, boolean selected) {
+        ToggleButton button = new ToggleButton(text);
+        button.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        button.setSelected(selected);
+        return button;
+    }
+
+    public default Slider createSlider(double min, double max, double value,double maxwidth) {
+        Slider slider = new Slider(min, max, value);
+        slider.setMaxWidth(maxwidth);
+        slider.setOrientation(Orientation.HORIZONTAL);
+        slider.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        return slider;
+    }
 
 }

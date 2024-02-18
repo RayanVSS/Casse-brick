@@ -1,6 +1,7 @@
 package gui;
 
 import entity.brick.Brick;
+import gui.GraphicsFactory.BricksGraphics;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import utils.GameConstants;
