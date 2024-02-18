@@ -13,15 +13,9 @@ import entity.racket.*;
 import geometry.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
-import gui.Menu.MenuControllers.GameOverController;
-import gui.Menu.MenuViews.GameOverView;
-import gui.Menu.MenuViews.ScoreLifeView;
+import gui.Menu.MenuViews.*;
 import utils.*;
-import java.util.Random;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class GameView extends App {
 

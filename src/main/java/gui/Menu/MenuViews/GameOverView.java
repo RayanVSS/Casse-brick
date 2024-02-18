@@ -1,10 +1,6 @@
 package gui.Menu.MenuViews;
 
-import java.util.Stack;
-
-import gui.GameView;
 import gui.Menu.MenuControllers.GameOverController;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

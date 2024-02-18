@@ -1,6 +1,5 @@
 package gui.Menu.MenuViews;
 
-import org.checkerframework.checker.units.qual.g;
 
 import config.Game;
 import javafx.scene.layout.Pane;

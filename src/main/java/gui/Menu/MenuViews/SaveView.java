@@ -69,7 +69,7 @@ public class SaveView implements Menu{
         this.listSave = new ComboBox<String>();
         this.listSave.setPromptText("Choisir une sauvegarde existante");
         this.listSave.getItems().addAll(sauvegarde.listerSauvegardes());
-        root.setMargin(this.listSave, new javafx.geometry.Insets(-500, 0, 0, 0));
+        StackPane.setMargin(this.listSave, new javafx.geometry.Insets(-500, 0, 0, 0));
         //add to root
         this.root.getChildren().addAll(grid, btnBack, btnsave, btndelete, btnOK, btnload,listSave);
         primaryStage.setScene(scene);

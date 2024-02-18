@@ -6,7 +6,6 @@ import javafx.stage.Stage;
 
 public class GameOverController {
     private GameOverView view;
-    private StartMenuController startMenu;
 
     public GameOverController(Stage p, GameOverView gameView) {
         //this.view = new GameOverView(p);
@@ -28,6 +27,6 @@ public class GameOverController {
 
     private void menu() {
         view.getRoot().getChildren().clear();
-        startMenu = new StartMenuController(view.getPrimaryStage());
+        new StartMenuController(view.getPrimaryStage());
     }
 }
