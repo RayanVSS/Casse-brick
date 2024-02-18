@@ -79,10 +79,10 @@ public abstract class Ball extends Entity {
         double circleDistance_x = Math.abs(getC().getX() - b.getC().getX() - GameConstants.BRICK_WIDTH / 2);
         double circleDistance_y = Math.abs(getC().getY() - b.getC().getY() - GameConstants.BRICK_HEIGHT / 2);
 
-        if (circleDistance_x > (GameConstants.BRICK_WIDTH / 2 + rayon)) {
+        if (circleDistance_x > (GameConstants.BRICK_WIDTH / 2 + radius)) {
             return false;
         }
-        if (circleDistance_y > (GameConstants.BRICK_HEIGHT / 2 + rayon)) {
+        if (circleDistance_y > (GameConstants.BRICK_HEIGHT / 2 + radius)) {
             return false;
         }
 
@@ -98,7 +98,7 @@ public abstract class Ball extends Entity {
                 + (circleDistance_y - GameConstants.BRICK_HEIGHT / 2)
                         * (circleDistance_y - GameConstants.BRICK_HEIGHT / 2);
 
-        return (cornerDistance_sq <= (rayon * rayon));
+        return (cornerDistance_sq <= (radius * radius));
     }
 
     public abstract boolean movement();

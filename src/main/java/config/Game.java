@@ -60,11 +60,7 @@ public class Game {
 
         //Vérifie si la balle touche une brique
         map.handleCollisionBricks(ball); //gérer la collision des briques
-
-        // Quand la balle arrive au sud on perds (tres primaire comme code)
-        if (!ball.movement()) {
-            lost();
-        }
+        map.updateBricksStatus();
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);

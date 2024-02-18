@@ -70,6 +70,7 @@ public class GameView extends App {
         /* differentes balles */
         game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
         preview = new Preview(game.getBall());
+        brickSet = new BrickSet(game.getMap().getBricks());
 
         // Création des particules
         if (GameConstants.PARTICLES) {
@@ -84,8 +85,6 @@ public class GameView extends App {
             }
         }
 
-        this.brickSet = new BrickSet(game.getMap().getBricks());
-
         // Création des éléments graphiques
         this.graphBall = new BallGraphics(game.getBall());
         this.graphRacket = new RacketGraphics(game.getRacket());
@@ -98,6 +97,7 @@ public class GameView extends App {
             root.getChildren().add(this.fpsGraphics);
         }
         root.getChildren().add(this.scoreLifeView);
+        root.getChildren().add(this.brickSet);
 
         //affichage de la preview
         if (GameConstants.PATH) {
@@ -119,7 +119,7 @@ public class GameView extends App {
         // Mise à jour de la position de la raquette
         this.graphRacket.update();
 
-        // Mise à jour de l'affichage des briques
+        // Mise à jour de l'affich
         brickSet.update();
 
         // Calcul des FPS
