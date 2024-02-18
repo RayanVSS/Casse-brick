@@ -3,6 +3,7 @@ package gui;
 import gui.Menu.MenuControllers.StartMenuController;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Application;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class App extends Application {

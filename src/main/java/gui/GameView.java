@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.animation.*;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
@@ -21,6 +22,7 @@ import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import geometry.Coordinates;
 
 public class GameView extends App {
 
@@ -28,6 +30,8 @@ public class GameView extends App {
     private Pane root = new Pane();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
+
+    private BrickSet brickSet;
 
     // Balle
     private BallGraphics graphBall;
@@ -59,7 +63,7 @@ public class GameView extends App {
     public GameView(Stage p, int level) {
 
         this.primaryStage = p;
-        if(GameConstants.FPS){
+        if (GameConstants.FPS) {
             fpsGraphics = new FPSGraphics();
         }
 
@@ -68,7 +72,7 @@ public class GameView extends App {
         preview = new Preview(game.getBall());
 
         // Création des particules
-        if(GameConstants.PARTICLES){
+        if (GameConstants.PARTICLES) {
             for (int i = 0; i < trailLength; i++) {
                 List<Particle> trail = new ArrayList<>();
                 for (int j = 0; j < GameConstants.DEFAULT_PARTICLE; j++) { // nombre de particules
@@ -80,6 +84,8 @@ public class GameView extends App {
             }
         }
 
+        this.brickSet = new BrickSet(game.getMap().getBricks());
+
         // Création des éléments graphiques
         this.graphBall = new BallGraphics(game.getBall());
         this.graphRacket = new RacketGraphics(game.getRacket());
@@ -88,15 +94,15 @@ public class GameView extends App {
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
-        if(GameConstants.FPS){
+        if (GameConstants.FPS) {
             root.getChildren().add(this.fpsGraphics);
         }
         root.getChildren().add(this.scoreLifeView);
 
         //affichage de la preview
-        if(GameConstants.PATH){
+        if (GameConstants.PATH) {
             this.Ballpreview = new BallGraphics(preview.getInvisibleBall());
-            root.getChildren().add(this.Ballpreview);    
+            root.getChildren().add(this.Ballpreview);
         }
 
         // Affichage de la fenêtre
@@ -106,18 +112,22 @@ public class GameView extends App {
     }
 
     public void update() {
+
         // Mise à jour de la position de la balle
         this.graphBall.update();
 
         // Mise à jour de la position de la raquette
         this.graphRacket.update();
 
+        // Mise à jour de l'affichage des briques
+        brickSet.update();
+
         // Calcul des FPS
-        if(GameConstants.FPS){
+        if (GameConstants.FPS) {
             this.fpsGraphics.update();
         }
 
-        if(GameConstants.PATH){
+        if (GameConstants.PATH) {
             this.preview.movementBis(root);
             this.Ballpreview.update();
             this.preview.setDot(root);
@@ -126,19 +136,19 @@ public class GameView extends App {
         // Mise à jour du score et de la vie
         this.scoreLifeView.update();
 
-        if(GameConstants.PARTICLES){
+        if (GameConstants.PARTICLES) {
             for (int i = 0; i < trailLength; i++) {
                 List<Particle> trail = particleTrails.get(i);
-    
+
                 for (int j = trail.size() - 1; j > 0; j--) {
                     Particle currentParticle = trail.get(j);
                     Particle previousParticle = trail.get(j - 1);
-    
+
                     currentParticle.setCenterX(previousParticle.getCenterX());
                     currentParticle.setCenterY(previousParticle.getCenterY());
                     currentParticle.applyRandomFluctuation(); // fluctuation des particules
                 }
-    
+
                 Particle firstParticle = trail.get(0);
                 firstParticle.setCenterX(game.getBall().getC().getX());
                 firstParticle.setCenterY(game.getBall().getC().getY());
