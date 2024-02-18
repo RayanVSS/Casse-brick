@@ -17,7 +17,7 @@ public final class GameConstants {
     public static final int BRICK_WIDTH = 60;
     public static final int BRICK_HEIGHT = 32;
 
-    //ball
+    // ball
     public static final int DEFAULT_BALL_SPEED = 5;
     public static final int DEFAULT_BALL_RADIUS = 10;
     public static final Vector DEFAULT_BALL_START_DIRECTION = new Vector(new Coordinates(1, 1));
@@ -37,21 +37,21 @@ public final class GameConstants {
     public static final double DEFAULT_FLUCTUATION = 5;
     public static final int DEFAULT_PARTICLE = 10; // nombre de particules
 
-    //boost
-    //temps des boosts
+    // boost
+    // temps des boosts
     public static final int BOOST_DURATION_VITESSEP = 5;
     public static final int BOOST_DURATION_VITESSEM = 5;
     public static final int BOOST_DURATION_LARGEURP = 5;
     public static final int BOOST_DURATION_LARGEURM = 5;
     public static final int BOOST_DURATION_FREEZE = 2;
     public static final int BOOST_DURATION_JUMP = 5;
-    //valeur des boosts
+    // valeur des boosts
     public static final double BOOST_VITESSEP = 2.0;
     public static final int BOOST_VITESSEM = 5;
     public static final int BOOST_LARGEURP = 100;
     public static final int BOOST_LARGEURM = 100;
 
-    //Options du jeu
+    // Options du jeu
     public static boolean FPS = false;
     public static boolean PATH = false;
     public static boolean PARTICLES = true;

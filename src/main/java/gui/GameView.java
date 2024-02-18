@@ -15,6 +15,7 @@ import geometry.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
 import gui.Menu.MenuControllers.GameOverController;
+import gui.Menu.MenuViews.PauseView;
 import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
 import java.util.Random;
@@ -99,7 +100,7 @@ public class GameView extends App {
         root.getChildren().add(this.scoreLifeView);
         root.getChildren().add(this.brickSet);
 
-        //affichage de la preview
+        // affichage de la preview
         if (GameConstants.PATH) {
             this.Ballpreview = new BallGraphics(preview.getInvisibleBall());
             root.getChildren().add(this.Ballpreview);
@@ -195,6 +196,10 @@ public class GameView extends App {
                         animationStop();
                         new GameOverController(primaryStage);
                     }
+                    if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
+                        animationStop();
+                        root.getChildren().add(new PauseView(primaryStage, root, this).getRoot());
+                    }
                 }
                 last = now;
             }
@@ -216,5 +221,9 @@ public class GameView extends App {
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
+    }
+
+    public AnimationTimer getAnimationTimer() {
+        return animationTimer;
     }
 }
