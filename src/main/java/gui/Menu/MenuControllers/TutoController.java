@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 /**
  * Classe TutoController qui gère les interactions de l'utilisateur avec la vue
  * TutoView.
- * 
+ * @see TutoView
  * @author Benmalek Majda
  * 
  */

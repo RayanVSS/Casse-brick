@@ -10,6 +10,9 @@ import javafx.stage.Stage;
 
 /**
  * Classe contrôleur pour le menu de démarrage.
+ * Elle gère les interactions de l'utilisateur avec la vue StartMenuView.
+ * Elle permet de démarrer le jeu, afficher les options, quitter le jeu et afficher le tutoriel.
+ * @see StartMenuView
  * @author Benmalek Majda
  */
 public class StartMenuController {

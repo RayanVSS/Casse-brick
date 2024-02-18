@@ -5,9 +5,19 @@ import gui.Menu.MenuViews.StartMenuView;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
+/**
+ * Classe OptionsController qui gère les interactions de l'utilisateur avec la vue OptionsView.
+ * Elle permet de modifier les elements modifiables du jeu.
+ * @see OptionsView
+ * @author Benmalek Majda
+ */
 public class OptionsController {
     private OptionsView view;
 
+    /**
+     * Constructeur de OptionsController.
+     * @param p Le stage principal sur lequel la vue des options est affichée.
+     */
     public OptionsController(Stage p) {
         this.view = new OptionsView(p);
         this.view.getBtnBack().setOnAction(e -> back());
@@ -25,11 +35,18 @@ public class OptionsController {
         this.view.getButtonright().setOnAction(e -> right());
     }
 
+    /**
+     * Méthode pour revenir à la vue du menu de démarrage.
+     */
     private void back() {
         view.getRoot().getChildren().clear();
         new StartMenuView(view.getPrimaryStage());
         new StartMenuController(view.getPrimaryStage());
     }
+
+    /**
+     * Méthode pour gérer l'activation/désactivation du FPS.
+     */
     private void fps() {
         if (view.getButtonfps().isSelected()) {
             view.getButtonfps().setText("ON");
@@ -38,6 +55,10 @@ public class OptionsController {
         }
         GameConstants.FPS = this.view.getButtonfps().isSelected();
     }
+
+    /**
+     * Méthode pour gérer l'activation/désactivation du chemin.
+     */
     private void path() {
         if (view.getButtonpath().isSelected()) {
             view.getButtonpath().setText("ON");
@@ -46,6 +67,10 @@ public class OptionsController {
         }
         GameConstants.PATH = this.view.getButtonpath().isSelected();
     }
+
+    /**
+     * Méthode pour gérer l'activation/désactivation des particules.
+     */
     private void particles() {
         if (view.getButtonparticles().isSelected()) {
             view.getButtonparticles().setText("ON");
@@ -54,6 +79,10 @@ public class OptionsController {
         }
         GameConstants.PARTICLES = this.view.getButtonparticles().isSelected();
     }
+
+    /**
+     * Méthode pour gérer l'activation de la touche gauche.
+     */
     private void left() {
         view.getButtonleft().setText("Appuyez sur une touche...");
         view.getButtonleft().setOnKeyPressed(event -> {
@@ -62,6 +91,10 @@ public class OptionsController {
             view.getButtonleft().setOnKeyPressed(null); // Désactive la liaison après la configuration
         });
     }
+
+    /**
+     * Méthode pour gérer l'activation de la touche d'alimentation.
+     */
     private void power() {
         view.getButtonpower().setText("Appuyez sur une touche...");
         view.getButtonpower().setOnKeyPressed(event -> {
@@ -71,6 +104,9 @@ public class OptionsController {
         });
     }
 
+    /**
+     * Méthode pour gérer l'activation de la touche droite.
+     */
     private void right() {
         view.getButtonright().setText("Appuyez sur une touche...");
         view.getButtonright().setOnKeyPressed(event -> {
@@ -79,5 +115,4 @@ public class OptionsController {
             view.getButtonright().setOnKeyPressed(null); // Désactive la liaison après la configuration
         });;
     }
-
 }
