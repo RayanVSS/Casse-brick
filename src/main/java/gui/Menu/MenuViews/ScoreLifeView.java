@@ -1,10 +1,16 @@
 package gui.Menu.MenuViews;
 
-
 import config.Game;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
+/**
+ * Classe ScoreLifeView qui étend Pane pour afficher le score et la vie dans le
+ * jeu.
+ * Elle est mise à jour à chaque frame pour afficher le score et la vie actuels.
+ * 
+ * @author Benmalek Majda
+ */
 public class ScoreLifeView extends Pane {
     private Text scoreText;
     private Text lifeText;
@@ -12,6 +18,12 @@ public class ScoreLifeView extends Pane {
     private int life;
     private Game game;
 
+    /**
+     * Constructeur de ScoreLifeView.
+     * 
+     * @param game L'instance de Game à partir de laquelle obtenir le score et la
+     *             vie.
+     */
     public ScoreLifeView(Game game) {
         this.game = game;
         score = game.getScore();
@@ -30,17 +42,30 @@ public class ScoreLifeView extends Pane {
         getChildren().add(lifeText);
     }
 
+    /**
+     * Méthode pour mettre à jour le score et la vie affichés.
+     */
     public void update() {
-        score=game.getScore();
-        life=game.getLife();
+        score = game.getScore();
+        life = game.getLife();
         scoreText.setText("Score: " + score);
         lifeText.setText("Life: " + life);
     }
 
+    /**
+     * Méthode pour définir le score.
+     * 
+     * @param score Le nouveau score.
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /**
+     * Méthode pour définir la vie.
+     * 
+     * @param life La nouvelle vie.
+     */
     public void setLife(int life) {
         this.life = life;
     }
