@@ -1,6 +1,5 @@
 package gui;
 
-import gui.Menu.MenuControllers.StartMenuController;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -15,7 +14,7 @@ public class App extends Application {
         this.primaryStage.setResizable(false);
         primaryStage.setTitle("Casse Brique");
 
-        new StartMenuController(primaryStage, new StartMenuView(primaryStage));
+        new StartMenuView(p);
 
         primaryStage.show();
         primaryStage.getOnCloseRequest();

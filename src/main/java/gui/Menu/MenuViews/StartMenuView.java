@@ -1,5 +1,6 @@
 package gui.Menu.MenuViews;
 
+import gui.Menu.MenuControllers.StartMenuController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -48,6 +49,7 @@ public class StartMenuView extends Menu {
         root.getChildren().addAll(title, btnPlay, btnOptions, btnSave, btnTuto, btnQuit);
         root.setSpacing(10);
         root.setAlignment(javafx.geometry.Pos.CENTER);
+        new StartMenuController(p,this);
         this.primaryStage.setScene(scene);
     }
 
