@@ -34,6 +34,7 @@ public class StartMenuView implements Menu {
         this.primaryStage = p;
         this.root = new VBox();
         this.scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
+        this.scene.getStylesheets().add("/styles/blue.css");
 
         this.title = createLabel("Casse Brique", 0, 0, 50);
         this.btnPlay = createButton("Jouer", 0, 0);

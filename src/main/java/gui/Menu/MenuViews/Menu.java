@@ -7,11 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 
 /**
  * Interface Menu qui définit les méthodes par défaut pour créer des éléments
  * d'interface utilisateur.
  * Elle est implémentée par les classes qui représentent les vues des menus.
+ * 
  * @author Benmalek Majda
  */
 public interface Menu {
@@ -27,13 +29,17 @@ public interface Menu {
      */
     public default Button createButton(String text, double rightMargin, double bottomMargin) {
         Button button = new Button(text);
+
         StackPane.setMargin(button, new Insets(0, rightMargin, bottomMargin, 0));
-        button.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        button.getStyleClass().add("button-style");
         button.setOnMouseEntered(e -> {
-            button.setStyle("-fx-font-size: 20; -fx-background-color: #d5bbb1;-fx-text-fill: #1b263b;");
+            button.getStyleClass().remove("button-style");
+            button.getStyleClass().add("button-hover");
         });
         button.setOnMouseExited(e -> {
-            button.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+            button.getStyleClass().remove("button-hover");
+            button.getStyleClass().add("button-style");
+
         });
         return button;
     };
@@ -50,8 +56,9 @@ public interface Menu {
      */
     public default Label createLabel(String text, double rightMargin, double bottomMargin, double fontSize) {
         Label label = new Label(text);
+        label.getStyleClass().add("label-style");
         StackPane.setMargin(label, new Insets(0, rightMargin, bottomMargin, 0));
-        label.setStyle("-fx-font-size: " + fontSize + "; -fx-text-fill: #d5bbb1;");
+        label.setStyle("-fx-font-size: " + fontSize );
         return label;
     };
 

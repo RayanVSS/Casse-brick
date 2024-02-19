@@ -16,6 +16,7 @@ public class TutoView implements Menu {
         this.primaryStage = p;
         this.root = new StackPane();
         this.scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
+        this.scene.getStylesheets().add("/styles/blue.css");
         this.root.setStyle("-fx-background-color: #273654;");
         this.btnBack = createButton("Retour", 0, 0);
         this.root.getChildren().add(btnBack);

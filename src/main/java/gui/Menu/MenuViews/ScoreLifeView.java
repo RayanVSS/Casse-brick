@@ -1,6 +1,7 @@
 package gui.Menu.MenuViews;
 
 import config.Game;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -34,12 +35,17 @@ public class ScoreLifeView extends Pane {
         scoreText.setY(20);
         lifeText.setX(10);
         lifeText.setY(40);
-        scoreText.setStyle("-fx-font-size: 20; -fx-fill: #d5bbb1;");
-        lifeText.setStyle("-fx-font-size: 20; -fx-fill: #d5bbb1;");
+        scoreText.getStyleClass().add("text-style");
+        lifeText.getStyleClass().add("text-style");
         setLayoutX(10);
         setLayoutY(10);
         getChildren().add(scoreText);
         getChildren().add(lifeText);
+
+        this.getStyleClass().add("score-life-view");
+        Scene scene = new Scene(this);
+        scene.getStylesheets().add("/styles/blue.css");
+
     }
 
     /**

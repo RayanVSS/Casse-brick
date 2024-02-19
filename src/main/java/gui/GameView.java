@@ -63,6 +63,8 @@ public class GameView extends App {
 
     public GameView(Stage p, int level) {
 
+        scene.getStylesheets().add("/styles/blue.css");
+
         this.primaryStage = p;
         if (GameConstants.FPS) {
             fpsGraphics = new FPSGraphics();

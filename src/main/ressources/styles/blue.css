@@ -1,0 +1,25 @@
+/* styles.css */
+.button-style {
+    -fx-font-size: 20;
+    -fx-background-color: #1b263b;
+    -fx-text-fill: #d5bbb1;
+}
+
+.button-hover {
+    -fx-font-size: 20;
+    -fx-background-color: #d5bbb1;
+    -fx-text-fill: #1b263b;
+}
+
+.label-style {
+    -fx-text-fill: #d5bbb1;
+}
+.text-style{
+    -fx-font-size: 20;
+    -fx-fill: #d5bbb1;
+}
+.score-life-view{
+    -fx-border-color: #11f890;
+    -fx-border-width: 2;
+    -fx-border-radius: 15;
+}

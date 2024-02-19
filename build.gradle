@@ -52,4 +52,11 @@ application {
 checkstyle {
         toolVersion = '10.0'
 }
+sourceSets {
+    main {
+        resources {
+            srcDirs 'src/main/ressources'
+        }
+    }
+}
 
