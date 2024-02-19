@@ -28,7 +28,7 @@ public class TutoController {
      * Méthode pour revenir à la vue du menu de démarrage.
      */
     private void back() {
-        new StartMenuView(view.getPrimaryStage());
-        new StartMenuController(view.getPrimaryStage());
+        //new StartMenuView(view.getPrimaryStage());
+        new StartMenuController(view.getPrimaryStage(), new StartMenuView(view.getPrimaryStage()));
     }
 }

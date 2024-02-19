@@ -1,7 +1,6 @@
 package gui;
 
 import javafx.animation.*;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
@@ -11,10 +10,8 @@ import entity.Particle;
 import entity.ball.*;
 import entity.preview.Preview;
 import entity.racket.*;
-import geometry.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
-import gui.Menu.MenuControllers.GameOverController;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
@@ -62,10 +59,9 @@ public class GameView extends App {
     private BallGraphics Ballpreview;
 
     public GameView(Stage p, int level) {
-
-        scene.getStylesheets().add("/styles/blue.css");
-
         this.primaryStage = p;
+        this.scene.getStylesheets().add("/styles/blue.css");
+
         if (GameConstants.FPS) {
             fpsGraphics = new FPSGraphics();
         }

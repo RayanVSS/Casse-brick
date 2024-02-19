@@ -18,8 +18,8 @@ public class OptionsController {
      * Constructeur de OptionsController.
      * @param p Le stage principal sur lequel la vue des options est affichée.
      */
-    public OptionsController(Stage p) {
-        this.view = new OptionsView(p);
+    public OptionsController(Stage p,OptionsView view) {
+        this.view = view;
         this.view.getBtnBack().setOnAction(e -> back());
         this.view.getButtonfps().setOnAction(e -> fps());
         this.view.getButtonpath().setOnAction(e -> path());
@@ -40,8 +40,8 @@ public class OptionsController {
      */
     private void back() {
         view.getRoot().getChildren().clear();
-        new StartMenuView(view.getPrimaryStage());
-        new StartMenuController(view.getPrimaryStage());
+        //new StartMenuView(view.getPrimaryStage());
+        new StartMenuController(view.getPrimaryStage(), new StartMenuView(view.getPrimaryStage()));
     }
 
     /**

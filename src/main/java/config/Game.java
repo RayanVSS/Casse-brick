@@ -1,15 +1,8 @@
 package config;
 
-import java.util.Vector;
-
 import entity.ball.Ball;
-import entity.ball.ClassicBall;
-import entity.brick.Brick;
-import entity.brick.BrickClassic;
-import entity.racket.ClassicRacket;
 import entity.racket.Racket;
 import geometry.Coordinates;
-import utils.GameConstants;
 
 public class Game {
 

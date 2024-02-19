@@ -1,7 +1,6 @@
 package gui.Menu.MenuViews;
 
 import config.Game;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -32,20 +31,15 @@ public class ScoreLifeView extends Pane {
         scoreText = new Text("Score: " + score);
         lifeText = new Text("Life: " + life);
         scoreText.setX(10);
-        scoreText.setY(20);
+        scoreText.setY(40);
         lifeText.setX(10);
-        lifeText.setY(40);
-        scoreText.getStyleClass().add("text-style");
-        lifeText.getStyleClass().add("text-style");
+        lifeText.setY(20);
+        scoreText.getStyleClass().add("scoreL-style");
+        lifeText.getStyleClass().add("scoreL-style");
         setLayoutX(10);
         setLayoutY(10);
-        getChildren().add(scoreText);
         getChildren().add(lifeText);
-
-        this.getStyleClass().add("score-life-view");
-        Scene scene = new Scene(this);
-        scene.getStylesheets().add("/styles/blue.css");
-
+        getChildren().add(scoreText);
     }
 
     /**
@@ -70,7 +64,7 @@ public class ScoreLifeView extends Pane {
     /**
      * Méthode pour définir la vie.
      * 
-     * @param life La nouvelle vie.
+     * @param life La nouvelle valeur de la .
      */
     public void setLife(int life) {
         this.life = life;

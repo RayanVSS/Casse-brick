@@ -1,73 +1,101 @@
 package gui.Menu.MenuViews;
 
 import gui.Menu.MenuControllers.GameOverController;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import utils.GameConstants;
 
 /**
- * Classe GameOverView qui implémente l'interface Menu pour représenter la vue
- * de fin de partie.
- * Elle contient les éléments graphiques de la vue de fin de partie.
+ * Classe GameOver qui représente l'écran de fin de jeu.
+ * Cette classe étend VBox pour organiser les éléments de l'interface
+ * utilisateur en une colonne verticale.
  * 
+ * @see GameOverController
  * @author Benmalek Majda
  */
-public class GameOverView implements Menu {
+public class GameOverView extends VBox {
     private Stage primaryStage;
-    private Scene scene;
-    private VBox root;
     private Button btnReplay;
     private Button btnQuit;
     private Button btnMenu;
     private Label gameOver;
 
     /**
-     * Constructeur de GameOverView.
+     * Constructeur de la classe GameOver.
      * 
-     * @param p    Le stage principal sur lequel la vue de fin de partie est
-     *             affichée.
-     * @param game Le Pane du GameView.
+     * @param p    Le stage principal de l'application.
+     * @param game Le pane du jeu.
      */
+
     public GameOverView(Stage p, Pane game) {
         this.primaryStage = p;
-        this.root = new VBox();
-        this.scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-        this.gameOver = createLabel("Game Over", 0, 400, 40);
-        this.btnMenu = createButton("Menu", 0, 300);
-        this.btnReplay = createButton("Rejouer", 0, 200);
-        this.btnQuit = createButton("Quitter", 0, 100);
-        root.getChildren().addAll(gameOver, btnReplay, btnMenu, btnQuit);
-        /*
-         * Car le root dans GameView est un pane et non un stackpane, on doit alors
-         * adapter manuellement la taille et la position du Pane de gameOver
-         */
-        this.root.setOpacity(0.9);
-        root.setLayoutX(game.getLayoutX());
-        root.setLayoutY(game.getLayoutY());
-        root.setPrefWidth(game.getWidth());
-        root.setPrefHeight(game.getHeight());
-        this.root.setAlignment(javafx.geometry.Pos.CENTER);
-        root.setSpacing(10);
+        gameOver = new Label("Game Over");
+        gameOver.getStyleClass().add("title-style");
+        btnReplay = new Button("Rejouer");
+        hoverButton(btnReplay);
+        btnQuit = new Button("Quitter");
+        hoverButton(btnQuit);
+        btnMenu = new Button("Menu");
+        hoverButton(btnMenu);
+        getChildren().addAll(gameOver, btnReplay, btnMenu, btnQuit);
+        getStyleClass().add("root-game-over");
+        setLayoutX(game.getLayoutX());
+        setLayoutY(game.getLayoutY());
+        setPrefWidth(game.getWidth());
+        setPrefHeight(game.getHeight());
         new GameOverController(p, this);
     }
 
-    // Getters
+    /**
+     * Méthode pour gérer l'effet de survol des boutons.
+     * 
+     * @param button Le bouton sur lequel appliquer l'effet de survol.
+     */
+    private void hoverButton(Button button) {
+        button.getStyleClass().add("button-style");
+        button.setOnMouseEntered(e -> {
+            button.getStyleClass().remove("button-style");
+            button.getStyleClass().add("button-hover");
+        });
+        button.setOnMouseExited(e -> {
+            button.getStyleClass().remove("button-hover");
+            button.getStyleClass().add("button-style");
+        });
+    }
+
+    // getters
 
     /**
-     * Méthode pour obtenir la racine de la vue.
+     * Getter pour le bouton de replay.
      * 
-     * @return La racine de la vue.
+     * @return Le bouton de replay.
      */
-    public VBox getRoot() {
-        return root;
+    public Button getBtnReplay() {
+        return btnReplay;
     }
 
     /**
-     * Méthode pour obtenir le stage principal.
+     * Getter pour le bouton de quit.
+     * 
+     * @return Le bouton de quit.
+     */
+    public Button getBtnQuit() {
+        return btnQuit;
+    }
+
+    /**
+     * Getter pour le bouton de menu.
+     * 
+     * @return Le bouton de menu.
+     */
+    public Button getBtnMenu() {
+        return btnMenu;
+    }
+
+    /**
+     * Getter pour le stage principal.
      * 
      * @return Le stage principal.
      */
@@ -76,39 +104,20 @@ public class GameOverView implements Menu {
     }
 
     /**
-     * Méthode pour obtenir le bouton Rejouer.
+     * Getter pour le label de game over.
      * 
-     * @return Le bouton Rejouer.
+     * @return Le label de game over.
      */
-    public Button getBtnReplay() {
-        return btnReplay;
+    public Label getGameOver() {
+        return gameOver;
     }
 
     /**
-     * Méthode pour obtenir le bouton Quitter.
+     * Getter pour la VBox racine.
      * 
-     * @return Le bouton Quitter.
+     * @return La VBox racine.
      */
-    public Button getBtnQuit() {
-        return btnQuit;
+    public VBox getRoot() {
+        return this;
     }
-
-    /**
-     * Méthode pour obtenir le bouton Menu.
-     * 
-     * @return Le bouton Menu.
-     */
-    public Button getBtnMenu() {
-        return btnMenu;
-    }
-
-    /**
-     * Méthode pour obtenir la scène.
-     * 
-     * @return La scène.
-     */
-    public Scene getScene() {
-        return scene;
-    }
-
 }

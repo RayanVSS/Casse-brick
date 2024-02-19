@@ -24,8 +24,8 @@ public class SaveController {
     }
 
     private void back() {
-        new StartMenuView(view.getPrimaryStage());
-        new StartMenuController(view.getPrimaryStage());    
+        //new StartMenuView(view.getPrimaryStage());
+        new StartMenuController(view.getPrimaryStage(), new StartMenuView(view.getPrimaryStage()));    
     }
 
     private void save() {

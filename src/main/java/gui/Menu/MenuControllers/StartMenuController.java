@@ -23,8 +23,8 @@ public class StartMenuController {
      * 
      * @param p Le stage principal sur lequel le menu de démarrage est affiché.
      */
-    public StartMenuController(Stage p) {
-        this.view = new StartMenuView(p);
+    public StartMenuController(Stage p, StartMenuView view) {
+        this.view =view;
         this.view.getBtnPlay().setOnAction(e -> play());
         this.view.getBtnOptions().setOnAction(e -> options());
         this.view.getBtnQuit().setOnAction(e -> quit());
@@ -47,8 +47,7 @@ public class StartMenuController {
      */
     private void options() {
         view.getRoot().getChildren().clear();
-        new OptionsView(view.getPrimaryStage());
-        new OptionsController(view.getPrimaryStage());
+        new OptionsController(view.getPrimaryStage(), new OptionsView(view.getPrimaryStage()));
     }
 
     /**

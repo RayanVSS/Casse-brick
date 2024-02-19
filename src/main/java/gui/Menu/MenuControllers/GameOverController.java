@@ -1,7 +1,9 @@
 package gui.Menu.MenuControllers;
 
+
 import gui.GameView;
 import gui.Menu.MenuViews.GameOverView;
+import gui.Menu.MenuViews.StartMenuView;
 import javafx.stage.Stage;
 
 /**
@@ -46,6 +48,6 @@ public class GameOverController {
      */
     private void menu() {
         view.getRoot().getChildren().clear();
-        new StartMenuController(view.getPrimaryStage());
+        new StartMenuController(view.getPrimaryStage(), new StartMenuView(view.getPrimaryStage()));
     }
 }

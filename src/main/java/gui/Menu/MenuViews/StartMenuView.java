@@ -14,10 +14,12 @@ import utils.GameConstants;
  * 
  * @author Benmalek Majda
  */
-public class StartMenuView implements Menu {
+public class StartMenuView extends Menu {
     private Stage primaryStage;
-    private Scene scene;
-    private VBox root;
+    private static VBox root = new VBox();
+    private static Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,
+            GameConstants.DEFAULT_WINDOW_HEIGHT);
+
     private Button btnPlay;
     private Button btnOptions;
     private Button btnQuit;
@@ -31,23 +33,22 @@ public class StartMenuView implements Menu {
      * @param p Le stage principal sur lequel le menu de démarrage est affiché.
      */
     public StartMenuView(Stage p) {
+        super(p, scene);
         this.primaryStage = p;
-        this.root = new VBox();
-        this.scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-        this.scene.getStylesheets().add("/styles/blue.css");
+        scene.getStylesheets().add("/styles/blue.css");
+        root.getStyleClass().add("root");
+        title = createLabel("Casse Brique", 0, 0);
+        title.getStyleClass().add("title-style");
+        btnPlay = createButton("Jouer", 0, 0);
+        btnOptions = createButton("Options", 0, 0);
+        btnTuto = createButton("Tutoriel", 0, 0);
+        btnSave = createButton("Sauvegarder", 0, 0);
+        btnQuit = createButton("Quitter", 0, 0);
 
-        this.title = createLabel("Casse Brique", 0, 0, 50);
-        this.btnPlay = createButton("Jouer", 0, 0);
-        this.btnOptions = createButton("Options", 0, 0);
-        this.btnTuto = createButton("Tutoriel", 0, 0);
-        this.btnSave = createButton("Sauvegarder", 0, 0);
-        this.btnQuit = createButton("Quitter", 0, 0);
-
-        root.setStyle("-fx-background-color: #273654;");
         root.getChildren().addAll(title, btnPlay, btnOptions, btnSave, btnTuto, btnQuit);
         root.setSpacing(10);
         root.setAlignment(javafx.geometry.Pos.CENTER);
-        primaryStage.setScene(scene);
+        this.primaryStage.setScene(scene);
     }
 
     // getters pour les boutons et autres éléments de la vue

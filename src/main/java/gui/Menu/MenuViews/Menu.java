@@ -2,21 +2,34 @@ package gui.Menu.MenuViews;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 /**
- * Interface Menu qui définit les méthodes par défaut pour créer des éléments
+ * Classe abstraite Menu qui définit les méthodes pour créer des éléments
  * d'interface utilisateur.
- * Elle est implémentée par les classes qui représentent les vues des menus.
+ * Elle est étendue par les classes qui représentent les vues des menus.
  * 
  * @author Benmalek Majda
  */
-public interface Menu {
+public abstract class Menu {
+
+    private Scene scene;
+    /**
+     * Constructeur de la classe Menu.
+     * 
+     * @param p Le stage principal de l'application.
+     * @param s La scène de l'application.
+     */
+    public Menu(Stage p, Scene s) {
+        this.scene = s;
+        this.scene.getStylesheets().add("/styles/blue.css");
+    }
 
     /**
      * Crée un bouton avec le texte, la marge droite et la marge inférieure
@@ -27,7 +40,7 @@ public interface Menu {
      * @param bottomMargin La marge inférieure du bouton.
      * @return Le bouton créé.
      */
-    public default Button createButton(String text, double rightMargin, double bottomMargin) {
+    public Button createButton(String text, double rightMargin, double bottomMargin) {
         Button button = new Button(text);
 
         StackPane.setMargin(button, new Insets(0, rightMargin, bottomMargin, 0));
@@ -39,7 +52,6 @@ public interface Menu {
         button.setOnMouseExited(e -> {
             button.getStyleClass().remove("button-hover");
             button.getStyleClass().add("button-style");
-
         });
         return button;
     };
@@ -54,11 +66,10 @@ public interface Menu {
      * @param fontSize     La taille de la police du label.
      * @return Le label créé.
      */
-    public default Label createLabel(String text, double rightMargin, double bottomMargin, double fontSize) {
+    public Label createLabel(String text, double rightMargin, double bottomMargin) {
         Label label = new Label(text);
         label.getStyleClass().add("label-style");
         StackPane.setMargin(label, new Insets(0, rightMargin, bottomMargin, 0));
-        label.setStyle("-fx-font-size: " + fontSize );
         return label;
     };
 
@@ -69,9 +80,9 @@ public interface Menu {
      * @param selected L'état sélectionné du bouton bascule.
      * @return Le bouton bascule créé.
      */
-    public default ToggleButton createToggleButton(String text, boolean selected) {
+    public ToggleButton createToggleButton(String text, boolean selected) {
         ToggleButton button = new ToggleButton(text);
-        button.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        button.getStyleClass().add("toggle-button-style");
         button.setSelected(selected);
         return button;
     }
@@ -86,7 +97,7 @@ public interface Menu {
      * @param maxwidth La largeur maximale du slider.
      * @return Le slider créé.
      */
-    public default Slider createSlider(double min, double max, double value, double maxwidth) {
+    public Slider createSlider(double min, double max, double value, double maxwidth) {
         Slider slider = new Slider(min, max, value);
         slider.setMaxWidth(maxwidth);
         slider.setOrientation(Orientation.HORIZONTAL);

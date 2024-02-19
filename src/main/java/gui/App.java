@@ -3,10 +3,6 @@ package gui;
 import gui.Menu.MenuControllers.StartMenuController;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -19,8 +15,7 @@ public class App extends Application {
         this.primaryStage.setResizable(false);
         primaryStage.setTitle("Casse Brique");
 
-        new StartMenuView(primaryStage);
-        new StartMenuController(primaryStage);
+        new StartMenuController(primaryStage, new StartMenuView(primaryStage));
 
         primaryStage.show();
         primaryStage.getOnCloseRequest();
