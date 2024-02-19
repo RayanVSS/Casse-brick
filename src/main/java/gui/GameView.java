@@ -8,13 +8,11 @@ import javafx.stage.Stage;
 import config.*;
 import entity.Particle;
 import entity.ball.*;
-import entity.preview.Preview;
 import entity.racket.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
 import gui.Menu.MenuControllers.GameOverController;
 import gui.Menu.MenuViews.GameOverView;
-import gui.Menu.MenuViews.PauseView;
 import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
 import java.util.Random;
@@ -56,9 +54,6 @@ public class GameView extends App {
     // life & score
     private ScoreLifeView scoreLifeView;
 
-    // direction de la balle
-    private Preview preview;
-    private BallGraphics Ballpreview;
 
     public GameView(Stage p, int level) {
         this.primaryStage = p;
@@ -70,7 +65,6 @@ public class GameView extends App {
 
         /* differentes balles */
         game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
-        preview = new Preview(game.getBall());
         brickSet = new BrickSet(game.getMap().getBricks());
 
         // Création des particules
@@ -100,11 +94,6 @@ public class GameView extends App {
         root.getChildren().add(this.scoreLifeView);
         root.getChildren().add(this.brickSet);
 
-        // affichage de la preview
-        if (GameConstants.PATH) {
-            this.Ballpreview = new BallGraphics(preview.getInvisibleBall());
-            root.getChildren().add(this.Ballpreview);
-        }
 
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
@@ -128,11 +117,6 @@ public class GameView extends App {
             this.fpsGraphics.update();
         }
 
-        if (GameConstants.PATH) {
-            this.preview.movementBis(root);
-            this.Ballpreview.update();
-            this.preview.setDot(root);
-        }
 
         // Mise à jour du score et de la vie
         this.scoreLifeView.update();
@@ -195,10 +179,6 @@ public class GameView extends App {
                         game.setLost(false);
                         animationStop();
                         root.getChildren().add(new GameOverView(primaryStage, root).getRoot());
-                    }
-                    if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
-                        animationStop();
-                        root.getChildren().add(new PauseView(primaryStage, root, this));
                     }
                 }
                 last = now;

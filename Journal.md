@@ -157,5 +157,22 @@ affichage de la racket
 
 - bouton pause
 
+## Semaine 3:
+### Belhassen rayan
+<span style="color:green">**Fait:**</span>
+    
+-#14 boost: boost pour la racket 
+
+-#15 sauvegarde: pouvoir enregistrer son avancée (a finir quand les options et les niveaux sont plus avancés)
+
+-gestion de sauvegarde: mini logiciel hors du code qui permet de pouvoir gerer les sauvegarde en cas de probleme 
+
+<span style="color:purple">**A Faire:**</span>
+
+-travailler sur un mode pour daltonien
+
+-mode deux joueur 
+
+
 
 
