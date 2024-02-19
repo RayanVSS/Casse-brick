@@ -194,3 +194,24 @@ affichage de la racket
 -Colission de la balle et la racket (j’attends que la physics soit merge)
 
 -Reglé le probleme de la fluidité entre les scenes
+
+
+### Guan Olivier 
+<span style="color:green">**Fait:**</span>
+
+- Mis en place des preconfig (niveaux prédéfinis) de game avec de nouvelles classes.
+
+- Class GameRules : contient les règles/options (temps limité, mélanger la position des briques, briques qui devient invisibles/transparentes/incassables etc...) que va vérifier la game
+
+- Class StageLevel : contient la difficulté, le niveau de débloquement, et la game prédifinie à charger.
+
+- Class StageController : contient un tableau de StageLevel (l'ensemble des niveaux préconfig).
+
+- Class PlayerData : contient toutes les données du joueur, càd : nom, niveau, monnaie (peut-être), un stageController (correspond aux données sur la progression des niveaux). Le fait de charger un objet PlayerData (par la sauvegarde) permettra de reconstiuer l'état d'un jeu complet.
+
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finir le travail ci-dessus, l'implementation des rules à appliquer/vérifier.
+
+- Brick : Physique de la brique, introduire la durabilité, absorption des chocs en fonction de la vitesse, taille de la balle etc... 
