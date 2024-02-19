@@ -12,7 +12,9 @@ import entity.preview.Preview;
 import entity.racket.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
+import gui.Menu.MenuControllers.GameOverController;
 import gui.Menu.MenuViews.GameOverView;
+import gui.Menu.MenuViews.PauseView;
 import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
 import java.util.Random;
@@ -193,6 +195,10 @@ public class GameView extends App {
                         game.setLost(false);
                         animationStop();
                         root.getChildren().add(new GameOverView(primaryStage, root).getRoot());
+                    }
+                    if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
+                        animationStop();
+                        root.getChildren().add(new PauseView(primaryStage, root, this));
                     }
                 }
                 last = now;
