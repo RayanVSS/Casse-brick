@@ -20,10 +20,12 @@ public class PauseView extends VBox {
     private Button btnMenu;
     private Button btnResume;
     private AnimationTimer animationTimer;
+    private Pane root;
 
     public PauseView(Stage p, Pane game, AnimationTimer animationTimer) {
         this.primaryStage = p;
         this.animationTimer = animationTimer;
+        this.root = game;
         this.setStyle("-fx-background-color: #273654;");
         this.btnMenu = createButton("Menu", 0, 0);
         this.btnReplay = createButton("Rejouer", 0, 0);
@@ -66,6 +68,10 @@ public class PauseView extends VBox {
 
     public AnimationTimer getAnimationTimer() {
         return animationTimer;
+    }
+
+    public Pane getRoot() {
+        return root;
     }
 
     public Button createButton(String text, double rightMargin, double bottomMargin) {
