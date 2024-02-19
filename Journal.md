@@ -92,7 +92,7 @@ affichage de la racket
 - UI du jeu en plusieurs panneaux (la partie ne doit plus être la fenêtre de l'application)
 
 
-## Majda Benmalek
+### Majda Benmalek
 
 <span style="color:green">**Fait:**</span>
 
@@ -125,7 +125,7 @@ affichage de la racket
 
 -Commentaire/explication et javaDoc dans mon code
 
-## Ilias Bencheikh
+### Ilias Bencheikh
 
 <span style="color:green">**Fait:**</span>
 
@@ -143,7 +143,7 @@ affichage de la racket
 
 -Implementation des options pour le jeu 
 
-## Amenah MUSHTAQ
+### Amenah MUSHTAQ
 
 <span style="color:green">**Fait:**</span>
 
@@ -173,6 +173,24 @@ affichage de la racket
 
 -mode deux joueur 
 
+### Benmalek Majda 
+<span style="color:green">**Fait:**</span>
+- Modif du game over (transparence)
+  
+- Le score et les vies s'update bien
+  
+- Factorisation des classes menu + javadoc
+  
+- Modif des options (MVC + foctorisation)
+  
+- Ajout de fichier css pour mieux s'adapter au changement de themes (pas encore commencé les themes)
 
 
+<span style="color:purple">**A Faire:**</span>
+-Ajouter du son
 
+-Rajout de theme changeable 
+
+-Colission de la balle et la racket (j’attends que la physics soit merge)
+
+-Reglé le probleme de la fluidité entre les scenes
