@@ -5,6 +5,7 @@ import gui.GameView;
 import gui.Menu.MenuControllers.PauseController;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -18,26 +19,26 @@ public class PauseView extends VBox {
     private Button btnQuit;
     private Button btnMenu;
     private Button btnResume;
-    private Pane game;
     private AnimationTimer animationTimer;
 
     public PauseView(Stage p, Pane game, AnimationTimer animationTimer) {
         this.primaryStage = p;
-        this.game = game;
         this.animationTimer = animationTimer;
         this.setStyle("-fx-background-color: #273654;");
-        this.btnMenu = createButton("Menu", 0, 300);
-        this.btnReplay = createButton("Rejouer", 0, 200);
-        this.btnResume = createButton("Reprendre", 0, 400);
-        this.btnQuit = createButton("Quitter", 0, 100);
+        this.btnMenu = createButton("Menu", 0, 0);
+        this.btnReplay = createButton("Rejouer", 0, 0);
+        this.btnResume = createButton("Reprendre", 0, 0);
+        this.btnQuit = createButton("Quitter", 0, 0);
 
         this.setOpacity(0.8);
 
         this.getChildren().addAll(btnReplay, btnQuit, btnMenu, btnResume);
         this.setLayoutX(game.getLayoutX());
         this.setLayoutY(game.getLayoutY());
-        this.setPrefHeight(game.getPrefHeight());
-        this.setPrefWidth(game.getPrefWidth());
+        this.setPrefHeight(game.getHeight());
+        this.setPrefWidth(game.getWidth());
+        this.setAlignment(Pos.CENTER);
+        this.setSpacing(10);
         new PauseController(p, this);
     }
 
@@ -61,10 +62,6 @@ public class PauseView extends VBox {
 
     public Button getBtnResume() {
         return btnResume;
-    }
-
-    public Pane getGame() {
-        return game;
     }
 
     public AnimationTimer getAnimationTimer() {
