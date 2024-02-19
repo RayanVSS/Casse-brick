@@ -1,5 +1,12 @@
 package utils;
 
+import config.GameRules;
+import config.Map;
+import config.Map.BricksArrangement;
+import entity.ball.Ball;
+import entity.ball.ClassicBall;
+import entity.racket.ClassicRacket;
+import entity.racket.Racket;
 import geometry.Coordinates;
 import geometry.Vector;
 import javafx.scene.input.KeyCode;
@@ -61,4 +68,31 @@ public final class GameConstants {
     public static KeyCode RIGHT = KeyCode.RIGHT;
     public static KeyCode SPACE = KeyCode.SPACE;
 
+    // preConfig des parties
+    public static int STAGES_QTY = 10;
+
+    public static GameRules[] PRECONFIG_GAME_RULES = {
+            new GameRules(false, false, false, false, false, false, false),
+            new GameRules(false, false, false, false, false, false, false),
+            new GameRules(false, false, false, false, false, false, false),
+            new GameRules(false, false, false, false, false, false, false),
+            new GameRules(false, false, false, false, false, false, false),
+            new GameRules(false, false, false, false, false, false, false),
+            new GameRules(false, false, false, false, false, false, false),
+            new GameRules(false, false, false, false, false, false, false),
+            new GameRules(false, false, false, false, false, false, false),
+            new GameRules(false, false, false, false, false, false, false) };
+
+    public static Ball[] PRECONFIG_GAME_BALL = { new ClassicBall(), new ClassicBall(), new ClassicBall(),
+            new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
+            new ClassicBall(), new ClassicBall() };
+
+    public static Racket[] PRECONFIG_GAME_RACKET = { new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
+            new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
+            new ClassicRacket(), new ClassicRacket() };
+
+    public static Map.BricksArrangement[] PRECONFIG_GAME_ARRANGEMENT = { BricksArrangement.DEFAULT,
+            BricksArrangement.DEFAULT, BricksArrangement.DEFAULT, BricksArrangement.DEFAULT, BricksArrangement.DEFAULT,
+            BricksArrangement.DEFAULT, BricksArrangement.DEFAULT, BricksArrangement.DEFAULT, BricksArrangement.DEFAULT,
+            BricksArrangement.DEFAULT };
 }

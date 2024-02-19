@@ -21,11 +21,13 @@ public class Game {
     private int score = 0;
     private int life = 3;
     private boolean collide;
+    private GameRules rules;
 
-    public Game(Ball ball, Racket racket, BricksArrangement arrangement) {
+    public Game(Ball ball, Racket racket, BricksArrangement arrangement, GameRules rules) {
         this.ball = ball;
         this.racket = racket;
         this.map = new Map(arrangement);
+        this.rules = rules;
     }
 
     // Setters/getters
@@ -71,7 +73,7 @@ public class Game {
             life--;
             ball.reset();
         }
-        if (life == 0) {
+        if (life == 0 || !rules.apply()) {
             lost = true;
         }
     }

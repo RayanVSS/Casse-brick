@@ -27,7 +27,7 @@ public class GameRules {
         this.unbreakable = unbreakable;
     }
 
-    public boolean checkRules() {
-        return false; //implements...
+    public boolean apply() {
+        return true; //implements...
     }
 }
