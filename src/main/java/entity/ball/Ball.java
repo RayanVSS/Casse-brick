@@ -134,4 +134,8 @@ public abstract class Ball extends Entity {
     public void reset() {
         this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
     }
+
+    public double distanceTo(double x, double y) {
+        return Math.sqrt((x - getC().getX()) * (x - getC().getX()) + (y - getC().getY()) * (y - getC().getY()));
+    }
 }

@@ -16,6 +16,10 @@ public class Map {
         initBricks();
     }
 
+    public enum BricksArrangement {
+        DEFAULT, RANDOM;
+    }
+
     private void initBricks() {
         switch (arrangement) {
             case DEFAULT:

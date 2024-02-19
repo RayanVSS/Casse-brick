@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import config.*;
+import config.Map.BricksArrangement;
 import entity.Particle;
 import entity.ball.*;
 import entity.preview.Preview;

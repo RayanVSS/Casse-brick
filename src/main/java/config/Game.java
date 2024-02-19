@@ -2,6 +2,7 @@ package config;
 
 import java.util.Vector;
 
+import config.Map.BricksArrangement;
 import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.brick.Brick;
@@ -13,13 +14,13 @@ import utils.GameConstants;
 
 public class Game {
 
-    private static Ball ball;
+    private Ball ball;
     private Racket racket;
     private Map map;
     private boolean lost = false;
     private int score = 0;
     private int life = 3;
-    private static boolean collide;
+    private boolean collide;
 
     public Game(Ball ball, Racket racket, BricksArrangement arrangement) {
         this.ball = ball;
@@ -28,11 +29,11 @@ public class Game {
     }
 
     // Setters/getters
-    public static Ball getBall() {
+    public Ball getBall() {
         return ball;
     }
 
-    public static Boolean getCollide() {
+    public boolean getCollide() {
         return collide;
     }
 
