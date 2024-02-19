@@ -198,7 +198,7 @@ public class GameView extends App {
                     }
                     if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
                         animationStop();
-                        root.getChildren().add(new PauseView(primaryStage, root, this).getRoot());
+                        root.getChildren().add(new PauseView(primaryStage, root, this));
                     }
                 }
                 last = now;

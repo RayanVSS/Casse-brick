@@ -4,17 +4,16 @@ import config.Game;
 import gui.GameView;
 import gui.Menu.MenuControllers.PauseController;
 import javafx.animation.AnimationTimer;
-import javafx.scene.Scene;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
-public class PauseView implements Menu {
+public class PauseView extends VBox {
     private Stage primaryStage;
-    private Scene scene;
-    private StackPane root;
     private Button btnReplay;
     private Button btnQuit;
     private Button btnMenu;
@@ -26,28 +25,23 @@ public class PauseView implements Menu {
         this.primaryStage = p;
         this.game = game;
         this.animationTimer = animationTimer;
-        this.root = new StackPane();
-        this.scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-        this.root.setStyle("-fx-background-color: #273654;");
+        this.setStyle("-fx-background-color: #273654;");
         this.btnMenu = createButton("Menu", 0, 300);
         this.btnReplay = createButton("Rejouer", 0, 200);
         this.btnResume = createButton("Reprendre", 0, 400);
         this.btnQuit = createButton("Quitter", 0, 100);
 
-        this.root.setOpacity(0.8);
+        this.setOpacity(0.8);
 
-        root.getChildren().addAll(btnReplay, btnQuit, btnMenu, btnResume);
-        root.setLayoutX(game.getLayoutX());
-        root.setLayoutY(game.getLayoutY());
-        root.setPrefHeight(game.getPrefHeight());
-        root.setPrefWidth(game.getPrefWidth());
+        this.getChildren().addAll(btnReplay, btnQuit, btnMenu, btnResume);
+        this.setLayoutX(game.getLayoutX());
+        this.setLayoutY(game.getLayoutY());
+        this.setPrefHeight(game.getPrefHeight());
+        this.setPrefWidth(game.getPrefWidth());
         new PauseController(p, this);
     }
 
     // Getters
-    public StackPane getRoot() {
-        return root;
-    }
 
     public Stage getPrimaryStage() {
         return primaryStage;
@@ -77,4 +71,16 @@ public class PauseView implements Menu {
         return animationTimer;
     }
 
+    public Button createButton(String text, double rightMargin, double bottomMargin) {
+        Button button = new Button(text);
+        StackPane.setMargin(button, new Insets(0, rightMargin, bottomMargin, 0));
+        button.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        button.setOnMouseEntered(e -> {
+            button.setStyle("-fx-font-size: 20; -fx-background-color: #d5bbb1;-fx-text-fill: #1b263b;");
+        });
+        button.setOnMouseExited(e -> {
+            button.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        });
+        return button;
+    };
 }
