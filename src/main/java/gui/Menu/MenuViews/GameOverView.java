@@ -32,7 +32,7 @@ public class GameOverView extends VBox {
     public GameOverView(Stage p, Pane game) {
         this.primaryStage = p;
         gameOver = new Label("Game Over");
-        gameOver.getStyleClass().add("title-style");
+        gameOver.getStyleClass().add("title-game-over-style");
         btnReplay = new Button("Rejouer");
         hoverButton(btnReplay);
         btnQuit = new Button("Quitter");
