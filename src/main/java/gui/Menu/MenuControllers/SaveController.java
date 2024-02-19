@@ -2,12 +2,9 @@ package gui.Menu.MenuControllers;
 
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StartMenuView;
-import gui.Menu.MenuViews.TutoView;
 import javafx.stage.Stage;
 import java.util.*;
-
 import save.Sauvegarde;
-import gui.Menu.MenuViews.SaveView;
 
 
 
@@ -27,8 +24,8 @@ public class SaveController {
     }
 
     private void back() {
-        StartMenuView  startMenuView = new StartMenuView(view.getPrimaryStage());
-        StartMenuController startMenuC = new StartMenuController(view.getPrimaryStage());    
+        //new StartMenuView(view.getPrimaryStage());
+        new StartMenuController(view.getPrimaryStage(), new StartMenuView(view.getPrimaryStage()));    
     }
 
     private void save() {

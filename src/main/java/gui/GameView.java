@@ -1,7 +1,6 @@
 package gui;
 
 import javafx.animation.*;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
@@ -10,10 +9,10 @@ import config.*;
 import entity.Particle;
 import entity.ball.*;
 import entity.racket.*;
-import geometry.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
 import gui.Menu.MenuControllers.GameOverController;
+import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
 import java.util.Random;
@@ -57,8 +56,9 @@ public class GameView extends App {
 
 
     public GameView(Stage p, int level) {
-
         this.primaryStage = p;
+        this.scene.getStylesheets().add("/styles/blue.css");
+
         if (GameConstants.FPS) {
             fpsGraphics = new FPSGraphics();
         }
@@ -178,7 +178,7 @@ public class GameView extends App {
                     if (game.isLost()) {
                         game.setLost(false);
                         animationStop();
-                        new GameOverController(primaryStage);
+                        root.getChildren().add(new GameOverView(primaryStage, root).getRoot());
                     }
                 }
                 last = now;
@@ -201,5 +201,9 @@ public class GameView extends App {
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
+    }
+
+    public AnimationTimer getAnimationTimer() {
+        return animationTimer;
     }
 }

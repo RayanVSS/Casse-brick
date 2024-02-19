@@ -1,6 +1,7 @@
-package gui;
+package gui.GraphicsFactory;
 
 import entity.brick.Brick;
+import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
