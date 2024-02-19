@@ -185,7 +185,6 @@ affichage de la racket
   
 - Ajout de fichier css pour mieux s'adapter au changement de themes (pas encore commencé les themes)
 
-
 <span style="color:purple">**A Faire:**</span>
 -Ajouter du son
 
@@ -195,6 +194,15 @@ affichage de la racket
 
 -Reglé le probleme de la fluidité entre les scenes
 
+### Amenah MUSHTAQ
+
+<span style="color:green">**Fait:**</span>
+-factorisation du code Commentaire/explication et javaDoc dans mon code
+-#27 bouton pause
+
+<span style="color:purple">**A Faire:**</span>
+- pb de timer à régler pour le bouton pause
+-.....
 
 ### Guan Olivier 
 <span style="color:green">**Fait:**</span>
