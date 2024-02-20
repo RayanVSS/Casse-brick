@@ -40,6 +40,7 @@ public class ScoreLifeView extends Pane {
         setLayoutY(10);
         getChildren().add(lifeText);
         getChildren().add(scoreText);
+        getStylesheets().add("/styles/blue.css");
     }
 
     /**

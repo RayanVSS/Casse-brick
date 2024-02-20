@@ -11,7 +11,6 @@ import entity.ball.*;
 import entity.racket.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
-import gui.Menu.MenuControllers.GameOverController;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
@@ -28,6 +27,7 @@ public class GameView extends App {
     private Pane root = new Pane();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
+    private GameView gameView;
 
     private BrickSet brickSet;
 
@@ -54,10 +54,9 @@ public class GameView extends App {
     // life & score
     private ScoreLifeView scoreLifeView;
 
-
     public GameView(Stage p, int level) {
         this.primaryStage = p;
-        this.scene.getStylesheets().add("/styles/blue.css");
+        this.gameView = this;
 
         if (GameConstants.FPS) {
             fpsGraphics = new FPSGraphics();
@@ -94,7 +93,6 @@ public class GameView extends App {
         root.getChildren().add(this.scoreLifeView);
         root.getChildren().add(this.brickSet);
 
-
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -116,7 +114,6 @@ public class GameView extends App {
         if (GameConstants.FPS) {
             this.fpsGraphics.update();
         }
-
 
         // Mise à jour du score et de la vie
         this.scoreLifeView.update();
@@ -178,7 +175,7 @@ public class GameView extends App {
                     if (game.isLost()) {
                         game.setLost(false);
                         animationStop();
-                        root.getChildren().add(new GameOverView(primaryStage, root).getRoot());
+                        root.getChildren().add(new GameOverView(primaryStage, gameView).getRoot());
                     }
                 }
                 last = now;

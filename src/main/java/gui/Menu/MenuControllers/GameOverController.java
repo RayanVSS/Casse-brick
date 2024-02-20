@@ -31,7 +31,8 @@ public class GameOverController {
      * Méthode pour rejouer le jeu. Elle efface tous les enfants de la racine de la vue et lance une nouvelle animation de jeu.
      */
     private void replay() {
-        view.getRoot().getChildren().clear();
+        //view.getRoot().getChildren().clear();
+        view.getGameView().getRoot().getChildren().clear();
         GameView game = new GameView(view.getPrimaryStage(), 1);
         game.animation();
     }

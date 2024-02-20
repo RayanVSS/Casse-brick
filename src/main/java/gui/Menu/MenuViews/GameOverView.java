@@ -1,9 +1,9 @@
 package gui.Menu.MenuViews;
 
+import gui.GameView;
 import gui.Menu.MenuControllers.GameOverController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -21,6 +21,7 @@ public class GameOverView extends VBox {
     private Button btnQuit;
     private Button btnMenu;
     private Label gameOver;
+    private GameView gameView;
 
     /**
      * Constructeur de la classe GameOver.
@@ -29,8 +30,9 @@ public class GameOverView extends VBox {
      * @param game Le pane du jeu.
      */
 
-    public GameOverView(Stage p, Pane game) {
+    public GameOverView(Stage p,GameView gameView) {
         this.primaryStage = p;
+        this.gameView = gameView;
         gameOver = new Label("Game Over");
         gameOver.getStyleClass().add("title-game-over-style");
         btnReplay = new Button("Rejouer");
@@ -41,10 +43,11 @@ public class GameOverView extends VBox {
         hoverButton(btnMenu);
         getChildren().addAll(gameOver, btnReplay, btnMenu, btnQuit);
         getStyleClass().add("root-game-over");
-        setLayoutX(game.getLayoutX());
-        setLayoutY(game.getLayoutY());
-        setPrefWidth(game.getWidth());
-        setPrefHeight(game.getHeight());
+        setLayoutX(gameView.getRoot().getLayoutX());
+        setLayoutY(gameView.getRoot().getLayoutY());
+        setPrefWidth(gameView.getRoot().getWidth());
+        setPrefHeight(gameView.getRoot().getHeight());
+        getStylesheets().add("/styles/blue.css");
         new GameOverController(p, this);
     }
 
@@ -119,5 +122,9 @@ public class GameOverView extends VBox {
      */
     public VBox getRoot() {
         return this;
+    }
+
+    public GameView getGameView() {
+        return gameView;
     }
 }
