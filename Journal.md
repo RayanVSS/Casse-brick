@@ -228,9 +228,9 @@ affichage de la racket
 ### Ilias Bencheikh
 <span style="color:green">**Fait:**</span>
 
-- Preview de la balle
-- Implémentation des options
-- Amélioration de la physique  : 
+- Preview de la balle #29
+- Implémentation des options #19
+- Amélioration de la physique #20 : 
     - Début d'un système de masse 
     - Début d'un système de perte de vitesse du a la gravité
     - Début d'un système de vent
@@ -238,9 +238,9 @@ affichage de la racket
 
 <span style="color:purple">**A Faire:**</span>
 
-- Amélioration de la physique 
+- Amélioration de la physique #20
 - Implémentation de celle-ci dans le jeu
-- Implémentation du niveau infini
+- Implémentation du niveau infini #23
 
 
 
