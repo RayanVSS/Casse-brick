@@ -223,3 +223,28 @@ affichage de la racket
 - Finir le travail ci-dessus, l'implementation des rules à appliquer/vérifier.
 
 - Brick : Physique de la brique, introduire la durabilité, absorption des chocs en fonction de la vitesse, taille de la balle etc... 
+
+
+### Ilias Bencheikh
+<span style="color:green">**Fait:**</span>
+
+- Preview de la balle
+- Implémentation des options
+- Amélioration de la physique  : 
+    - Début d'un système de masse 
+    - Début d'un système de perte de vitesse du a la gravité
+    - Début d'un système de vent
+    - Amélioration de la simulation (choix de la masse , gravité ...)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Amélioration de la physique 
+- Implémentation de celle-ci dans le jeu
+- Implémentation du niveau infini
+
+
+
+
+
+
+
