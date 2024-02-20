@@ -169,9 +169,9 @@ affichage de la racket
 
 <span style="color:purple">**A Faire:**</span>
 
--travailler sur un mode pour daltonien
+-#30 travailler sur un mode pour daltonien
 
--mode deux joueur 
+-#31 mode deux joueur 
 
 ### Benmalek Majda 
 <span style="color:green">**Fait:**</span>
