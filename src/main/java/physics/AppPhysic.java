@@ -1,28 +1,22 @@
 package physics;
 
-import geometry.Coordinates;
-import geometry.Vector;
 import javafx.application.Application;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import utils.GameConstants;
-
-import java.util.Map;
 
 public class AppPhysic extends Application {
     
     Stage primaryStage;
     Scene scene;
     StackPane root ;
-    Outline outline = new Outline();
+    public static Outline outline = new Outline();
 
 
     @Override
@@ -45,7 +39,7 @@ public class AppPhysic extends Application {
 
         bouton1.setOnAction(e -> {
             root.getChildren().clear();
-            new Simulation(outline,primaryStage);
+            new Simulation(primaryStage);
         });
 
         bouton2.setOnAction(e -> {
@@ -61,7 +55,34 @@ public class AppPhysic extends Application {
 
 
     public void options() {
+        back();
+        Speed();
+        Path();
+        Wind();
+        Gravity();
+        Mass();
+        Racket();
+    }
 
+    public void Speed(){
+        Label labelspeed = new Label("Vitesse de la balle : "+Outline.Speed_Ball+" km/h");
+        Slider speed = new Slider(0, 100, Outline.Speed_Wind);
+        speed.setOrientation(Orientation.HORIZONTAL);
+        speed.setMaxWidth(200);
+        speed.valueProperty().addListener((observable, oldvalue, newvalue) -> {
+            Outline.Speed_Ball = newvalue.intValue();
+            labelspeed.setText("Vitesse de la balle : " + newvalue.intValue() + " km/h");
+        });
+        labelspeed.setStyle("-fx-text-fill: #d5bbb1;");
+        labelspeed.setTranslateY(-130);
+        labelspeed.setTranslateX(350);
+        speed.setTranslateX(labelspeed.getTranslateX());
+        speed.setTranslateY(labelspeed.getTranslateY() + 30);
+        speed.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        root.getChildren().addAll(labelspeed, speed);
+    }
+
+    public void Path(){
         Label labelpath = new Label("Afficher le chemin de la balle");
         ToggleButton buttonpath = new ToggleButton("OFF");
         buttonpath.setSelected(false);
@@ -79,13 +100,16 @@ public class AppPhysic extends Application {
         buttonpath.setTranslateX(labelpath.getTranslateX());
         buttonpath.setTranslateY(labelpath.getTranslateY() + 30);
         buttonpath.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        root.getChildren().addAll(labelpath, buttonpath);
+    }
 
+    public void Wind(){
         Label labelspeed = new Label("Vitesse du vent : 0 km/h");
-        Slider wind_speed = new Slider(0, 100, Outline.Vitesse_Vent);
+        Slider wind_speed = new Slider(0, 100, Outline.Speed_Wind);
         wind_speed.setOrientation(Orientation.HORIZONTAL);
         wind_speed.setMaxWidth(200);
         wind_speed.valueProperty().addListener((observable, oldvalue, newvalue) -> {
-            Outline.Vitesse_Vent = newvalue.intValue();
+            Outline.Speed_Wind = newvalue.intValue();
             labelspeed.setText("Vitesse du vent : " + newvalue.intValue() + " km/h");
         });
         labelspeed.setStyle("-fx-text-fill: #d5bbb1;");
@@ -112,21 +136,24 @@ public class AppPhysic extends Application {
         listWind.setOnAction(e -> {
             switch (listWind.getValue()) {
                 case "Nord":
-                    Outline.Direction_Vent = 0;
+                    Outline.Direction_Wind = 0;
                     break;
                 case "Sud":
-                    Outline.Direction_Vent = 1;
+                    Outline.Direction_Wind = 1;
                     break;
                 case "Est":
-                    Outline.Direction_Vent = 2;
+                    Outline.Direction_Wind = 2;
                     break;
                 case "Ouest":
-                    Outline.Direction_Vent = 3;
+                    Outline.Direction_Wind = 3;
                     break;
             }
         });
+        root.getChildren().addAll(labelspeed, wind_speed, listWind, labelWind);
+    }
 
-        Label labelGravity = new Label("Intensite de la gravite : 0 m/s^2");
+    public void Gravity(){
+        Label labelGravity = new Label("Intensite de la gravite : "+Outline.Gravite+" m/s^2");
         labelGravity.setStyle("-fx-text-fill: #d5bbb1;");
         labelGravity.setTranslateY(0);
         labelGravity.setTranslateX(-350);
@@ -140,8 +167,49 @@ public class AppPhysic extends Application {
         gravity.setTranslateX(labelGravity.getTranslateX());
         gravity.setTranslateY(labelGravity.getTranslateY() + 30);
         gravity.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        root.getChildren().addAll(labelGravity, gravity);
+    }
 
+    public void Mass(){
+        Label labelMass = new Label("Masse de la balle : "+Outline.Mass+" g");
+        labelMass.setStyle("-fx-text-fill: #d5bbb1;");
+        labelMass.setTranslateY(100);
+        labelMass.setTranslateX(-350);
+        Slider mass = new Slider(1, 1000, Outline.Mass);
+        mass.setOrientation(Orientation.HORIZONTAL);
+        mass.setMaxWidth(200);
+        mass.valueProperty().addListener((observable, oldvalue, newvalue) -> {
+            Outline.Mass = newvalue.intValue()/10;
+            labelMass.setText("Masse de la balle : " + newvalue.intValue() + " kg");
+        });
+        mass.setTranslateX(labelMass.getTranslateX());
+        mass.setTranslateY(labelMass.getTranslateY() + 30);
+        mass.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        root.getChildren().addAll(labelMass, mass);
+    }
 
+    public void Racket(){
+        Label labelracket = new Label("Racket");
+        Button buttonracket = new Button("OFF");
+        buttonracket.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        buttonracket.setOnAction(e -> {
+            Simulation.RACKET = !Simulation.RACKET;
+            if(Simulation.RACKET){
+                buttonracket.setText("ON");
+            }
+            else{
+                buttonracket.setText("OFF");
+            }
+        });
+        labelracket.setStyle("-fx-text-fill: #d5bbb1;");
+        labelracket.setTranslateY(-200);
+        labelracket.setTranslateX(-350);
+        buttonracket.setTranslateX(labelracket.getTranslateX());
+        buttonracket.setTranslateY(labelracket.getTranslateY() + 30);
+        root.getChildren().addAll(labelracket, buttonracket);
+    }
+
+    public void back(){
         Button buttonback = new Button("Retour");
         buttonback.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
         buttonback.setOnAction(e -> {
@@ -150,10 +218,7 @@ public class AppPhysic extends Application {
         });
         buttonback.setTranslateX(370);
         buttonback.setTranslateY(300);
-
-
-        root.getChildren().addAll(labelpath, buttonpath, labelspeed, wind_speed, listWind, labelWind, labelGravity, gravity, buttonback);
-        primaryStage.show();
+        root.getChildren().add(buttonback);
     }
 
     public static void main(String[] args) {

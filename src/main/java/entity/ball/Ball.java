@@ -25,22 +25,16 @@ public abstract class Ball extends Entity {
     private Vector direction;
     private int radius;
     private double speed;
-    public Coordinates c_trajectory ;
-    public Vector d_trajectory ;
-    public ArrayList<Circle> circles = new ArrayList<Circle>();
-    public int trajectory = 0;
 
 
     // colision avec racket
-    static boolean CollisionR = false;
+    public static boolean CollisionR = false;
 
     public Ball(int r) {
         super(new Coordinates(0, 0));
         this.direction = new Vector(new Coordinates(0, 0));
         this.speed = 0;
         this.radius = r;
-        c_trajectory = new Coordinates(super.getC().getX(), super.getC().getY());
-        d_trajectory = new Vector(new Coordinates(direction.getX(), direction.getY()));
     }
 
     public Ball(Coordinates c, Vector direction, int speed, int d) {
@@ -48,8 +42,6 @@ public abstract class Ball extends Entity {
         this.direction = direction;
         this.speed = speed;
         this.radius = d;
-        c_trajectory = new Coordinates(c.getX(), c.getY());
-        d_trajectory = new Vector(new Coordinates(direction.getX(), direction.getY()));
     }
     // Setters/getters
 
@@ -144,28 +136,5 @@ public abstract class Ball extends Entity {
     }
     public void reset(){
         this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
-    }
-
-     public Coordinates trajectory(Outline outline){
-        double h = GameConstants.DEFAULT_WINDOW_WIDTH;
-        double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
-        double newX = c_trajectory.getX() + d_trajectory.getX() * outline.getVitesse().getX() + outline.getVent().getX() + outline.getVent().getX() ;
-        double newY = c_trajectory.getY() + d_trajectory.getY() * outline.getVitesse().getY() + outline.getGravite()*outline.getMass() + outline.getVent().getY() ;
-
-        if (newX < 0 || newX > h - this.getRadius()) {
-            d_trajectory.setX(-d_trajectory.getX());
-            newX = c_trajectory.getX() + d_trajectory.getX() ;
-        }
-        if (newY < 0 || newY > w - this.getRadius()) {
-            d_trajectory.setY(-d_trajectory.getY());
-            newY = c_trajectory.getY() + d_trajectory.getY() ;
-        }
-
-        c_trajectory=new Coordinates(newX, newY);
-        d_trajectory.setY(d_trajectory.getY()+outline.getGravite()*outline.getMass());;
-        trajectory++;
-        return c_trajectory;
-    }
-
-    
+    } 
 }
