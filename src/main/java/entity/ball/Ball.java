@@ -76,28 +76,29 @@ public abstract class Ball extends Entity {
 
     public boolean intersectBrick(Brick b) {
 
-        // Coordonnées du centre du cercle
-        double circleCenterX = getC().getX() + getRadius();
-        double circleCenterY = getC().getY() + getRadius();
+        double circleDistance_x = Math.abs(getC().getX() - b.getC().getX() - GameConstants.BRICK_WIDTH / 2);
+        double circleDistance_y = Math.abs(getC().getY() - b.getC().getY() - GameConstants.BRICK_HEIGHT / 2);
 
-        double rectLeft = b.getC().getX();
-        double rectTop = b.getC().getY();
+        if (circleDistance_x > (GameConstants.BRICK_WIDTH / 2 + radius)) {
+            return false;
+        }
+        if (circleDistance_y > (GameConstants.BRICK_HEIGHT / 2 + radius)) {
+            return false;
+        }
 
-        double rectRight = b.getC().getX() + GameConstants.BRICK_WIDTH;
-        double rectBottom = b.getC().getY() + GameConstants.BRICK_HEIGHT;
+        if (circleDistance_x <= (GameConstants.BRICK_WIDTH / 2)) {
+            return true;
+        }
+        if (circleDistance_y <= (GameConstants.BRICK_HEIGHT / 2)) {
+            return true;
+        }
 
-        // Distance horizontale entre le centre du cercle et le rectangle
-        double distX = Math.abs(circleCenterX - (rectLeft + rectRight) / 2);
-        double halfRectWidth = GameConstants.BRICK_WIDTH / 2;
+        double cornerDistance_sq = (circleDistance_x - GameConstants.BRICK_WIDTH / 2)
+                * (circleDistance_x - GameConstants.BRICK_WIDTH / 2)
+                + (circleDistance_y - GameConstants.BRICK_HEIGHT / 2)
+                        * (circleDistance_y - GameConstants.BRICK_HEIGHT / 2);
 
-        // Distance verticale entre le centre du cercle et le rectangle
-        double distY = Math.abs(circleCenterY - (rectTop + rectBottom) / 2);
-        double halfRectHeight = GameConstants.BRICK_HEIGHT / 2;
-
-        // Intersection si la distance horizontale est inférieure à la moitié de la largeur du rectangle plus le rayon du cercle,
-        // et la distance verticale est inférieure à la moitié de la hauteur du rectangle plus le rayon du cercle
-
-        return distX <= halfRectWidth + getRadius() && distY <= halfRectHeight + getRadius();
+        return (cornerDistance_sq <= (radius * radius));
     }
 
     public abstract boolean movement();
@@ -118,8 +119,10 @@ public abstract class Ball extends Entity {
 
     public boolean isOverlap2(Racket r) {
 
-        double deltaX = this.getC().getX() - Math.max(r.getC().getX(), Math.min(this.getC().getX(), r.getC().getX() + r.getLongueur()));
-        double deltaY = this.getC().getY() - Math.max(r.getC().getY(), Math.min(this.getC().getY(), r.getC().getY() + r.getLargeur()));
+        double deltaX = this.getC().getX()
+                - Math.max(r.getC().getX(), Math.min(this.getC().getX(), r.getC().getX() + r.getLongueur()));
+        double deltaY = this.getC().getY()
+                - Math.max(r.getC().getY(), Math.min(this.getC().getY(), r.getC().getY() + r.getLargeur()));
 
         return (deltaX * deltaX + deltaY * deltaY) < (this.getRadius() * this.getRadius());
     }
@@ -127,7 +130,8 @@ public abstract class Ball extends Entity {
     public double clamp(double val, double min, double max) {
         return Math.max(min, Math.min(max, val));
     }
-    public void reset(){
+
+    public void reset() {
         this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
     }
 }

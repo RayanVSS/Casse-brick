@@ -28,4 +28,8 @@ public abstract class Brick extends Entity {
             destroyed = true;
         }
     }
+
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
+    }
 }

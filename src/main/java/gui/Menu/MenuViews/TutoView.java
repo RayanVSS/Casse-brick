@@ -6,20 +6,23 @@ import javafx.stage.Stage;
 import utils.GameConstants;
 import javafx.scene.Scene;
 
-public class TutoView implements Menu {
+public class TutoView extends Menu {
     private Stage primaryStage;
-    private Scene scene;
-    private StackPane root;
+    private static StackPane root=new StackPane();
+    private static Scene scene= new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
+    
     private Button btnBack;
     
     public TutoView(Stage p) {
+        super(p, scene);
         this.primaryStage = p;
-        this.root = new StackPane();
-        this.scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-        this.root.setStyle("-fx-background-color: #273654;");
+        root = new StackPane();
+        scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
+        scene.getStylesheets().add("/styles/blue.css");
+        root.getStyleClass().add("root");
         this.btnBack = createButton("Retour", 0, 0);
-        this.root.getChildren().add(btnBack);
-        primaryStage.setScene(scene);
+        root.getChildren().add(btnBack);
+        p.setScene(scene);
     }
     public Button getBtnBack() {
         return btnBack;
