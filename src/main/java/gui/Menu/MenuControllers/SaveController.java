@@ -1,8 +1,7 @@
 package gui.Menu.MenuControllers;
 
-import gui.Menu.SceneManager;
 import gui.Menu.MenuViews.SaveView;
-import gui.Menu.MenuViews.StartMenuView;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import java.util.*;
 import save.Sauvegarde;
@@ -13,12 +12,10 @@ public class SaveController {
     private SaveView view;
     private Sauvegarde sauvegarde = new Sauvegarde();
     private Map<String, Object> donnees = new HashMap<>();
-    private SceneManager sceneManager;
 
 
-    public SaveController(Stage p, SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
-        this.view = new SaveView(p, sceneManager);
+    public SaveController(Stage p , SaveView view) {
+        this.view = view;
         this.view.getBtnBack().setOnAction(e -> back());
         this.view.getBtnload().setOnAction(e -> load());
         this.view.getBtnsave().setOnAction(e -> save());
@@ -28,7 +25,9 @@ public class SaveController {
 
     private void back() {
         //new StartMenuView(view.getPrimaryStage());
-        new StartMenuView(view.getPrimaryStage(),sceneManager);    
+        Platform.runLater(() -> {
+            view.getSceneManager().changeScene(view.getPrimaryStage(), "StartMenuView");
+        });
     }
 
     private void save() {
@@ -65,7 +64,4 @@ public class SaveController {
         view.afficherMessage("c'est bon"); // Afficher un message de confirmation
     }
 
-
-
-    
 }

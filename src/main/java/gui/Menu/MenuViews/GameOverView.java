@@ -1,6 +1,7 @@
 package gui.Menu.MenuViews;
 
 import gui.GameView;
+import gui.Menu.SceneManager;
 import gui.Menu.MenuControllers.GameOverController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,6 +18,7 @@ import javafx.stage.Stage;
  */
 public class GameOverView extends VBox {
     private Stage primaryStage;
+    private SceneManager sceneManager;
     private Button btnReplay;
     private Button btnQuit;
     private Button btnMenu;
@@ -30,9 +32,10 @@ public class GameOverView extends VBox {
      * @param game Le pane du jeu.
      */
 
-    public GameOverView(Stage p,GameView gameView) {
+    public GameOverView(Stage p,GameView gameView, SceneManager sceneManager) {
         this.primaryStage = p;
         this.gameView = gameView;
+        this.sceneManager = sceneManager;
         gameOver = new Label("Game Over");
         gameOver.getStyleClass().add("title-game-over-style");
         btnReplay = new Button("Rejouer");
@@ -126,5 +129,9 @@ public class GameOverView extends VBox {
 
     public GameView getGameView() {
         return gameView;
+    }
+
+    public SceneManager getSceneManager() {
+        return sceneManager;
     }
 }

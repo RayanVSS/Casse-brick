@@ -41,10 +41,11 @@ public class OptionsView extends Menu {
      */
     public OptionsView(Stage p, SceneManager sceneManager) {
         super(p, scene, sceneManager);
+        System.out.println("OptionsView CHECKED");
         this.primaryStage = p;
         btnBack = createButton("Retour", 0, 0);
         root.getStyleClass().add("root");
-        scene.getStylesheets().add("styles/blue.css");
+        //scene.getStylesheets().add("styles/blue.css");
         primaryStage.setScene(scene);
 
         // VBox 1: FPS, Chemain de la balle,Particules
@@ -103,9 +104,6 @@ public class OptionsView extends Menu {
         root.setSpacing(50);
         root.getChildren().addAll(v1, v2, v3, btnBack);
         new OptionsController(p, this);
-
-        // Ajout de la scène à la liste des scènes
-        this.getSceneManager().createOptionsViewScene(primaryStage);
     }
 
     // Getters

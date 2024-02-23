@@ -1,7 +1,6 @@
 package gui.Menu.MenuControllers;
 
 import gui.Menu.MenuViews.OptionsView;
-import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import utils.GameConstants;

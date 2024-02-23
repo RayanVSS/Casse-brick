@@ -36,8 +36,9 @@ public class StartMenuView extends Menu {
      */
     public StartMenuView(Stage p,SceneManager sceneManager) {
         super(p, scene,sceneManager);
+        System.out.println("StartMenuView CHECKED");
         this.primaryStage = p;
-        scene.getStylesheets().add("/styles/blue.css");
+        //scene.getStylesheets().add("/styles/blue.css");
         root.getStyleClass().add("root");
         title = createLabel("Casse Brique", 0, 0);
         title.getStyleClass().add("title-style");
@@ -51,7 +52,6 @@ public class StartMenuView extends Menu {
         root.setSpacing(10);
         root.setAlignment(javafx.geometry.Pos.CENTER);
         new StartMenuController(p,this);
-        this.primaryStage.setScene(scene);
     }
 
     // getters pour les boutons et autres éléments de la vue

@@ -1,9 +1,8 @@
 package gui.Menu.MenuControllers;
 
 import gui.Menu.SceneManager;
-import gui.Menu.MenuViews.StartMenuView;
 import gui.Menu.MenuViews.TutoView;
-import javafx.scene.Scene;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 /**
@@ -15,16 +14,14 @@ import javafx.stage.Stage;
  */
 public class TutoController {
     private TutoView view;
-    private SceneManager sceneManager;
 
     /**
      * Constructeur de TutoController.
      * 
      * @param p Le stage principal sur lequel la vue du tutoriel est affichée.
      */
-    public TutoController(Stage p, SceneManager sceneManager) { 
-        this.sceneManager = sceneManager;
-        this.view = new TutoView(p, sceneManager);
+    public TutoController(Stage p,TutoView view) { 
+        this.view = view;
         this.view.getBtnBack().setOnAction(e -> back());
     }
 
@@ -32,8 +29,10 @@ public class TutoController {
      * Méthode pour revenir à la vue du menu de démarrage.
      */
     private void back() {
-        view.getRoot().getChildren().clear();
-        view.getPrimaryStage().setScene(new StartMenuView(view.getPrimaryStage(),sceneManager).getScene());
+        Platform.runLater(() -> {
+            view.getSceneManager().changeScene(view.getPrimaryStage(), "StartMenuView");
+        });
+        //view.getPrimaryStage().setScene(new StartMenuView(view.getPrimaryStage(),sceneManager).getScene());
         //new StartMenuView(view.getPrimaryStage());
     }
 }

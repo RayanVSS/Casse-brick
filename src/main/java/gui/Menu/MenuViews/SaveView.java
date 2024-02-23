@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import save.Sauvegarde;
 import utils.GameConstants;
 import gui.Menu.SceneManager;
+import gui.Menu.MenuControllers.SaveController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -42,7 +43,7 @@ public class SaveView extends Menu{
     public SaveView(Stage p, SceneManager sceneManager) {
         super(p, scene, sceneManager);
         this.primaryStage = p;
-        scene.getStylesheets().add("/styles/blue.css");
+        //scene.getStylesheets().add("/styles/blue.css");
         root.getStyleClass().add("root");
         //button
         this.btnBack = createButton("Retour", -870, -700);
@@ -69,8 +70,7 @@ public class SaveView extends Menu{
         StackPane.setMargin(this.listSave, new javafx.geometry.Insets(-500, 0, 0, 0));
         //add to root
         root.getChildren().addAll(grid, btnBack, btnsave, btndelete, btnOK, btnload,listSave);
-        //this.primaryStage.setScene(scene);
-        this.getSceneManager().addScene("SaveView", scene);
+        new SaveController(p, this);
     }
 
     //GETTERS

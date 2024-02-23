@@ -11,6 +11,7 @@ import entity.ball.*;
 import entity.racket.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
+import gui.Menu.SceneManager;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
@@ -24,6 +25,7 @@ import geometry.Coordinates;
 public class GameView extends App {
 
     private Stage primaryStage;
+    private SceneManager sceneManager;
     private Pane root = new Pane();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
@@ -54,10 +56,10 @@ public class GameView extends App {
     // life & score
     private ScoreLifeView scoreLifeView;
 
-    public GameView(Stage p, int level) {
+    public GameView(Stage p, int level, SceneManager sceneManager) {
         this.primaryStage = p;
         this.gameView = this;
-
+        this.sceneManager = sceneManager;
         if (GameConstants.FPS) {
             fpsGraphics = new FPSGraphics();
         }
@@ -151,7 +153,6 @@ public class GameView extends App {
         animationTimer = new AnimationTimer() {
             long last = 0;
             double delay = 0.0;
-
             @Override
             public void handle(long now) {
                 BougePColision = key.isEmpty();
@@ -175,7 +176,7 @@ public class GameView extends App {
                     if (game.isLost()) {
                         game.setLost(false);
                         animationStop();
-                        root.getChildren().add(new GameOverView(primaryStage, gameView).getRoot());
+                        root.getChildren().add(new GameOverView(primaryStage, gameView,sceneManager).getRoot());
                     }
                 }
                 last = now;

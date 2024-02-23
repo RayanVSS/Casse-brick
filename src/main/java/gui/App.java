@@ -1,7 +1,6 @@
 package gui;
 
 import gui.Menu.SceneManager;
-import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -17,8 +16,8 @@ public class App extends Application {
         this.primaryStage.setResizable(false);
         primaryStage.setTitle("Casse Brique");
         SceneManager sceneManager = new SceneManager();
-        
 
+        //Application.setUserAgentStylesheet(getClass().getResource("/styles/blue.css").toExternalForm());
         sceneManager.createStartMenuViewScene(primaryStage);
         sceneManager.createOptionsViewScene(primaryStage);
         sceneManager.createSaveViewScene(primaryStage);
@@ -26,19 +25,13 @@ public class App extends Application {
         sceneManager.createTutoViewScene(primaryStage);
 
         for (Scene scene : sceneManager.getScenes().values()) {
-            System.out.println(scene);
+            System.out.println(scene + " " +sceneManager.getSceneName(scene)+" added to primaryStage");
         }
 
         primaryStage.setScene(sceneManager.getScene("StartMenuView"));
 
-        // //new StartMenuView(p);
-        // // StartMenuView startMenuView = new StartMenuView(p);
-        // // primaryStage.setScene(startMenuView.getScene());
-        // StartMenuView startMenuView = new StartMenuView(p);
-        // //startMenuView.getSceneManager().addScene("StartMenuView",
-        // startMenuView.getScene());
-        // primaryStage.setScene(startMenuView.getScene());
-
+        primaryStage.centerOnScreen();
+        primaryStage.toFront();
         primaryStage.show();
         primaryStage.getOnCloseRequest();
     }

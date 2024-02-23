@@ -3,7 +3,7 @@ package gui.Menu.MenuControllers;
 
 import gui.GameView;
 import gui.Menu.MenuViews.GameOverView;
-import gui.Menu.MenuViews.StartMenuView;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 /**
@@ -32,9 +32,14 @@ public class GameOverController {
      */
     private void replay() {
         //view.getRoot().getChildren().clear();
-        view.getGameView().getRoot().getChildren().clear();
-        GameView game = new GameView(view.getPrimaryStage(), 1);
-        game.animation();
+        Platform.runLater(() -> {
+            //view.getSceneManager().changeScene(view.getPrimaryStage(), "GameView");
+            GameView game = new GameView(view.getPrimaryStage(), 1, view.getSceneManager());
+            game.animation();
+        });
+        // view.getGameView().getRoot().getChildren().clear();
+        // GameView game = new GameView(view.getPrimaryStage(), 1, view.getSceneManager());
+        // game.animation();
     }
 
     /**
@@ -51,6 +56,9 @@ public class GameOverController {
         // view.getRoot().getChildren().clear();
         // StartMenuView s=new StartMenuView(view.getPrimaryStage());
         // view.getPrimaryStage().setScene(s.getScene());
+        Platform.runLater(() -> {
+            view.getSceneManager().changeScene(view.getPrimaryStage(), "StartMenuView");
+        });
         
     }
 }

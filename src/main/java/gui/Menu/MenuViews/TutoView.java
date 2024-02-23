@@ -5,6 +5,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import utils.GameConstants;
 import gui.Menu.SceneManager;
+import gui.Menu.MenuControllers.TutoController;
 import javafx.scene.Scene;
 
 public class TutoView extends Menu {
@@ -19,12 +20,12 @@ public class TutoView extends Menu {
         this.primaryStage = p;
         root = new StackPane();
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-        scene.getStylesheets().add("/styles/blue.css");
+        //scene.getStylesheets().add("/styles/blue.css");
         root.getStyleClass().add("root");
         this.btnBack = createButton("Retour", 0, 0);
         root.getChildren().add(btnBack);
         //p.setScene(scene);
-        this.getSceneManager().addScene("TutoView", scene); 
+        new TutoController(p,this);
     }
     public Button getBtnBack() {
         return btnBack;
