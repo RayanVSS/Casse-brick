@@ -1,5 +1,6 @@
 package gui.Menu.MenuViews;
 
+import gui.Menu.SceneManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
@@ -20,15 +21,17 @@ import javafx.stage.Stage;
 public abstract class Menu {
 
     private Scene scene;
+    private SceneManager sceneManager;
     /**
      * Constructeur de la classe Menu.
      * 
      * @param p Le stage principal de l'application.
      * @param s La scène de l'application.
      */
-    public Menu(Stage p, Scene s) {
+    public Menu(Stage p, Scene s, SceneManager sceneManager) {
         this.scene = s;
         this.scene.getStylesheets().add("/styles/blue.css");
+        this.sceneManager = sceneManager;
     }
 
     /**
@@ -103,5 +106,9 @@ public abstract class Menu {
         slider.setOrientation(Orientation.HORIZONTAL);
         slider.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
         return slider;
+    }
+
+    public SceneManager getSceneManager() {
+        return sceneManager;
     }
 }

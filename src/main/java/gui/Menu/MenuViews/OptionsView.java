@@ -1,5 +1,7 @@
 package gui.Menu.MenuViews;
 
+import gui.Menu.SceneManager;
+import gui.Menu.MenuControllers.OptionsController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,7 +22,8 @@ import utils.GameConstants;
 public class OptionsView extends Menu {
     private Stage primaryStage;
     private static HBox root = new HBox();
-    private static Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
+    private static Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,
+            GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Button btnBack;
     private ToggleButton buttonfps;
     private ToggleButton buttonpath;
@@ -36,8 +39,8 @@ public class OptionsView extends Menu {
      * 
      * @param p Le stage principal sur lequel la vue des options est affichée.
      */
-    public OptionsView(Stage p) {
-        super(p, scene);
+    public OptionsView(Stage p, SceneManager sceneManager) {
+        super(p, scene, sceneManager);
         this.primaryStage = p;
         btnBack = createButton("Retour", 0, 0);
         root.getStyleClass().add("root");
@@ -99,6 +102,10 @@ public class OptionsView extends Menu {
         root.setAlignment(javafx.geometry.Pos.CENTER);
         root.setSpacing(50);
         root.getChildren().addAll(v1, v2, v3, btnBack);
+        new OptionsController(p, this);
+
+        // Ajout de la scène à la liste des scènes
+        this.getSceneManager().createOptionsViewScene(primaryStage);
     }
 
     // Getters

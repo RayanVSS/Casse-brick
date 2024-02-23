@@ -5,7 +5,7 @@ import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.StartMenuView;
 import gui.Menu.MenuViews.TutoView;
 import gui.Menu.MenuViews.SaveView;
-
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 /**
@@ -38,7 +38,7 @@ public class StartMenuController {
     private void play() {
         view.getRoot().getChildren().clear();
         GameView game = new GameView(view.getPrimaryStage(), 1);
-        game.getRoot().setStyle("-fx-background-color: #E0ECF5;");
+        //game.getRoot().setStyle("-fx-background-color: #E0ECF5;");
         game.animation();
     }
 
@@ -46,8 +46,12 @@ public class StartMenuController {
      * Méthode pour afficher les options.
      */
     private void options() {
-        view.getRoot().getChildren().clear();
-        new OptionsController(view.getPrimaryStage(), new OptionsView(view.getPrimaryStage()));
+        // view.getRoot().getChildren().clear();
+        // view.getPrimaryStage().setScene(new OptionsView(view.getPrimaryStage()).getScene());
+        // //new OptionsController(view.getPrimaryStage(), new OptionsView(view.getPrimaryStage()));
+        Platform.runLater(() -> {
+            view.getSceneManager().changeScene(view.getPrimaryStage(), "OptionsView");
+        });
     }
 
     /**
@@ -61,18 +65,24 @@ public class StartMenuController {
      * Méthode pour afficher le tutoriel.
      */
     private void tuto() {
-        view.getRoot().getChildren().clear();
-        new TutoView(view.getPrimaryStage());
-        new TutoController(view.getPrimaryStage());
+        // view.getRoot().getChildren().clear();
+        // new TutoView(view.getPrimaryStage());
+        // new TutoController(view.getPrimaryStage());
+        Platform.runLater(() -> {
+            view.getSceneManager().changeScene(view.getPrimaryStage(), "TutoView");
+        });
     }
 
     /**
      * Méthode pour sauvegarder le jeu.
      */
     private void Sauvegarde() {
-        view.getRoot().getChildren().clear();
-        new SaveView(view.getPrimaryStage());
-        new SaveController(view.getPrimaryStage());
+        // view.getRoot().getChildren().clear();
+        // new SaveView(view.getPrimaryStage());
+        // new SaveController(view.getPrimaryStage());
+        Platform.runLater(() -> {
+            view.getSceneManager().changeScene(view.getPrimaryStage(), "SaveView");
+        });
     }
 
 }

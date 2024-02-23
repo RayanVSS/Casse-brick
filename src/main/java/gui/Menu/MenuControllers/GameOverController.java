@@ -48,7 +48,9 @@ public class GameOverController {
      * Méthode pour revenir au menu. Elle efface tous les enfants de la racine de la vue et lance le contrôleur du menu de démarrage.
      */
     private void menu() {
-        view.getRoot().getChildren().clear();
-        new StartMenuView(view.getPrimaryStage());
+        // view.getRoot().getChildren().clear();
+        // StartMenuView s=new StartMenuView(view.getPrimaryStage());
+        // view.getPrimaryStage().setScene(s.getScene());
+        
     }
 }

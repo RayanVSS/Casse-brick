@@ -1,10 +1,7 @@
 package gui.Menu.MenuControllers;
 
-import java.time.Duration;
-
 import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.StartMenuView;
-import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import utils.GameConstants;
@@ -46,14 +43,10 @@ public class OptionsController {
      * Méthode pour revenir à la vue du menu de démarrage.
      */
     private void back() {
-        FadeTransition transition = new FadeTransition();
-        transition.setFromValue(0.0);
-        transition.setToValue(1.0);
-        
         Platform.runLater(() -> {
-            view.getRoot().getChildren().clear();
-            transition.play();
-            new StartMenuView(view.getPrimaryStage());
+            // view.getRoot().getChildren().clear();
+            // view.getPrimaryStage().setScene(new StartMenuView(view.getPrimaryStage()).getScene());
+            view.getSceneManager().changeScene(view.getPrimaryStage(), "StartMenuView");
         });
     }
 

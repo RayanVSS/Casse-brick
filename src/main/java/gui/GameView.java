@@ -207,4 +207,7 @@ public class GameView extends App {
     public AnimationTimer getAnimationTimer() {
         return animationTimer;
     }
+    public Scene getScene() {
+        return scene;
+    }
 }

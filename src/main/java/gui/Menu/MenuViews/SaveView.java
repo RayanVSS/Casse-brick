@@ -9,6 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import save.Sauvegarde;
 import utils.GameConstants;
+import gui.Menu.SceneManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -38,8 +39,8 @@ public class SaveView extends Menu{
     //c'est pour avoir les fonctions de sauvegarde
     private Sauvegarde sauvegarde = new Sauvegarde();
     
-    public SaveView(Stage p) {
-        super(p, scene);
+    public SaveView(Stage p, SceneManager sceneManager) {
+        super(p, scene, sceneManager);
         this.primaryStage = p;
         scene.getStylesheets().add("/styles/blue.css");
         root.getStyleClass().add("root");
@@ -68,7 +69,8 @@ public class SaveView extends Menu{
         StackPane.setMargin(this.listSave, new javafx.geometry.Insets(-500, 0, 0, 0));
         //add to root
         root.getChildren().addAll(grid, btnBack, btnsave, btndelete, btnOK, btnload,listSave);
-        this.primaryStage.setScene(scene);
+        //this.primaryStage.setScene(scene);
+        this.getSceneManager().addScene("SaveView", scene);
     }
 
     //GETTERS
@@ -107,6 +109,9 @@ public class SaveView extends Menu{
     }
     public ComboBox<String> getListSave() {
         return listSave;
+    }
+    public Scene getScene() {
+        return scene;
     }
 
 

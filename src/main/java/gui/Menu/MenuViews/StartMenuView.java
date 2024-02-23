@@ -1,5 +1,6 @@
 package gui.Menu.MenuViews;
 
+import gui.Menu.SceneManager;
 import gui.Menu.MenuControllers.StartMenuController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,8 +34,8 @@ public class StartMenuView extends Menu {
      * 
      * @param p Le stage principal sur lequel le menu de démarrage est affiché.
      */
-    public StartMenuView(Stage p) {
-        super(p, scene);
+    public StartMenuView(Stage p,SceneManager sceneManager) {
+        super(p, scene,sceneManager);
         this.primaryStage = p;
         scene.getStylesheets().add("/styles/blue.css");
         root.getStyleClass().add("root");
@@ -50,7 +51,7 @@ public class StartMenuView extends Menu {
         root.setSpacing(10);
         root.setAlignment(javafx.geometry.Pos.CENTER);
         new StartMenuController(p,this);
-        //this.primaryStage.setScene(scene);
+        this.primaryStage.setScene(scene);
     }
 
     // getters pour les boutons et autres éléments de la vue
