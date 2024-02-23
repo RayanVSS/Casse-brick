@@ -95,6 +95,7 @@ public class GameView extends App {
         root.getChildren().add(this.scoreLifeView);
         root.getChildren().add(this.brickSet);
 
+        this.animation();
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -132,7 +133,6 @@ public class GameView extends App {
                     currentParticle.setCenterY(previousParticle.getCenterY());
                     currentParticle.applyRandomFluctuation(); // fluctuation des particules
                 }
-
                 Particle firstParticle = trail.get(0);
                 firstParticle.setCenterX(game.getBall().getC().getX());
                 firstParticle.setCenterY(game.getBall().getC().getY());
@@ -186,6 +186,7 @@ public class GameView extends App {
     }
 
     public void animationStart() {
+        System.out.println("GameView.animationStart()");
         animationTimer.start();
     }
 

@@ -21,7 +21,7 @@ public class App extends Application {
         sceneManager.createStartMenuViewScene(primaryStage);
         sceneManager.createOptionsViewScene(primaryStage);
         sceneManager.createSaveViewScene(primaryStage);
-        sceneManager.createGameViewScene(primaryStage);
+        //sceneManager.createGameViewScene(primaryStage);
         sceneManager.createTutoViewScene(primaryStage);
 
         for (Scene scene : sceneManager.getScenes().values()) {

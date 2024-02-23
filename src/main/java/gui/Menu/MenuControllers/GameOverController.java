@@ -35,7 +35,7 @@ public class GameOverController {
         Platform.runLater(() -> {
             //view.getSceneManager().changeScene(view.getPrimaryStage(), "GameView");
             GameView game = new GameView(view.getPrimaryStage(), 1, view.getSceneManager());
-            game.animation();
+            //game.animation();
         });
         // view.getGameView().getRoot().getChildren().clear();
         // GameView game = new GameView(view.getPrimaryStage(), 1, view.getSceneManager());

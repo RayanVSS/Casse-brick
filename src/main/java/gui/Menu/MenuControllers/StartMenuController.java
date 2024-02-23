@@ -1,5 +1,6 @@
 package gui.Menu.MenuControllers;
 
+import gui.GameView;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -45,13 +46,11 @@ public class StartMenuController {
      */
     private void play() {
         Platform.runLater(() -> {
-            view.getSceneManager().changeScene(view.getPrimaryStage(), "GameView");
+        // view.getSceneManager().changeScene(view.getPrimaryStage(), "GameView");
+            GameView game = new GameView(view.getPrimaryStage(), 1, view.getSceneManager());
+            view.getPrimaryStage().setScene(game.getScene());
         });
-        // view.getRoot().getChildren().clear();
-        // GameView game = new GameView(view.getPrimaryStage(), 1,
-        // view.getSceneManager());
-        // //game.getRoot().setStyle("-fx-background-color: #E0ECF5;");
-        // game.animation();
+        
     }
 
     /**

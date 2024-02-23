@@ -80,15 +80,16 @@ public class SceneManager {
         System.out.println("SaveView created");
     }
 
-    public void createGameViewScene(Stage primaryStage) {
-        GameView gameView = new GameView(primaryStage, 1, this);
-        CompletableFuture.runAsync(() -> {
-            gameView.getScene().getStylesheets().add(getClass().getResource("/styles/blue.css").toExternalForm());
-        });
-        gameView.animation();
-        addScene("GameView", gameView.getScene());
-        System.out.println("GameView created");
-    }
+    // public void createGameViewScene(Stage primaryStage) {
+    //     GameView gameView = new GameView(primaryStage, 1, this);
+
+    //     CompletableFuture.runAsync(() -> {
+    //         gameView.getScene().getStylesheets().add(getClass().getResource("/styles/blue.css").toExternalForm());
+    //     });
+    //     //gameView.animation();
+    //     addScene("GameView", gameView.getScene());
+    //     System.out.println("GameView created");
+    // }
 
     public void createTutoViewScene(Stage primaryStage) {
         TutoView tutoView = new TutoView(primaryStage, this);
