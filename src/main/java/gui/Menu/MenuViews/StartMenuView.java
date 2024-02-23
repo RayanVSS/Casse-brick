@@ -50,7 +50,7 @@ public class StartMenuView extends Menu {
         root.setSpacing(10);
         root.setAlignment(javafx.geometry.Pos.CENTER);
         new StartMenuController(p,this);
-        this.primaryStage.setScene(scene);
+        //this.primaryStage.setScene(scene);
     }
 
     // getters pour les boutons et autres éléments de la vue
@@ -116,5 +116,9 @@ public class StartMenuView extends Menu {
      */
     public Button getBtnSave() {
         return btnSave;
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 }

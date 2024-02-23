@@ -1,13 +1,19 @@
 package gui.Menu.MenuControllers;
 
+import java.time.Duration;
+
 import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.StartMenuView;
+import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
 /**
- * Classe OptionsController qui gère les interactions de l'utilisateur avec la vue OptionsView.
+ * Classe OptionsController qui gère les interactions de l'utilisateur avec la
+ * vue OptionsView.
  * Elle permet de modifier les elements modifiables du jeu.
+ * 
  * @see OptionsView
  * @author Benmalek Majda
  */
@@ -16,9 +22,10 @@ public class OptionsController {
 
     /**
      * Constructeur de OptionsController.
+     * 
      * @param p Le stage principal sur lequel la vue des options est affichée.
      */
-    public OptionsController(Stage p,OptionsView view) {
+    public OptionsController(Stage p, OptionsView view) {
         this.view = view;
         this.view.getBtnBack().setOnAction(e -> back());
         this.view.getButtonfps().setOnAction(e -> fps());
@@ -39,9 +46,15 @@ public class OptionsController {
      * Méthode pour revenir à la vue du menu de démarrage.
      */
     private void back() {
-        view.getRoot().getChildren().clear();
-        //new StartMenuView(view.getPrimaryStage());
-        new StartMenuController(view.getPrimaryStage(), new StartMenuView(view.getPrimaryStage()));
+        FadeTransition transition = new FadeTransition();
+        transition.setFromValue(0.0);
+        transition.setToValue(1.0);
+        
+        Platform.runLater(() -> {
+            view.getRoot().getChildren().clear();
+            transition.play();
+            new StartMenuView(view.getPrimaryStage());
+        });
     }
 
     /**
@@ -113,6 +126,7 @@ public class OptionsController {
             GameConstants.RIGHT = event.getCode();
             view.getButtonright().setText(GameConstants.RIGHT.getName());
             view.getButtonright().setOnKeyPressed(null); // Désactive la liaison après la configuration
-        });;
+        });
+        ;
     }
 }

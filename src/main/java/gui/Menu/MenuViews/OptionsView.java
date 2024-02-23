@@ -40,7 +40,7 @@ public class OptionsView extends Menu {
         super(p, scene);
         this.primaryStage = p;
         btnBack = createButton("Retour", 0, 0);
-        root.getStylesheets().add("root");
+        root.getStyleClass().add("root");
         scene.getStylesheets().add("styles/blue.css");
         primaryStage.setScene(scene);
 

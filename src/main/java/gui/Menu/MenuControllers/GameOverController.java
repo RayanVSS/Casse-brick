@@ -49,6 +49,6 @@ public class GameOverController {
      */
     private void menu() {
         view.getRoot().getChildren().clear();
-        new StartMenuController(view.getPrimaryStage(), new StartMenuView(view.getPrimaryStage()));
+        new StartMenuView(view.getPrimaryStage());
     }
 }

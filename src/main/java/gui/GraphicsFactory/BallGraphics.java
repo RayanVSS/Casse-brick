@@ -6,7 +6,6 @@ import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
-import gui.ImageLoader;
 
 public class BallGraphics extends Circle {
 
@@ -31,6 +30,4 @@ public class BallGraphics extends Circle {
         setCenterX(ball.getC().getX());
         setCenterY(ball.getC().getY());
     }
-
-    
 }

@@ -181,6 +181,10 @@ public class GameView extends App {
                 last = now;
             }
         };
+        animationStart();
+    }
+
+    public void animationStart() {
         animationTimer.start();
     }
 

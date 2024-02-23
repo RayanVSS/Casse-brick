@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import utils.GameConstants;
 
 public class BrickSet extends Group {
+    Image image = ImageLoader.loadImage("src/main/ressources/briquee.png");
 
     public BrickSet(Brick[][] tab) {
         int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;
@@ -15,7 +16,7 @@ public class BrickSet extends Group {
                 GameConstants.COLUMNS_OF_BRICKS; i++) {
             for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) {
                 if (tab[i][j] != null) {
-                    Image image = ImageLoader.loadImage("src/main/ressources/briquee.png");
+                    //Image image = ImageLoader.loadImage("src/main/ressources/briquee.png");
                     brick = new BricksGraphics(image, tab[i][j]);
                 } else {
                     brick = new BricksGraphics(null, null);
