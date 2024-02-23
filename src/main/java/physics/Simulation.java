@@ -38,32 +38,39 @@ import utils.Key;
 public class Simulation {
 
     //Initialisation des objets
-
-    Stage primaryStage;
-    Pane root;
+    public static double DEFAULT_WINDOW_HEIGHT=800;
+    public static double DEFAULT_WINDOW_WIDTH=1000;
     public static boolean PATH=false; 
     public static boolean RACKET=false;
+    
+    Stage primaryStage;
+    Pane root;
 
     Outline outline;
 
     Ball ball;
     Circle graphBall;
+
     Preview preview;
+
     Racket racket;
     RacketGraphics graphRacket;
     Key key = new Key();
     public static Set<KeyCode> direction = new HashSet<KeyCode>();
     public static boolean BougePColision;
 
-    // variables pour la trajectoire
+    double mouseX=0;
+    double mouseY=0;
+    boolean isMouseDraggingBall = false;
 
-    public Simulation(Stage pStage) {
+
+    public Simulation(Stage pStage, AppPhysic appPhysic) {
 
         //Initialisation de la fenetre
 
         this.primaryStage = pStage;
         root = new Pane();
-        primaryStage.setScene(new javafx.scene.Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT));
+        primaryStage.setScene(new javafx.scene.Scene(root, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
         primaryStage.setTitle("Simulation");
 
         //Initialisation de la simulation
@@ -78,14 +85,14 @@ public class Simulation {
         }
 
         ball = new Ball(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
-        outline.getDirection(),1, outline.getDiametre()){
+        outline.getDirection(),1, outline.getRadius()){
 
             @Override
             public boolean movement(){
-                double h = GameConstants.DEFAULT_WINDOW_WIDTH;
-                double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
-                double newX = this.getC().getX() + this.getDirection().getX() + outline.getWind().getX();
-                double newY = this.getC().getY() + this.getDirection().getY() + outline.getWind().getY();
+                double h = DEFAULT_WINDOW_WIDTH;
+                double w = DEFAULT_WINDOW_HEIGHT;
+                double newX = this.getC().getX() + this.getDirection().getX() + outline.getWind().getX() + outline.getFrictionRacket().getX();
+                double newY = this.getC().getY() + this.getDirection().getY() + outline.getWind().getY() ;
                 if (CollisionR) {
                     if (BougePColision) {
                         this.getDirection().setY(-this.getDirection().getY());
@@ -97,8 +104,9 @@ public class Simulation {
                             switch (key) {
                                 case RIGHT:
                                 case D:
-                                    this.getDirection().setX(1);
-                                    this.getDirection().setY(-1);
+                                    this.getDirection().setX(this.getDirection().getX());
+                                    this.getDirection().setY(-this.getDirection().getY());
+                                    outline.getFrictionRacket().setX(outline.getFrictionRacket().getX() + 0.5);
                                     newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                                     CollisionR = false;
@@ -106,8 +114,9 @@ public class Simulation {
                                     break;
                                 case LEFT:
                                 case Q:
-                                    this.getDirection().setX(-1);
-                                    this.getDirection().setY(-1);
+                                    this.getDirection().setX(this.getDirection().getX());
+                                    this.getDirection().setY(-this.getDirection().getY());
+                                    outline.getFrictionRacket().setX(outline.getFrictionRacket().getX() - 0.5);
                                     newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                                     CollisionR = false;
@@ -117,7 +126,7 @@ public class Simulation {
                             }
                         }
                     }
-                }
+                }   
                 if (newX < 0 || newX > h - this.getRadius()) {
                     this.getDirection().setX(-this.getDirection().getX());
                     newX = this.getC().getX() + this.getDirection().getX();
@@ -125,11 +134,12 @@ public class Simulation {
                 if (newY < 0 || newY > w - this.getRadius()) {
                     this.getDirection().setY(-this.getDirection().getY());
                     newY = this.getC().getY() + this.getDirection().getY();
-                }
-
+                } 
                 this.setC(new Coordinates(newX, newY));
                 outline.checkGravity(ball.getC(), ball.getDirection());
+                outline.checkFrictionRacket();
                 this.getDirection().add(outline.getWind());
+                System.out.println(newX + " " + newY);
                 return true;
             }
         };
@@ -142,6 +152,38 @@ public class Simulation {
 
         preview = new Preview(ball, outline);
         preview.init_path(ball, root);
+
+        //Initialisation des evenements de la souris
+
+        graphBall.setOnMousePressed(event -> {
+            mouseX = event.getSceneX();
+            mouseY = event.getSceneY();
+            double ballX = ball.getC().getX();
+            double ballY = ball.getC().getY();
+            double distance = Math.sqrt(Math.pow(mouseX - ballX, 2) + Math.pow(mouseY - ballY, 2));
+            if (distance <= ball.getRadius()+7) {
+                isMouseDraggingBall = true;
+                preview.clear_path(root);
+            }
+        });
+
+        graphBall.setOnMouseDragged(event -> {
+            if (isMouseDraggingBall) {
+                ball.getC().setX(event.getSceneX());
+                ball.getC().setY(event.getSceneY());
+            }
+        });
+
+        graphBall.setOnMouseReleased(event -> {
+            if (isMouseDraggingBall) {
+                isMouseDraggingBall = false;
+                double dx = (event.getSceneX() - mouseX)/40;
+                double dy = (event.getSceneY() - mouseY)/40;
+                Vector newVelocity = new Vector(new Coordinates(dx,dy));
+                ball.setDirection(newVelocity);
+                preview.init_path(ball, root);
+            }
+        });
 
         //Initialisation de l'animation
 
@@ -160,27 +202,37 @@ public class Simulation {
                 var deltaT = now - last;
                 if (deltaT > 1000000000 / 120) { 
                     update();
-                }
+                } 
                 last = now;
             }
         };
         animationTimer.start();
 
+        primaryStage.getScene().setOnKeyPressed(eWind -> {
+            switch(eWind.getCode()){
+                case ESCAPE:
+                    animationTimer.stop();
+                    primaryStage.setScene(appPhysic.getScene());
+                    appPhysic.menu();
+            }
+        });
+
     }
 
+    
+
     public void update() {
-
         // Mise à jour de la position de la balle et de la trajectoire
-
-        if(ball.getCollisionR()){
-            ball.movement();
-            preview.init_path(ball, root);
+        if(!isMouseDraggingBall){
+            if(ball.getCollisionR()){
+                ball.movement();
+                preview.init_path(ball, root);
+            }
+            else{
+                ball.movement();
+                preview.add_circle(root);
+            }
         }
-        else{
-            ball.movement();
-            preview.add_circle(root);
-        }
-
 
         graphBall.setCenterX(ball.getC().getX());
         graphBall.setCenterY(ball.getC().getY());

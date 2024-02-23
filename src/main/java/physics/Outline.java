@@ -49,7 +49,7 @@ public class Outline {
     public static int Direction_Wind = 0;
     public static double Gravite = 0.1;
     public static double Mass = 1;
-    public static final double stop_bounce = 0.5;
+    public static final double stop_bounce = 0.3;
     public static final double retention = 0.8;
     public static final double friction_sol = 0.1;
     public static final double friction_air = 0.01;
@@ -71,9 +71,8 @@ public class Outline {
         this.Wind = Wind;
     }
 
-
     public void checkGravity(Coordinates c, Vector d) {
-        if (c.getY() < GameConstants.DEFAULT_WINDOW_HEIGHT - Radius) {
+        if (c.getY() < Simulation.DEFAULT_WINDOW_HEIGHT - Radius) {
             d.setY(d.getY() + Gravite*Mass);
         } else {
             if (d.getY() > stop_bounce) {
@@ -83,7 +82,7 @@ public class Outline {
                     d.setY(0);
                 }
             }
-            if ((c.getX() < Radius && d.getX() < 0) || (c.getX() > GameConstants.DEFAULT_WINDOW_WIDTH - Radius && d.getX() > 0)) {
+            if ((c.getX() < Radius && d.getX() < 0) || (c.getX() > Simulation.DEFAULT_WINDOW_WIDTH - Radius && d.getX() > 0)) {
                 d.setX(-d.getX()* retention);
                 if (Math.abs(d.getX()) < stop_bounce) {
                     d.setX(0);
@@ -98,6 +97,16 @@ public class Outline {
             }
         }
     }
+
+    public void checkFrictionRacket(){
+        if(friction_racket.getX() > 0){
+            friction_racket.setX(friction_racket.getX()-0.05);
+        }else if(friction_racket.getX() < 0){
+            friction_racket.setX(friction_racket.getX()+0.05);
+        }
+    }
+
+   
 
     public Vector vectorWind(int Speed , int Direction){
        switch (Direction) {
@@ -131,7 +140,7 @@ public class Outline {
         return this.Speed;
     }
 
-    public int getDiametre() {
+    public int getRadius() {
         return this.Radius;
     }
 
@@ -151,10 +160,6 @@ public class Outline {
         this.Speed = Speed;
     } 
 
-    public double getRadius() {
-        return this.Radius;
-    }
-
     public void setDirection(Vector Direction) {
         this.Direction = Direction;
     }
@@ -163,9 +168,16 @@ public class Outline {
         this.Wind = Wind;
     }
 
-    public void setDiametre(int Radius) {
+    public void setRadius(int Radius) {
         this.Radius = Radius;
     }
 
+    public Vector getFrictionRacket() {
+        return friction_racket;
+    }
+
+    public void setFrictionRacket(Vector friction_racket) {
+        Outline.friction_racket = friction_racket;
+    }
 
 }

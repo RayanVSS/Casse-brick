@@ -8,7 +8,6 @@ import geometry.Vector;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import utils.GameConstants;
 
 /***************************************************************************
  *                  Explication de classe Preview  :  
@@ -42,11 +41,10 @@ public class Preview {
     }
 
     public Coordinates trajectory(){
-        double h = GameConstants.DEFAULT_WINDOW_WIDTH;
-        double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
-        double newX = c_trajectory.getX() + d_trajectory.getX() + outline.getWind().getX();
+        double h = Simulation.DEFAULT_WINDOW_WIDTH;
+        double w = Simulation.DEFAULT_WINDOW_HEIGHT;
+        double newX = c_trajectory.getX() + d_trajectory.getX() + outline.getWind().getX() + outline.getFrictionRacket().getX();
         double newY = c_trajectory.getY() + d_trajectory.getY() + outline.getWind().getY();
-        
         if (newX < 0 || newX > h - outline.getRadius()) {
             d_trajectory.setX(-d_trajectory.getX());
             newX = c_trajectory.getX() + d_trajectory.getX();
@@ -57,6 +55,7 @@ public class Preview {
         }
         c_trajectory=new Coordinates(newX, newY);
         outline.checkGravity(c_trajectory, d_trajectory);
+        outline.checkFrictionRacket();
         d_trajectory.add(outline.getWind());
         dt_circle++;
         return c_trajectory;
@@ -64,10 +63,7 @@ public class Preview {
 
     public void init_path(Ball ball , Pane root){
         if(Simulation.PATH){
-            for(Circle c: circles){
-                root.getChildren().remove(c);
-            }
-            circles.clear();
+            clear_path(root);
             c_trajectory = new Coordinates(ball.getC().getX(), ball.getC().getY());
             d_trajectory = new Vector(new Coordinates(ball.getDirection().getX(), ball.getDirection().getY()));
             dt_circle = 0;
@@ -80,6 +76,15 @@ public class Preview {
                     circles.add(c);
                 }
             }
+        }
+    }
+
+    public void clear_path(Pane root){
+        if(Simulation.PATH){
+            for(Circle c: circles){
+                root.getChildren().remove(c);
+            }
+            circles.clear();
         }
     }
 

@@ -18,7 +18,6 @@ public class AppPhysic extends Application {
     StackPane root ;
     public static Outline outline = new Outline();
 
-
     @Override
     public void start(Stage p) throws Exception {
         this.primaryStage = p;
@@ -28,6 +27,7 @@ public class AppPhysic extends Application {
         primaryStage.setTitle("Physique");
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.resizableProperty().setValue(false);
         menu();
     }
 
@@ -39,7 +39,7 @@ public class AppPhysic extends Application {
 
         bouton1.setOnAction(e -> {
             root.getChildren().clear();
-            new Simulation(primaryStage);
+            new Simulation(primaryStage,this);
         });
 
         bouton2.setOnAction(e -> {
@@ -153,15 +153,15 @@ public class AppPhysic extends Application {
     }
 
     public void Gravity(){
-        Label labelGravity = new Label("Intensite de la gravite : "+Outline.Gravite+" m/s^2");
+        Label labelGravity = new Label("Intensite de la gravite : "+Outline.Gravite*100+" m/s^2");
         labelGravity.setStyle("-fx-text-fill: #d5bbb1;");
         labelGravity.setTranslateY(0);
         labelGravity.setTranslateX(-350);
-        Slider gravity = new Slider(-50, 50, Outline.Gravite);
+        Slider gravity = new Slider(-10, 10, Outline.Gravite);
         gravity.setOrientation(Orientation.HORIZONTAL);
         gravity.setMaxWidth(200);
         gravity.valueProperty().addListener((observable, oldvalue, newvalue) -> {
-            Outline.Gravite = newvalue.intValue();
+            Outline.Gravite = newvalue.intValue()/100;
             labelGravity.setText("Intensite de la gravite : " + newvalue.intValue() + " m/s^2");
         });
         gravity.setTranslateX(labelGravity.getTranslateX());
@@ -219,6 +219,10 @@ public class AppPhysic extends Application {
         buttonback.setTranslateX(370);
         buttonback.setTranslateY(300);
         root.getChildren().add(buttonback);
+    }
+
+    public Scene getScene(){
+        return scene;
     }
 
     public static void main(String[] args) {
