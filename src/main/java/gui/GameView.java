@@ -70,7 +70,7 @@ public class GameView extends App {
 
         /* differentes balles */
         game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT,
-                new GameRules(true, true, false, false, false, false, false));
+                new GameRules(false, false, true, false, false, false, false));
         preview = new Preview(game.getBall());
         brickSet = new BrickSet(game.getMap().getBricks());
 

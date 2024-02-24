@@ -18,7 +18,7 @@ public final class GameConstants {
         // brick
         public static final int MAP_HEIGHT = 24;
         public static final int MAP_WIDTH = 15;
-        public static final int ROWS_OF_BRICKS = 3;
+        public static final int ROWS_OF_BRICKS = 5;
         public static final int COLUMNS_OF_BRICKS = 13;
         public static final int MIN_SPACE_BETWEEN_RACKET_BRICKS = 5;
         public static final int BRICK_WIDTH = 60;

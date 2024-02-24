@@ -33,6 +33,7 @@ public class Game {
         this.map = new Map(arrangement);
         this.rules = rules;
         inGameTimer = new Timer();
+        rules.registerInitialBricksZone(map);
     }
 
     public void start() {
@@ -92,6 +93,7 @@ public class Game {
         if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
             rules.updateRemainingBounces();
+            rules.shuffleBricks(map.getBricks());
         }
         // Gere les conditions de perte
         if (!ball.movement()) {
@@ -102,6 +104,7 @@ public class Game {
             lost = true;
             inGameTimer.cancel();
         }
+
     }
 
     public void lost() {
