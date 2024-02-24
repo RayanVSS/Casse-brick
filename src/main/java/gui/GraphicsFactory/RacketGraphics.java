@@ -1,6 +1,7 @@
 package gui.GraphicsFactory;
 
 import javafx.scene.shape.Rectangle;
+import entity.ball.MagnetBall;
 import entity.racket.*;
 import javafx.scene.paint.Color;
 
@@ -28,6 +29,8 @@ public class RacketGraphics extends Rectangle {
             setFill(Color.RED);
         else if (racket instanceof YNotFixeRacket)
             setFill(Color.BLUE);
+        else if (racket instanceof MagnetRacket)
+            setFill(Color.YELLOW);
         else
             setFill(Color.BLACK);
     }
@@ -40,5 +43,11 @@ public class RacketGraphics extends Rectangle {
         setY(racket.getC().getY());
         setWidth(racket.getLargeur());
         setHeight(racket.getLongueur());
+        if (racket instanceof MagnetRacket){
+            if(((MagnetRacket) racket).getEtat().equals("positif"))
+                setFill(Color.YELLOW);
+            else
+                setFill(Color.GREEN);
+        }
     }
 }
