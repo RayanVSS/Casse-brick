@@ -43,7 +43,6 @@ public class SaveView extends Menu{
     public SaveView(Stage p, SceneManager sceneManager) {
         super(p, scene, sceneManager);
         this.primaryStage = p;
-        //scene.getStylesheets().add("/styles/blue.css");
         root.getStyleClass().add("root");
         //button
         this.btnBack = createButton("Retour", -870, -700);

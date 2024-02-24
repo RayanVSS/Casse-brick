@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import utils.GameConstants;
 
 /**
  * Classe GameOver qui représente l'écran de fin de jeu.
@@ -50,7 +51,7 @@ public class GameOverView extends VBox {
         setLayoutY(gameView.getRoot().getLayoutY());
         setPrefWidth(gameView.getRoot().getWidth());
         setPrefHeight(gameView.getRoot().getHeight());
-        getStylesheets().add("/styles/blue.css");
+        getStylesheets().add(GameConstants.CSS);
         new GameOverController(p, this);
     }
 

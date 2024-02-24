@@ -15,6 +15,7 @@ import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StartMenuView;
 import gui.Menu.MenuViews.TutoView;
 import javafx.util.Duration;
+import utils.GameConstants;
 
 public class SceneManager {
     private Map<String, Scene> scenes = new HashMap<>();
@@ -36,6 +37,7 @@ public class SceneManager {
     }
 
     public void clearScenes() {
+
         scenes.clear();
     }
 
@@ -52,55 +54,46 @@ public class SceneManager {
         return null;
     }
 
+    public void addStylesheet(Scene scene) {
+        CompletableFuture.runAsync(() -> {
+            scene.getStylesheets().add(getClass().getResource(GameConstants.CSS).toExternalForm());
+        });
+    }
+
     public void createOptionsViewScene(Stage primaryStage) {
         OptionsView optionsView = new OptionsView(primaryStage, this);
-        CompletableFuture.runAsync(() -> {
-            optionsView.getScene().getStylesheets().add(getClass().getResource("/styles/blue.css").toExternalForm());
-        });
+        addStylesheet(optionsView.getScene());
         addScene("OptionsView", optionsView.getScene());
-        System.out.println("OptionsView created in SceneManager");
     }
 
     public void createStartMenuViewScene(Stage primaryStage) {
         StartMenuView startMenuView = new StartMenuView(primaryStage, this);
         Platform.runLater(() -> {
-            startMenuView.getScene().getStylesheets().add(getClass().getResource("/styles/blue.css").toExternalForm());
-            System.out.println("StartMenuView css created in CompletableFuture");
+            addStylesheet(startMenuView.getScene());
         });
         addScene("StartMenuView", startMenuView.getScene());
-        System.out.println("StartMenuView created");
     }
 
     public void createSaveViewScene(Stage primaryStage) {
         SaveView saveView = new SaveView(primaryStage, this);
-        CompletableFuture.runAsync(() -> {
-            saveView.getScene().getStylesheets().add(getClass().getResource("/styles/blue.css").toExternalForm());
-        });
+        addStylesheet(saveView.getScene());
         addScene("SaveView", saveView.getScene());
-        System.out.println("SaveView created");
     }
 
-    // public void createGameViewScene(Stage primaryStage) {
-    //     GameView gameView = new GameView(primaryStage, 1, this);
-
-    //     CompletableFuture.runAsync(() -> {
-    //         gameView.getScene().getStylesheets().add(getClass().getResource("/styles/blue.css").toExternalForm());
-    //     });
-    //     //gameView.animation();
-    //     addScene("GameView", gameView.getScene());
-    //     System.out.println("GameView created");
-    // }
+    public void createGameViewScene(Stage primaryStage) {
+        GameView gameView = new GameView(primaryStage, 1, this);
+        addStylesheet(gameView.getScene());
+        addScene("GameView", gameView.getScene());
+    }
 
     public void createTutoViewScene(Stage primaryStage) {
         TutoView tutoView = new TutoView(primaryStage, this);
-        CompletableFuture.runAsync(() -> {
-            tutoView.getScene().getStylesheets().add(getClass().getResource("/styles/blue.css").toExternalForm());
-        });
+        addStylesheet(tutoView.getScene());
         addScene("TutoView", tutoView.getScene());
-        System.out.println("TutoView created");
     }
 
     public void changeScene(Stage primaryStage, String name) {
+
         Scene newScene = getScene(name);
         Platform.runLater(() -> {
             if (primaryStage.getScene() != null) { // Si une scène est déjà présente

@@ -38,7 +38,6 @@ public class StartMenuView extends Menu {
         super(p, scene,sceneManager);
         System.out.println("StartMenuView CHECKED");
         this.primaryStage = p;
-        //scene.getStylesheets().add("/styles/blue.css");
         root.getStyleClass().add("root");
         title = createLabel("Casse Brique", 0, 0);
         title.getStyleClass().add("title-style");

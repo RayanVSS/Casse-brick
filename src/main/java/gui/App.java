@@ -16,8 +16,7 @@ public class App extends Application {
         this.primaryStage.setResizable(false);
         primaryStage.setTitle("Casse Brique");
         SceneManager sceneManager = new SceneManager();
-
-        //Application.setUserAgentStylesheet(getClass().getResource("/styles/blue.css").toExternalForm());
+        
         sceneManager.createStartMenuViewScene(primaryStage);
         sceneManager.createOptionsViewScene(primaryStage);
         sceneManager.createSaveViewScene(primaryStage);

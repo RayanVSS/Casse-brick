@@ -1,0 +1,61 @@
+.button-style {
+    -fx-font-size: 20px;
+    -fx-background-color: #9f0dc4;
+    -fx-text-fill: #9c6990;
+}
+
+.button-hover {
+    -fx-font-size: 20px;
+    -fx-background-color: #9c6990;
+    -fx-text-fill: #9f0dc4;
+}
+
+.label-style {
+    -fx-text-fill: #9c6990;
+    -fx-font-size: 20px;
+}
+
+.text-style {
+    -fx-font-size: 20px;
+    -fx-fill: #9c6990;
+}
+
+.toggle-button-style {
+    -fx-font-size: 20px;
+    -fx-background-color: #9f0dc4;
+    -fx-text-fill: #9c6990;
+}
+
+.title-style {
+    -fx-font-size: 40px;
+    -fx-text-fill: #9c6990;
+}
+
+.root{
+    -fx-background-color: #9f0dc4;
+}
+
+.root-game-over {
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-background-color: #9f787f;
+}
+
+.grid-style {
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-padding: 25;
+    -fx-alignment: center;
+}
+
+.scoreL-style{
+    -fx-font-size: 25px;
+    -fx-fill: #9c6990;
+}
+
+.title-game-over-style{
+    -fx-font-size: 50px;
+    -fx-text-fill:#9c6990;
+    -fx-font-weight: bold;
+}

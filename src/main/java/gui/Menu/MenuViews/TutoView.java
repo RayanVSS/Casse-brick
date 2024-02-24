@@ -20,7 +20,6 @@ public class TutoView extends Menu {
         this.primaryStage = p;
         root = new StackPane();
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-        //scene.getStylesheets().add("/styles/blue.css");
         root.getStyleClass().add("root");
         this.btnBack = createButton("Retour", 0, 0);
         root.getChildren().add(btnBack);

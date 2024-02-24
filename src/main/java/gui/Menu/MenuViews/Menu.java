@@ -30,7 +30,6 @@ public abstract class Menu {
      */
     public Menu(Stage p, Scene s, SceneManager sceneManager) {
         this.scene = s;
-        //this.scene.getStylesheets().add("/styles/blue.css");
         this.sceneManager = sceneManager;
     }
 

@@ -23,7 +23,8 @@ public class OptionsController {
      */
     public OptionsController(Stage p, OptionsView view) {
         this.view = view;
-        this.view.getBtnBack().setOnAction(e -> back());
+
+        this.view.getBtnBack().setOnAction(e -> Platform.runLater(() -> back()));
         this.view.getButtonfps().setOnAction(e -> fps());
         this.view.getButtonpath().setOnAction(e -> path());
         this.view.getButtonparticles().setOnAction(e -> particles());
@@ -33,9 +34,14 @@ public class OptionsController {
         this.view.getVolumesound().valueProperty().addListener((observable, oldValue, newValue) -> {
             GameConstants.SOUND = newValue.intValue();
         });
+        this.view.getListTheme().getSelectionModel().selectedItemProperty()
+                .addListener((obs, oldSelection, newSelection) -> {
+                    Theme();
+                });
         this.view.getButtonleft().setOnAction(e -> left());
         this.view.getButtonpower().setOnAction(e -> power());
         this.view.getButtonright().setOnAction(e -> right());
+
     }
 
     /**
@@ -44,7 +50,8 @@ public class OptionsController {
     private void back() {
         Platform.runLater(() -> {
             // view.getRoot().getChildren().clear();
-            // view.getPrimaryStage().setScene(new StartMenuView(view.getPrimaryStage()).getScene());
+            // view.getPrimaryStage().setScene(new
+            // StartMenuView(view.getPrimaryStage()).getScene());
             view.getSceneManager().changeScene(view.getPrimaryStage(), "StartMenuView");
         });
     }
@@ -120,5 +127,16 @@ public class OptionsController {
             view.getButtonright().setOnKeyPressed(null); // Désactive la liaison après la configuration
         });
         ;
+    }
+
+    private void Theme() {
+        String selectedTheme = view.getListTheme().getValue();
+        if (selectedTheme != null) {
+            GameConstants.CSS = "/styles/" + selectedTheme + ".css";
+            //change le css de chaque scene dans SceneManager
+            view.getSceneManager().getScenes().forEach((k, v) -> {
+                view.getSceneManager().addStylesheet(v);
+            });
+        }
     }
 }
