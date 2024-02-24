@@ -8,22 +8,22 @@ import gui.Menu.SceneManager;
 import gui.Menu.MenuControllers.TutoController;
 import javafx.scene.Scene;
 
-public class TutoView extends Menu {
+public class TutoView implements Menu{
     private Stage primaryStage;
     private static StackPane root=new StackPane();
     private static Scene scene= new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-    
+    private SceneManager sceneManager;
     private Button btnBack;
     
     public TutoView(Stage p, SceneManager sceneManager) {
-        super(p, scene, sceneManager);
+        //super(p, scene, sceneManager);
         this.primaryStage = p;
+        this.sceneManager = sceneManager;
         root = new StackPane();
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
         root.getStyleClass().add("root");
         this.btnBack = createButton("Retour", 0, 0);
         root.getChildren().add(btnBack);
-        //p.setScene(scene);
         new TutoController(p,this);
     }
     public Button getBtnBack() {
@@ -37,5 +37,8 @@ public class TutoView extends Menu {
     }
     public Scene getScene() {
         return scene;
+    }
+    public SceneManager getSceneManager() {
+        return sceneManager;
     }
 }

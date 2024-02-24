@@ -1,5 +1,6 @@
 package gui.Menu.MenuControllers;
 
+import gui.App;
 import gui.Menu.MenuViews.OptionsView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -52,7 +53,8 @@ public class OptionsController {
             // view.getRoot().getChildren().clear();
             // view.getPrimaryStage().setScene(new
             // StartMenuView(view.getPrimaryStage()).getScene());
-            view.getSceneManager().changeScene(view.getPrimaryStage(), "StartMenuView");
+            App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+
         });
     }
 

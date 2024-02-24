@@ -1,10 +1,12 @@
 package gui.Menu.MenuControllers;
 
 
+import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.GameOverView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import utils.GameConstants;
 
 /**
  * Classe GameOverController qui gère les interactions de l'utilisateur avec la vue GameOverView.
@@ -31,15 +33,10 @@ public class GameOverController {
      * Méthode pour rejouer le jeu. Elle efface tous les enfants de la racine de la vue et lance une nouvelle animation de jeu.
      */
     private void replay() {
-        //view.getRoot().getChildren().clear();
         Platform.runLater(() -> {
-            //view.getSceneManager().changeScene(view.getPrimaryStage(), "GameView");
-            new GameView(view.getPrimaryStage(), 1, view.getSceneManager());
-            //game.animation();
+            GameView gameView = new GameView(view.getPrimaryStage(), 1);
+            gameView.getScene().getStylesheets().add(GameConstants.CSS);
         });
-        // view.getGameView().getRoot().getChildren().clear();
-        // GameView game = new GameView(view.getPrimaryStage(), 1, view.getSceneManager());
-        // game.animation();
     }
 
     /**
@@ -53,11 +50,8 @@ public class GameOverController {
      * Méthode pour revenir au menu. Elle efface tous les enfants de la racine de la vue et lance le contrôleur du menu de démarrage.
      */
     private void menu() {
-        // view.getRoot().getChildren().clear();
-        // StartMenuView s=new StartMenuView(view.getPrimaryStage());
-        // view.getPrimaryStage().setScene(s.getScene());
         Platform.runLater(() -> {
-            view.getSceneManager().changeScene(view.getPrimaryStage(), "StartMenuView");
+            App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
         });
         
     }

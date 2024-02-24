@@ -67,6 +67,6 @@ public final class GameConstants {
     public static KeyCode LEFT = KeyCode.LEFT;
     public static KeyCode RIGHT = KeyCode.RIGHT;
     public static KeyCode SPACE = KeyCode.SPACE;
-    public static String CSS="/styles/blue.css";
+    public static String CSS="/styles/light.css";
 
 }

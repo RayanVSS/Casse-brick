@@ -55,6 +55,7 @@ public class SceneManager {
     }
 
     public void addStylesheet(Scene scene) {
+        scene.getStylesheets().clear();
         CompletableFuture.runAsync(() -> {
             scene.getStylesheets().add(getClass().getResource(GameConstants.CSS).toExternalForm());
         });
@@ -81,7 +82,7 @@ public class SceneManager {
     }
 
     public void createGameViewScene(Stage primaryStage) {
-        GameView gameView = new GameView(primaryStage, 1, this);
+        GameView gameView = new GameView(primaryStage, 1);
         addStylesheet(gameView.getScene());
         addScene("GameView", gameView.getScene());
     }
@@ -121,7 +122,7 @@ public class SceneManager {
         System.out.println();
         System.out.println("Scenes in primaryStage:");
         for (Scene scene : this.getScenes().values()) {
-            System.out.println(scene + " " + this.getSceneName(scene) + " added to primaryStage");
+            System.out.println(this.getSceneName(scene)+" " + scene.getStylesheets().toString());
         }
         System.out.println();
 

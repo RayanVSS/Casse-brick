@@ -1,45 +1,45 @@
 .button-style {
     -fx-font-size: 20px;
-    -fx-background-color: #9f0dc4;
-    -fx-text-fill: #9c6990;
+    -fx-background-color: #F7E3EE;
+    -fx-text-fill: #F79BC5;
 }
 
 .button-hover {
     -fx-font-size: 20px;
-    -fx-background-color: #9c6990;
-    -fx-text-fill: #9f0dc4;
+    -fx-background-color: #FFC7D8;
+    -fx-text-fill: #FE94B4;
 }
 
 .label-style {
-    -fx-text-fill: #9c6990;
+    -fx-text-fill: #FE94B4;
     -fx-font-size: 20px;
 }
 
 .text-style {
     -fx-font-size: 20px;
-    -fx-fill: #9c6990;
+    -fx-fill: #C7DEFA;
 }
 
 .toggle-button-style {
     -fx-font-size: 20px;
-    -fx-background-color: #9f0dc4;
-    -fx-text-fill: #9c6990;
+    -fx-background-color: #FA739D;
+    -fx-text-fill: #C7DEFA;
 }
 
 .title-style {
     -fx-font-size: 40px;
-    -fx-text-fill: #9c6990;
+    -fx-text-fill: #C7DEFA;
 }
 
 .root{
-    -fx-background-color: #9f0dc4;
+    -fx-background-color: #FBFAF5;
 }
 
 .root-game-over {
     -fx-opacity: 0.7;
     -fx-alignment: center;
     -fx-spacing: 10;
-    -fx-background-color: #9f787f;
+    -fx-background-color: #FBFAF5;
 }
 
 .grid-style {
@@ -51,11 +51,17 @@
 
 .scoreL-style{
     -fx-font-size: 25px;
-    -fx-fill: #9c6990;
+    -fx-fill: #C7DEFA;
 }
 
 .title-game-over-style{
     -fx-font-size: 50px;
-    -fx-text-fill:#9c6990;
+    -fx-text-fill:#C7DEFA;
     -fx-font-weight: bold;
+}
+
+.slider-style {
+    -fx-font-size: 20;
+    -fx-background-color: #F7E3EE;
+    -fx-text-fill: #F79BC5;
 }

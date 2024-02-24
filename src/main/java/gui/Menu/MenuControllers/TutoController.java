@@ -1,6 +1,6 @@
 package gui.Menu.MenuControllers;
 
-import gui.Menu.SceneManager;
+import gui.App;
 import gui.Menu.MenuViews.TutoView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -30,9 +30,7 @@ public class TutoController {
      */
     private void back() {
         Platform.runLater(() -> {
-            view.getSceneManager().changeScene(view.getPrimaryStage(), "StartMenuView");
+            App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
         });
-        //view.getPrimaryStage().setScene(new StartMenuView(view.getPrimaryStage(),sceneManager).getScene());
-        //new StartMenuView(view.getPrimaryStage());
     }
 }

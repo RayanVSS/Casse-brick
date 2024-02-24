@@ -8,19 +8,18 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     protected Stage primaryStage;
-    protected SceneManager sceneManager;
+    public static SceneManager sceneManager=new SceneManager();
 
     @Override
     public void start(Stage p) throws Exception {
         this.primaryStage = p;
         this.primaryStage.setResizable(false);
         primaryStage.setTitle("Casse Brique");
-        SceneManager sceneManager = new SceneManager();
         
         sceneManager.createStartMenuViewScene(primaryStage);
         sceneManager.createOptionsViewScene(primaryStage);
         sceneManager.createSaveViewScene(primaryStage);
-        //sceneManager.createGameViewScene(primaryStage);
+        sceneManager.createGameViewScene(primaryStage);
         sceneManager.createTutoViewScene(primaryStage);
 
         for (Scene scene : sceneManager.getScenes().values()) {

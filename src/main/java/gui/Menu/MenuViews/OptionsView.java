@@ -20,11 +20,12 @@ import utils.GameConstants;
  * @author Benmalek Majda
  * @author Bencheikh Ilias
  */
-public class OptionsView extends Menu {
+public class OptionsView implements Menu {
     private Stage primaryStage;
     private static HBox root = new HBox();
     private static Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,
             GameConstants.DEFAULT_WINDOW_HEIGHT);
+    private SceneManager sceneManager;
     private Button btnBack;
     private ToggleButton buttonfps;
     private ToggleButton buttonpath;
@@ -42,9 +43,10 @@ public class OptionsView extends Menu {
      * @param p Le stage principal sur lequel la vue des options est affichée.
      */
     public OptionsView(Stage p, SceneManager sceneManager) {
-        super(p, scene, sceneManager);
+        //super(p, scene, sceneManager);
         System.out.println("OptionsView CHECKED");
         this.primaryStage = p;
+        this.sceneManager = sceneManager;
         btnBack = createButton("Retour", 0, 0);
         root.getStyleClass().add("root");
 
@@ -165,5 +167,8 @@ public class OptionsView extends Menu {
 
     public ComboBox<String> getListTheme() {
         return listTheme;
+    }
+    public SceneManager getSceneManager() {
+        return sceneManager;
     }
 }

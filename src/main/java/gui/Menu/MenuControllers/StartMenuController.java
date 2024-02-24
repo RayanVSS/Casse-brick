@@ -1,9 +1,11 @@
 package gui.Menu.MenuControllers;
 
+import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import utils.GameConstants;
 
 /**
  * Classe contrôleur pour le menu de démarrage.
@@ -47,8 +49,9 @@ public class StartMenuController {
     private void play() {
         Platform.runLater(() -> {
         // view.getSceneManager().changeScene(view.getPrimaryStage(), "GameView");
-            GameView game = new GameView(view.getPrimaryStage(), 1, view.getSceneManager());
-            view.getPrimaryStage().setScene(game.getScene());
+            GameView game = new GameView(view.getPrimaryStage(), 1);
+            //view.getPrimaryStage().setScene(game.getScene());
+            game.getScene().getStylesheets().add(GameConstants.CSS);
         });
         
     }
@@ -63,7 +66,7 @@ public class StartMenuController {
         // //new OptionsController(view.getPrimaryStage(), new
         // OptionsView(view.getPrimaryStage()));
         Platform.runLater(() -> {
-            view.getSceneManager().changeScene(view.getPrimaryStage(), "OptionsView");
+            App.sceneManager.changeScene(view.getPrimaryStage(), "OptionsView");
         });
     }
 
@@ -82,7 +85,7 @@ public class StartMenuController {
         // new TutoView(view.getPrimaryStage());
         // new TutoController(view.getPrimaryStage());
         Platform.runLater(() -> {
-            view.getSceneManager().changeScene(view.getPrimaryStage(), "TutoView");
+            App.sceneManager.changeScene(view.getPrimaryStage(), "TutoView");
         });
     }
 
@@ -94,7 +97,7 @@ public class StartMenuController {
         // new SaveView(view.getPrimaryStage());
         // new SaveController(view.getPrimaryStage());
         Platform.runLater(() -> {
-            view.getSceneManager().changeScene(view.getPrimaryStage(), "SaveView");
+            App.sceneManager.changeScene(view.getPrimaryStage(), "SaveView");
         });
     }
 

@@ -31,7 +31,7 @@
     -fx-text-fill: #d5bbb1;
 }
 
-.root{
+.root {
     -fx-background-color: #273654;
 }
 
@@ -49,13 +49,19 @@
     -fx-alignment: center;
 }
 
-.scoreL-style{
+.scoreL-style {
     -fx-font-size: 25px;
     -fx-fill: #d5bbb1;
 }
 
-.title-game-over-style{
+.title-game-over-style {
     -fx-font-size: 50px;
-    -fx-text-fill:#d5bbb1;
+    -fx-text-fill: #d5bbb1;
     -fx-font-weight: bold;
+}
+
+.slider-style {
+    -fx-font-size: 20;
+    -fx-background-color: #1b263b;
+    -fx-text-fill: #d5bbb1;
 }

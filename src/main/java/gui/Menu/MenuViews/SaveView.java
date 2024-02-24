@@ -17,12 +17,11 @@ import javafx.scene.Scene;
 
 
 
-public class SaveView extends Menu{
+public class SaveView implements Menu{
     private Stage primaryStage;
     private static StackPane root=new StackPane();
     private static Scene scene=new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-    
-    
+    private SceneManager sceneManager;
     //button
     private Button btnBack;
     private Button btnload;
@@ -41,8 +40,9 @@ public class SaveView extends Menu{
     private Sauvegarde sauvegarde = new Sauvegarde();
     
     public SaveView(Stage p, SceneManager sceneManager) {
-        super(p, scene, sceneManager);
+        //super(p, scene, sceneManager);
         this.primaryStage = p;
+        this.sceneManager = sceneManager;
         root.getStyleClass().add("root");
         //button
         this.btnBack = createButton("Retour", -870, -700);
@@ -140,4 +140,7 @@ public class SaveView extends Menu{
         stage.show();
     }
 
+    public SceneManager getSceneManager() {
+        return sceneManager;
+    }
 }

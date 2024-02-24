@@ -1,5 +1,6 @@
 package gui.Menu.MenuControllers;
 
+import gui.App;
 import gui.Menu.MenuViews.SaveView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -26,7 +27,7 @@ public class SaveController {
     private void back() {
         //new StartMenuView(view.getPrimaryStage());
         Platform.runLater(() -> {
-            view.getSceneManager().changeScene(view.getPrimaryStage(), "StartMenuView");
+            App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
         });
     }
 

@@ -11,7 +11,6 @@ import entity.ball.*;
 import entity.racket.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
-import gui.Menu.SceneManager;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
@@ -25,7 +24,6 @@ import geometry.Coordinates;
 public class GameView extends App {
 
     private Stage primaryStage;
-    private SceneManager sceneManager;
     private Pane root = new Pane();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
@@ -56,13 +54,10 @@ public class GameView extends App {
     // life & score
     private ScoreLifeView scoreLifeView;
 
-    public GameView(Stage p, int level, SceneManager sceneManager) {
+    public GameView(Stage p, int level) {
         this.primaryStage = p;
         this.gameView = this;
-        this.sceneManager = sceneManager;
-        if (GameConstants.FPS) {
-            fpsGraphics = new FPSGraphics();
-        }
+        
 
         /* differentes balles */
         game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
@@ -89,11 +84,13 @@ public class GameView extends App {
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
-        if (GameConstants.FPS) {
-            root.getChildren().add(this.fpsGraphics);
-        }
         root.getChildren().add(this.scoreLifeView);
         root.getChildren().add(this.brickSet);
+
+        if (GameConstants.FPS) {
+            fpsGraphics = new FPSGraphics();
+            root.getChildren().add(this.fpsGraphics);
+        }
 
         this.animation();
         // Affichage de la fenêtre
@@ -176,7 +173,7 @@ public class GameView extends App {
                     if (game.isLost()) {
                         game.setLost(false);
                         animationStop();
-                        root.getChildren().add(new GameOverView(primaryStage, gameView,sceneManager).getRoot());
+                        root.getChildren().add(new GameOverView(primaryStage, gameView).getRoot());
                     }
                 }
                 last = now;
