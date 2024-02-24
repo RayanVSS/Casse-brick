@@ -18,7 +18,7 @@ public class PlayerData {
     }
 
     public void generateStages() {
-
+        stageController.createStages();
     }
 
     public String getName() {

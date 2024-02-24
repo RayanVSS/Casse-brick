@@ -11,6 +11,8 @@ public class GameRules {
     private boolean invisible;
     private boolean unbreakable;
 
+    private int remainingTime = 15; // 2 minutes 30
+
     public GameRules() {
 
     }
@@ -28,6 +30,19 @@ public class GameRules {
     }
 
     public boolean apply() {
-        return true; //implements...
+        return verifyLimitedTime();
+    }
+
+    public void updateLimitedTime() {
+        if (limitedTime) {
+            remainingTime--;
+        }
+    }
+
+    private boolean verifyLimitedTime() {
+        if (limitedTime) {
+            return remainingTime > 0;
+        }
+        return true;
     }
 }

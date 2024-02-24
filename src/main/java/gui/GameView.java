@@ -69,7 +69,8 @@ public class GameView extends App {
         }
 
         /* differentes balles */
-        game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT, new GameRules());
+        game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT,
+                new GameRules(true, false, false, false, false, false, false));
         preview = new Preview(game.getBall());
         brickSet = new BrickSet(game.getMap().getBricks());
 
@@ -110,6 +111,7 @@ public class GameView extends App {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        game.start();
     }
 
     public void update() {
@@ -192,7 +194,6 @@ public class GameView extends App {
                     update();
                     key.touchesM(scene, game);
                     if (game.isLost()) {
-                        game.setLost(false);
                         animationStop();
                         new GameOverController(primaryStage);
                     }

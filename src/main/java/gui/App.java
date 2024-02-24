@@ -18,7 +18,9 @@ public class App extends Application {
         new StartMenuView(primaryStage);
         new StartMenuController(primaryStage);
         primaryStage.show();
-        primaryStage.getOnCloseRequest();
+        primaryStage.setOnCloseRequest(event -> {
+            System.exit(0);
+        });
     }
 
     public static void main(String[] args) {

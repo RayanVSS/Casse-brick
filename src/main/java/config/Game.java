@@ -11,6 +11,8 @@ import entity.racket.ClassicRacket;
 import entity.racket.Racket;
 import geometry.Coordinates;
 import utils.GameConstants;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Game {
 
@@ -22,12 +24,30 @@ public class Game {
     private int life = 3;
     private boolean collide;
     private GameRules rules;
+    private Timer inGameTimer;
+    private int timeElapsed = 0; //en secondes
 
     public Game(Ball ball, Racket racket, BricksArrangement arrangement, GameRules rules) {
         this.ball = ball;
         this.racket = racket;
         this.map = new Map(arrangement);
         this.rules = rules;
+        inGameTimer = new Timer();
+    }
+
+    public void start() {
+        inGameTimer.scheduleAtFixedRate(new TimerTask() {
+
+            @Override
+            public void run() {
+                timeElapsed++;
+                rules.updateLimitedTime();
+            }
+        }, 0, 1000);
+    }
+
+    public void stop() {
+        inGameTimer.cancel();
     }
 
     // Setters/getters
@@ -59,6 +79,10 @@ public class Game {
         return life;
     }
 
+    public Timer getInGameTimer() {
+        return inGameTimer;
+    }
+
     public void update(long deltaT) {
 
         //Vérifie si la balle touche une brique
@@ -75,6 +99,7 @@ public class Game {
         }
         if (life == 0 || !rules.apply()) {
             lost = true;
+            inGameTimer.cancel();
         }
     }
 
