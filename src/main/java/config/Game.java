@@ -56,6 +56,7 @@ public class Game {
         map.handleCollisionBricks(ball); // gérer la collision des briques
         if (map.updateBricksStatus()) {
             score += 10;
+            
         }
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
