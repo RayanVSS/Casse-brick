@@ -180,4 +180,8 @@ public class Outline {
         Outline.friction_racket = friction_racket;
     }
 
+    public double getRetention() {
+        return retention;
+    }
+    
 }

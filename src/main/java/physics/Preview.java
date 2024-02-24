@@ -48,15 +48,17 @@ public class Preview {
         if (newX < 0 || newX > h - outline.getRadius()) {
             d_trajectory.setX(-d_trajectory.getX());
             newX = c_trajectory.getX() + d_trajectory.getX();
+            d_trajectory.setX(d_trajectory.getX()*outline.getRetention());
         }
         if (newY < 0 || newY > w - outline.getRadius()) {
             d_trajectory.setY(-d_trajectory.getY());
             newY = c_trajectory.getY() + d_trajectory.getY();
+            d_trajectory.setY(d_trajectory.getY()*outline.getRetention());
         }
         c_trajectory=new Coordinates(newX, newY);
-        outline.checkGravity(c_trajectory, d_trajectory);
-        outline.checkFrictionRacket();
         d_trajectory.add(outline.getWind());
+        outline.checkGravity(c_trajectory, d_trajectory);
+        //outline.checkFrictionRacket();
         dt_circle++;
         return c_trajectory;
     }

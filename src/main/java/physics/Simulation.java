@@ -12,7 +12,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import entity.ball.Ball;
-import entity.racket.ClassicRacket;
 import entity.racket.Racket;
 import geometry.Coordinates;
 import geometry.Vector;
@@ -78,7 +77,32 @@ public class Simulation {
         this.outline = AppPhysic.outline;
 
         if(RACKET){
-            racket = new ClassicRacket();
+            racket = new Racket(200, 20, 8, false, true){
+                @Override
+                public void handleKeyPress(Set<KeyCode> keysPressed) {
+                    for (KeyCode key : keysPressed) {
+                        if(key==GameConstants.LEFT){
+                            if (this.mX() > -largeur / 2)
+                                this.mX(this.mX() - speed);
+                        }
+                        if(key==GameConstants.RIGHT){
+                            if (this.mX() < DEFAULT_WINDOW_WIDTH - longueur - 70)
+                                this.mX(this.mX() + speed);
+                        }
+                        if(key==GameConstants.SPACE){
+                            setlargeurP(true);
+                            setVitesseP(true);
+                        }
+                    }
+                }
+                
+                @Override
+                public void handleKeyRelease(KeyCode event) {
+                    switch (event) {
+                    }
+                }
+            };
+
             graphRacket = new RacketGraphics(racket);
             graphRacket.setFill(Color.BLACK);
             root.getChildren().add(graphRacket);
@@ -130,16 +154,17 @@ public class Simulation {
                 if (newX < 0 || newX > h - this.getRadius()) {
                     this.getDirection().setX(-this.getDirection().getX());
                     newX = this.getC().getX() + this.getDirection().getX();
+                    this.getDirection().setX(this.getDirection().getX()*outline.getRetention());
                 }
                 if (newY < 0 || newY > w - this.getRadius()) {
                     this.getDirection().setY(-this.getDirection().getY());
                     newY = this.getC().getY() + this.getDirection().getY();
+                    this.getDirection().setY(this.getDirection().getY()*outline.getRetention());
                 } 
                 this.setC(new Coordinates(newX, newY));
-                outline.checkGravity(ball.getC(), ball.getDirection());
-                outline.checkFrictionRacket();
                 this.getDirection().add(outline.getWind());
-                System.out.println(newX + " " + newY);
+                outline.checkGravity(ball.getC(), ball.getDirection());
+                //outline.checkFrictionRacket();
                 return true;
             }
         };
