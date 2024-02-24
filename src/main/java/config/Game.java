@@ -41,7 +41,7 @@ public class Game {
             @Override
             public void run() {
                 timeElapsed++;
-                rules.updateLimitedTime();
+                rules.updateRemainingTime();
             }
         }, 0, 1000);
     }
@@ -91,6 +91,7 @@ public class Game {
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
+            rules.updateRemainingBounces();
         }
         // Gere les conditions de perte
         if (!ball.movement()) {

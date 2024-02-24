@@ -4,14 +4,15 @@ public class GameRules {
 
     //options de jeu à activer et à implémenter...
     private boolean limitedTime;
-    private boolean limitedBounces; //pas sûr
+    private boolean limitedBounces;
     private boolean randomSwitchBricks;
     private boolean colorRestriction; //pas sûr
     private boolean transparent;
-    private boolean invisible;
+    private boolean invisible; //pas sûr
     private boolean unbreakable;
 
-    private int remainingTime = 15; // 2 minutes 30
+    private int remainingTime = 150; // 2 minutes 30
+    private int remainingBounces = 5; // rebonds restants
 
     public GameRules() {
 
@@ -30,10 +31,10 @@ public class GameRules {
     }
 
     public boolean apply() {
-        return verifyLimitedTime();
+        return verifyLimitedTime() && verifyLimitedBounces();
     }
 
-    public void updateLimitedTime() {
+    public void updateRemainingTime() {
         if (limitedTime) {
             remainingTime--;
         }
@@ -42,6 +43,19 @@ public class GameRules {
     private boolean verifyLimitedTime() {
         if (limitedTime) {
             return remainingTime > 0;
+        }
+        return true;
+    }
+
+    public void updateRemainingBounces() {
+        if (limitedBounces) {
+            remainingBounces--;
+        }
+    }
+
+    private boolean verifyLimitedBounces() {
+        if (limitedBounces) {
+            return remainingBounces >= 0;
         }
         return true;
     }
