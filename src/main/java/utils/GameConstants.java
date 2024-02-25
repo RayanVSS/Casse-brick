@@ -70,4 +70,7 @@ public final class GameConstants {
     public static KeyCode RIGHT = KeyCode.RIGHT;
     public static KeyCode SPACE = KeyCode.SPACE;
 
+    // derniere save
+    public static String LAST_SAVE;
+
 }
