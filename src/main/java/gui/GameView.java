@@ -170,6 +170,7 @@ public class GameView extends App {
         animationTimer = new AnimationTimer() {
             long last = 0;
             double delay = 0.0;
+            PauseView pauseView = new PauseView(primaryStage, root, this);
 
             @Override
             public void handle(long now) {
@@ -198,7 +199,7 @@ public class GameView extends App {
                     }
                     if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
                         animationStop();
-                        root.getChildren().add(new PauseView(primaryStage, root, this));
+                        root.getChildren().add(this.pauseView);
                     }
                 }
                 last = now;
