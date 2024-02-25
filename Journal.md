@@ -92,7 +92,7 @@ affichage de la racket
 - UI du jeu en plusieurs panneaux (la partie ne doit plus être la fenêtre de l'application)
 
 
-## Majda Benmalek
+### Majda Benmalek
 
 <span style="color:green">**Fait:**</span>
 
@@ -125,7 +125,7 @@ affichage de la racket
 
 -Commentaire/explication et javaDoc dans mon code
 
-## Ilias Bencheikh
+### Ilias Bencheikh
 
 <span style="color:green">**Fait:**</span>
 
@@ -143,7 +143,7 @@ affichage de la racket
 
 -Implementation des options pour le jeu 
 
-## Amenah MUSHTAQ
+### Amenah MUSHTAQ
 
 <span style="color:green">**Fait:**</span>
 
@@ -169,9 +169,81 @@ affichage de la racket
 
 <span style="color:purple">**A Faire:**</span>
 
--travailler sur un mode pour daltonien
+-#30 travailler sur un mode pour daltonien
 
--mode deux joueur 
+-#31 mode deux joueur 
+
+### Benmalek Majda 
+<span style="color:green">**Fait:**</span>
+- Modif du game over (transparence)
+  
+- Le score et les vies s'update bien
+  
+- Factorisation des classes menu + javadoc
+  
+- Modif des options (MVC + foctorisation)
+  
+- Ajout de fichier css pour mieux s'adapter au changement de themes (pas encore commencé les themes)
+
+<span style="color:purple">**A Faire:**</span>
+-Ajouter du son
+
+-Rajout de theme changeable 
+
+-Colission de la balle et la racket (j’attends que la physics soit merge)
+
+-Reglé le probleme de la fluidité entre les scenes
+
+### Amenah MUSHTAQ
+
+<span style="color:green">**Fait:**</span>
+-factorisation du code Commentaire/explication et javaDoc dans mon code
+-#27 bouton pause
+
+<span style="color:purple">**A Faire:**</span>
+- pb de timer à régler pour le bouton pause
+-.....
+
+### Guan Olivier 
+<span style="color:green">**Fait:**</span>
+
+- Mis en place des preconfig (niveaux prédéfinis) de game avec de nouvelles classes.
+
+- Class GameRules : contient les règles/options (temps limité, mélanger la position des briques, briques qui devient invisibles/transparentes/incassables etc...) que va vérifier la game
+
+- Class StageLevel : contient la difficulté, le niveau de débloquement, et la game prédifinie à charger.
+
+- Class StageController : contient un tableau de StageLevel (l'ensemble des niveaux préconfig).
+
+- Class PlayerData : contient toutes les données du joueur, càd : nom, niveau, monnaie (peut-être), un stageController (correspond aux données sur la progression des niveaux). Le fait de charger un objet PlayerData (par la sauvegarde) permettra de reconstiuer l'état d'un jeu complet.
+
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finir le travail ci-dessus, l'implementation des rules à appliquer/vérifier.
+
+- Brick : Physique de la brique, introduire la durabilité, absorption des chocs en fonction de la vitesse, taille de la balle etc... 
+
+
+### Ilias Bencheikh
+<span style="color:green">**Fait:**</span>
+
+- Preview de la balle #29
+- Implémentation des options #19
+- Amélioration de la physique #20 : 
+    - Début d'un système de masse 
+    - Début d'un système de perte de vitesse du a la gravité
+    - Début d'un système de vent
+    - Amélioration de la simulation (choix de la masse , gravité ...)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Amélioration de la physique #20
+- Implémentation de celle-ci dans le jeu
+- Implémentation du niveau infini #23
+
+
+
 
 
 

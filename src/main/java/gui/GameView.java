@@ -61,6 +61,8 @@ public class GameView extends App {
 
         /* differentes balles */
         game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
+        // game = new Game(new MagnetBall(), new MagnetRacket(), BricksArrangement.DEFAULT);
+        
         brickSet = new BrickSet(game.getMap().getBricks());
 
         // Création des particules
