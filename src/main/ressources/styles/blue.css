@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'MaSuperbePolice';
+    /*src: url('file:/font/bla.ttf');*/
+    src: url('../font/font.otf') format('opentype');
+}
+
 .button-style {
     -fx-font-size: 20px;
     -fx-background-color: #1b263b;
@@ -13,8 +19,8 @@
 .label-style {
     -fx-text-fill: #d5bbb1;
     -fx-font-size: 20px;
-}
-
+    -fx-font-family: "MaSuperbePolice";
+} 
 .text-style {
     -fx-font-size: 20px;
     -fx-fill: #d5bbb1;
