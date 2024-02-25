@@ -1,7 +1,6 @@
 package gui;
 
 import javafx.animation.*;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
@@ -9,13 +8,11 @@ import javafx.stage.Stage;
 import config.*;
 import entity.Particle;
 import entity.ball.*;
-import entity.preview.Preview;
 import entity.racket.*;
-import geometry.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
 import gui.Menu.MenuControllers.GameOverController;
-import gui.Menu.MenuViews.PauseView;
+import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
 import java.util.Random;
@@ -24,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import geometry.Coordinates;
+import gui.Menu.MenuViews.PauseView;
 
 public class GameView extends App {
 
@@ -57,20 +55,19 @@ public class GameView extends App {
     // life & score
     private ScoreLifeView scoreLifeView;
 
-    // direction de la balle
-    private Preview preview;
-    private BallGraphics Ballpreview;
-
     public GameView(Stage p, int level) {
-
         this.primaryStage = p;
+        this.scene.getStylesheets().add("/styles/blue.css");
+
         if (GameConstants.FPS) {
             fpsGraphics = new FPSGraphics();
         }
 
         /* differentes balles */
         game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
-        preview = new Preview(game.getBall());
+        // game = new Game(new MagnetBall(), new MagnetRacket(),
+        // BricksArrangement.DEFAULT);
+
         brickSet = new BrickSet(game.getMap().getBricks());
 
         // Création des particules
@@ -100,12 +97,6 @@ public class GameView extends App {
         root.getChildren().add(this.scoreLifeView);
         root.getChildren().add(this.brickSet);
 
-        // affichage de la preview
-        if (GameConstants.PATH) {
-            this.Ballpreview = new BallGraphics(preview.getInvisibleBall());
-            root.getChildren().add(this.Ballpreview);
-        }
-
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -126,12 +117,6 @@ public class GameView extends App {
         // Calcul des FPS
         if (GameConstants.FPS) {
             this.fpsGraphics.update();
-        }
-
-        if (GameConstants.PATH) {
-            this.preview.movementBis(root);
-            this.Ballpreview.update();
-            this.preview.setDot(root);
         }
 
         // Mise à jour du score et de la vie
@@ -195,7 +180,7 @@ public class GameView extends App {
                     if (game.isLost()) {
                         game.setLost(false);
                         animationStop();
-                        new GameOverController(primaryStage);
+                        root.getChildren().add(new GameOverView(primaryStage, root).getRoot());
                     }
                     if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
                         animationStop();

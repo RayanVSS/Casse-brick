@@ -2,6 +2,7 @@ package gui.Menu.MenuControllers;
 
 import gui.GameView;
 import gui.Menu.MenuViews.PauseView;
+import gui.Menu.MenuViews.StartMenuView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.stage.Stage;
@@ -40,7 +41,7 @@ public class PauseController {
     private void menu() {
         view.getChildren().clear();
         this.timer.cancel();
-        startMenu = new StartMenuController(view.getPrimaryStage());
+        new StartMenuController(view.getPrimaryStage(), new StartMenuView(view.getPrimaryStage()));
     }
 
     private void resume() {

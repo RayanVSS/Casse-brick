@@ -1,19 +1,14 @@
 package config;
 
-import java.util.Vector;
-
 import entity.ball.Ball;
-import entity.ball.ClassicBall;
-import entity.brick.Brick;
-import entity.brick.BrickClassic;
-import entity.racket.ClassicRacket;
 import entity.racket.Racket;
 import geometry.Coordinates;
-import utils.GameConstants;
+import entity.ball.MagnetBall;
 
 public class Game {
 
-    private static Ball ball;
+
+    private Ball ball;
     private Racket racket;
     private Map map;
     private boolean lost = false;
@@ -28,7 +23,7 @@ public class Game {
     }
 
     // Setters/getters
-    public static Ball getBall() {
+    public Ball getBall() {
         return ball;
     }
 
@@ -36,7 +31,7 @@ public class Game {
         return collide;
     }
 
-    public Racket getRacket() {
+    public  Racket getRacket() {
         return racket;
     }
 
@@ -57,10 +52,11 @@ public class Game {
     }
 
     public void update(long deltaT) {
-
-        //Vérifie si la balle touche une brique
-        map.handleCollisionBricks(ball); //gérer la collision des briques
-        map.updateBricksStatus();
+        // Vérifie si la balle touche une brique
+        map.handleCollisionBricks(ball); // gérer la collision des briques
+        if (map.updateBricksStatus()) {
+            score += 10;
+        }
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
@@ -73,10 +69,16 @@ public class Game {
         if (life == 0) {
             lost = true;
         }
-    }
-
-    public void lost() {
-        System.exit(0);
+        if(ball instanceof MagnetBall){
+            //donne les coordonnées de la raquette a la MagnetBall
+            setRa();
+            //actualise l'etat de la raquette    
+            if(BallFrontRacket()){
+                ((MagnetBall) ball).setFront(true);
+            }else{
+                ((MagnetBall) ball).setFront(false);
+            }
+        }
     }
 
     public boolean collisionRacket(Coordinates c) {
@@ -84,7 +86,20 @@ public class Game {
                 && c.getY() >= racket.getC().getY() && c.getY() <= racket.getC().getY() + racket.getLargeur();
     }
 
+
+    // Vérifie si la balle est devant la raquette
+    public boolean BallFrontRacket() {
+        if(racket.getC().getX()-ball.getC().getX() < 0 && (racket.getC().getX()+racket.getLargeur())-ball.getC().getX() > 0){
+            return true;
+        }
+        return false;
+    }
+
     public Map getMap() {
         return map;
+    }
+
+    public void setRa() {
+        MagnetBall.getRa=racket.getC();
     }
 }

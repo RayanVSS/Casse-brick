@@ -1,20 +1,27 @@
 package gui.GraphicsFactory;
 
 import javafx.scene.shape.Rectangle;
+import entity.ball.MagnetBall;
 import entity.racket.*;
 import javafx.scene.paint.Color;
 
+/**
+ * Classe RacketGraphics qui étend Rectangle pour représenter graphiquement une raquette.
+ * @author Benmalek Majda
+ */
 public class RacketGraphics extends Rectangle {
     private Racket racket;
 
+    /**
+     * Constructeur de RacketGraphics.
+     * @param racket L'instance de Racket à représenter graphiquement.
+     */
     public RacketGraphics(Racket racket) {
         this.racket = racket;
         setX(racket.getC().getX());
         setY(racket.getC().getY());
-        System.out.println("Longeur racket: " + racket.getLongueur() + " " + "Largeur: " + racket.getLargeur());
         setWidth(racket.getLargeur());
         setHeight(racket.getLongueur());
-        System.out.println("Longeur rectangle: "+this.getHeight() + " " + "Largeur: " + this.getWidth());
         setArcWidth(20);
         setArcHeight(20);
 
@@ -22,15 +29,25 @@ public class RacketGraphics extends Rectangle {
             setFill(Color.RED);
         else if (racket instanceof YNotFixeRacket)
             setFill(Color.BLUE);
+        else if (racket instanceof MagnetRacket)
+            setFill(Color.YELLOW);
         else
             setFill(Color.BLACK);
     }
 
+    /**
+     * Méthode pour mettre à jour les coordonnées et les dimensions de la raquette.
+     */
     public void update() {
         setX(racket.getC().getX());
         setY(racket.getC().getY());
         setWidth(racket.getLargeur());
         setHeight(racket.getLongueur());
-
+        if (racket instanceof MagnetRacket){
+            if(((MagnetRacket) racket).getEtat().equals("positif"))
+                setFill(Color.YELLOW);
+            else
+                setFill(Color.GREEN);
+        }
     }
 }

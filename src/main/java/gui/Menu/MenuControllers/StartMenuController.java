@@ -6,14 +6,25 @@ import gui.Menu.MenuViews.StartMenuView;
 import gui.Menu.MenuViews.TutoView;
 import gui.Menu.MenuViews.SaveView;
 
-
 import javafx.stage.Stage;
 
+/**
+ * Classe contrôleur pour le menu de démarrage.
+ * Elle gère les interactions de l'utilisateur avec la vue StartMenuView.
+ * Elle permet de démarrer le jeu, afficher les options, quitter le jeu et afficher le tutoriel.
+ * @see StartMenuView
+ * @author Benmalek Majda
+ */
 public class StartMenuController {
     private StartMenuView view;
 
-    public StartMenuController(Stage p) {
-        this.view = new StartMenuView(p);
+    /**
+     * Constructeur de StartMenuController.
+     * 
+     * @param p Le stage principal sur lequel le menu de démarrage est affiché.
+     */
+    public StartMenuController(Stage p, StartMenuView view) {
+        this.view =view;
         this.view.getBtnPlay().setOnAction(e -> play());
         this.view.getBtnOptions().setOnAction(e -> options());
         this.view.getBtnQuit().setOnAction(e -> quit());
@@ -21,6 +32,9 @@ public class StartMenuController {
         this.view.getBtnSave().setOnAction(e -> Sauvegarde());
     }
 
+    /**
+     * Méthode pour démarrer le jeu.
+     */
     private void play() {
         view.getRoot().getChildren().clear();
         GameView game = new GameView(view.getPrimaryStage(), 1);
@@ -28,26 +42,37 @@ public class StartMenuController {
         game.animation();
     }
 
+    /**
+     * Méthode pour afficher les options.
+     */
     private void options() {
         view.getRoot().getChildren().clear();
-        OptionsView options = new OptionsView(view.getPrimaryStage());
-        OptionsController optionsController = new OptionsController(view.getPrimaryStage());
-        
+        new OptionsController(view.getPrimaryStage(), new OptionsView(view.getPrimaryStage()));
     }
+
+    /**
+     * Méthode pour quitter le jeu.
+     */
     private void quit() {
         view.getPrimaryStage().close();
     }
+
+    /**
+     * Méthode pour afficher le tutoriel.
+     */
     private void tuto() {
         view.getRoot().getChildren().clear();
-        TutoView tuto = new TutoView(view.getPrimaryStage());
-        TutoController tutoController = new TutoController(view.getPrimaryStage());
+        new TutoView(view.getPrimaryStage());
+        new TutoController(view.getPrimaryStage());
     }
 
+    /**
+     * Méthode pour sauvegarder le jeu.
+     */
     private void Sauvegarde() {
         view.getRoot().getChildren().clear();
-        SaveView save = new SaveView(view.getPrimaryStage());
-        SaveController saveController = new SaveController(view.getPrimaryStage());
+        new SaveView(view.getPrimaryStage());
+        new SaveController(view.getPrimaryStage());
     }
-
 
 }
