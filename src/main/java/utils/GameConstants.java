@@ -2,7 +2,7 @@ package utils;
 
 import config.GameRules;
 import config.Map;
-import config.Map.BricksArrangement;
+import config.GameRules.BricksArrangement;
 import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.racket.ClassicRacket;
@@ -70,16 +70,17 @@ public final class GameConstants {
 
         // preConfig des parties
         public static int STAGES_QTY = 9;
+
         public static GameRules[] PRECONFIG_GAME_RULES = {
-                        new GameRules(false, false, false, false, false, false, false),
-                        new GameRules(false, false, false, false, false, false, false),
-                        new GameRules(false, false, false, false, false, false, false),
-                        new GameRules(false, false, false, false, false, false, false),
-                        new GameRules(false, false, false, false, false, false, false),
-                        new GameRules(false, false, false, false, false, false, false),
-                        new GameRules(false, false, false, false, false, false, false),
-                        new GameRules(false, false, false, false, false, false, false),
-                        new GameRules(false, false, false, false, false, false, false) };
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false) };
 
         public static Ball[] PRECONFIG_GAME_BALL = { new ClassicBall(), new ClassicBall(), new ClassicBall(),
                         new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
@@ -89,9 +90,4 @@ public final class GameConstants {
                         new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
                         new ClassicRacket(), new ClassicRacket(), };
 
-        public static Map.BricksArrangement[] PRECONFIG_GAME_ARRANGEMENT = { BricksArrangement.DEFAULT,
-                        BricksArrangement.DEFAULT, BricksArrangement.DEFAULT, BricksArrangement.DEFAULT,
-                        BricksArrangement.DEFAULT,
-                        BricksArrangement.DEFAULT, BricksArrangement.DEFAULT, BricksArrangement.DEFAULT,
-                        BricksArrangement.DEFAULT };
 }

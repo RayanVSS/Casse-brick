@@ -7,7 +7,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import config.*;
-import config.Map.BricksArrangement;
+import config.GameRules.BricksArrangement;
 import entity.Particle;
 import entity.ball.*;
 import entity.preview.Preview;
@@ -69,8 +69,8 @@ public class GameView extends App {
         }
 
         /* differentes balles */
-        game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT,
-                new GameRules(false, false, true, false, false, false, false));
+        game = new Game(new ClassicBall(), new ClassicRacket(),
+                new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false, false));
         preview = new Preview(game.getBall());
         brickSet = new BrickSet(game.getMap().getBricks());
 

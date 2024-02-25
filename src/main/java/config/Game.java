@@ -2,7 +2,6 @@ package config;
 
 import java.util.Vector;
 
-import config.Map.BricksArrangement;
 import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.brick.Brick;
@@ -27,20 +26,21 @@ public class Game {
     private Timer inGameTimer;
     private int timeElapsed = 0; //en secondes
 
-    public Game(Ball ball, Racket racket, BricksArrangement arrangement, GameRules rules) {
+    public Game(Ball ball, Racket racket, GameRules rules) {
         this.ball = ball;
         this.racket = racket;
-        this.map = new Map(arrangement);
         this.rules = rules;
+        this.map = new Map(rules);
+        rules.initRules(this);
         inGameTimer = new Timer();
-        rules.registerInitialBricksZone(map);
+        map.displayColoredBricksInTerminal();
     }
 
     public void start() {
         inGameTimer.scheduleAtFixedRate(new TimerTask() {
 
             @Override
-            public void run() {
+            public void run() { // chaque seconde
                 timeElapsed++;
                 rules.updateRemainingTime();
             }
@@ -87,7 +87,7 @@ public class Game {
     public void update(long deltaT) {
 
         //Vérifie si la balle touche une brique
-        map.handleCollisionBricks(ball); //gérer la collision des briques
+        map.handleCollisionBricks(ball, rules); //gérer la collision des briques
         map.updateBricksStatus();
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
@@ -100,7 +100,7 @@ public class Game {
             life--;
             ball.reset();
         }
-        if (life == 0 || !rules.apply()) {
+        if (life == 0 || !rules.check()) {
             lost = true;
             inGameTimer.cancel();
         }

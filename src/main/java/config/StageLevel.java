@@ -1,6 +1,5 @@
 package config;
 
-import config.Map.BricksArrangement;
 import entity.ball.Ball;
 import entity.racket.Racket;
 import save.PlayerData;
@@ -12,11 +11,11 @@ public class StageLevel {
     private Game game;
 
     public StageLevel(int difficulty, int unlockLevel, GameRules rules,
-            Ball ball, Racket racket, BricksArrangement arrangement) {
+            Ball ball, Racket racket) {
 
         this.difficulty = difficulty;
         this.unlockLevel = unlockLevel;
-        this.game = new Game(ball, racket, arrangement, rules);
+        this.game = new Game(ball, racket, rules);
     }
 
     public void loadGame(PlayerData playerData) {

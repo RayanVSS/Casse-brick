@@ -2,17 +2,21 @@ package config;
 
 import java.util.Random;
 
+import entity.EntityColor;
+import entity.ball.Ball;
 import entity.brick.Brick;
 import geometry.Coordinates;
 import utils.GameConstants;
 
 public class GameRules {
 
+    private BricksArrangement arrangement;
+
     //options de jeu à activer et à implémenter...
     private boolean limitedTime;
     private boolean limitedBounces;
     private boolean randomSwitchBricks;
-    private boolean colorRestriction; // pas sûr
+    private boolean colorRestricted;
     private boolean transparent;
     private boolean invisible; // pas sûr
     private boolean unbreakable;
@@ -25,20 +29,35 @@ public class GameRules {
 
     }
 
-    public GameRules(boolean limitedTime, boolean limitedBounces, boolean randomSwitchBricks, boolean colorRestriction,
+    public GameRules(BricksArrangement arrangement, boolean limitedTime, boolean limitedBounces,
+            boolean randomSwitchBricks, boolean colorRestricted,
             boolean transparent, boolean invisible, boolean unbreakable) {
 
+        this.arrangement = arrangement;
         this.limitedTime = limitedTime;
         this.limitedBounces = limitedBounces;
         this.randomSwitchBricks = randomSwitchBricks;
-        this.colorRestriction = colorRestriction;
+        this.colorRestricted = colorRestricted;
         this.transparent = transparent;
         this.invisible = invisible;
         this.unbreakable = unbreakable;
     }
 
-    public boolean apply() {
+    public enum BricksArrangement {
+        DEFAULT, RANDOM;
+    }
+
+    public boolean check() {
         return verifyLimitedTime() && verifyLimitedBounces();
+    }
+
+    public void initRules(Game game) {
+        if (randomSwitchBricks) {
+            registerInitialBricksZone(game.getMap());
+        }
+        if (colorRestricted) {
+            applyColorOnBricks(game.getMap().getBricks());
+        }
     }
 
     public void updateRemainingTime() {
@@ -67,7 +86,7 @@ public class GameRules {
         return true;
     }
 
-    public void registerInitialBricksZone(Map map) {
+    private void registerInitialBricksZone(Map map) {
         // Zone de brique toujours supposée rectangulaire
         int[] coinSupGauche = null, coinInfDroit = { 0, 0 };
         for (int i = 0; i < map.getBricks().length; i++) {
@@ -120,10 +139,64 @@ public class GameRules {
                         bricks[i][j].setC(bricks[m][n].getC());
                         bricks[m][n].setC(tempC);
                     }
-
                     // System.out.println("BRICK X:" + i + " Y:" + j + " VERS " + "BRICK X:" + m + " Y:" + n);
                 }
             }
         }
     }
+
+    public void applyColorOnBricks(Brick[][] bricks) {
+        Random random = new Random();
+        for (int i = 0; i < bricks.length; i++) {
+            for (int j = 0; j < bricks[i].length; j++) {
+                if (bricks[i][j] != null) {
+                    EntityColor rndColor = EntityColor.values()[random.nextInt(EntityColor.values().length)];
+                    bricks[i][j].setColor(rndColor);
+                }
+            }
+        }
+    }
+
+    public boolean haveBricksCollisionRules() {
+        return colorRestricted || transparent || invisible || unbreakable;
+    }
+
+    public boolean verifyColor(Brick brick, Ball ball) {
+        return brick.getColor() == ball.getColor();
+    }
+
+    // GETTERS/SETTERS
+
+    public BricksArrangement getArrangement() {
+        return arrangement;
+    }
+
+    public boolean isLimitedTime() {
+        return limitedTime;
+    }
+
+    public boolean isLimitedBounces() {
+        return limitedBounces;
+    }
+
+    public boolean isRandomSwitchBricks() {
+        return randomSwitchBricks;
+    }
+
+    public boolean isColorRestricted() {
+        return colorRestricted;
+    }
+
+    public boolean isTransparent() {
+        return transparent;
+    }
+
+    public boolean isInvisible() {
+        return invisible;
+    }
+
+    public boolean isUnbreakable() {
+        return unbreakable;
+    }
+
 }
