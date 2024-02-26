@@ -93,9 +93,8 @@ public class Game {
             ball.setCollisionR(true);
             rules.updateRemainingBounces();
             rules.updateBricksTransparency(map);
+            rules.updateBricksUnbreakability(map);
             rules.shuffleBricks(map.getBricks());
-            map.displayColoredBricksInTerminal();
-            System.out.println(ball.getColor());
         }
         // Gere les conditions de perte
         if (!ball.movement()) {
