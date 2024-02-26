@@ -115,7 +115,7 @@ public class Simulation {
             public boolean movement(){
                 double h = DEFAULT_WINDOW_WIDTH;
                 double w = DEFAULT_WINDOW_HEIGHT;
-                double newX = this.getC().getX() + this.getDirection().getX() + outline.getWind().getX() + outline.getFrictionRacket().getX();
+                double newX = this.getC().getX() + this.getDirection().getX() + outline.getWind().getX() ;
                 double newY = this.getC().getY() + this.getDirection().getY() + outline.getWind().getY() ;
                 if (CollisionR) {
                     if (BougePColision) {
@@ -130,20 +130,22 @@ public class Simulation {
                                 case D:
                                     this.getDirection().setX(this.getDirection().getX());
                                     this.getDirection().setY(-this.getDirection().getY());
-                                    outline.getFrictionRacket().setX(outline.getFrictionRacket().getX() + 0.5);
+                                    //outline.getFrictionRacket().setX(outline.getFrictionRacket().getX() + 0.5);
                                     newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                                     CollisionR = false;
+                                    this.getDirection().setX(this.getDirection().getX()+0.5);
         
                                     break;
                                 case LEFT:
                                 case Q:
                                     this.getDirection().setX(this.getDirection().getX());
                                     this.getDirection().setY(-this.getDirection().getY());
-                                    outline.getFrictionRacket().setX(outline.getFrictionRacket().getX() - 0.5);
+                                    //outline.getFrictionRacket().setX(outline.getFrictionRacket().getX() - 0.5);
                                     newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                                     CollisionR = false;
+                                    this.getDirection().setX(this.getDirection().getX()-0.5);
                                     break;
                                 default:
                                     break;
@@ -153,7 +155,7 @@ public class Simulation {
                 }   
                 if (newX < 0 || newX > h - this.getRadius()) {
                     this.getDirection().setX(-this.getDirection().getX());
-                    newX = this.getC().getX() + this.getDirection().getX();
+                    newX = this.getC().getX() + this.getDirection().getX() + outline.getFrictionRacket().getX();
                     this.getDirection().setX(this.getDirection().getX()*outline.getRetention());
                 }
                 if (newY < 0 || newY > w - this.getRadius()) {
