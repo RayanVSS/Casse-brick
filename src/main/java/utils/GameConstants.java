@@ -69,4 +69,7 @@ public final class GameConstants {
     public static KeyCode SPACE = KeyCode.SPACE;
     public static String CSS="/styles/blue.css";
 
+    // derniere save
+    public static String LAST_SAVE;
+
 }

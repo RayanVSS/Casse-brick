@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import java.util.*;
 import save.Sauvegarde;
 
+import static utils.GameConstants.LAST_SAVE;
 
 
 public class SaveController {
@@ -22,6 +23,7 @@ public class SaveController {
         this.view.getBtnsave().setOnAction(e -> save());
         this.view.getBtndelete().setOnAction(e -> delete());
         this.view.getBtnOK().setOnAction(e -> ok());
+        this.view.getResetSave().setOnAction(e -> resetSave());
     }
 
     private void back() {
@@ -37,8 +39,10 @@ public class SaveController {
 
     private void load() {
         String selectedSauvegarde = view.getListSave().getValue();
+        System.out.println(selectedSauvegarde);
+
         if (selectedSauvegarde != null) { //si une sauvegarde est sélectionnée 
-            sauvegarde.chargerDonnees(selectedSauvegarde); // Charger la sauvegarde sélectionnée dans le fichier
+            sauvegarde.chargerOptionsDuJeu(selectedSauvegarde); // Charger la sauvegarde sélectionnée dans le fichier
             view.afficherMessage("Sauvegarde '" + selectedSauvegarde + "' chargée avec succès"); // Afficher un message de confirmation
         } else {
             view.afficherMessage("Veuillez sélectionner une sauvegarde à charger"); // Afficher un message d'erreur
@@ -58,11 +62,15 @@ public class SaveController {
 
     private void ok() {
         String nomUtilisateur = view.getNameSave().getText(); // Récupérer le nom de l'utilisateur
-        // Créer un HashMap avec les données à sauvegarder
-        donnees.put("a finir", 5); //exemple
-        //a finir quand option sera finito
-        sauvegarde.sauvegarderDonnees(nomUtilisateur, donnees);// Sauvegarder les données dans le fichier ou creer un fichier
+        sauvegarde.sauvegarderOptionsDuJeu(nomUtilisateur); // Sauvegarder les options du jeu
         view.afficherMessage("c'est bon"); // Afficher un message de confirmation
     }
 
+    private void resetSave() {
+        sauvegarde.resetLastSave(); // Réinitialiser la dernière sauvegarde
+    }
+
+
+
+    
 }
