@@ -242,6 +242,19 @@ affichage de la racket
 - Implémentation de celle-ci dans le jeu
 - Implémentation du niveau infini #23
 
+## Semaine 4
+
+### Majda Benmalek 
+<span style="color:green">**Fait:**</span>
+- Rajout de 2 themes( utilisation du css )
+- Factorisation et changement de comment on gere le changement de scene 
+- Rajout d'une transition (pas ouf) entre chaque changement de scene 
+
+<span style="color:purple">**A Faire:**</span>
+- Ajout du son 
+- Probleme d'angle collision de la balle 
+- Rajout d'autre theme avec la couleur de la balle et la raquette qui suivent 
+- Changer la disposition dans l'affichage du jeu
 
 
 
