@@ -45,7 +45,8 @@
 
 .scoreL-style {
     -fx-font-size: 25px;
-    -fx-fill: #d5bbb1;
+    -fx-font-weight: bold;
+    -fx-fill: #1b263b;
 }
 
 .title-game-over-style {
@@ -60,15 +61,15 @@
     -fx-text-fill: #d5bbb1;
 }
 
-.ball{
-    -fx-fill : black;
+.ball {
+    -fx-fill : RED;
 }
 
-.hyperball{
+.hyperball { 
     -fx-fill : #00308F;
 }
 
-.gravityball{
+.gravityball {
     -fx-fill : #6699CC;
 }
 
@@ -76,3 +77,18 @@
     -fx-fill : #5072A7;
 }
 
+.magnetracketpositif{
+    -fx-fill : YELLOW;
+}
+
+.racket{
+    -fx-fill : #FF0000;
+}
+
+.ynotfixeracket{
+    -fx-fill : #00308F;
+}
+
+.magnetracketnegatif{
+    -fx-fill : GREEN;
+}

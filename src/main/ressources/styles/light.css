@@ -62,3 +62,34 @@
     -fx-text-fill: #E1E8ED;
 }
 
+.ball {
+    -fx-fill : black;
+}
+
+.hyperball { 
+    -fx-fill : #00308F;
+}
+
+.gravityball {
+    -fx-fill : #6699CC;
+}
+
+.magnetball{
+    -fx-fill : #5072A7;
+}
+
+.magnetracketpositif{
+    -fx-fill : YELLOW;
+}
+
+.racket{
+    -fx-fill : black;
+}
+
+.ynotfixeracket{
+    -fx-fill : #00308F;
+}
+
+.magnetracketnegatif{
+    -fx-fill : GREEN;
+}

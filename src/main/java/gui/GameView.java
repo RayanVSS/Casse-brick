@@ -94,8 +94,6 @@ public class GameView extends App {
             root.getChildren().add(this.fpsGraphics);
         }
 
-
-        //root.setStyle("-fx-background-color: #FBFAF5;");
         root.getStyleClass().add("game-backgorund");
         scene.getStylesheets().add(GameConstants.CSS);
         this.animation();
@@ -104,7 +102,7 @@ public class GameView extends App {
     }
 
     public void update() {
-
+        
         // Mise à jour de la position de la balle
         this.graphBall.update();
 
