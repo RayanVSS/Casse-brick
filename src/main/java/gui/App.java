@@ -22,9 +22,9 @@ public class App extends Application {
         sceneManager.createSaveViewScene(primaryStage);
         sceneManager.createTutoViewScene(primaryStage);
 
-        for (Scene scene : sceneManager.getScenes().values()) {
-            System.out.println(scene + " " +sceneManager.getSceneName(scene)+" added to primaryStage");
-        }
+        // for (Scene scene : sceneManager.getScenes().values()) {
+        //     System.out.println(scene + " " +sceneManager.getSceneName(scene)+" added to primaryStage");
+        // }
 
         primaryStage.setScene(sceneManager.getScene("StartMenuView"));
 

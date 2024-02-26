@@ -41,8 +41,6 @@ public class OptionsView implements Menu {
      * @param p Le stage principal sur lequel la vue des options est affichée.
      */
     public OptionsView(Stage p) {
-        //TODO: les options ne s'affiche plus, debug + test
-        System.out.println("OptionsView CHECKED");
         this.primaryStage = p;
         btnBack = createButton("Retour", 0, 0);
         root.getStyleClass().add("root");
