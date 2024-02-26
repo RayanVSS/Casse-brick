@@ -7,6 +7,8 @@ import entity.brick.Brick;
 import entity.brick.BrickClassic;
 import geometry.Coordinates;
 import utils.GameConstants;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Map {
@@ -101,13 +103,18 @@ public class Map {
 
     private void handleBricksCollisionRules(Brick brick, Ball ball, GameRules rules, int i, int j) {
 
-        if (rules.isTransparent() && brick.isTransparent()) {
-            if (i != 0) {
-                ball.getDirection().setX(-ball.getDirection().getX());
+        if (rules.isTransparent()) {
+            if (brick.isTransparent()) {
+                if (i != 0) {
+                    ball.getDirection().setX(-ball.getDirection().getX());
+                }
+                if (j != 0) {
+                    ball.getDirection().setY(-ball.getDirection().getY());
+                }
+            } else {
+                brick.setDestroyed(true);
             }
-            if (j != 0) {
-                ball.getDirection().setY(-ball.getDirection().getY());
-            }
+
         } else {
             boolean breakBrick = false;
             if (rules.isColorRestricted()) {
@@ -130,6 +137,30 @@ public class Map {
                 }
             }
         }
+    }
+
+    public int countBricks() {
+        int count = 0;
+        for (int i = 0; i < bricks.length; i++) {
+            for (int j = 0; j < bricks[0].length; j++) {
+                if (bricks[i][j] != null) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public ArrayList<Brick> getListOfBricks() {
+        ArrayList<Brick> list = new ArrayList<>();
+        for (int i = 0; i < bricks.length; i++) {
+            for (int j = 0; j < bricks[0].length; j++) {
+                if (bricks[i][j] != null) {
+                    list.add(bricks[i][j]);
+                }
+            }
+        }
+        return list;
     }
 
     public void displayBricksInTerminal() { // pour les tests
@@ -167,7 +198,27 @@ public class Map {
                             break;
                     }
                 } else {
-                    System.out.print(". "); // "." pour représenter une case vide
+                    System.out.print(". ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("------------------------------------");
+    }
+
+    public void displayBricksTransparencyInTerminal() { // pour les tests
+
+        for (int i = 0; i < bricks[0].length; i++) {
+            for (int j = 0; j < bricks.length; j++) {
+                if (bricks[j][i] != null) {
+                    if (bricks[j][i].isTransparent()) {
+                        System.out.print("T ");
+                    } else {
+                        System.out.print("B ");
+                    }
+
+                } else {
+                    System.out.print(". ");
                 }
             }
             System.out.println();

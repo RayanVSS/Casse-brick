@@ -69,7 +69,7 @@ public final class GameConstants {
         public static KeyCode SPACE = KeyCode.SPACE;
 
         // preConfig des parties
-        public static int STAGES_QTY = 9;
+        public static final int STAGES_QTY = 9;
 
         public static GameRules[] PRECONFIG_GAME_RULES = {
                         new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
@@ -90,4 +90,9 @@ public final class GameConstants {
                         new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
                         new ClassicRacket(), new ClassicRacket(), };
 
+        // GameRules (GR) options
+        public static int GR_REMAINING_TIME = 150; // 2 minutes 30
+        public static int GR_REMAINING_BOUNCES = 50; // rebonds restants
+        public static int GR_DEFAULT_QTY_TRANSPARENT = 5; // quantité par défaut de briques qui deviennent transparentes (temporairement)
+        public static int GR_DEFAULT_QTY_UNBREAKABLE = 5; // quantité par défaut de briques qui deviennent incassables (temporairement)
 }

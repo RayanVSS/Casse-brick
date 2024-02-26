@@ -33,7 +33,6 @@ public class Game {
         this.map = new Map(rules);
         rules.initRules(this);
         inGameTimer = new Timer();
-        map.displayColoredBricksInTerminal();
     }
 
     public void start() {
@@ -93,7 +92,9 @@ public class Game {
         if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
             rules.updateRemainingBounces();
+            rules.updateBricksTransparency(map);
             rules.shuffleBricks(map.getBricks());
+            map.displayBricksTransparencyInTerminal();
         }
         // Gere les conditions de perte
         if (!ball.movement()) {

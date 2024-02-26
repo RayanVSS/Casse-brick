@@ -1,5 +1,6 @@
 package config;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import entity.EntityColor;
@@ -18,12 +19,13 @@ public class GameRules {
     private boolean randomSwitchBricks;
     private boolean colorRestricted;
     private boolean transparent;
-    private boolean invisible; // pas sûr
     private boolean unbreakable;
 
-    private int remainingTime = 150; // 2 minutes 30
-    private int remainingBounces = 50; // rebonds restants
+    private int remainingTime = GameConstants.GR_REMAINING_TIME;
+    private int remainingBounces = GameConstants.GR_REMAINING_BOUNCES;
     private int[][] initialBricksZone;
+    private int qty_transparent = GameConstants.GR_DEFAULT_QTY_TRANSPARENT;
+    private int qty_unbreakable = GameConstants.GR_DEFAULT_QTY_UNBREAKABLE;
 
     public GameRules() {
 
@@ -39,7 +41,6 @@ public class GameRules {
         this.randomSwitchBricks = randomSwitchBricks;
         this.colorRestricted = colorRestricted;
         this.transparent = transparent;
-        this.invisible = invisible;
         this.unbreakable = unbreakable;
     }
 
@@ -158,11 +159,33 @@ public class GameRules {
     }
 
     public boolean haveBricksCollisionRules() {
-        return colorRestricted || transparent || invisible || unbreakable;
+        return colorRestricted || transparent || unbreakable;
     }
 
     public boolean verifyColor(Brick brick, Ball ball) {
         return brick.getColor() == ball.getColor();
+    }
+
+    public void updateBricksTransparency(Map map) {
+
+        int apply = qty_transparent;
+        ArrayList<Brick> tempList = map.getListOfBricks();
+        Random random = new Random();
+        while (apply > 0 && map.countBricks() > qty_transparent) {
+            Brick rndBrick = tempList.get(random.nextInt(tempList.size()));
+            if (!rndBrick.isTransparent()) {
+                apply--;
+                tempList.remove(rndBrick);
+                rndBrick.setTransparent(true);
+            }
+        }
+
+        // On enleve dans les briques restantes ceux ayant l'effet transparent du dernier tour
+        for (Brick brick : tempList) {
+            if (brick.isTransparent()) {
+                brick.setTransparent(false);
+            }
+        }
     }
 
     // GETTERS/SETTERS
@@ -189,10 +212,6 @@ public class GameRules {
 
     public boolean isTransparent() {
         return transparent;
-    }
-
-    public boolean isInvisible() {
-        return invisible;
     }
 
     public boolean isUnbreakable() {
