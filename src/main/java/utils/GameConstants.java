@@ -4,8 +4,6 @@ import geometry.Coordinates;
 import geometry.Vector;
 import javafx.scene.input.KeyCode;
 
-import javafx.stage.Screen;
-
 public final class GameConstants {
 
     // brick

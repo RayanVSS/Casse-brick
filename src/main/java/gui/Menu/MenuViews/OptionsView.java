@@ -42,11 +42,10 @@ public class OptionsView implements Menu {
      */
     public OptionsView(Stage p) {
         //TODO: les options ne s'affiche plus, debug + test
-        //super(p, scene, sceneManager);
         System.out.println("OptionsView CHECKED");
         this.primaryStage = p;
         btnBack = createButton("Retour", 0, 0);
-        //root.getStyleClass().add("root");
+        root.getStyleClass().add("root");
 
         primaryStage.setScene(scene);
 

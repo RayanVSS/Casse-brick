@@ -39,11 +39,10 @@ public class SaveView implements Menu{
     //c'est pour avoir les fonctions de sauvegarde
     private Sauvegarde sauvegarde = new Sauvegarde();
     
-    public SaveView(Stage p, SceneManager sceneManager) {
+    public SaveView(Stage p) {
         //super(p, scene, sceneManager);
         this.primaryStage = p;
-        this.sceneManager = sceneManager;
-        //root.getStyleClass().add("root");
+        root.getStyleClass().add("root");
         //button
         this.btnBack = createButton("Retour", -870, -700);
         this.btnsave = createButton("Sauvegarder", 0, -500);

@@ -1,6 +1,5 @@
 package gui.Menu.MenuViews;
 
-import gui.Menu.SceneManager;
 import gui.Menu.MenuControllers.StartMenuController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,7 +20,6 @@ public class StartMenuView implements Menu {
     private static VBox root = new VBox();
     private static Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,
             GameConstants.DEFAULT_WINDOW_HEIGHT);
-    private SceneManager sceneManager;
     private Button btnPlay;
     private Button btnOptions;
     private Button btnQuit;
@@ -34,12 +32,9 @@ public class StartMenuView implements Menu {
      * 
      * @param p Le stage principal sur lequel le menu de démarrage est affiché.
      */
-    public StartMenuView(Stage p,SceneManager sceneManager) {
-        //super(p, scene,sceneManager);
-        System.out.println("StartMenuView CHECKED");
+    public StartMenuView(Stage p) {
         this.primaryStage = p;
-        this.sceneManager = sceneManager;
-       // root.getStyleClass().add("root");
+        root.getStyleClass().add("root");
         title = createLabel("Casse Brique", 0, 0);
         title.getStyleClass().add("title-style");
         btnPlay = createButton("Jouer", 0, 0);
@@ -123,7 +118,4 @@ public class StartMenuView implements Menu {
         return scene;
     }
 
-    public SceneManager getSceneManager() {
-        return sceneManager;
-    }
 }

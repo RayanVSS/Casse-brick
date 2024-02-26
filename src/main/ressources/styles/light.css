@@ -6,40 +6,37 @@
 
 .button-hover {
     -fx-font-size: 20px;
-    -fx-background-color: #FFC7D8;
-    -fx-text-fill: #FE94B4;
+    -fx-background-color: #657786;
+    -fx-text-fill: #14171A;
 }
 
 .label-style {
-    -fx-text-fill: #FE94B4;
+    -fx-text-fill: #14171A;
     -fx-font-size: 20px;
 }
 
 .text-style {
     -fx-font-size: 20px;
-    -fx-fill: #C7DEFA;
-}
-
-.toggle-button-style {
-    -fx-font-size: 20px;
-    -fx-background-color: #FA739D;
-    -fx-text-fill: #C7DEFA;
+    -fx-text-fill: #14171A;
 }
 
 .title-style {
     -fx-font-size: 40px;
-    -fx-text-fill: #C7DEFA;
+    -fx-text-fill: #1DA1F2;
 }
 
 .root{
-    -fx-background-color: #F5F8FA;
+    -fx-background-color: #E1E8ED;
+}
+.game-backgorund {
+    -fx-background-color: #B9D9EB;
 }
 
 .root-game-over {
     -fx-opacity: 0.7;
     -fx-alignment: center;
     -fx-spacing: 10;
-    -fx-background-color: #FBFAF5;
+    -fx-background-color: #E1E8ED;
 }
 
 .grid-style {
@@ -51,17 +48,17 @@
 
 .scoreL-style{
     -fx-font-size: 25px;
-    -fx-fill: #C7DEFA;
+    -fx-fill: #14171A;
 }
 
 .title-game-over-style{
     -fx-font-size: 50px;
-    -fx-text-fill:#C7DEFA;
+    -fx-text-fill:#1DA1F2;
     -fx-font-weight: bold;
 }
 
 .slider-style {
     -fx-font-size: 20;
-    -fx-text-fill: #F79BC5;
+    -fx-text-fill: #E1E8ED;
 }
 

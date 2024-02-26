@@ -5,7 +5,6 @@ import gui.GameView;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import utils.GameConstants;
 
 /**
  * Classe contrôleur pour le menu de démarrage.

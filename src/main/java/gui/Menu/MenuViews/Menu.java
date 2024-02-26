@@ -66,8 +66,19 @@ public interface Menu {
      */
     default ToggleButton createToggleButton(String text, boolean selected) {
         ToggleButton button = new ToggleButton(text);
-        button.getStyleClass().add("toggle-button-style");
+        if(selected)
+            button.getStyleClass().add("button-hover");
+        else
+            button.getStyleClass().add("button-style");
         button.setSelected(selected);
+        button.setOnMouseEntered(e -> {
+            button.getStyleClass().remove("button-style");
+            button.getStyleClass().add("button-hover");
+        });
+        button.setOnMouseExited(e -> {
+            button.getStyleClass().remove("button-hover");
+            button.getStyleClass().add("button-style");
+        });
         return button;
     }
 
@@ -86,7 +97,6 @@ public interface Menu {
         slider.getStyleClass().add("slider-style");
         slider.setMaxWidth(maxwidth);
         slider.setOrientation(Orientation.HORIZONTAL);
-        //slider.setStyle("-fx-font-size: 20; -fx-background-color: #F79BC5;-fx-text-fill: #d5bbb1;");
         return slider;
     }
 }

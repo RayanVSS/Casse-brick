@@ -1,3 +1,4 @@
+/*TODO: Add the style for the game */
 .button-style {
     -fx-font-size: 20px;
     -fx-background-color: #FA739D;
@@ -20,11 +21,6 @@
     -fx-fill: #FE94B4;
 }
 
-.toggle-button-style {
-    -fx-font-size: 20px;
-    -fx-background-color: #FA739D;
-    -fx-text-fill: #FE94B4;
-}
 
 .title-style {
     -fx-font-size: 40px;

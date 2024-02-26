@@ -7,9 +7,6 @@ import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-
-import gui.GameView;
 import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StartMenuView;
@@ -66,19 +63,19 @@ public class SceneManager {
     }
 
     public void createStartMenuViewScene(Stage primaryStage) {
-        StartMenuView startMenuView = new StartMenuView(primaryStage, this);
+        StartMenuView startMenuView = new StartMenuView(primaryStage);
         addStylesheet(startMenuView.getScene());
         addScene("StartMenuView", startMenuView.getScene());
     }
 
     public void createSaveViewScene(Stage primaryStage) {
-        SaveView saveView = new SaveView(primaryStage, this);
+        SaveView saveView = new SaveView(primaryStage);
         addStylesheet(saveView.getScene());
         addScene("SaveView", saveView.getScene());
     }
 
     public void createTutoViewScene(Stage primaryStage) {
-        TutoView tutoView = new TutoView(primaryStage, this);
+        TutoView tutoView = new TutoView(primaryStage);
         addStylesheet(tutoView.getScene());
         addScene("TutoView", tutoView.getScene());
     }

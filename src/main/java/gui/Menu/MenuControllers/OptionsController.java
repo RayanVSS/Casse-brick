@@ -50,11 +50,7 @@ public class OptionsController {
      */
     private void back() {
         Platform.runLater(() -> {
-            // view.getRoot().getChildren().clear();
-            // view.getPrimaryStage().setScene(new
-            // StartMenuView(view.getPrimaryStage()).getScene());
             App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
-
         });
     }
 
@@ -137,7 +133,7 @@ public class OptionsController {
             GameConstants.CSS = "/styles/" + selectedTheme + ".css";
             //change le css de chaque scene dans SceneManager
             App.sceneManager.getScenes().forEach((k, v) -> {
-                v.getStylesheets().add(getClass().getResource(GameConstants.CSS).toExternalForm());
+                App.sceneManager.addStylesheet(v);
             });
         }
     }

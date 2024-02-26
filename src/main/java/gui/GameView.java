@@ -57,12 +57,12 @@ public class GameView extends App {
     public GameView(Stage p, int level) {
         this.primaryStage = p;
         this.gameView = this;
-        
 
         /* differentes balles */
         game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
-        // game = new Game(new MagnetBall(), new MagnetRacket(), BricksArrangement.DEFAULT);
-        
+        // game = new Game(new MagnetBall(), new MagnetRacket(),
+        // BricksArrangement.DEFAULT);
+
         brickSet = new BrickSet(game.getMap().getBricks());
 
         // Création des particules
@@ -94,12 +94,13 @@ public class GameView extends App {
             root.getChildren().add(this.fpsGraphics);
         }
 
+
+        //root.setStyle("-fx-background-color: #FBFAF5;");
+        root.getStyleClass().add("game-backgorund");
+        scene.getStylesheets().add(GameConstants.CSS);
         this.animation();
-        root.getStyleClass().add("game-background");
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
-        primaryStage.show();
-
     }
 
     public void update() {
@@ -153,6 +154,7 @@ public class GameView extends App {
         animationTimer = new AnimationTimer() {
             long last = 0;
             double delay = 0.0;
+
             @Override
             public void handle(long now) {
                 BougePColision = key.isEmpty();
@@ -209,6 +211,7 @@ public class GameView extends App {
     public AnimationTimer getAnimationTimer() {
         return animationTimer;
     }
+
     public Scene getScene() {
         return scene;
     }
