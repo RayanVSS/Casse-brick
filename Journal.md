@@ -257,7 +257,21 @@ affichage de la racket
 - Changer la disposition dans l'affichage du jeu
 
 
+### Guan Olivier 
+<span style="color:green">**Fait:**</span>
 
+- Toutes les règles additionnelles au jeu classique : [Temps limité](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/37), [Rebonds limité](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/38), [Briques TP aléatoire](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/39), [Correspondance de couleur](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/41), [Brique transparente/Ghost](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/42), [Brique incassable](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/45)
+
+- Factorisation de la logique des règles
+
+- Possibilité de "stacker" les règles
+
+
+<span style="color:purple">**A Faire:**</span>
+
+- Inclure ces nouvelles règles dans les preconfig de niveaux
+
+- Création d'un menu de selection de niveaux et de création d'une game custom
 
 
 
