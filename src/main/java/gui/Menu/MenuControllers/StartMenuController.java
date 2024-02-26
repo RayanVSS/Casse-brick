@@ -48,10 +48,7 @@ public class StartMenuController {
      */
     private void play() {
         Platform.runLater(() -> {
-        // view.getSceneManager().changeScene(view.getPrimaryStage(), "GameView");
-            GameView game = new GameView(view.getPrimaryStage(), 1);
-            //view.getPrimaryStage().setScene(game.getScene());
-            game.getScene().getStylesheets().add(GameConstants.CSS);
+            new GameView(view.getPrimaryStage(), 1);
         });
         
     }

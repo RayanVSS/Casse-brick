@@ -21,7 +21,7 @@ public class TutoView implements Menu{
         this.sceneManager = sceneManager;
         root = new StackPane();
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-        root.getStyleClass().add("root");
+        //root.getStyleClass().add("root");
         this.btnBack = createButton("Retour", 0, 0);
         root.getChildren().add(btnBack);
         new TutoController(p,this);

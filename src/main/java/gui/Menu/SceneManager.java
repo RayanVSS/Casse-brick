@@ -81,12 +81,6 @@ public class SceneManager {
         addScene("SaveView", saveView.getScene());
     }
 
-    public void createGameViewScene(Stage primaryStage) {
-        GameView gameView = new GameView(primaryStage, 1);
-        addStylesheet(gameView.getScene());
-        addScene("GameView", gameView.getScene());
-    }
-
     public void createTutoViewScene(Stage primaryStage) {
         TutoView tutoView = new TutoView(primaryStage, this);
         addStylesheet(tutoView.getScene());
@@ -97,6 +91,7 @@ public class SceneManager {
 
         Scene newScene = getScene(name);
         Platform.runLater(() -> {
+            //TODO: ajouter une transition jolie
             if (primaryStage.getScene() != null) { // Si une scène est déjà présente
                 // Créer une transition de fondu pour la scène actuelle
                 FadeTransition ft = new FadeTransition(Duration.millis(200), primaryStage.getScene().getRoot());
@@ -114,9 +109,6 @@ public class SceneManager {
             } else {
                 primaryStage.setScene(newScene); // Si aucune scène n'est présente, simplement changer la scène
             }
-            // Platform.runLater(() -> {
-            // primaryStage.setScene(newScene);
-            // });
         });
         System.out.println("Scene changed to " + name);
         System.out.println();

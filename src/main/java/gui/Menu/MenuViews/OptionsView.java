@@ -48,7 +48,7 @@ public class OptionsView implements Menu {
         this.primaryStage = p;
         this.sceneManager = sceneManager;
         btnBack = createButton("Retour", 0, 0);
-        root.getStyleClass().add("root");
+        //root.getStyleClass().add("root");
 
         primaryStage.setScene(scene);
 
