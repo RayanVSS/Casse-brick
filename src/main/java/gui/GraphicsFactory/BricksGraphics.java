@@ -28,19 +28,24 @@ public class BricksGraphics extends StackPane {
 
     public void update() {
         if (brick != null) {
-            if (brick.isDestroyed()) {
+            if (brick.isDestroyed() && imageView.getImage() == null) {
                 getChildren().remove(imageView);
                 imageView = new ImageView();
                 getChildren().add(imageView);
-            } else if (brick.getDurability() < 70 && brick.getDurability() > 50) {
-                getChildren().remove(imageView);
-                Image im = ImageLoader.loadImage("src/main/ressources/briquec.png");
-                this.setImageView(im);
-            } else if (brick.getDurability() > 0 && brick.getDurability() < 50) {
-                getChildren().remove(imageView);
-                Image im = ImageLoader.loadImage("src/main/ressources/briquec.png");
-                this.setImageView(im);
             }
+            // else if (brick.getDurability() < 70 && brick.getDurability() > 50
+            // && !imageView.getImage().getUrl().equals("src/main/ressources/briquec.png"))
+            // {
+            // getChildren().remove(imageView);
+            // Image im = ImageLoader.loadImage("src/main/ressources/briquec.png");
+            // this.setImageView(im);
+            // } else if (brick.getDurability() > 0 && brick.getDurability() < 50
+            // && !imageView.getImage().getUrl().equals("src/main/ressources/briquecc.png"))
+            // {
+            // getChildren().remove(imageView);
+            // Image im = ImageLoader.loadImage("src/main/ressources/briquecc.png");
+            // this.setImageView(im);
+            // }
         }
     }
 }
