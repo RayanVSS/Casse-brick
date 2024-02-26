@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import geometry.Coordinates;
+import gui.Menu.MenuViews.PauseView;
 
 public class GameView extends App {
 
@@ -94,7 +95,6 @@ public class GameView extends App {
             root.getChildren().add(this.fpsGraphics);
         }
 
-
         //root.setStyle("-fx-background-color: #FBFAF5;");
         root.getStyleClass().add("game-backgorund");
         scene.getStylesheets().add(GameConstants.CSS);
@@ -154,6 +154,7 @@ public class GameView extends App {
         animationTimer = new AnimationTimer() {
             long last = 0;
             double delay = 0.0;
+            PauseView pauseView = new PauseView(primaryStage, root, this);
 
             @Override
             public void handle(long now) {
@@ -179,6 +180,10 @@ public class GameView extends App {
                         game.setLost(false);
                         animationStop();
                         root.getChildren().add(new GameOverView(primaryStage, gameView).getRoot());
+                    }
+                    if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
+                        animationStop();
+                        root.getChildren().add(this.pauseView);
                     }
                 }
                 last = now;
