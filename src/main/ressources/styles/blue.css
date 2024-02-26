@@ -29,6 +29,7 @@
 .game-backgorund {
     -fx-background-color: #B9D9EB;
 }
+
 .root-game-over {
     -fx-opacity: 0.7;
     -fx-alignment: center;
@@ -58,6 +59,13 @@
     -fx-font-size: 20px;
     -fx-background-color: #1b263b;
     -fx-text-fill: #d5bbb1;
+}
+
+.pause-view{
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-background-color: #78859f;
 }
 
 .ball{

@@ -62,3 +62,26 @@
     -fx-text-fill: #E1E8ED;
 }
 
+.pause-view{
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-background-color: #78859f;
+}
+
+.ball{
+    -fx-fill : black;
+}
+
+.hyperball{
+    -fx-fill : #00308F;
+}
+
+.gravityball{
+    -fx-fill : #6699CC;
+}
+
+.magnetball{
+    -fx-fill : #5072A7;
+}
+

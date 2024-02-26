@@ -1,41 +1,41 @@
 /*TODO: Add the style for the game */
 .button-style {
     -fx-font-size: 20px;
-    -fx-background-color: #FA739D;
-    -fx-text-fill: #F79BC5;
+    -fx-background-color: #FFB6C1;
+    -fx-text-fill: #C71585;
 }
 
 .button-hover {
     -fx-font-size: 20px;
-    -fx-background-color: #FFC7D8;
-    -fx-text-fill: #FE94B4;
+    -fx-background-color: #ffd7e9;
+    -fx-text-fill: #C71585;
 }
 
 .label-style {
-    -fx-text-fill: #FE94B4;
+    -fx-text-fill: #C71585;
     -fx-font-size: 20px;
 }
 
 .text-style {
     -fx-font-size: 20px;
-    -fx-fill: #FE94B4;
+    -fx-fill: #C71585;
 }
 
 
 .title-style {
     -fx-font-size: 40px;
-    -fx-text-fill: #FA739D;
+    -fx-text-fill: #C71585;
 }
 
 .root{
-    -fx-background-color: #FFC7D8;
+    -fx-background-color: #ffd7e9;
 }
 
 .root-game-over {
     -fx-opacity: 0.7;
     -fx-alignment: center;
     -fx-spacing: 10;
-    -fx-background-color: #FFC7D8;
+    -fx-background-color: #ffd7e9;
 }
 
 .grid-style {
@@ -47,17 +47,17 @@
 
 .scoreL-style{
     -fx-font-size: 25px;
-    -fx-fill: #FA739D;
+    -fx-fill: #C71585;
 }
 
 .title-game-over-style{
     -fx-font-size: 50px;
-    -fx-text-fill:#FA739D;
+    -fx-text-fill:#C71585;
     -fx-font-weight: bold;
 }
 
 .slider-style {
     -fx-font-size: 20;
-    -fx-background-color: #FA739D;
-    -fx-text-fill: #F79BC5;
+    -fx-background-color: #ffd7e9;
+    -fx-text-fill: #C71585;
 }

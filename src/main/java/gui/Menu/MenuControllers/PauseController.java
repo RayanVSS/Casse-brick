@@ -1,20 +1,15 @@
 package gui.Menu.MenuControllers;
 
+import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.PauseView;
-import gui.Menu.MenuViews.StartMenuView;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class PauseController {
     private Timer timer;
     private PauseView view;
-    private StartMenuController startMenu;
 
     public PauseController(Stage p, PauseView view) {
         this.timer = new Timer();
@@ -28,9 +23,8 @@ public class PauseController {
 
     private void replay() {
         view.getChildren().clear();
-        this.timer.cancel();
-        GameView game = new GameView(view.getPrimaryStage(), 1);
-        game.animation();
+        //this.timer.cancel();
+        new GameView(view.getPrimaryStage(), 1);
     }
 
     private void quit() {
@@ -41,7 +35,7 @@ public class PauseController {
     private void menu() {
         view.getChildren().clear();
         this.timer.cancel();
-        new StartMenuController(view.getPrimaryStage(), new StartMenuView(view.getPrimaryStage()));
+        App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
     }
 
     private void resume() {

@@ -95,7 +95,6 @@ public class GameView extends App {
             root.getChildren().add(this.fpsGraphics);
         }
 
-        //root.setStyle("-fx-background-color: #FBFAF5;");
         root.getStyleClass().add("game-backgorund");
         scene.getStylesheets().add(GameConstants.CSS);
         this.animation();
@@ -154,7 +153,7 @@ public class GameView extends App {
         animationTimer = new AnimationTimer() {
             long last = 0;
             double delay = 0.0;
-            PauseView pauseView = new PauseView(primaryStage, root, this);
+            // PauseView pauseView = new PauseView(primaryStage, root, this);
 
             @Override
             public void handle(long now) {
@@ -183,7 +182,7 @@ public class GameView extends App {
                     }
                     if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
                         animationStop();
-                        root.getChildren().add(this.pauseView);
+                        root.getChildren().add(new PauseView(primaryStage, gameView.getRoot(), animationTimer));
                     }
                 }
                 last = now;
