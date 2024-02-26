@@ -94,7 +94,8 @@ public class Game {
             rules.updateRemainingBounces();
             rules.updateBricksTransparency(map);
             rules.shuffleBricks(map.getBricks());
-            map.displayBricksTransparencyInTerminal();
+            map.displayColoredBricksInTerminal();
+            System.out.println(ball.getColor());
         }
         // Gere les conditions de perte
         if (!ball.movement()) {

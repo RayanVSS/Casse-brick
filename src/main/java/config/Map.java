@@ -82,17 +82,15 @@ public class Map {
 
                     if (!targetBrick.isDestroyed() && ball.intersectBrick(targetBrick)) {
 
-                        // Changement de direction par défaut, puis annule le changement de direction si la règle ne le permet pas
-                        if (i != 0) { // changement directionnel simple en attendant la physique plus complexe
-                            ball.getDirection().setX(-ball.getDirection().getX());
-                        }
-                        if (j != 0) {
-                            ball.getDirection().setY(-ball.getDirection().getY());
-                        }
-
                         if (rules.haveBricksCollisionRules()) { // Application des règles du jeu aux collisions
                             handleBricksCollisionRules(targetBrick, ball, rules, i, j);
                         } else {
+                            if (i != 0) { // changement directionnel simple en attendant la physique plus complexe
+                                ball.getDirection().setX(-ball.getDirection().getX());
+                            }
+                            if (j != 0) {
+                                ball.getDirection().setY(-ball.getDirection().getY());
+                            }
                             targetBrick.setDestroyed(true);
                         }
                     }
@@ -116,16 +114,26 @@ public class Map {
             }
 
         } else {
-            boolean breakBrick = false;
+            if (i != 0) { // changement directionnel simple en attendant la physique plus complexe
+                ball.getDirection().setX(-ball.getDirection().getX());
+            }
+            if (j != 0) {
+                ball.getDirection().setY(-ball.getDirection().getY());
+            }
             if (rules.isColorRestricted()) {
                 if (rules.verifyColor(brick, ball)) {
-                    breakBrick = true;
+                    System.out.println(rules.verifyColor(brick, ball));
+                    if (rules.isUnbreakable() && !brick.isUnbreakable() || !rules.isUnbreakable()) {
+                        brick.setDestroyed(true);
+                    }
                 }
                 ball.setColor(brick.getColor());
+            } else {
+                if (rules.isUnbreakable() && !brick.isUnbreakable()) {
+                    brick.setDestroyed(true);
+                }
             }
-            if (rules.isUnbreakable() && !brick.isUnbreakable() || breakBrick) {
-                brick.setDestroyed(breakBrick);
-            }
+
         }
     }
 
