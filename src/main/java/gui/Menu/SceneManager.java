@@ -77,13 +77,6 @@ public class SceneManager {
         addScene("SaveView", saveView.getScene());
     }
 
-    public void createGameViewScene(Stage primaryStage) {
-        primaryStage.getScene().getRoot().setVisible(false);
-        GameView gameView = new GameView(primaryStage, 1);
-        addStylesheet(gameView.getScene());
-        addScene("GameView", gameView.getScene());
-    }
-
     public void createTutoViewScene(Stage primaryStage) {
         TutoView tutoView = new TutoView(primaryStage, this);
         addStylesheet(tutoView.getScene());
@@ -93,26 +86,26 @@ public class SceneManager {
     public void changeScene(Stage primaryStage, String name) {
 
         Scene newScene = getScene(name);
-        // Platform.runLater(() -> {
-            // if (primaryStage.getScene() != null) { // Si une scène est déjà présente
-            //     // Créer une transition de fondu pour la scène actuelle
-            //     FadeTransition ft = new FadeTransition(Duration.millis(200), primaryStage.getScene().getRoot());
-            //     ft.setFromValue(1.0);
-            //     ft.setToValue(0.0);
-            //     ft.setOnFinished(event -> { // Quand la transition est terminée
-            //         primaryStage.setScene(newScene); // Changer la scène
-            //         // Créer une transition de fondu pour la nouvelle scène
-            //         FadeTransition ft2 = new FadeTransition(Duration.millis(200), newScene.getRoot());
-            //         ft2.setFromValue(0.0);
-            //         ft2.setToValue(1.0);
-            //         ft2.play(); // Jouer la transition
-            //     });
-            //     ft.play(); // Jouer la transition
-            // } else {
-            //     primaryStage.setScene(newScene); // Si aucune scène n'est présente, simplement changer la scène
-            // }
-        // });
-        primaryStage.setScene(newScene);
+        Platform.runLater(() -> {
+            //TODO: ajouter une transition jolie
+            if (primaryStage.getScene() != null) { // Si une scène est déjà présente
+                // Créer une transition de fondu pour la scène actuelle
+                FadeTransition ft = new FadeTransition(Duration.millis(200), primaryStage.getScene().getRoot());
+                ft.setFromValue(1.0);
+                ft.setToValue(0.0);
+                ft.setOnFinished(event -> { // Quand la transition est terminée
+                    primaryStage.setScene(newScene); // Changer la scène
+                    // Créer une transition de fondu pour la nouvelle scène
+                    FadeTransition ft2 = new FadeTransition(Duration.millis(200), newScene.getRoot());
+                    ft2.setFromValue(0.0);
+                    ft2.setToValue(1.0);
+                    ft2.play(); // Jouer la transition
+                });
+                ft.play(); // Jouer la transition
+            } else {
+                primaryStage.setScene(newScene); // Si aucune scène n'est présente, simplement changer la scène
+            }
+        });
         System.out.println("Scene changed to " + name);
         System.out.println();
         System.out.println("Scenes in primaryStage:");

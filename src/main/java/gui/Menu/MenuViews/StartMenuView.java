@@ -39,7 +39,7 @@ public class StartMenuView implements Menu {
         System.out.println("StartMenuView CHECKED");
         this.primaryStage = p;
         this.sceneManager = sceneManager;
-        root.getStyleClass().add("root");
+       // root.getStyleClass().add("root");
         title = createLabel("Casse Brique", 0, 0);
         title.getStyleClass().add("title-style");
         btnPlay = createButton("Jouer", 0, 0);

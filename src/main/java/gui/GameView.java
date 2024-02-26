@@ -95,6 +95,7 @@ public class GameView extends App {
         }
 
         this.animation();
+        root.getStyleClass().add("game-background");
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
         primaryStage.show();

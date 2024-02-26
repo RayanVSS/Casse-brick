@@ -5,7 +5,6 @@ import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.GameOverView;
 import javafx.application.Platform;
-import utils.GameConstants;
 
 /**
  * Classe GameOverController qui gère les interactions de l'utilisateur avec la vue GameOverView.
@@ -33,8 +32,7 @@ public class GameOverController {
      */
     private void replay() {
         Platform.runLater(() -> {
-            GameView gameView = new GameView(view.getPrimaryStage(), 1);
-            gameView.getScene().getStylesheets().add(GameConstants.CSS);
+            new GameView( view.getPrimaryStage(), 1);
         });
     }
 
