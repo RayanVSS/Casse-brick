@@ -10,13 +10,18 @@ import utils.*;
 public class BricksGraphics extends StackPane {
     public ImageView imageView;
     public Brick brick;
+    public int i;
+    public int j;
 
-    public BricksGraphics(Image image, Brick brick) {
+    public BricksGraphics(Image image, Brick brick, int i, int j) {
         this.brick = brick;
-        this.imageView = new ImageView(image);
-        this.imageView.setFitWidth(GameConstants.BRICK_WIDTH);
-        this.imageView.setFitHeight(GameConstants.BRICK_HEIGHT);
-        getChildren().add(this.imageView);
+        this.i = i;
+        this.j = j;
+        this.setImageView(image);
+        // this.imageView = new ImageView(image);
+        // this.imageView.setFitWidth(GameConstants.BRICK_WIDTH);
+        // this.imageView.setFitHeight(GameConstants.BRICK_HEIGHT);
+        // getChildren().add(this.imageView);
     }
 
     public void setImageView(Image image) {
@@ -28,23 +33,29 @@ public class BricksGraphics extends StackPane {
 
     public void update() {
         if (brick != null) {
-            if (brick.isDestroyed() && imageView.getImage() == null) {
+            if (brick.isDestroyed()) {
                 getChildren().remove(imageView);
                 imageView = new ImageView();
                 getChildren().add(imageView);
             }
-            // else if (brick.getDurability() < 70 && brick.getDurability() > 50
-            // && !imageView.getImage().getUrl().equals("src/main/ressources/briquec.png"))
-            // {
+            // else if (brick.getC().getIntX() != i || brick.getC().getIntY() != j) {
+            // i = brick.getC().getIntX();
+            // j = brick.getC().getIntY();
+            // setLayoutX(i * GameConstants.BRICK_WIDTH);
+            // setLayoutY(j * GameConstants.BRICK_HEIGHT);
+            // this.setVisible(true);
+            // }
+
+            // else if (brick.isUnbreakable()) {
+            // // &&
+            // !imageView.getImage().getUrl().equals("src/main/ressources/briqueii.png"))
+            // // {
             // getChildren().remove(imageView);
-            // Image im = ImageLoader.loadImage("src/main/ressources/briquec.png");
+            // Image im = ImageLoader.loadImage("src/main/ressources/briqueii.png");
             // this.setImageView(im);
-            // } else if (brick.getDurability() > 0 && brick.getDurability() < 50
-            // && !imageView.getImage().getUrl().equals("src/main/ressources/briquecc.png"))
-            // {
-            // getChildren().remove(imageView);
-            // Image im = ImageLoader.loadImage("src/main/ressources/briquecc.png");
-            // this.setImageView(im);
+            // }
+            // if (brick.isTransparent()) {
+            // imageView.setOpacity(0.5);
             // }
         }
     }

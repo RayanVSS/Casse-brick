@@ -14,11 +14,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage p) throws Exception {
-        //chargement de la derniere sauvegarde
-        System.out.println("Chargement de la derniere sauvegarde");
-        sauvegarde.chargerLastSave();
-        System.out.println(LAST_SAVE + "AAAAAAAAAAAAAAAAAAAAAAAA");
-        sauvegarde.chargerOptionsDuJeu(LAST_SAVE);
+        // chargement de la derniere sauvegarde
+        // System.out.println("Chargement de la derniere sauvegarde");
+        // sauvegarde.chargerLastSave();
+        // System.out.println(LAST_SAVE + "AAAAAAAAAAAAAAAAAAAAAAAA");
+        // sauvegarde.chargerOptionsDuJeu(LAST_SAVE);
 
         this.primaryStage = p;
         this.primaryStage.setResizable(false);
@@ -27,7 +27,9 @@ public class App extends Application {
         new StartMenuView(p);
 
         primaryStage.show();
-        primaryStage.getOnCloseRequest();
+        primaryStage.setOnCloseRequest(event -> {
+            System.exit(0);
+        });
     }
 
     public static void main(String[] args) {

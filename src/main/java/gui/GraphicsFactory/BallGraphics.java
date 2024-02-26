@@ -2,12 +2,12 @@ package gui.GraphicsFactory;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import entity.EntityColor;
 import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
 import entity.ball.MagnetBall;
-
 
 public class BallGraphics extends Circle {
 
@@ -18,16 +18,22 @@ public class BallGraphics extends Circle {
         setCenterX(ball.getC().getX());
         setCenterY(ball.getC().getY());
         setRadius(ball.getRadius());
-        if (ball instanceof ClassicBall)
+        if (ball instanceof ClassicBall) {
+            ball.setColor(EntityColor.RED);
             setFill(Color.RED);
-        else if (ball instanceof HyperBall)
+        } else if (ball instanceof HyperBall) {
+            ball.setColor(EntityColor.BLUE);
             setFill(Color.BLUE);
-        else if (ball instanceof GravityBall)
+        } else if (ball instanceof GravityBall) {
             setFill(Color.GRAY);
-        else if (ball instanceof MagnetBall)
+            ball.setColor(EntityColor.RED);
+        } else if (ball instanceof MagnetBall) {
             setFill(Color.GREEN);
-        else
+            ball.setColor(EntityColor.GREEN);
+        } else {
+            ball.setColor(EntityColor.RED);
             setFill(Color.BLACK);
+        }
     }
 
     public void update() {
@@ -39,7 +45,19 @@ public class BallGraphics extends Circle {
             else
                 setFill(Color.YELLOW);
         }
+        switch (ball.getColor()) {
+            case RED:
+                setFill(Color.RED);
+                break;
+            case GREEN:
+                setFill(Color.GREEN);
+                break;
+            case BLUE:
+                setFill(Color.BLUE);
+                break;
+            default:
+                break;
+        }
     }
 
-    
 }

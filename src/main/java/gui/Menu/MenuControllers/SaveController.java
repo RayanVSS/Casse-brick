@@ -6,14 +6,12 @@ import javafx.stage.Stage;
 import java.util.*;
 import save.Sauvegarde;
 
-import static utils.GameConstants.LAST_SAVE;
-
+// import static utils.GameConstants.LAST_SAVE;
 
 public class SaveController {
     private SaveView view;
     private Sauvegarde sauvegarde = new Sauvegarde();
     private Map<String, Object> donnees = new HashMap<>();
-
 
     public SaveController(Stage p) {
         this.view = new SaveView(p);
@@ -26,8 +24,8 @@ public class SaveController {
     }
 
     private void back() {
-        //new StartMenuView(view.getPrimaryStage());
-        new StartMenuController(view.getPrimaryStage(), new StartMenuView(view.getPrimaryStage()));    
+        // new StartMenuView(view.getPrimaryStage());
+        new StartMenuController(view.getPrimaryStage(), new StartMenuView(view.getPrimaryStage()));
     }
 
     private void save() {
@@ -38,9 +36,10 @@ public class SaveController {
         String selectedSauvegarde = view.getListSave().getValue();
         System.out.println(selectedSauvegarde);
 
-        if (selectedSauvegarde != null) { //si une sauvegarde est sélectionnée 
+        if (selectedSauvegarde != null) { // si une sauvegarde est sélectionnée
             sauvegarde.chargerOptionsDuJeu(selectedSauvegarde); // Charger la sauvegarde sélectionnée dans le fichier
-            view.afficherMessage("Sauvegarde '" + selectedSauvegarde + "' chargée avec succès"); // Afficher un message de confirmation
+            view.afficherMessage("Sauvegarde '" + selectedSauvegarde + "' chargée avec succès"); // Afficher un message
+                                                                                                 // de confirmation
         } else {
             view.afficherMessage("Veuillez sélectionner une sauvegarde à charger"); // Afficher un message d'erreur
         }
@@ -48,10 +47,12 @@ public class SaveController {
 
     private void delete() {
         String selectedSauvegarde = view.getListSave().getValue();
-        if (selectedSauvegarde != null) { //si une sauvegarde est sélectionnée
+        if (selectedSauvegarde != null) { // si une sauvegarde est sélectionnée
             sauvegarde.supprimerSauvegarde(selectedSauvegarde);// Supprimer la sauvegarde sélectionnée dans le fichier
-            view.getListSave().getItems().remove(selectedSauvegarde); // Supprimer la sauvegarde sélectionnée dans la ComboBox
-            view.afficherMessage("Sauvegarde " + selectedSauvegarde + " supprimée avec succès"); // Afficher un message de confirmation
+            view.getListSave().getItems().remove(selectedSauvegarde); // Supprimer la sauvegarde sélectionnée dans la
+                                                                      // ComboBox
+            view.afficherMessage("Sauvegarde " + selectedSauvegarde + " supprimée avec succès"); // Afficher un message
+                                                                                                 // de confirmation
         } else {
             view.afficherMessage("Veuillez sélectionner une sauvegarde à supprimer"); // Afficher un message d'erreur
         }
@@ -67,7 +68,4 @@ public class SaveController {
         sauvegarde.resetLastSave(); // Réinitialiser la dernière sauvegarde
     }
 
-
-
-    
 }

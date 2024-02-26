@@ -3,10 +3,12 @@ package config;
 import entity.ball.Ball;
 import entity.racket.Racket;
 import geometry.Coordinates;
+import utils.GameConstants;
+import java.util.Timer;
+import java.util.TimerTask;
 import entity.ball.MagnetBall;
 
 public class Game {
-
 
     private Ball ball;
     private Racket racket;
@@ -14,12 +16,33 @@ public class Game {
     private boolean lost = false;
     private int score = 0;
     private int life = 3;
-    private static boolean collide;
+    private boolean collide;
+    private GameRules rules;
+    private Timer inGameTimer;
+    private int timeElapsed = 0; // en secondes
 
-    public Game(Ball ball, Racket racket, BricksArrangement arrangement) {
+    public Game(Ball ball, Racket racket, GameRules rules) {
         this.ball = ball;
         this.racket = racket;
-        this.map = new Map(arrangement);
+        this.rules = rules;
+        this.map = new Map(rules);
+        rules.initRules(this);
+        inGameTimer = new Timer();
+    }
+
+    public void start() {
+        inGameTimer.scheduleAtFixedRate(new TimerTask() {
+
+            @Override
+            public void run() { // chaque seconde
+                timeElapsed++;
+                rules.updateRemainingTime();
+            }
+        }, 0, 1000);
+    }
+
+    public void stop() {
+        inGameTimer.cancel();
     }
 
     // Setters/getters
@@ -27,11 +50,11 @@ public class Game {
         return ball;
     }
 
-    public static Boolean getCollide() {
+    public boolean getCollide() {
         return collide;
     }
 
-    public  Racket getRacket() {
+    public Racket getRacket() {
         return racket;
     }
 
@@ -51,34 +74,37 @@ public class Game {
         return life;
     }
 
+    public Timer getInGameTimer() {
+        return inGameTimer;
+    }
+
     public void update(long deltaT) {
+
         // Vérifie si la balle touche une brique
-        map.handleCollisionBricks(ball); // gérer la collision des briques
-        if (map.updateBricksStatus()) {
-            score += 10;
-        }
+        map.handleCollisionBricks(ball, rules); // gérer la collision des briques
+        map.updateBricksStatus();
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
+            rules.updateRemainingBounces();
+            rules.updateBricksTransparency(map);
+            rules.shuffleBricks(map.getBricks());
+            map.displayBricksTransparencyInTerminal();
         }
         // Gere les conditions de perte
         if (!ball.movement()) {
             life--;
             ball.reset();
         }
-        if (life == 0) {
+        if (life == 0 || !rules.check()) {
             lost = true;
+            inGameTimer.cancel();
         }
-        if(ball instanceof MagnetBall){
-            //donne les coordonnées de la raquette a la MagnetBall
-            setRa();
-            //actualise l'etat de la raquette    
-            if(BallFrontRacket()){
-                ((MagnetBall) ball).setFront(true);
-            }else{
-                ((MagnetBall) ball).setFront(false);
-            }
-        }
+
+    }
+
+    public void lost() {
+        System.exit(0);
     }
 
     public boolean collisionRacket(Coordinates c) {
@@ -86,10 +112,10 @@ public class Game {
                 && c.getY() >= racket.getC().getY() && c.getY() <= racket.getC().getY() + racket.getLargeur();
     }
 
-
     // Vérifie si la balle est devant la raquette
     public boolean BallFrontRacket() {
-        if(racket.getC().getX()-ball.getC().getX() < 0 && (racket.getC().getX()+racket.getLargeur())-ball.getC().getX() > 0){
+        if (racket.getC().getX() - ball.getC().getX() < 0
+                && (racket.getC().getX() + racket.getLargeur()) - ball.getC().getX() > 0) {
             return true;
         }
         return false;
@@ -100,6 +126,6 @@ public class Game {
     }
 
     public void setRa() {
-        MagnetBall.getRa=racket.getC();
+        MagnetBall.getRa = racket.getC();
     }
 }
