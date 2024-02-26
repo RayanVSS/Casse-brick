@@ -5,7 +5,6 @@ import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.GameOverView;
 import javafx.application.Platform;
-import javafx.stage.Stage;
 import utils.GameConstants;
 
 /**
@@ -22,7 +21,7 @@ public class GameOverController {
      * @param p Le stage principal sur lequel la vue de fin de partie est affichée.
      * @param gameView La vue de fin de partie.
      */
-    public GameOverController(Stage p, GameOverView gameView) {
+    public GameOverController( GameOverView gameView) {
         this.view=gameView;
         this.view.getBtnReplay().setOnAction(e -> replay());
         this.view.getBtnQuit().setOnAction(e -> quit());

@@ -1,7 +1,7 @@
 .button-style {
     -fx-font-size: 20px;
-    -fx-background-color: #F7E3EE;
-    -fx-text-fill: #F79BC5;
+    -fx-background-color: #AAB8C2;
+    -fx-text-fill: #14171A;
 }
 
 .button-hover {
@@ -32,7 +32,7 @@
 }
 
 .root{
-    -fx-background-color: #FBFAF5;
+    -fx-background-color: #F5F8FA;
 }
 
 .root-game-over {
@@ -62,6 +62,6 @@
 
 .slider-style {
     -fx-font-size: 20;
-    -fx-background-color: #F7E3EE;
     -fx-text-fill: #F79BC5;
 }
+

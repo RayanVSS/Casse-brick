@@ -26,21 +26,21 @@ public class StartMenuController {
      */
     public StartMenuController(Stage p, StartMenuView view) {
         this.view = view;
-        this.view.getBtnPlay().setOnAction(e -> Platform.runLater(() -> {
+        this.view.getBtnPlay().setOnAction(e -> {
             play();
-        }));
-        this.view.getBtnOptions().setOnAction(e -> Platform.runLater(() -> {
+        });
+        this.view.getBtnOptions().setOnAction(e -> {
             options();
-        }));
-        this.view.getBtnQuit().setOnAction(e -> Platform.runLater(() -> {
+        });
+        this.view.getBtnQuit().setOnAction(e -> {
             quit();
-        }));
-        this.view.getBtnTuto().setOnAction(e -> Platform.runLater(() -> {
+        });
+        this.view.getBtnTuto().setOnAction(e -> {
             tuto();
-        }));
-        this.view.getBtnSave().setOnAction(e -> Platform.runLater(() -> {
+        });
+        this.view.getBtnSave().setOnAction(e -> {
             Sauvegarde();
-        }));
+        }); 
     }
 
     /**
@@ -48,26 +48,21 @@ public class StartMenuController {
      */
     private void play() {
         Platform.runLater(() -> {
-        // view.getSceneManager().changeScene(view.getPrimaryStage(), "GameView");
+            // view.getSceneManager().changeScene(view.getPrimaryStage(), "GameView");
             GameView game = new GameView(view.getPrimaryStage(), 1);
-            //view.getPrimaryStage().setScene(game.getScene());
+            // view.getPrimaryStage().setScene(game.getScene());
             game.getScene().getStylesheets().add(GameConstants.CSS);
         });
-        
+
     }
 
     /**
      * Méthode pour afficher les options.
      */
     private void options() {
-        // view.getRoot().getChildren().clear();
-        // view.getPrimaryStage().setScene(new
-        // OptionsView(view.getPrimaryStage()).getScene());
-        // //new OptionsController(view.getPrimaryStage(), new
-        // OptionsView(view.getPrimaryStage()));
-        Platform.runLater(() -> {
+        // Platform.runLater(() -> {
             App.sceneManager.changeScene(view.getPrimaryStage(), "OptionsView");
-        });
+        // });
     }
 
     /**
@@ -81,9 +76,6 @@ public class StartMenuController {
      * Méthode pour afficher le tutoriel.
      */
     private void tuto() {
-        // view.getRoot().getChildren().clear();
-        // new TutoView(view.getPrimaryStage());
-        // new TutoController(view.getPrimaryStage());
         Platform.runLater(() -> {
             App.sceneManager.changeScene(view.getPrimaryStage(), "TutoView");
         });
@@ -93,9 +85,6 @@ public class StartMenuController {
      * Méthode pour sauvegarder le jeu.
      */
     private void Sauvegarde() {
-        // view.getRoot().getChildren().clear();
-        // new SaveView(view.getPrimaryStage());
-        // new SaveController(view.getPrimaryStage());
         Platform.runLater(() -> {
             App.sceneManager.changeScene(view.getPrimaryStage(), "SaveView");
         });

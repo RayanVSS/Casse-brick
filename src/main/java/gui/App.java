@@ -32,10 +32,7 @@ public class App extends Application {
 
         primaryStage.setScene(sceneManager.getScene("StartMenuView"));
 
-        primaryStage.centerOnScreen();
-        primaryStage.toFront();
         primaryStage.show();
-        primaryStage.getOnCloseRequest();
     }
 
     public static void main(String[] args) {

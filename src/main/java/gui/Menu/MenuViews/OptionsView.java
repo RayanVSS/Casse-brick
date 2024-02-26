@@ -1,6 +1,5 @@
 package gui.Menu.MenuViews;
 
-import gui.Menu.SceneManager;
 import gui.Menu.MenuControllers.OptionsController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -25,7 +24,6 @@ public class OptionsView implements Menu {
     private static HBox root = new HBox();
     private static Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,
             GameConstants.DEFAULT_WINDOW_HEIGHT);
-    private SceneManager sceneManager;
     private Button btnBack;
     private ToggleButton buttonfps;
     private ToggleButton buttonpath;
@@ -42,11 +40,11 @@ public class OptionsView implements Menu {
      * 
      * @param p Le stage principal sur lequel la vue des options est affichée.
      */
-    public OptionsView(Stage p, SceneManager sceneManager) {
+    public OptionsView(Stage p) {
+        //TODO: les options ne s'affiche plus, debug + test
         //super(p, scene, sceneManager);
         System.out.println("OptionsView CHECKED");
         this.primaryStage = p;
-        this.sceneManager = sceneManager;
         btnBack = createButton("Retour", 0, 0);
         root.getStyleClass().add("root");
 
@@ -167,8 +165,5 @@ public class OptionsView implements Menu {
 
     public ComboBox<String> getListTheme() {
         return listTheme;
-    }
-    public SceneManager getSceneManager() {
-        return sceneManager;
     }
 }

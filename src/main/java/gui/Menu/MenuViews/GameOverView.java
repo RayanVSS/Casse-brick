@@ -48,8 +48,9 @@ public class GameOverView extends VBox implements Menu {
         setLayoutY(gameView.getRoot().getLayoutY());
         setPrefWidth(gameView.getRoot().getWidth());
         setPrefHeight(gameView.getRoot().getHeight());
+        //TODO : ajouter le game over dans le scene manager
         getStylesheets().add(GameConstants.CSS);
-        new GameOverController(p, this);
+        new GameOverController(this);
     }
 
     /**

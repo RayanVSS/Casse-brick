@@ -25,7 +25,7 @@ public class OptionsController {
     public OptionsController(Stage p, OptionsView view) {
         this.view = view;
 
-        this.view.getBtnBack().setOnAction(e -> Platform.runLater(() -> back()));
+        this.view.getBtnBack().setOnAction(e -> back());
         this.view.getButtonfps().setOnAction(e -> fps());
         this.view.getButtonpath().setOnAction(e -> path());
         this.view.getButtonparticles().setOnAction(e -> particles());
@@ -136,8 +136,8 @@ public class OptionsController {
         if (selectedTheme != null) {
             GameConstants.CSS = "/styles/" + selectedTheme + ".css";
             //change le css de chaque scene dans SceneManager
-            view.getSceneManager().getScenes().forEach((k, v) -> {
-                view.getSceneManager().addStylesheet(v);
+            App.sceneManager.getScenes().forEach((k, v) -> {
+                v.getStylesheets().add(getClass().getResource(GameConstants.CSS).toExternalForm());
             });
         }
     }
