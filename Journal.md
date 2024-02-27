@@ -287,3 +287,26 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 -#44 affichage pour la permutation des briques pas finie
 - mode infini
+
+### Belhassen rayan
+<span style="color:green">**Fait:**</span>
+
+- magnetRacket: raquette magnétique 
+- magnetBall: balle magnétique 
+- sauvegarde:
+    -finalisation du menu pour les sauvegardes
+    -possibilité de pouvoir enregistrer les options 
+    -le je charge sur la dernière sauvegarde 
+
+<span style="color:purple">**A Faire:**</span>
+
+- travailler sur un mode pour daltonien
+
+- mode deux joueur 
+
+
+
+
+
+
+
