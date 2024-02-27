@@ -275,3 +275,15 @@ affichage de la racket
 
 
 
+### Amenah MUSHTAQ
+
+<span style="color:green">**Fait:**</span>
+-#27 bouton pause pb timer reglé
+-#44 : 
+    -affichage pour le mode couleur
+    -optimisation de l'affichage des briques
+    -affichage pour la permutation des briques pas finie
+
+<span style="color:purple">**A Faire:**</span>
+-#44 affichage pour la permutation des briques pas finie
+- mode infini
