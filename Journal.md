@@ -296,7 +296,7 @@ affichage de la racket
 - sauvegarde:
     - finalisation du menu pour les sauvegardes
     - possibilité de pouvoir enregistrer les options 
-    - le je charge sur la dernière sauvegarde 
+    - le jeu charge sur la dernière sauvegarde 
 
 <span style="color:purple">**A Faire:**</span>
 
