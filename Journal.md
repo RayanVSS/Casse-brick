@@ -294,9 +294,9 @@ affichage de la racket
 - magnetRacket: raquette magnétique 
 - magnetBall: balle magnétique 
 - sauvegarde:
-    -finalisation du menu pour les sauvegardes
-    -possibilité de pouvoir enregistrer les options 
-    -le je charge sur la dernière sauvegarde 
+    - finalisation du menu pour les sauvegardes
+    - possibilité de pouvoir enregistrer les options 
+    - le je charge sur la dernière sauvegarde 
 
 <span style="color:purple">**A Faire:**</span>
 
