@@ -9,7 +9,6 @@ import gui.GameView;
 import javafx.scene.input.KeyCode;
 import utils.GameConstants;
 import javafx.scene.shape.Circle;
-import physics.Outline;
 
 import java.util.ArrayList;
 

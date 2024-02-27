@@ -7,7 +7,6 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 import javafx.scene.input.KeyCode;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,19 +21,19 @@ import utils.Key;
 /***************************************************************************
  *                  Explication de classe Simulation                       
  * 
- * @var Outline contient les informations de la simulation
+ * @var physics contient les informations de la simulation
  * @var Ball ball : La balle de la simulation 
  * @var Racket racket : La raquette de la simulation
  * 
  * @param primaryStage : la fenetre de la simulation
- * @param outline : les informations de la simulation
+ * @param physics : les informations de la simulation
  * 
  * @fonction update : permet de mettre à jour la position de la balle et de la raquette
  * 
  * @author Ilias Bencheikh 
  **************************************************************************/
 
-public class Simulation {
+public class PhysicEngine {
 
     //Initialisation des objets
     public static double DEFAULT_WINDOW_HEIGHT=800;
@@ -45,7 +44,7 @@ public class Simulation {
     Stage primaryStage;
     Pane root;
 
-    Outline outline;
+    PhysicSetting physics;
 
     Ball ball;
     Circle graphBall;
@@ -63,18 +62,17 @@ public class Simulation {
     boolean isMouseDraggingBall = false;
 
 
-    public Simulation(Stage pStage, AppPhysic appPhysic) {
+    public PhysicEngine(Stage pStage, AppPhysic appPhysic) {
 
         //Initialisation de la fenetre
 
         this.primaryStage = pStage;
         root = new Pane();
         primaryStage.setScene(new javafx.scene.Scene(root, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
-        primaryStage.setTitle("Simulation");
 
         //Initialisation de la simulation
 
-        this.outline = AppPhysic.outline;
+        this.physics = AppPhysic.physics;
 
         if(RACKET){
             racket = new Racket(200, 20, 8, false, true){
@@ -109,14 +107,14 @@ public class Simulation {
         }
 
         ball = new Ball(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
-        outline.getDirection(),1, outline.getRadius()){
+        physics.getDirection(),1, physics.getRadius()){
 
             @Override
             public boolean movement(){
                 double h = DEFAULT_WINDOW_WIDTH;
                 double w = DEFAULT_WINDOW_HEIGHT;
-                double newX = this.getC().getX() + this.getDirection().getX() + outline.getWind().getX() + outline.getFrictionRacket().getX();
-                double newY = this.getC().getY() + this.getDirection().getY() + outline.getWind().getY() ;
+                double newX = this.getC().getX() + this.getDirection().getX() + physics.getWind().getX() + physics.getFrictionRacket().getX();
+                double newY = this.getC().getY() + this.getDirection().getY() + physics.getWind().getY() ;
                 if (CollisionR) {
                     if (BougePColision) {
                         this.getDirection().setY(-this.getDirection().getY());
@@ -130,8 +128,8 @@ public class Simulation {
                                 case D:
                                     this.getDirection().setX(this.getDirection().getX());
                                     this.getDirection().setY(-this.getDirection().getY());
-                                    outline.getFrictionRacket().setX(outline.getFrictionRacket().getX() + 0.5);
-                                    newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed()+ outline.getFrictionRacket().getX();
+                                    physics.getFrictionRacket().setX(physics.getFrictionRacket().getX() + 0.5);
+                                    newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed()+ physics.getFrictionRacket().getX();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                                     CollisionR = false;
                                     //this.getDirection().setX(this.getDirection().getX()+0.5);
@@ -141,8 +139,8 @@ public class Simulation {
                                 case Q:
                                     this.getDirection().setX(this.getDirection().getX());
                                     this.getDirection().setY(-this.getDirection().getY());
-                                    outline.getFrictionRacket().setX(outline.getFrictionRacket().getX() - 0.5);
-                                    newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed() + outline.getFrictionRacket().getX();
+                                    physics.getFrictionRacket().setX(physics.getFrictionRacket().getX() - 0.5);
+                                    newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed() + physics.getFrictionRacket().getX();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                                     CollisionR = false;
                                     //this.getDirection().setX(this.getDirection().getX()-0.5);
@@ -156,17 +154,17 @@ public class Simulation {
                 if (newX < 0 || newX > h - this.getRadius()) {
                     this.getDirection().setX(-this.getDirection().getX());
                     newX = this.getC().getX() + this.getDirection().getX();
-                    this.getDirection().setX(this.getDirection().getX()*outline.getRetention());
+                    this.getDirection().setX(this.getDirection().getX()*physics.getRetention());
                 }
                 if (newY < 0 || newY > w - this.getRadius()) {
                     this.getDirection().setY(-this.getDirection().getY());
                     newY = this.getC().getY() + this.getDirection().getY();
-                    this.getDirection().setY(this.getDirection().getY()*outline.getRetention());
+                    this.getDirection().setY(this.getDirection().getY()*physics.getRetention());
                 } 
                 this.setC(new Coordinates(newX, newY));
-                this.getDirection().add(outline.getWind());
-                outline.checkGravity(ball.getC(), ball.getDirection());
-                //outline.checkFrictionRacket();
+                this.getDirection().add(physics.getWind());
+                physics.checkGravity(ball.getC(), ball.getDirection());
+                //physics.checkFrictionRacket();
                 return true;
             }
         };
@@ -177,7 +175,7 @@ public class Simulation {
         root.getChildren().add(graphBall);
         primaryStage.show();
 
-        preview = new Preview(ball, outline);
+        preview = new Preview(ball, physics);
         preview.init_path(ball, root);
 
         //Initialisation des evenements de la souris

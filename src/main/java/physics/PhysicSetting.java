@@ -35,7 +35,7 @@ import utils.GameConstants;
  * @author Ilias Bencheikh 
  **************************************************************************/
 
-public class Outline {
+public class PhysicSetting {
 
     // variables pour la balle
     private Vector Speed;
@@ -47,7 +47,7 @@ public class Outline {
     public static int Speed_Ball = 0;
     public static int Speed_Wind = 0;
     public static int Direction_Wind = 0;
-    public static double Gravite = 0.1;
+    public static double Gravite = 0;
     public static double Mass = 1;
     public static final double stop_bounce = 0.3;
     public static final double retention = 0.8;
@@ -55,14 +55,14 @@ public class Outline {
     public static final double friction_air = 0.01;
     public static Vector friction_racket= new Vector(new Coordinates(0,0));
 
-    public Outline(){
+    public PhysicSetting(){
         this.Speed = new Vector(new Coordinates(1,1));
         this.Radius = GameConstants.DEFAULT_BALL_RADIUS/2;
         this.Direction = randomDirection();
         this.Wind = vectorWind(Speed_Wind, Direction_Wind);
     }
 
-    public Outline(Vector Speed , int Radius , double gravite , Vector Wind , double mass){
+    public PhysicSetting(Vector Speed , int Radius , double gravite , Vector Wind , double mass){
         this.Speed = Speed;
         this.Radius = Radius;
         this.Direction = randomDirection();
@@ -72,7 +72,7 @@ public class Outline {
     }
 
     public void checkGravity(Coordinates c, Vector d) {
-        if (c.getY() < Simulation.DEFAULT_WINDOW_HEIGHT - Radius) {
+        if (c.getY() < PhysicEngine.DEFAULT_WINDOW_HEIGHT - Radius) {
             d.setY(d.getY() + Gravite*Mass);
         } else {
             if (d.getY() > stop_bounce) {
@@ -82,7 +82,7 @@ public class Outline {
                     d.setY(0);
                 }
             }
-            if ((c.getX() < Radius && d.getX() < 0) || (c.getX() > Simulation.DEFAULT_WINDOW_WIDTH - Radius && d.getX() > 0)) {
+            if ((c.getX() < Radius && d.getX() < 0) || (c.getX() > PhysicEngine.DEFAULT_WINDOW_WIDTH - Radius && d.getX() > 0)) {
                 d.setX(-d.getX()* retention);
                 if (Math.abs(d.getX()) < stop_bounce) {
                     d.setX(0);
@@ -177,7 +177,7 @@ public class Outline {
     }
 
     public void setFrictionRacket(Vector friction_racket) {
-        Outline.friction_racket = friction_racket;
+        PhysicSetting.friction_racket = friction_racket;
     }
 
     public double getRetention() {
