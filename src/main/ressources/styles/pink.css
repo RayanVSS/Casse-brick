@@ -7,8 +7,8 @@
 
 .button-hover {
     -fx-font-size: 20px;
-    -fx-background-color: #ffd7e9;
-    -fx-text-fill: #C71585;
+    -fx-background-color: #C71585;
+    -fx-text-fill: #FFB6C1;
 }
 
 .label-style {
@@ -18,7 +18,7 @@
 
 .text-style {
     -fx-font-size: 20px;
-    -fx-fill: #C71585;
+    -fx-text-fill: #C71585;
 }
 
 
@@ -28,6 +28,9 @@
 }
 
 .root{
+    -fx-background-color: #ffd7e9;
+}
+.game-backgorund {
     -fx-background-color: #ffd7e9;
 }
 
@@ -47,7 +50,7 @@
 
 .scoreL-style{
     -fx-font-size: 25px;
-    -fx-fill: #C71585;
+    -fx-text-fill: #C71585;
 }
 
 .title-game-over-style{
@@ -59,5 +62,44 @@
 .slider-style {
     -fx-font-size: 20;
     -fx-background-color: #ffd7e9;
-    -fx-text-fill: #C71585;
+    /* -fx-text-fill: #C71585; */
+}
+
+.pause-view{
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-background-color: #ffd7e9;
+}
+
+.ball{
+    -fx-fill :  #FE6E87 ;
+}
+
+.hyperball { 
+    -fx-fill : #E5194C ;
+}
+
+.gravityball {
+    -fx-fill : #8B1039 ;
+}
+
+.magnetball{
+    -fx-fill :   #4E031A  ;
+}
+
+.magnetracketpositif{
+    -fx-fill : YELLOW;
+}
+
+.racket{
+    -fx-fill :  #FE6E87 ;
+}
+
+.ynotfixeracket{
+    -fx-fill :  #E5194C ;
+}
+
+.magnetracketnegatif{
+    -fx-fill : GREEN;
 }

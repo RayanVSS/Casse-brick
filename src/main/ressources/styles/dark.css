@@ -58,8 +58,8 @@
 
 .slider-style {
     -fx-font-size: 20px;
-    -fx-background-color: #1b263b;
-    -fx-text-fill: #d5bbb1;
+    -fx-background-color: #273654;
+    /* -fx-text-fill: #d5bbb1; */
 }
 
 .pause-view{

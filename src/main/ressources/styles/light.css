@@ -29,7 +29,7 @@
     -fx-background-color: #E1E8ED;
 }
 .game-backgorund {
-    -fx-background-color: #B9D9EB;
+    -fx-background-color: #E1E8ED;
 }
 
 .root-game-over {
@@ -48,7 +48,7 @@
 
 .scoreL-style{
     -fx-font-size: 25px;
-    -fx-fill: #14171A;
+    -fx-text-fill: #14171A;
 }
 
 .title-game-over-style{
@@ -59,18 +59,19 @@
 
 .slider-style {
     -fx-font-size: 20;
-    -fx-text-fill: #E1E8ED;
+    -fx-background-color: #E1E8ED;
+    /* -fx-text-fill: #14171A; */
 }
 
 .pause-view{
     -fx-opacity: 0.7;
     -fx-alignment: center;
     -fx-spacing: 10;
-    -fx-background-color: #78859f;
+    -fx-background-color: #E1E8ED;
 }
 
 .ball{
-    -fx-fill : black;
+    -fx-fill : #1DA1F2;
 }
 
 .hyperball{
@@ -85,3 +86,18 @@
     -fx-fill : #5072A7;
 }
 
+.magnetracketpositif{
+    -fx-fill : YELLOW;
+}
+
+.racket{
+    -fx-fill : #1DA1F2;
+}
+
+.ynotfixeracket{
+    -fx-fill : #00308F;
+}
+
+.magnetracketnegatif{
+    -fx-fill : GREEN;
+}

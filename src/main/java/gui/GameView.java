@@ -87,9 +87,8 @@ public class GameView extends App {
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
-        root.getChildren().add(this.scoreLifeView);
         root.getChildren().add(this.brickSet);
-
+        root.getChildren().add(this.scoreLifeView);
         if (GameConstants.FPS) {
             fpsGraphics = new FPSGraphics();
             root.getChildren().add(this.fpsGraphics);
