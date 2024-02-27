@@ -304,6 +304,20 @@ affichage de la racket
 
 - mode deux joueur 
 
+### Bencheikh Ilias
+<span style="color:green">**Fait:**</span>
+
+- Implémentation des effets de la balle (début de rotation) #32
+
+- Implémentation de prendre de la balle et de l'envoyer afin de la tester #40
+
+- Recherche d'un meilleur mouvement de la balle (loi de bernouilli et effet de magnus)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Améliorer les effets de la balle ( problème de collision avec le mur après plusieur effets)
+
+- Régler le problème de FPS (vitesse de la balle et de la racket varie en fonction des performances)
 
 
 
