@@ -315,9 +315,9 @@ affichage de la racket
 
 <span style="color:purple">**A Faire:**</span>
 
-- Améliorer les effets de la balle ( problème de collision avec le mur après plusieur effets)
+- Améliorer les effets de la balle ( problème de collision avec le mur après plusieur effets) #34
 
-- Régler le problème de FPS (vitesse de la balle et de la racket varie en fonction des performances)
+- Régler le problème de FPS (vitesse de la balle et de la racket varie en fonction des performances) #43
 
 
 
