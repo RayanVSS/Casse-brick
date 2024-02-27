@@ -1,0 +1,10 @@
+{
+  "PATH": false,
+  "SPACE": "SPACE",
+  "MUSIC": 50,
+  "PARTICLES": false,
+  "LEFT": "LEFT",
+  "FPS": true,
+  "SOUND": 50,
+  "RIGHT": "RIGHT"
+}

@@ -29,6 +29,7 @@
 .game-backgorund {
     -fx-background-color: #B9D9EB;
 }
+
 .root-game-over {
     -fx-opacity: 0.7;
     -fx-alignment: center;
@@ -61,8 +62,15 @@
     -fx-text-fill: #d5bbb1;
 }
 
-.ball {
-    -fx-fill : RED;
+.pause-view{
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-background-color: #78859f;
+}
+
+.ball{
+    -fx-fill : black;
 }
 
 .hyperball { 

@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class MagnetRacket extends Racket{
     //etat de la raquette 
-    private static String état = "positif";
+    private static String etat = "positif";
     private boolean change = false;
     
 
@@ -42,7 +42,7 @@ public void handleKeyRelease(KeyCode event) {
 public void setChange(){
     if(!change){
         changeEtat();
-        System.out.println(état);
+        System.out.println(etat);
         starChange();
         change = true;
     }
@@ -62,16 +62,16 @@ public void starChange(){
 
 
 public void changeEtat() {
-    if (état == "negatif") {
-        état = "positif";
+    if (etat == "negatif") {
+        etat = "positif";
     } else {
-        état = "negatif";
+        etat = "negatif";
     }
 }
 
 
 
 public static String getEtat() {
-    return état;
+    return etat;
 }
 }

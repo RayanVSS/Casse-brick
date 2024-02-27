@@ -28,6 +28,7 @@ public class SaveView implements Menu{
     private Button btnsave;
     private Button btndelete;
     private Button btnOK;
+    private Button resetSave;
     
     //grid, text, label, textfield, combobox
     private GridPane grid = new GridPane();
@@ -35,6 +36,7 @@ public class SaveView implements Menu{
     private Label userName;
     private TextField NameSave;
     private ComboBox<String> listSave;
+
 
     //c'est pour avoir les fonctions de sauvegarde
     private Sauvegarde sauvegarde = new Sauvegarde();
@@ -49,6 +51,7 @@ public class SaveView implements Menu{
         this.btndelete = createButton("Supprimer", 200, 590);
         this.btnOK = createButton("OK", 0, -150);
         this.btnload = createButton("Charger", -200, 590);
+        this.resetSave = createButton("ResetSave", 0, 300);
         //grid
         this.grid.getStyleClass().add("grid-style");
         //text
@@ -107,6 +110,9 @@ public class SaveView implements Menu{
     }
     public ComboBox<String> getListSave() {
         return listSave;
+    }
+    public Button getResetSave() {
+        return resetSave;
     }
     public Scene getScene() {
         return scene;

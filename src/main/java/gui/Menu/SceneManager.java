@@ -18,7 +18,7 @@ public class SceneManager {
     private Map<String, Scene> scenes = new HashMap<>();
 
     public SceneManager() {
-        System.out.println("SceneManager created");
+        //System.out.println("SceneManager created");
     }
 
     public void addScene(String name, Scene scene) {
@@ -103,13 +103,13 @@ public class SceneManager {
                 primaryStage.setScene(newScene); // Si aucune scène n'est présente, simplement changer la scène
             }
         });
-        System.out.println("Scene changed to " + name);
-        System.out.println();
-        System.out.println("Scenes in primaryStage:");
-        for (Scene scene : this.getScenes().values()) {
-            System.out.println(this.getSceneName(scene) + " " + scene.getStylesheets().toString());
-        }
-        System.out.println();
+        // System.out.println("Scene changed to " + name);
+        // System.out.println();
+        // System.out.println("Scenes in primaryStage:");
+        // for (Scene scene : this.getScenes().values()) {
+        //     System.out.println(this.getSceneName(scene) + " " + scene.getStylesheets().toString());
+        // }
+        // System.out.println();
 
     }
 }

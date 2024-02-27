@@ -36,12 +36,9 @@ public class GameOverView extends VBox implements Menu {
         this.gameView = gameView;
         gameOver = createLabel("Game Over", 0, 0);
         gameOver.getStyleClass().add("title-game-over-style");
-        btnReplay = new Button("Rejouer");
-        hoverButton(btnReplay);
-        btnQuit = new Button("Quitter");
-        hoverButton(btnQuit);
-        btnMenu = new Button("Menu");
-        hoverButton(btnMenu);
+        btnReplay=createButton("Rejouer",0,0);
+        btnQuit=createButton("Quitter", 0, 0);
+        btnMenu = createButton("Menu", 0, 0);
         getChildren().addAll(gameOver, btnReplay, btnMenu, btnQuit);
         getStyleClass().add("root-game-over");
         setLayoutX(gameView.getRoot().getLayoutX());
@@ -53,24 +50,6 @@ public class GameOverView extends VBox implements Menu {
         new GameOverController(this);
     }
 
-    /**
-     * Méthode pour gérer l'effet de survol des boutons.
-     * 
-     * @param button Le bouton sur lequel appliquer l'effet de survol.
-     */
-    private void hoverButton(Button button) {
-        button.getStyleClass().add("button-style");
-        button.setOnMouseEntered(e -> {
-            button.getStyleClass().remove("button-style");
-            button.getStyleClass().add("button-hover");
-        });
-        button.setOnMouseExited(e -> {
-            button.getStyleClass().remove("button-hover");
-            button.getStyleClass().add("button-style");
-        });
-    }
-
-    // getters
 
     /**
      * Getter pour le bouton de replay.
