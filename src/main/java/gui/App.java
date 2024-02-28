@@ -2,8 +2,6 @@ package gui;
 
 import gui.Menu.SceneManager;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import save.Sauvegarde;
@@ -30,10 +28,6 @@ public class App extends Application {
         sceneManager.createOptionsViewScene(primaryStage);
         sceneManager.createSaveViewScene(primaryStage);
         sceneManager.createTutoViewScene(primaryStage);
-
-        // for (Scene scene : sceneManager.getScenes().values()) {
-        //     System.out.println(scene + " " +sceneManager.getSceneName(scene)+" added to primaryStage");
-        // }
 
         primaryStage.setScene(sceneManager.getScene("StartMenuView"));
 

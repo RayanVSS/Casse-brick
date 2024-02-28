@@ -56,9 +56,9 @@ public class StartMenuController {
      * Méthode pour afficher les options.
      */
     private void options() {
-        // Platform.runLater(() -> {
+        Platform.runLater(() -> {
             App.sceneManager.changeScene(view.getPrimaryStage(), "OptionsView");
-        // });
+        });
     }
 
     /**

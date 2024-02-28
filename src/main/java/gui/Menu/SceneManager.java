@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StartMenuView;
@@ -14,13 +15,18 @@ import gui.Menu.MenuViews.TutoView;
 import javafx.util.Duration;
 import utils.GameConstants;
 
+/**
+ * Classe de gestion des scènes dans l'application.
+ */
 public class SceneManager {
     private Map<String, Scene> scenes = new HashMap<>();
 
-    public SceneManager() {
-        //System.out.println("SceneManager created");
-    }
-
+    /**
+     * Ajoute une scène à la collection.
+     *
+     * @param name  le nom de la scène
+     * @param scene la scène à ajouter
+     */
     public void addScene(String name, Scene scene) {
         scenes.put(name, scene);
     }
@@ -29,12 +35,19 @@ public class SceneManager {
         return scenes.get(name);
     }
 
+    /**
+     * Supprime une scène de la collection par son nom.
+     *
+     * @param name le nom de la scène à supprimer
+     */
     public void removeScene(String name) {
         scenes.remove(name);
     }
 
+    /**
+     * Vide la collection de scènes.
+     */
     public void clearScenes() {
-
         scenes.clear();
     }
 
@@ -42,6 +55,13 @@ public class SceneManager {
         return scenes;
     }
 
+    /**
+     * Récupère le nom d'une scène.
+     * Utile pour le debug.
+     *
+     * @param scene la scène dont on veut le nom
+     * @return le nom de la scène, ou null si la scène n'est pas dans la collection
+     */
     public String getSceneName(Scene scene) {
         for (Map.Entry<String, Scene> entry : scenes.entrySet()) {
             if (entry.getValue().equals(scene)) {
@@ -51,11 +71,18 @@ public class SceneManager {
         return null;
     }
 
+    /**
+     * Ajoute une feuille de style à une scène.
+     *
+     * @param scene la scène à laquelle ajouter la feuille de style
+     */
     public void addStylesheet(Scene scene) {
         scene.getStylesheets().clear();
         scene.getStylesheets().add(getClass().getResource(GameConstants.CSS).toExternalForm());
     }
 
+    // Les méthodes suivantes créent des scènes spécifiques et les ajoutent à la
+    // collection
     public void createOptionsViewScene(Stage primaryStage) {
         OptionsView optionsView = new OptionsView(primaryStage);
         addStylesheet(optionsView.getScene());
@@ -80,11 +107,17 @@ public class SceneManager {
         addScene("TutoView", tutoView.getScene());
     }
 
+    /**
+     * Change la scène actuelle du primaryStage par une autre scène de la
+     * collection.
+     *
+     * @param primaryStage le primaryStage dont on veut changer la scène
+     * @param name         le nom de la nouvelle scène
+     */
     public void changeScene(Stage primaryStage, String name) {
-
         Scene newScene = getScene(name);
         Platform.runLater(() -> {
-            //TODO: ajouter une transition jolie
+            // TODO: ajouter une transition jolie
             if (primaryStage.getScene() != null) { // Si une scène est déjà présente
                 // Créer une transition de fondu pour la scène actuelle
                 FadeTransition ft = new FadeTransition(Duration.millis(200), primaryStage.getScene().getRoot());
@@ -103,13 +136,5 @@ public class SceneManager {
                 primaryStage.setScene(newScene); // Si aucune scène n'est présente, simplement changer la scène
             }
         });
-        // System.out.println("Scene changed to " + name);
-        // System.out.println();
-        // System.out.println("Scenes in primaryStage:");
-        // for (Scene scene : this.getScenes().values()) {
-        //     System.out.println(this.getSceneName(scene) + " " + scene.getStylesheets().toString());
-        // }
-        // System.out.println();
-
     }
 }

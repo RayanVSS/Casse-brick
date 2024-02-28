@@ -9,7 +9,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.StackPane;
 
 /**
- * Classe abstraite Menu qui définit les méthodes pour créer des éléments
+ * Interface Menu qui définit les méthodes pour créer des éléments
  * d'interface utilisateur.
  * Elle est étendue par les classes qui représentent les vues des menus.
  * 

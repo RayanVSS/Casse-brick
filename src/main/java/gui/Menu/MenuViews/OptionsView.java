@@ -43,9 +43,6 @@ public class OptionsView implements Menu {
     public OptionsView(Stage p) {
         this.primaryStage = p;
         btnBack = createButton("Retour", 0, 0);
-        root.getStyleClass().add("root");
-
-        primaryStage.setScene(scene);
 
         // VBox 1: FPS, Chemain de la balle,Particules
         VBox v1 = new VBox();
@@ -73,6 +70,7 @@ public class OptionsView implements Menu {
         Label labelsound = createLabel("Volume des sons", 0, 0);
         volumesound = createSlider(0, 100, GameConstants.SOUND, 200);
 
+        // ComboBox pour choisir le thème
         Label labeltheme = createLabel("Themes: ", 0, 0);
         listTheme = new ComboBox<String>();
         listTheme.setPromptText("Choisir un theme");
@@ -98,14 +96,18 @@ public class OptionsView implements Menu {
         v3.getChildren().addAll(labelleft, buttonleft, labelright, buttonright, labelpower, buttonpower);
 
         // Ajout des VBox à la racine et mise en forme
-        v1.setAlignment(javafx.geometry.Pos.CENTER);
-        v2.setAlignment(javafx.geometry.Pos.CENTER);
-        v3.setAlignment(javafx.geometry.Pos.CENTER);
-        v1.setSpacing(20);
-        v2.setSpacing(20);
-        v3.setSpacing(20);
-        root.setAlignment(javafx.geometry.Pos.CENTER);
-        root.setSpacing(50);
+        // v1.setAlignment(javafx.geometry.Pos.CENTER);
+        // v2.setAlignment(javafx.geometry.Pos.CENTER);
+        // v3.setAlignment(javafx.geometry.Pos.CENTER);
+        // v1.setSpacing(20);
+        // v2.setSpacing(20);
+        // v3.setSpacing(20);
+        // root.setAlignment(javafx.geometry.Pos.CENTER);
+        // root.setSpacing(50);
+        v1.getStyleClass().add("vbox");
+        v2.getStyleClass().add("vbox");
+        v3.getStyleClass().add("vbox");
+        root.getStyleClass().add("root-option");
         root.getChildren().addAll(v1, v2, v3, btnBack);
         new OptionsController(p, this);
     }

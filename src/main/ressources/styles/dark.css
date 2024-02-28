@@ -1,40 +1,27 @@
-.button-style {
-    -fx-font-size: 20px;
-    -fx-background-color: #1b263b;
-    -fx-text-fill: #d5bbb1;
+/* LES ROOTS */
+.root, .root-options {
+    -fx-background-color: #273654;
+    -fx-alignment: center;
 }
 
-.button-hover {
-    -fx-font-size: 20px;
-    -fx-background-color: #d5bbb1;
-    -fx-text-fill: #1b263b;
+.root-options {
+    -fx-spacing: 50;
 }
 
-.label-style {
-    -fx-text-fill: #d5bbb1;
-    -fx-font-size: 20px;
-} 
-.text-style {
-    -fx-font-size: 20px;
-    -fx-fill: #d5bbb1;
-}
-.title-style {
-    -fx-font-size: 50;
-    -fx-text-fill: #d5bbb1;
-    -fx-font-weight: bold;
-}
-.root {
-    -fx-background-color:#273654;
-}
 .game-backgorund {
     -fx-background-color: #B9D9EB;
 }
 
-.root-game-over {
+.root-game-over, .pause-view {
     -fx-opacity: 0.7;
     -fx-alignment: center;
     -fx-spacing: 10;
     -fx-background-color: #78859f;
+}
+
+.vbox {
+    -fx-spacing: 20;
+    -fx-alignment: center;
 }
 
 .grid-style {
@@ -44,59 +31,67 @@
     -fx-alignment: center;
 }
 
+/* LES BOUTONS */
+.button-style, .button-hover, .label-style, .slider-style {
+    -fx-font-size: 20px;
+}
+
+.button-style, .slider-style {
+    -fx-background-color: #1b263b;
+}
+
+.button-style, .label-style {
+    -fx-text-fill: #d5bbb1;
+}
+
+.button-hover {
+    -fx-background-color: #d5bbb1;
+    -fx-text-fill: #1b263b;
+}
+
+/* LES TEXTES + LABELS */
+.text-style, .title-style, .title-game-over-style {
+    -fx-font-size: 20px;
+    -fx-fill: #d5bbb1;
+}
+
+.title-style, .title-game-over-style {
+    -fx-font-size: 50;
+    -fx-text-fill: #d5bbb1;
+    -fx-font-weight: bold;
+}
+
 .scoreL-style {
     -fx-font-size: 25px;
     -fx-font-weight: bold;
     -fx-fill: #1b263b;
 }
 
-.title-game-over-style {
-    -fx-font-size: 50px;
-    -fx-text-fill: #d5bbb1;
-    -fx-font-weight: bold;
+/* ELEMENTS DU JEU */
+.ball {
+    -fx-fill: black;
 }
 
-.slider-style {
-    -fx-font-size: 20px;
-    -fx-background-color: #273654;
-    /* -fx-text-fill: #d5bbb1; */
-}
-
-.pause-view{
-    -fx-opacity: 0.7;
-    -fx-alignment: center;
-    -fx-spacing: 10;
-    -fx-background-color: #78859f;
-}
-
-.ball{
-    -fx-fill : black;
-}
-
-.hyperball { 
-    -fx-fill : #00308F;
+.hyperball, .ynotfixeracket {
+    -fx-fill: #00308F;
 }
 
 .gravityball {
-    -fx-fill : #6699CC;
+    -fx-fill: #6699CC;
 }
 
-.magnetball{
-    -fx-fill : #5072A7;
+.magnetball {
+    -fx-fill: #5072A7;
 }
 
-.magnetracketpositif{
-    -fx-fill : YELLOW;
+.magnetracketpositif {
+    -fx-fill: YELLOW;
 }
 
-.racket{
-    -fx-fill : #FF0000;
+.racket {
+    -fx-fill: #FF0000;
 }
 
-.ynotfixeracket{
-    -fx-fill : #00308F;
-}
-
-.magnetracketnegatif{
-    -fx-fill : GREEN;
+.magnetracketnegatif {
+    -fx-fill: GREEN;
 }

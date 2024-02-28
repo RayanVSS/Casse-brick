@@ -1,105 +1,91 @@
-/*TODO: Add the style for the game */
-.button-style {
-    -fx-font-size: 20px;
-    -fx-background-color: #FFB6C1;
-    -fx-text-fill: #C71585;
-}
-
-.button-hover {
-    -fx-font-size: 20px;
-    -fx-background-color: #C71585;
-    -fx-text-fill: #FFB6C1;
-}
-
-.label-style {
-    -fx-text-fill: #C71585;
-    -fx-font-size: 20px;
-}
-
-.text-style {
-    -fx-font-size: 20px;
-    -fx-text-fill: #C71585;
-}
-
-
-.title-style {
-    -fx-font-size: 40px;
-    -fx-text-fill: #C71585;
-}
-
-.root{
+/* Styles généraux */
+.root,
+.root-option,
+.game-backgorund,
+.root-game-over,
+.pause-view {
     -fx-background-color: #ffd7e9;
-}
-.game-backgorund {
-    -fx-background-color: #ffd7e9;
-}
-
-.root-game-over {
-    -fx-opacity: 0.7;
     -fx-alignment: center;
-    -fx-spacing: 10;
-    -fx-background-color: #ffd7e9;
+}
+
+.vbox,
+.grid-style {
+    -fx-alignment: center;
+    -fx-spacing: 20;
 }
 
 .grid-style {
     -fx-hgap: 10;
     -fx-vgap: 10;
     -fx-padding: 25;
-    -fx-alignment: center;
 }
 
-.scoreL-style{
-    -fx-font-size: 25px;
+.root-game-over,
+.pause-view {
+    -fx-opacity: 0.7;
+    -fx-spacing: 10;
+}
+
+/* Styles de texte */
+.text-style,
+.button-style,
+.button-hover,
+.label-style {
+    -fx-font-size: 20px;
     -fx-text-fill: #C71585;
 }
 
-.title-game-over-style{
+.title-style {
+    -fx-font-size: 40px;
+}
+
+.scoreL-style {
+    -fx-font-size: 25px;
+}
+
+.title-game-over-style {
     -fx-font-size: 50px;
-    -fx-text-fill:#C71585;
     -fx-font-weight: bold;
 }
 
+/* Styles de boutons */
+.button-style {
+    -fx-background-color: #FFB6C1;
+}
+
+.button-hover {
+    -fx-background-color: #C71585;
+    -fx-text-fill: #FFB6C1;
+}
+
+/* Styles de curseur */
 .slider-style {
-    -fx-font-size: 20;
-    -fx-background-color: #ffd7e9;
-    /* -fx-text-fill: #C71585; */
-}
-
-.pause-view{
-    -fx-opacity: 0.7;
-    -fx-alignment: center;
-    -fx-spacing: 10;
     -fx-background-color: #ffd7e9;
 }
 
-.ball{
-    -fx-fill :  #FE6E87 ;
+/* Styles de jeu */
+.ball,
+.racket {
+    -fx-fill: #FE6E87;
 }
 
-.hyperball { 
-    -fx-fill : #E5194C ;
+.hyperball,
+.ynotfixeracket {
+    -fx-fill: #E5194C;
 }
 
 .gravityball {
-    -fx-fill : #8B1039 ;
+    -fx-fill: #8B1039;
 }
 
-.magnetball{
-    -fx-fill :   #4E031A  ;
+.magnetball {
+    -fx-fill: #4E031A;
 }
 
-.magnetracketpositif{
-    -fx-fill : YELLOW;
+.magnetracketpositif {
+    -fx-fill: YELLOW;
 }
 
-.racket{
-    -fx-fill :  #FE6E87 ;
-}
-
-.ynotfixeracket{
-    -fx-fill :  #E5194C ;
-}
-
-.magnetracketnegatif{
-    -fx-fill : GREEN;
+.magnetracketnegatif {
+    -fx-fill: GREEN;
 }

@@ -1,103 +1,105 @@
-.button-style {
-    -fx-font-size: 20px;
-    -fx-background-color: #AAB8C2;
-    -fx-text-fill: #14171A;
-}
-
-.button-hover {
-    -fx-font-size: 20px;
-    -fx-background-color: #657786;
-    -fx-text-fill: #14171A;
-}
-
-.label-style {
-    -fx-text-fill: #14171A;
-    -fx-font-size: 20px;
-}
-
-.text-style {
-    -fx-font-size: 20px;
-    -fx-text-fill: #14171A;
-}
-
-.title-style {
-    -fx-font-size: 40px;
-    -fx-text-fill: #1DA1F2;
-}
-
-.root{
-    -fx-background-color: #E1E8ED;
-}
-.game-backgorund {
+/* Styles généraux */
+.root,
+.root-option,
+.game-backgorund,
+.root-game-over,
+.pause-view {
     -fx-background-color: #E1E8ED;
 }
 
-.root-game-over {
-    -fx-opacity: 0.7;
+.root-option,
+.vbox,
+.root-game-over,
+.pause-view,
+.grid-style {
     -fx-alignment: center;
-    -fx-spacing: 10;
-    -fx-background-color: #E1E8ED;
+}
+
+.vbox,
+.root-game-over,
+.pause-view {
+    -fx-spacing: 20;
 }
 
 .grid-style {
     -fx-hgap: 10;
     -fx-vgap: 10;
     -fx-padding: 25;
-    -fx-alignment: center;
 }
 
-.scoreL-style{
-    -fx-font-size: 25px;
+/*Styles de fond*/
+.game-backgorund {
+    -fx-background-color: #B9D9EB;
+}
+
+.root-game-over,
+.pause-view {
+    -fx-opacity: 0.7;
+    -fx-spacing: 10;
+}
+
+/* Styles de texte */
+.text-style,
+.button-style,
+.button-hover,
+.label-style,
+.slider-style {
+    -fx-font-size: 20px;
     -fx-text-fill: #14171A;
 }
 
-.title-game-over-style{
-    -fx-font-size: 50px;
-    -fx-text-fill:#1DA1F2;
+.title-style,
+.title-game-over-style {
+    -fx-font-size: 40px;
+    -fx-text-fill: #1DA1F2;
+}
+
+.title-game-over-style {
     -fx-font-weight: bold;
 }
 
+.scoreL-style {
+    -fx-font-size: 25px;
+}
+
+/* Styles de boutons */
+.button-style,
+.button-hover {
+    -fx-background-color: #AAB8C2;
+}
+
+.button-hover {
+    -fx-background-color: #657786;
+}
+
+/* Styles de curseur */
 .slider-style {
-    -fx-font-size: 20;
-    -fx-background-color: #E1E8ED;
-    /* -fx-text-fill: #14171A; */
-}
-
-.pause-view{
-    -fx-opacity: 0.7;
-    -fx-alignment: center;
-    -fx-spacing: 10;
     -fx-background-color: #E1E8ED;
 }
 
-.ball{
-    -fx-fill : #1DA1F2;
+/* Styles de jeu */
+.ball,
+.racket {
+    -fx-fill: #1DA1F2;
 }
 
-.hyperball{
-    -fx-fill : #00308F;
+.hyperball,
+.ynotfixeracket {
+    -fx-fill: #00308F;
 }
 
-.gravityball{
-    -fx-fill : #6699CC;
+.gravityball {
+    -fx-fill: #6699CC;
 }
 
-.magnetball{
-    -fx-fill : #5072A7;
+.magnetball {
+    -fx-fill: #5072A7;
 }
 
-.magnetracketpositif{
-    -fx-fill : YELLOW;
+.magnetracketpositif {
+    -fx-fill: YELLOW;
 }
 
-.racket{
-    -fx-fill : #1DA1F2;
-}
-
-.ynotfixeracket{
-    -fx-fill : #00308F;
-}
-
-.magnetracketnegatif{
-    -fx-fill : GREEN;
+.magnetracketnegatif {
+    -fx-fill: GREEN;
 }
