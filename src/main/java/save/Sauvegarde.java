@@ -103,7 +103,7 @@ public class Sauvegarde {
     public void chargerOptionsDuJeu(String name) {
         Map<String, Object> options = chargerDonnees(name);
         if (options != null) {
-            FPS = (boolean) options.getOrDefault("FPS", false);
+            FPS = (boolean) options.getOrDefault("FPS", true);
             PATH = (boolean) options.getOrDefault("PATH", false);
             PARTICLES = (boolean) options.getOrDefault("PARTICLES", true);
             SOUND = ((Number) options.getOrDefault("SOUND", 50)).intValue();
@@ -134,6 +134,7 @@ public class Sauvegarde {
         Map<String, Object> save = new HashMap<>();
         if(!nomUtilisateur.equals("lastSave.json")){
             save.put("SAVE", nomUtilisateur);
+            LAST_SAVE = nomUtilisateur;
             sauvegarderDonnees("lastSave", save);
         }
         Gson gson = new Gson();
@@ -192,5 +193,16 @@ public class Sauvegarde {
         } else {
             return KeyCode.UNDEFINED;
         }
+    }
+
+    public void SetupLastSave() {
+            System.out.println("Chargement de la derniere sauvegarde");
+            chargerLastSave();
+                if (!LAST_SAVE.equals("")) {
+                    chargerOptionsDuJeu(LAST_SAVE);
+                }
+                else {
+                    System.err.println("Impossible de charger la derniere sauvegarde");
+                }
     }
 }

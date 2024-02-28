@@ -34,7 +34,17 @@ public class SaveController {
     }
 
     private void save() {
-        // TODO
+        if (LAST_SAVE.equals("")) {
+            view.afficherMessage("vous n'etes pas connecté a une sauvegarde");
+            return;
+        } else {
+            //sa marche pas
+            String saveName = LAST_SAVE.replace(".json", "");
+            System.out.println(saveName);
+            sauvegarde.sauvegarderOptionsDuJeu(saveName);
+            view.afficherMessage("Sauvegarde '" + LAST_SAVE + "' effectuée avec succès");
+        }
+
     }
 
     private void load() {
@@ -63,10 +73,13 @@ public class SaveController {
     private void ok() {
         String nomUtilisateur = view.getNameSave().getText(); // Récupérer le nom de l'utilisateur
         sauvegarde.sauvegarderOptionsDuJeu(nomUtilisateur); // Sauvegarder les options du jeu
+        if (!view.getListSave().getItems().contains(nomUtilisateur + ".json")) // Si le nom de l'utilisateur n'est pas déjà dans la ComboBox
+            view.getListSave().getItems().add(nomUtilisateur + "json"); // Ajouter le nom de l'utilisateur à la ComboBox
         view.afficherMessage("c'est bon"); // Afficher un message de confirmation
     }
 
     private void resetSave() {
+        view.afficherMessage("il n'y a plus de sauvegarde par defaut"); // Afficher un message de confirmation
         sauvegarde.resetLastSave(); // Réinitialiser la dernière sauvegarde
     }
 
