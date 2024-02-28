@@ -112,4 +112,10 @@ public class Map {
             System.out.println();
         }
     }
+
+    
+    public static void main(String[] args) {
+        Map map = new Map(BricksArrangement.DEFAULT);
+        map.displayBricksInTerminal();
+    }
 }

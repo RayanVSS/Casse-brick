@@ -19,15 +19,13 @@ public class BallGraphics extends Circle {
         setCenterY(ball.getC().getY());
         setRadius(ball.getRadius());
         if (ball instanceof ClassicBall)
-            setFill(Color.RED);
+            getStyleClass().add("ball");
         else if (ball instanceof HyperBall)
-            setFill(Color.BLUE);
+            getStyleClass().add("hyperball");
         else if (ball instanceof GravityBall)
-            setFill(Color.GRAY);
+            getStyleClass().add("gravityball");
         else if (ball instanceof MagnetBall)
-            setFill(Color.GREEN);
-        else
-            setFill(Color.BLACK);
+            getStyleClass().add("magnetball");
     }
 
     public void update() {
@@ -40,6 +38,4 @@ public class BallGraphics extends Circle {
                 setFill(Color.YELLOW);
         }
     }
-
-    
 }

@@ -11,7 +11,6 @@ import entity.ball.*;
 import entity.racket.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
-import gui.Menu.MenuControllers.GameOverController;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
@@ -21,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import geometry.Coordinates;
+import gui.Menu.MenuViews.PauseView;
 
 public class GameView extends App {
 
@@ -28,6 +28,7 @@ public class GameView extends App {
     private Pane root = new Pane();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
+    private GameView gameView;
 
     private BrickSet brickSet;
 
@@ -54,19 +55,15 @@ public class GameView extends App {
     // life & score
     private ScoreLifeView scoreLifeView;
 
-
     public GameView(Stage p, int level) {
         this.primaryStage = p;
-        this.scene.getStylesheets().add("/styles/blue.css");
-
-        if (GameConstants.FPS) {
-            fpsGraphics = new FPSGraphics();
-        }
+        this.gameView = this;
 
         /* differentes balles */
         game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
-        // game = new Game(new MagnetBall(), new MagnetRacket(), BricksArrangement.DEFAULT);
-        
+        // game = new Game(new MagnetBall(), new MagnetRacket(),
+        // BricksArrangement.DEFAULT);
+
         brickSet = new BrickSet(game.getMap().getBricks());
 
         // Création des particules
@@ -90,21 +87,22 @@ public class GameView extends App {
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
+        root.getChildren().add(this.brickSet);
+        root.getChildren().add(this.scoreLifeView);
         if (GameConstants.FPS) {
+            fpsGraphics = new FPSGraphics();
             root.getChildren().add(this.fpsGraphics);
         }
-        root.getChildren().add(this.scoreLifeView);
-        root.getChildren().add(this.brickSet);
 
-
+        root.getStyleClass().add("game-backgorund");
+        scene.getStylesheets().add(GameConstants.CSS);
+        this.animation();
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
-        primaryStage.show();
-
     }
 
     public void update() {
-
+        
         // Mise à jour de la position de la balle
         this.graphBall.update();
 
@@ -118,7 +116,6 @@ public class GameView extends App {
         if (GameConstants.FPS) {
             this.fpsGraphics.update();
         }
-
 
         // Mise à jour du score et de la vie
         this.scoreLifeView.update();
@@ -135,7 +132,6 @@ public class GameView extends App {
                     currentParticle.setCenterY(previousParticle.getCenterY());
                     currentParticle.applyRandomFluctuation(); // fluctuation des particules
                 }
-
                 Particle firstParticle = trail.get(0);
                 firstParticle.setCenterX(game.getBall().getC().getX());
                 firstParticle.setCenterY(game.getBall().getC().getY());
@@ -156,6 +152,7 @@ public class GameView extends App {
         animationTimer = new AnimationTimer() {
             long last = 0;
             double delay = 0.0;
+            // PauseView pauseView = new PauseView(primaryStage, root, this);
 
             @Override
             public void handle(long now) {
@@ -180,12 +177,21 @@ public class GameView extends App {
                     if (game.isLost()) {
                         game.setLost(false);
                         animationStop();
-                        root.getChildren().add(new GameOverView(primaryStage, root).getRoot());
+                        root.getChildren().add(new GameOverView(primaryStage, gameView).getRoot());
+                    }
+                    if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
+                        animationStop();
+                        root.getChildren().add(new PauseView(primaryStage, gameView.getRoot(), animationTimer));
                     }
                 }
                 last = now;
             }
         };
+        animationStart();
+    }
+
+    public void animationStart() {
+        System.out.println("GameView.animationStart()");
         animationTimer.start();
     }
 
@@ -207,5 +213,9 @@ public class GameView extends App {
 
     public AnimationTimer getAnimationTimer() {
         return animationTimer;
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 }

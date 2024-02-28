@@ -9,18 +9,19 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import save.Sauvegarde;
 import utils.GameConstants;
+import gui.Menu.SceneManager;
+import gui.Menu.MenuControllers.SaveController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 
 
 
-public class SaveView extends Menu{
+public class SaveView implements Menu{
     private Stage primaryStage;
     private static StackPane root=new StackPane();
     private static Scene scene=new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-    
-    
+    private SceneManager sceneManager;
     //button
     private Button btnBack;
     private Button btnload;
@@ -41,9 +42,8 @@ public class SaveView extends Menu{
     private Sauvegarde sauvegarde = new Sauvegarde();
     
     public SaveView(Stage p) {
-        super(p, scene);
-        this.primaryStage = p;        
-        scene.getStylesheets().add("/styles/blue.css");
+        //super(p, scene, sceneManager);
+        this.primaryStage = p;
         root.getStyleClass().add("root");
         //button
         this.btnBack = createButton("Retour", -870, -700);
@@ -70,8 +70,8 @@ public class SaveView extends Menu{
         this.listSave.getItems().addAll(sauvegarde.listerSauvegardes());
         StackPane.setMargin(this.listSave, new javafx.geometry.Insets(-500, 0, 0, 0));
         //add to root
-        root.getChildren().addAll(grid, btnBack, btnsave, btndelete, btnOK, btnload,listSave,resetSave);
-        this.primaryStage.setScene(scene);
+        root.getChildren().addAll(grid, btnBack, btnsave, btndelete, btnOK, btnload,listSave);
+        new SaveController(p, this);
     }
 
     //GETTERS
@@ -114,6 +114,9 @@ public class SaveView extends Menu{
     public Button getResetSave() {
         return resetSave;
     }
+    public Scene getScene() {
+        return scene;
+    }
 
 
 
@@ -142,4 +145,7 @@ public class SaveView extends Menu{
         stage.show();
     }
 
+    public SceneManager getSceneManager() {
+        return sceneManager;
+    }
 }

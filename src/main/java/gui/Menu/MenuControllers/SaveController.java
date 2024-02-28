@@ -1,7 +1,8 @@
 package gui.Menu.MenuControllers;
 
+import gui.App;
 import gui.Menu.MenuViews.SaveView;
-import gui.Menu.MenuViews.StartMenuView;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import java.util.*;
 import save.Sauvegarde;
@@ -15,8 +16,8 @@ public class SaveController {
     private Map<String, Object> donnees = new HashMap<>();
 
 
-    public SaveController(Stage p) {
-        this.view = new SaveView(p);
+    public SaveController(Stage p , SaveView view) {
+        this.view = view;
         this.view.getBtnBack().setOnAction(e -> back());
         this.view.getBtnload().setOnAction(e -> load());
         this.view.getBtnsave().setOnAction(e -> save());
@@ -27,7 +28,9 @@ public class SaveController {
 
     private void back() {
         //new StartMenuView(view.getPrimaryStage());
-        new StartMenuController(view.getPrimaryStage(), new StartMenuView(view.getPrimaryStage()));    
+        Platform.runLater(() -> {
+            App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+        });
     }
 
     private void save() {
