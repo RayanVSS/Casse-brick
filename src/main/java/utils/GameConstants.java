@@ -4,8 +4,6 @@ import geometry.Coordinates;
 import geometry.Vector;
 import javafx.scene.input.KeyCode;
 
-import javafx.stage.Screen;
-
 public final class GameConstants {
 
     // brick
@@ -69,6 +67,7 @@ public final class GameConstants {
     public static KeyCode LEFT = KeyCode.LEFT;
     public static KeyCode RIGHT = KeyCode.RIGHT;
     public static KeyCode SPACE = KeyCode.SPACE;
+    public static String CSS="/styles/dark.css";
 
     // derniere save
     public static String LAST_SAVE;

@@ -15,12 +15,11 @@ import utils.GameConstants;
  * 
  * @author Benmalek Majda
  */
-public class StartMenuView extends Menu {
+public class StartMenuView implements Menu {
     private Stage primaryStage;
     private static VBox root = new VBox();
     private static Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,
             GameConstants.DEFAULT_WINDOW_HEIGHT);
-
     private Button btnPlay;
     private Button btnOptions;
     private Button btnQuit;
@@ -34,9 +33,7 @@ public class StartMenuView extends Menu {
      * @param p Le stage principal sur lequel le menu de démarrage est affiché.
      */
     public StartMenuView(Stage p) {
-        super(p, scene);
         this.primaryStage = p;
-        scene.getStylesheets().add("/styles/blue.css");
         root.getStyleClass().add("root");
         title = createLabel("Casse Brique", 0, 0);
         title.getStyleClass().add("title-style");
@@ -50,7 +47,6 @@ public class StartMenuView extends Menu {
         root.setSpacing(10);
         root.setAlignment(javafx.geometry.Pos.CENTER);
         new StartMenuController(p,this);
-        this.primaryStage.setScene(scene);
     }
 
     // getters pour les boutons et autres éléments de la vue
@@ -117,4 +113,9 @@ public class StartMenuView extends Menu {
     public Button getBtnSave() {
         return btnSave;
     }
+
+    public Scene getScene() {
+        return scene;
+    }
+
 }
