@@ -10,7 +10,9 @@ import utils.GameConstants;
  *                  Explication de classe Outline  :  
  * 
  * Cette classe contient toutes les informations de la partie physique de la 
- * simulation              
+ * simulation    
+ *        
+ * @lien https://www.irif.fr/~emiquey/stuff/TIPE.pdf   
  * 
  * @var Ball ball : La balle pour la simulation 
  * @var Racket racket : La raquette pour la simulation
@@ -33,6 +35,7 @@ import utils.GameConstants;
  * @fonction randomDirection : permet de creer un vecteur direction aleatoire 
  * 
  * @author Ilias Bencheikh 
+ * @version 1.0
  **************************************************************************/
 
 public class PhysicSetting {
@@ -49,10 +52,13 @@ public class PhysicSetting {
     public static int Direction_Wind = 0;
     public static double Gravite = 0;
     public static double Mass = 1;
+
+    // variables pour la simulation
     public static final double stop_bounce = 0.3;
     public static final double retention = 0.8;
     public static final double friction_sol = 0.1;
     public static final double friction_air = 0.01;
+    public static final double MAX_VELOCITY = 10;
     public static Vector friction_racket= new Vector(new Coordinates(0,0));
 
     public PhysicSetting(){
@@ -100,9 +106,17 @@ public class PhysicSetting {
 
     public void checkFrictionRacket(){
         if(friction_racket.getX() > 0){
-            friction_racket.setX(friction_racket.getX()-0.05);
+            friction_racket.setX(friction_racket.getX()-0.2);
         }else if(friction_racket.getX() < 0){
-            friction_racket.setX(friction_racket.getX()+0.05);
+            friction_racket.setX(friction_racket.getX()+0.2);
+        }
+    }
+
+    public static void checkFrictionRacket(Vector f){
+        if(f.getX() > 0){
+            f.setX(f.getX()-0.2);
+        }else if(f.getX() < 0){
+            f.setX(f.getX()+0.2);
         }
     }
 
@@ -129,6 +143,29 @@ public class PhysicSetting {
         double j = -1 + (1 - (-1)) * random.nextDouble();
         return new Vector(new Coordinates(i, j));
     }
+
+    public double getFrictionCoefficient(Vector direction) {
+        // Coefficient de frottement statique par défaut
+        double staticFriction = 0.5;
+        // Coefficient de frottement dynamique par défaut
+        double dynamicFriction = 0.3;
+    
+        // Déterminer la force normale
+        double normalForce = Mass * Gravite;
+    
+        // Calculer la vitesse relative
+        double relativeVelocity = Math.sqrt(Math.pow(direction.getX(), 2) + Math.pow(direction.getY(), 2));
+    
+        // Appliquer une relation linéaire entre vitesse et coefficient de frottement
+        double frictionCoefficient = staticFriction - (staticFriction - dynamicFriction) * (relativeVelocity / MAX_VELOCITY);
+    
+        return frictionCoefficient;
+    }
+
+    public void restore(){
+        friction_racket = new Vector(new Coordinates(0,0));
+    }
+    
 
     // Getters and Setters
 

@@ -10,6 +10,8 @@ import javafx.scene.input.KeyCode;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.checkerframework.checker.units.qual.C;
+
 import entity.ball.Ball;
 import entity.racket.Racket;
 import geometry.Coordinates;
@@ -96,8 +98,7 @@ public class PhysicEngine {
                 
                 @Override
                 public void handleKeyRelease(KeyCode event) {
-                    switch (event) {
-                    }
+                    // Fonction non utilisée
                 }
             };
 
@@ -113,37 +114,39 @@ public class PhysicEngine {
             public boolean movement(){
                 double h = DEFAULT_WINDOW_WIDTH;
                 double w = DEFAULT_WINDOW_HEIGHT;
-                double newX = this.getC().getX() + this.getDirection().getX() + physics.getWind().getX() + physics.getFrictionRacket().getX();
-                double newY = this.getC().getY() + this.getDirection().getY() + physics.getWind().getY() ;
+                double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed() + physics.getWind().getX() ;
+                double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed() + physics.getWind().getY() ;
                 if (CollisionR) {
                     if (BougePColision) {
                         this.getDirection().setY(-this.getDirection().getY());
+                        this.getDirection().add(physics.getFrictionRacket());
+                        physics.checkFrictionRacket();
                         newY = this.getC().getY() + this.getDirection().getY();
                         CollisionR = false;
+                        preview.init_path(ball, root);
                     }
-                    if (!BougePColision) {
+                    else {
                         for (KeyCode key : direction) {
                             switch (key) {
                                 case RIGHT:
                                 case D:
-                                    this.getDirection().setX(this.getDirection().getX());
                                     this.getDirection().setY(-this.getDirection().getY());
-                                    physics.getFrictionRacket().setX(physics.getFrictionRacket().getX() + 0.5);
-                                    newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed()+ physics.getFrictionRacket().getX();
+                                    physics.getFrictionRacket().setX(physics.getFrictionRacket().getX() + 1);
+                                    this.getDirection().add(physics.getFrictionRacket());
+                                    newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                                     CollisionR = false;
-                                    //this.getDirection().setX(this.getDirection().getX()+0.5);
-        
+                                    preview.init_path(ball, root);
                                     break;
                                 case LEFT:
                                 case Q:
-                                    this.getDirection().setX(this.getDirection().getX());
                                     this.getDirection().setY(-this.getDirection().getY());
-                                    physics.getFrictionRacket().setX(physics.getFrictionRacket().getX() - 0.5);
-                                    newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed() + physics.getFrictionRacket().getX();
+                                    physics.getFrictionRacket().setX(physics.getFrictionRacket().getX()-1);
+                                    this.getDirection().add(physics.getFrictionRacket());
+                                    newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                                     CollisionR = false;
-                                    //this.getDirection().setX(this.getDirection().getX()-0.5);
+                                    preview.init_path(ball, root);
                                     break;
                                 default:
                                     break;
@@ -153,18 +156,21 @@ public class PhysicEngine {
                 }   
                 if (newX < 0 || newX > h - this.getRadius()) {
                     this.getDirection().setX(-this.getDirection().getX());
-                    newX = this.getC().getX() + this.getDirection().getX();
+                    this.getDirection().add(physics.getFrictionRacket());
+                    physics.checkFrictionRacket();
+                    newX = this.getC().getX() + this.getDirection().getX()*this.getSpeed();
                     this.getDirection().setX(this.getDirection().getX()*physics.getRetention());
                 }
                 if (newY < 0 || newY > w - this.getRadius()) {
+                    this.getDirection().add(physics.getFrictionRacket());
                     this.getDirection().setY(-this.getDirection().getY());
-                    newY = this.getC().getY() + this.getDirection().getY();
+                    physics.checkFrictionRacket();
+                    newY = this.getC().getY() + this.getDirection().getY()* this.getSpeed();
                     this.getDirection().setY(this.getDirection().getY()*physics.getRetention());
                 } 
                 this.setC(new Coordinates(newX, newY));
                 this.getDirection().add(physics.getWind());
                 physics.checkGravity(ball.getC(), ball.getDirection());
-                //physics.checkFrictionRacket();
                 return true;
             }
         };
@@ -174,6 +180,7 @@ public class PhysicEngine {
         graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getRadius() * 2);
         root.getChildren().add(graphBall);
         primaryStage.show();
+
 
         preview = new Preview(ball, physics);
         preview.init_path(ball, root);
@@ -186,16 +193,19 @@ public class PhysicEngine {
             double ballX = ball.getC().getX();
             double ballY = ball.getC().getY();
             double distance = Math.sqrt(Math.pow(mouseX - ballX, 2) + Math.pow(mouseY - ballY, 2));
-            if (distance <= ball.getRadius()+7) {
+            if (distance <= ball.getRadius()+10) {
                 isMouseDraggingBall = true;
                 preview.clear_path(root);
+                physics.restore();
             }
         });
 
         graphBall.setOnMouseDragged(event -> {
             if (isMouseDraggingBall) {
-                ball.getC().setX(event.getSceneX());
-                ball.getC().setY(event.getSceneY());
+                if(ball.getC().getX() > 0 && ball.getC().getX() < DEFAULT_WINDOW_WIDTH && ball.getC().getY() > 0 && ball.getC().getY() < DEFAULT_WINDOW_HEIGHT){
+                    ball.getC().setX(event.getSceneX());
+                    ball.getC().setY(event.getSceneY());
+                }
             }
         });
 
@@ -249,14 +259,8 @@ public class PhysicEngine {
     public void update() {
         // Mise à jour de la position de la balle et de la trajectoire
         if(!isMouseDraggingBall){
-            if(ball.getCollisionR()){
-                ball.movement();
-                preview.init_path(ball, root);
-            }
-            else{
-                ball.movement();
-                preview.add_circle(root);
-            }
+            preview.add_circle(root);
+            ball.movement();
         }
 
         graphBall.setCenterX(ball.getC().getX());
@@ -273,11 +277,10 @@ public class PhysicEngine {
             if (racket.CollisionRacket(ball)) {
                 ball.setCollisionR(true);
             }
-            if (RACKET) {
-                primaryStage.getScene().setOnKeyPressed(eWind -> {
-                    key.getKeysPressed().add(eWind.getCode());
-                });
-            }
+            preview.update(racket);
+            primaryStage.getScene().setOnKeyPressed(eWind -> {
+                key.getKeysPressed().add(eWind.getCode());
+            });
             graphRacket.update();
         }
     }

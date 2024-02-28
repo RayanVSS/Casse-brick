@@ -3,11 +3,17 @@ package physics;
 import java.util.ArrayList;
 
 import entity.ball.Ball;
+import entity.racket.Racket;
 import geometry.Coordinates;
 import geometry.Vector;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import utils.Key;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /***************************************************************************
  *                  Explication de classe Preview  :  
@@ -33,6 +39,10 @@ public class Preview {
     private ArrayList<Circle> circles = new ArrayList<Circle>();
     private int dt_circle = 0;
     public PhysicSetting physics;
+
+
+    public boolean CollisionR = false;
+    public Vector friction = new Vector(new Coordinates(0, 0));
     
     public Preview(Ball b, PhysicSetting o){
         this.physics = o;
@@ -43,22 +53,29 @@ public class Preview {
     public Coordinates trajectory(){
         double h = PhysicEngine.DEFAULT_WINDOW_WIDTH;
         double w = PhysicEngine.DEFAULT_WINDOW_HEIGHT;
-        double newX = c_trajectory.getX() + d_trajectory.getX() + physics.getWind().getX() + physics.getFrictionRacket().getX();
-        double newY = c_trajectory.getY() + d_trajectory.getY() + physics.getWind().getY();
+        double newX = c_trajectory.getX() + d_trajectory.getX() ;
+        double newY = c_trajectory.getY() + d_trajectory.getY() ;
+        if (CollisionR) {
+            d_trajectory.setY(-d_trajectory.getY());
+            d_trajectory.add(physics.getFrictionRacket());
+            newY = c_trajectory.getY() + d_trajectory.getY();
+            CollisionR = false;
+        }
         if (newX < 0 || newX > h - physics.getRadius()) {
-            d_trajectory.setX(-d_trajectory.getX());
+            d_trajectory.setX(- d_trajectory.getX());
+            d_trajectory.add(physics.getFrictionRacket());
             newX = c_trajectory.getX() + d_trajectory.getX();
-            d_trajectory.setX(d_trajectory.getX()*physics.getRetention());
+            d_trajectory.setX( d_trajectory.getX()*physics.getRetention());
         }
         if (newY < 0 || newY > w - physics.getRadius()) {
-            d_trajectory.setY(-d_trajectory.getY());
+            d_trajectory.add(physics.getFrictionRacket());
+            d_trajectory.setY(- d_trajectory.getY());
             newY = c_trajectory.getY() + d_trajectory.getY();
-            d_trajectory.setY(d_trajectory.getY()*physics.getRetention());
-        }
+            d_trajectory.setY( d_trajectory.getY()*physics.getRetention());
+        } 
         c_trajectory=new Coordinates(newX, newY);
         d_trajectory.add(physics.getWind());
         physics.checkGravity(c_trajectory, d_trajectory);
-        //physics.checkFrictionRacket();
         dt_circle++;
         return c_trajectory;
     }
@@ -66,6 +83,7 @@ public class Preview {
     public void init_path(Ball ball , Pane root){
         if(PhysicEngine.PATH){
             clear_path(root);
+            friction = physics.getFrictionRacket();
             c_trajectory = new Coordinates(ball.getC().getX(), ball.getC().getY());
             d_trajectory = new Vector(new Coordinates(ball.getDirection().getX(), ball.getDirection().getY()));
             dt_circle = 0;
@@ -102,6 +120,12 @@ public class Preview {
                 root.getChildren().remove(circles.get(0));
                 circles.remove(0);
             }
+        }
+    }
+
+    public void update(Racket r){
+        if (r.CollisionRacket(c_trajectory)) {
+            CollisionR = true;
         }
     }
 }

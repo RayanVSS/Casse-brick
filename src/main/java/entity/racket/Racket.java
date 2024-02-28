@@ -83,8 +83,8 @@ public abstract class Racket {
 
     // Collision
     public boolean CollisionRacket(Coordinates c) {
-        if (c.getX() > this.c.getX() && c.getX() < this.c.getX() + this.longueur && c.getY() > this.c.getY()
-                && c.getY() < this.c.getY() + this.largeur) {
+        if (c.getX() > this.c.getX() && c.getX() < this.c.getX() + this.largeur && c.getY() > this.c.getY()
+                && c.getY() < this.c.getY() + this.longueur) {
             return true;
         }
         return false;
