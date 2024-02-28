@@ -2,6 +2,7 @@
   "PATH": false,
   "SPACE": "SPACE",
   "MUSIC": 50,
+  "CSS": "/styles/light.css",
   "PARTICLES": true,
   "LEFT": "G",
   "FPS": false,
