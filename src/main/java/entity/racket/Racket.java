@@ -83,8 +83,8 @@ public abstract class Racket {
 
     // Collision
     public boolean CollisionRacket(Coordinates c) {
-        if (c.getX() > this.c.getX() && c.getX() < this.c.getX() + this.longueur && c.getY() > this.c.getY()
-                && c.getY() < this.c.getY() + this.largeur) {
+        if (c.getX() > this.c.getX() && c.getX() < this.c.getX() + this.largeur && c.getY() > this.c.getY()
+                && c.getY() < this.c.getY() + this.longueur) {
             return true;
         }
         return false;
@@ -179,7 +179,7 @@ public abstract class Racket {
     }
 
     //boost longueurM
-    public void startlongueurM(int duration) {
+    public void startLargeurM(int duration) {
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
             @Override
@@ -191,12 +191,12 @@ public abstract class Racket {
         }, duration*1000); 
     }
 
-    public void setLongueurM(Boolean Largeur) {
+    public void setLargeurM(Boolean Largeur) {
         if (!largeurM){
             this.largeurM = Largeur;
             if (largeurM) {
                 largeur = this.largeur - GameConstants.BOOST_LARGEURM;
-                startlongueurM(GameConstants.BOOST_DURATION_LARGEURM);
+                startLargeurM(GameConstants.BOOST_DURATION_LARGEURM);
             }
         }
     }

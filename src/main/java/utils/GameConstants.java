@@ -3,6 +3,7 @@ package utils;
 import geometry.Coordinates;
 import geometry.Vector;
 import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 
 public final class GameConstants {
 
@@ -58,6 +59,14 @@ public final class GameConstants {
     public static final int BOOST_VITESSEM = 5;
     public static final int BOOST_LARGEURP = 100;
     public static final int BOOST_LARGEURM = 100;
+    //bonus
+    public static final int WIDTH = 20;
+    public static final int HEIGHT = 20;
+    public static final double BONUS_SPEED = 2;
+    public static final double BONUS_CHANCE = 0.2;
+    public static final String[] BONUS_LIST = {"vitesseP", "vitesseM", "largeurP", "largeurM", "freeze"};
+    public static final Color COLOR_BONUS = Color.GREEN;
+    public static final Color COLOR_MALUS = Color.RED;
 
     // Options du jeu
     public static boolean FPS = false;

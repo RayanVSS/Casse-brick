@@ -96,6 +96,7 @@ public class Sauvegarde {
         options.put("LEFT", LEFT);
         options.put("RIGHT", RIGHT);
         options.put("SPACE", SPACE);
+        options.put("CSS", CSS);
 
         sauvegarderDonnees(name, options);
     }
@@ -111,6 +112,7 @@ public class Sauvegarde {
             LEFT = Sauvegarde.getKeyCode((String) options.getOrDefault("LEFT", "LEFT"));
             RIGHT = Sauvegarde.getKeyCode((String) options.getOrDefault("RIGHT", "RIGHT"));
             SPACE = Sauvegarde.getKeyCode((String) options.getOrDefault("SPACE", "SPACE"));
+            CSS = (String) options.getOrDefault("CSS", "/styles/dark.css");
         }
     }
 

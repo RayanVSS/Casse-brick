@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import config.*;
+import entity.Boost;
 import entity.ball.*;
 import entity.racket.*;
 import geometry.Vector;
@@ -12,6 +13,9 @@ import gui.GraphicsFactory.*;
 import utils.*;
 import java.util.Random;
 import geometry.Coordinates;
+import gui.Menu.MenuViews.PauseView;
+import java.util.Iterator;
+
 
 public class GameView extends App {
     private Stage primaryStage;
