@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import config.*;
+import entity.Boost;
 import entity.Particle;
 import entity.ball.*;
 import entity.racket.*;
@@ -21,6 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 import geometry.Coordinates;
 import gui.Menu.MenuViews.PauseView;
+import java.util.Iterator;
+
 
 public class GameView extends App {
 
@@ -138,7 +141,12 @@ public class GameView extends App {
                 firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
             }
         }
+        
+        // Mise à jour des boosts
+        BoostUpdate();
+        
     }
+    
 
     // Génère une direction aléatoire pour la balle
     public Vector randomDirection() {
@@ -188,6 +196,25 @@ public class GameView extends App {
             }
         };
         animationStart();
+    }
+
+    public void BoostUpdate(){
+        Iterator<Boost> iterator = game.getBoosts().iterator();
+        while (iterator.hasNext()) {
+            Boost boost = iterator.next();
+            if (boost.move(game.getRacket().CollisionRacket(boost.getC()), game.getRacket())) {
+                root.getChildren().remove(boost);
+                iterator.remove();
+            } else {
+                if (!root.getChildren().contains(boost)) {
+                    root.getChildren().add(boost);
+                }
+                if (boost.getY() > GameConstants.DEFAULT_WINDOW_HEIGHT) {
+                    root.getChildren().remove(boost);
+                    iterator.remove(); 
+                }
+            }
+        }
     }
 
     public void animationStart() {
