@@ -1,4 +1,4 @@
-package entity;
+package gui.GraphicsFactory;
 
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -78,6 +78,7 @@ public class Particle extends Circle {
                 return Color.BLACK;
         }
     }
+
 
 
 }

@@ -1,8 +1,7 @@
 package entity.ball;
 
 import geometry.Coordinates;
-import geometry.Vector;
-import gui.GameView;
+import gui.GameRoot;
 import javafx.scene.input.KeyCode;
 import utils.GameConstants;
 
@@ -25,13 +24,13 @@ public class GravityBall extends Ball {
         double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
         double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
 
-        if (this.getCollisionR()) {
-            if (GameView.BougePColision) {
+        if (Ball.getCollisionR()) {
+            if (GameRoot.BougePColision) {
                 this.getDirection().setY(-this.getDirection().getY());
                 newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                 CollisionR = false;
             } else {
-                for (KeyCode key : GameView.direction) {
+                for (KeyCode key : GameRoot.direction) {
                     switch (key) {
                         case RIGHT:
                         case D:

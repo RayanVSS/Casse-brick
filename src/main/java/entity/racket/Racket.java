@@ -52,7 +52,7 @@ import entity.ball.Ball;
 public abstract class Racket {
 
     // base
-    Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2.5, GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
+    Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5, GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
     Vector direction = new Vector(c);
     double speed;
     int longueur;

@@ -1,13 +1,11 @@
 package entity.ball;
 
-import config.Game;
 import geometry.Coordinates;
-import geometry.Vector;
 import javafx.scene.input.KeyCode;
 import utils.GameConstants;
 
 import utils.Key;
-import gui.GameView;
+import gui.GameRoot;
 
 public class ClassicBall extends Ball {
 
@@ -34,18 +32,18 @@ public class ClassicBall extends Ball {
     public boolean movement() {
         boolean lost = true;
         double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
-        double w = GameConstants.DEFAULT_WINDOW_WIDTH;
+        double w = GameConstants.DEFAULT_GAME_ROOT_WIDTH;
         double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
         double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
 
         if (CollisionR) {
-            if (GameView.BougePColision) {
+            if (GameRoot.BougePColision) {
                 this.getDirection().setY(-this.getDirection().getY());
                 newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                 CollisionR = false;
             }
-            if (!GameView.BougePColision) {
-                for (KeyCode key : GameView.direction) {
+            if (!GameRoot.BougePColision) {
+                for (KeyCode key : GameRoot.direction) {
                     switch (key) {
                         case RIGHT:
                         case D:

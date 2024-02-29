@@ -15,14 +15,12 @@ public class FPSGraphics extends Pane {
         fpsText.setY(20);
         maxfpsText.setX(10);
         maxfpsText.setY(40);
-        // fpsText.setStyle("-fx-font-size: 20; -fx-fill: #d5bbb1;");
-        // maxfpsText.setStyle("-fx-font-size: 20; -fx-fill: #d5bbb1;");
         fpsText.getStyleClass().add("scoreL-style");
         maxfpsText.getStyleClass().add("scoreL-style");
         getChildren().add(fpsText);
         getChildren().add(maxfpsText);
-        setLayoutX(150);
-        setLayoutY(10);
+        // setLayoutX(150);
+        // setLayoutY(10);
         getStylesheets().add(GameConstants.CSS);
     }
 

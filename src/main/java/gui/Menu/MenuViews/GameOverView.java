@@ -1,6 +1,7 @@
 package gui.Menu.MenuViews;
 
-import gui.GameView;
+import gui.GameRoot;
+import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameOverController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,18 +23,18 @@ public class GameOverView extends VBox implements Menu {
     private Button btnQuit;
     private Button btnMenu;
     private Label gameOver;
-    private GameView gameView;
+    private GameRoot game;
 
     /**
      * Constructeur de la classe GameOver.
      * 
      * @param p    Le stage principal de l'application.
-     * @param gameView Le pane du jeu.
+     * @param game Le pane du jeu.
      */
 
-    public GameOverView(Stage p,GameView gameView ) {
+    public GameOverView(Stage p,GameRoot game ) {
         this.primaryStage = p;
-        this.gameView = gameView;
+        this.game = game;
         gameOver = createLabel("Game Over", 0, 0);
         gameOver.getStyleClass().add("title-game-over-style");
         btnReplay=createButton("Rejouer",0,0);
@@ -41,10 +42,10 @@ public class GameOverView extends VBox implements Menu {
         btnMenu = createButton("Menu", 0, 0);
         getChildren().addAll(gameOver, btnReplay, btnMenu, btnQuit);
         getStyleClass().add("root-game-over");
-        setLayoutX(gameView.getRoot().getLayoutX());
-        setLayoutY(gameView.getRoot().getLayoutY());
-        setPrefWidth(gameView.getRoot().getWidth());
-        setPrefHeight(gameView.getRoot().getHeight());
+        setLayoutX(game.getRoot().getLayoutX());
+        setLayoutY(game.getRoot().getLayoutY());
+        setPrefWidth(game.getRoot().getWidth());
+        setPrefHeight(game.getRoot().getHeight());
         //TODO : ajouter le game over dans le scene manager
         getStylesheets().add(GameConstants.CSS);
         new GameOverController(this);
@@ -105,7 +106,7 @@ public class GameOverView extends VBox implements Menu {
         return this;
     }
 
-    public GameView getGameView() {
-        return gameView;
+    public GameRoot getGameRoot() {
+        return game;
     }
 }

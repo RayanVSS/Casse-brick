@@ -28,8 +28,9 @@ public final class GameConstants {
     // public static final double DEFAULT_WINDOW_WIDTH = MAP_WIDTH * BRICK_WIDTH;
     // public static final double DEFAULT_WINDOW_HEIGHT = MAP_HEIGHT * BRICK_HEIGHT;
 
-    public static final double DEFAULT_WINDOW_WIDTH = 1000.0;
+    public static final double DEFAULT_WINDOW_WIDTH = 1100.0;
     public static final double DEFAULT_WINDOW_HEIGHT = 800.0;
+    public static final double DEFAULT_GAME_ROOT_WIDTH = 1100.0-100;
 
     // public static final double DEFAULT_WINDOW_WIDTH =
     // Screen.getPrimary().getVisualBounds().getWidth();

@@ -46,6 +46,7 @@ public class PauseController {
         TimerTask task = new TimerTask() {
             public void run() {
                 view.getAnimationTimer().start();
+                
             }
         };
         timer.schedule(task, 1000);

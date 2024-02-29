@@ -1,4 +1,4 @@
-package gui.Menu.MenuViews;
+package gui.GraphicsFactory;
 
 import config.Game;
 import javafx.scene.layout.Pane;
@@ -12,7 +12,7 @@ import utils.GameConstants;
  * 
  * @author Benmalek Majda
  */
-public class ScoreLifeView extends Pane {
+public class ScoreLifeGraphics extends Pane {
     private Text scoreText;
     private Text lifeText;
     private int score;
@@ -25,7 +25,7 @@ public class ScoreLifeView extends Pane {
      * @param game L'instance de Game à partir de laquelle obtenir le score et la
      *             vie.
      */
-    public ScoreLifeView(Game game) {
+    public ScoreLifeGraphics(Game game) {
         this.game = game;
         score = game.getScore();
         life = game.getLife();
@@ -37,11 +37,13 @@ public class ScoreLifeView extends Pane {
         lifeText.setY(20);
         scoreText.getStyleClass().add("scoreL-style");
         lifeText.getStyleClass().add("scoreL-style");
-        setLayoutX(10);
-        setLayoutY(10);
+        // setLayoutX(10);
+        // setLayoutY(10);
         getChildren().add(lifeText);
         getChildren().add(scoreText);
+        //setWidth(45.0);
         getStylesheets().add(GameConstants.CSS);
+
     }
 
     /**

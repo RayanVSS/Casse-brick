@@ -1,6 +1,5 @@
 package entity.ball;
 
-import config.Game;
 import entity.Entity;
 import entity.racket.Racket;
 import entity.brick.Brick;
@@ -59,7 +58,7 @@ public abstract class Ball extends Entity {
     }
 
     public void setCollisionR(boolean b) {
-        this.CollisionR = b;
+        Ball.CollisionR = b;
     }
 
     public static boolean getCollisionR() {

@@ -1,5 +1,6 @@
 package gui.Menu.MenuViews;
 
+import gui.Menu.Menu;
 import gui.Menu.MenuControllers.PauseController;
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;

@@ -1,7 +1,7 @@
 package entity.ball;
 
 import geometry.Coordinates;
-import gui.GameView;
+import gui.GameRoot;
 import javafx.scene.input.KeyCode;
 import utils.GameConstants;
 
@@ -26,13 +26,13 @@ public class HyperBall extends Ball {
 
         // Gestion des collisions avec la raquettes
         if (CollisionR) { 
-            if (GameView.BougePColision) {
+            if (GameRoot.BougePColision) {
                 this.getDirection().setY(-this.getDirection().getY());
                 newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                 CollisionR = false;
             }
-            if (!GameView.BougePColision) {
-                for (KeyCode key : GameView.direction) {
+            if (!GameRoot.BougePColision) {
+                for (KeyCode key : GameRoot.direction) {
                     switch (key) {
                         case RIGHT:
                         case D:
