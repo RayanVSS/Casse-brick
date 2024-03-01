@@ -1,15 +1,13 @@
 package config;
 
-import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 
+import entity.Boost;
 import entity.ball.Ball;
-import entity.ball.ClassicBall;
-import entity.brick.Brick;
-import entity.brick.BrickClassic;
-import entity.racket.ClassicRacket;
 import entity.racket.Racket;
 import geometry.Coordinates;
-import utils.GameConstants;
+import entity.ball.MagnetBall;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,6 +23,8 @@ public class Game {
     private GameRules rules;
     private Timer inGameTimer;
     private int timeElapsed = 0; //en secondes
+
+    private List<Boost> boosts = new ArrayList<>();
 
     public Game(Ball ball, Racket racket, GameRules rules) {
         this.ball = ball;
@@ -48,6 +48,55 @@ public class Game {
 
     public void stop() {
         inGameTimer.cancel();
+    }
+
+    public void update(long deltaT) {
+        // Vérifie si la balle touche une brique
+        map.handleCollisionBricks(ball); // gérer la collision des briques
+        if (map.updateBricksStatus()) {
+            score += 10;
+            //si la briques est cassée, chance d'avoir un boost
+            Boost boost = Boost.createBoost(ball.getC());
+            if (boost != null) {
+                boosts.add(boost);
+            }
+        }
+        // Si la balle touche la raquette
+        if (racket.CollisionRacket(ball)) {
+            ball.setCollisionR(true);
+        }
+        // Gere les conditions de perte
+        if (!ball.movement()) {
+            life--;
+            ball.reset();
+        }
+        if (life == 0) {
+            lost = true;
+        }
+        if (ball instanceof MagnetBall) {
+            //donne les coordonnées de la raquette a la MagnetBall
+            setRa();
+            //actualise l'etat de la raquette    
+            if (BallFrontRacket()) {
+                ((MagnetBall) ball).setFront(true);
+            } else {
+                ((MagnetBall) ball).setFront(false);
+            }
+        }
+    }
+
+    public boolean collisionRacket(Coordinates c) {
+        return c.getX() >= racket.getC().getX() && c.getX() <= racket.getC().getX() + racket.getLongueur()
+                && c.getY() >= racket.getC().getY() && c.getY() <= racket.getC().getY() + racket.getLargeur();
+    }
+
+    // Vérifie si la balle est devant la raquette
+    public boolean BallFrontRacket() {
+        if (racket.getC().getX() - ball.getC().getX() < 0
+                && (racket.getC().getX() + racket.getLargeur()) - ball.getC().getX() > 0) {
+            return true;
+        }
+        return false;
     }
 
     // Setters/getters
@@ -112,12 +161,15 @@ public class Game {
         System.exit(0);
     }
 
-    public boolean collisionRacket(Coordinates c) {
-        return c.getX() >= racket.getC().getX() && c.getX() <= racket.getC().getX() + racket.getLongueur()
-                && c.getY() >= racket.getC().getY() && c.getY() <= racket.getC().getY() + racket.getLargeur();
-    }
-
     public Map getMap() {
         return map;
+    }
+
+    public void setRa() {
+        MagnetBall.getRa = racket.getC();
+    }
+
+    public List<Boost> getBoosts() {
+        return boosts;
     }
 }

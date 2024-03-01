@@ -1,0 +1,105 @@
+/* Styles généraux */
+.root,
+.root-option,
+.game-backgorund,
+.root-game-over,
+.pause-view {
+    -fx-background-color: #E1E8ED;
+}
+
+.root-option,
+.vbox,
+.root-game-over,
+.pause-view,
+.grid-style {
+    -fx-alignment: center;
+}
+
+.vbox,
+.root-game-over,
+.pause-view {
+    -fx-spacing: 20;
+}
+
+.grid-style {
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-padding: 25;
+}
+
+/*Styles de fond*/
+.game-backgorund {
+    -fx-background-color: #B9D9EB;
+}
+
+.root-game-over,
+.pause-view {
+    -fx-opacity: 0.7;
+    -fx-spacing: 10;
+}
+
+/* Styles de texte */
+.text-style,
+.button-style,
+.button-hover,
+.label-style,
+.slider-style {
+    -fx-font-size: 20px;
+    -fx-text-fill: #14171A;
+}
+
+.title-style,
+.title-game-over-style {
+    -fx-font-size: 40px;
+    -fx-text-fill: #1DA1F2;
+}
+
+.title-game-over-style {
+    -fx-font-weight: bold;
+}
+
+.scoreL-style {
+    -fx-font-size: 25px;
+}
+
+/* Styles de boutons */
+.button-style,
+.button-hover {
+    -fx-background-color: #AAB8C2;
+}
+
+.button-hover {
+    -fx-background-color: #657786;
+}
+
+/* Styles de curseur */
+.slider-style {
+    -fx-background-color: #E1E8ED;
+}
+
+/* Styles de jeu */
+.ball,
+.racket {
+    -fx-fill: #1DA1F2;
+}
+
+.hyperball,
+.ynotfixeracket {
+    -fx-fill: #00308F;
+}
+
+.gravityball {
+    -fx-fill: #6699CC;
+}
+
+.magnetball {
+    -fx-fill: #5072A7;
+}
+
+.magnetracketpositif {
+    -fx-fill: YELLOW;
+}
+
+.magnetracketnegatif {
+    -fx-fill: GREEN;
+}

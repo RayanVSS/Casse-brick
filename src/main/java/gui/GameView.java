@@ -1,21 +1,19 @@
 package gui;
 
 import javafx.animation.*;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import config.*;
 import config.GameRules.BricksArrangement;
+import entity.Boost;
 import entity.Particle;
 import entity.ball.*;
-import entity.preview.Preview;
 import entity.racket.*;
-import geometry.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
-import gui.Menu.MenuControllers.GameOverController;
+import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
 import java.util.Random;
@@ -24,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import geometry.Coordinates;
+import gui.Menu.MenuViews.PauseView;
+import java.util.Iterator;
 
 public class GameView extends App {
 
@@ -31,6 +31,7 @@ public class GameView extends App {
     private Pane root = new Pane();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Game game;
+    private GameView gameView;
 
     private BrickSet brickSet;
 
@@ -57,21 +58,16 @@ public class GameView extends App {
     // life & score
     private ScoreLifeView scoreLifeView;
 
-    // direction de la balle
-    private Preview preview;
-    private BallGraphics Ballpreview;
-
     public GameView(Stage p, int level) {
-
         this.primaryStage = p;
-        if (GameConstants.FPS) {
-            fpsGraphics = new FPSGraphics();
-        }
+        this.gameView = this;
 
         /* differentes balles */
         game = new Game(new ClassicBall(), new ClassicRacket(),
                 new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false));
-        preview = new Preview(game.getBall());
+        // game = new Game(new MagnetBall(), new MagnetRacket(),
+        // BricksArrangement.DEFAULT);
+
         brickSet = new BrickSet(game.getMap().getBricks());
 
         // Création des particules
@@ -95,22 +91,18 @@ public class GameView extends App {
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
+        root.getChildren().add(this.brickSet);
+        root.getChildren().add(this.scoreLifeView);
         if (GameConstants.FPS) {
+            fpsGraphics = new FPSGraphics();
             root.getChildren().add(this.fpsGraphics);
         }
-        root.getChildren().add(this.scoreLifeView);
-        root.getChildren().add(this.brickSet);
 
-        //affichage de la preview
-        if (GameConstants.PATH) {
-            this.Ballpreview = new BallGraphics(preview.getInvisibleBall());
-            root.getChildren().add(this.Ballpreview);
-        }
-
+        root.getStyleClass().add("game-backgorund");
+        scene.getStylesheets().add(GameConstants.CSS);
+        this.animation();
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
-        primaryStage.show();
-
         game.start();
     }
 
@@ -130,12 +122,6 @@ public class GameView extends App {
             this.fpsGraphics.update();
         }
 
-        if (GameConstants.PATH) {
-            this.preview.movementBis(root);
-            this.Ballpreview.update();
-            this.preview.setDot(root);
-        }
-
         // Mise à jour du score et de la vie
         this.scoreLifeView.update();
 
@@ -151,13 +137,16 @@ public class GameView extends App {
                     currentParticle.setCenterY(previousParticle.getCenterY());
                     currentParticle.applyRandomFluctuation(); // fluctuation des particules
                 }
-
                 Particle firstParticle = trail.get(0);
                 firstParticle.setCenterX(game.getBall().getC().getX());
                 firstParticle.setCenterY(game.getBall().getC().getY());
                 firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
             }
         }
+
+        // Mise à jour des boosts
+        BoostUpdate();
+
     }
 
     // Génère une direction aléatoire pour la balle
@@ -172,6 +161,7 @@ public class GameView extends App {
         animationTimer = new AnimationTimer() {
             long last = 0;
             double delay = 0.0;
+            // PauseView pauseView = new PauseView(primaryStage, root, this);
 
             @Override
             public void handle(long now) {
@@ -195,12 +185,40 @@ public class GameView extends App {
                     key.touchesM(scene, game);
                     if (game.isLost()) {
                         animationStop();
-                        new GameOverController(primaryStage);
+                        root.getChildren().add(new GameOverView(primaryStage, gameView).getRoot());
+                    }
+                    if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
+                        animationStop();
+                        root.getChildren().add(new PauseView(primaryStage, gameView.getRoot(), animationTimer));
                     }
                 }
                 last = now;
             }
         };
+        animationStart();
+    }
+
+    public void BoostUpdate() {
+        Iterator<Boost> iterator = game.getBoosts().iterator();
+        while (iterator.hasNext()) {
+            Boost boost = iterator.next();
+            if (boost.move(game.getRacket().CollisionRacket(boost.getC()), game.getRacket())) {
+                root.getChildren().remove(boost);
+                iterator.remove();
+            } else {
+                if (!root.getChildren().contains(boost)) {
+                    root.getChildren().add(boost);
+                }
+                if (boost.getY() > GameConstants.DEFAULT_WINDOW_HEIGHT) {
+                    root.getChildren().remove(boost);
+                    iterator.remove();
+                }
+            }
+        }
+    }
+
+    public void animationStart() {
+        System.out.println("GameView.animationStart()");
         animationTimer.start();
     }
 
@@ -218,5 +236,13 @@ public class GameView extends App {
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
+    }
+
+    public AnimationTimer getAnimationTimer() {
+        return animationTimer;
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 }
