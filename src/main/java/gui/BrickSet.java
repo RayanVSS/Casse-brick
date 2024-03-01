@@ -20,7 +20,8 @@ public class BrickSet extends Group {
                 switch (c) {
                     case RED:
                         Image image = ImageLoader.loadImage("src/main/ressources/brique.png");
-                        brick = new BricksGraphics(image, tab[i][j], i, j);
+                        brick = new BricksGraphics(image, tab[i][j], tab[i][j].getC().getIntX(),
+                                tab[i][j].getC().getIntY());
                         break;
                     case GREEN:
                         image = ImageLoader.loadImage("src/main/ressources/briquev.png");
@@ -45,9 +46,10 @@ public class BrickSet extends Group {
         for (int i = 0; i < this.getChildren().size(); i++) {
             BricksGraphics brick = (BricksGraphics) this.getChildren().get(i);
             if (brick != null) {
-                // this.getChildren().remove(brick);
+                this.getChildren().remove(brick);
                 brick.update();
-                // this.getChildren().add(brick);
+                brick.setVisible(true);
+                this.getChildren().add(brick);
             }
         }
     }

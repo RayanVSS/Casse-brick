@@ -37,14 +37,12 @@ public class BricksGraphics extends StackPane {
                 getChildren().remove(imageView);
                 imageView = new ImageView();
                 getChildren().add(imageView);
+            } else if (brick.getC().getIntX() != i || brick.getC().getIntY() != j) {
+                i = brick.getC().getIntX();
+                j = brick.getC().getIntY();
+                setLayoutX(i);
+                setLayoutY(j);
             }
-            // else if (brick.getC().getIntX() != i || brick.getC().getIntY() != j) {
-            // i = brick.getC().getIntX();
-            // j = brick.getC().getIntY();
-            // setLayoutX(i * GameConstants.BRICK_WIDTH);
-            // setLayoutY(j * GameConstants.BRICK_HEIGHT);
-            // this.setVisible(true);
-            // }
 
             // else if (brick.isUnbreakable()) {
             // // &&
