@@ -23,7 +23,7 @@
 .root-game-over,
 .pause-view {
     -fx-opacity: 0.7;
-    -fx-spacing: 10;
+    -fx-spacing: 20;
 }
 
 /* Styles de texte */

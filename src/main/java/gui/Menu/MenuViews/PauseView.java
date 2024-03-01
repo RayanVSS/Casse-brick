@@ -4,6 +4,8 @@ import gui.Menu.Menu;
 import gui.Menu.MenuControllers.PauseController;
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -17,20 +19,23 @@ public class PauseView extends VBox implements Menu {
     private Button btnResume;
     private AnimationTimer animationTimer;
     private Pane root;
+    private Pane gameRoot;
+    private Label pause;
 
-    public PauseView(Stage p, Pane game, AnimationTimer animationTimer) {
+    public PauseView(Stage p, Pane game, Pane gameRoot, AnimationTimer animationTimer) {
         this.primaryStage = p;
         this.animationTimer = animationTimer;
+        this.gameRoot = gameRoot;
         this.root = game;
-        //TODO: add css for pink and light
-        this.getStylesheets().add(getClass().getResource(GameConstants.CSS).toExternalForm());
+        this.getStylesheets().add(GameConstants.CSS);
         this.getStyleClass().add("pause-view");
+        pause=createLabel("Pause", 0, 0);
+        pause.getStyleClass().add("title-game-over-style");
         this.btnMenu = createButton("Menu", 0, 0);
         this.btnReplay = createButton("Rejouer", 0, 0);
         this.btnResume = createButton("Reprendre", 0, 0);
         this.btnQuit = createButton("Quitter", 0, 0);
-
-        this.getChildren().addAll(btnReplay, btnQuit, btnMenu, btnResume);
+        this.getChildren().addAll(pause,btnResume,btnReplay,btnMenu, btnQuit);
         this.setLayoutX(game.getLayoutX());
         this.setLayoutY(game.getLayoutY());
         this.setPrefHeight(game.getHeight());
@@ -66,5 +71,9 @@ public class PauseView extends VBox implements Menu {
 
     public Pane getRoot() {
         return root;
+    }
+
+    public Pane getGameRoot(){
+        return gameRoot;
     }
 }

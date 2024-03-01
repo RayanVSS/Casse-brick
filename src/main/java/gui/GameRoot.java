@@ -2,17 +2,21 @@ package gui;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Iterator;
+import javafx.scene.input.KeyCode;
 
 import config.Game;
+import entity.Boost;
 import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.BrickSet;
 import gui.GraphicsFactory.ParticleGroup;
 import gui.GraphicsFactory.RacketGraphics;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.PauseView;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import utils.GameConstants;
 import utils.Key;
@@ -44,12 +48,12 @@ public class GameRoot {
         if (GameConstants.PARTICLES) {
             this.particleGroup = new ParticleGroup(root, game);
         }
-        // gameRoot.getRoot().setPrefHeight(GameConstants.DEFAULT_WINDOW_HEIGHT - this.scoreLifeView.getPrefHeight());
-        // gameRoot.getRoot().setPrefWidth(GameConstants.DEFAULT_WINDOW_WIDTH - this.scoreLifeView.getPrefWidth());
         this.root.getChildren().add(graphBrickSet);
         this.root.getChildren().add(graphBall);
         this.root.getChildren().add(graphRacket);
+        root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         root.getStyleClass().add("game-backgorund");
+        StackPane.setAlignment(root, Pos.CENTER_RIGHT);
     }
 
     public void update() {
@@ -59,6 +63,7 @@ public class GameRoot {
             particleGroup.update();
         }
         graphBrickSet.update();
+        BoostUpdate();
     }
 
     public void animation(long deltaT) {
@@ -74,11 +79,30 @@ public class GameRoot {
         if (game.isLost()) {
             game.setLost(false);
             gameView.animationStop();
-            root.getChildren().add(new GameOverView(primaryStage, gameRoot).getRoot());
+            gameView.getRoot().getChildren().add(new GameOverView(primaryStage, gameView.getRoot()));
         }
         if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
             gameView.animationStop();
-            root.getChildren().add(new PauseView(primaryStage, gameRoot.getRoot(), gameView.getAnimationTimer()));
+            gameView.getRoot().getChildren().add(new PauseView(primaryStage, gameView.getRoot(), gameRoot.getRoot(),gameView.getAnimationTimer()));
+        }
+    }
+
+    public void BoostUpdate() {
+        Iterator<Boost> iterator = game.getBoosts().iterator();
+        while (iterator.hasNext()) {
+            Boost boost = iterator.next();
+            if (boost.move(game.getRacket().CollisionRacket(boost.getC()), game.getRacket())) {
+                root.getChildren().remove(boost);
+                iterator.remove();
+            } else {
+                if (!root.getChildren().contains(boost)) {
+                    root.getChildren().add(boost);
+                }
+                if (boost.getY() > GameConstants.DEFAULT_WINDOW_HEIGHT) {
+                    root.getChildren().remove(boost);
+                    iterator.remove();
+                }
+            }
         }
     }
 

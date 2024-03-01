@@ -1,5 +1,8 @@
 package gui.GraphicsFactory;
 
+import javafx.geometry.Pos;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import utils.GameConstants;
 
@@ -14,7 +17,9 @@ public class SLFPSGraphics extends VBox {
         if (GameConstants.FPS) {
             getChildren().add(fpsGraphics);
         }
-        //setWidth(100.0);
+        // setLayoutX(GameConstants.DEFAULT_WINDOW_WIDTH );
+        // setLayoutY(0);
+        StackPane.setAlignment(this,Pos.TOP_RIGHT);
     }
 
     public void update() {

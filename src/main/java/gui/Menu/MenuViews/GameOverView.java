@@ -5,6 +5,7 @@ import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameOverController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
@@ -23,7 +24,7 @@ public class GameOverView extends VBox implements Menu {
     private Button btnQuit;
     private Button btnMenu;
     private Label gameOver;
-    private GameRoot game;
+    private Pane game;
 
     /**
      * Constructeur de la classe GameOver.
@@ -32,7 +33,7 @@ public class GameOverView extends VBox implements Menu {
      * @param game Le pane du jeu.
      */
 
-    public GameOverView(Stage p,GameRoot game ) {
+    public GameOverView(Stage p,Pane game ) {
         this.primaryStage = p;
         this.game = game;
         gameOver = createLabel("Game Over", 0, 0);
@@ -42,10 +43,10 @@ public class GameOverView extends VBox implements Menu {
         btnMenu = createButton("Menu", 0, 0);
         getChildren().addAll(gameOver, btnReplay, btnMenu, btnQuit);
         getStyleClass().add("root-game-over");
-        setLayoutX(game.getRoot().getLayoutX());
-        setLayoutY(game.getRoot().getLayoutY());
-        setPrefWidth(game.getRoot().getWidth());
-        setPrefHeight(game.getRoot().getHeight());
+        setLayoutX(game.getLayoutX());
+        setLayoutY(game.getLayoutY());
+        setPrefWidth(game.getWidth());
+        setPrefHeight(game.getHeight());
         //TODO : ajouter le game over dans le scene manager
         getStylesheets().add(GameConstants.CSS);
         new GameOverController(this);
@@ -97,16 +98,7 @@ public class GameOverView extends VBox implements Menu {
         return gameOver;
     }
 
-    /**
-     * Getter pour la VBox racine.
-     * 
-     * @return La VBox racine.
-     */
-    public VBox getRoot() {
-        return this;
-    }
-
-    public GameRoot getGameRoot() {
+    public Pane getGame() {
         return game;
     }
 }

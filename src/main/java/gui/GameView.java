@@ -5,19 +5,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import config.*;
-import entity.Boost;
 import entity.ball.*;
 import entity.racket.*;
-import geometry.Vector;
 import gui.GraphicsFactory.*;
 import utils.*;
-import java.util.Random;
-import geometry.Coordinates;
-import gui.Menu.MenuViews.PauseView;
-import java.util.Iterator;
 
 
-public class GameView extends App {
+public class GameView {
     private Stage primaryStage;
     private BorderPane root;
     private SLFPSGraphics SLFPS;
@@ -42,10 +36,9 @@ public class GameView extends App {
         gameRoot.getRoot().setPrefHeight(GameConstants.DEFAULT_WINDOW_HEIGHT - this.scoreLifeView.getPrefHeight());
         gameRoot.getRoot().setPrefWidth(GameConstants.DEFAULT_WINDOW_WIDTH - this.scoreLifeView.getPrefWidth());
         this.root.setCenter(gameRoot.getRoot());
+        this.root.setLeft(scoreLifeView);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
-        this.root.setRight(SLFPS);
-        System.out.println("width slfps : "+SLFPS.getWidth());  
         scene.getStylesheets().add(GameConstants.CSS);
         animation();
     }
@@ -67,23 +60,12 @@ public class GameView extends App {
                     delay += deltaT / 1000000000.0;
                 } else if (now - last > 1000000000 / 120) {
                     gameRoot.animation(deltaT);
-                    if (GameConstants.FPS) {
-                        fpsGraphics.update();
-                    }
-                    scoreLifeView.update();
+                    SLFPS.update();
                 }
                 last = now;
             }
         };
         animationTimer.start();
-    }
-
-    // Génère une direction aléatoire pour la balle
-    public Vector randomDirection() {
-        Random random = new Random();
-        double i = -1 + (1 - (-1)) * random.nextDouble();
-        double j = -1 + (1 - (-1)) * random.nextDouble();
-        return new Vector(new Coordinates(i, j));
     }
 
     public void animationStop() {
