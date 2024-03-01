@@ -51,8 +51,9 @@ public class Game {
     }
 
     public void update(long deltaT) {
-        // Vérifie si la balle touche une brique
-        map.handleCollisionBricks(ball); // gérer la collision des briques
+
+        //Vérifie si la balle touche une brique
+        map.handleCollisionBricks(ball, rules); //gérer la collision des briques
         if (map.updateBricksStatus()) {
             score += 10;
             //si la briques est cassée, chance d'avoir un boost
@@ -64,14 +65,19 @@ public class Game {
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
+            rules.updateRemainingBounces();
+            rules.updateBricksTransparency(map);
+            rules.updateBricksUnbreakability(map);
+            rules.shuffleBricks(map.getBricks());
         }
         // Gere les conditions de perte
         if (!ball.movement()) {
             life--;
             ball.reset();
         }
-        if (life == 0) {
+        if (life == 0 || !rules.check()) {
             lost = true;
+            inGameTimer.cancel();
         }
         if (ball instanceof MagnetBall) {
             //donne les coordonnées de la raquette a la MagnetBall
@@ -83,6 +89,7 @@ public class Game {
                 ((MagnetBall) ball).setFront(false);
             }
         }
+
     }
 
     public boolean collisionRacket(Coordinates c) {
@@ -130,31 +137,6 @@ public class Game {
 
     public Timer getInGameTimer() {
         return inGameTimer;
-    }
-
-    public void update(long deltaT) {
-
-        //Vérifie si la balle touche une brique
-        map.handleCollisionBricks(ball, rules); //gérer la collision des briques
-        map.updateBricksStatus();
-        // Si la balle touche la raquette
-        if (racket.CollisionRacket(ball)) {
-            ball.setCollisionR(true);
-            rules.updateRemainingBounces();
-            rules.updateBricksTransparency(map);
-            rules.updateBricksUnbreakability(map);
-            rules.shuffleBricks(map.getBricks());
-        }
-        // Gere les conditions de perte
-        if (!ball.movement()) {
-            life--;
-            ball.reset();
-        }
-        if (life == 0 || !rules.check()) {
-            lost = true;
-            inGameTimer.cancel();
-        }
-
     }
 
     public void lost() {
