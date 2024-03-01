@@ -24,7 +24,6 @@ public final class GameConstants {
             GameConstants.DEFAULT_WINDOW_WIDTH / 2, GameConstants.DEFAULT_WINDOW_HEIGHT / 2);
     public static final double POWER_MAGNET = 0.5; // puissance de l'attraction des aimants
 
-
     // fenetre
     // public static final double DEFAULT_WINDOW_WIDTH = MAP_WIDTH * BRICK_WIDTH;
     // public static final double DEFAULT_WINDOW_HEIGHT = MAP_HEIGHT * BRICK_HEIGHT;
@@ -40,10 +39,10 @@ public final class GameConstants {
     public static final int DEFAULT_FPS = 120;
 
     // particle de traînée
-    public static final int DEFAULT_trailLength = 70; // taille de la trainée
-    public static final double DEFAULT_PARTICLE_RADIUS = 1.4;
-    public static final double DEFAULT_FLUCTUATION = 5;
-    public static final int DEFAULT_PARTICLE = 10; // nombre de particules
+    public static final int DEFAULT_trailLength = 10; // nombre de particules
+    public static final double DEFAULT_PARTICLE_RADIUS = 0.5;
+    public static final double DEFAULT_FLUCTUATION = 8;
+    public static final int DEFAULT_PARTICLE = 10; // taille de la trainée
 
     // boost
     // temps des boosts
@@ -58,12 +57,12 @@ public final class GameConstants {
     public static final int BOOST_VITESSEM = 5;
     public static final int BOOST_LARGEURP = 100;
     public static final int BOOST_LARGEURM = 100;
-    //bonus
+    // bonus
     public static final int WIDTH = 20;
     public static final int HEIGHT = 20;
     public static final double BONUS_SPEED = 2;
     public static final double BONUS_CHANCE = 0.2;
-    public static final String[] BONUS_LIST = {"vitesseP", "vitesseM", "largeurP", "largeurM", "freeze"};
+    public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze" };
     public static final Color COLOR_BONUS = Color.GREEN;
     public static final Color COLOR_MALUS = Color.RED;
 
@@ -76,7 +75,7 @@ public final class GameConstants {
     public static KeyCode LEFT = KeyCode.LEFT;
     public static KeyCode RIGHT = KeyCode.RIGHT;
     public static KeyCode SPACE = KeyCode.SPACE;
-    public static String CSS="/styles/dark.css";
+    public static String CSS = "/styles/dark.css";
 
     // derniere save
     public static String LAST_SAVE;
