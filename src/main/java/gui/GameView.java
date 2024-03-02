@@ -24,7 +24,6 @@ import geometry.Coordinates;
 import gui.Menu.MenuViews.PauseView;
 import java.util.Iterator;
 
-
 public class GameView extends App {
 
     private Stage primaryStage;
@@ -105,7 +104,7 @@ public class GameView extends App {
     }
 
     public void update() {
-        
+
         // Mise à jour de la position de la balle
         this.graphBall.update();
 
@@ -141,12 +140,11 @@ public class GameView extends App {
                 firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
             }
         }
-        
+
         // Mise à jour des boosts
         BoostUpdate();
-        
+
     }
-    
 
     // Génère une direction aléatoire pour la balle
     public Vector randomDirection() {
@@ -198,7 +196,7 @@ public class GameView extends App {
         animationStart();
     }
 
-    public void BoostUpdate(){
+    public void BoostUpdate() {
         Iterator<Boost> iterator = game.getBoosts().iterator();
         while (iterator.hasNext()) {
             Boost boost = iterator.next();
@@ -211,7 +209,7 @@ public class GameView extends App {
                 }
                 if (boost.getY() > GameConstants.DEFAULT_WINDOW_HEIGHT) {
                     root.getChildren().remove(boost);
-                    iterator.remove(); 
+                    iterator.remove();
                 }
             }
         }
