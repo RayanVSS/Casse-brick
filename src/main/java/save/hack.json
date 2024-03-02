@@ -1,0 +1,11 @@
+{
+  "PATH": false,
+  "SPACE": "SPACE",
+  "MUSIC": 50,
+  "CSS": "/styles/deuteranopie.css",
+  "PARTICLES": true,
+  "LEFT": "LEFT",
+  "FPS": false,
+  "SOUND": 50,
+  "RIGHT": "RIGHT"
+}

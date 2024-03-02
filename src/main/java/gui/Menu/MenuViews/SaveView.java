@@ -70,7 +70,7 @@ public class SaveView implements Menu{
         this.listSave.getItems().addAll(sauvegarde.listerSauvegardes());
         StackPane.setMargin(this.listSave, new javafx.geometry.Insets(-500, 0, 0, 0));
         //add to root
-        root.getChildren().addAll(grid, btnBack, btnsave, btndelete, btnOK, btnload,listSave);
+        root.getChildren().addAll(grid, btnBack, btnsave, btndelete, btnOK, btnload,listSave,resetSave);
         new SaveController(p, this);
     }
 

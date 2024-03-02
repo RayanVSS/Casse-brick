@@ -2,6 +2,7 @@ package gui;
 
 import gui.Menu.SceneManager;
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import save.Sauvegarde;
@@ -17,8 +18,10 @@ public class App extends Application {
         //chargement de la derniere sauvegarde
         sauvegarde.SetupLastSave();
 
-        this.primaryStage = p;
-        this.primaryStage.setResizable(false);
+        primaryStage = p;
+        Image icon = new Image("icon.png");
+        primaryStage.getIcons().add(icon);
+        primaryStage.setResizable(false);
         primaryStage.setTitle("Casse Brique");
         sceneManager.createStartMenuViewScene(primaryStage);
         sceneManager.createOptionsViewScene(primaryStage);
