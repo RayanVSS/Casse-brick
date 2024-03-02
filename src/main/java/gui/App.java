@@ -3,7 +3,7 @@ package gui;
 import gui.Menu.SceneManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
+import save.PlayerData;
 import save.Sauvegarde;
 
 public class App extends Application {
@@ -14,13 +14,14 @@ public class App extends Application {
 
     @Override
     public void start(Stage p) throws Exception {
+        PlayerData.initPlayerData();
         //chargement de la derniere sauvegarde
-        sauvegarde.SetupLastSave();
+        sauvegarde.setupLastSave();
 
         this.primaryStage = p;
         this.primaryStage.setResizable(false);
         primaryStage.setTitle("Casse Brique");
-        
+
         sceneManager.preCreateAllView(primaryStage);
 
         primaryStage.setScene(sceneManager.getScene("StartMenuView"));

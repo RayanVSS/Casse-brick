@@ -1,40 +1,21 @@
 package save;
 
-import config.StageController;
+import config.StagesProgress;
 import utils.GameConstants;
 
 public class PlayerData {
 
-    private String name;
-    private int expLevel;
-    private int money; //Future monnaie ?
-    private StageController stageController;
+    public static String pseudo;
+    public static int expLevel;
+    public static int money; //Future monnaie ?
+    public static StagesProgress stagesProgress;
 
-    public PlayerData() {
-        name = "";
+    public static void initPlayerData() {
+        pseudo = "";
         expLevel = 1;
         money = 0;
-        stageController = new StageController(GameConstants.STAGES_QTY);
-    }
-
-    public void generateStages() {
-        stageController.createStages();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getExpLevel() {
-        return expLevel;
-    }
-
-    public int getMoney() {
-        return money;
-    }
-
-    public StageController getStageController() {
-        return stageController;
+        stagesProgress = new StagesProgress(GameConstants.STAGES_QTY);
+        stagesProgress.createStages();
     }
 
 }

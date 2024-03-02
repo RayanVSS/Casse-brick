@@ -23,7 +23,6 @@ public class Game {
     private GameRules rules;
     private Timer inGameTimer;
     private int timeElapsed = 0; //en secondes
-
     private List<Boost> boosts = new ArrayList<>();
 
     public Game(Ball ball, Racket racket, GameRules rules) {
