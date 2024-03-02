@@ -54,9 +54,9 @@ public abstract class Racket {
     // base
     Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2.5, GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
     Vector direction = new Vector(c);
-    double speed;
-    int longueur;
-    int largeur;
+    public double speed;
+    public int longueur;
+    public int largeur;
     boolean fixeY;
     boolean jump;
 
