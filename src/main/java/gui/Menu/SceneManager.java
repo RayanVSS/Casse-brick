@@ -91,7 +91,7 @@ public class SceneManager {
         createSaveViewScene(primaryStage);
         createTutoViewScene(primaryStage);
         createGameModeViewScene(primaryStage);
-        // createStageSelectorViewScene(primaryStage);
+        createStageSelectorViewScene(primaryStage);
         // createGameCustomizerViewScene(primaryStage);
     }
 
@@ -127,11 +127,11 @@ public class SceneManager {
         addScene("GameModeView", gameModeView.getScene());
     }
 
-    // public void createStageSelectorViewScene(Stage primaryStage) {
-    //     StageSelectorView stageSelectorView = new StageSelectorView(primaryStage);
-    //     addStylesheet(stageSelectorView.getScene());
-    //     addScene("StageSelectorView", stageSelectorView.getScene());
-    // }
+    public void createStageSelectorViewScene(Stage primaryStage) {
+        StageSelectorView stageSelectorView = new StageSelectorView(primaryStage);
+        addStylesheet(stageSelectorView.getScene());
+        addScene("StageSelectorView", stageSelectorView.getScene());
+    }
 
     // public void createGameCustomizerViewScene(Stage primaryStage) {
     //     GameCustomizerView gameCustomizerView = new GameCustomizerView(primaryStage);

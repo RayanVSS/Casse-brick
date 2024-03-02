@@ -1,5 +1,6 @@
 package gui.Menu.MenuViews;
 
+import config.StageLevel;
 import gui.Menu.MenuControllers.PauseController;
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
@@ -16,11 +17,13 @@ public class PauseView extends VBox implements Menu {
     private Button btnResume;
     private AnimationTimer animationTimer;
     private Pane root;
+    private StageLevel stageLevel;
 
-    public PauseView(Stage p, Pane game, AnimationTimer animationTimer) {
+    public PauseView(Stage p, Pane game, AnimationTimer animationTimer, StageLevel stageLevel) {
         this.primaryStage = p;
         this.animationTimer = animationTimer;
         this.root = game;
+        this.stageLevel = stageLevel;
         //TODO: add css for pink and light
         this.getStylesheets().add(getClass().getResource(GameConstants.CSS).toExternalForm());
         this.getStyleClass().add("pause-view");
@@ -66,4 +69,9 @@ public class PauseView extends VBox implements Menu {
     public Pane getRoot() {
         return root;
     }
+
+    public StageLevel getStageLevel() {
+        return stageLevel;
+    }
+
 }

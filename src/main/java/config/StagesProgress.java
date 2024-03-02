@@ -14,4 +14,8 @@ public class StagesProgress {
         }
     }
 
+    public StageLevel[] getStages() {
+        return stages;
+    }
+
 }

@@ -16,7 +16,8 @@ public class Game {
     private Ball ball;
     private Racket racket;
     private Map map;
-    private boolean lost = false;
+    private boolean lost;
+    private boolean win;
     private int score = 0;
     private int life = 3;
     private boolean collide;
@@ -78,6 +79,10 @@ public class Game {
             lost = true;
             inGameTimer.cancel();
         }
+        if (verifyWin()) {
+            win = true;
+        }
+
         if (ball instanceof MagnetBall) {
             //donne les coordonnées de la raquette a la MagnetBall
             setRa();
@@ -105,6 +110,10 @@ public class Game {
         return false;
     }
 
+    private boolean verifyWin() {
+        return map.countBricks() == 0;
+    }
+
     // Setters/getters
     public Ball getBall() {
         return ball;
@@ -122,8 +131,8 @@ public class Game {
         return lost;
     }
 
-    public void setLost(boolean lost) {
-        this.lost = lost;
+    public boolean isWin() {
+        return win;
     }
 
     public int getScore() {
@@ -136,10 +145,6 @@ public class Game {
 
     public Timer getInGameTimer() {
         return inGameTimer;
-    }
-
-    public void lost() {
-        System.exit(0);
     }
 
     public Map getMap() {

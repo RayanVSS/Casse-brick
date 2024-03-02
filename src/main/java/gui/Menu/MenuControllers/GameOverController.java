@@ -31,7 +31,7 @@ public class GameOverController {
      */
     private void replay() {
         Platform.runLater(() -> {
-            new GameView(view.getPrimaryStage(), 1);
+            new GameView(view.getPrimaryStage(), view.getGameView().getStageLevel());
         });
     }
 
@@ -40,6 +40,7 @@ public class GameOverController {
      */
     private void quit() {
         view.getPrimaryStage().close();
+        System.exit(0);
     }
 
     /**

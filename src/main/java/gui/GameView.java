@@ -30,8 +30,7 @@ public class GameView extends App {
     private Stage primaryStage;
     private Pane root = new Pane();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-    private Game game;
-    private GameView gameView;
+    private StageLevel stageLevel;
 
     private BrickSet brickSet;
 
@@ -58,15 +57,10 @@ public class GameView extends App {
     // life & score
     private ScoreLifeView scoreLifeView;
 
-    public GameView(Stage p, int level) {
+    public GameView(Stage p, StageLevel stageLevel) {
         this.primaryStage = p;
-        this.gameView = this;
-
-        /* differentes balles */
-        game = new Game(new ClassicBall(), new ClassicRacket(),
-                new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false));
-        // game = new Game(new MagnetBall(), new MagnetRacket(),
-        // BricksArrangement.DEFAULT);
+        this.stageLevel = stageLevel;
+        Game game = stageLevel.getGame();
 
         brickSet = new BrickSet(game.getMap().getBricks());
 
@@ -124,7 +118,7 @@ public class GameView extends App {
 
         // Mise à jour du score et de la vie
         this.scoreLifeView.update();
-
+        Game game = stageLevel.getGame();
         if (GameConstants.PARTICLES) {
             for (int i = 0; i < trailLength; i++) {
                 List<Particle> trail = particleTrails.get(i);
@@ -158,6 +152,8 @@ public class GameView extends App {
     }
 
     public void animation() {
+        GameView gameView = this;
+        Game game = stageLevel.getGame();
         animationTimer = new AnimationTimer() {
             long last = 0;
             double delay = 0.0;
@@ -186,10 +182,17 @@ public class GameView extends App {
                     if (game.isLost()) {
                         animationStop();
                         root.getChildren().add(new GameOverView(primaryStage, gameView).getRoot());
+                        stageLevel.lostAction();
+                    }
+                    if (game.isWin()) {
+                        animationStop();
+                        //Ecran de win
+                        stageLevel.winAction();
                     }
                     if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
                         animationStop();
-                        root.getChildren().add(new PauseView(primaryStage, gameView.getRoot(), animationTimer));
+                        root.getChildren()
+                                .add(new PauseView(primaryStage, gameView.getRoot(), animationTimer, stageLevel));
                     }
                 }
                 last = now;
@@ -199,6 +202,7 @@ public class GameView extends App {
     }
 
     public void BoostUpdate() {
+        Game game = stageLevel.getGame();
         Iterator<Boost> iterator = game.getBoosts().iterator();
         while (iterator.hasNext()) {
             Boost boost = iterator.next();
@@ -245,4 +249,9 @@ public class GameView extends App {
     public Scene getScene() {
         return scene;
     }
+
+    public StageLevel getStageLevel() {
+        return stageLevel;
+    }
+
 }
