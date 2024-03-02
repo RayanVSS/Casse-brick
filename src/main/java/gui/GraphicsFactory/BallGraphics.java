@@ -6,7 +6,8 @@ import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
-import gui.ImageLoader;
+import entity.ball.MagnetBall;
+
 
 public class BallGraphics extends Circle {
 
@@ -18,17 +19,23 @@ public class BallGraphics extends Circle {
         setCenterY(ball.getC().getY());
         setRadius(ball.getRadius());
         if (ball instanceof ClassicBall)
-            setFill(Color.RED);
+            getStyleClass().add("ball");
         else if (ball instanceof HyperBall)
-            setFill(Color.BLUE);
+            getStyleClass().add("hyperball");
         else if (ball instanceof GravityBall)
-            setFill(Color.GRAY);
-        else
-            setFill(Color.BLACK);
+            getStyleClass().add("gravityball");
+        else if (ball instanceof MagnetBall)
+            getStyleClass().add("magnetball");
     }
 
     public void update() {
         setCenterX(ball.getC().getX());
         setCenterY(ball.getC().getY());
+        if (ball instanceof MagnetBall) {
+            if (((MagnetBall) ball).getEtat().equals("positif"))
+                setFill(Color.GREEN);
+            else
+                setFill(Color.YELLOW);
+        }
     }
 }

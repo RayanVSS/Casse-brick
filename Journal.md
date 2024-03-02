@@ -85,8 +85,14 @@ affichage de la racket
 
 <span style="color:purple">**A Faire:**</span>
 
+- Optimiser les collisions, régler les bugs en diagonale
 
-## Majda Benmalek
+- Implementation des niveaux, chargement des niveaux, selecteur du niveau, ...
+
+- UI du jeu en plusieurs panneaux (la partie ne doit plus être la fenêtre de l'application)
+
+
+### Majda Benmalek
 
 <span style="color:green">**Fait:**</span>
 
@@ -119,7 +125,7 @@ affichage de la racket
 
 -Commentaire/explication et javaDoc dans mon code
 
-## Ilias Bencheikh
+### Ilias Bencheikh
 
 <span style="color:green">**Fait:**</span>
 
@@ -137,7 +143,7 @@ affichage de la racket
 
 -Implementation des options pour le jeu 
 
-## Amenah MUSHTAQ
+### Amenah MUSHTAQ
 
 <span style="color:green">**Fait:**</span>
 
@@ -150,6 +156,171 @@ affichage de la racket
 -Commentaire/explication et javaDoc dans mon code
 
 - bouton pause
+
+## Semaine 3:
+### Belhassen rayan
+<span style="color:green">**Fait:**</span>
+    
+-#14 boost: boost pour la racket 
+
+-#15 sauvegarde: pouvoir enregistrer son avancée (a finir quand les options et les niveaux sont plus avancés)
+
+-gestion de sauvegarde: mini logiciel hors du code qui permet de pouvoir gerer les sauvegarde en cas de probleme 
+
+<span style="color:purple">**A Faire:**</span>
+
+-#30 travailler sur un mode pour daltonien
+
+-#31 mode deux joueur 
+
+### Benmalek Majda 
+<span style="color:green">**Fait:**</span>
+- Modif du game over (transparence)
+  
+- Le score et les vies s'update bien
+  
+- Factorisation des classes menu + javadoc
+  
+- Modif des options (MVC + foctorisation)
+  
+- Ajout de fichier css pour mieux s'adapter au changement de themes (pas encore commencé les themes)
+
+<span style="color:purple">**A Faire:**</span>
+-Ajouter du son
+
+-Rajout de theme changeable 
+
+-Colission de la balle et la racket (j’attends que la physics soit merge)
+
+-Reglé le probleme de la fluidité entre les scenes
+
+### Amenah MUSHTAQ
+
+<span style="color:green">**Fait:**</span>
+-factorisation du code Commentaire/explication et javaDoc dans mon code
+-#27 bouton pause
+
+<span style="color:purple">**A Faire:**</span>
+- pb de timer à régler pour le bouton pause
+-.....
+
+### Guan Olivier 
+<span style="color:green">**Fait:**</span>
+
+- Mis en place des preconfig (niveaux prédéfinis) de game avec de nouvelles classes.
+
+- Class GameRules : contient les règles/options (temps limité, mélanger la position des briques, briques qui devient invisibles/transparentes/incassables etc...) que va vérifier la game
+
+- Class StageLevel : contient la difficulté, le niveau de débloquement, et la game prédifinie à charger.
+
+- Class StageController : contient un tableau de StageLevel (l'ensemble des niveaux préconfig).
+
+- Class PlayerData : contient toutes les données du joueur, càd : nom, niveau, monnaie (peut-être), un stageController (correspond aux données sur la progression des niveaux). Le fait de charger un objet PlayerData (par la sauvegarde) permettra de reconstiuer l'état d'un jeu complet.
+
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finir le travail ci-dessus, l'implementation des rules à appliquer/vérifier.
+
+- Brick : Physique de la brique, introduire la durabilité, absorption des chocs en fonction de la vitesse, taille de la balle etc... 
+
+
+### Ilias Bencheikh
+<span style="color:green">**Fait:**</span>
+
+- Preview de la balle #29
+- Implémentation des options #19
+- Amélioration de la physique #20 : 
+    - Début d'un système de masse 
+    - Début d'un système de perte de vitesse du a la gravité
+    - Début d'un système de vent
+    - Amélioration de la simulation (choix de la masse , gravité ...)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Amélioration de la physique #20
+- Implémentation de celle-ci dans le jeu
+- Implémentation du niveau infini #23
+
+## Semaine 4
+
+### Majda Benmalek 
+<span style="color:green">**Fait:**</span>
+- Rajout de 2 themes( utilisation du css )
+- Factorisation et changement de comment on gere le changement de scene 
+- Rajout d'une transition (pas ouf) entre chaque changement de scene 
+
+<span style="color:purple">**A Faire:**</span>
+- Ajout du son 
+- Probleme d'angle collision de la balle 
+- Rajout d'autre theme avec la couleur de la balle et la raquette qui suivent 
+- Changer la disposition dans l'affichage du jeu
+
+
+### Guan Olivier 
+<span style="color:green">**Fait:**</span>
+
+- Toutes les règles additionnelles au jeu classique : [Temps limité](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/37), [Rebonds limité](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/38), [Briques TP aléatoire](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/39), [Correspondance de couleur](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/41), [Brique transparente/Ghost](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/42), [Brique incassable](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/45)
+
+- Factorisation de la logique des règles
+
+- Possibilité de "stacker" les règles
+
+
+<span style="color:purple">**A Faire:**</span>
+
+- Inclure ces nouvelles règles dans les preconfig de niveaux
+
+- Création d'un menu de selection de niveaux et de création d'une game custom
+
+
+
+### Amenah MUSHTAQ
+
+<span style="color:green">**Fait:**</span>
+-#27 bouton pause pb timer reglé
+-#44 : 
+    -affichage pour le mode couleur
+    -optimisation de l'affichage des briques
+    -affichage pour la permutation des briques pas finie
+
+<span style="color:purple">**A Faire:**</span>
+-#44 affichage pour la permutation des briques pas finie
+- mode infini
+
+### Belhassen rayan
+<span style="color:green">**Fait:**</span>
+
+- magnetRacket: raquette magnétique 
+- magnetBall: balle magnétique 
+- sauvegarde:
+    - finalisation du menu pour les sauvegardes
+    - possibilité de pouvoir enregistrer les options 
+    - le jeu charge sur la dernière sauvegarde 
+
+<span style="color:purple">**A Faire:**</span>
+
+- travailler sur un mode pour daltonien
+
+- mode deux joueur 
+
+### Bencheikh Ilias
+<span style="color:green">**Fait:**</span>
+
+- Implémentation des effets de la balle (début de rotation) #32
+
+- Implémentation de prendre de la balle et de l'envoyer afin de la tester #40
+
+- Recherche d'un meilleur mouvement de la balle (loi de bernouilli et effet de magnus)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Améliorer les effets de la balle ( problème de collision avec le mur après plusieur effets) #34
+
+- Régler le problème de FPS (vitesse de la balle et de la racket varie en fonction des performances) #43
+
+
+
 
 
 

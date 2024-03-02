@@ -6,10 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import save.Sauvegarde;
 import utils.GameConstants;
+import gui.Menu.SceneManager;
+import gui.Menu.MenuControllers.SaveController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -18,49 +19,47 @@ import javafx.scene.Scene;
 
 public class SaveView implements Menu{
     private Stage primaryStage;
-    private Scene scene;
-    private StackPane root;
-    
+    private static StackPane root=new StackPane();
+    private static Scene scene=new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
+    private SceneManager sceneManager;
     //button
     private Button btnBack;
     private Button btnload;
     private Button btnsave;
     private Button btndelete;
     private Button btnOK;
+    private Button resetSave;
     
     //grid, text, label, textfield, combobox
     private GridPane grid = new GridPane();
-    private Text title;
+    private Label title;
     private Label userName;
     private TextField NameSave;
     private ComboBox<String> listSave;
+
 
     //c'est pour avoir les fonctions de sauvegarde
     private Sauvegarde sauvegarde = new Sauvegarde();
     
     public SaveView(Stage p) {
+        //super(p, scene, sceneManager);
         this.primaryStage = p;
-        this.root = new StackPane();
-        this.scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-        this.root.setStyle("-fx-background-color: #273654;");
+        root.getStyleClass().add("root");
         //button
         this.btnBack = createButton("Retour", -870, -700);
         this.btnsave = createButton("Sauvegarder", 0, -500);
         this.btndelete = createButton("Supprimer", 200, 590);
         this.btnOK = createButton("OK", 0, -150);
         this.btnload = createButton("Charger", -200, 590);
+        this.resetSave = createButton("ResetSave", 0, 300);
         //grid
-        this.grid.setHgap(10);
-        this.grid.setVgap(10);
-        this.grid.setPadding(new javafx.geometry.Insets(25, 25, 25, 25));
-        this.grid.setAlignment(Pos.CENTER); // Center le grid (cest pas impotant que ce soit centré)
+        this.grid.getStyleClass().add("grid-style");
         //text
-        this.title = new Text("Creer une nouvelle sauvegarde");
-        this.title.setStyle("-fx-font: 24 arial;");
+        this.title = createLabel("Creer une nouvelle sauvegarde", 0, 0);
+        this.title.getStyleClass().add("label-style");
         this.grid.add(title, 0, 0, 2, 1);
         //label
-        this.userName = new Label("Nom:");
-        this.userName.setStyle("-fx-text-fill: white;"); // Changer la couleur du texte en blanc sinon c'est gris par défaut
+        this.userName = createLabel("Nom:", 0, 0);
         this.grid.add(userName, 0, 1);
         //textfield
         this.NameSave = new TextField();
@@ -69,10 +68,10 @@ public class SaveView implements Menu{
         this.listSave = new ComboBox<String>();
         this.listSave.setPromptText("Choisir une sauvegarde existante");
         this.listSave.getItems().addAll(sauvegarde.listerSauvegardes());
-        root.setMargin(this.listSave, new javafx.geometry.Insets(-500, 0, 0, 0));
+        StackPane.setMargin(this.listSave, new javafx.geometry.Insets(-500, 0, 0, 0));
         //add to root
-        this.root.getChildren().addAll(grid, btnBack, btnsave, btndelete, btnOK, btnload,listSave);
-        primaryStage.setScene(scene);
+        root.getChildren().addAll(grid, btnBack, btnsave, btndelete, btnOK, btnload,listSave);
+        new SaveController(p, this);
     }
 
     //GETTERS
@@ -100,7 +99,7 @@ public class SaveView implements Menu{
     public GridPane getGrid() {
         return grid;
     }
-    public Text getTitle() {
+    public Label getTitle() {
         return title;
     }
     public Label getUserName() {
@@ -111,6 +110,12 @@ public class SaveView implements Menu{
     }
     public ComboBox<String> getListSave() {
         return listSave;
+    }
+    public Button getResetSave() {
+        return resetSave;
+    }
+    public Scene getScene() {
+        return scene;
     }
 
 
@@ -140,4 +145,7 @@ public class SaveView implements Menu{
         stage.show();
     }
 
+    public SceneManager getSceneManager() {
+        return sceneManager;
+    }
 }

@@ -1,6 +1,5 @@
 package geometry;
 
-import geometry.Vector;
 public class Coordinates {
 
     private double x;

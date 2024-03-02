@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import javafx.scene.input.KeyCode;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -13,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static utils.GameConstants.*;
 
 
 
@@ -59,13 +63,21 @@ import java.util.Map;
 public class Sauvegarde {
 
     private final String cheminRepertoireSauvegardes = "src/main/java/save/";
+    private static final Map<String, KeyCode> keyCodeMap = new HashMap<>();
+
+    static {
+        keyCodeMap.put("LEFT", KeyCode.LEFT);
+        keyCodeMap.put("RIGHT", KeyCode.RIGHT);
+        keyCodeMap.put("SPACE", KeyCode.SPACE);
+
+    }
 
     public Sauvegarde() {
     }
 
     // Sauvegarde Les données
     public void sauvegarderDonnees(String nomUtilisateur, Map<String, Object> donnees) {
-        String cheminFichierSauvegarde = cheminRepertoireSauvegardes + nomUtilisateur + ".json";
+        String cheminFichierSauvegarde = cheminRepertoireSauvegardes + nomUtilisateur +".json";
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter writer = new FileWriter(cheminFichierSauvegarde)) {
             gson.toJson(donnees, writer);
@@ -74,9 +86,59 @@ public class Sauvegarde {
         }
     }
 
+    public void sauvegarderOptionsDuJeu(String name) {
+        Map<String, Object> options = new HashMap<>();
+        options.put("FPS", FPS);
+        options.put("PATH", PATH);
+        options.put("PARTICLES", PARTICLES);
+        options.put("SOUND", SOUND);
+        options.put("MUSIC", MUSIC);
+        options.put("LEFT", LEFT);
+        options.put("RIGHT", RIGHT);
+        options.put("SPACE", SPACE);
+        options.put("CSS", CSS);
+
+        sauvegarderDonnees(name, options);
+    }
+
+    public void chargerOptionsDuJeu(String name) {
+        Map<String, Object> options = chargerDonnees(name);
+        if (options != null) {
+            FPS = (boolean) options.getOrDefault("FPS", true);
+            PATH = (boolean) options.getOrDefault("PATH", false);
+            PARTICLES = (boolean) options.getOrDefault("PARTICLES", true);
+            SOUND = ((Number) options.getOrDefault("SOUND", 50)).intValue();
+            MUSIC = ((Number) options.getOrDefault("MUSIC", 50)).intValue();
+            LEFT = Sauvegarde.getKeyCode((String) options.getOrDefault("LEFT", "LEFT"));
+            RIGHT = Sauvegarde.getKeyCode((String) options.getOrDefault("RIGHT", "RIGHT"));
+            SPACE = Sauvegarde.getKeyCode((String) options.getOrDefault("SPACE", "SPACE"));
+            CSS = (String) options.getOrDefault("CSS", "/styles/dark.css");
+        }
+    }
+
+    public void chargerLastSave() {
+        Map<String, Object> lastSave = chargerDonnees("lastSave.json");
+        if (lastSave != null) {
+            LAST_SAVE = (String) lastSave.getOrDefault("SAVE", "");
+        }
+    }
+
+    public void resetLastSave() {
+        Map<String, Object> lastSave = new HashMap<>();
+        lastSave.put("SAVE", "");
+        sauvegarderDonnees("lastSave", lastSave);
+    }
+
+
     //Lire les données
     public Map<String, Object> chargerDonnees(String nomUtilisateur) {
-        String cheminFichierSauvegarde = cheminRepertoireSauvegardes + nomUtilisateur + ".json";
+        String cheminFichierSauvegarde = cheminRepertoireSauvegardes + nomUtilisateur;
+        Map<String, Object> save = new HashMap<>();
+        if(!nomUtilisateur.equals("lastSave.json")){
+            save.put("SAVE", nomUtilisateur);
+            LAST_SAVE = nomUtilisateur;
+            sauvegarderDonnees("lastSave", save);
+        }
         Gson gson = new Gson();
         Map<String, Object> donnees = new HashMap<>();
         try (FileReader reader = new FileReader(cheminFichierSauvegarde)) {
@@ -96,7 +158,7 @@ public class Sauvegarde {
             File[] fichiers = repertoireSauvegardes.listFiles();
             if (fichiers != null) {
                 for (File fichier : fichiers) {
-                    if (fichier.isFile() && fichier.getName().endsWith(".json")) {
+                    if (fichier.isFile() && fichier.getName().endsWith(".json") && !fichier.getName().equals("lastSave.json")) {
                         sauvegardes.add(fichier.getName());
                     }
                 }
@@ -109,7 +171,7 @@ public class Sauvegarde {
     public void supprimerSauvegarde(String nomSauvegarde) {
         String cheminFichierSauvegarde = cheminRepertoireSauvegardes + nomSauvegarde ;
         File fichierSauvegarde = new File(cheminFichierSauvegarde);
-        if (fichierSauvegarde.exists() && fichierSauvegarde.isFile() && fichierSauvegarde.getName().endsWith(".json")) {
+        if (fichierSauvegarde.exists() && fichierSauvegarde.isFile() && fichierSauvegarde.getName().endsWith(".json") && !fichierSauvegarde.getName().equals("lastSave.json") ) {
             if (fichierSauvegarde.delete()) {
                 System.out.println("La sauvegarde '" + nomSauvegarde + "' a ete supprimée.");
             } else {
@@ -118,5 +180,31 @@ public class Sauvegarde {
         } else {
             System.out.println("La sauvegarde '" + nomSauvegarde + "' n'existe pas");
         }
+    }
+
+    public static KeyCode getKeyCode(Object key) {
+        if (key instanceof KeyCode) {
+            return (KeyCode) key;
+        } else if (key instanceof String) {
+            String keyName = (String) key;
+            if (keyName.length() == 1) {
+                return KeyCode.valueOf(keyName);
+            } else {
+                return keyCodeMap.getOrDefault(keyName, KeyCode.UNDEFINED);
+            }
+        } else {
+            return KeyCode.UNDEFINED;
+        }
+    }
+
+    public void SetupLastSave() {
+            System.out.println("Chargement de la derniere sauvegarde");
+            chargerLastSave();
+                if (!LAST_SAVE.equals("")) {
+                    chargerOptionsDuJeu(LAST_SAVE);
+                }
+                else {
+                    System.err.println("Impossible de charger la derniere sauvegarde");
+                }
     }
 }

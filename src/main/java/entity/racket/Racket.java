@@ -54,9 +54,9 @@ public abstract class Racket {
     // base
     Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2.5, GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
     Vector direction = new Vector(c);
-    public double speed;
-    public int longueur;
-    public int largeur;
+    double speed;
+    int longueur;
+    int largeur;
     boolean fixeY;
     boolean jump;
 
@@ -172,7 +172,6 @@ public abstract class Racket {
         if (!largeurP){
             this.largeurP = Largeur;
             if (largeurP) {
-                System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 largeur = this.largeur + GameConstants.BOOST_LARGEURP;
                 startlargeurP(GameConstants.BOOST_DURATION_LARGEURP);
             }
@@ -180,7 +179,7 @@ public abstract class Racket {
     }
 
     //boost longueurM
-    public void startlongueurM(int duration) {
+    public void startLargeurM(int duration) {
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
             @Override
@@ -192,12 +191,12 @@ public abstract class Racket {
         }, duration*1000); 
     }
 
-    public void setLongueurM(Boolean Largeur) {
+    public void setLargeurM(Boolean Largeur) {
         if (!largeurM){
             this.largeurM = Largeur;
             if (largeurM) {
                 largeur = this.largeur - GameConstants.BOOST_LARGEURM;
-                startlongueurM(GameConstants.BOOST_DURATION_LARGEURM);
+                startLargeurM(GameConstants.BOOST_DURATION_LARGEURM);
             }
         }
     }
