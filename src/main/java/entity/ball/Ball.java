@@ -5,12 +5,7 @@ import entity.Entity;
 import entity.racket.Racket;
 import entity.brick.Brick;
 import geometry.*;
-import gui.GameView;
-import javafx.scene.input.KeyCode;
 import utils.GameConstants;
-import javafx.scene.shape.Circle;
-
-import java.util.ArrayList;
 
 /**
  * Classe Balle
@@ -24,7 +19,6 @@ public abstract class Ball extends Entity {
     private Vector direction;
     private int radius;
     private double speed;
-
 
     // colision avec racket
     static boolean CollisionR = false;
@@ -139,5 +133,5 @@ public abstract class Ball extends Entity {
 
     public void reset() {
         this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
-    } 
+    }
 }

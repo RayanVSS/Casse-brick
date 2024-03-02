@@ -50,7 +50,7 @@ application {
 }
 
 checkstyle {
-     toolVersion = '10.0'
+        toolVersion = '10.0'
 }
 sourceSets {
     main {
@@ -59,19 +59,4 @@ sourceSets {
         }
     }
 }
-
-task physic(type: JavaExec) {
-    description = "Exécute l'application PhysicsApp"
-    group = "custom"
-    main = 'physics.AppPhysic'
-    classpath = sourceSets.main.runtimeClasspath
-
-    doFirst {
-        jvmArgs = [
-            '--module-path', classpath.asPath,
-            '--add-modules', 'javafx.controls,javafx.media,javafx.base,javafx.graphics'
-        ]
-    }
-}
-
 

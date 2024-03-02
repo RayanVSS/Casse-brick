@@ -86,7 +86,6 @@ public class GameView extends App {
         this.graphRacket = new RacketGraphics(game.getRacket());
         this.scoreLifeView = new ScoreLifeView(game);
 
-
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
