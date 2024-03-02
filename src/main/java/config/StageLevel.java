@@ -9,6 +9,8 @@ public class StageLevel {
     private int difficulty; // à titre indicatif
     private int unlockLevel;
     private Game game;
+    private boolean completed;
+    private int maxScore;
 
     public StageLevel(int difficulty, int unlockLevel, GameRules rules,
             Ball ball, Racket racket) {

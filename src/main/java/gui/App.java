@@ -9,7 +9,7 @@ import save.Sauvegarde;
 public class App extends Application {
 
     protected Stage primaryStage;
-    public static SceneManager sceneManager=new SceneManager();
+    public static SceneManager sceneManager = new SceneManager();
     private Sauvegarde sauvegarde = new Sauvegarde();
 
     @Override
@@ -20,10 +20,8 @@ public class App extends Application {
         this.primaryStage = p;
         this.primaryStage.setResizable(false);
         primaryStage.setTitle("Casse Brique");
-        sceneManager.createStartMenuViewScene(primaryStage);
-        sceneManager.createOptionsViewScene(primaryStage);
-        sceneManager.createSaveViewScene(primaryStage);
-        sceneManager.createTutoViewScene(primaryStage);
+        
+        sceneManager.preCreateAllView(primaryStage);
 
         primaryStage.setScene(sceneManager.getScene("StartMenuView"));
 

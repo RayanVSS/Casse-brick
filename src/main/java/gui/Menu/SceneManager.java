@@ -8,8 +8,11 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 import java.util.Map;
 
+import gui.Menu.MenuViews.GameCustomizerView;
+import gui.Menu.MenuViews.GameModeView;
 import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
+import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
 import gui.Menu.MenuViews.TutoView;
 import javafx.util.Duration;
@@ -81,6 +84,17 @@ public class SceneManager {
         scene.getStylesheets().add(getClass().getResource(GameConstants.CSS).toExternalForm());
     }
 
+    // Charge toutes les scènes du jeu
+    public void preCreateAllView(Stage primaryStage) {
+        createStartMenuViewScene(primaryStage);
+        createOptionsViewScene(primaryStage);
+        createSaveViewScene(primaryStage);
+        createTutoViewScene(primaryStage);
+        createGameModeViewScene(primaryStage);
+        // createStageSelectorViewScene(primaryStage);
+        // createGameCustomizerViewScene(primaryStage);
+    }
+
     // Les méthodes suivantes créent des scènes spécifiques et les ajoutent à la
     // collection
     public void createOptionsViewScene(Stage primaryStage) {
@@ -106,6 +120,24 @@ public class SceneManager {
         addStylesheet(tutoView.getScene());
         addScene("TutoView", tutoView.getScene());
     }
+
+    public void createGameModeViewScene(Stage primaryStage) {
+        GameModeView gameModeView = new GameModeView(primaryStage);
+        addStylesheet(gameModeView.getScene());
+        addScene("GameModeView", gameModeView.getScene());
+    }
+
+    // public void createStageSelectorViewScene(Stage primaryStage) {
+    //     StageSelectorView stageSelectorView = new StageSelectorView(primaryStage);
+    //     addStylesheet(stageSelectorView.getScene());
+    //     addScene("StageSelectorView", stageSelectorView.getScene());
+    // }
+
+    // public void createGameCustomizerViewScene(Stage primaryStage) {
+    //     GameCustomizerView gameCustomizerView = new GameCustomizerView(primaryStage);
+    //     addStylesheet(gameCustomizerView.getScene());
+    //     addScene("GameCustomizerView", gameCustomizerView.getScene());
+    // }
 
     /**
      * Change la scène actuelle du primaryStage par une autre scène de la
