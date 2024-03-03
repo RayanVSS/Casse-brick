@@ -32,8 +32,10 @@ public class Game {
     public void update(long deltaT) {
         // Vérifie si la balle touche une brique
         map.handleCollisionBricks(ball); // gérer la collision des briques
-        if (map.updateBricksStatus()) {
-            score += 10;
+        int i=map.updateBricksStatus();
+        if (i>0) {
+            score += 10*i;
+            System.out.println("Brick destroyed : "+i);
             //si la briques est cassée, chance d'avoir un boost
             Boost boost = Boost.createBoost(ball.getC());
             if (boost != null) {
