@@ -92,11 +92,12 @@ public class Map {
             for (int j = 0; j < bricks[0].length; j++) {
                 if (bricks[i][j] != null && bricks[i][j].isDestroyed()) {
                     bricks[i][j] = null;
+                    Game.score += 10;
                     return true;
                 }
             }
         }
-        return false;
+        return false ;
     }
 
     public void displayBricksInTerminal() { // pour les tests

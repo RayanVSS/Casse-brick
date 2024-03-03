@@ -1,5 +1,6 @@
 package gui.Menu.MenuControllers;
 
+import config.Game;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.StartMenuView;
@@ -47,6 +48,7 @@ public class StartMenuController {
      */
     private void play() {
         Platform.runLater(() -> {
+            Game.score = 0;
             new GameView(view.getPrimaryStage(), 1);
         });
 

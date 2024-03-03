@@ -91,10 +91,19 @@ public abstract class Racket {
     }
 
     public boolean CollisionRacket(Ball b) {
-        if (b.getC().getX() > this.c.getX() && b.getC().getX() < this.c.getX() + this.largeur
-                && b.getC().getY() > this.c.getY()
-                && b.getC().getY() < this.c.getY() + this.longueur) {
+        // if (b.getC().getX() > this.c.getX() && b.getC().getX() < this.c.getX() + this.largeur
+        //         && b.getC().getY() > this.c.getY()
+        //         && b.getC().getY() < this.c.getY() + this.longueur) {
+        //     b.getC().setY(this.getC().getY() - b.getRadius());
+        //     return true;
+        // }
+        // return false;
+        double dx = Math.max(this.c.getX(), Math.min(b.getC().getX(), this.c.getX() + this.largeur));
+        double dy = Math.max(this.c.getY(), Math.min(b.getC().getY(), this.c.getY() + this.longueur));
+        double distance = Math.sqrt((b.getC().getX() - dx) * (b.getC().getX() - dx) + (b.getC().getY() - dy) * (b.getC().getY() - dy));
+        if (distance < b.getRadius()) {
             b.getC().setY(this.getC().getY() - b.getRadius());
+            System.out.println("collision Racket dans Racket");
             return true;
         }
         return false;

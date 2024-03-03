@@ -20,7 +20,7 @@ public abstract class Ball extends Entity {
     private double speed;
 
     // colision avec racket
-    static boolean CollisionR = false;
+    boolean CollisionR = false;
 
     public Ball(int r) {
         super(new Coordinates(0, 0));
@@ -58,10 +58,10 @@ public abstract class Ball extends Entity {
     }
 
     public void setCollisionR(boolean b) {
-        Ball.CollisionR = b;
+        CollisionR = b;
     }
 
-    public static boolean getCollisionR() {
+    public boolean getCollisionR() {
         return CollisionR;
     }
 
@@ -117,12 +117,10 @@ public abstract class Ball extends Entity {
     }
 
     public boolean isOverlap2(Racket r) {
-
         double deltaX = this.getC().getX()
                 - Math.max(r.getC().getX(), Math.min(this.getC().getX(), r.getC().getX() + r.getLongueur()));
         double deltaY = this.getC().getY()
                 - Math.max(r.getC().getY(), Math.min(this.getC().getY(), r.getC().getY() + r.getLargeur()));
-
         return (deltaX * deltaX + deltaY * deltaY) < (this.getRadius() * this.getRadius());
     }
 
@@ -132,5 +130,7 @@ public abstract class Ball extends Entity {
 
     public void reset() {
         this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
+        this.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION);
+        this.setSpeed(GameConstants.DEFAULT_BALL_SPEED);
     }
 }
