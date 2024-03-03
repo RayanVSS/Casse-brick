@@ -53,11 +53,19 @@ public class OptionsView implements Menu {
 
         // Bouton pour afficher le chemin de la balle
         Label labelpath = createLabel("Afficher le chemin de la balle", 0, 0);
-        buttonpath = createToggleButton("OFF", false);
+        if(GameConstants.PATH){
+            buttonpath = createToggleButton("ON", false);
+        }else{
+            buttonpath = createToggleButton("OFF", false);
+        }
 
         // Bouton pour afficher les trainées de particules
         Label labelparticles = createLabel("Afficher les particules", 0, 0);
-        buttonparticles = createToggleButton("ON", false);
+        if(GameConstants.PARTICLES){
+            buttonparticles = createToggleButton("ON", false);
+        }else{
+            buttonparticles = createToggleButton("OFF", false);
+        }
 
         v1.getChildren().addAll(labelfps, buttonfps, labelpath, buttonpath, labelparticles, buttonparticles);
 
@@ -74,7 +82,8 @@ public class OptionsView implements Menu {
         // ComboBox pour choisir le thème
         Label labeltheme = createLabel("Themes: ", 0, 0);
         listTheme = new ComboBox<String>();
-        listTheme.setPromptText("Choisir un theme");
+        listTheme.setPromptText(GameConstants.CSS);
+
         listTheme.getItems().addAll("dark", "pink", "light");
 
         v2.getChildren().addAll(labelmusic, volumemusic, labelsound, volumesound, labeltheme, listTheme);

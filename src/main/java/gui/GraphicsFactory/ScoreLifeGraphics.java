@@ -41,7 +41,6 @@ public class ScoreLifeGraphics extends Pane {
         // setLayoutY(10);
         getChildren().add(lifeText);
         getChildren().add(scoreText);
-        //setWidth(45.0);
         getStylesheets().add(GameConstants.CSS);
 
     }

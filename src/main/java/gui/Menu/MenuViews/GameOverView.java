@@ -1,6 +1,5 @@
 package gui.Menu.MenuViews;
 
-import gui.GameRoot;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameOverController;
 import javafx.scene.control.Button;
@@ -47,7 +46,6 @@ public class GameOverView extends VBox implements Menu {
         setLayoutY(game.getLayoutY());
         setPrefWidth(game.getWidth());
         setPrefHeight(game.getHeight());
-        //TODO : ajouter le game over dans le scene manager
         getStylesheets().add(GameConstants.CSS);
         new GameOverController(this);
     }

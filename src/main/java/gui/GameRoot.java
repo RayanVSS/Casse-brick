@@ -13,10 +13,8 @@ import gui.GraphicsFactory.ParticleGroup;
 import gui.GraphicsFactory.RacketGraphics;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.PauseView;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import utils.GameConstants;
 import utils.Key;
@@ -53,7 +51,7 @@ public class GameRoot {
         this.root.getChildren().add(graphRacket);
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         root.getStyleClass().add("game-backgorund");
-        StackPane.setAlignment(root, Pos.CENTER_RIGHT);
+        //StackPane.setAlignment(root, Pos.CENTER_RIGHT);
     }
 
     public void update() {

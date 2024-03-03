@@ -43,6 +43,8 @@ public class GameOverController {
      */
     private void quit() {
         view.getPrimaryStage().close();
+        Platform.exit();
+        System.exit(0);
     }
 
     /**
@@ -52,6 +54,5 @@ public class GameOverController {
         Platform.runLater(() -> {
             App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
         });
-        
     }
 }

@@ -103,7 +103,6 @@ public abstract class Racket {
         double distance = Math.sqrt((b.getC().getX() - dx) * (b.getC().getX() - dx) + (b.getC().getY() - dy) * (b.getC().getY() - dy));
         if (distance < b.getRadius()) {
             b.getC().setY(this.getC().getY() - b.getRadius());
-            System.out.println("collision Racket dans Racket");
             return true;
         }
         return false;

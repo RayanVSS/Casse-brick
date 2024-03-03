@@ -13,7 +13,8 @@ import utils.*;
 
 public class GameView {
     private Stage primaryStage;
-    private BorderPane root;
+    private Pane root;
+    private BorderPane pane;
     private SLFPSGraphics SLFPS;
     private Scene scene;
     private GameRoot gameRoot;
@@ -28,15 +29,20 @@ public class GameView {
 
     public GameView(Stage p, int level) {
         this.primaryStage = p;
-        this.root = new BorderPane();
+
+        this.root = new Pane();
         this.SLFPS=new SLFPSGraphics(scoreLifeView, fpsGraphics);
         this.scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
         this.gameRoot = new GameRoot(game, this, scene, primaryStage);
         this.scoreLifeView = new ScoreLifeGraphics(game);
         gameRoot.getRoot().setPrefHeight(GameConstants.DEFAULT_WINDOW_HEIGHT - this.scoreLifeView.getPrefHeight());
         gameRoot.getRoot().setPrefWidth(GameConstants.DEFAULT_WINDOW_WIDTH - this.scoreLifeView.getPrefWidth());
-        this.root.setCenter(gameRoot.getRoot());
-        this.root.setLeft(scoreLifeView);
+        this.pane = new BorderPane();
+        this.pane.setCenter(gameRoot.getRoot());
+        this.pane.setLeft(SLFPS);
+        this.root.getChildren().add(pane);
+        // this.root.getChildren().add(gameRoot.getRoot());
+        // this.root.getChildren().add(SLFPS);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
         scene.getStylesheets().add(GameConstants.CSS);
