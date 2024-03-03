@@ -16,7 +16,7 @@ public class Game {
     private Racket racket;
     private Map map;
     private boolean lost = false;
-    private int score = 0;
+    public static int score = 0;
     private int life = 3;
     private static boolean collide;
 
@@ -34,7 +34,6 @@ public class Game {
         map.handleCollisionBricks(ball); // gérer la collision des briques
         int i=map.updateBricksStatus();
         if (i>0) {
-            score += 10*i;
             System.out.println("Brick destroyed : "+i);
             //si la briques est cassée, chance d'avoir un boost
             Boost boost = Boost.createBoost(ball.getC());

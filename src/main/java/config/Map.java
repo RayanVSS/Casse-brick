@@ -91,15 +91,13 @@ public class Map {
         int count = 0;
         for (int i = 0; i < bricks.length; i++) {
             for (int j = 0; j < bricks[0].length; j++) {
-                System.out.println("i : "+i+" j : "+j+" bricks[i][j] : "+bricks[i][j]);
                 if (bricks[i][j] != null && bricks[i][j].isDestroyed()) {
                     bricks[i][j] = null;
+                    Game.score += 10;
                     count++;
-                    //return true;
                 }
             }
         }
-        //return false;
         return count ;
     }
 

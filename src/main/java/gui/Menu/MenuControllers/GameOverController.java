@@ -1,6 +1,7 @@
 package gui.Menu.MenuControllers;
 
 
+import config.Game;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.GameOverView;
@@ -32,6 +33,7 @@ public class GameOverController {
      */
     private void replay() {
         Platform.runLater(() -> {
+            Game.score  = 0;
             new GameView( view.getPrimaryStage(), 1);
         });
     }
