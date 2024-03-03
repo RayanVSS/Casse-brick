@@ -324,17 +324,14 @@ affichage de la racket
 ### Belhassen rayan
 <span style="color:green">**Fait:**</span>
     
-    - boost: apparition des boost
-
-    - sauvegarde: ajout du theme dans la sauvegarde
-
-    - icône: ajout d'une icône pour le jeux 
-
-    - daltonisme: thème pour les personnes atteintes de "protanopie","deuteranopie","tritanopie" et "achromatopsie"
+- boost: apparition des boost
+- sauvegarde: ajout du theme dans la sauvegarde
+- icône: ajout d'une icône pour le jeux 
+- daltonisme: thème pour les personnes atteintes de "protanopie","deuteranopie","tritanopie" et "achromatopsie"
 
 <span style="color:purple">**A Faire:**</span>
 
-    - mode deux joueur 
+- mode deux joueur 
 
 
 
