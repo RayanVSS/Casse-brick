@@ -74,7 +74,7 @@ public class OptionsView implements Menu {
         Label labeltheme = createLabel("Themes: ", 0, 0);
         listTheme = new ComboBox<String>();
         listTheme.setPromptText("Choisir un theme");
-        listTheme.getItems().addAll("dark", "pink", "light");
+        listTheme.getItems().addAll("dark", "pink", "light", "protanopie", "deuteranopie", "tritanopie","achromatopsie");
 
         v2.getChildren().addAll(labelmusic, volumemusic, labelsound, volumesound, labeltheme, listTheme);
 

@@ -74,7 +74,7 @@ public class SaveController {
         String nomUtilisateur = view.getNameSave().getText(); // Récupérer le nom de l'utilisateur
         sauvegarde.sauvegarderOptionsDuJeu(nomUtilisateur); // Sauvegarder les options du jeu
         if (!view.getListSave().getItems().contains(nomUtilisateur + ".json")) // Si le nom de l'utilisateur n'est pas déjà dans la ComboBox
-            view.getListSave().getItems().add(nomUtilisateur + "json"); // Ajouter le nom de l'utilisateur à la ComboBox
+            view.getListSave().getItems().add(nomUtilisateur + ".json"); // Ajouter le nom de l'utilisateur à la ComboBox
         view.afficherMessage("c'est bon"); // Afficher un message de confirmation
     }
 

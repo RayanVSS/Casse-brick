@@ -62,9 +62,8 @@ public class GameView extends App {
         this.gameView = this;
 
         /* differentes balles */
-        game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
-        // game = new Game(new MagnetBall(), new MagnetRacket(),
-        // BricksArrangement.DEFAULT);
+        // game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
+        game = new Game(new MagnetBall(), new MagnetRacket(),BricksArrangement.DEFAULT);
 
         brickSet = new BrickSet(game.getMap().getBricks());
 
