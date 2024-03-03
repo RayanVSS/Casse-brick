@@ -25,7 +25,9 @@ public class App extends Application {
         sceneManager.createSaveViewScene(primaryStage);
         sceneManager.createTutoViewScene(primaryStage);
 
-        primaryStage.setScene(sceneManager.getScene("StartMenuView"));
+        //primaryStage.setScene(sceneManager.getScene("StartMenuView"));
+
+        new GameView(p, 0);
 
         primaryStage.show();
         primaryStage.getOnCloseRequest();

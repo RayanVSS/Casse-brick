@@ -87,18 +87,17 @@ public class Map {
         }
     }
 
-    public int updateBricksStatus() {
-        int count = 0;
+    public boolean updateBricksStatus() {
         for (int i = 0; i < bricks.length; i++) {
             for (int j = 0; j < bricks[0].length; j++) {
                 if (bricks[i][j] != null && bricks[i][j].isDestroyed()) {
                     bricks[i][j] = null;
                     Game.score += 10;
-                    count++;
+                    return true;
                 }
             }
         }
-        return count ;
+        return false ;
     }
 
     public void displayBricksInTerminal() { // pour les tests

@@ -1,5 +1,8 @@
 package entity.ball;
 
+import java.util.Random;
+
+import entity.racket.Racket;
 import geometry.Coordinates;
 import gui.GameView;
 import javafx.scene.input.KeyCode;
@@ -19,15 +22,21 @@ public class HyperBall extends Ball {
 
     public boolean movement() {
         boolean lost = true;
+        Random rand = new Random();
         double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
         double w = GameConstants.DEFAULT_WINDOW_WIDTH;
+        if(this.getDirection().getY()>1){
+            this.getDirection().setY(1);
+        }
         double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
         double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
 
         // Gestion des collisions avec la raquettes
         if (CollisionR) { 
             if (GameView.BougePColision) {
-                this.getDirection().setY(-this.getDirection().getY());
+                double d=rand.nextDouble()-0.5;
+                this.getDirection().setY(-(this.getDirection().getY())+d);
+                newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                 newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                 CollisionR = false;
             }
