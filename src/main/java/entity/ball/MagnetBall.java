@@ -1,6 +1,7 @@
 package entity.ball;
 
 import entity.racket.MagnetRacket;
+import entity.racket.Racket;
 import geometry.Coordinates;
 import utils.GameConstants;
 

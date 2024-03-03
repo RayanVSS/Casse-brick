@@ -33,7 +33,8 @@ public class Game {
         // Vérifie si la balle touche une brique
         map.handleCollisionBricks(ball); // gérer la collision des briques
         if (map.updateBricksStatus()) {
-            score += 10;
+            score += 10;       
+            //TODO : changer updateBricksStatus pour qu'il renvoie le nombre de briques cassées
             //si la briques est cassée, chance d'avoir un boost
             Boost boost = Boost.createBoost(ball.getC());
             if (boost != null) {
@@ -42,6 +43,7 @@ public class Game {
         }
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
+            System.out.println("collision avec la raquette dans Game");
             ball.setCollisionR(true);
         }
         // Gere les conditions de perte
