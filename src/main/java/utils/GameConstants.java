@@ -96,15 +96,15 @@ public final class GameConstants {
 
         // preConfig des parties
         public static GameRules[] PRECONFIG_GAME_RULES = {
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, true, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, true),
-                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true, true) };
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, true, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true),
+                        new GameRules(BricksArrangement.DEFAULT, true, true, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true) };
 
         // à changer plus tard
         public static Ball[] PRECONFIG_GAME_BALL = { new ClassicBall(), new ClassicBall(), new ClassicBall(),

@@ -28,8 +28,7 @@ public class GameRules {
     private int qty_unbreakable = GameConstants.GR_DEFAULT_QTY_UNBREAKABLE;
 
     public GameRules(BricksArrangement arrangement, boolean limitedTime, boolean limitedBounces,
-            boolean randomSwitchBricks, boolean colorRestricted,
-            boolean transparent, boolean invisible, boolean unbreakable) {
+            boolean randomSwitchBricks, boolean colorRestricted, boolean transparent, boolean unbreakable) {
 
         this.arrangement = arrangement;
         this.limitedTime = limitedTime;

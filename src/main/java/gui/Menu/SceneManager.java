@@ -92,7 +92,7 @@ public class SceneManager {
         createTutoViewScene(primaryStage);
         createGameModeViewScene(primaryStage);
         createStageSelectorViewScene(primaryStage);
-        // createGameCustomizerViewScene(primaryStage);
+        createGameCustomizerViewScene(primaryStage);
     }
 
     // Les méthodes suivantes créent des scènes spécifiques et les ajoutent à la
@@ -133,11 +133,11 @@ public class SceneManager {
         addScene("StageSelectorView", stageSelectorView.getScene());
     }
 
-    // public void createGameCustomizerViewScene(Stage primaryStage) {
-    //     GameCustomizerView gameCustomizerView = new GameCustomizerView(primaryStage);
-    //     addStylesheet(gameCustomizerView.getScene());
-    //     addScene("GameCustomizerView", gameCustomizerView.getScene());
-    // }
+    public void createGameCustomizerViewScene(Stage primaryStage) {
+        GameCustomizerView gameCustomizerView = new GameCustomizerView(primaryStage);
+        addStylesheet(gameCustomizerView.getScene());
+        addScene("GameCustomizerView", gameCustomizerView.getScene());
+    }
 
     /**
      * Change la scène actuelle du primaryStage par une autre scène de la
