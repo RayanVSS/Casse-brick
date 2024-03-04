@@ -14,8 +14,8 @@ import utils.*;
 public class GameView {
     private Stage primaryStage;
     private Pane root;
+    private VBox SLFPS;
     private BorderPane pane;
-    private SLFPSGraphics SLFPS;
     private Scene scene;
     private GameRoot gameRoot;
     private Game game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
@@ -29,22 +29,18 @@ public class GameView {
 
     public GameView(Stage p, int level) {
         this.primaryStage = p;
-
         this.root = new Pane();
-        this.SLFPS=new SLFPSGraphics(scoreLifeView, fpsGraphics);
         this.scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
         this.gameRoot = new GameRoot(game, this, scene, primaryStage);
         this.scoreLifeView = new ScoreLifeGraphics(game);
-        gameRoot.getRoot().setPrefHeight(GameConstants.DEFAULT_WINDOW_HEIGHT - this.scoreLifeView.getPrefHeight());
-        gameRoot.getRoot().setPrefWidth(GameConstants.DEFAULT_WINDOW_WIDTH - this.scoreLifeView.getPrefWidth());
         this.pane = new BorderPane();
-        VBox vBox = new VBox();
+        this.SLFPS = new VBox();
         if(GameConstants.FPS)
-            vBox.getChildren().add(fpsGraphics);
-        vBox.getChildren().add(scoreLifeView);
-        vBox.setPrefWidth(150.0);
+            SLFPS.getChildren().add(fpsGraphics);
+        SLFPS.getChildren().add(scoreLifeView);
+        SLFPS.setPrefWidth(150.0);
         this.pane.setCenter(gameRoot.getRoot());
-        this.pane.setLeft(vBox);
+        this.pane.setLeft(SLFPS);
         this.root.getChildren().add(pane);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();

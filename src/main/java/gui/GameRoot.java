@@ -51,7 +51,6 @@ public class GameRoot {
         this.root.getChildren().add(graphRacket);
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         root.getStyleClass().add("game-backgorund");
-        //StackPane.setAlignment(root, Pos.CENTER_RIGHT);
     }
 
     public void update() {
