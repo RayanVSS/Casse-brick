@@ -30,7 +30,6 @@ public class App extends Application {
 
         primaryStage.setScene(sceneManager.getScene("StartMenuView"));
 
-        //new GameView(p, 0);
         primaryStage.show();
         primaryStage.getOnCloseRequest();
     }

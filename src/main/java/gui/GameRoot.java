@@ -53,7 +53,7 @@ public class GameRoot {
         root.getStyleClass().add("game-backgorund");
     }
 
-    public void update() {
+    public void update(long deltaT) {
         graphBall.update();
         graphRacket.update();
         if (GameConstants.PARTICLES) {
@@ -61,9 +61,6 @@ public class GameRoot {
         }
         graphBrickSet.update();
         BoostUpdate();
-    }
-
-    public void animation(long deltaT) {
         BougePColision = key.isEmpty();
         key.handleInput(game);
         key.touchesR(scene, game);
@@ -71,7 +68,6 @@ public class GameRoot {
         BougePColision = key.isEmpty();
         direction = key.getKeysPressed();
         game.update(deltaT);
-        update();
         key.touchesM(scene, game);
         if (game.isLost()) {
             game.setLost(false);

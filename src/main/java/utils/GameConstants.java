@@ -24,15 +24,11 @@ public final class GameConstants {
 
 
 	static Random rand = new Random();
-	static double min = -1.0;
-	static double max = 1.0;
-	static double randomValue = min + (max - min) * rand.nextDouble();
 	public static final Vector DEFAULT_BALL_START_DIRECTION = new Vector(
 			new Coordinates(rand.nextBoolean() ? 1 : -1, rand.nextBoolean() ? 1 : -1));
 	public static final Coordinates DEFAULT_BALL_START_COORDINATES = new Coordinates(
 			GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2, GameConstants.DEFAULT_WINDOW_HEIGHT / 2);
 	public static final double POWER_MAGNET = 0.5; // puissance de l'attraction des aimants
-   
 
 	// fenetre
 	// public static final double DEFAULT_WINDOW_WIDTH = MAP_WIDTH * BRICK_WIDTH;

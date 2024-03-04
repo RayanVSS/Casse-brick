@@ -64,7 +64,7 @@ public class GameView {
                 if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
                 } else if (now - last > 1000000000 / 120) {
-                    gameRoot.animation(deltaT);
+                    gameRoot.update(deltaT);
                     if(GameConstants.FPS)
                         fpsGraphics.update();
                     scoreLifeView.update();
