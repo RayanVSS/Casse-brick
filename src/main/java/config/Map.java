@@ -87,6 +87,7 @@ public class Map {
                             handleCollisionDirection(ball, i, j);
                             targetBrick.setDestroyed(true);
                         }
+                        return;
                     }
                 }
             }
@@ -106,7 +107,7 @@ public class Map {
             brick.setDestroyed(true);
         }
 
-        if (rules.isColorRestricted()) {
+        if (rules.isColorRestricted() && !brick.isTransparent()) {
             ball.setColor(brick.getColor());
         }
     }
