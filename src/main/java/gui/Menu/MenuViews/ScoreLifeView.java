@@ -3,6 +3,7 @@ package gui.Menu.MenuViews;
 import config.Game;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import utils.GameConstants;
 
 /**
  * Classe ScoreLifeView qui étend Pane pour afficher le score et la vie dans le
@@ -40,6 +41,7 @@ public class ScoreLifeView extends Pane {
         setLayoutY(10);
         getChildren().add(lifeText);
         getChildren().add(scoreText);
+        getStylesheets().add(GameConstants.CSS);
     }
 
     /**

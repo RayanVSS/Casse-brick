@@ -1,13 +1,16 @@
 package gui.Menu.MenuControllers;
 
+import gui.App;
 import gui.Menu.MenuViews.OptionsView;
-import gui.Menu.MenuViews.StartMenuView;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
 /**
- * Classe OptionsController qui gère les interactions de l'utilisateur avec la vue OptionsView.
+ * Classe OptionsController qui gère les interactions de l'utilisateur avec la
+ * vue OptionsView.
  * Elle permet de modifier les elements modifiables du jeu.
+ * 
  * @see OptionsView
  * @author Benmalek Majda
  */
@@ -16,10 +19,12 @@ public class OptionsController {
 
     /**
      * Constructeur de OptionsController.
+     * 
      * @param p Le stage principal sur lequel la vue des options est affichée.
      */
-    public OptionsController(Stage p,OptionsView view) {
+    public OptionsController(Stage p, OptionsView view) {
         this.view = view;
+
         this.view.getBtnBack().setOnAction(e -> back());
         this.view.getButtonfps().setOnAction(e -> fps());
         this.view.getButtonpath().setOnAction(e -> path());
@@ -30,18 +35,23 @@ public class OptionsController {
         this.view.getVolumesound().valueProperty().addListener((observable, oldValue, newValue) -> {
             GameConstants.SOUND = newValue.intValue();
         });
+        this.view.getListTheme().getSelectionModel().selectedItemProperty()
+                .addListener((obs, oldSelection, newSelection) -> {
+                    Theme();
+                });
         this.view.getButtonleft().setOnAction(e -> left());
         this.view.getButtonpower().setOnAction(e -> power());
         this.view.getButtonright().setOnAction(e -> right());
+
     }
 
     /**
      * Méthode pour revenir à la vue du menu de démarrage.
      */
     private void back() {
-        view.getRoot().getChildren().clear();
-        //new StartMenuView(view.getPrimaryStage());
-        new StartMenuController(view.getPrimaryStage(), new StartMenuView(view.getPrimaryStage()));
+        Platform.runLater(() -> {
+            App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+        });
     }
 
     /**
@@ -113,6 +123,18 @@ public class OptionsController {
             GameConstants.RIGHT = event.getCode();
             view.getButtonright().setText(GameConstants.RIGHT.getName());
             view.getButtonright().setOnKeyPressed(null); // Désactive la liaison après la configuration
-        });;
+        });
+        ;
+    }
+
+    private void Theme() {
+        String selectedTheme = view.getListTheme().getValue();
+        if (selectedTheme != null) {
+            GameConstants.CSS = "/styles/" + selectedTheme + ".css";
+            //change le css de chaque scene dans SceneManager
+            App.sceneManager.getScenes().forEach((k, v) -> {
+                App.sceneManager.addStylesheet(v);
+            });
+        }
     }
 }

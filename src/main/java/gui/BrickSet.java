@@ -9,6 +9,7 @@ import utils.GameConstants;
 import entity.EntityColor;
 
 public class BrickSet extends Group {
+    Image image = ImageLoader.loadImage("src/main/ressources/briquee.png");
 
     public BrickSet(Brick[][] tab) {
         int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;

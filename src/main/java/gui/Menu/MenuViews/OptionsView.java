@@ -1,7 +1,9 @@
 package gui.Menu.MenuViews;
 
+import gui.Menu.MenuControllers.OptionsController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -17,10 +19,11 @@ import utils.GameConstants;
  * @author Benmalek Majda
  * @author Bencheikh Ilias
  */
-public class OptionsView extends Menu {
+public class OptionsView implements Menu {
     private Stage primaryStage;
     private static HBox root = new HBox();
-    private static Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
+    private static Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,
+            GameConstants.DEFAULT_WINDOW_HEIGHT);
     private Button btnBack;
     private ToggleButton buttonfps;
     private ToggleButton buttonpath;
@@ -30,6 +33,7 @@ public class OptionsView extends Menu {
     private Button buttonleft;
     private Button buttonright;
     private Button buttonpower;
+    private ComboBox<String> listTheme;
 
     /**
      * Constructeur de OptionsView.
@@ -37,12 +41,8 @@ public class OptionsView extends Menu {
      * @param p Le stage principal sur lequel la vue des options est affichée.
      */
     public OptionsView(Stage p) {
-        super(p, scene);
         this.primaryStage = p;
         btnBack = createButton("Retour", 0, 0);
-        root.getStylesheets().add("root");
-        scene.getStylesheets().add("styles/blue.css");
-        primaryStage.setScene(scene);
 
         // VBox 1: FPS, Chemain de la balle,Particules
         VBox v1 = new VBox();
@@ -70,7 +70,13 @@ public class OptionsView extends Menu {
         Label labelsound = createLabel("Volume des sons", 0, 0);
         volumesound = createSlider(0, 100, GameConstants.SOUND, 200);
 
-        v2.getChildren().addAll(labelmusic, volumemusic, labelsound, volumesound);
+        // ComboBox pour choisir le thème
+        Label labeltheme = createLabel("Themes: ", 0, 0);
+        listTheme = new ComboBox<String>();
+        listTheme.setPromptText("Choisir un theme");
+        listTheme.getItems().addAll("dark", "pink", "light");
+
+        v2.getChildren().addAll(labelmusic, volumemusic, labelsound, volumesound, labeltheme, listTheme);
 
         // VBox 3: Modif des : Touche gauche, Touche droite, Touche pour activer le
         // pouvoir
@@ -90,124 +96,73 @@ public class OptionsView extends Menu {
         v3.getChildren().addAll(labelleft, buttonleft, labelright, buttonright, labelpower, buttonpower);
 
         // Ajout des VBox à la racine et mise en forme
-        v1.setAlignment(javafx.geometry.Pos.CENTER);
-        v2.setAlignment(javafx.geometry.Pos.CENTER);
-        v3.setAlignment(javafx.geometry.Pos.CENTER);
-        v1.setSpacing(20);
-        v2.setSpacing(20);
-        v3.setSpacing(20);
-        root.setAlignment(javafx.geometry.Pos.CENTER);
-        root.setSpacing(50);
+        // v1.setAlignment(javafx.geometry.Pos.CENTER);
+        // v2.setAlignment(javafx.geometry.Pos.CENTER);
+        // v3.setAlignment(javafx.geometry.Pos.CENTER);
+        // v1.setSpacing(20);
+        // v2.setSpacing(20);
+        // v3.setSpacing(20);
+        // root.setAlignment(javafx.geometry.Pos.CENTER);
+        // root.setSpacing(50);
+        v1.getStyleClass().add("vbox");
+        v2.getStyleClass().add("vbox");
+        v3.getStyleClass().add("vbox");
+        root.getStyleClass().add("root-option");
         root.getChildren().addAll(v1, v2, v3, btnBack);
+        new OptionsController(p, this);
     }
 
     // Getters
 
-    /**
-     * Méthode pour obtenir la racine de la vue.
-     * 
-     * @return La racine de la vue.
-     */
     public HBox getRoot() {
         return root;
     }
 
-    /**
-     * Méthode pour obtenir le stage principal.
-     * 
-     * @return Le stage principal.
-     */
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    /**
-     * Méthode pour obtenir la scène.
-     * 
-     * @return La scène.
-     */
     public Scene getScene() {
         return scene;
     }
 
-    /**
-     * Méthode pour obtenir le bouton Retour.
-     * 
-     * @return Le bouton Retour.
-     */
     public Button getBtnBack() {
         return btnBack;
     }
 
-    /**
-     * Méthode pour obtenir le bouton FPS.
-     * 
-     * @return Le bouton FPS.
-     */
     public ToggleButton getButtonfps() {
         return buttonfps;
     }
 
-    /**
-     * Méthode pour obtenir le bouton Path.
-     * 
-     * @return Le bouton Path.
-     */
     public ToggleButton getButtonpath() {
         return buttonpath;
     }
 
-    /**
-     * Méthode pour obtenir le bouton Particles.
-     * 
-     * @return Le bouton Particles.
-     */
     public ToggleButton getButtonparticles() {
         return buttonparticles;
     }
 
-    /**
-     * Méthode pour obtenir le slider de volume de la musique.
-     * 
-     * @return Le slider de volume de la musique.
-     */
     public Slider getVolumemusic() {
         return volumemusic;
     }
 
-    /**
-     * Méthode pour obtenir le slider de volume des sons.
-     * 
-     * @return Le slider de volume des sons.
-     */
     public Slider getVolumesound() {
         return volumesound;
     }
 
-    /**
-     * Méthode pour obtenir le bouton Left.
-     * 
-     * @return Le bouton Left.
-     */
     public Button getButtonleft() {
         return buttonleft;
     }
 
-    /**
-     * Méthode pour obtenir le bouton Right.
-     * 
-     * @return Le bouton Right.
-     */
     public Button getButtonright() {
         return buttonright;
     }
 
-    /**
-     * Méthode pour obtenir le bouton Power.
-     * 
-     * @return Le bouton Power.
-     */
     public Button getButtonpower() {
         return buttonpower;
+    }
+
+    public ComboBox<String> getListTheme() {
+        return listTheme;
     }
 }

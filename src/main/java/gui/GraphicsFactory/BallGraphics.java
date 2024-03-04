@@ -2,6 +2,9 @@ package gui.GraphicsFactory;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+
+import org.checkerframework.checker.units.qual.s;
+
 import entity.EntityColor;
 import entity.ball.Ball;
 import entity.ball.ClassicBall;
@@ -18,22 +21,14 @@ public class BallGraphics extends Circle {
         setCenterX(ball.getC().getX());
         setCenterY(ball.getC().getY());
         setRadius(ball.getRadius());
-        if (ball instanceof ClassicBall) {
-            ball.setColor(EntityColor.RED);
-            setFill(Color.RED);
-        } else if (ball instanceof HyperBall) {
-            ball.setColor(EntityColor.BLUE);
-            setFill(Color.BLUE);
-        } else if (ball instanceof GravityBall) {
-            setFill(Color.GRAY);
-            ball.setColor(EntityColor.RED);
-        } else if (ball instanceof MagnetBall) {
-            setFill(Color.GREEN);
-            ball.setColor(EntityColor.GREEN);
-        } else {
-            ball.setColor(EntityColor.RED);
-            setFill(Color.BLACK);
-        }
+        if (ball instanceof ClassicBall)
+            getStyleClass().add("ball");
+        else if (ball instanceof HyperBall)
+            getStyleClass().add("hyperball");
+        else if (ball instanceof GravityBall)
+            getStyleClass().add("gravityball");
+        else if (ball instanceof MagnetBall)
+            getStyleClass().add("magnetball");
     }
 
     public void update() {
@@ -45,19 +40,23 @@ public class BallGraphics extends Circle {
             else
                 setFill(Color.YELLOW);
         }
-        switch (ball.getColor()) {
-            case RED:
-                setFill(Color.RED);
-                break;
-            case GREEN:
-                setFill(Color.GREEN);
-                break;
-            case BLUE:
-                setFill(Color.BLUE);
-                break;
-            default:
-                break;
+        if (ball.getColor() != null) {
+            switch (ball.getColor()) {
+                case RED:
+                    setFill(Color.RED);
+                    break;
+                case GREEN:
+                    setFill(Color.GREEN);
+                    break;
+                case BLUE:
+                    setFill(Color.BLUE);
+                    break;
+                default:
+                    setFill(Color.GRAY);
+                    break;
+            }
         }
+
     }
 
 }

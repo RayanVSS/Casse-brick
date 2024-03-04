@@ -13,6 +13,8 @@ public class BricksGraphics extends StackPane {
     public Brick brick;
     public int i;
     public int j;
+    public boolean isUnbreakable;
+    public boolean isTransparent;
 
     public BricksGraphics(Brick brick, int i, int j) {
         Image image;
@@ -25,27 +27,35 @@ public class BricksGraphics extends StackPane {
         this.i = i;
         this.j = j;
         this.setImageView(image);
+        this.isUnbreakable = brick.isUnbreakable();
+        this.isTransparent = brick.isTransparent();
     }
 
     public BricksGraphics(Brick brick, int i, int j, EntityColor c) {
         Image image = null;
-        switch (c) {
-            case RED:
-                image = ImageLoader.loadImage("src/main/ressources/brique.png");
-                break;
-            case GREEN:
-                image = ImageLoader.loadImage("src/main/ressources/briquev.png");
-                break;
-            case BLUE:
-                image = ImageLoader.loadImage("src/main/ressources/briqueb.png");
-                break;
-            default:
-                break;
+        if (brick.isUnbreakable()) {
+            image = ImageLoader.loadImage("src/main/ressources/briqueii.png");
+        } else {
+            switch (c) {
+                case RED:
+                    image = ImageLoader.loadImage("src/main/ressources/brique.png");
+                    break;
+                case GREEN:
+                    image = ImageLoader.loadImage("src/main/ressources/briquev.png");
+                    break;
+                case BLUE:
+                    image = ImageLoader.loadImage("src/main/ressources/briqueb.png");
+                    break;
+                default:
+                    break;
+            }
         }
         this.brick = brick;
         this.i = i;
         this.j = j;
         this.setImageView(image);
+        this.isUnbreakable = brick.isUnbreakable();
+        this.isTransparent = brick.isTransparent();
     }
 
     public void setImageView(Image image) {
@@ -61,21 +71,49 @@ public class BricksGraphics extends StackPane {
                 getChildren().remove(imageView);
                 imageView = new ImageView();
                 getChildren().add(imageView);
-            }
-            if (brick.getC().getIntX() != i || brick.getC().getIntY() != j) {
-                i = brick.getC().getIntX();
-                j = brick.getC().getIntY();
-                setLayoutX(i);
-                setLayoutY(j);
-            }
-            if (brick.isUnbreakable()
-                    && !imageView.getImage().getUrl().equals("src/main/ressources/briqueii.png")) {
-                getChildren().remove(imageView);
-                Image im = ImageLoader.loadImage("src/main/ressources/briqueii.png");
-                this.setImageView(im);
-            }
-            if (brick.isTransparent()) {
-                imageView.setOpacity(0.5);
+            } else {
+                if (brick.getC().getIntX() != i || brick.getC().getIntY() != j) {
+                    i = brick.getC().getIntX();
+                    j = brick.getC().getIntY();
+                    setLayoutX(i);
+                    setLayoutY(j);
+                }
+                if (brick.isUnbreakable() && !this.isUnbreakable) {
+                    getChildren().remove(imageView);
+                    Image im = ImageLoader.loadImage("src/main/ressources/briqueii.png");
+                    this.setImageView(im);
+                    this.isUnbreakable = true;
+                }
+                if (!brick.isUnbreakable() && this.isUnbreakable) {
+                    this.isUnbreakable = false;
+                    getChildren().remove(imageView);
+                    Image image = null;
+                    if (brick.getColor() != null) {
+                        switch (brick.getColor()) {
+                            case RED:
+                                image = ImageLoader.loadImage("src/main/ressources/brique.png");
+                                break;
+                            case GREEN:
+                                image = ImageLoader.loadImage("src/main/ressources/briquev.png");
+                                break;
+                            case BLUE:
+                                image = ImageLoader.loadImage("src/main/ressources/briqueb.png");
+                                break;
+                            default:
+                                break;
+                        }
+                    } else {
+                        image = ImageLoader.loadImage("src/main/ressources/briquee.png");
+                    }
+                    this.setImageView(image);
+                }
+                if (brick.isTransparent() && !isTransparent) {
+                    imageView.setOpacity(0.5);
+                    this.isTransparent = true;
+                } else if (!brick.isTransparent() && isTransparent) {
+                    isTransparent = false;
+                    imageView.setOpacity(1);
+                }
             }
         }
     }

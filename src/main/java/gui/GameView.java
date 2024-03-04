@@ -7,13 +7,13 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import config.*;
 import config.GameRules.BricksArrangement;
+import entity.Boost;
 import entity.Particle;
 import entity.ball.*;
 import entity.preview.Preview;
 import entity.racket.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
-import gui.Menu.MenuControllers.GameOverController;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.ScoreLifeView;
 import utils.*;
@@ -23,13 +23,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import geometry.Coordinates;
+import gui.Menu.MenuViews.PauseView;
+import java.util.Iterator;
 
 public class GameView extends App {
 
     private Stage primaryStage;
     private Pane root = new Pane();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-    private Game game;
+    private StageLevel stageLevel;
 
     private BrickSet brickSet;
 
@@ -56,22 +58,11 @@ public class GameView extends App {
     // life & score
     private ScoreLifeView scoreLifeView;
 
-    // direction de la balle
-    private Preview preview;
-    private BallGraphics Ballpreview;
-
-    public GameView(Stage p, int level) {
+    public GameView(Stage p, StageLevel stageLevel) {
         this.primaryStage = p;
-        this.scene.getStylesheets().add("/styles/blue.css");
+        this.stageLevel = stageLevel;
+        Game game = stageLevel.getGame();
 
-        if (GameConstants.FPS) {
-            fpsGraphics = new FPSGraphics();
-        }
-
-        /* differentes balles */
-        game = new Game(new ClassicBall(), new ClassicRacket(),
-                new GameRules(BricksArrangement.DEFAULT, false, false, true, true, true, true, true));
-        preview = new Preview(game.getBall());
         brickSet = new BrickSet(game.getMap().getBricks());
 
         // Création des particules
@@ -95,16 +86,18 @@ public class GameView extends App {
         // Ajout des éléments graphiques à la fenêtre
         root.getChildren().add(this.graphBall);
         root.getChildren().add(this.graphRacket);
+        root.getChildren().add(this.brickSet);
+        root.getChildren().add(this.scoreLifeView);
         if (GameConstants.FPS) {
+            fpsGraphics = new FPSGraphics();
             root.getChildren().add(this.fpsGraphics);
         }
-        root.getChildren().add(this.scoreLifeView);
-        root.getChildren().add(this.brickSet);
 
+        root.getStyleClass().add("game-backgorund");
+        scene.getStylesheets().add(GameConstants.CSS);
+        this.animation();
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
-        primaryStage.show();
-
         game.start();
     }
 
@@ -126,7 +119,7 @@ public class GameView extends App {
 
         // Mise à jour du score et de la vie
         this.scoreLifeView.update();
-
+        Game game = stageLevel.getGame();
         if (GameConstants.PARTICLES) {
             for (int i = 0; i < trailLength; i++) {
                 List<Particle> trail = particleTrails.get(i);
@@ -139,13 +132,16 @@ public class GameView extends App {
                     currentParticle.setCenterY(previousParticle.getCenterY());
                     currentParticle.applyRandomFluctuation(); // fluctuation des particules
                 }
-
                 Particle firstParticle = trail.get(0);
                 firstParticle.setCenterX(game.getBall().getC().getX());
                 firstParticle.setCenterY(game.getBall().getC().getY());
                 firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
             }
         }
+
+        // Mise à jour des boosts
+        BoostUpdate();
+
     }
 
     // Génère une direction aléatoire pour la balle
@@ -157,9 +153,12 @@ public class GameView extends App {
     }
 
     public void animation() {
+        GameView gameView = this;
+        Game game = stageLevel.getGame();
         animationTimer = new AnimationTimer() {
             long last = 0;
             double delay = 0.0;
+            // PauseView pauseView = new PauseView(primaryStage, root, this);
 
             @Override
             public void handle(long now) {
@@ -183,12 +182,48 @@ public class GameView extends App {
                     key.touchesM(scene, game);
                     if (game.isLost()) {
                         animationStop();
-                        root.getChildren().add(new GameOverView(primaryStage, root).getRoot());
+                        root.getChildren().add(new GameOverView(primaryStage, gameView).getRoot());
+                        stageLevel.lostAction();
+                    }
+                    if (game.isWin()) {
+                        animationStop();
+                        // Ecran de win
+                        stageLevel.winAction();
+                    }
+                    if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
+                        animationStop();
+                        root.getChildren()
+                                .add(new PauseView(primaryStage, gameView.getRoot(), animationTimer, stageLevel));
                     }
                 }
                 last = now;
             }
         };
+        animationStart();
+    }
+
+    public void BoostUpdate() {
+        Game game = stageLevel.getGame();
+        Iterator<Boost> iterator = game.getBoosts().iterator();
+        while (iterator.hasNext()) {
+            Boost boost = iterator.next();
+            if (boost.move(game.getRacket().CollisionRacket(boost.getC()), game.getRacket())) {
+                root.getChildren().remove(boost);
+                iterator.remove();
+            } else {
+                if (!root.getChildren().contains(boost)) {
+                    root.getChildren().add(boost);
+                }
+                if (boost.getY() > GameConstants.DEFAULT_WINDOW_HEIGHT) {
+                    root.getChildren().remove(boost);
+                    iterator.remove();
+                }
+            }
+        }
+    }
+
+    public void animationStart() {
+        System.out.println("GameView.animationStart()");
         animationTimer.start();
     }
 
@@ -211,4 +246,13 @@ public class GameView extends App {
     public AnimationTimer getAnimationTimer() {
         return animationTimer;
     }
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    public StageLevel getStageLevel() {
+        return stageLevel;
+    }
+
 }

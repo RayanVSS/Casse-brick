@@ -242,6 +242,82 @@ affichage de la racket
 - Implémentation de celle-ci dans le jeu
 - Implémentation du niveau infini #23
 
+## Semaine 4
+
+### Majda Benmalek 
+<span style="color:green">**Fait:**</span>
+- Rajout de 2 themes( utilisation du css )
+- Factorisation et changement de comment on gere le changement de scene 
+- Rajout d'une transition (pas ouf) entre chaque changement de scene 
+
+<span style="color:purple">**A Faire:**</span>
+- Ajout du son 
+- Probleme d'angle collision de la balle 
+- Rajout d'autre theme avec la couleur de la balle et la raquette qui suivent 
+- Changer la disposition dans l'affichage du jeu
+
+
+### Guan Olivier 
+<span style="color:green">**Fait:**</span>
+
+- Toutes les règles additionnelles au jeu classique : [Temps limité](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/37), [Rebonds limité](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/38), [Briques TP aléatoire](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/39), [Correspondance de couleur](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/41), [Brique transparente/Ghost](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/42), [Brique incassable](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/45)
+
+- Factorisation de la logique des règles
+
+- Possibilité de "stacker" les règles
+
+
+<span style="color:purple">**A Faire:**</span>
+
+- Inclure ces nouvelles règles dans les preconfig de niveaux
+
+- Création d'un menu de selection de niveaux et de création d'une game custom
+
+
+
+### Amenah MUSHTAQ
+
+<span style="color:green">**Fait:**</span>
+-#27 bouton pause pb timer reglé
+-#44 : 
+    -affichage pour le mode couleur
+    -optimisation de l'affichage des briques
+    -affichage pour la permutation des briques pas finie
+
+<span style="color:purple">**A Faire:**</span>
+-#44 affichage pour la permutation des briques pas finie
+- mode infini
+
+### Belhassen rayan
+<span style="color:green">**Fait:**</span>
+
+- magnetRacket: raquette magnétique 
+- magnetBall: balle magnétique 
+- sauvegarde:
+    - finalisation du menu pour les sauvegardes
+    - possibilité de pouvoir enregistrer les options 
+    - le jeu charge sur la dernière sauvegarde 
+
+<span style="color:purple">**A Faire:**</span>
+
+- travailler sur un mode pour daltonien
+
+- mode deux joueur 
+
+### Bencheikh Ilias
+<span style="color:green">**Fait:**</span>
+
+- Implémentation des effets de la balle (début de rotation) #32
+
+- Implémentation de prendre de la balle et de l'envoyer afin de la tester #40
+
+- Recherche d'un meilleur mouvement de la balle (loi de bernouilli et effet de magnus)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Améliorer les effets de la balle ( problème de collision avec le mur après plusieur effets) #34
+
+- Régler le problème de FPS (vitesse de la balle et de la racket varie en fonction des performances) #43
 
 
 

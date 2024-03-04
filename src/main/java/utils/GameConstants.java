@@ -10,8 +10,7 @@ import entity.racket.Racket;
 import geometry.Coordinates;
 import geometry.Vector;
 import javafx.scene.input.KeyCode;
-
-import javafx.stage.Screen;
+import javafx.scene.paint.Color;
 
 public final class GameConstants {
 
@@ -35,15 +34,22 @@ public final class GameConstants {
         // fenetre
         // public static final double DEFAULT_WINDOW_WIDTH = MAP_WIDTH * BRICK_WIDTH;
         // public static final double DEFAULT_WINDOW_HEIGHT = MAP_HEIGHT * BRICK_HEIGHT;
+
         public static final double DEFAULT_WINDOW_WIDTH = 1000.0;
         public static final double DEFAULT_WINDOW_HEIGHT = 800.0;
+
+        // public static final double DEFAULT_WINDOW_WIDTH =
+        // Screen.getPrimary().getVisualBounds().getWidth();
+        // public static final double DEFAULT_WINDOW_HEIGHT =
+        // Screen.getPrimary().getVisualBounds().getHeight();
+
         public static final int DEFAULT_FPS = 120;
 
         // particle de traînée
-        public static final int DEFAULT_trailLength = 70; // taille de la trainée
-        public static final double DEFAULT_PARTICLE_RADIUS = 1.4;
-        public static final double DEFAULT_FLUCTUATION = 5;
-        public static final int DEFAULT_PARTICLE = 10; // nombre de particules
+        public static final int DEFAULT_trailLength = 10; // nombre de particules
+        public static final double DEFAULT_PARTICLE_RADIUS = 0.5;
+        public static final double DEFAULT_FLUCTUATION = 8;
+        public static final int DEFAULT_PARTICLE = 10; // taille de la trainée
 
         // boost
         // temps des boosts
@@ -58,6 +64,14 @@ public final class GameConstants {
         public static final int BOOST_VITESSEM = 5;
         public static final int BOOST_LARGEURP = 100;
         public static final int BOOST_LARGEURM = 100;
+        // bonus
+        public static final int WIDTH = 20;
+        public static final int HEIGHT = 20;
+        public static final double BONUS_SPEED = 2;
+        public static final double BONUS_CHANCE = 0.2;
+        public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze" };
+        public static final Color COLOR_BONUS = Color.GREEN;
+        public static final Color COLOR_MALUS = Color.RED;
 
         // Options du jeu
         public static boolean FPS = false;
@@ -68,37 +82,40 @@ public final class GameConstants {
         public static KeyCode LEFT = KeyCode.LEFT;
         public static KeyCode RIGHT = KeyCode.RIGHT;
         public static KeyCode SPACE = KeyCode.SPACE;
+        public static String CSS = "/styles/dark.css";
 
         // derniere save
         public static String LAST_SAVE;
 
-        // preConfig des parties
-        public static final int STAGES_QTY = 9;
-
-        public static GameRules[] PRECONFIG_GAME_RULES = {
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false) };
-
-        public static Ball[] PRECONFIG_GAME_BALL = { new ClassicBall(), new ClassicBall(), new ClassicBall(),
-                        new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
-                        new ClassicBall() };
-
-        public static Racket[] PRECONFIG_GAME_RACKET = { new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
-                        new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
-                        new ClassicRacket(), new ClassicRacket(), };
-
         // GameRules (GR) options
-        public static int GR_REMAINING_TIME = 150; // 2 minutes 30
+        public static int GR_REMAINING_TIME = 300; // 5 minutes
         public static int GR_REMAINING_BOUNCES = 50; // rebonds restants
         public static int GR_DEFAULT_QTY_TRANSPARENT = 5; // quantité par défaut de briques qui deviennent transparentes
                                                           // (temporairement)
         public static int GR_DEFAULT_QTY_UNBREAKABLE = 5; // quantité par défaut de briques qui deviennent incassables
                                                           // (temporairement)
+        public static final int STAGES_QTY = 9;
+
+        // preConfig des parties
+        public static GameRules[] PRECONFIG_GAME_RULES = {
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, true, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, true),
+                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true, true) };
+
+        // à changer plus tard
+        public static Ball[] PRECONFIG_GAME_BALL = { new ClassicBall(), new ClassicBall(), new ClassicBall(),
+                        new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
+                        new ClassicBall() };
+
+        // à changer plus tard
+        public static Racket[] PRECONFIG_GAME_RACKET = { new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
+                        new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
+                        new ClassicRacket(), new ClassicRacket(), };
+
 }

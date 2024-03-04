@@ -81,18 +81,10 @@ public class Map {
                     targetBrick = bricks[ballBrickX + i][ballBrickY + j];
                     if (!targetBrick.isDestroyed() && ball.intersectBrick(targetBrick)) {
 
-                        // Changement de direction par défaut, puis annule le changement de direction si
-                        // la règle ne le permet pas
-                        if (i != 0) { // changement directionnel simple en attendant la physique plus complexe
-                            ball.getDirection().setX(-ball.getDirection().getX());
-                        }
-                        if (j != 0) {
-                            ball.getDirection().setY(-ball.getDirection().getY());
-                        }
-
                         if (rules.haveBricksCollisionRules()) { // Application des règles du jeu aux collisions
                             handleBricksCollisionRules(targetBrick, ball, rules, i, j);
                         } else {
+                            handleCollisionDirection(ball, i, j);
                             targetBrick.setDestroyed(true);
                         }
                     }
@@ -102,31 +94,29 @@ public class Map {
     }
 
     private void handleBricksCollisionRules(Brick brick, Ball ball, GameRules rules, int i, int j) {
-
-        if (rules.isTransparent()) {
-            if (brick.isTransparent()) {
-                if (i != 0) {
-                    ball.getDirection().setX(-ball.getDirection().getX());
-                }
-                if (j != 0) {
-                    ball.getDirection().setY(-ball.getDirection().getY());
-                }
-            } else {
-                brick.setDestroyed(true);
-            }
-
-        } else {
-            boolean breakBrick = false;
-            if (rules.isColorRestricted()) {
-                if (rules.verifyColor(brick, ball)) {
-                    breakBrick = true;
-                }
-                ball.setColor(brick.getColor());
-            }
-            if (rules.isUnbreakable() && !brick.isUnbreakable() || breakBrick) {
-                brick.setDestroyed(breakBrick);
-            }
+        // Cas où les règles se stackent à corriger
+        if (!rules.isTransparent() || !brick.isTransparent()) {
+            handleCollisionDirection(ball, i, j);
         }
+
+        if ((rules.isColorRestricted() && rules.verifyColor(brick, ball) || !rules.isColorRestricted())
+                && (rules.isTransparent() && !brick.isTransparent() || !rules.isTransparent())
+                && (rules.isUnbreakable() && !brick.isUnbreakable() || !rules.isUnbreakable())) {
+
+            brick.setDestroyed(true);
+        }
+
+        if (rules.isColorRestricted()) {
+            ball.setColor(brick.getColor());
+        }
+    }
+
+    private void handleCollisionDirection(Ball ball, int i, int j) { // changement directionnel simple en attendant la
+                                                                     // physique plus complexe
+        if (i != 0)
+            ball.getDirection().setX(-ball.getDirection().getX());
+        if (j != 0)
+            ball.getDirection().setY(-ball.getDirection().getY());
     }
 
     public boolean updateBricksStatus() {
@@ -227,4 +217,5 @@ public class Map {
         }
         System.out.println("------------------------------------");
     }
+
 }
