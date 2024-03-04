@@ -11,6 +11,7 @@ import utils.GameConstants;
 import entity.ball.MagnetBall;
 import java.util.Timer;
 import java.util.TimerTask;
+import entity.ball.MagnetBall;
 
 public class Game {
 
@@ -24,7 +25,7 @@ public class Game {
     private boolean collide;
     private GameRules rules;
     private Timer inGameTimer;
-    private int timeElapsed = 0; //en secondes
+    private int timeElapsed = 0; // en secondes
     private List<Boost> boosts = new ArrayList<>();
 
     public Game(Ball ball, Racket racket, GameRules rules) {
@@ -56,11 +57,11 @@ public class Game {
     public void update(long deltaT) {
 
         start();
-        //Vérifie si la balle touche une brique
-        map.handleCollisionBricks(ball, rules); //gérer la collision des briques
+        // Vérifie si la balle touche une brique
+        map.handleCollisionBricks(ball, rules); // gérer la collision des briques
         if (map.updateBricksStatus()) {
             score += 10;
-            //si la briques est cassée, chance d'avoir un boost
+            // si la briques est cassée, chance d'avoir un boost
             Boost boost = Boost.createBoost(ball.getC());
             if (boost != null) {
                 boosts.add(boost);
@@ -88,9 +89,9 @@ public class Game {
         }
 
         if (ball instanceof MagnetBall) {
-            //donne les coordonnées de la raquette a la MagnetBall
+            // donne les coordonnées de la raquette a la MagnetBall
             setRa();
-            //actualise l'etat de la raquette    
+            // actualise l'etat de la raquette
             if (BallFrontRacket()) {
                 ((MagnetBall) ball).setFront(true);
             } else {

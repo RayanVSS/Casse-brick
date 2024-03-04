@@ -15,7 +15,7 @@ public class App extends Application {
     @Override
     public void start(Stage p) throws Exception {
         PlayerData.initPlayerData();
-        //chargement de la derniere sauvegarde
+        // chargement de la derniere sauvegarde
         sauvegarde.setupLastSave();
 
         this.primaryStage = p;

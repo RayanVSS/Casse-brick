@@ -90,8 +90,10 @@ public final class GameConstants {
         // GameRules (GR) options
         public static int GR_REMAINING_TIME = 300; // 5 minutes
         public static int GR_REMAINING_BOUNCES = 50; // rebonds restants
-        public static int GR_DEFAULT_QTY_TRANSPARENT = 5; // quantité par défaut de briques qui deviennent transparentes (temporairement)
-        public static int GR_DEFAULT_QTY_UNBREAKABLE = 5; // quantité par défaut de briques qui deviennent incassables (temporairement)
+        public static int GR_DEFAULT_QTY_TRANSPARENT = 5; // quantité par défaut de briques qui deviennent transparentes
+                                                          // (temporairement)
+        public static int GR_DEFAULT_QTY_UNBREAKABLE = 5; // quantité par défaut de briques qui deviennent incassables
+                                                          // (temporairement)
         public static final int STAGES_QTY = 9;
 
         // preConfig des parties

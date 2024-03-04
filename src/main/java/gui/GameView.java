@@ -10,6 +10,7 @@ import config.GameRules.BricksArrangement;
 import entity.Boost;
 import entity.Particle;
 import entity.ball.*;
+import entity.preview.Preview;
 import entity.racket.*;
 import geometry.Vector;
 import gui.GraphicsFactory.*;
@@ -186,7 +187,7 @@ public class GameView extends App {
                     }
                     if (game.isWin()) {
                         animationStop();
-                        //Ecran de win
+                        // Ecran de win
                         stageLevel.winAction();
                     }
                     if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
