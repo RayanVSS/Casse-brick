@@ -1,5 +1,6 @@
 package gui.GraphicsFactory;
 
+import entity.EntityColor;
 import entity.brick.Brick;
 import gui.ImageLoader;
 import javafx.scene.image.Image;
@@ -13,15 +14,38 @@ public class BricksGraphics extends StackPane {
     public int i;
     public int j;
 
-    public BricksGraphics(Image image, Brick brick, int i, int j) {
+    public BricksGraphics(Brick brick, int i, int j) {
+        Image image;
+        if (brick.isUnbreakable()) {
+            image = ImageLoader.loadImage("src/main/ressources/briqueii.png");
+        } else {
+            image = ImageLoader.loadImage("src/main/ressources/briquee.png");
+        }
         this.brick = brick;
         this.i = i;
         this.j = j;
         this.setImageView(image);
-        // this.imageView = new ImageView(image);
-        // this.imageView.setFitWidth(GameConstants.BRICK_WIDTH);
-        // this.imageView.setFitHeight(GameConstants.BRICK_HEIGHT);
-        // getChildren().add(this.imageView);
+    }
+
+    public BricksGraphics(Brick brick, int i, int j, EntityColor c) {
+        Image image = null;
+        switch (c) {
+            case RED:
+                image = ImageLoader.loadImage("src/main/ressources/brique.png");
+                break;
+            case GREEN:
+                image = ImageLoader.loadImage("src/main/ressources/briquev.png");
+                break;
+            case BLUE:
+                image = ImageLoader.loadImage("src/main/ressources/briqueb.png");
+                break;
+            default:
+                break;
+        }
+        this.brick = brick;
+        this.i = i;
+        this.j = j;
+        this.setImageView(image);
     }
 
     public void setImageView(Image image) {
@@ -37,24 +61,22 @@ public class BricksGraphics extends StackPane {
                 getChildren().remove(imageView);
                 imageView = new ImageView();
                 getChildren().add(imageView);
-            } else if (brick.getC().getIntX() != i || brick.getC().getIntY() != j) {
+            }
+            if (brick.getC().getIntX() != i || brick.getC().getIntY() != j) {
                 i = brick.getC().getIntX();
                 j = brick.getC().getIntY();
                 setLayoutX(i);
                 setLayoutY(j);
             }
-
-            // else if (brick.isUnbreakable()) {
-            // // &&
-            // !imageView.getImage().getUrl().equals("src/main/ressources/briqueii.png"))
-            // // {
-            // getChildren().remove(imageView);
-            // Image im = ImageLoader.loadImage("src/main/ressources/briqueii.png");
-            // this.setImageView(im);
-            // }
-            // if (brick.isTransparent()) {
-            // imageView.setOpacity(0.5);
-            // }
+            if (brick.isUnbreakable()
+                    && !imageView.getImage().getUrl().equals("src/main/ressources/briqueii.png")) {
+                getChildren().remove(imageView);
+                Image im = ImageLoader.loadImage("src/main/ressources/briqueii.png");
+                this.setImageView(im);
+            }
+            if (brick.isTransparent()) {
+                imageView.setOpacity(0.5);
+            }
         }
     }
 }

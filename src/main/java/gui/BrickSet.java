@@ -17,22 +17,10 @@ public class BrickSet extends Group {
                 GameConstants.COLUMNS_OF_BRICKS; i++) {
             for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) {
                 EntityColor c = tab[i][j].getColor();
-                switch (c) {
-                    case RED:
-                        Image image = ImageLoader.loadImage("src/main/ressources/brique.png");
-                        brick = new BricksGraphics(image, tab[i][j], tab[i][j].getC().getIntX(),
-                                tab[i][j].getC().getIntY());
-                        break;
-                    case GREEN:
-                        image = ImageLoader.loadImage("src/main/ressources/briquev.png");
-                        brick = new BricksGraphics(image, tab[i][j], i, j);
-                        break;
-                    case BLUE:
-                        image = ImageLoader.loadImage("src/main/ressources/briqueb.png");
-                        brick = new BricksGraphics(image, tab[i][j], i, j);
-                        break;
-                    default:
-                        break;
+                if (c != null) {
+                    brick = new BricksGraphics(tab[i][j], i, j, c);
+                } else {
+                    brick = new BricksGraphics(tab[i][j], i, j);
                 }
                 brick.setLayoutX(i * GameConstants.BRICK_WIDTH);
                 brick.setLayoutY(j * GameConstants.BRICK_HEIGHT);
@@ -46,14 +34,34 @@ public class BrickSet extends Group {
         for (int i = 0; i < this.getChildren().size(); i++) {
             BricksGraphics brick = (BricksGraphics) this.getChildren().get(i);
             if (brick != null) {
-                this.getChildren().remove(brick);
+                // this.getChildren().remove(brick);
                 brick.update();
-                brick.setVisible(true);
-                this.getChildren().add(brick);
+                // brick.setVisible(true);
+                // this.getChildren().add(brick);
             }
         }
     }
 }
+
+// switch (c) {
+// case RED:
+// Image image = ImageLoader.loadImage("src/main/ressources/brique.png");
+// brick = new BricksGraphics(image, tab[i][j], tab[i][j].getC().getIntX(),
+// tab[i][j].getC().getIntY());
+// break;
+// case GREEN:
+// image = ImageLoader.loadImage("src/main/ressources/briquev.png");
+// brick = new BricksGraphics(image, tab[i][j], i, j);
+// break;
+// case BLUE:
+// image = ImageLoader.loadImage("src/main/ressources/briqueb.png");
+// brick = new BricksGraphics(image, tab[i][j], i, j);
+// break;
+// default:
+// image = ImageLoader.loadImage("src/main/ressources/briquee.png");
+// brick = new BricksGraphics(image, tab[i][j], i, j);
+// break;
+// }
 
 // if (tab[i][j].isUnbreakable()) {
 // Image image = ImageLoader.loadImage("src/main/ressources/briquei.png");
