@@ -87,9 +87,14 @@ public final class GameConstants {
         // derniere save
         public static String LAST_SAVE;
 
-        // preConfig des parties
+        // GameRules (GR) options
+        public static int GR_REMAINING_TIME = 300; // 5 minutes
+        public static int GR_REMAINING_BOUNCES = 50; // rebonds restants
+        public static int GR_DEFAULT_QTY_TRANSPARENT = 5; // quantité par défaut de briques qui deviennent transparentes (temporairement)
+        public static int GR_DEFAULT_QTY_UNBREAKABLE = 5; // quantité par défaut de briques qui deviennent incassables (temporairement)
         public static final int STAGES_QTY = 9;
 
+        // preConfig des parties
         public static GameRules[] PRECONFIG_GAME_RULES = {
                         new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
                         new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false, false),
@@ -111,9 +116,4 @@ public final class GameConstants {
                         new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
                         new ClassicRacket(), new ClassicRacket(), };
 
-        // GameRules (GR) options
-        public static int GR_REMAINING_TIME = 300; // 5 minutes
-        public static int GR_REMAINING_BOUNCES = 50; // rebonds restants
-        public static int GR_DEFAULT_QTY_TRANSPARENT = 5; // quantité par défaut de briques qui deviennent transparentes (temporairement)
-        public static int GR_DEFAULT_QTY_UNBREAKABLE = 5; // quantité par défaut de briques qui deviennent incassables (temporairement)
 }
