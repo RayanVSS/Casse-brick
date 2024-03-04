@@ -38,11 +38,14 @@ public class GameView {
         gameRoot.getRoot().setPrefHeight(GameConstants.DEFAULT_WINDOW_HEIGHT - this.scoreLifeView.getPrefHeight());
         gameRoot.getRoot().setPrefWidth(GameConstants.DEFAULT_WINDOW_WIDTH - this.scoreLifeView.getPrefWidth());
         this.pane = new BorderPane();
+        VBox vBox = new VBox();
+        if(GameConstants.FPS)
+            vBox.getChildren().add(fpsGraphics);
+        vBox.getChildren().add(scoreLifeView);
+        vBox.setPrefWidth(150.0);
         this.pane.setCenter(gameRoot.getRoot());
-        this.pane.setLeft(SLFPS);
+        this.pane.setLeft(vBox);
         this.root.getChildren().add(pane);
-        // this.root.getChildren().add(gameRoot.getRoot());
-        // this.root.getChildren().add(SLFPS);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
         scene.getStylesheets().add(GameConstants.CSS);
@@ -66,7 +69,9 @@ public class GameView {
                     delay += deltaT / 1000000000.0;
                 } else if (now - last > 1000000000 / 120) {
                     gameRoot.animation(deltaT);
-                    SLFPS.update();
+                    if(GameConstants.FPS)
+                        fpsGraphics.update();
+                    scoreLifeView.update();
                 }
                 last = now;
             }
