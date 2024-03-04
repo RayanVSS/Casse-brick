@@ -319,6 +319,20 @@ affichage de la racket
 
 - Régler le problème de FPS (vitesse de la balle et de la racket varie en fonction des performances) #43
 
+## Semaine 4:
+
+### Belhassen rayan
+<span style="color:green">**Fait:**</span>
+    
+- boost: apparition des boost
+- sauvegarde: ajout du theme dans la sauvegarde
+- icône: ajout d'une icône pour le jeux 
+- daltonisme: thème pour les personnes atteintes de "protanopie","deuteranopie","tritanopie" et "achromatopsie"
+
+<span style="color:purple">**A Faire:**</span>
+
+- mode deux joueur 
+
 
 
 

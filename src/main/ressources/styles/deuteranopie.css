@@ -1,0 +1,97 @@
+/* LES RACINES */
+.root, .root-options {
+    -fx-background-color: #F8F9FA;
+    -fx-alignment: center;
+  }
+  
+  .root-options {
+    -fx-spacing: 50;
+  }
+  
+  .game-backgorund {
+    -fx-background-color: #B9D9EB;
+  }
+  
+  .root-game-over, .pause-view {
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-background-color: #78859f; 
+  }
+  
+  .vbox {
+    -fx-spacing: 20;
+    -fx-alignment: center;
+  }
+  
+  .grid-style {
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-padding: 25;
+    -fx-alignment: center;
+  }
+  
+  /* LES BOUTONS */
+  .button-style, .button-hover, .label-style, .slider-style {
+    -fx-font-size: 20px;
+  }
+  
+  .button-style, .slider-style {
+    -fx-background-color: #E9E4D9; 
+  }
+  
+  .button-style, .label-style {
+    -fx-text-fill: #273654; 
+  }
+  
+  .button-hover {
+    -fx-background-color: #8D7B6B; 
+    -fx-text-fill: #273654;
+  }
+  
+  /* LES TEXTES + LABELS */
+  .text-style, .title-style, .title-game-over-style {
+    -fx-font-size: 20px;
+    -fx-fill: #273654;
+  }
+  
+  .title-style, .title-game-over-style {
+    -fx-font-size: 50;
+    -fx-text-fill: #273654;
+    -fx-font-weight: bold;
+  }
+  
+  .scoreL-style {
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-fill: #273654; 
+  }
+  
+  /* ÉLÉMENTS DU JEU */
+  .ball {
+    -fx-fill: #FFE187; 
+  }
+  
+  .hyperball, .ynotfixeracket {
+    -fx-fill: #FFE187; 
+  }
+  
+  .gravityball {
+    -fx-fill: #FFE187; 
+  }
+  
+  .magnetball {
+    -fx-fill: #FFE187; 
+  }
+  
+  .magnetracketpositif {
+    -fx-fill: #FFE187; 
+  }
+  
+  .racket {
+    -fx-fill: #2828b2;
+  }
+  
+  .magnetracketnegatif {
+    -fx-fill: #A0C4
+  }  
