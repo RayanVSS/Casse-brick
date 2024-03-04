@@ -32,26 +32,28 @@ public class Game {
         this.rules = rules;
         this.map = new Map(rules);
         rules.initRules(this);
-        inGameTimer = new Timer();
     }
 
     public void start() {
-        inGameTimer.scheduleAtFixedRate(new TimerTask() {
+        if (inGameTimer == null) {
+            inGameTimer = new Timer();
+            inGameTimer.scheduleAtFixedRate(new TimerTask() {
 
-            @Override
-            public void run() { // chaque seconde
-                timeElapsed++;
-                rules.updateRemainingTime();
-            }
-        }, 0, 1000);
+                @Override
+                public void run() { // chaque seconde
+                    timeElapsed++;
+                    rules.updateRemainingTime();
+                }
+            }, 0, 1000);
+        }
     }
 
     public void stop() {
-        inGameTimer.cancel();
+        inGameTimer = null;
     }
 
     public void update(long deltaT) {
-
+        start();
         //Vérifie si la balle touche une brique
         map.handleCollisionBricks(ball, rules); //gérer la collision des briques
         if (map.updateBricksStatus()) {
