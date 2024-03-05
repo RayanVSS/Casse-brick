@@ -117,4 +117,68 @@ public class GameCustomizerView implements Menu {
         return backButton;
     }
 
+    public Slider getLife() {
+        return life;
+    }
+
+    public Slider getMapWidht() {
+        return mapWidht;
+    }
+
+    public Slider getMapHeight() {
+        return mapHeight;
+    }
+
+    public Slider getBallSize() {
+        return ballSize;
+    }
+
+    public Slider getBallSpeed() {
+        return ballSpeed;
+    }
+
+    public Slider getTimeLimit() {
+        return timeLimit;
+    }
+
+    public Slider getBouncesLimit() {
+        return bouncesLimit;
+    }
+
+    public ComboBox<String> getBall() {
+        return ball;
+    }
+
+    public ComboBox<String> getRacket() {
+        return racket;
+    }
+
+    public ToggleButton getRuleLimitedTime() {
+        return ruleLimitedTime;
+    }
+
+    public ToggleButton getRuleLimitedBounces() {
+        return ruleLimitedBounces;
+    }
+
+    public ToggleButton getRuleRandomSwitchBricks() {
+        return ruleRandomSwitchBricks;
+    }
+
+    public ToggleButton getRuleColorRestricted() {
+        return ruleColorRestricted;
+    }
+
+    public ToggleButton getRuleTransparent() {
+        return ruleTransparent;
+    }
+
+    public ToggleButton getRuleUnbreakable() {
+        return ruleUnbreakable;
+    }
+
+    public Button getCreateGame() {
+        return createGame;
+    }
+
 }

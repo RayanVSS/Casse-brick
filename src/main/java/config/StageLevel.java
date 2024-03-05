@@ -12,11 +12,18 @@ public class StageLevel {
     private boolean completed;
     private int maxScore;
     private transient Game game;
+    private boolean customGame;
 
-    public StageLevel(int difficulty, int unlockLevel) {
+    public StageLevel(int difficulty, int unlockLevel, boolean customGame) {
 
         this.difficulty = difficulty;
         this.unlockLevel = unlockLevel;
+    }
+
+    public StageLevel(Game game, boolean customGame) {
+
+        this.game = game;
+        this.customGame = customGame;
     }
 
     public boolean canLoadGame() {
@@ -49,12 +56,14 @@ public class StageLevel {
 
     public void winAction() {
 
-        if (!completed) {
-            completed = true;
-            PlayerData.expLevel++;
-        }
-        if (game.getScore() > maxScore) {
-            maxScore = game.getScore();
+        if (!customGame) {
+            if (!completed) {
+                completed = true;
+                PlayerData.expLevel++;
+            }
+            if (game.getScore() > maxScore) {
+                maxScore = game.getScore();
+            }
         }
         resetGame();
     }

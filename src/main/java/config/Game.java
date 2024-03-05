@@ -36,6 +36,15 @@ public class Game {
         rules.initRules(this);
     }
 
+    public Game(Ball ball, Racket racket, int mapWidth, int mapHeight, int life, GameRules rules) {
+        this.ball = ball;
+        this.racket = racket;
+        // this.map = new Map(rules, mapWidth, mapHeight);
+        this.life = life;
+        this.rules = rules;
+        rules.initRules(this);
+    }
+
     public void start() {
         if (inGameTimer == null) {
             inGameTimer = new Timer();
