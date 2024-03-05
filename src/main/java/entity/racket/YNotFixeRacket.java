@@ -39,7 +39,7 @@ public class YNotFixeRacket extends Racket{
             break;
         case D:
         case RIGHT:
-            if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH-largeur-70)
+            if (this.mX() < GameConstants.DEFAULT_GAME_ROOT_WIDTH-largeur-70)
                 this.mX(this.mX() + speed);
             break;
         case Z: 

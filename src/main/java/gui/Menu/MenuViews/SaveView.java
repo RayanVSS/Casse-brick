@@ -9,6 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import save.Sauvegarde;
 import utils.GameConstants;
+import gui.Menu.Menu;
 import gui.Menu.SceneManager;
 import gui.Menu.MenuControllers.SaveController;
 import javafx.geometry.Insets;

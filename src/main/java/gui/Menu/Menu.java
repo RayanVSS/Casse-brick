@@ -1,4 +1,4 @@
-package gui.Menu.MenuViews;
+package gui.Menu;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;

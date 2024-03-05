@@ -4,7 +4,8 @@
 .game-backgorund,
 .root-game-over,
 .pause-view {
-    -fx-background-color: #E1E8ED;
+    -fx-background-color: #261e3d; /*change cette couleur si tu veux plus foncé" */
+    -fx-alignment: center;
 }
 
 .root-option,
@@ -13,6 +14,7 @@
 .pause-view,
 .grid-style {
     -fx-alignment: center;
+    -fx-spacing: 20;
 }
 
 .vbox,
@@ -29,29 +31,31 @@
 
 /*Styles de fond*/
 .game-backgorund {
-    -fx-background-color: #B9D9EB;
+    -fx-background-color: #261e3d; /*change cette couleur si tu veux plus foncé" */
 }
 
 .root-game-over,
 .pause-view {
     -fx-opacity: 0.7;
-    /*-fx-spacing: 10;*/
 }
 
 /* Styles de texte */
-.text-style,
 .button-style,
-.button-hover,
-.label-style,
-.slider-style {
+.button-hover {
     -fx-font-size: 20px;
-    -fx-text-fill: #14171A;
+    -fx-text-fill: #000000;
+}
+
+.text-style,
+.label-style {
+    -fx-font-size: 20px;
+    -fx-text-fill: #ffffff;
 }
 
 .title-style,
 .title-game-over-style {
     -fx-font-size: 40px;
-    -fx-text-fill: #1DA1F2;
+    -fx-text-fill: #7a70a8;
 }
 
 .title-game-over-style {
@@ -60,21 +64,22 @@
 
 .scoreL-style {
     -fx-font-size: 25px;
+    -fx-text-fill: #ffffff;
 }
 
 /* Styles de boutons */
 .button-style,
 .button-hover {
-    -fx-background-color: #AAB8C2;
+    -fx-background-color: #f4f6f8;
 }
 
 .button-hover {
-    -fx-background-color: #657786;
+    -fx-background-color: #67747f;
 }
 
 /* Styles de curseur */
 .slider-style {
-    -fx-background-color: #E1E8ED;
+    -fx-background-color: #3b3636;
 }
 
 /* Styles de jeu */

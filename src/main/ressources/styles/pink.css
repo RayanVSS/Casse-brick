@@ -23,13 +23,12 @@
 .root-game-over,
 .pause-view {
     -fx-opacity: 0.7;
-    -fx-spacing: 10;
+    -fx-spacing: 20;
 }
 
 /* Styles de texte */
 .text-style,
 .button-style,
-.button-hover,
 .label-style {
     -fx-font-size: 20px;
     -fx-text-fill: #C71585;
@@ -54,6 +53,7 @@
 }
 
 .button-hover {
+    -fx-font-size: 20px;
     -fx-background-color: #C71585;
     -fx-text-fill: #FFB6C1;
 }
