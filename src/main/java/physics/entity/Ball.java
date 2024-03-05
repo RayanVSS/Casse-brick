@@ -1,5 +1,7 @@
 package physics.entity;
 
+import org.checkerframework.checker.units.qual.s;
+
 import entity.Entity;
 import entity.brick.Brick;
 import physics.config.PhysicEngine;
@@ -24,8 +26,8 @@ public abstract class Ball {
 
 
     // colision avec racket
-    public static boolean CollisionR = false;
-    public static boolean CollisionR_Side = false;
+    static boolean CollisionR = false;
+    static boolean CollisionR_Side = false;
 
     public Ball(int r) {
         c=new Coordinates(0, 0);
