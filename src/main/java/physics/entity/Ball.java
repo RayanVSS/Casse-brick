@@ -25,7 +25,10 @@ public abstract class Ball {
 
     // colision avec racket
     public static boolean CollisionR = false;
+<<<<<<< HEAD:src/main/java/physics/entity/Ball.java
     public static boolean CollisionR_Side = false;
+=======
+>>>>>>> d5652877baf453aae43c18bfebc830b897817bd7:src/main/java/entity/ball/Ball.java
 
     public Ball(int r) {
         c=new Coordinates(0, 0);
