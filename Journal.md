@@ -364,7 +364,7 @@ affichage de la racket
 ### Mushtaq Amenah 
 <span style="color:green">**Fait:**</span>
 
-#44:
+-#44:
 - Brique incassable 
 - Brique transparentes
 - Brique change de position 
