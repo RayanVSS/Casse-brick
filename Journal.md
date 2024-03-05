@@ -242,7 +242,7 @@ affichage de la racket
 - Implémentation de celle-ci dans le jeu
 - Implémentation du niveau infini #23
 
-## Semaine 4
+## Semaine 4 (27/2)
 
 ### Majda Benmalek 
 <span style="color:green">**Fait:**</span>
@@ -319,7 +319,7 @@ affichage de la racket
 
 - Régler le problème de FPS (vitesse de la balle et de la racket varie en fonction des performances) #43
 
-## Semaine 5:
+## Semaine 5 (5/3):
 
 ### Belhassen rayan
 <span style="color:green">**Fait:**</span>
