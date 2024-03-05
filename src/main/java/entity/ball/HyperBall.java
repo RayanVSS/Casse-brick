@@ -1,8 +1,9 @@
 package entity.ball;
 
-import geometry.Coordinates;
 import gui.GameView;
 import javafx.scene.input.KeyCode;
+import physics.entity.Ball;
+import physics.geometry.Coordinates;
 import utils.GameConstants;
 
 public class HyperBall extends Ball {
@@ -17,69 +18,75 @@ public class HyperBall extends Ball {
                 GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS);
     }
 
+    @Override
     public boolean movement() {
         boolean lost = true;
-        double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
         double w = GameConstants.DEFAULT_WINDOW_WIDTH;
-        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
-        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
-
-        // Gestion des collisions avec la raquettes
-        if (CollisionR) { 
-            if (GameView.BougePColision) {
+        double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
+        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed() ;
+        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed() ;
+        if (CollisionR) {
+            if (GameView.BougePColision || CollisionR_Side) {
                 this.getDirection().setY(-this.getDirection().getY());
-                newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+                this.getDirection().add(super.getPhysicSetting().getFrictionRacket());
+                newY = this.getC().getY() + this.getDirection().getY();
                 CollisionR = false;
+                CollisionR_Side = false;
+                super.getPhysicSetting().UpdateFrictionRacket();
             }
-            if (!GameView.BougePColision) {
+            else {
                 for (KeyCode key : GameView.direction) {
                     switch (key) {
                         case RIGHT:
                         case D:
-                            System.out.println("droite");
-                            this.getDirection().setX(1);
-                            this.getDirection().setY(-1);
+                            this.getDirection().setY(-this.getDirection().getY());
+                            super.getPhysicSetting().getFrictionRacket().setX(super.getPhysicSetting().getFrictionRacket().getX() + 1);
+                            this.getDirection().add(super.getPhysicSetting().getFrictionRacket());
                             newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                             newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                             CollisionR = false;
-
                             break;
                         case LEFT:
                         case Q:
-                            System.out.println("gauche");
-                            this.getDirection().setX(-1);
-                            this.getDirection().setY(-1);
+                            this.getDirection().setY(-this.getDirection().getY());
+                            super.getPhysicSetting().getFrictionRacket().setX(super.getPhysicSetting().getFrictionRacket().getX()-1);
+                            this.getDirection().add(super.getPhysicSetting().getFrictionRacket());
                             newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                             newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                             CollisionR = false;
+                            break;
+                        default:
                             break;
                     }
                 }
             }
-        }
+        }   
         if (newX < 0 || newX > w - this.getRadius()) {
             this.getDirection().setX(-this.getDirection().getX());
-            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
-            setBoost();
+            this.getDirection().add(super.getPhysicSetting().getFrictionRacket());
+            super.getPhysicSetting().UpdateFrictionRacket();
+            newX = this.getC().getX() + this.getDirection().getX()*this.getSpeed();
+            this.getDirection().setX(this.getDirection().getX()*super.getPhysicSetting().getRetention());
         }
-        if (newY < 0 || CollisionR) {
-            if (newY < 0 || CollisionR) {
-                this.getDirection().setY(-this.getDirection().getY());
-                newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
-                CollisionR = false;
-                setBoost();
-            }
-            if (newY > h - this.getRadius()) {
-                lost = false;
-            }
+        if (newY < 0 ) {
+            this.getDirection().add(super.getPhysicSetting().getFrictionRacket());
+            this.getDirection().setY(-this.getDirection().getY());
+            super.getPhysicSetting().UpdateFrictionRacket();
+            newY = this.getC().getY() + this.getDirection().getY()* this.getSpeed();
+            this.getDirection().setY(this.getDirection().getY()*super.getPhysicSetting().getRetention());
+        } 
+        if (newY > h - this.getRadius()) {
+            lost = false;
         }
         this.setC(new Coordinates(newX, newY));
+        this.getDirection().add(super.getPhysicSetting().getWind());
+        super.getPhysicSetting().checkGravity(getC(), getDirection());
+        setBoost();
         return lost;
     }
 
     public void setBoost() {
         this.setSpeed(this.getSpeed() + this.speedBoost);
-        System.out.println(this.getSpeed());
     }
 
 }

@@ -1,9 +1,9 @@
 package utils;
 
-import geometry.Coordinates;
-import geometry.Vector;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import physics.geometry.Coordinates;
+import physics.geometry.Vector;
 
 public final class GameConstants {
 

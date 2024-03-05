@@ -1,6 +1,7 @@
 package gui.GraphicsFactory;
 
 import javafx.scene.shape.Rectangle;
+import physics.entity.Racket;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;

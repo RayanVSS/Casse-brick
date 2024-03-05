@@ -1,9 +1,9 @@
 package config;
 
-import entity.ball.Ball;
 import entity.brick.Brick;
 import entity.brick.BrickClassic;
-import geometry.Coordinates;
+import physics.entity.Ball;
+import physics.geometry.Coordinates;
 import utils.GameConstants;
 
 public class Map {
@@ -77,11 +77,17 @@ public class Map {
                     if (!targetBrick.isDestroyed() && ball.intersectBrick(targetBrick)) {
                         if (i != 0) {
                             ball.getDirection().setX(-ball.getDirection().getX());
+                            ball.getDirection().add(ball.getPhysicSetting().getFrictionRacket());
+                            ball.getPhysicSetting().UpdateFrictionRacket();
                         } else {
                             ball.getDirection().setY(-ball.getDirection().getY());
+                            ball.getDirection().add(ball.getPhysicSetting().getFrictionRacket());
+                            ball.getPhysicSetting().UpdateFrictionRacket();
                         }
                         targetBrick.setDestroyed(true);
+                        return;
                     }
+                    
                 }
             }
         }

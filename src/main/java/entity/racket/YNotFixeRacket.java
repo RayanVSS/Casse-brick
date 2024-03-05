@@ -1,10 +1,11 @@
 package entity.racket;
 
-import geometry.Coordinates;
-import geometry.Vector;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import physics.entity.Racket;
+import physics.geometry.Coordinates;
+import physics.geometry.Vector;
 import javafx.scene.input.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;

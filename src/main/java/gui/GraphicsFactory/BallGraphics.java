@@ -2,7 +2,7 @@ package gui.GraphicsFactory;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import entity.ball.Ball;
+import physics.entity.Ball;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;

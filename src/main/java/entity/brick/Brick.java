@@ -1,7 +1,7 @@
 package entity.brick;
 
 import entity.Entity;
-import geometry.Coordinates;
+import physics.geometry.Coordinates;
 
 public abstract class Brick extends Entity {
 

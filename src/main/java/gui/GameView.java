@@ -5,12 +5,13 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import physics.geometry.Coordinates;
+import physics.geometry.Vector;
 import config.*;
 import entity.Boost;
 import entity.Particle;
 import entity.ball.*;
 import entity.racket.*;
-import geometry.Vector;
 import gui.GraphicsFactory.*;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.ScoreLifeView;
@@ -20,7 +21,7 @@ import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import geometry.Coordinates;
+
 import gui.Menu.MenuViews.PauseView;
 import java.util.Iterator;
 

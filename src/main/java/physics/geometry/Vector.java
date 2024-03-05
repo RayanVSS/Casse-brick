@@ -1,4 +1,4 @@
-package geometry;
+package physics.geometry;
 
 public class Vector {
 
@@ -54,5 +54,15 @@ public class Vector {
             x /= length; // Redimensionnement de la composante x
             y /= length; // Redimensionnement de la composante y
         }
+    }
+
+    public void addForce(Force f){
+        this.setX(getX()+f.getX());
+        this.setY(getY()+f.getY());
+    }
+
+    public void substractForce(Force f){
+        this.setX(getX()-f.getX());
+        this.setY(getY()-f.getY());
     }
 }

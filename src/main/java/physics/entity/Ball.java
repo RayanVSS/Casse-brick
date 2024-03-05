@@ -1,16 +1,11 @@
-package entity.ball;
+package physics.entity;
 
-import config.Game;
 import entity.Entity;
-import entity.racket.Racket;
 import entity.brick.Brick;
-import geometry.*;
-import gui.GameView;
-import javafx.scene.input.KeyCode;
+import physics.config.PhysicEngine;
+import physics.geometry.*;
+import physics.config.PhysicSetting;
 import utils.GameConstants;
-import javafx.scene.shape.Circle;
-
-import java.util.ArrayList;
 
 /**
  * Classe Balle
@@ -19,30 +14,42 @@ import java.util.ArrayList;
  * 
  * @version 1.0
  */
-public abstract class Ball extends Entity {
+public abstract class Ball {
 
+    private Coordinates c;
     private Vector direction;
     private int radius;
     private double speed;
+    private PhysicSetting physicSetting ;
 
 
     // colision avec racket
-    static boolean CollisionR = false;
+    public static boolean CollisionR = false;
+    public static boolean CollisionR_Side = false;
 
     public Ball(int r) {
-        super(new Coordinates(0, 0));
+        c=new Coordinates(0, 0);
         this.direction = new Vector(new Coordinates(0, 0));
         this.speed = 0;
         this.radius = r;
     }
 
     public Ball(Coordinates c, Vector direction, int speed, int d) {
-        super(c);
+        this.c=c;
         this.direction = direction;
         this.speed = speed;
         this.radius = d;
     }
+
     // Setters/getters
+
+    public Coordinates getC() {
+        return c;
+    }
+
+    public void setC(Coordinates c) {
+        this.c = c;
+    }
 
     public int getRadius() {
         return this.radius;
@@ -65,7 +72,7 @@ public abstract class Ball extends Entity {
     }
 
     public void setCollisionR(boolean b) {
-        this.CollisionR = b;
+        CollisionR = b;
     }
 
     public static boolean getCollisionR() {
@@ -78,6 +85,14 @@ public abstract class Ball extends Entity {
 
     public void setSpeed(int v) {
         this.speed = v;
+    }
+
+    public void setPhysicSetting(PhysicSetting physicSetting) {
+        this.physicSetting = physicSetting;
+    }
+
+    public PhysicSetting getPhysicSetting() {
+        return this.physicSetting;
     }
 
     public boolean intersectBrick(Brick b) {
@@ -139,5 +154,21 @@ public abstract class Ball extends Entity {
 
     public void reset() {
         this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
-    } 
+        physicSetting.setFrictionRacket(new Vector(new Coordinates(0, 0)));
+    }
+
+    public boolean checkCollision(Brick b) {
+        if (this.intersectBrick(b)) {
+            if (this.getC().getX() + this.getRadius() > b.getC().getX() && this.getC().getX() - this.getRadius() < b.getC().getX() + GameConstants.BRICK_WIDTH) {
+                this.setDirection(new Vector(new Coordinates(this.getDirection().getX(), -this.getDirection().getY())));
+            } else if (this.getC().getY() + this.getRadius() > b.getC().getY() && this.getC().getY() - this.getRadius() < b.getC().getY() + GameConstants.BRICK_HEIGHT) {
+                this.setDirection(new Vector(new Coordinates(-this.getDirection().getX(), this.getDirection().getY())));
+            } else {
+                this.setDirection(new Vector(new Coordinates(-this.getDirection().getX(), -this.getDirection().getY())));
+            }
+            return true;
+        }
+        return false;
+    }
+
 }

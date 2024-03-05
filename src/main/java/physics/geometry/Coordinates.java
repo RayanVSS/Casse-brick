@@ -1,6 +1,5 @@
-package geometry;
+package physics.geometry;
 
-import geometry.Vector;
 public class Coordinates {
 
     private double x;

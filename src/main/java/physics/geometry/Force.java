@@ -1,6 +1,4 @@
-package physics;
-
-import geometry.Coordinates;
+package physics.geometry;
 
 public class Force {
     private Coordinates force;
@@ -38,6 +36,11 @@ public class Force {
     public void addForce(Force force) {
         this.force.setX(this.force.getX() + force.getX());
         this.force.setY(this.force.getY() + force.getY());
+    }
+
+    public void addVectorForce(Vector v){
+        this.force.setX(this.force.getX() + v.getX());
+        this.force.setY(this.force.getY() + v.getY());
     }
 
     public void addMass(double mass) {

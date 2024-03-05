@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 import entity.Boost;
-import entity.ball.Ball;
-import entity.racket.Racket;
-import geometry.Coordinates;
+import physics.entity.Ball;
+import physics.entity.Racket;
+import physics.geometry.*;
 import entity.ball.MagnetBall;
 
 public class Game {
@@ -19,11 +19,17 @@ public class Game {
     private int score = 0;
     private int life = 3;
     private static boolean collide;
+    private ArrayList<Ball> listball=new ArrayList<>();
 
     private List<Boost> boosts = new ArrayList<>(); 
 
     public Game(Ball ball, Racket racket, BricksArrangement arrangement) {
-        this.ball = ball;
+        this.ball=ball;
+        this.racket = racket;
+        this.map = new Map(arrangement);
+    }
+
+    public Game(Racket racket,BricksArrangement arrangement){
         this.racket = racket;
         this.map = new Map(arrangement);
     }

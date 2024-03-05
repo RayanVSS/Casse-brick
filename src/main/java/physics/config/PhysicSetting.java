@@ -1,9 +1,10 @@
-package physics;
+package physics.config;
 
 import java.util.Random;
 
-import geometry.Coordinates;
-import geometry.Vector;
+import physics.entity.Racket;
+import physics.geometry.Coordinates;
+import physics.geometry.Vector;
 import utils.GameConstants;
 
 /***************************************************************************
@@ -41,9 +42,7 @@ import utils.GameConstants;
 public class PhysicSetting {
 
     // variables pour la balle
-    private Vector Speed;
     private int Radius;
-    private Vector Direction;
     private Vector Wind;
 
     // variables par défaut pour la simulation
@@ -55,26 +54,23 @@ public class PhysicSetting {
 
     // variables pour la simulation
     public static final double stop_bounce = 0.3;
-    public static final double retention = 0.8;
+    public static double retention = 1;
     public static final double friction_sol = 0.1;
     public static final double friction_air = 0.01;
     public static final double MAX_VELOCITY = 10;
     public static Vector friction_racket= new Vector(new Coordinates(0,0));
 
     public PhysicSetting(){
-        this.Speed = new Vector(new Coordinates(1,1));
-        this.Radius = GameConstants.DEFAULT_BALL_RADIUS/2;
-        this.Direction = randomDirection();
+        Radius = GameConstants.DEFAULT_BALL_RADIUS/2;
         this.Wind = vectorWind(Speed_Wind, Direction_Wind);
     }
 
-    public PhysicSetting(Vector Speed , int Radius , double gravite , Vector Wind , double mass){
-        this.Speed = Speed;
-        this.Radius = Radius;
-        this.Direction = randomDirection();
+    public PhysicSetting(int R , double gravite , Vector Wind , double mass){
+        this.Radius = R;
         Gravite = gravite;
         Mass = mass;
         this.Wind = Wind;
+        retention = 0.8;
     }
 
     public void checkGravity(Coordinates c, Vector d) {
@@ -104,7 +100,7 @@ public class PhysicSetting {
         }
     }
 
-    public void checkFrictionRacket(){
+    public void UpdateFrictionRacket(){
         if(friction_racket.getX() > 0){
             friction_racket.setX(friction_racket.getX()-0.2);
         }else if(friction_racket.getX() < 0){
@@ -112,7 +108,7 @@ public class PhysicSetting {
         }
     }
 
-    public static void checkFrictionRacket(Vector f){
+    public static void UpdateFrictionRacket(Vector f){
         if(f.getX() > 0){
             f.setX(f.getX()-0.2);
         }else if(f.getX() < 0){
@@ -120,7 +116,6 @@ public class PhysicSetting {
         }
     }
 
-   
 
     public Vector vectorWind(int Speed , int Direction){
        switch (Direction) {
@@ -162,20 +157,26 @@ public class PhysicSetting {
         return frictionCoefficient;
     }
 
+    public boolean checkCollisionRacket(Racket r, Coordinates c, Vector d){
+        boolean verifX = c.getX() > r.getC().getX() && c.getX() < r.getC().getX() + r.largeur;
+        boolean verifY = c.getY() > r.getC().getY() && c.getY() < r.getC().getY() + r.longueur;
+        boolean verifX1 = c.getX()<= r.getC().getX() && c.getX() > r.getC().getX() - Radius || c.getX() >= r.getC().getX() + r.largeur && c.getX() < r.getC().getX() + r.largeur + Radius;
+        boolean verifY1 =  c.getY() >= r.getC().getY() && c.getY() < r.getC().getY() + r.longueur;
+        if(verifX1 && verifY1){
+            d.setX(-d.getX());
+            d.add(getFrictionRacket());
+            PhysicEngine.CollisionR_Side = true;
+            return true;
+        }
+        return verifX && verifY;
+    } 
+
+
     public void restore(){
         friction_racket = new Vector(new Coordinates(0,0));
     }
-    
 
     // Getters and Setters
-
-    public Vector getDirection() {
-        return this.Direction;
-    }
-
-    public Vector getSpeed() {
-        return this.Speed;
-    }
 
     public int getRadius() {
         return this.Radius;
@@ -191,14 +192,6 @@ public class PhysicSetting {
 
     public Vector getWind() {
         return this.Wind;
-    }
-
-    public void setSpeed(Vector Speed) {
-        this.Speed = Speed;
-    } 
-
-    public void setDirection(Vector Direction) {
-        this.Direction = Direction;
     }
 
     public void setWind(Vector Wind) {

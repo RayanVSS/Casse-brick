@@ -1,6 +1,8 @@
 package entity.racket;
 
 import javafx.scene.input.KeyCode;
+import physics.entity.Racket;
+
 import java.util.Set;
 import utils.GameConstants;
 

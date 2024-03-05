@@ -10,6 +10,8 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import physics.config.PhysicEngine;
+import physics.config.PhysicSetting;
 
 public class AppPhysic extends Application {
     
@@ -44,24 +46,19 @@ public class AppPhysic extends Application {
 
         bouton2.setOnAction(e -> {
             root.getChildren().clear();
-            options();
+            back();
+            Speed();
+            Path();
+            Wind();
+            Gravity();
+            Mass();
+            Racket();
         });
 
         root.getChildren().add(bouton1);
-        root.setMargin(bouton1, new javafx.geometry.Insets(0, 100, 100, 0));
+        StackPane.setMargin(bouton1, new javafx.geometry.Insets(0, 100, 100, 0));
         root.getChildren().add(bouton2);
-        root.setMargin(bouton2, new javafx.geometry.Insets(0, 100, 200, 0));
-    }
-
-
-    public void options() {
-        back();
-        Speed();
-        Path();
-        Wind();
-        Gravity();
-        Mass();
-        Racket();
+        StackPane.setMargin(bouton2, new javafx.geometry.Insets(0, 100, 200, 0));
     }
 
     public void Speed(){
