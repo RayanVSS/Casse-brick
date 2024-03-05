@@ -332,8 +332,6 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 
 - mode deux joueur 
-
-
 ### Guan Olivier 
 <span style="color:green">**Fait:**</span>
 
@@ -363,4 +361,25 @@ affichage de la racket
 - Régler le problème de FPS
 - Implémenter la friction de l'air et de la balle 
 
+### Mushtaq Amenah 
+<span style="color:green">**Fait:**</span>
 
+#44:
+- Brique incassable 
+- Brique transparentes
+- Brique change de position 
+
+<span style="color:purple">**A Faire:**</span>
+- Mode infini 
+
+### Benmalek Majda 
+<span style="color:green">**Fait:**</span>
+- #26 : separation de l'ecran de jeu en plusieurs Pane 
+- Differente implementation du score, gere le cas ou on casse plusieurs briques a la fois
+- Changement dans le mouvement de la balle => angle different a chaque collision 
+
+<span style="color:purple">**A Faire:**</span>
+- Ajout du son #21
+- Intergrer des images dans les themes pour la balle et la racket 
+- Enlever les transitions entre chaque changement de scene et essayer de fluidifié ca
+- Ajouter un ecran de victoire
