@@ -26,8 +26,8 @@ public abstract class Ball {
 
 
     // colision avec racket
-    static boolean CollisionR = false;
-    static boolean CollisionR_Side = false;
+    public static boolean CollisionR = false;
+    public static boolean CollisionR_Side = false;
 
     public Ball(int r) {
         c=new Coordinates(0, 0);
