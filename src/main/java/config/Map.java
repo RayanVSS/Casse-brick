@@ -87,6 +87,7 @@ public class Map {
                             handleCollisionDirection(ball, i, j);
                             targetBrick.setDestroyed(true);
                         }
+                        return;
                     }
                 }
             }
@@ -106,12 +107,13 @@ public class Map {
             brick.setDestroyed(true);
         }
 
-        if (rules.isColorRestricted()) {
+        if (rules.isColorRestricted() && !brick.isTransparent()) {
             ball.setColor(brick.getColor());
         }
     }
 
-    private void handleCollisionDirection(Ball ball, int i, int j) { // changement directionnel simple en attendant la physique plus complexe
+    private void handleCollisionDirection(Ball ball, int i, int j) { // changement directionnel simple en attendant la
+                                                                     // physique plus complexe
         if (i != 0)
             ball.getDirection().setX(-ball.getDirection().getX());
         if (j != 0)

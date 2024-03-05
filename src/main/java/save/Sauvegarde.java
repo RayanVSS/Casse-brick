@@ -20,34 +20,35 @@ import java.util.Map;
 import static utils.GameConstants.*;
 
 /**
- *sauvegarder les données du jeu:
- *  
+ * sauvegarder les données du jeu:
+ * 
  * 1) créer 3 variables de type "Map<String, Object>", "Sauvegarde" et "String"
- *      Sauvegarde sauvegarde = new Sauvegarde();
- *      String nomUtilisateur = "utilisateur1";
- *      Map<String, Object> donnees = new HashMap<>();
- *  
+ * Sauvegarde sauvegarde = new Sauvegarde();
+ * String nomUtilisateur = "utilisateur1";
+ * Map<String, Object> donnees = new HashMap<>();
+ * 
  * 2) ajouter les données à sauvegarder dans la variable "donnees"
- *      donnees.put("niveau", 5);
- *  
+ * donnees.put("niveau", 5);
+ * 
  * 3) sauvegarder les données
- *     sauvegarde.sauvegarderDonnees(donnees);
- *  
+ * sauvegarde.sauvegarderDonnees(donnees);
+ * 
  * 4) charger les données
- *    Map<String, Object> donneesChargees = sauvegarde.chargerDonnees();
- *    System.out.println("Données chargées : " + donneesChargees);
+ * Map<String, Object> donneesChargees = sauvegarde.chargerDonnees();
+ * System.out.println("Données chargées : " + donneesChargees);
  * 
  * 
  * Exemple d'utilisation:
- *          
-            Sauvegarde sauvegarde = new Sauvegarde();
-            String nomUtilisateur = "test";
-            Map<String, Object> donnees = new HashMap<>();
-            donnees.put("niveau", 5);
-            donnees.put("score", 1000);
-            sauvegarde.sauvegarderDonnees(nomUtilisateur, donnees);
-            Map<String, Object> donneesChargees = sauvegarde.chargerDonnees(nomUtilisateur);
-            System.out.println("Donnees chargees : " + donneesChargees);
+ * 
+ * Sauvegarde sauvegarde = new Sauvegarde();
+ * String nomUtilisateur = "test";
+ * Map<String, Object> donnees = new HashMap<>();
+ * donnees.put("niveau", 5);
+ * donnees.put("score", 1000);
+ * sauvegarde.sauvegarderDonnees(nomUtilisateur, donnees);
+ * Map<String, Object> donneesChargees =
+ * sauvegarde.chargerDonnees(nomUtilisateur);
+ * System.out.println("Donnees chargees : " + donneesChargees);
  * 
  * 
  * @function sauvegarderDonnees: sauvegarde les données dans json
@@ -55,7 +56,7 @@ import static utils.GameConstants.*;
  * @function listerSauvegardes: liste toutes les sauvegardes disponibles
  * 
  * 
- * @author Rayan Belhassen 
+ * @author Rayan Belhassen
  */
 
 public class Sauvegarde {
@@ -162,7 +163,7 @@ public class Sauvegarde {
         sauvegarderDonnees("lastSave", lastSave);
     }
 
-    //Lire les données & obtenir la map de données
+    // Lire les données & obtenir la map de données
     public Map<String, Object> getDonnees(String nomUtilisateur) {
         String cheminFichierSauvegarde = cheminRepertoireSauvegardes + nomUtilisateur;
         Map<String, Object> save = new HashMap<>();
@@ -183,7 +184,7 @@ public class Sauvegarde {
         return donnees;
     }
 
-    //Lister les sauvegardes
+    // Lister les sauvegardes
     public List<String> listerSauvegardes() {
         List<String> sauvegardes = new ArrayList<>();
         File repertoireSauvegardes = new File(cheminRepertoireSauvegardes);

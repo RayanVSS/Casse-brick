@@ -10,7 +10,7 @@ public class StagesProgress {
 
     public void createStages() {
         for (int i = 0; i < stages.length; i++) {
-            stages[i] = new StageLevel(i, i + 1); // ajustement de la difficulté à faire
+            stages[i] = new StageLevel(i, i + 1, false); // ajustement de la difficulté à faire
         }
     }
 

@@ -11,6 +11,7 @@ import utils.GameConstants;
 import entity.ball.MagnetBall;
 import java.util.Timer;
 import java.util.TimerTask;
+import entity.ball.MagnetBall;
 
 public class Game {
 
@@ -24,7 +25,7 @@ public class Game {
     private boolean collide;
     private GameRules rules;
     private Timer inGameTimer;
-    private int timeElapsed = 0; //en secondes
+    private int timeElapsed = 0; // en secondes
     private List<Boost> boosts = new ArrayList<>();
 
     public Game(Ball ball, Racket racket, GameRules rules) {
@@ -32,6 +33,15 @@ public class Game {
         this.racket = racket;
         this.rules = rules;
         this.map = new Map(rules);
+        rules.initRules(this);
+    }
+
+    public Game(Ball ball, Racket racket, int mapWidth, int mapHeight, int life, GameRules rules) {
+        this.ball = ball;
+        this.racket = racket;
+        // this.map = new Map(rules, mapWidth, mapHeight);
+        this.life = life;
+        this.rules = rules;
         rules.initRules(this);
     }
 
@@ -87,9 +97,9 @@ public class Game {
         }
 
         if (ball instanceof MagnetBall) {
-            //donne les coordonnées de la raquette a la MagnetBall
+            // donne les coordonnées de la raquette a la MagnetBall
             setRa();
-            //actualise l'etat de la raquette    
+            // actualise l'etat de la raquette
             if (BallFrontRacket()) {
                 ((MagnetBall) ball).setFront(true);
             } else {

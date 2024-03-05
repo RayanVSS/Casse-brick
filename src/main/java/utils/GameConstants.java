@@ -96,21 +96,23 @@ public final class GameConstants {
         // GameRules (GR) options
         public static int GR_REMAINING_TIME = 300; // 5 minutes
         public static int GR_REMAINING_BOUNCES = 50; // rebonds restants
-        public static int GR_DEFAULT_QTY_TRANSPARENT = 5; // quantité par défaut de briques qui deviennent transparentes (temporairement)
-        public static int GR_DEFAULT_QTY_UNBREAKABLE = 5; // quantité par défaut de briques qui deviennent incassables (temporairement)
+        public static int GR_DEFAULT_QTY_TRANSPARENT = 5; // quantité par défaut de briques qui deviennent transparentes
+                                                          // (temporairement)
+        public static int GR_DEFAULT_QTY_UNBREAKABLE = 5; // quantité par défaut de briques qui deviennent incassables
+                                                          // (temporairement)
         public static final int STAGES_QTY = 9;
 
         // preConfig des parties
         public static GameRules[] PRECONFIG_GAME_RULES = {
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, true, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false, true),
-                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true, true) };
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, true, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true),
+                        new GameRules(BricksArrangement.DEFAULT, true, true, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true) };
 
         // à changer plus tard
         public static Ball[] PRECONFIG_GAME_BALL = { new ClassicBall(), new ClassicBall(), new ClassicBall(),

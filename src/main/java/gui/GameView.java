@@ -11,6 +11,7 @@ import config.*;
 import config.GameRules.BricksArrangement;
 import entity.Boost;
 import entity.ball.*;
+import entity.preview.Preview;
 import entity.racket.*;
 import gui.GraphicsFactory.*;
 import utils.*;
