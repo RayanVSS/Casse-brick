@@ -1,7 +1,7 @@
 package entity.ball;
 
-import config.Game;
 import entity.Entity;
+import entity.EntityColor;
 import entity.racket.Racket;
 import entity.brick.Brick;
 import geometry.*;
@@ -19,9 +19,10 @@ public abstract class Ball extends Entity {
     private Vector direction;
     private int radius;
     private double speed;
+    private EntityColor color;
 
     // colision avec racket
-    static boolean CollisionR = false;
+    boolean CollisionR = false;
 
     public Ball(int r) {
         super(new Coordinates(0, 0));
@@ -59,10 +60,10 @@ public abstract class Ball extends Entity {
     }
 
     public void setCollisionR(boolean b) {
-        this.CollisionR = b;
+        CollisionR = b;
     }
 
-    public static boolean getCollisionR() {
+    public boolean getCollisionR() {
         return CollisionR;
     }
 
@@ -72,6 +73,14 @@ public abstract class Ball extends Entity {
 
     public void setSpeed(int v) {
         this.speed = v;
+    }
+
+    public EntityColor getColor() {
+        return color;
+    }
+
+    public void setColor(EntityColor color) {
+        this.color = color;
     }
 
     public boolean intersectBrick(Brick b) {
@@ -97,7 +106,6 @@ public abstract class Ball extends Entity {
                 * (circleDistance_x - GameConstants.BRICK_WIDTH / 2)
                 + (circleDistance_y - GameConstants.BRICK_HEIGHT / 2)
                         * (circleDistance_y - GameConstants.BRICK_HEIGHT / 2);
-
         return (cornerDistance_sq <= (radius * radius));
     }
 
@@ -118,12 +126,10 @@ public abstract class Ball extends Entity {
     }
 
     public boolean isOverlap2(Racket r) {
-
         double deltaX = this.getC().getX()
                 - Math.max(r.getC().getX(), Math.min(this.getC().getX(), r.getC().getX() + r.getLongueur()));
         double deltaY = this.getC().getY()
                 - Math.max(r.getC().getY(), Math.min(this.getC().getY(), r.getC().getY() + r.getLargeur()));
-
         return (deltaX * deltaX + deltaY * deltaY) < (this.getRadius() * this.getRadius());
     }
 
@@ -133,5 +139,11 @@ public abstract class Ball extends Entity {
 
     public void reset() {
         this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
+        this.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION);
+        this.setSpeed(GameConstants.DEFAULT_BALL_SPEED);
+    }
+
+    public double distanceTo(double x, double y) {
+        return Math.sqrt((x - getC().getX()) * (x - getC().getX()) + (y - getC().getY()) * (y - getC().getY()));
     }
 }

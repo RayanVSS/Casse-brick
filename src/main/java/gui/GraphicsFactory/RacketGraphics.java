@@ -4,6 +4,7 @@ import javafx.scene.shape.Rectangle;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
+import entity.EntityColor;
 import entity.ball.MagnetBall;
 import entity.racket.*;
 import javafx.scene.paint.Color;

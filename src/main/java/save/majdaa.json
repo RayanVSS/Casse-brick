@@ -2,6 +2,7 @@
   "PATH": false,
   "SPACE": "SPACE",
   "MUSIC": 50,
+  "CSS": "/styles/pink.css",
   "PARTICLES": false,
   "LEFT": "LEFT",
   "FPS": true,
