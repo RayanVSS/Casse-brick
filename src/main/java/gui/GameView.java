@@ -4,7 +4,12 @@ import javafx.animation.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+import java.util.List;
+
 import config.*;
+import config.GameRules.BricksArrangement;
+import entity.Boost;
 import entity.ball.*;
 import entity.racket.*;
 import gui.GraphicsFactory.*;
@@ -13,28 +18,27 @@ import utils.*;
 
 public class GameView {
     private Stage primaryStage;
-    private Pane root;
-    private VBox SLFPS;
-    private BorderPane pane;
-    private Scene scene;
+    private Pane root=new Pane();
+    private VBox SLFPS=new VBox();
+    private BorderPane pane=new BorderPane();
     private GameRoot gameRoot;
-    private Game game = new Game(new ClassicBall(), new ClassicRacket(), BricksArrangement.DEFAULT);
+    private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
+    private StageLevel stageLevel;
     // lire les touches
     Key key = new Key();
     // fps & lifeScore
     private FPSGraphics fpsGraphics=new FPSGraphics();
-    private ScoreLifeGraphics scoreLifeView = new ScoreLifeGraphics(game);
+    private ScoreLifeGraphics scoreLifeView;
     // animation
     private AnimationTimer animationTimer;
 
-    public GameView(Stage p, int level) {
+    public GameView(Stage p, StageLevel stageLevel) {
         this.primaryStage = p;
-        this.root = new Pane();
-        this.scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-        this.gameRoot = new GameRoot(game, this, scene, primaryStage);
-        this.scoreLifeView = new ScoreLifeGraphics(game);
-        this.pane = new BorderPane();
-        this.SLFPS = new VBox();
+        this.stageLevel = stageLevel;
+        Game game = stageLevel.getGame();
+        gameRoot = new GameRoot(stageLevel, this, scene, p);
+        scoreLifeView = new ScoreLifeGraphics(game);
+        root.getStyleClass().add("game-backgorund");
         if(GameConstants.FPS)
             SLFPS.getChildren().add(fpsGraphics);
         SLFPS.getChildren().add(scoreLifeView);
@@ -45,7 +49,10 @@ public class GameView {
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
         scene.getStylesheets().add(GameConstants.CSS);
-        animation();
+        this.animation();
+        // Affichage de la fenêtre
+        primaryStage.setScene(scene);
+        //game.start();
     }
 
     public void animation() {
@@ -74,6 +81,10 @@ public class GameView {
         };
         animationTimer.start();
     }
+    public void animationStart() {
+        System.out.println("GameView.animationStart()");
+        animationTimer.start();
+    }
 
     public void animationStop() {
         animationTimer.stop();
@@ -90,4 +101,13 @@ public class GameView {
     public AnimationTimer getAnimationTimer() {
         return animationTimer;
     }
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    public StageLevel getStageLevel() {
+        return stageLevel;
+    }
+
 }

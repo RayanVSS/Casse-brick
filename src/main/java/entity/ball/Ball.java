@@ -1,6 +1,7 @@
 package entity.ball;
 
 import entity.Entity;
+import entity.EntityColor;
 import entity.racket.Racket;
 import entity.brick.Brick;
 import geometry.*;
@@ -18,6 +19,7 @@ public abstract class Ball extends Entity {
     private Vector direction;
     private int radius;
     private double speed;
+    private EntityColor color;
 
     // colision avec racket
     boolean CollisionR = false;
@@ -73,6 +75,14 @@ public abstract class Ball extends Entity {
         this.speed = v;
     }
 
+    public EntityColor getColor() {
+        return color;
+    }
+
+    public void setColor(EntityColor color) {
+        this.color = color;
+    }
+
     public boolean intersectBrick(Brick b) {
 
         double circleDistance_x = Math.abs(getC().getX() - b.getC().getX() - GameConstants.BRICK_WIDTH / 2);
@@ -96,7 +106,6 @@ public abstract class Ball extends Entity {
                 * (circleDistance_x - GameConstants.BRICK_WIDTH / 2)
                 + (circleDistance_y - GameConstants.BRICK_HEIGHT / 2)
                         * (circleDistance_y - GameConstants.BRICK_HEIGHT / 2);
-
         return (cornerDistance_sq <= (radius * radius));
     }
 
@@ -132,5 +141,9 @@ public abstract class Ball extends Entity {
         this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
         this.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION);
         this.setSpeed(GameConstants.DEFAULT_BALL_SPEED);
+    }
+
+    public double distanceTo(double x, double y) {
+        return Math.sqrt((x - getC().getX()) * (x - getC().getX()) + (y - getC().getY()) * (y - getC().getY()));
     }
 }

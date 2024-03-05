@@ -24,10 +24,11 @@ public class PauseController {
     }
 
     private void replay() {
+        view.getStageLevel().resetGame();
         view.getChildren().clear();
         this.timer.cancel();
         Game.score = 0;
-        new GameView(view.getPrimaryStage(), 1);
+        new GameView(view.getPrimaryStage(), view.getStageLevel());
     }
 
     private void quit() {

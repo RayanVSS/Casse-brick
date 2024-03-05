@@ -3,6 +3,7 @@ package gui.Menu.MenuControllers;
 import config.Game;
 import gui.App;
 import gui.GameView;
+import gui.Menu.MenuViews.GameModeView;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -39,17 +40,17 @@ public class StartMenuController {
             tuto();
         });
         this.view.getBtnSave().setOnAction(e -> {
-            Sauvegarde();
-        }); 
+            sauvegarde();
+        });
     }
 
     /**
-     * Méthode pour démarrer le jeu.
+     * Méthode pour choisir le mode de jeu.
      */
     private void play() {
         Platform.runLater(() -> {
             Game.score = 0;
-            new GameView(view.getPrimaryStage(), 1);
+            App.sceneManager.changeScene(view.getPrimaryStage(), "GameModeView");
         });
 
     }
@@ -68,6 +69,8 @@ public class StartMenuController {
      */
     private void quit() {
         view.getPrimaryStage().close();
+        Platform.exit();
+        System.exit(0);
     }
 
     /**
@@ -82,7 +85,7 @@ public class StartMenuController {
     /**
      * Méthode pour sauvegarder le jeu.
      */
-    private void Sauvegarde() {
+    private void sauvegarde() {
         Platform.runLater(() -> {
             App.sceneManager.changeScene(view.getPrimaryStage(), "SaveView");
         });

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import javafx.scene.input.KeyCode;
 
 import config.Game;
+import config.StageLevel;
 import entity.Boost;
 import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.BrickSet;
@@ -33,9 +34,11 @@ public class GameRoot {
     private Stage primaryStage;
     private GameRoot gameRoot;
     private GameView gameView;
+    private StageLevel level;
 
-    public GameRoot(Game game, GameView gameView, Scene scene, Stage primaryStage) {
-        this.game = game;
+    public GameRoot( StageLevel level, GameView gameView, Scene scene, Stage primaryStage) {
+        this.level = level;
+        this.game = level.getGame();
         this.scene = scene;
         this.gameRoot = this;
         this.gameView = gameView;
@@ -51,6 +54,7 @@ public class GameRoot {
         this.root.getChildren().add(graphRacket);
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         root.getStyleClass().add("game-backgorund");
+        game.start();
     }
 
     public void update(long deltaT) {
@@ -70,13 +74,18 @@ public class GameRoot {
         game.update(deltaT);
         key.touchesM(scene, game);
         if (game.isLost()) {
-            game.setLost(false);
+            //game.setLost(false);
             gameView.animationStop();
-            gameView.getRoot().getChildren().add(new GameOverView(primaryStage, gameView.getRoot()));
+            gameView.getRoot().getChildren().add(new GameOverView(primaryStage, gameView));
+            level.lostAction();
         }
         if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
             gameView.animationStop();
-            gameView.getRoot().getChildren().add(new PauseView(primaryStage, gameView.getRoot(), gameRoot.getRoot(),gameView.getAnimationTimer()));
+            gameView.getRoot().getChildren().add(new PauseView(primaryStage, gameView.getRoot(), gameRoot.getRoot(),gameView.getAnimationTimer(), level));
+        }
+        if(level.getGame().isWin()){
+            gameView.animationStop();
+            level.winAction();
         }
     }
 

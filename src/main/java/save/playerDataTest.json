@@ -1,0 +1,72 @@
+{
+  "PATH": false,
+  "MUSIC": 50,
+  "CSS": "/styles/dark.css",
+  "MONEY": 0,
+  "PARTICLES": true,
+  "LEFT": "LEFT",
+  "FPS": false,
+  "PSEUDO": "",
+  "SPACE": "SPACE",
+  "EXP_LEVEL": 7,
+  "PROGRESS": {
+    "stages": [
+      {
+        "difficulty": 0,
+        "unlockLevel": 1,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 1,
+        "unlockLevel": 2,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 2,
+        "unlockLevel": 3,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 3,
+        "unlockLevel": 4,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 4,
+        "unlockLevel": 5,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 5,
+        "unlockLevel": 6,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 6,
+        "unlockLevel": 7,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 7,
+        "unlockLevel": 8,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 8,
+        "unlockLevel": 9,
+        "completed": false,
+        "maxScore": 0
+      }
+    ]
+  },
+  "SOUND": 50,
+  "RIGHT": "RIGHT"
+}

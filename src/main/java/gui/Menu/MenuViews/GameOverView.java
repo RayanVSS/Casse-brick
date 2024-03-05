@@ -1,5 +1,6 @@
 package gui.Menu.MenuViews;
 
+import gui.GameView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameOverController;
 import javafx.scene.control.Button;
@@ -23,7 +24,7 @@ public class GameOverView extends VBox implements Menu {
     private Button btnQuit;
     private Button btnMenu;
     private Label gameOver;
-    private Pane game;
+    private GameView game;
 
     /**
      * Constructeur de la classe GameOver.
@@ -32,7 +33,7 @@ public class GameOverView extends VBox implements Menu {
      * @param game Le pane du jeu.
      */
 
-    public GameOverView(Stage p,Pane game ) {
+    public GameOverView(Stage p,GameView game ) {
         this.primaryStage = p;
         this.game = game;
         gameOver = createLabel("Game Over", 0, 0);
@@ -42,10 +43,10 @@ public class GameOverView extends VBox implements Menu {
         btnMenu = createButton("Menu", 0, 0);
         getChildren().addAll(gameOver, btnReplay, btnMenu, btnQuit);
         getStyleClass().add("root-game-over");
-        setLayoutX(game.getLayoutX());
-        setLayoutY(game.getLayoutY());
-        setPrefWidth(game.getWidth());
-        setPrefHeight(game.getHeight());
+        setLayoutX(game.getRoot().getLayoutX());
+        setLayoutY(game.getRoot().getLayoutY());
+        setPrefWidth(game.getRoot().getWidth());
+        setPrefHeight(game.getRoot().getHeight());
         getStylesheets().add(GameConstants.CSS);
         new GameOverController(this);
     }
@@ -96,7 +97,7 @@ public class GameOverView extends VBox implements Menu {
         return gameOver;
     }
 
-    public Pane getGame() {
+    public GameView getGame() {
         return game;
     }
 }

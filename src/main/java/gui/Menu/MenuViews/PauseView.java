@@ -1,6 +1,7 @@
 package gui.Menu.MenuViews;
 
 import gui.Menu.Menu;
+import config.StageLevel;
 import gui.Menu.MenuControllers.PauseController;
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
@@ -20,12 +21,14 @@ public class PauseView extends VBox implements Menu {
     private Pane root;
     private Pane gameRoot;
     private Label pause;
+    private StageLevel stageLevel;
 
-    public PauseView(Stage p, Pane game, Pane gameRoot, AnimationTimer animationTimer) {
+    public PauseView(Stage p, Pane game, Pane gameRoot, AnimationTimer animationTimer, StageLevel stageLevel) {
         this.primaryStage = p;
         this.animationTimer = animationTimer;
         this.gameRoot = gameRoot;
         this.root = game;
+        this.stageLevel = stageLevel;
         this.getStylesheets().add(GameConstants.CSS);
         this.getStyleClass().add("pause-view");
         pause=createLabel("Pause", 0, 0);
@@ -75,4 +78,9 @@ public class PauseView extends VBox implements Menu {
     public Pane getGameRoot(){
         return gameRoot;
     }
+
+    public StageLevel getStageLevel() {
+        return stageLevel;
+    }
+
 }
