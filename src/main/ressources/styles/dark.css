@@ -67,9 +67,26 @@
     -fx-fill: #1b263b;
 }
 
-/* ELEMENTS DU JEU */
-.ball {
-    -fx-fill: black;
+.title-game-over-style {
+    -fx-font-size: 50px;
+    -fx-text-fill: #d5bbb1;
+    -fx-font-weight: bold;
+}
+
+.slider-style {
+    -fx-font-size: 20px;
+    -fx-background-color: #273654;
+}
+
+.pause-view{
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-background-color: #78859f;
+}
+
+.ball{
+    -fx-fill : black;
 }
 
 .hyperball, .ynotfixeracket {
