@@ -350,4 +350,17 @@ affichage de la racket
 - Finir le menu pour créer un Game totalement custom : choix true/false sur chacunes des règles (+ réglages temps/quantité), type de balle, type de raquette, vitesse de la balle, taille de la balle, taille map (hauteur/largeur), vie, ... 
 - Régler les problèmes des collisions avec les règles + collisions sur les briques en général
 
+### Bencheikh Ilias
+<span style="color:green">**Fait:**</span>
+
+- Amélioration des effets de la balle : effet plus visible + rotation de la balle (invisible car la balle est rond noir)
+- Amélioration de la racket (collision en dessous et sur les côtés)
+- Début d'implémentation de la friction de l'air 
+    
+<span style="color:purple">**A Faire:**</span>
+
+- Amélioration de la trajectoire + régler le problème de la trajectoire de la balle (problème d'effets avec la trajectoire)
+- Régler le problème de FPS
+- Implémenter la friction de l'air et de la balle 
+
 
