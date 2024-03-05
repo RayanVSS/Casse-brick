@@ -27,7 +27,7 @@ public abstract class Ball extends Entity {
 
 
     // colision avec racket
-    public static boolean CollisionR = false;
+    static boolean CollisionR = false;
 
     public Ball(int r) {
         super(new Coordinates(0, 0));
