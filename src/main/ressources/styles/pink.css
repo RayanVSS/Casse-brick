@@ -29,7 +29,6 @@
 /* Styles de texte */
 .text-style,
 .button-style,
-.button-hover,
 .label-style {
     -fx-font-size: 20px;
     -fx-text-fill: #C71585;
