@@ -1,18 +1,16 @@
 package utils;
 
-import java.util.Random;
-
 import config.GameRules;
-import config.Map;
 import config.GameRules.BricksArrangement;
-import entity.ball.Ball;
-import entity.ball.ClassicBall;
-import entity.racket.ClassicRacket;
-import entity.racket.Racket;
-import geometry.Coordinates;
-import geometry.Vector;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import physics.geometry.Coordinates;
+import physics.geometry.Vector;
+import physics.entity.*;
+import entity.ball.*;
+import entity.racket.*;
+import java.util.Random;
+
 public final class GameConstants {
 
     	// brick

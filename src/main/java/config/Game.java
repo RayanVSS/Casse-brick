@@ -4,14 +4,12 @@ import java.util.List;
 import java.util.ArrayList;
 
 import entity.Boost;
-import entity.ball.Ball;
-import entity.racket.Racket;
-import geometry.Coordinates;
-import utils.GameConstants;
+import physics.entity.Ball;
+import physics.entity.Racket;
+import physics.geometry.Coordinates;
 import entity.ball.MagnetBall;
 import java.util.Timer;
 import java.util.TimerTask;
-import entity.ball.MagnetBall;
 
 public class Game {
 

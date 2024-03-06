@@ -1,15 +1,13 @@
-package entity.racket;
+package physics.entity;
 
-import geometry.Coordinates;
-import geometry.Vector;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import physics.geometry.Coordinates;
+import physics.geometry.Vector;
 import utils.GameConstants;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import entity.ball.Ball;
 
 /***************************************************************************
  *                  Explication de classe pour la raquette                 *
@@ -54,11 +52,11 @@ public abstract class Racket {
     // base
     Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5, GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
     Vector direction = new Vector(c);
-    double speed;
-    int longueur;
-    int largeur;
+    public double speed;
+    public int longueur;
+    public int largeur;
     boolean fixeY;
-    boolean jump;
+    public boolean jump;
 
     // boost
     Boolean vitesseP = false;
@@ -67,9 +65,6 @@ public abstract class Racket {
     Boolean largeurM = false;
     boolean freeze = false;
 
-    // variables pour le saut
-    private static final double JUMP_DURATION = 1.0; // Durée du saut en secondes
-    private static final double JUMP_HEIGHT = 100.0; // Hauteur du saut en pixels
     private long jumpStartTime;
 
     // creation de la raquette
@@ -107,6 +102,20 @@ public abstract class Racket {
         }
         return false;
     }
+
+    public boolean CollisionRacket2(Ball b) {
+        boolean verifX = c.getX() > getC().getX() && c.getX() < getC().getX() + largeur;
+        boolean verifY = c.getY() > getC().getY() && c.getY() < getC().getY() + longueur;
+        boolean verifX1 = c.getX()<= getC().getX() && c.getX() > getC().getX() - b.getRadius() || c.getX() >= getC().getX() + largeur && c.getX() < getC().getX() + largeur + b.getRadius();
+        boolean verifY1 =  c.getY() >= getC().getY() && c.getY() < getC().getY() + longueur;
+        if(verifX1 && verifY1){
+            b.getDirection().setX(-b.getDirection().getX());
+            Ball.CollisionR_Side=true;
+            return true;
+        }
+        return verifX && verifY;
+    } 
+
 
     // fonction obligatoire
     public abstract void handleKeyPress(Set<KeyCode> keysPressed);

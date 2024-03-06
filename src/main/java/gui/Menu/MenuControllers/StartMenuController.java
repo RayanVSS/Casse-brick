@@ -2,8 +2,6 @@ package gui.Menu.MenuControllers;
 
 import config.Game;
 import gui.App;
-import gui.GameView;
-import gui.Menu.MenuViews.GameModeView;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Platform;
 import javafx.stage.Stage;

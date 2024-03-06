@@ -1,8 +1,8 @@
 package entity.ball;
 
 import entity.racket.MagnetRacket;
-import entity.racket.Racket;
-import geometry.Coordinates;
+import physics.entity.Ball;
+import physics.geometry.Coordinates;
 import utils.GameConstants;
 
 
@@ -33,8 +33,8 @@ public class MagnetBall extends Ball {
     @Override
     public boolean movement() {
         boolean lost = true;
+        double w = GameConstants.DEFAULT_GAME_ROOT_WIDTH;
         double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
-        double w = GameConstants.DEFAULT_WINDOW_WIDTH;
         double newX = this.getC().getX() + this.getDirection().getX();
         double newY = this.getC().getY() + this.getDirection().getY();
         //verifie si la balle est devant la raquette avant n'importe action 

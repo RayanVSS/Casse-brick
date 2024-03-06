@@ -1,10 +1,9 @@
-package entity.ball;
+package physics.entity;
 
-import entity.Entity;
 import entity.EntityColor;
-import entity.racket.Racket;
 import entity.brick.Brick;
-import geometry.*;
+import physics.geometry.*;
+import physics.config.PhysicSetting;
 import utils.GameConstants;
 
 /**
@@ -14,30 +13,43 @@ import utils.GameConstants;
  * 
  * @version 1.0
  */
-public abstract class Ball extends Entity {
+public abstract class Ball {
 
+    private Coordinates c;
     private Vector direction;
     private int radius;
     private double speed;
+    private PhysicSetting physicSetting ;
     private EntityColor color;
 
+
     // colision avec racket
-    boolean CollisionR = false;
+    public static boolean CollisionR = false;
+    public static boolean CollisionR_Side = false;
 
     public Ball(int r) {
-        super(new Coordinates(0, 0));
+        c=new Coordinates(0, 0);
         this.direction = new Vector(new Coordinates(0, 0));
         this.speed = 0;
         this.radius = r;
     }
 
     public Ball(Coordinates c, Vector direction, int speed, int d) {
-        super(c);
+        this.c=c;
         this.direction = direction;
         this.speed = speed;
         this.radius = d;
     }
+
     // Setters/getters
+
+    public Coordinates getC() {
+        return c;
+    }
+
+    public void setC(Coordinates c) {
+        this.c = c;
+    }
 
     public int getRadius() {
         return this.radius;
@@ -63,7 +75,7 @@ public abstract class Ball extends Entity {
         CollisionR = b;
     }
 
-    public boolean getCollisionR() {
+    public static boolean getCollisionR() {
         return CollisionR;
     }
 
@@ -75,7 +87,15 @@ public abstract class Ball extends Entity {
         this.speed = v;
     }
 
-    public EntityColor getColor() {
+    public void setPhysicSetting(PhysicSetting physicSetting) {
+        this.physicSetting = physicSetting;
+    }
+
+    public PhysicSetting getPhysicSetting() {
+        return this.physicSetting;
+    }
+
+     public EntityColor getColor() {
         return color;
     }
 
@@ -106,6 +126,7 @@ public abstract class Ball extends Entity {
                 * (circleDistance_x - GameConstants.BRICK_WIDTH / 2)
                 + (circleDistance_y - GameConstants.BRICK_HEIGHT / 2)
                         * (circleDistance_y - GameConstants.BRICK_HEIGHT / 2);
+
         return (cornerDistance_sq <= (radius * radius));
     }
 
@@ -126,10 +147,12 @@ public abstract class Ball extends Entity {
     }
 
     public boolean isOverlap2(Racket r) {
+
         double deltaX = this.getC().getX()
                 - Math.max(r.getC().getX(), Math.min(this.getC().getX(), r.getC().getX() + r.getLongueur()));
         double deltaY = this.getC().getY()
                 - Math.max(r.getC().getY(), Math.min(this.getC().getY(), r.getC().getY() + r.getLargeur()));
+
         return (deltaX * deltaX + deltaY * deltaY) < (this.getRadius() * this.getRadius());
     }
 
@@ -141,9 +164,22 @@ public abstract class Ball extends Entity {
         this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
         this.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION);
         this.setSpeed(GameConstants.DEFAULT_BALL_SPEED);
+        this.setRadius(GameConstants.DEFAULT_BALL_RADIUS);
+        physicSetting.setFrictionRacket(new Vector(new Coordinates(0, 0)));
     }
 
-    public double distanceTo(double x, double y) {
-        return Math.sqrt((x - getC().getX()) * (x - getC().getX()) + (y - getC().getY()) * (y - getC().getY()));
+    public boolean checkCollision(Brick b) {
+        if (this.intersectBrick(b)) {
+            if (this.getC().getX() + this.getRadius() > b.getC().getX() && this.getC().getX() - this.getRadius() < b.getC().getX() + GameConstants.BRICK_WIDTH) {
+                this.setDirection(new Vector(new Coordinates(this.getDirection().getX(), -this.getDirection().getY())));
+            } else if (this.getC().getY() + this.getRadius() > b.getC().getY() && this.getC().getY() - this.getRadius() < b.getC().getY() + GameConstants.BRICK_HEIGHT) {
+                this.setDirection(new Vector(new Coordinates(-this.getDirection().getX(), this.getDirection().getY())));
+            } else {
+                this.setDirection(new Vector(new Coordinates(-this.getDirection().getX(), -this.getDirection().getY())));
+            }
+            return true;
+        }
+        return false;
     }
+
 }

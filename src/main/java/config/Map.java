@@ -1,15 +1,12 @@
 package config;
 
-import config.GameRules.BricksArrangement;
-import entity.EntityColor;
-import entity.ball.Ball;
 import entity.brick.Brick;
 import entity.brick.BrickClassic;
-import geometry.Coordinates;
+import physics.entity.Ball;
+import physics.geometry.Coordinates;
 import utils.GameConstants;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Map {
 
@@ -80,7 +77,6 @@ public class Map {
                 if (inMap(ballBrickX + i, ballBrickY + j) && bricks[ballBrickX + i][ballBrickY + j] != null) {
                     targetBrick = bricks[ballBrickX + i][ballBrickY + j];
                     if (!targetBrick.isDestroyed() && ball.intersectBrick(targetBrick)) {
-
                         if (rules.haveBricksCollisionRules()) { // Application des règles du jeu aux collisions
                             handleBricksCollisionRules(targetBrick, ball, rules, i, j);
                         } else {
@@ -89,6 +85,7 @@ public class Map {
                         }
                         return;
                     }
+                    
                 }
             }
         }
@@ -116,8 +113,13 @@ public class Map {
                                                                      // physique plus complexe
         if (i != 0)
             ball.getDirection().setX(-ball.getDirection().getX());
+            ball.getDirection().add(ball.getPhysicSetting().getFrictionRacket());
+            ball.getPhysicSetting().UpdateFrictionRacket();
         if (j != 0)
             ball.getDirection().setY(-ball.getDirection().getY());
+            ball.getDirection().add(ball.getPhysicSetting().getFrictionRacket());
+            ball.getPhysicSetting().UpdateFrictionRacket();
+
     }
 
     public boolean updateBricksStatus() {
