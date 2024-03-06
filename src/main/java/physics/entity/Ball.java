@@ -21,6 +21,7 @@ public abstract class Ball {
     private double speed;
     private PhysicSetting physicSetting ;
     private EntityColor color;
+    private Rotation rotation = new Rotation();
 
 
     // colision avec racket
@@ -103,6 +104,10 @@ public abstract class Ball {
         this.color = color;
     }
 
+    public Rotation getRotation() {
+        return rotation;
+    }
+
     public boolean intersectBrick(Brick b) {
 
         double circleDistance_x = Math.abs(getC().getX() - b.getC().getX() - GameConstants.BRICK_WIDTH / 2);
@@ -165,7 +170,7 @@ public abstract class Ball {
         this.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION);
         this.setSpeed(GameConstants.DEFAULT_BALL_SPEED);
         this.setRadius(GameConstants.DEFAULT_BALL_RADIUS);
-        physicSetting.setFrictionRacket(new Vector(new Coordinates(0, 0)));
+        rotation.stopRotation();
     }
 
     public boolean checkCollision(Brick b) {

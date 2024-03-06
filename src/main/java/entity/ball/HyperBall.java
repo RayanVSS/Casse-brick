@@ -21,62 +21,52 @@ public class HyperBall extends Ball {
     }
 
     @Override
-    public boolean movement() {
+    public boolean movement(){
         boolean lost = true;
         double w = GameConstants.DEFAULT_GAME_ROOT_WIDTH;
         double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
-        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
-        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
-
-        // Gestion des collisions avec la raquettes
-        if (CollisionR) { 
-            if (GameRoot.BougePColision) {
-                this.getDirection().setY(-this.getDirection().getY());
-                this.getDirection().add(super.getPhysicSetting().getFrictionRacket());
-                newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
-                newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
-                CollisionR = false;
-                CollisionR_Side = false;
-                super.getPhysicSetting().UpdateFrictionRacket();
-            }
-            if (!GameRoot.BougePColision) {
-                for (KeyCode key : GameRoot.direction) {
-                    switch (key) {
-                        case RIGHT:
-                        case D:
-                            this.getDirection().setY(-this.getDirection().getY());
-                            super.getPhysicSetting().getFrictionRacket().setX(super.getPhysicSetting().getFrictionRacket().getX() + 1);
-                            this.getDirection().add(super.getPhysicSetting().getFrictionRacket());
-                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
-                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
-                            CollisionR = false;
-                            break;
-                        case LEFT:
-                        case Q:
-                            this.getDirection().setY(-this.getDirection().getY());
-                            super.getPhysicSetting().getFrictionRacket().setX(super.getPhysicSetting().getFrictionRacket().getX()-1);
-                            this.getDirection().add(super.getPhysicSetting().getFrictionRacket());
-                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
-                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
-                            CollisionR = false;
-                            break;
-                        default:
-                            break;
-                    }
+        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed() ;
+        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed() ;
+        if (GameRoot.BougePColision || CollisionR_Side) {
+            this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
+            this.getRotation().Collision();
+            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+            CollisionR = false;
+            CollisionR_Side = false;
+        }
+        else {
+            for (KeyCode key : GameRoot.direction) {
+                switch (key) {
+                    case RIGHT:
+                    case D:
+                        this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
+                        this.getRotation().addEffect('d');
+                        newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+                        newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+                        CollisionR = false;
+                        break;
+                    case LEFT:
+                    case Q:
+                        this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
+                        this.getRotation().addEffect('g');
+                        newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+                        newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+                        CollisionR = false;
+                        break;
+                    default:
+                        break;
                 }
             }
-        }   
-        if (newX < 0 || newX > w - this.getRadius()) {
-            this.getDirection().setX(-this.getDirection().getX());
-            this.getDirection().add(super.getPhysicSetting().getFrictionRacket());
-            super.getPhysicSetting().UpdateFrictionRacket();
+        }
+        if (newX < 0 || newX > h - this.getRadius()) {
+            this.getDirection().setX(-this.getDirection().getX()+this.getRotation().getEffect());
+            this.getRotation().Collision();
             newX = this.getC().getX() + this.getDirection().getX()*this.getSpeed();
             this.getDirection().setX(this.getDirection().getX()*super.getPhysicSetting().getRetention());
         }
-        if (newY < 0 ) {
-            this.getDirection().add(super.getPhysicSetting().getFrictionRacket());
-            this.getDirection().setY(-this.getDirection().getY());
-            super.getPhysicSetting().UpdateFrictionRacket();
+        if (newY < 0 || newY > w - this.getRadius()) {
+            this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
+            this.getRotation().Collision();
             newY = this.getC().getY() + this.getDirection().getY()* this.getSpeed();
             this.getDirection().setY(this.getDirection().getY()*super.getPhysicSetting().getRetention());
         } 
