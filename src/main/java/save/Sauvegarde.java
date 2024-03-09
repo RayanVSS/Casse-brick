@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import config.StagesProgress;
 import javafx.scene.input.KeyCode;
 
 import java.io.File;
@@ -18,37 +19,36 @@ import java.util.Map;
 
 import static utils.GameConstants.*;
 
-
-
 /**
- *sauvegarder les données du jeu:
- *  
+ * sauvegarder les données du jeu:
+ * 
  * 1) créer 3 variables de type "Map<String, Object>", "Sauvegarde" et "String"
- *      Sauvegarde sauvegarde = new Sauvegarde();
- *      String nomUtilisateur = "utilisateur1";
- *      Map<String, Object> donnees = new HashMap<>();
- *  
+ * Sauvegarde sauvegarde = new Sauvegarde();
+ * String nomUtilisateur = "utilisateur1";
+ * Map<String, Object> donnees = new HashMap<>();
+ * 
  * 2) ajouter les données à sauvegarder dans la variable "donnees"
- *      donnees.put("niveau", 5);
- *  
+ * donnees.put("niveau", 5);
+ * 
  * 3) sauvegarder les données
- *     sauvegarde.sauvegarderDonnees(donnees);
- *  
+ * sauvegarde.sauvegarderDonnees(donnees);
+ * 
  * 4) charger les données
- *    Map<String, Object> donneesChargees = sauvegarde.chargerDonnees();
- *    System.out.println("Données chargées : " + donneesChargees);
+ * Map<String, Object> donneesChargees = sauvegarde.chargerDonnees();
+ * System.out.println("Données chargées : " + donneesChargees);
  * 
  * 
  * Exemple d'utilisation:
- *          
-            Sauvegarde sauvegarde = new Sauvegarde();
-            String nomUtilisateur = "test";
-            Map<String, Object> donnees = new HashMap<>();
-            donnees.put("niveau", 5);
-            donnees.put("score", 1000);
-            sauvegarde.sauvegarderDonnees(nomUtilisateur, donnees);
-            Map<String, Object> donneesChargees = sauvegarde.chargerDonnees(nomUtilisateur);
-            System.out.println("Donnees chargees : " + donneesChargees);
+ * 
+ * Sauvegarde sauvegarde = new Sauvegarde();
+ * String nomUtilisateur = "test";
+ * Map<String, Object> donnees = new HashMap<>();
+ * donnees.put("niveau", 5);
+ * donnees.put("score", 1000);
+ * sauvegarde.sauvegarderDonnees(nomUtilisateur, donnees);
+ * Map<String, Object> donneesChargees =
+ * sauvegarde.chargerDonnees(nomUtilisateur);
+ * System.out.println("Donnees chargees : " + donneesChargees);
  * 
  * 
  * @function sauvegarderDonnees: sauvegarde les données dans json
@@ -56,9 +56,8 @@ import static utils.GameConstants.*;
  * @function listerSauvegardes: liste toutes les sauvegardes disponibles
  * 
  * 
- * @author Rayan Belhassen 
+ * @author Rayan Belhassen
  */
-
 
 public class Sauvegarde {
 
@@ -76,8 +75,16 @@ public class Sauvegarde {
     }
 
     // Sauvegarde Les données
+    public void sauvegarderToutesDonnees(String name) {
+
+        Map<String, Object> allData = new HashMap<>();
+        allData.putAll(sauvegarderOptionsDuJeu(name));
+        allData.putAll(sauvegarderPlayerData(name));
+        sauvegarderDonnees(name, allData);
+    }
+
     public void sauvegarderDonnees(String nomUtilisateur, Map<String, Object> donnees) {
-        String cheminFichierSauvegarde = cheminRepertoireSauvegardes + nomUtilisateur +".json";
+        String cheminFichierSauvegarde = cheminRepertoireSauvegardes + nomUtilisateur + ".json";
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter writer = new FileWriter(cheminFichierSauvegarde)) {
             gson.toJson(donnees, writer);
@@ -86,7 +93,7 @@ public class Sauvegarde {
         }
     }
 
-    public void sauvegarderOptionsDuJeu(String name) {
+    public Map<String, Object> sauvegarderOptionsDuJeu(String name) {
         Map<String, Object> options = new HashMap<>();
         options.put("FPS", FPS);
         options.put("PATH", PATH);
@@ -98,11 +105,27 @@ public class Sauvegarde {
         options.put("SPACE", SPACE);
         options.put("CSS", CSS);
 
-        sauvegarderDonnees(name, options);
+        return options;
+    }
+
+    public Map<String, Object> sauvegarderPlayerData(String name) {
+        Map<String, Object> playerData = new HashMap<>();
+        playerData.put("PSEUDO", PlayerData.pseudo);
+        playerData.put("EXP_LEVEL", PlayerData.expLevel);
+        playerData.put("MONEY", PlayerData.money);
+        playerData.put("PROGRESS", PlayerData.stagesProgress);
+
+        return playerData;
+    }
+
+    // Charge toutes les données
+    public void chargerToutesDonnees(String name) {
+        chargerOptionsDuJeu(name);
+        chargerPlayerData(name);
     }
 
     public void chargerOptionsDuJeu(String name) {
-        Map<String, Object> options = chargerDonnees(name);
+        Map<String, Object> options = getDonnees(name);
         if (options != null) {
             FPS = (boolean) options.getOrDefault("FPS", true);
             PATH = (boolean) options.getOrDefault("PATH", false);
@@ -116,8 +139,19 @@ public class Sauvegarde {
         }
     }
 
+    public void chargerPlayerData(String name) {
+        Map<String, Object> playerData = getDonnees(name);
+        if (playerData != null) {
+            PlayerData.pseudo = (String) playerData.getOrDefault("PSEUDO", "");
+            PlayerData.expLevel = ((Number) playerData.getOrDefault("EXP_LEVEL", 1)).intValue();
+            PlayerData.money = ((Number) playerData.getOrDefault("MONEY", 0)).intValue();
+            PlayerData.stagesProgress = new Gson().fromJson("" + playerData.get("PROGRESS"),
+                    StagesProgress.class);
+        }
+    }
+
     public void chargerLastSave() {
-        Map<String, Object> lastSave = chargerDonnees("lastSave.json");
+        Map<String, Object> lastSave = getDonnees("lastSave.json");
         if (lastSave != null) {
             LAST_SAVE = (String) lastSave.getOrDefault("SAVE", "");
         }
@@ -129,12 +163,11 @@ public class Sauvegarde {
         sauvegarderDonnees("lastSave", lastSave);
     }
 
-
-    //Lire les données
-    public Map<String, Object> chargerDonnees(String nomUtilisateur) {
+    // Lire les données & obtenir la map de données
+    public Map<String, Object> getDonnees(String nomUtilisateur) {
         String cheminFichierSauvegarde = cheminRepertoireSauvegardes + nomUtilisateur;
         Map<String, Object> save = new HashMap<>();
-        if(!nomUtilisateur.equals("lastSave.json")){
+        if (!nomUtilisateur.equals("lastSave.json")) {
             save.put("SAVE", nomUtilisateur);
             LAST_SAVE = nomUtilisateur;
             sauvegarderDonnees("lastSave", save);
@@ -142,7 +175,8 @@ public class Sauvegarde {
         Gson gson = new Gson();
         Map<String, Object> donnees = new HashMap<>();
         try (FileReader reader = new FileReader(cheminFichierSauvegarde)) {
-            Type type = new TypeToken<Map<String, Object>>(){}.getType();
+            Type type = new TypeToken<Map<String, Object>>() {
+            }.getType();
             donnees = gson.fromJson(reader, type);
         } catch (IOException e) {
             e.printStackTrace();
@@ -150,7 +184,7 @@ public class Sauvegarde {
         return donnees;
     }
 
-    //Lister les sauvegardes
+    // Lister les sauvegardes
     public List<String> listerSauvegardes() {
         List<String> sauvegardes = new ArrayList<>();
         File repertoireSauvegardes = new File(cheminRepertoireSauvegardes);
@@ -158,7 +192,8 @@ public class Sauvegarde {
             File[] fichiers = repertoireSauvegardes.listFiles();
             if (fichiers != null) {
                 for (File fichier : fichiers) {
-                    if (fichier.isFile() && fichier.getName().endsWith(".json") && !fichier.getName().equals("lastSave.json")) {
+                    if (fichier.isFile() && fichier.getName().endsWith(".json")
+                            && !fichier.getName().equals("lastSave.json")) {
                         sauvegardes.add(fichier.getName());
                     }
                 }
@@ -166,12 +201,13 @@ public class Sauvegarde {
         }
         return sauvegardes;
     }
-        
+
     // Supprimer une sauvegarde
     public void supprimerSauvegarde(String nomSauvegarde) {
-        String cheminFichierSauvegarde = cheminRepertoireSauvegardes + nomSauvegarde ;
+        String cheminFichierSauvegarde = cheminRepertoireSauvegardes + nomSauvegarde;
         File fichierSauvegarde = new File(cheminFichierSauvegarde);
-        if (fichierSauvegarde.exists() && fichierSauvegarde.isFile() && fichierSauvegarde.getName().endsWith(".json") && !fichierSauvegarde.getName().equals("lastSave.json") ) {
+        if (fichierSauvegarde.exists() && fichierSauvegarde.isFile() && fichierSauvegarde.getName().endsWith(".json")
+                && !fichierSauvegarde.getName().equals("lastSave.json")) {
             if (fichierSauvegarde.delete()) {
                 System.out.println("La sauvegarde '" + nomSauvegarde + "' a ete supprimée.");
             } else {
@@ -197,14 +233,14 @@ public class Sauvegarde {
         }
     }
 
-    public void SetupLastSave() {
-            System.out.println("Chargement de la derniere sauvegarde");
-            chargerLastSave();
-                if (!LAST_SAVE.equals("")) {
-                    chargerOptionsDuJeu(LAST_SAVE);
-                }
-                else {
-                    System.err.println("Impossible de charger la derniere sauvegarde");
-                }
+    public void setupLastSave() {
+        System.out.println("Chargement de la derniere sauvegarde");
+        chargerLastSave();
+        if (!LAST_SAVE.equals("")) {
+            chargerOptionsDuJeu(LAST_SAVE);
+            chargerPlayerData(LAST_SAVE);
+        } else {
+            System.err.println("Impossible de charger la derniere sauvegarde");
+        }
     }
 }
