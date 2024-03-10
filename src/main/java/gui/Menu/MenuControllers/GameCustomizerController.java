@@ -19,6 +19,7 @@ public class GameCustomizerController {
 
         this.gameCustomizerView = gameCustomizerView;
 
+        gameCustomizerView.getCreateGame().setOnAction(e -> createGame());
         gameCustomizerView.getBackButton().setOnAction(e -> back());
     }
 
@@ -51,11 +52,8 @@ public class GameCustomizerController {
         return null;
     }
 
-    private Map getMapConfig() {
-        return null;
-    }
-
     private GameRules getRulesConfig() {
+        // boolean 
         return null;
     }
 }

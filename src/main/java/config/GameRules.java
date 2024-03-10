@@ -13,7 +13,6 @@ public class GameRules {
 
     private BricksArrangement arrangement;
 
-    //options de jeu à activer et à implémenter...
     private boolean limitedTime;
     private boolean limitedBounces;
     private boolean randomSwitchBricks;

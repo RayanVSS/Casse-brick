@@ -2,6 +2,7 @@ package gui.Menu.MenuViews;
 
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameCustomizerController;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -36,11 +37,11 @@ public class GameCustomizerView implements Menu {
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
 
         initOptionsBox();
-        initSliders();
-        initComboBox();
-        initToggleButtons();
+        // initSliders();
+        // initComboBox();
+        // initToggleButtons();
         initActionButtons();
-        initActionButtons();
+
         root.getChildren().addAll(configOptionsBox, actionButtons);
 
         new GameCustomizerController(this);
@@ -48,59 +49,35 @@ public class GameCustomizerView implements Menu {
 
     private void initOptionsBox() {
         configOptionsBox = new HBox(55);
-        optionsBoxLeft = new VBox(25);
-        optionsBoxRight = new VBox(25);
+        initOptionsBoxLeft();
+        initOptionsBoxRight();
         configOptionsBox.getChildren().addAll(optionsBoxLeft, optionsBoxRight);
     }
 
-    private void initSliders() {
-        life = new Slider();
-        // life.setMin(0);
-        // life.setMax(100);
-        // life.setValue(50);
-        // // life.setShowTickLabels(true);
-        // // life.setShowTickMarks(true);
-        // // life.setMajorTickUnit(20);
-        // // life.setMinorTickCount(5);
-        // life.setBlockIncrement(10);
-        // optionsBoxLeft.getChildren().addAll(life);
-
-        mapWidht = new Slider();
-
-        mapHeight = new Slider();
-
-        ballSize = new Slider();
-
-        ballSpeed = new Slider();
-
-        timeLimit = new Slider();
-
-        bouncesLimit = new Slider();
-    }
-
-    private void initComboBox() {
-        ball = new ComboBox<>();
-        racket = new ComboBox<>();
+    private void initOptionsBoxLeft() {
+        optionsBoxLeft = new VBox(25);
 
     }
 
-    private void initToggleButtons() {
-        ruleLimitedTime = new ToggleButton("Limited Time");
-
-        ruleLimitedBounces = new ToggleButton("Limited Bounces");
-
-        ruleRandomSwitchBricks = new ToggleButton("Random Switch Bricks");
-
-        ruleColorRestricted = new ToggleButton("Color Restricted");
-
-        ruleTransparent = new ToggleButton("Transparent");
-
-        ruleUnbreakable = new ToggleButton("Unbreakable");
-
+    private void initOptionsBoxRight() {
+        optionsBoxRight = new VBox(25);
     }
+
+    // private void initSliders() {
+
+    // }
+
+    // private void initComboBox() {
+
+    // }
+
+    // private void initToggleButtons() {
+
+    // }
 
     private void initActionButtons() {
         actionButtons = new HBox(35);
+        actionButtons.setAlignment(Pos.CENTER);
         backButton = createButton("Retour", 0, 0);
         createGame = createButton("Créer", 0, 0);
         actionButtons.getChildren().addAll(createGame, backButton);
