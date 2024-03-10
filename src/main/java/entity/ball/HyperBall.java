@@ -27,34 +27,36 @@ public class HyperBall extends Ball {
         double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
         double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed() ;
         double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed() ;
-        if (GameRoot.BougePColision || CollisionR_Side) {
-            this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
-            this.getRotation().Collision();
-            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
-            CollisionR = false;
-            CollisionR_Side = false;
-        }
-        else {
-            for (KeyCode key : GameRoot.direction) {
-                switch (key) {
-                    case RIGHT:
-                    case D:
-                        this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
-                        this.getRotation().addEffect('d');
-                        newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
-                        newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
-                        CollisionR = false;
-                        break;
-                    case LEFT:
-                    case Q:
-                        this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
-                        this.getRotation().addEffect('g');
-                        newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
-                        newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
-                        CollisionR = false;
-                        break;
-                    default:
-                        break;
+        if(CollisionR){
+            if (GameRoot.BougePColision || CollisionR_Side) {
+                this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
+                this.getRotation().Collision();
+                newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+                CollisionR = false;
+                CollisionR_Side = false;
+            }
+            else {
+                for (KeyCode key : GameRoot.direction) {
+                    switch (key) {
+                        case RIGHT:
+                        case D:
+                            this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
+                            this.getRotation().addEffect('d');
+                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+                            CollisionR = false;
+                            break;
+                        case LEFT:
+                        case Q:
+                            this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
+                            this.getRotation().addEffect('g');
+                            newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+                            newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+                            CollisionR = false;
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }

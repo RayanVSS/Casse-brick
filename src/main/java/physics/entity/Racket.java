@@ -97,7 +97,7 @@ public abstract class Racket {
         double dy = Math.max(this.c.getY(), Math.min(b.getC().getY(), this.c.getY() + this.longueur));
         double distance = Math.sqrt((b.getC().getX() - dx) * (b.getC().getX() - dx) + (b.getC().getY() - dy) * (b.getC().getY() - dy));
         if (distance < b.getRadius()) {
-            //b.getC().setY(this.getC().getY() - b.getRadius());
+            b.getC().setY(this.getC().getY() - b.getRadius());
             return true;
         }
         return false;

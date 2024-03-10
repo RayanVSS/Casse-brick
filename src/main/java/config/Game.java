@@ -74,7 +74,7 @@ public class Game {
             }
         }
         // Si la balle touche la raquette
-        if (racket.CollisionRacket2(ball)) {
+        if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
             rules.updateRemainingBounces();
             rules.updateBricksTransparency(map);
