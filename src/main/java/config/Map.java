@@ -112,10 +112,10 @@ public class Map {
     private void handleCollisionDirection(Ball ball, int i, int j) { // changement directionnel simple en attendant la
                                                                      // physique plus complexe
         if (i != 0)
-            ball.getDirection().setX(-ball.getDirection().getX()+ball.getRotation().getEffect());
+            ball.getDirection().setX(-ball.getDirection().getX()+(ball.getRotation().getEffect()/90)*ball.getDirection().getX());
             ball.getRotation().Collision();    
         if (j != 0)
-            ball.getDirection().setY(-ball.getDirection().getY()+ball.getRotation().getEffect());
+            ball.getDirection().setY(-ball.getDirection().getY()+(ball.getRotation().getEffect()/90)*ball.getDirection().getY());
             ball.getRotation().Collision();
 
     }

@@ -11,6 +11,7 @@ import physics.entity.Ball;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
+import utils.GameConstants;
 
 /***************************************************************************
  *                  Explication de classe Preview  :  
@@ -52,8 +53,8 @@ public class Preview {
     }
 
     public Coordinates trajectory(){
-        double h = PhysicEngine.DEFAULT_WINDOW_WIDTH;
-        double w = PhysicEngine.DEFAULT_WINDOW_HEIGHT;
+        double h = GameConstants.DEFAULT_GAME_ROOT_WIDTH;
+        double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
         double newX = c_trajectory.getX() + d_trajectory.getX() * ball.getSpeed() ;
         double newY = c_trajectory.getY() + d_trajectory.getY() * ball.getSpeed() ;
         if (CollisionR) {

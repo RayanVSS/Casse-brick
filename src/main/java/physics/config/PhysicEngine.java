@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import gui.GraphicsFactory.RacketGraphics;
+import physics.gui.OptionBar;
 import utils.GameConstants;
 import utils.Key;
 
@@ -38,13 +39,15 @@ import utils.Key;
 public class PhysicEngine {
 
     //Initialisation des objets
-    public static double DEFAULT_WINDOW_HEIGHT=800;
-    public static double DEFAULT_WINDOW_WIDTH=1000;
+    public static double WIDTH = GameConstants.DEFAULT_WINDOW_WIDTH;
+    public static double HEIGHT = GameConstants.DEFAULT_WINDOW_HEIGHT;
+    public static double START = 0;
     public static boolean PATH=true; 
     public static boolean RACKET=true;
     
     Stage primaryStage;
     Pane root;
+    public OptionBar optionBar;
 
     PhysicSetting physics;
 
@@ -72,7 +75,8 @@ public class PhysicEngine {
 
         this.primaryStage = pStage;
         root = new Pane();
-        primaryStage.setScene(new javafx.scene.Scene(root, DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT));
+        optionBar = new OptionBar(primaryStage);
+        primaryStage.setScene(new javafx.scene.Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT));
 
         //Initialisation de la simulation
 
@@ -115,7 +119,7 @@ public class PhysicEngine {
 
         graphBall.setOnMouseDragged(event -> {
             if (isMouseDraggingBall) {
-                if(ball.getC().getX() > ball.getRadius() && ball.getC().getX() < DEFAULT_WINDOW_WIDTH -ball.getRadius() && ball.getC().getY() > ball.getRadius() && ball.getC().getY() < DEFAULT_WINDOW_HEIGHT-ball.getRadius()){
+                if(ball.getC().getX() > ball.getRadius() && ball.getC().getX() < -ball.getRadius() && ball.getC().getY() > ball.getRadius() && ball.getC().getY() < GameConstants.DEFAULT_WINDOW_HEIGHT-ball.getRadius()){
                     ball.getC().setX(event.getSceneX());
                     ball.getC().setY(event.getSceneY());
                 }
@@ -161,6 +165,10 @@ public class PhysicEngine {
                     primaryStage.setScene(appPhysic.getScene());
                     appPhysic.menu();
                 }
+                else if(key.getKeysPressed().contains(KeyCode.M)){
+                    optionBar.update();
+                    //launchOptionBar();
+                }
             }
         };
 
@@ -194,8 +202,8 @@ public class PhysicEngine {
 
             @Override
             public boolean movement(){
-                double h = DEFAULT_WINDOW_WIDTH;
-                double w = DEFAULT_WINDOW_HEIGHT;
+                double h = GameConstants.DEFAULT_GAME_ROOT_WIDTH;
+                double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
                 double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed() ;
                 double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed() ;
                 if (CollisionR) {
@@ -264,7 +272,7 @@ public class PhysicEngine {
                             this.mX(this.mX() - speed);
                     }
                     if(key==GameConstants.RIGHT){
-                        if (this.mX() < DEFAULT_WINDOW_WIDTH - longueur - 70)
+                        if (this.mX() < GameConstants.DEFAULT_GAME_ROOT_WIDTH - longueur - 70)
                             this.mX(this.mX() + speed);
                     }
                     if(key==GameConstants.SPACE){
@@ -295,11 +303,5 @@ public class PhysicEngine {
             key.getKeysPressed().add(eWind.getCode());
         });
         graphRacket.update();
-    }
-
-    public void check_ball(){
-       if(ball.getC().getX()+ball.getRadius() > DEFAULT_WINDOW_WIDTH || ball.getC().getX()+ball.getRadius() < 0 || ball.getC().getY()+ball.getRadius() > DEFAULT_WINDOW_HEIGHT || ball.getC().getY()+ball.getRadius() < 0){
-            ball.setC(new Coordinates(DEFAULT_WINDOW_WIDTH/2,DEFAULT_WINDOW_HEIGHT/2));
-       }
     }
 }

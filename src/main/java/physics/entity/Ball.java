@@ -19,14 +19,20 @@ public abstract class Ball {
     private Vector direction;
     private int radius;
     private double speed;
-    private PhysicSetting physicSetting ;
     private EntityColor color;
     private Rotation rotation = new Rotation();
-
+    private PhysicSetting physicSetting = new PhysicSetting();
 
     // colision avec racket
     public static boolean CollisionR = false;
     public static boolean CollisionR_Side = false;
+
+    public Ball() {
+        c=new Coordinates(0, 0);
+        this.direction = new Vector(new Coordinates(0, 0));
+        this.speed = 0;
+        this.radius = GameConstants.DEFAULT_BALL_RADIUS;
+    }
 
     public Ball(int r) {
         c=new Coordinates(0, 0);
@@ -88,12 +94,8 @@ public abstract class Ball {
         this.speed = v;
     }
 
-    public void setPhysicSetting(PhysicSetting physicSetting) {
-        this.physicSetting = physicSetting;
-    }
-
     public PhysicSetting getPhysicSetting() {
-        return this.physicSetting;
+        return physicSetting;
     }
 
      public EntityColor getColor() {

@@ -46,18 +46,18 @@ public class PhysicSetting {
     private Vector Wind;
 
     // variables par défaut pour la simulation
-    public static int Speed_Ball = 0;
-    public static int Speed_Wind = 0;
-    public static int Direction_Wind = 0;
-    public static double Gravite = 0;
-    public static double Mass = 1;
+    private int Speed_Ball = 0;
+    private int Speed_Wind = 0;
+    private int Direction_Wind = 0;
+    private double Gravite = 0;
+    private double Mass = 1;
 
     // variables pour la simulation
-    public static final double stop_bounce = 0.3;
-    public static double retention = 1;
-    public static final double friction_sol = 0.1;
-    public static final double friction_air = 0.01;
-    public static final double MAX_VELOCITY = 10;
+    private final double stop_bounce = 0.3;
+    private double retention = 1;
+    private final double friction_sol = 0.1;
+    private final double friction_air = 0.01;
+    private final double MAX_VELOCITY = 10;
 
     public PhysicSetting(){
         Radius = GameConstants.DEFAULT_BALL_RADIUS/2;
@@ -82,7 +82,7 @@ public class PhysicSetting {
     }
 
     public void checkGravity(Coordinates c, Vector d) {
-        if (c.getY() < PhysicEngine.DEFAULT_WINDOW_HEIGHT - Radius) {
+        if (c.getY() < GameConstants.DEFAULT_GAME_ROOT_WIDTH - Radius) {
             d.setY(d.getY() + Gravite*Mass);
         } else {
             if (d.getY() > stop_bounce) {
@@ -92,7 +92,7 @@ public class PhysicSetting {
                     d.setY(0);
                 }
             }
-            if ((c.getX() < Radius && d.getX() < 0) || (c.getX() > PhysicEngine.DEFAULT_WINDOW_WIDTH - Radius && d.getX() > 0)) {
+            if ((c.getX() < Radius && d.getX() < 0) || (c.getX() > GameConstants.DEFAULT_WINDOW_WIDTH - Radius && d.getX() > 0)) {
                 d.setX(-d.getX()* retention);
                 if (Math.abs(d.getX()) < stop_bounce) {
                     d.setX(0);
@@ -182,4 +182,56 @@ public class PhysicSetting {
         return retention;
     }
     
+    public void setRetention(double retention) {
+        this.retention = retention;
+    }
+
+    public double getFrictionSol() {
+        return friction_sol;
+    }
+
+    public double getFrictionAir() {
+        return friction_air;
+    }
+
+    public double getMAX_VELOCITY() {
+        return MAX_VELOCITY;
+    }
+
+    public void setGravite(double gravite) {
+        Gravite = gravite;
+    }
+
+    public void setMass(double mass) {
+        Mass = mass;
+    }
+
+    public void setSpeed_Ball(int speed_Ball) {
+        Speed_Ball = speed_Ball;
+    }
+
+    public void setSpeed_Wind(int speed_Wind) {
+        Speed_Wind = speed_Wind;
+    }
+
+    public void setDirection_Wind(int direction_Wind) {
+        Direction_Wind = direction_Wind;
+    }
+
+    public int getSpeed_Ball() {
+        return Speed_Ball;
+    }
+
+    public int getSpeed_Wind() {
+        return Speed_Wind;
+    }
+
+    public int getDirection_Wind() {
+        return Direction_Wind;
+    }
+
+    public double getStop_bounce() {
+        return stop_bounce;
+    }
+
 }

@@ -62,7 +62,6 @@ public class Game {
     }
 
     public void update(long deltaT) {
-
         start();
         //Vérifie si la balle touche une brique
         map.handleCollisionBricks(ball, rules); //gérer la collision des briques
