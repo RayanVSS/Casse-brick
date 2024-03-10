@@ -1,8 +1,10 @@
 package gui.Menu;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
@@ -148,25 +150,25 @@ public class SceneManager {
      */
     public void changeScene(Stage primaryStage, String name) {
         Scene newScene = getScene(name);
-        Platform.runLater(() -> {
-            // TODO: ajouter une transition jolie
-            if (primaryStage.getScene() != null) { // Si une scène est déjà présente
-                // Créer une transition de fondu pour la scène actuelle
-                FadeTransition ft = new FadeTransition(Duration.millis(200), primaryStage.getScene().getRoot());
-                ft.setFromValue(1.0);
-                ft.setToValue(0.0);
-                ft.setOnFinished(event -> { // Quand la transition est terminée
-                    primaryStage.setScene(newScene); // Changer la scène
-                    // Créer une transition de fondu pour la nouvelle scène
-                    FadeTransition ft2 = new FadeTransition(Duration.millis(200), newScene.getRoot());
-                    ft2.setFromValue(0.0);
-                    ft2.setToValue(1.0);
-                    ft2.play(); // Jouer la transition
-                });
-                ft.play(); // Jouer la transition
-            } else {
-                primaryStage.setScene(newScene); // Si aucune scène n'est présente, simplement changer la scène
-            }
-        });
+        primaryStage.setScene(newScene);
+        // Platform.runLater(() -> {
+        //     if (primaryStage.getScene() != null) {
+        //         // Créer une transition de translation pour la scène actuelle
+        //         TranslateTransition tt = new TranslateTransition(Duration.millis(200), primaryStage.getScene().getRoot());
+        //         tt.setFromX(0);
+        //         tt.setToX(primaryStage.getWidth());
+        //         tt.setOnFinished(event -> {
+        //             primaryStage.setScene(newScene);
+        //             // Créer une transition de translation pour la nouvelle scène
+        //             TranslateTransition tt2 = new TranslateTransition(Duration.millis(200), newScene.getRoot());
+        //             tt2.setFromX(primaryStage.getWidth());
+        //             tt2.setToX(0);
+        //             tt2.play();
+        //         });
+        //         tt.play();
+        //     } else {
+        //         primaryStage.setScene(newScene);
+        //     }
+        // });
     }
 }
