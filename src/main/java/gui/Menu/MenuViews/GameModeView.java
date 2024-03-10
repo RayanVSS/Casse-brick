@@ -18,6 +18,7 @@ public class GameModeView implements Menu {
     private Button stagesButton;
     private Button customGameButton;
     private Button backButton;
+    private Button infinityButton;
 
     public GameModeView(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -26,8 +27,9 @@ public class GameModeView implements Menu {
 
         stagesButton = createButton("Niveaux", 0, 0);
         customGameButton = createButton("Personnaliser", 0, 0);
+        infinityButton = createButton("Mode Infini", 0, 0);
         backButton = createButton("Retour", 0, 0);
-        root.getChildren().addAll(stagesButton, customGameButton, backButton);
+        root.getChildren().addAll(stagesButton, customGameButton, infinityButton, backButton);
         new GameModeController(this);
     }
 
@@ -49,6 +51,10 @@ public class GameModeView implements Menu {
 
     public Button getBackButton() {
         return backButton;
+    }
+
+    public Button getInfinityButton() {
+        return infinityButton;
     }
 
 }

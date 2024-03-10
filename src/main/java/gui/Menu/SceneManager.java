@@ -10,6 +10,7 @@ import java.util.Map;
 
 import gui.Menu.MenuViews.GameCustomizerView;
 import gui.Menu.MenuViews.GameModeView;
+import gui.Menu.MenuViews.InfinityModeView;
 import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
@@ -93,6 +94,7 @@ public class SceneManager {
         createGameModeViewScene(primaryStage);
         createStageSelectorViewScene(primaryStage);
         createGameCustomizerViewScene(primaryStage);
+        createInfinityModeViewScene(primaryStage);
     }
 
     // Les méthodes suivantes créent des scènes spécifiques et les ajoutent à la
@@ -137,6 +139,12 @@ public class SceneManager {
         GameCustomizerView gameCustomizerView = new GameCustomizerView(primaryStage);
         addStylesheet(gameCustomizerView.getScene());
         addScene("GameCustomizerView", gameCustomizerView.getScene());
+    }
+
+    public void createInfinityModeViewScene(Stage primaryStage) {
+        InfinityModeView infinityModeView = new InfinityModeView(primaryStage);
+        addStylesheet(infinityModeView.getScene());
+        addScene("InfinityModeView", infinityModeView.getScene());
     }
 
     /**
