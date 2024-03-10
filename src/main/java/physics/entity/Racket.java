@@ -97,7 +97,7 @@ public abstract class Racket {
         double dy = Math.max(this.c.getY(), Math.min(b.getC().getY(), this.c.getY() + this.longueur));
         double distance = Math.sqrt((b.getC().getX() - dx) * (b.getC().getX() - dx) + (b.getC().getY() - dy) * (b.getC().getY() - dy));
         if (distance < b.getRadius()) {
-            //b.getC().setY(this.getC().getY() - b.getRadius());
+            b.getC().setY(this.getC().getY() - b.getRadius());
             return true;
         }
         return false;
@@ -110,12 +110,11 @@ public abstract class Racket {
         boolean verifY1 =  c.getY() >= getC().getY() && c.getY() < getC().getY() + longueur;
         if(verifX1 && verifY1){
             b.getDirection().setX(-b.getDirection().getX());
-            b.CollisionR_Side=true;
+            Ball.CollisionR_Side=true;
             return true;
         }
         return verifX && verifY;
     } 
- 
 
 
     // fonction obligatoire

@@ -42,5 +42,5 @@ public class Coordinates {
     public int getIntY() {
         return (int) y;
     }
-    
+
 }

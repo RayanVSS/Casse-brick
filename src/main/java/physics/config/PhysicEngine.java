@@ -98,7 +98,6 @@ public class PhysicEngine {
         preview = new Preview(ball, physics,root);
         preview.init_path();
 
-
         //Initialisation des evenements de la souris
 
         graphBall.setOnMousePressed(event -> {
@@ -110,6 +109,7 @@ public class PhysicEngine {
             if (distance <= ball.getRadius()+10) {
                 isMouseDraggingBall = true;
                 preview.clear_path(root);
+                physics.restore();
             }
         });
 
@@ -128,7 +128,6 @@ public class PhysicEngine {
                 double dx = (event.getSceneX() - mouseX)/40;
                 double dy = (event.getSceneY() - mouseY)/40;
                 Vector newVelocity = new Vector(new Coordinates(dx,dy));
-                ball.reset();
                 ball.setDirection(newVelocity);
                 preview.init_path();
             }
@@ -180,7 +179,6 @@ public class PhysicEngine {
 
         graphBall.setCenterX(ball.getC().getX());
         graphBall.setCenterY(ball.getC().getY());
-        graphBall.setRotate(ball.getRotation().getAngle());
 
         // Mise à jour de la position de la raquette
         if(RACKET){
@@ -200,11 +198,12 @@ public class PhysicEngine {
                 double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed() ;
                 if (CollisionR) {
                     if (BougePColision || CollisionR_Side) {
-                        this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
-                        this.getRotation().Collision();
-                        newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+                        this.getDirection().setY(-this.getDirection().getY());
+                        this.getDirection().add(physics.getFrictionRacket());
+                        newY = this.getC().getY() + this.getDirection().getY();
                         CollisionR = false;
                         CollisionR_Side = false;
+                        physics.UpdateFrictionRacket();
                         preview.init_path();
                     }
                     else {
@@ -212,8 +211,9 @@ public class PhysicEngine {
                             switch (key) {
                                 case RIGHT:
                                 case D:
-                                    this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
-                                    this.getRotation().addEffect('d');
+                                    this.getDirection().setY(-this.getDirection().getY());
+                                    physics.getFrictionRacket().setX(physics.getFrictionRacket().getX() + 1);
+                                    this.getDirection().add(physics.getFrictionRacket());
                                     newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                                     CollisionR = false;
@@ -221,8 +221,9 @@ public class PhysicEngine {
                                     break;
                                 case LEFT:
                                 case Q:
-                                    this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
-                                    this.getRotation().addEffect('g');
+                                    this.getDirection().setY(-this.getDirection().getY());
+                                    physics.getFrictionRacket().setX(physics.getFrictionRacket().getX()-1);
+                                    this.getDirection().add(physics.getFrictionRacket());
                                     newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                                     CollisionR = false;
@@ -235,14 +236,16 @@ public class PhysicEngine {
                     }
                 }   
                 if (newX < 0 || newX > h - this.getRadius()) {
-                    this.getDirection().setX(-this.getDirection().getX()+this.getRotation().getEffect());
-                    this.getRotation().Collision();
+                    this.getDirection().setX(-this.getDirection().getX());
+                    this.getDirection().add(physics.getFrictionRacket());
+                    physics.UpdateFrictionRacket();
                     newX = this.getC().getX() + this.getDirection().getX()*this.getSpeed();
                     this.getDirection().setX(this.getDirection().getX()*physics.getRetention());
                 }
                 if (newY < 0 || newY > w - this.getRadius()) {
-                    this.getDirection().setY(-this.getDirection().getY()+this.getRotation().getEffect());
-                    this.getRotation().Collision();
+                    this.getDirection().add(physics.getFrictionRacket());
+                    this.getDirection().setY(-this.getDirection().getY());
+                    physics.UpdateFrictionRacket();
                     newY = this.getC().getY() + this.getDirection().getY()* this.getSpeed();
                     this.getDirection().setY(this.getDirection().getY()*physics.getRetention());
                 } 

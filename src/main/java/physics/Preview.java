@@ -57,17 +57,20 @@ public class Preview {
         double newX = c_trajectory.getX() + d_trajectory.getX() * ball.getSpeed() ;
         double newY = c_trajectory.getY() + d_trajectory.getY() * ball.getSpeed() ;
         if (CollisionR) {
-            d_trajectory.setY(-d_trajectory.getY()+ball.getRotation().getEffect());
+            d_trajectory.setY(-d_trajectory.getY());
+            d_trajectory.add(physics.getFrictionRacket());
             newY = c_trajectory.getY() + d_trajectory.getY()*ball.getSpeed();
             CollisionR = false;
         }
         if (newX < 0 || newX > h - ball.getRadius()) {
-            d_trajectory.setX(-d_trajectory.getX()+ball.getRotation().getEffect());
+            d_trajectory.setX(-d_trajectory.getX());
+            d_trajectory.add(physics.getFrictionRacket());
             newX = c_trajectory.getX() + d_trajectory.getX()*ball.getSpeed();
             d_trajectory.setX(d_trajectory.getX()*physics.getRetention());
         }
         if (newY < 0 || newY > w - ball.getRadius()) {
-            d_trajectory.setY(-d_trajectory.getY()+ball.getRotation().getEffect());
+            d_trajectory.add(physics.getFrictionRacket());
+            d_trajectory.setY(-d_trajectory.getY());
             newY = c_trajectory.getY() + d_trajectory.getY()*ball.getSpeed();
             d_trajectory.setY(d_trajectory.getY()*physics.getRetention());
         } 
