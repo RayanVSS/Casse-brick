@@ -25,12 +25,11 @@ public class OptionBar {
         if(Bar){
             Bar=false;
             close();
-            PhysicEngine.WIDTH = GameConstants.DEFAULT_WINDOW_WIDTH;
-            PhysicEngine.HEIGHT = GameConstants.DEFAULT_WINDOW_HEIGHT;
+            PhysicEngine.START = 0;
         }
         else{
             Bar=true;
-            PhysicEngine.WIDTH = GameConstants.DEFAULT_WINDOW_WIDTH-GameConstants.DEFAULT_GAME_ROOT_WIDTH;
+            PhysicEngine.START = GameConstants.DEFAULT_WINDOW_WIDTH-GameConstants.DEFAULT_GAME_ROOT_WIDTH;
             affiche();
         }
     }

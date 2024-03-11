@@ -53,22 +53,22 @@ public class Preview {
     }
 
     public Coordinates trajectory(){
-        double h = GameConstants.DEFAULT_GAME_ROOT_WIDTH;
-        double w = GameConstants.DEFAULT_WINDOW_HEIGHT;
+        double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
+        double w = GameConstants.DEFAULT_WINDOW_WIDTH;
         double newX = c_trajectory.getX() + d_trajectory.getX() * ball.getSpeed() ;
         double newY = c_trajectory.getY() + d_trajectory.getY() * ball.getSpeed() ;
         if (CollisionR) {
-            d_trajectory.setY(-d_trajectory.getY()+ball.getRotation().getEffect());
+            d_trajectory.setY(-d_trajectory.getY()+(ball.getRotation().getEffect()/90)*d_trajectory.getY());
             newY = c_trajectory.getY() + d_trajectory.getY()*ball.getSpeed();
             CollisionR = false;
         }
-        if (newX < 0 || newX > h - ball.getRadius()) {
-            d_trajectory.setX(-d_trajectory.getX()+ball.getRotation().getEffect());
+        if (newX < PhysicEngine.START || newX > w - ball.getRadius()) {
+            d_trajectory.setX(-d_trajectory.getX()+(ball.getRotation().getEffect()/90)*d_trajectory.getX());
             newX = c_trajectory.getX() + d_trajectory.getX()*ball.getSpeed();
             d_trajectory.setX(d_trajectory.getX()*physics.getRetention());
         }
-        if (newY < 0 || newY > w - ball.getRadius()) {
-            d_trajectory.setY(-d_trajectory.getY()+ball.getRotation().getEffect());
+        if (newY < 0 || newY > h - ball.getRadius()) {
+            d_trajectory.setY(-d_trajectory.getY()+(ball.getRotation().getEffect()/90)*d_trajectory.getY());
             newY = c_trajectory.getY() + d_trajectory.getY()*ball.getSpeed();
             d_trajectory.setY(d_trajectory.getY()*physics.getRetention());
         } 

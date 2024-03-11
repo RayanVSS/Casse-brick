@@ -26,7 +26,7 @@ public class Rotation {
     }
 
     public double getEffect() {
-        return angle/10;
+        return angle;
     }
 
     public void Collision() {
