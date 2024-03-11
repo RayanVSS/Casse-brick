@@ -16,47 +16,47 @@ public class Map {
     private Brick[][] bricks;
     private GameRules rules;
 
-    public Map(GameRules rules) {
+    public Map(GameRules rules, int columnsBricks, int rowsBricks) {
         this.rules = rules;
-        initBricks();
+        initBricks(columnsBricks, rowsBricks);
     }
 
-    private void initBricks() {
-        switch (rules.getArrangement()) {
-            case DEFAULT:
-                initDefaultBricksArrangement();
-                break;
+    private void initBricks(int columnsBricks, int rowsBricks) {
+        if (checkDefaultParameters(columnsBricks, rowsBricks)) {
+            switch (rules.getArrangement()) {
+                case DEFAULT:
+                    initDefaultBricksArrangement();
+                    break;
 
-            case RANDOM:
+                case RANDOM:
 
-                break;
-        }
-    }
-
-    private void initDefaultBricksArrangement() {
-
-        if (checkDefaultParameters()) {
-
-            bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT]; // [colonne][ligne]
-            int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;
-
-            for (int i = indexFirstColumn; i < indexFirstColumn + GameConstants.COLUMNS_OF_BRICKS; i++) { // espace côté
-                                                                                                          // gauche/droit
-                for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) { // 1 espace en haut
-                    bricks[i][j] = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
-                            j * GameConstants.BRICK_HEIGHT));
-                }
+                    break;
             }
         } else {
             throw new IllegalArgumentException("Erreur sur la config de la map.");
         }
     }
 
-    private boolean checkDefaultParameters() {
-        return GameConstants.MAP_HEIGHT >= GameConstants.ROWS_OF_BRICKS + 2
-                && GameConstants.MAP_WIDTH >= GameConstants.COLUMNS_OF_BRICKS
+    private void initDefaultBricksArrangement() {
+
+        bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT]; // [colonne][ligne]
+        int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;
+
+        for (int i = indexFirstColumn; i < indexFirstColumn + GameConstants.COLUMNS_OF_BRICKS; i++) { // espace côté
+                                                                                                      // gauche/droit
+            for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) { // 1 espace en haut
+                bricks[i][j] = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
+                        j * GameConstants.BRICK_HEIGHT));
+            }
+        }
+
+    }
+
+    private boolean checkDefaultParameters(int columnsBricks, int rowsBricks) {
+        return GameConstants.MAP_HEIGHT >= rowsBricks + 2
+                && GameConstants.MAP_WIDTH >= columnsBricks
                 && GameConstants.MAP_HEIGHT
-                        - GameConstants.ROWS_OF_BRICKS - 2 >= GameConstants.MIN_SPACE_BETWEEN_RACKET_BRICKS;
+                        - rowsBricks - 2 >= GameConstants.MIN_SPACE_BETWEEN_RACKET_BRICKS;
     }
 
     public Brick[][] getBricks() {
@@ -130,7 +130,7 @@ public class Map {
                 }
             }
         }
-        return false ;
+        return false;
     }
 
     public int countBricks() {

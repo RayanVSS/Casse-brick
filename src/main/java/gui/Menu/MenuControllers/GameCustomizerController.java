@@ -72,12 +72,12 @@ public class GameCustomizerController {
         StageLevel customLevel;
         Ball ball = getBallConfig();
         Racket racket = getRacketConfig();
-        int mapWidht = (int) gameCustomizerView.getMapWidht().getSlider().getValue();
-        int mapHeight = (int) gameCustomizerView.getMapHeight().getSlider().getValue();
+        int columnsBricks = (int) gameCustomizerView.getMapWidht().getSlider().getValue();
+        int rowsBricks = (int) gameCustomizerView.getMapHeight().getSlider().getValue();
         int life = (int) gameCustomizerView.getLife().getSlider().getValue();
         GameRules rules = getRulesConfig();
 
-        Game customGame = new Game(ball, racket, mapWidht, mapHeight, life, rules);
+        Game customGame = new Game(ball, racket, life, rules, columnsBricks, rowsBricks);
         customLevel = new StageLevel(customGame, true);
 
         new GameView(gameCustomizerView.getPrimaryStage(), customLevel);
