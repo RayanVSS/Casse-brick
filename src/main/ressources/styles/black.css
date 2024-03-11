@@ -85,7 +85,7 @@
 /* Styles de jeu */
 .ball,
 .racket {
-    -fx-fill: #1DA1F2;
+    -fx-fill: WHITE;
 }
 
 .hyperball,

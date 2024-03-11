@@ -1,7 +1,11 @@
 package gui.GraphicsFactory;
 
 import config.Game;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import utils.GameConstants;
 
@@ -14,10 +18,15 @@ import utils.GameConstants;
  */
 public class ScoreLifeGraphics extends Pane {
     private Text scoreText;
-    private Text lifeText;
     private int score;
     private int life;
     private Game game;
+    private HBox lifeBox;
+    private Image lifeOK ;
+    private Image lifeKO ;
+    private ImageView lifeImage1  ;
+    private ImageView lifeImage2;
+    private ImageView lifeImage3 ;
 
     /**
      * Constructeur de ScoreLifeView.
@@ -29,20 +38,64 @@ public class ScoreLifeGraphics extends Pane {
         this.game = game;
         score = game.getScore();
         life = game.getLife();
+        lifeBox = new HBox();
+    
+        lifeOK = initializeLifeImage();
+        lifeKO = new Image("/lifeScore/lifeKO.png");
+    
+        lifeImage1 = initializeLifeImageView();
+        lifeImage2 = initializeLifeImageView();
+        lifeImage3 = initializeLifeImageView();
+    
+        lifeBox.getChildren().addAll(lifeImage1, lifeImage2, lifeImage3);
+        //lifeBox.setSpacing(10);
+    
         scoreText = new Text("Score: " + score);
-        lifeText = new Text("Life: " + life);
-        scoreText.setX(10);
-        scoreText.setY(40);
-        lifeText.setX(10);
-        lifeText.setY(20);
+        scoreText.setX(20);
+        scoreText.setY(80);
         scoreText.getStyleClass().add("scoreL-style");
-        lifeText.getStyleClass().add("scoreL-style");
-        // setLayoutX(10);
-        // setLayoutY(10);
-        getChildren().add(lifeText);
-        getChildren().add(scoreText);
-        getStylesheets().add(GameConstants.CSS);
 
+    
+        setLayoutX(10);
+        setLayoutY(10);
+        getChildren().add(lifeBox);
+        getChildren().add(scoreText);
+        getStylesheets().add(GameConstants.CSS.getPath());
+
+    }
+
+    private Image initializeLifeImage() {
+        switch (GameConstants.CSS) {
+            case PINK:
+                return new Image("/lifeScore/lifePink.png");
+            case DARK:
+                return new Image("/lifeScore/lifeBlack.png");
+            case BLACK:
+                return new Image("/lifeScore/lifeBlack.png");
+            case LIGHT:
+                return new Image("/lifeScore/lifeWhite+.png");
+            case ACHROMATOPSIE:
+                return new Image("/lifeScore/lifeAchromatopsie+.png");
+            case DEUTERANOPIE:
+                return new Image("/lifeScore/lifeDeuteranopie+.png");
+            case TRITANOPIE:
+                return new Image("/lifeScore/lifeTritanopie+.png");
+            case PROTANOPIE:
+                return new Image("/lifeScore/lifeProtanopie+.png");
+            default:
+                return null;
+        }
+    }
+
+    private ImageView initializeLifeImageView() {
+        ImageView imageView = new ImageView(lifeOK);
+        imageView.setFitHeight(60);
+        imageView.setFitWidth(60);
+        imageView.setSmooth(true);
+        imageView.setCache(true);
+        imageView.setPreserveRatio(true);
+        imageView.smoothProperty().set(true);
+        return imageView;
     }
 
     /**
@@ -52,7 +105,22 @@ public class ScoreLifeGraphics extends Pane {
         score = game.getScore();
         life = game.getLife();
         scoreText.setText("Score: " + score);
-        lifeText.setText("Life: " + life);
+        switch (life) {
+            case 3:
+                lifeImage1.setImage(lifeOK);
+                lifeImage2.setImage(lifeOK);
+                lifeImage3.setImage(lifeOK);
+                break;
+            case 2:
+                lifeImage3.setImage(lifeKO);
+                break;
+            case 1:
+                lifeImage2.setImage(lifeKO);
+                break;
+            case 0:
+                lifeImage3.setImage(lifeKO);
+                break;
+        }
     }
 
     /**

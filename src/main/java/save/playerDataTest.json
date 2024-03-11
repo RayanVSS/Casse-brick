@@ -1,7 +1,7 @@
 {
   "PATH": false,
   "MUSIC": 50,
-  "CSS": "/styles/dark.css",
+  "CSS": "DARK",
   "MONEY": 0,
   "PARTICLES": true,
   "LEFT": "LEFT",

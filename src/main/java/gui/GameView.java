@@ -49,7 +49,7 @@ public class GameView {
         this.root.getChildren().add(pane);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
-        scene.getStylesheets().add(GameConstants.CSS);
+        scene.getStylesheets().add(GameConstants.CSS.getPath());
         this.animation();
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
@@ -72,9 +72,9 @@ public class GameView {
                 if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
                 } else if (now - last > 1000000000 / 120) {
-                    gameRoot.update(deltaT);
                     if(GameConstants.FPS)
                         fpsGraphics.update();
+                    gameRoot.update(deltaT);
                     scoreLifeView.update();
                 }
                 last = now;
@@ -109,6 +109,10 @@ public class GameView {
 
     public StageLevel getStageLevel() {
         return stageLevel;
+    }
+
+    public ScoreLifeGraphics getScoreLifeView() {
+        return scoreLifeView;
     }
 
 }

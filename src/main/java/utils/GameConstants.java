@@ -3,7 +3,6 @@ package utils;
 import java.util.Random;
 
 import config.GameRules;
-import config.Map;
 import config.GameRules.BricksArrangement;
 import entity.ball.Ball;
 import entity.ball.ClassicBall;
@@ -11,6 +10,7 @@ import entity.racket.ClassicRacket;
 import entity.racket.Racket;
 import geometry.Coordinates;
 import geometry.Vector;
+import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 public final class GameConstants {
@@ -88,7 +88,7 @@ public final class GameConstants {
         public static KeyCode LEFT = KeyCode.LEFT;
         public static KeyCode RIGHT = KeyCode.RIGHT;
         public static KeyCode SPACE = KeyCode.SPACE;
-        public static String CSS = "/styles/dark.css";
+        public static Theme CSS = Theme.DARK;
 
     	// derniere save
     	public static String LAST_SAVE;

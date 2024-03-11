@@ -83,7 +83,7 @@ public class SceneManager {
      */
     public void addStylesheet(Scene scene) {
         scene.getStylesheets().clear();
-        scene.getStylesheets().add(getClass().getResource(GameConstants.CSS).toExternalForm());
+        scene.getStylesheets().add(getClass().getResource(GameConstants.CSS.getPath()).toExternalForm());
     }
 
     // Charge toutes les scènes du jeu
