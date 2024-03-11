@@ -243,4 +243,12 @@ public class GameRules {
         return unbreakable;
     }
 
+    public void setRemainingTime(int remainingTime) {
+        this.remainingTime = remainingTime;
+    }
+
+    public void setRemainingBounces(int remainingBounces) {
+        this.remainingBounces = remainingBounces;
+    }
+
 }

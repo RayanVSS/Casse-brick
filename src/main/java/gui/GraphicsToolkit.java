@@ -204,6 +204,15 @@ public final class GraphicsToolkit {
             label.getStyleClass().add("label-style");
             valueLabel.getStyleClass().add("label-style");
         }
+
+        public Slider getSlider() {
+            return slider;
+        }
+
+        public Label getValueLabel() {
+            return valueLabel;
+        }
+
     }
 
     /**

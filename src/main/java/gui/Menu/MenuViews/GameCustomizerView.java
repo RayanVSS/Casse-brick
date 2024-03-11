@@ -33,7 +33,7 @@ public class GameCustomizerView implements Menu {
     public GameCustomizerView(Stage primaryStage) {
 
         this.primaryStage = primaryStage;
-        root = new VBox(60);
+        root = new VBox(50);
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
 
         initOptionsBox();
@@ -45,7 +45,7 @@ public class GameCustomizerView implements Menu {
     }
 
     private void initOptionsBox() {
-        configOptionsBox = new HBox(55);
+        configOptionsBox = new HBox(50);
         configOptionsBox.setAlignment(Pos.CENTER);
         initOptionsBoxLeft();
         initOptionsBoxRight();
@@ -81,7 +81,7 @@ public class GameCustomizerView implements Menu {
         optionsBoxRight = new VBox(25);
         optionsBoxRight.setAlignment(Pos.CENTER);
 
-        LabelVBox optionsVBox = new LabelVBox("Options", 10);
+        LabelVBox optionsVBox = new LabelVBox("Options", 12);
 
         LabelVBox timeVBox = new LabelVBox("Time", 3);
         ruleLimitedTime = new LabelToggleButtonHBox("Temps limité", false);
