@@ -1,15 +1,14 @@
 package gui.Menu.MenuViews;
 
-import gui.GraphicsToolkit.LabelToggleButtonVBox;
+import gui.GraphicsToolkit.LabelComboBoxHBox;
+import gui.GraphicsToolkit.LabelSliderHBox;
+import gui.GraphicsToolkit.LabelToggleButtonHBox;
+import gui.GraphicsToolkit.LabelVBox;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameCustomizerController;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -23,9 +22,9 @@ public class GameCustomizerView implements Menu {
     private HBox configOptionsBox;
     private VBox optionsBoxLeft, optionsBoxRight;
 
-    private Slider life, mapWidht, mapHeight, ballSize, ballSpeed, timeLimit, bouncesLimit;
-    private ComboBox<String> ball, racket;
-    private LabelToggleButtonVBox ruleLimitedTime, ruleLimitedBounces, ruleRandomSwitchBricks, ruleColorRestricted,
+    private LabelSliderHBox life, mapWidht, mapHeight, ballSize, ballSpeed, timeLimit, bouncesLimit;
+    private LabelComboBoxHBox ball, racket;
+    private LabelToggleButtonHBox ruleLimitedTime, ruleLimitedBounces, ruleRandomSwitchBricks, ruleColorRestricted,
             ruleTransparent, ruleUnbreakable;
 
     private HBox actionButtons;
@@ -34,7 +33,7 @@ public class GameCustomizerView implements Menu {
     public GameCustomizerView(Stage primaryStage) {
 
         this.primaryStage = primaryStage;
-        root = new VBox(35);
+        root = new VBox(60);
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
 
         initOptionsBox();
@@ -54,23 +53,55 @@ public class GameCustomizerView implements Menu {
     }
 
     private void initOptionsBoxLeft() {
+
         optionsBoxLeft = new VBox(25);
-        optionsBoxLeft.getChildren().addAll();
+        optionsBoxLeft.setAlignment(Pos.CENTER);
+
+        life = new LabelSliderHBox("Nombre de vies", 1, 10, 3, false, 1);
+
+        LabelVBox mapVBox = new LabelVBox("Map", 5);
+        mapHeight = new LabelSliderHBox("Lignes de briques", 1, 12, 5, false, 1);
+        mapWidht = new LabelSliderHBox("Colonnes de briques", 1, 13, 13, false, 1);
+        mapVBox.getChildren().addAll(mapHeight, mapWidht);
+
+        LabelVBox ballVBox = new LabelVBox("Ball", 5);
+        ball = new LabelComboBoxHBox("Type de balle",
+                new String[] { "Classic", "Gravity", "Hyper", "Magnet" }, "Classic");
+        ballSize = new LabelSliderHBox("Taille de la balle", 1, 20, 10, false, 1);
+        ballSpeed = new LabelSliderHBox("Vitesse de la balle", 1, 20, 5, false, 1);
+        ballVBox.getChildren().addAll(ball, ballSize, ballSpeed);
+
+        racket = new LabelComboBoxHBox("Type de raquette", new String[] { "Classic", "Magnet", "YNotFixe" }, "Classic");
+
+        optionsBoxLeft.getChildren().addAll(life, mapVBox, ballVBox, racket);
     }
 
     private void initOptionsBoxRight() {
 
         optionsBoxRight = new VBox(25);
+        optionsBoxRight.setAlignment(Pos.CENTER);
 
-        ruleLimitedTime = new LabelToggleButtonVBox("Temps limité", false);
-        ruleLimitedBounces = new LabelToggleButtonVBox("Rebonds limités", false);
-        ruleRandomSwitchBricks = new LabelToggleButtonVBox("Swicth Aléatoire", false);
-        ruleColorRestricted = new LabelToggleButtonVBox("Restriction de Couleur", false);
-        ruleTransparent = new LabelToggleButtonVBox("Briques Fantôme", false);
-        ruleUnbreakable = new LabelToggleButtonVBox("Briques Incassables", false);
+        LabelVBox optionsVBox = new LabelVBox("Options", 10);
 
-        optionsBoxRight.getChildren().addAll(ruleLimitedTime, ruleLimitedBounces, ruleRandomSwitchBricks,
+        LabelVBox timeVBox = new LabelVBox("Time", 3);
+        ruleLimitedTime = new LabelToggleButtonHBox("Temps limité", false);
+        timeLimit = new LabelSliderHBox("Temps (secondes)", 1, 1800, 300, true, 1); //en secondes
+        timeVBox.getChildren().addAll(ruleLimitedTime, timeLimit);
+
+        LabelVBox bouncesVBox = new LabelVBox("Bounces", 3);
+        ruleLimitedBounces = new LabelToggleButtonHBox("Rebonds limités", false);
+        bouncesLimit = new LabelSliderHBox("Rebonds", 1, 150, 50, true, 1);
+        bouncesVBox.getChildren().addAll(ruleLimitedBounces, bouncesLimit);
+
+        ruleRandomSwitchBricks = new LabelToggleButtonHBox("Swicth Aléatoire", false);
+        ruleColorRestricted = new LabelToggleButtonHBox("Restriction de Couleur", false);
+        ruleTransparent = new LabelToggleButtonHBox("Briques Fantôme", false);
+        ruleUnbreakable = new LabelToggleButtonHBox("Briques Incassables", false);
+
+        optionsVBox.getChildren().addAll(timeVBox, bouncesVBox, ruleRandomSwitchBricks,
                 ruleColorRestricted, ruleTransparent, ruleUnbreakable);
+
+        optionsBoxRight.getChildren().addAll(optionsVBox);
     }
 
     private void initActionButtons() {
@@ -93,39 +124,39 @@ public class GameCustomizerView implements Menu {
         return backButton;
     }
 
-    public Slider getLife() {
+    public LabelSliderHBox getLife() {
         return life;
     }
 
-    public Slider getMapWidht() {
+    public LabelSliderHBox getMapWidht() {
         return mapWidht;
     }
 
-    public Slider getMapHeight() {
+    public LabelSliderHBox getMapHeight() {
         return mapHeight;
     }
 
-    public Slider getBallSize() {
+    public LabelSliderHBox getBallSize() {
         return ballSize;
     }
 
-    public Slider getBallSpeed() {
+    public LabelSliderHBox getBallSpeed() {
         return ballSpeed;
     }
 
-    public Slider getTimeLimit() {
+    public LabelSliderHBox getTimeLimit() {
         return timeLimit;
     }
 
-    public Slider getBouncesLimit() {
+    public LabelSliderHBox getBouncesLimit() {
         return bouncesLimit;
     }
 
-    public ComboBox<String> getBall() {
+    public LabelComboBoxHBox getBall() {
         return ball;
     }
 
-    public ComboBox<String> getRacket() {
+    public LabelComboBoxHBox getRacket() {
         return racket;
     }
 
@@ -133,27 +164,27 @@ public class GameCustomizerView implements Menu {
         return createGame;
     }
 
-    public LabelToggleButtonVBox getRuleLimitedTime() {
+    public LabelToggleButtonHBox getRuleLimitedTime() {
         return ruleLimitedTime;
     }
 
-    public LabelToggleButtonVBox getRuleLimitedBounces() {
+    public LabelToggleButtonHBox getRuleLimitedBounces() {
         return ruleLimitedBounces;
     }
 
-    public LabelToggleButtonVBox getRuleRandomSwitchBricks() {
+    public LabelToggleButtonHBox getRuleRandomSwitchBricks() {
         return ruleRandomSwitchBricks;
     }
 
-    public LabelToggleButtonVBox getRuleColorRestricted() {
+    public LabelToggleButtonHBox getRuleColorRestricted() {
         return ruleColorRestricted;
     }
 
-    public LabelToggleButtonVBox getRuleTransparent() {
+    public LabelToggleButtonHBox getRuleTransparent() {
         return ruleTransparent;
     }
 
-    public LabelToggleButtonVBox getRuleUnbreakable() {
+    public LabelToggleButtonHBox getRuleUnbreakable() {
         return ruleUnbreakable;
     }
 

@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
@@ -80,22 +81,25 @@ public final class GraphicsToolkit {
     }
 
     /**
-     * Classe englobant un Label et un ToggleButton dans une VBox
+     * Classe englobant un Label et un ToggleButton dans une HBox
      */
-    public static class LabelToggleButtonVBox extends HBox {
+    public static class LabelToggleButtonHBox extends HBox {
 
         private Label label;
         private ToggleButton toggleButton;
 
-        public LabelToggleButtonVBox(String text, boolean selected) {
+        /**
+        * Constructeur de la classe LabelToggleButtonHBox.
+        *
+        * @param text     Le texte à afficher à côté du ToggleButton.
+        * @param selected Indique si le ToggleButton est sélectionné par défaut.
+        */
+        public LabelToggleButtonHBox(String text, boolean selected) {
+
             super(20);
             setAlignment(Pos.CENTER);
-            setPadding(new Insets(5));
 
-            label = new Label(text);
-
-            toggleButton = new ToggleButton(selected ? "On" : "Off");
-            toggleButton.setSelected(selected);
+            initComponents(text, selected);
 
             setStyle();
             Region spacer = new Region();
@@ -104,8 +108,16 @@ public final class GraphicsToolkit {
             getChildren().addAll(label, spacer, toggleButton);
         }
 
+        private void initComponents(String text, boolean selected) {
+
+            label = new Label(text);
+            toggleButton = new ToggleButton(selected ? "On" : "Off");
+            toggleButton.setSelected(selected);
+            toggleButton.setMinWidth(55);
+        }
+
         private void setStyle() {
-            getStyleClass().add("label-toggle-button-vbox");
+            getStyleClass().add("label-toggle-button-hbox");
 
             label.getStyleClass().add("label-style");
 
@@ -130,21 +142,149 @@ public final class GraphicsToolkit {
             toggleButton.setText(toggleButton.isSelected() ? "On" : "Off");
         }
 
-        public Label getLabel() {
-            return label;
-        }
-
         public ToggleButton getToggleButton() {
             return toggleButton;
         }
 
     }
 
-    public static class LabelSliderVBox {
+    /**
+    * Classe englobant un Label et un Slider dans une HBox
+    */
+    public static class LabelSliderHBox extends HBox {
 
         private Label label;
         private Slider slider;
+        private Label valueLabel;
 
+        /**
+        * Constructeur de la classe LabelSliderHBox.
+        *
+        * @param text       Le texte à afficher à côté du Slider.
+        * @param min        La valeur minimale du Slider.
+        * @param max        La valeur maximale du Slider.
+        * @param defaultVal La valeur par défaut du Slider.
+        * @param disabled   Indique si le Slider est désactivé par défaut.
+        * @param increment  L'incrémentation du Slider.
+        */
+        public LabelSliderHBox(String text, int min, int max, int defaultVal, boolean disabled, int increment) {
+            super(20);
+            setAlignment(Pos.CENTER);
+
+            initComponents(text, min, max, defaultVal, disabled, increment);
+
+            setStyle();
+            Region spacer = new Region();
+            HBox.setHgrow(spacer, Priority.ALWAYS);
+
+            getChildren().addAll(label, spacer, slider, valueLabel);
+        }
+
+        private void initComponents(String text, int min, int max, int defaultVal, boolean disabled, int increment) {
+
+            label = new Label(text);
+
+            slider = new Slider(min, max, defaultVal);
+            slider.setBlockIncrement(increment);
+            slider.setDisable(disabled);
+
+            valueLabel = new Label(Integer.toString(defaultVal));
+            valueLabel.setMinWidth(50);
+
+            slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+                int intValue = newValue.intValue();
+                valueLabel.setText(Integer.toString(intValue));
+            });
+        }
+
+        private void setStyle() {
+
+            getStyleClass().add("label-slider-hbox");
+
+            label.getStyleClass().add("label-style");
+            valueLabel.getStyleClass().add("label-style");
+        }
+    }
+
+    /**
+    * Classe englobant un Label et une ComboBox dans une HBox.
+    */
+    public static class LabelComboBoxHBox extends HBox {
+
+        private Label label;
+        private ComboBox<String> comboBox;
+
+        /**
+         * Constructeur de la classe LabelComboBoxHBox.
+         *
+         * @param text     Le texte à afficher à côté de la ComboBox.
+         * @param options  Les options de la ComboBox.
+         * @param defaultOption L'option par défaut de la ComboBox.
+         */
+        public LabelComboBoxHBox(String text, String[] options, String defaultOption) {
+            super(20);
+            setAlignment(Pos.CENTER);
+
+            initComponents(text, options, defaultOption);
+
+            setStyle();
+            Region spacer = new Region();
+            HBox.setHgrow(spacer, Priority.ALWAYS);
+
+            getChildren().addAll(label, spacer, comboBox);
+        }
+
+        private void initComponents(String text, String[] options, String defaultOption) {
+            label = new Label(text);
+
+            comboBox = new ComboBox<>();
+            comboBox.getItems().addAll(options);
+            comboBox.setValue(defaultOption);
+        }
+
+        private void setStyle() {
+            getStyleClass().add("label-combobox-hbox");
+
+            label.getStyleClass().add("label-style");
+        }
+
+        public ComboBox<String> getComboBox() {
+            return comboBox;
+        }
+    }
+
+    /**
+    * Une classe représentant une VBox avec une étiquette de résumé en italique.
+    */
+    public static class LabelVBox extends VBox {
+
+        private Label summaryLabel;
+
+        /**
+         * Crée une nouvelle instance de LabelVBox avec un résumé donné.
+         *
+         * @param summary Le résumé à afficher en italique.
+         * @param spacing Espacement entre les composants
+         */
+        public LabelVBox(String summary, int spacing) {
+            super(spacing);
+
+            initComponents(summary);
+
+            setStyle();
+
+            getChildren().addAll(summaryLabel);
+        }
+
+        private void initComponents(String summary) {
+            summaryLabel = new Label(summary);
+        }
+
+        private void setStyle() {
+            getStyleClass().add("label-vbox");
+
+            summaryLabel.getStyleClass().add("label-vbox-description");
+        }
     }
 
 }
