@@ -1,6 +1,8 @@
 package entity.racket;
 
 import javafx.scene.input.KeyCode;
+import physics.entity.Racket;
+
 import java.util.Set;
 import utils.GameConstants;
 
@@ -37,7 +39,9 @@ public class ClassicRacket extends Racket {
 
     // Mouvement au relachement des touches
     public void handleKeyRelease(KeyCode event) {
+        /*
         switch (event) {
         }
+        */
     }
 }

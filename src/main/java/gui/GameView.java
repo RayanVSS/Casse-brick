@@ -4,15 +4,7 @@ import javafx.animation.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-import java.util.List;
-
 import config.*;
-import config.GameRules.BricksArrangement;
-import entity.Boost;
-import entity.ball.*;
-import entity.preview.Preview;
-import entity.racket.*;
 import gui.GraphicsFactory.*;
 import utils.*;
 
