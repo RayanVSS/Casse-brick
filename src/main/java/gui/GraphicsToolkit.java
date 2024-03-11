@@ -1,11 +1,28 @@
 package gui;
 
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -61,4 +78,73 @@ public final class GraphicsToolkit {
     public static Font getBoldDerivedGameFont() {
         return boldDerivedFont;
     }
+
+    /**
+     * Classe englobant un Label et un ToggleButton dans une VBox
+     */
+    public static class LabelToggleButtonVBox extends HBox {
+
+        private Label label;
+        private ToggleButton toggleButton;
+
+        public LabelToggleButtonVBox(String text, boolean selected) {
+            super(20);
+            setAlignment(Pos.CENTER);
+            setPadding(new Insets(5));
+
+            label = new Label(text);
+
+            toggleButton = new ToggleButton(selected ? "On" : "Off");
+            toggleButton.setSelected(selected);
+
+            setStyle();
+            Region spacer = new Region();
+            HBox.setHgrow(spacer, Priority.ALWAYS);
+
+            getChildren().addAll(label, spacer, toggleButton);
+        }
+
+        private void setStyle() {
+            getStyleClass().add("label-toggle-button-vbox");
+
+            label.getStyleClass().add("label-style");
+
+            if (toggleButton.isSelected())
+                toggleButton.getStyleClass().add("button-hover");
+            else
+                toggleButton.getStyleClass().add("button-style");
+
+            toggleButton.setOnMouseEntered(e -> {
+                toggleButton.getStyleClass().remove("button-style");
+                toggleButton.getStyleClass().add("button-hover");
+            });
+
+            toggleButton.setOnMouseExited(e -> {
+                toggleButton.getStyleClass().remove("button-hover");
+                toggleButton.getStyleClass().add("button-style");
+            });
+        }
+
+        public void action() {
+            toggleButton.setSelected(toggleButton.isSelected());
+            toggleButton.setText(toggleButton.isSelected() ? "On" : "Off");
+        }
+
+        public Label getLabel() {
+            return label;
+        }
+
+        public ToggleButton getToggleButton() {
+            return toggleButton;
+        }
+
+    }
+
+    public static class LabelSliderVBox {
+
+        private Label label;
+        private Slider slider;
+
+    }
+
 }

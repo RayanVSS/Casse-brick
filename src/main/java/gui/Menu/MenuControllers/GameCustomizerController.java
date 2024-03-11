@@ -18,18 +18,32 @@ public class GameCustomizerController {
     public GameCustomizerController(GameCustomizerView gameCustomizerView) {
 
         this.gameCustomizerView = gameCustomizerView;
+        setOptionsBoxLeft();
+        setActionButtons();
+    }
 
+    private void setOptionsBoxLeft() {
+        gameCustomizerView.getRuleLimitedTime().getToggleButton()
+                .setOnAction(e -> gameCustomizerView.getRuleLimitedTime().action());
+        gameCustomizerView.getRuleLimitedBounces().getToggleButton()
+                .setOnAction(e -> gameCustomizerView.getRuleLimitedBounces().action());
+        gameCustomizerView.getRuleRandomSwitchBricks().getToggleButton()
+                .setOnAction(e -> gameCustomizerView.getRuleRandomSwitchBricks().action());
+        gameCustomizerView.getRuleColorRestricted().getToggleButton()
+                .setOnAction(e -> gameCustomizerView.getRuleColorRestricted().action());
+        gameCustomizerView.getRuleTransparent().getToggleButton()
+                .setOnAction(e -> gameCustomizerView.getRuleTransparent().action());
+        gameCustomizerView.getRuleUnbreakable().getToggleButton()
+                .setOnAction(e -> gameCustomizerView.getRuleUnbreakable().action());
+    }
+
+    private void setActionButtons() {
         gameCustomizerView.getCreateGame().setOnAction(e -> createGame());
         gameCustomizerView.getBackButton().setOnAction(e -> back());
     }
 
-    private void back() {
-        Platform.runLater(() -> {
-            App.sceneManager.changeScene(gameCustomizerView.getPrimaryStage(), "GameModeView");
-        });
-    }
-
     private void createGame() {
+
         StageLevel customLevel;
         Ball ball = getBallConfig();
         Racket racket = getRacketConfig();
@@ -42,6 +56,12 @@ public class GameCustomizerController {
         customLevel = new StageLevel(customGame, true);
 
         new GameView(gameCustomizerView.getPrimaryStage(), customLevel);
+    }
+
+    private void back() {
+        Platform.runLater(() -> {
+            App.sceneManager.changeScene(gameCustomizerView.getPrimaryStage(), "GameModeView");
+        });
     }
 
     private Ball getBallConfig() {

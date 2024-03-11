@@ -1,5 +1,6 @@
 /* LES ROOTS */
-.root, .root-options {
+.root,
+.root-options {
     -fx-background-color: #273654;
     -fx-alignment: center;
 }
@@ -12,7 +13,8 @@
     -fx-background-color: #B9D9EB;
 }
 
-.root-game-over, .pause-view {
+.root-game-over,
+.pause-view {
     -fx-opacity: 0.7;
     -fx-alignment: center;
     -fx-spacing: 10;
@@ -32,15 +34,20 @@
 }
 
 /* LES BOUTONS */
-.button-style, .button-hover, .label-style, .slider-style {
+.button-style,
+.button-hover,
+.label-style,
+.slider-style {
     -fx-font-size: 20px;
 }
 
-.button-style, .slider-style {
+.button-style,
+.slider-style {
     -fx-background-color: #1b263b;
 }
 
-.button-style, .label-style {
+.button-style,
+.label-style {
     -fx-text-fill: #d5bbb1;
 }
 
@@ -50,12 +57,15 @@
 }
 
 /* LES TEXTES + LABELS */
-.text-style, .title-style, .title-game-over-style {
+.text-style,
+.title-style,
+.title-game-over-style {
     -fx-font-size: 20px;
     -fx-fill: #d5bbb1;
 }
 
-.title-style, .title-game-over-style {
+.title-style,
+.title-game-over-style {
     -fx-font-size: 50;
     -fx-text-fill: #d5bbb1;
     -fx-font-weight: bold;
@@ -78,18 +88,19 @@
     -fx-background-color: #273654;
 }
 
-.pause-view{
+.pause-view {
     -fx-opacity: 0.7;
     -fx-alignment: center;
     -fx-spacing: 10;
     -fx-background-color: #78859f;
 }
 
-.ball{
-    -fx-fill : black;
+.ball {
+    -fx-fill: black;
 }
 
-.hyperball, .ynotfixeracket {
+.hyperball,
+.ynotfixeracket {
     -fx-fill: #00308F;
 }
 
@@ -111,4 +122,13 @@
 
 .magnetracketnegatif {
     -fx-fill: GREEN;
+}
+
+.label-toggle-button-vbox {
+    -fx-background-color: #2f3d57;
+    -fx-border-color: #6b6461;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 10px;
 }
