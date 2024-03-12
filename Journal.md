@@ -418,3 +418,18 @@ affichage de la racket
 
 <span style="color:purple">**A Faire:**</span>
 - Suite du mode infini
+
+### Bencheikh Ilias
+<span style="color:green">**Fait:**</span>
+
+- Amélioration des effets de la balle 
+- Implémentation de la physique dans le jeu
+- Début de javadoc (pdf expliquant comment bouge la balle)
+    
+<span style="color:purple">**A Faire:**</span>
+
+- Réparer le simulateur 
+- Régler le problème de FPS
+- Implémenter la friction de l'air et de la balle 
+- Améliorer la collision de la balle et des briques (avec Olivier)
+- Améliorer la structure de la partie physique
