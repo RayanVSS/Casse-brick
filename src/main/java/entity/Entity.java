@@ -1,6 +1,6 @@
 package entity;
 
-import geometry.*;
+import physics.geometry.*;
 
 public abstract class Entity {
 

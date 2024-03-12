@@ -1,7 +1,5 @@
 package config;
 
-import entity.ball.Ball;
-import entity.racket.Racket;
 import save.PlayerData;
 import utils.GameConstants;
 

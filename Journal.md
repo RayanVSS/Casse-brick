@@ -332,6 +332,8 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 
 - mode deux joueur 
+
+
 ### Guan Olivier 
 <span style="color:green">**Fait:**</span>
 
@@ -383,3 +385,65 @@ affichage de la racket
 - Intergrer des images dans les themes pour la balle et la racket 
 - Enlever les transitions entre chaque changement de scene et essayer de fluidifié ca
 - Ajouter un ecran de victoire
+
+
+## Semaine 6 (12/3):
+
+### Guan Olivier 
+<span style="color:green">**Fait:**</span>
+
+- Création d'une partie totalement custom (+ Revue de plusieurs classes s'articulant autour)
+- Classes de création de composants graphiques
+- Qq améliorations dans les collisions briques/balle (minimes)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Régler les problèmes des collisions avec la physique pris en compte également (avec Ilias)
+- Affichage des infos de parties plus complètes (si pas encore fait d'ici là)
+  
+### Benmalek Majda 
+<span style="color:green">**Fait:**</span>
+
+- Changement dans l'affichage des vies 
+- Travail sur l'integration d'image et de changer le visuel de la balle/brique/racket/vies par rapport au theme choisi
+
+<span style="color:purple">**A Faire:**</span>
+- Avoir des image pour chaque cas 
+- Ameliorer le visuel 
+- Créer un ecran de victoire 
+
+### Mushtaq Amenah 
+<span style="color:green">**Fait:**</span>
+- Debut du mode infini 
+
+<span style="color:purple">**A Faire:**</span>
+- Suite du mode infini
+
+### Bencheikh Ilias
+<span style="color:green">**Fait:**</span>
+
+- Amélioration des effets de la balle 
+- Implémentation de la physique dans le jeu #47
+- Début de javadoc (pdf expliquant comment bouge la balle) #48
+    
+<span style="color:purple">**A Faire:**</span>
+
+- Réparer le simulateur #53
+- Régler le problème de FPS #43
+- Régler le problème de trajectoire #46
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+
+### Belhassen Rayan  
+<span style="color:green">**Fait:**</span>
+
+- boost: nouveau boost zhonya 
+
+<span style="color:purple">**A Faire:**</span>
+
+- terminer repair_software 
+
+### À faire
+
+- lister quelques phénomènes physiques amusants à ajouter, écrire les issues, rechercher la physique, commencer à implémenter

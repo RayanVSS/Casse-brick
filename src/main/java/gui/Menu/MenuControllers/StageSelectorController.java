@@ -4,7 +4,6 @@ import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.StageSelectorView;
 import javafx.application.Platform;
-import javafx.scene.control.Button;
 import save.PlayerData;
 
 public class StageSelectorController {

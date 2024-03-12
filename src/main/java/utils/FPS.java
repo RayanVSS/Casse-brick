@@ -16,6 +16,7 @@ package utils;
  */
 
 public class FPS {
+    
     private long lastTime = System.nanoTime();
     private int frameCount = 0;
     private double fps = 0.0;
