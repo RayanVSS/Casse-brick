@@ -433,3 +433,12 @@ affichage de la racket
 - Implémenter la friction de l'air et de la balle 
 - Améliorer la collision de la balle et des briques (avec Olivier)
 - Améliorer la structure de la partie physique
+
+### Belhassen Rayan  
+<span style="color:green">**Fait:**</span>
+
+- boost: nouveau boost zhonya 
+
+<span style="color:purple">**A Faire:**</span>
+
+- terminer repair_software 
