@@ -19,6 +19,7 @@ public abstract class Ball extends Entity {
     private Vector direction;
     private int radius;
     private double speed;
+    private double baseSpeed;
     private EntityColor color;
 
     // colision avec racket
@@ -29,6 +30,7 @@ public abstract class Ball extends Entity {
         this.direction = new Vector(new Coordinates(0, 0));
         this.speed = 0;
         this.radius = r;
+        this.baseSpeed = GameConstants.DEFAULT_BALL_SPEED;
     }
 
     public Ball(Coordinates c, Vector direction, int speed, int d) {
@@ -36,6 +38,7 @@ public abstract class Ball extends Entity {
         this.direction = direction;
         this.speed = speed;
         this.radius = d;
+        this.baseSpeed = GameConstants.DEFAULT_BALL_SPEED;
     }
     // Setters/getters
 
@@ -81,6 +84,10 @@ public abstract class Ball extends Entity {
 
     public void setColor(EntityColor color) {
         this.color = color;
+    }
+
+    public void setBaseSpeed(double baseSpeed) {
+        this.baseSpeed = baseSpeed;
     }
 
     public boolean intersectBrick(Brick b) {
@@ -140,7 +147,7 @@ public abstract class Ball extends Entity {
     public void reset() {
         this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
         this.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION);
-        this.setSpeed(GameConstants.DEFAULT_BALL_SPEED);
+        this.setSpeed(baseSpeed);
     }
 
     public double distanceTo(double x, double y) {

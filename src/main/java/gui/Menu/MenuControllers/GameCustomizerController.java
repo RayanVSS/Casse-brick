@@ -115,6 +115,7 @@ public class GameCustomizerController {
         }
         ball.setRadius((int) gameCustomizerView.getBallSize().getSlider().getValue());
         ball.setSpeed(gameCustomizerView.getBallSpeed().getSlider().getValue());
+        ball.setBaseSpeed(ball.getSpeed());
         return ball;
     }
 
