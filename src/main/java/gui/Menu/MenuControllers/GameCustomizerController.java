@@ -67,7 +67,7 @@ public class GameCustomizerController {
         gameCustomizerView.getBackButton().setOnAction(e -> back());
     }
 
-    private void createGame() {
+    public void createGame() {
 
         StageLevel customLevel;
         Ball ball = getBallConfig();
@@ -79,6 +79,7 @@ public class GameCustomizerController {
 
         Game customGame = new Game(ball, racket, life, rules, columnsBricks, rowsBricks);
         customLevel = new StageLevel(customGame, true);
+        customLevel.setGameReinitializer(this);
 
         new GameView(gameCustomizerView.getPrimaryStage(), customLevel);
     }

@@ -2,6 +2,7 @@ package config;
 
 import entity.ball.Ball;
 import entity.racket.Racket;
+import gui.Menu.MenuControllers.GameCustomizerController;
 import save.PlayerData;
 import utils.GameConstants;
 
@@ -13,6 +14,7 @@ public class StageLevel {
     private int maxScore;
     private transient Game game;
     private boolean customGame;
+    private transient GameCustomizerController gameReinitializer;
 
     public StageLevel(int difficulty, int unlockLevel, boolean customGame) {
 
@@ -86,6 +88,18 @@ public class StageLevel {
 
     public Game getGame() {
         return game;
+    }
+
+    public boolean isCustomGame() {
+        return customGame;
+    }
+
+    public GameCustomizerController getGameReinitializer() {
+        return gameReinitializer;
+    }
+
+    public void setGameReinitializer(GameCustomizerController gameReinitializer) {
+        this.gameReinitializer = gameReinitializer;
     }
 
 }
