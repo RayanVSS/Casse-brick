@@ -19,6 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.GameConstants;
 import utils.Key;
+import static physics.entity.Racket.StopBall;;
 
 public class GameRoot {
     private Pane root = new Pane();
@@ -36,7 +37,7 @@ public class GameRoot {
     private GameView gameView;
     private StageLevel level;
 
-    public GameRoot( StageLevel level, GameView gameView, Scene scene, Stage primaryStage) {
+    public GameRoot(StageLevel level, GameView gameView, Scene scene, Stage primaryStage) {
         this.level = level;
         this.game = level.getGame();
         this.scene = scene;
@@ -58,6 +59,12 @@ public class GameRoot {
     }
 
     public void update(long deltaT) {
+        if (StopBall) {
+            game.getBall().setSpeed(0);
+            game.getBall().setDirection(new physics.geometry.Vector(0, 1));
+        } else {
+            game.getBall().setSpeed(GameConstants.DEFAULT_BALL_SPEED);
+        }
         graphBall.update();
         graphRacket.update();
         if (GameConstants.PARTICLES) {
@@ -74,16 +81,17 @@ public class GameRoot {
         game.update(deltaT);
         key.touchesM(scene, game);
         if (game.isLost()) {
-            //game.setLost(false);
+            // game.setLost(false);
             gameView.animationStop();
             gameView.getRoot().getChildren().add(new GameOverView(primaryStage, gameView));
             level.lostAction();
         }
         if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
             gameView.animationStop();
-            gameView.getRoot().getChildren().add(new PauseView(primaryStage, gameView.getRoot(), gameRoot.getRoot(),gameView.getAnimationTimer(), level));
+            gameView.getRoot().getChildren().add(new PauseView(primaryStage, gameView.getRoot(), gameRoot.getRoot(),
+                    gameView.getAnimationTimer(), level));
         }
-        if(level.getGame().isWin()){
+        if (level.getGame().isWin()) {
             gameView.animationStop();
             level.winAction();
         }

@@ -16,7 +16,7 @@ public class Boost extends Rectangle {
         type = getRandomType();
         this.c = new Coordinates(c.getX()+(GameConstants.HEIGHT/2), c.getY()+GameConstants.HEIGHT);
         //couleur du boost
-        if(type.equals("vitesseP")|| type.equals("largeurP")){
+        if(type.equals("vitesseP")|| type.equals("largeurP") || type.equals("zhonya")){
             setFill(GameConstants.COLOR_BONUS);
         }else {
             setFill(GameConstants.COLOR_MALUS);
@@ -48,6 +48,10 @@ public class Boost extends Rectangle {
                 case "freeze":
                     System.out.println("freeze");
                     racket.setFreeze(true);
+                    break;
+                case "zhonya":
+                    System.out.println("zhonya");
+                    racket.setZhonya(true);
                     break;
                 default:
                     break;
