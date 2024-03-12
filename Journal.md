@@ -443,3 +443,7 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 
 - terminer repair_software 
+
+### À faire
+
+- lister quelques phénomènes physiques amusants à ajouter, écrire les issues, rechercher la physique, commencer à implémenter
