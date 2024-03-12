@@ -332,6 +332,8 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 
 - mode deux joueur 
+
+
 ### Guan Olivier 
 <span style="color:green">**Fait:**</span>
 
@@ -383,3 +385,18 @@ affichage de la racket
 - Intergrer des images dans les themes pour la balle et la racket 
 - Enlever les transitions entre chaque changement de scene et essayer de fluidifié ca
 - Ajouter un ecran de victoire
+
+
+## Semaine 6 (12/3):
+
+### Guan Olivier 
+<span style="color:green">**Fait:**</span>
+
+- Création d'une partie totalement custom (+ Revue de plusieurs classes s'articulant autour)
+- Classes de création de composants graphiques
+- Qq améliorations dans les collisions briques/balle (minimes)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Régler les problèmes des collisions avec la physique pris en compte également (avec Ilias)
+- Affichage des infos de parties plus complètes (si pas encore fait d'ici là)
