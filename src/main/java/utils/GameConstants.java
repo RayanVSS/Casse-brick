@@ -12,8 +12,6 @@ import entity.ball.*;
 import entity.racket.*;
 import java.util.Random;
 
-import org.checkerframework.checker.units.qual.s;
-
 public final class GameConstants {
 
     // brick
@@ -66,21 +64,23 @@ public final class GameConstants {
     public static final int BOOST_DURATION_FREEZE = 2;
     public static final int BOOST_DURATION_JUMP = 5;
     public static final int BOOST_DURATION_ZHONYA = 2;
+    public static final int BOOST_DURATION_INTENSITY_BALL = 5;
     // valeur des boosts
     public static final double BOOST_VITESSEP = 2.0;
     public static final int BOOST_VITESSEM = 5;
     public static final int BOOST_LARGEURP = 100;
     public static final int BOOST_LARGEURM = 100;
+    public static final double BOOST_INTENSITY_BALL = 2; //c'est un multiplicateur
     // bonus
     public static final int WIDTH = 20;
     public static final int HEIGHT = 20;
     public static final double BONUS_SPEED = 2;
     public static final double BONUS_CHANCE = 0.2;
-    //"vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya"
-    public static final String[] BONUS_LIST = {"vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya"};
+    //"vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya", "intensityBall"
+    public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya", "intensityBall"};
     public static final Color COLOR_BONUS = Color.GREEN;
     public static final Color COLOR_MALUS = Color.RED;
-
+ 
     // Options du jeu
     public static boolean FPS = false;
     public static boolean PATH = false;

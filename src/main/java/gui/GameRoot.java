@@ -19,7 +19,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.GameConstants;
 import utils.Key;
-import static physics.entity.Racket.StopBall;;
+
+//pour les boosts
+import static physics.entity.Racket.StopBall;
+import static physics.entity.Racket.AddIntensityBall;;
 
 public class GameRoot {
     private Pane root = new Pane();
@@ -59,12 +62,7 @@ public class GameRoot {
     }
 
     public void update(long deltaT) {
-        if (StopBall) {
-            game.getBall().setSpeed(0);
-            game.getBall().setDirection(new physics.geometry.Vector(0, 1));
-        } else {
-            game.getBall().setSpeed(GameConstants.DEFAULT_BALL_SPEED);
-        }
+        BoostAction();
         graphBall.update();
         graphRacket.update();
         if (GameConstants.PARTICLES) {
@@ -113,6 +111,18 @@ public class GameRoot {
                     iterator.remove();
                 }
             }
+        }
+    }
+
+    // gere les modifiactaion fait par les boosts
+    public void BoostAction() {
+        if (StopBall) {
+            game.getBall().setSpeed(0);
+            game.getBall().setDirection(new physics.geometry.Vector(0, 1));
+        } else if (AddIntensityBall) {
+            game.getBall().setSpeed(GameConstants.DEFAULT_BALL_SPEED * GameConstants.BOOST_INTENSITY_BALL);
+        } else {
+            game.getBall().setSpeed(GameConstants.DEFAULT_BALL_SPEED);
         }
     }
 

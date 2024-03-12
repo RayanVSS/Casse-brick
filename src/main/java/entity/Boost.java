@@ -10,24 +10,21 @@ public class Boost extends Rectangle {
     private String type;
     private Coordinates c;
 
-
-    public Boost(Coordinates c){
+    public Boost(Coordinates c) {
         super(c.getX(), c.getY(), GameConstants.WIDTH, GameConstants.HEIGHT);
         type = getRandomType();
-        this.c = new Coordinates(c.getX()+(GameConstants.HEIGHT/2), c.getY()+GameConstants.HEIGHT);
-        //couleur du boost
-        if(type.equals("vitesseP")|| type.equals("largeurP") || type.equals("zhonya")){
+        this.c = new Coordinates(c.getX() + (GameConstants.HEIGHT / 2), c.getY() + GameConstants.HEIGHT);
+        // couleur du boost
+        if (type.equals("vitesseP") || type.equals("largeurP") || type.equals("zhonya")) {
             setFill(GameConstants.COLOR_BONUS);
-        }else {
+        } else {
             setFill(GameConstants.COLOR_MALUS);
         }
     }
 
-
-
     // Déplacement du boost et activation du boost
     public boolean move(Boolean CollisionRacket, Racket racket) {
-        if (CollisionRacket){
+        if (CollisionRacket) {
             switch (type) {
                 case "vitesseP":
                     System.out.println("vitesseP");
@@ -53,22 +50,27 @@ public class Boost extends Rectangle {
                     System.out.println("zhonya");
                     racket.setZhonya(true);
                     break;
+                case "intensityBall":
+                    System.out.println("intensityBall");
+                    racket.setIntensityBall(true);
+                    break;
                 default:
                     break;
             }
             return true;
         }
+        // deplacement du boost
         setY(getY() + GameConstants.BONUS_SPEED);
         this.c.setY(getY());
         return false;
     }
 
+    // Création d'un boost
     public static Boost createBoost(Coordinates c) {
         if (Math.random() < GameConstants.BONUS_CHANCE) {
             return new Boost(c);
         }
         return null;
-
 
     }
 
@@ -87,5 +89,5 @@ public class Boost extends Rectangle {
     public int getWIDTH() {
         return GameConstants.WIDTH;
     }
- 
+
 }

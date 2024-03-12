@@ -69,9 +69,11 @@ public abstract class Racket {
     Boolean largeurM = false;
     boolean freeze = false;
     boolean zhonya = false;
+    boolean intensityBall = false;
 
-    //varible pour le zhonya
+    // varible pour les boosts
     public static boolean StopBall = false;
+    public static boolean AddIntensityBall = false;
 
     private long jumpStartTime;
 
@@ -273,6 +275,29 @@ public abstract class Racket {
         }
     }
 
+    // boost IntensityBall
+    public void startIntensityBall(int duration) {
+        Timer BoostTimer = new Timer();
+        BoostTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                intensityBall = false;
+                AddIntensityBall = false;
+                BoostTimer.cancel();
+            }
+        }, duration * 1000);
+    }
+
+    public void setIntensityBall(Boolean intensityBall) {
+        if (!this.intensityBall) {
+            this.intensityBall = intensityBall;
+            if (this.intensityBall) {
+                AddIntensityBall = true;
+                startIntensityBall(GameConstants.BOOST_DURATION_INTENSITY_BALL);
+            }
+        }
+    }
+
     // GET et SET
     public Boolean getJump() {
         return jump;
@@ -373,7 +398,7 @@ public abstract class Racket {
     public boolean getFreeze() {
         return freeze;
     }
- 
+
     public boolean getZhonya() {
         return zhonya;
     }
