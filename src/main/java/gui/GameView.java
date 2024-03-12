@@ -76,6 +76,7 @@ public class GameView {
                         fpsGraphics.update();
                     gameRoot.update(deltaT);
                     scoreLifeView.update();
+                    scene.getStylesheets().add(GameConstants.CSS.getPath());
                 }
                 last = now;
             }

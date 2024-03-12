@@ -43,7 +43,8 @@ public class BallGraphics extends Circle {
         if (ball.getColor() != null) {
             switch (ball.getColor()) {
                 case RED:
-                    setFill(Color.RED);
+                    //setFill(Color.RED);
+                    getStyleClass().add("hyperball");
                     break;
                 case GREEN:
                     setFill(Color.GREEN);

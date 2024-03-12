@@ -108,11 +108,6 @@ public class Game {
         }
     }
 
-    public boolean collisionRacket(Coordinates c) {
-        return c.getX() >= racket.getC().getX() && c.getX() <= racket.getC().getX() + racket.getLongueur()
-                && c.getY() >= racket.getC().getY() && c.getY() <= racket.getC().getY() + racket.getLargeur();
-    }
-
     // Vérifie si la balle est devant la raquette
     public boolean BallFrontRacket() {
         if (racket.getC().getX() - ball.getC().getX() < 0

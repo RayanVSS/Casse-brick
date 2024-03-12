@@ -50,9 +50,10 @@ public class RacketGraphics extends Rectangle {
         setHeight(racket.getLongueur());
         if (racket instanceof MagnetRacket) {
             if (((MagnetRacket) racket).getEtat().equals("positif")) {
-                setFill(Color.YELLOW);
+                //setFill(Color.YELLOW);
+                getStyleClass().add("magnetracketpositif");
             } else {
-                setFill(Color.GREEN);
+                getStyleClass().add("magnetracketnegatif");
             }
         }
     }
