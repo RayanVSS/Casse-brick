@@ -400,3 +400,21 @@ affichage de la racket
 
 - Régler les problèmes des collisions avec la physique pris en compte également (avec Ilias)
 - Affichage des infos de parties plus complètes (si pas encore fait d'ici là)
+  
+### Benmalek Majda 
+<span style="color:green">**Fait:**</span>
+
+- Changement dans l'affichage des vies 
+- Travail sur l'integration d'image et de changer le visuel de la balle/brique/racket/vies par rapport au theme choisi
+
+<span style="color:purple">**A Faire:**</span>
+- Avoir des image pour chaque cas 
+- Ameliorer le visuel 
+- Créer un ecran de victoire 
+
+### Mushtaq Amenah 
+<span style="color:green">**Fait:**</span>
+- Debut du mode infini 
+
+<span style="color:purple">**A Faire:**</span>
+- Suite du mode infini
