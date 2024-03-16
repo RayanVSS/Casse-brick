@@ -73,7 +73,7 @@ public class ScoreLifeGraphics extends Pane {
             case BLACK:
                 return new Image("/lifeScore/lifeBlack.png");
             case LIGHT:
-                return new Image("/lifeScore/lifeWhite+.png");
+                return new Image("/lifeScore/lifeBlack.png");
             case ACHROMATOPSIE:
                 return new Image("/lifeScore/lifeAchromatopsie+.png");
             case DEUTERANOPIE:
