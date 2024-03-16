@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import physics.config.PhysicEngine;
 import physics.config.PhysicSetting;
+import utils.GameConstants;
 
 public class AppPhysic extends Application {
     
@@ -24,7 +25,7 @@ public class AppPhysic extends Application {
     public void start(Stage p) throws Exception {
         this.primaryStage = p;
         root = new StackPane();
-        scene = new Scene(root, 1000, 800);
+        scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
         root.setStyle("-fx-background-color: #273654;");
         primaryStage.setTitle("Physic Engine");
         primaryStage.setScene(scene);
@@ -62,12 +63,12 @@ public class AppPhysic extends Application {
     }
 
     public void Speed(){
-        Label labelspeed = new Label("Vitesse de la balle : "+PhysicSetting.Speed_Ball+" km/h");
-        Slider speed = new Slider(0, 100, PhysicSetting.Speed_Wind);
+        Label labelspeed = new Label("Vitesse de la balle : "+physics.getSpeed_Ball()+" km/h");
+        Slider speed = new Slider(0, 100, physics.getSpeed_Ball());
         speed.setOrientation(Orientation.HORIZONTAL);
         speed.setMaxWidth(200);
         speed.valueProperty().addListener((observable, oldvalue, newvalue) -> {
-            PhysicSetting.Speed_Ball = newvalue.intValue();
+            physics.setSpeed_Ball(newvalue.intValue());
             labelspeed.setText("Vitesse de la balle : " + newvalue.intValue() + " km/h");
         });
         labelspeed.setStyle("-fx-text-fill: #d5bbb1;");
@@ -101,12 +102,12 @@ public class AppPhysic extends Application {
     }
 
     public void Wind(){
-        Label labelspeed = new Label("Vitesse du vent : 0 km/h");
-        Slider wind_speed = new Slider(0, 100, PhysicSetting.Speed_Wind);
+        Label labelspeed = new Label("Vitesse du vent : +"+physics.getSpeed_Wind()+"km/h");
+        Slider wind_speed = new Slider(0, 100, physics.getSpeed_Wind());
         wind_speed.setOrientation(Orientation.HORIZONTAL);
         wind_speed.setMaxWidth(200);
         wind_speed.valueProperty().addListener((observable, oldvalue, newvalue) -> {
-            PhysicSetting.Speed_Wind = newvalue.intValue();
+            physics.setSpeed_Wind(newvalue.intValue());
             labelspeed.setText("Vitesse du vent : " + newvalue.intValue() + " km/h");
         });
         labelspeed.setStyle("-fx-text-fill: #d5bbb1;");
@@ -133,16 +134,16 @@ public class AppPhysic extends Application {
         listWind.setOnAction(e -> {
             switch (listWind.getValue()) {
                 case "Nord":
-                    PhysicSetting.Direction_Wind = 0;
+                    physics.setDirection_Wind(0);
                     break;
                 case "Sud":
-                    PhysicSetting.Direction_Wind = 1;
+                    physics.setDirection_Wind(1);
                     break;
                 case "Est":
-                    PhysicSetting.Direction_Wind = 2;
+                    physics.setDirection_Wind(2);
                     break;
                 case "Ouest":
-                    PhysicSetting.Direction_Wind = 3;
+                    physics.setDirection_Wind(3);
                     break;
             }
         });
@@ -150,33 +151,36 @@ public class AppPhysic extends Application {
     }
 
     public void Gravity(){
-        Label labelGravity = new Label("Intensite de la gravite : "+PhysicSetting.Gravite*100+" m/s^2");
+        Label labelGravity = new Label("Gravite terrestre");
         labelGravity.setStyle("-fx-text-fill: #d5bbb1;");
         labelGravity.setTranslateY(0);
         labelGravity.setTranslateX(-350);
-        Slider gravity = new Slider(-10, 10, PhysicSetting.Gravite);
-        gravity.setOrientation(Orientation.HORIZONTAL);
-        gravity.setMaxWidth(200);
-        gravity.valueProperty().addListener((observable, oldvalue, newvalue) -> {
-            PhysicSetting.Gravite = newvalue.intValue()/100;
-            labelGravity.setText("Intensite de la gravite : " + newvalue.intValue() + " m/s^2");
+        Button buttonGravity = new Button("OFF");
+        buttonGravity.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        buttonGravity.setOnAction(e -> {
+            physics.changeGravity();
+            if(physics.getGravity()){
+                buttonGravity.setText("ON");
+            }
+            else{
+                buttonGravity.setText("OFF");
+            }
         });
-        gravity.setTranslateX(labelGravity.getTranslateX());
-        gravity.setTranslateY(labelGravity.getTranslateY() + 30);
-        gravity.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
-        root.getChildren().addAll(labelGravity, gravity);
+        buttonGravity.setTranslateX(labelGravity.getTranslateX());
+        buttonGravity.setTranslateY(labelGravity.getTranslateY() + 30);
+        root.getChildren().addAll(labelGravity, buttonGravity);
     }
 
     public void Mass(){
-        Label labelMass = new Label("Masse de la balle : "+PhysicSetting.Mass+" g");
+        Label labelMass = new Label("Masse de la balle : "+physics.getMass()+" g");
         labelMass.setStyle("-fx-text-fill: #d5bbb1;");
         labelMass.setTranslateY(100);
         labelMass.setTranslateX(-350);
-        Slider mass = new Slider(1, 1000, PhysicSetting.Mass);
+        Slider mass = new Slider(1, 1000, physics.getMass());
         mass.setOrientation(Orientation.HORIZONTAL);
         mass.setMaxWidth(200);
         mass.valueProperty().addListener((observable, oldvalue, newvalue) -> {
-            PhysicSetting.Mass = newvalue.intValue()/10;
+            physics.setMass(newvalue.intValue()/10);
             labelMass.setText("Masse de la balle : " + newvalue.intValue() + " kg");
         });
         mass.setTranslateX(labelMass.getTranslateX());

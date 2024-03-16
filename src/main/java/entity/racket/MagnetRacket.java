@@ -28,7 +28,7 @@ public void handleKeyPress(Set<KeyCode> keysPressed) {
                 this.mX(this.mX() - speed);
         }
         if(key==GameConstants.RIGHT){
-            if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH - longueur - 70)
+            if (this.mX() < GameConstants.DEFAULT_GAME_ROOT_WIDTH - longueur - 70)
                 this.mX(this.mX() + speed);
         }
         if(key==GameConstants.SPACE){

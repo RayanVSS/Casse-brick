@@ -8,7 +8,6 @@ import entity.ball.GravityBall;
 import entity.ball.HyperBall;
 import entity.ball.MagnetBall;
 
-
 public class BallGraphics extends Circle {
 
     private Ball ball;
@@ -37,5 +36,23 @@ public class BallGraphics extends Circle {
             else
                 setFill(Color.YELLOW);
         }
+        if (ball.getColor() != null) {
+            switch (ball.getColor()) {
+                case RED:
+                    setFill(Color.RED);
+                    break;
+                case GREEN:
+                    setFill(Color.GREEN);
+                    break;
+                case BLUE:
+                    setFill(Color.BLUE);
+                    break;
+                default:
+                    setFill(Color.GRAY);
+                    break;
+            }
+        }
+
     }
+
 }

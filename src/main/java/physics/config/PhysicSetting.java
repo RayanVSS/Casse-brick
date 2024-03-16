@@ -6,9 +6,10 @@ import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
+import physics.entity.Ball;
 
 /***************************************************************************
- *                  Explication de classe Outline  :  
+ *                  Explication de classe PhysicSetting  :  
  * 
  * Cette classe contient toutes les informations de la partie physique de la 
  * simulation    
@@ -46,19 +47,19 @@ public class PhysicSetting {
     private Vector Wind;
 
     // variables par défaut pour la simulation
-    public static int Speed_Ball = 0;
-    public static int Speed_Wind = 0;
-    public static int Direction_Wind = 0;
-    public static double Gravite = 0;
-    public static double Mass = 1;
+    private int Speed_Ball = 0;
+    private int Speed_Wind = 0;
+    private int Direction_Wind = 0;
 
-    // variables pour la simulation
-    public static final double stop_bounce = 0.3;
-    public static double retention = 1;
-    public static final double friction_sol = 0.1;
-    public static final double friction_air = 0.01;
-    public static final double MAX_VELOCITY = 10;
-    public static Vector friction_racket= new Vector(new Coordinates(0,0));
+    // variables pour la physique réaliste
+    private boolean Gravity = false;
+    private double Gravite = 0.1;
+    private double Mass = 1;
+    private final double stop_bounce = 0.3;
+    private double retention = 0.8;
+    private final double friction_sol = 0.1;
+    private final double friction_air = 0.01;
+    private final double MAX_VELOCITY = 10;
 
     public PhysicSetting(){
         Radius = GameConstants.DEFAULT_BALL_RADIUS/2;
@@ -73,8 +74,25 @@ public class PhysicSetting {
         retention = 0.8;
     }
 
+    public static String CalculateAngle(Vector d){
+        double angle = Math.atan2(d.getY(), d.getX());
+        if(angle < 0){
+            angle += 2*Math.PI;
+        }
+        angle = Math.toDegrees(angle);
+        return "Angle :"+String.valueOf(angle);
+    }
+
+    public static double CalculateSpeed(Vector d){
+        double speed = Math.sqrt(d.getX()*d.getX() + d.getY()*d.getY());
+        return speed;
+    }
+
     public void checkGravity(Coordinates c, Vector d) {
-        if (c.getY() < PhysicEngine.DEFAULT_WINDOW_HEIGHT - Radius) {
+        if(!Gravity){
+            return;
+        }
+        if (c.getY() < GameConstants.DEFAULT_GAME_ROOT_WIDTH - Radius) {
             d.setY(d.getY() + Gravite*Mass);
         } else {
             if (d.getY() > stop_bounce) {
@@ -84,7 +102,7 @@ public class PhysicSetting {
                     d.setY(0);
                 }
             }
-            if ((c.getX() < Radius && d.getX() < 0) || (c.getX() > PhysicEngine.DEFAULT_WINDOW_WIDTH - Radius && d.getX() > 0)) {
+            if ((c.getX() < Radius && d.getX() < 0) || (c.getX() > GameConstants.DEFAULT_WINDOW_WIDTH - Radius && d.getX() > 0)) {
                 d.setX(-d.getX()* retention);
                 if (Math.abs(d.getX()) < stop_bounce) {
                     d.setX(0);
@@ -100,21 +118,6 @@ public class PhysicSetting {
         }
     }
 
-    public void UpdateFrictionRacket(){
-        if(friction_racket.getX() > 0){
-            friction_racket.setX(friction_racket.getX()-0.2);
-        }else if(friction_racket.getX() < 0){
-            friction_racket.setX(friction_racket.getX()+0.2);
-        }
-    }
-
-    public static void UpdateFrictionRacket(Vector f){
-        if(f.getX() > 0){
-            f.setX(f.getX()-0.2);
-        }else if(f.getX() < 0){
-            f.setX(f.getX()+0.2);
-        }
-    }
 
 
     public Vector vectorWind(int Speed , int Direction){
@@ -139,24 +142,6 @@ public class PhysicSetting {
         return new Vector(new Coordinates(i, j));
     }
 
-    public double getFrictionCoefficient(Vector direction) {
-        // Coefficient de frottement statique par défaut
-        double staticFriction = 0.5;
-        // Coefficient de frottement dynamique par défaut
-        double dynamicFriction = 0.3;
-    
-        // Déterminer la force normale
-        double normalForce = Mass * Gravite;
-    
-        // Calculer la vitesse relative
-        double relativeVelocity = Math.sqrt(Math.pow(direction.getX(), 2) + Math.pow(direction.getY(), 2));
-    
-        // Appliquer une relation linéaire entre vitesse et coefficient de frottement
-        double frictionCoefficient = staticFriction - (staticFriction - dynamicFriction) * (relativeVelocity / MAX_VELOCITY);
-    
-        return frictionCoefficient;
-    }
-
     public boolean checkCollisionRacket(Racket r, Coordinates c, Vector d){
         boolean verifX = c.getX() > r.getC().getX() && c.getX() < r.getC().getX() + r.largeur;
         boolean verifY = c.getY() > r.getC().getY() && c.getY() < r.getC().getY() + r.longueur;
@@ -164,16 +149,22 @@ public class PhysicSetting {
         boolean verifY1 =  c.getY() >= r.getC().getY() && c.getY() < r.getC().getY() + r.longueur;
         if(verifX1 && verifY1){
             d.setX(-d.getX());
-            d.add(getFrictionRacket());
-            PhysicEngine.CollisionR_Side = true;
             return true;
         }
         return verifX && verifY;
-    } 
+    }
 
-
-    public void restore(){
-        friction_racket = new Vector(new Coordinates(0,0));
+    public boolean checkCollisionRacket(Racket r,Ball b){
+        boolean verifX = b.getC().getX() > r.getC().getX() && b.getC().getX() < r.getC().getX() + r.largeur;
+        boolean verifY = b.getC().getY() > r.getC().getY() && b.getC().getY() < r.getC().getY() + r.longueur;
+        boolean verifX1 = b.getC().getX()<= r.getC().getX() && b.getC().getX() > r.getC().getX() - Radius || b.getC().getX() >= r.getC().getX() + r.largeur && b.getC().getX() < r.getC().getX() + r.largeur + Radius;
+        boolean verifY1 =  b.getC().getY() >= r.getC().getY() && b.getC().getY() < r.getC().getY() + r.longueur;
+        if(verifX1 && verifY1){
+            b.getDirection().setX(-b.getDirection().getX());
+            b.CollisionR_Side = true;
+            return true;
+        }
+        return verifX && verifY;
     }
 
     // Getters and Setters
@@ -202,16 +193,67 @@ public class PhysicSetting {
         this.Radius = Radius;
     }
 
-    public Vector getFrictionRacket() {
-        return friction_racket;
-    }
-
-    public void setFrictionRacket(Vector friction_racket) {
-        PhysicSetting.friction_racket = friction_racket;
-    }
-
     public double getRetention() {
         return retention;
     }
     
+    public void setRetention(double retention) {
+        this.retention = retention;
+    }
+
+    public double getFrictionSol() {
+        return friction_sol;
+    }
+
+    public double getFrictionAir() {
+        return friction_air;
+    }
+
+    public double getMAX_VELOCITY() {
+        return MAX_VELOCITY;
+    }
+
+    public void setGravite(double gravite) {
+        Gravite = gravite;
+    }
+
+    public void setMass(double mass) {
+        Mass = mass;
+    }
+
+    public void setSpeed_Ball(int speed_Ball) {
+        Speed_Ball = speed_Ball;
+    }
+
+    public void setSpeed_Wind(int speed_Wind) {
+        Speed_Wind = speed_Wind;
+    }
+
+    public void setDirection_Wind(int direction_Wind) {
+        Direction_Wind = direction_Wind;
+    }
+
+    public int getSpeed_Ball() {
+        return Speed_Ball;
+    }
+
+    public int getSpeed_Wind() {
+        return Speed_Wind;
+    }
+
+    public int getDirection_Wind() {
+        return Direction_Wind;
+    }
+
+    public double getStop_bounce() {
+        return stop_bounce;
+    }
+
+    public void changeGravity(){
+        Gravity = !Gravity;
+    }
+
+    public boolean getGravity(){
+        return Gravity;
+    }
 }

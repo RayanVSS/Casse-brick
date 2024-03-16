@@ -1,11 +1,9 @@
 package physics.entity;
 
-import org.checkerframework.checker.units.qual.s;
-
-import entity.Entity;
+import entity.EntityColor;
 import entity.brick.Brick;
-import physics.config.PhysicEngine;
 import physics.geometry.*;
+import physics.gui.Preview;
 import physics.config.PhysicSetting;
 import utils.GameConstants;
 
@@ -22,12 +20,21 @@ public abstract class Ball {
     private Vector direction;
     private int radius;
     private double speed;
-    private PhysicSetting physicSetting ;
-
+    private EntityColor color;
+    private Rotation rotation = new Rotation();
+    private PhysicSetting physicSetting = new PhysicSetting();
+    private Preview preview;
 
     // colision avec racket
-    public static boolean CollisionR = false;
-    public static boolean CollisionR_Side = false;
+    public boolean CollisionR = false;
+    public boolean CollisionR_Side = false;
+
+    public Ball() {
+        c=new Coordinates(0, 0);
+        this.direction = new Vector(new Coordinates(0, 0));
+        this.speed = 0;
+        this.radius = GameConstants.DEFAULT_BALL_RADIUS;
+    }
 
     public Ball(int r) {
         c=new Coordinates(0, 0);
@@ -77,7 +84,7 @@ public abstract class Ball {
         CollisionR = b;
     }
 
-    public static boolean getCollisionR() {
+    public boolean getCollisionR() {
         return CollisionR;
     }
 
@@ -89,12 +96,36 @@ public abstract class Ball {
         this.speed = v;
     }
 
-    public void setPhysicSetting(PhysicSetting physicSetting) {
-        this.physicSetting = physicSetting;
+    public PhysicSetting getPhysicSetting() {
+        return physicSetting;
     }
 
-    public PhysicSetting getPhysicSetting() {
-        return this.physicSetting;
+     public EntityColor getColor() {
+        return color;
+    }
+
+    public void setColor(EntityColor color) {
+        this.color = color;
+    }
+
+    public Rotation getRotation() {
+        return rotation;
+    }
+
+    public void setPreview(Preview p) {
+        this.preview = p;
+    }
+
+    public Preview getPreview() {
+        return this.preview;
+    }
+
+    public void updatePreview() {
+        if (this.preview != null) {
+            preview.trajectory();
+            preview.add_circle();
+            preview.check();
+        }
     }
 
     public boolean intersectBrick(Brick b) {
@@ -156,7 +187,10 @@ public abstract class Ball {
 
     public void reset() {
         this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
-        physicSetting.setFrictionRacket(new Vector(new Coordinates(0, 0)));
+        this.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION);
+        this.setSpeed(GameConstants.DEFAULT_BALL_SPEED);
+        this.setRadius(GameConstants.DEFAULT_BALL_RADIUS);
+        rotation.stopRotation();
     }
 
     public boolean checkCollision(Brick b) {
@@ -170,6 +204,11 @@ public abstract class Ball {
             }
             return true;
         }
+        return false;
+    }
+
+    public boolean checkCollisionOtherBall(Ball b){
+        // TODO : implement this method
         return false;
     }
 
