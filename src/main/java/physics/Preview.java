@@ -11,6 +11,7 @@ import physics.entity.Ball;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
+import utils.GameConstants;
 
 /***************************************************************************
  *                  Explication de classe Preview  :  
@@ -52,25 +53,22 @@ public class Preview {
     }
 
     public Coordinates trajectory(){
-        double h = PhysicEngine.DEFAULT_WINDOW_WIDTH;
-        double w = PhysicEngine.DEFAULT_WINDOW_HEIGHT;
+        double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
+        double w = GameConstants.DEFAULT_WINDOW_WIDTH;
         double newX = c_trajectory.getX() + d_trajectory.getX() * ball.getSpeed() ;
         double newY = c_trajectory.getY() + d_trajectory.getY() * ball.getSpeed() ;
         if (CollisionR) {
-            d_trajectory.setY(-d_trajectory.getY());
-            d_trajectory.add(physics.getFrictionRacket());
+            d_trajectory.setY(-d_trajectory.getY()+(ball.getRotation().getEffect()/90)*d_trajectory.getY());
             newY = c_trajectory.getY() + d_trajectory.getY()*ball.getSpeed();
             CollisionR = false;
         }
-        if (newX < 0 || newX > h - ball.getRadius()) {
-            d_trajectory.setX(-d_trajectory.getX());
-            d_trajectory.add(physics.getFrictionRacket());
+        if (newX < PhysicEngine.START || newX > w - ball.getRadius()) {
+            d_trajectory.setX(-d_trajectory.getX()+(ball.getRotation().getEffect()/90)*d_trajectory.getX());
             newX = c_trajectory.getX() + d_trajectory.getX()*ball.getSpeed();
             d_trajectory.setX(d_trajectory.getX()*physics.getRetention());
         }
-        if (newY < 0 || newY > w - ball.getRadius()) {
-            d_trajectory.add(physics.getFrictionRacket());
-            d_trajectory.setY(-d_trajectory.getY());
+        if (newY < 0 || newY > h - ball.getRadius()) {
+            d_trajectory.setY(-d_trajectory.getY()+(ball.getRotation().getEffect()/90)*d_trajectory.getY());
             newY = c_trajectory.getY() + d_trajectory.getY()*ball.getSpeed();
             d_trajectory.setY(d_trajectory.getY()*physics.getRetention());
         } 

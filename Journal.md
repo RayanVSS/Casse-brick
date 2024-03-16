@@ -242,7 +242,7 @@ affichage de la racket
 - Implémentation de celle-ci dans le jeu
 - Implémentation du niveau infini #23
 
-## Semaine 4
+## Semaine 4 (27/2)
 
 ### Majda Benmalek 
 <span style="color:green">**Fait:**</span>
@@ -319,8 +319,131 @@ affichage de la racket
 
 - Régler le problème de FPS (vitesse de la balle et de la racket varie en fonction des performances) #43
 
+## Semaine 5 (5/3):
+
+### Belhassen rayan
+<span style="color:green">**Fait:**</span>
+    
+- boost: apparition des boost
+- sauvegarde: ajout du theme dans la sauvegarde
+- icône: ajout d'une icône pour le jeux 
+- daltonisme: thème pour les personnes atteintes de "protanopie","deuteranopie","tritanopie" et "achromatopsie"
+
+<span style="color:purple">**A Faire:**</span>
+
+- mode deux joueur 
 
 
+### Guan Olivier 
+<span style="color:green">**Fait:**</span>
+
+- Niveaux (parties)
+- Création d'un menu de selection de mode de jeu (Niveaux/Game Custom)
+- Création d'un menu de selection de niveaux
+- Création d'un menu de création d'une game custom (pas fini)
+- Intégration des données joueur dans la sauvegarde (progression dans les niveaux (Game est "transcient" tout de même), exp, pseudo, ...)
+- GameView, lancement et chargement en fonction d'un StageLevel et non d'un simple Game pour traiter toutes les informations nécessaires
+- Le jeu s'arrête lors de la victoire et mets à jour la progression : levelUp lors du premier clear, save le maxScore, reset la partie pour préparer la nouvelle tentative, ... (pas encore d'écran de victoire)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finir le menu pour créer un Game totalement custom : choix true/false sur chacunes des règles (+ réglages temps/quantité), type de balle, type de raquette, vitesse de la balle, taille de la balle, taille map (hauteur/largeur), vie, ... 
+- Régler les problèmes des collisions avec les règles + collisions sur les briques en général
+
+### Bencheikh Ilias
+<span style="color:green">**Fait:**</span>
+
+- Amélioration des effets de la balle : effet plus visible + rotation de la balle (invisible car la balle est rond noir)
+- Amélioration de la racket (collision en dessous et sur les côtés)
+- Début d'implémentation de la friction de l'air 
+    
+<span style="color:purple">**A Faire:**</span>
+
+- Amélioration de la trajectoire + régler le problème de la trajectoire de la balle (problème d'effets avec la trajectoire)
+- Régler le problème de FPS
+- Implémenter la friction de l'air et de la balle 
+
+### Mushtaq Amenah 
+<span style="color:green">**Fait:**</span>
+
+-#44:
+- Brique incassable 
+- Brique transparentes
+- Brique change de position 
+
+<span style="color:purple">**A Faire:**</span>
+- Mode infini 
+
+### Benmalek Majda 
+<span style="color:green">**Fait:**</span>
+- #26 : separation de l'ecran de jeu en plusieurs Pane 
+- Differente implementation du score, gere le cas ou on casse plusieurs briques a la fois
+- Changement dans le mouvement de la balle => angle different a chaque collision 
+
+<span style="color:purple">**A Faire:**</span>
+- Ajout du son #21
+- Intergrer des images dans les themes pour la balle et la racket 
+- Enlever les transitions entre chaque changement de scene et essayer de fluidifié ca
+- Ajouter un ecran de victoire
 
 
+## Semaine 6 (12/3):
 
+### Guan Olivier 
+<span style="color:green">**Fait:**</span>
+
+- Création d'une partie totalement custom (+ Revue de plusieurs classes s'articulant autour)
+- Classes de création de composants graphiques
+- Qq améliorations dans les collisions briques/balle (minimes)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Régler les problèmes des collisions avec la physique pris en compte également (avec Ilias)
+- Affichage des infos de parties plus complètes (si pas encore fait d'ici là)
+  
+### Benmalek Majda 
+<span style="color:green">**Fait:**</span>
+
+- Changement dans l'affichage des vies 
+- Travail sur l'integration d'image et de changer le visuel de la balle/brique/racket/vies par rapport au theme choisi
+
+<span style="color:purple">**A Faire:**</span>
+- Avoir des image pour chaque cas 
+- Ameliorer le visuel 
+- Créer un ecran de victoire 
+
+### Mushtaq Amenah 
+<span style="color:green">**Fait:**</span>
+- Debut du mode infini 
+
+<span style="color:purple">**A Faire:**</span>
+- Suite du mode infini
+
+### Bencheikh Ilias
+<span style="color:green">**Fait:**</span>
+
+- Amélioration des effets de la balle 
+- Implémentation de la physique dans le jeu #47
+- Début de javadoc (pdf expliquant comment bouge la balle) #48
+    
+<span style="color:purple">**A Faire:**</span>
+
+- Réparer le simulateur #53
+- Régler le problème de FPS #43
+- Régler le problème de trajectoire #46
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+
+### Belhassen Rayan  
+<span style="color:green">**Fait:**</span>
+
+- boost: nouveau boost zhonya 
+
+<span style="color:purple">**A Faire:**</span>
+
+- terminer repair_software 
+
+### À faire
+
+- lister quelques phénomènes physiques amusants à ajouter, écrire les issues, rechercher la physique, commencer à implémenter

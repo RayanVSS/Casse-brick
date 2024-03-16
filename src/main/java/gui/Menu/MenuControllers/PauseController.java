@@ -3,6 +3,7 @@ package gui.Menu.MenuControllers;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import config.Game;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.PauseView;
@@ -23,9 +24,11 @@ public class PauseController {
     }
 
     private void replay() {
+        view.getStageLevel().resetGame();
         view.getChildren().clear();
         this.timer.cancel();
-        new GameView(view.getPrimaryStage(), 1);
+        Game.score = 0;
+        new GameView(view.getPrimaryStage(), view.getStageLevel());
     }
 
     private void quit() {
