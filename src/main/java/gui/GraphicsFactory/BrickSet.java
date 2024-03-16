@@ -6,7 +6,6 @@ import gui.ImageLoader;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import utils.GameConstants;
-import entity.EntityColor;
 
 public class BrickSet extends Group {
     Image image = ImageLoader.loadImage("src/main/ressources/briquee.png");

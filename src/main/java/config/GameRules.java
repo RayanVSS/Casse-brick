@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import entity.EntityColor;
-import entity.ball.Ball;
+import physics.entity.Ball;
 import entity.brick.Brick;
-import geometry.Coordinates;
+import physics.geometry.Coordinates;
 import utils.GameConstants;
 
 public class GameRules {

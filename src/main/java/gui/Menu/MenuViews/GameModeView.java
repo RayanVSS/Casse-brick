@@ -4,7 +4,6 @@ import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameModeController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;

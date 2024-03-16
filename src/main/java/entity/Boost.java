@@ -1,14 +1,9 @@
 package entity;
 
-import java.util.List;
-
-import org.checkerframework.checker.units.qual.s;
-
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import physics.entity.Racket;
+import physics.geometry.Coordinates;
 import utils.GameConstants;
-import entity.racket.Racket;
-import geometry.Coordinates;
 
 public class Boost extends Rectangle {
     private String[] typesList = GameConstants.BONUS_LIST;

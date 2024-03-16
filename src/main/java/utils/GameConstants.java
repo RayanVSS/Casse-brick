@@ -1,18 +1,20 @@
 package utils;
 
-import java.util.Random;
-
 import config.GameRules;
 import config.GameRules.BricksArrangement;
-import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.racket.ClassicRacket;
-import entity.racket.Racket;
-import geometry.Coordinates;
-import geometry.Vector;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import physics.geometry.Coordinates;
+import physics.geometry.Vector;
+import physics.config.PhysicSetting;
+import physics.entity.*;
+import entity.ball.*;
+import entity.racket.*;
+import java.util.Random;
+
 public final class GameConstants {
 
     	// brick
@@ -25,12 +27,12 @@ public final class GameConstants {
     	public static final int BRICK_HEIGHT = 32;
 
     	// ball
-    	public static final int DEFAULT_BALL_SPEED = 5;
+    	public static final int DEFAULT_BALL_SPEED = 3;
     	public static final int DEFAULT_BALL_RADIUS = 10;
     
 
-	static Random rand = new Random();
-	public static final Vector DEFAULT_BALL_START_DIRECTION = new Vector(
+	    static Random rand = new Random();
+	    public static final Vector DEFAULT_BALL_START_DIRECTION = new Vector(
 			new Coordinates(rand.nextBoolean() ? 1 : -1, rand.nextBoolean() ? 1 : -1));
     	public static final Coordinates DEFAULT_BALL_START_COORDINATES = new Coordinates(
             			GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2, GameConstants.DEFAULT_WINDOW_HEIGHT / 2);
@@ -42,7 +44,7 @@ public final class GameConstants {
 
     	public static final double DEFAULT_WINDOW_WIDTH = 1100.0;
     	public static final double DEFAULT_WINDOW_HEIGHT = 800.0;
-	public static final double DEFAULT_GAME_ROOT_WIDTH = 1100.0 - 150.0;
+	    public static final double DEFAULT_GAME_ROOT_WIDTH = 1100.0 - 150.0;
 
     	// public static final double DEFAULT_WINDOW_WIDTH =
     	// Screen.getPrimary().getVisualBounds().getWidth();
