@@ -6,7 +6,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
-import physics.config.PhysicSetting;
 import physics.entity.*;
 import entity.ball.*;
 import entity.racket.*;
