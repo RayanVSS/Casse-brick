@@ -3,8 +3,10 @@ package gui;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Iterator;
-import javafx.scene.input.KeyCode;
+import java.util.List;
+import java.util.ArrayList;
 
+import javafx.scene.input.KeyCode;
 import config.Game;
 import config.StageLevel;
 import entity.Boost;
@@ -14,6 +16,7 @@ import gui.GraphicsFactory.ParticleGroup;
 import gui.GraphicsFactory.RacketGraphics;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.PauseView;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -49,13 +52,14 @@ public class GameRoot {
         this.primaryStage = primaryStage;
         this.graphBrickSet = new BrickSet(game.getMap().getBricks());
         this.graphBall = new BallGraphics(game.getBall());
-        this.graphRacket = new RacketGraphics(game.getRacket());
+        // rectangle rond losange triangle
+        this.graphRacket = new RacketGraphics(game.getRacket(), "rectangle");
         if (GameConstants.PARTICLES) {
             this.particleGroup = new ParticleGroup(root, game);
         }
         this.root.getChildren().add(graphBrickSet);
         this.root.getChildren().add(graphBall);
-        this.root.getChildren().add(graphRacket);
+        this.root.getChildren().add(graphRacket.getShape());
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         root.getStyleClass().add("game-backgorund");
         game.start();
@@ -64,7 +68,9 @@ public class GameRoot {
     public void update(long deltaT) {
         BoostAction();
         graphBall.update();
+        root.getChildren().remove(graphRacket.getShape());
         graphRacket.update();
+        root.getChildren().add(graphRacket.getShape()); // Ajoute la forme de la raquette mise à jour
         if (GameConstants.PARTICLES) {
             particleGroup.update();
         }
