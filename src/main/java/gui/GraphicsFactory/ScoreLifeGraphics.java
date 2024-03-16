@@ -2,12 +2,12 @@ package gui.GraphicsFactory;
 
 import config.Game;
 import config.StageLevel;
+import gui.Menu.Menu;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import utils.GameConstants;
 
@@ -18,7 +18,7 @@ import utils.GameConstants;
  * 
  * @author Benmalek Majda
  */
-public class ScoreLifeGraphics extends Pane {
+public class ScoreLifeGraphics extends Pane implements Menu {
     private Text scoreText;
     private int score;
     private int life;
@@ -31,6 +31,7 @@ public class ScoreLifeGraphics extends Pane {
     private ImageView lifeImage3 ;
     private Label niveau;
     private Game game;
+    private Label hiScore;
 
     /**
      * Constructeur de ScoreLifeView.
@@ -53,25 +54,31 @@ public class ScoreLifeGraphics extends Pane {
         lifeImage3 = initializeLifeImageView();
     
         lifeBox.getChildren().addAll(lifeImage1, lifeImage2, lifeImage3);
-        //lifeBox.setSpacing(10);
     
         scoreText = new Text("Score: " + score);
         scoreText.setX(20);
         scoreText.setY(80);
         scoreText.getStyleClass().add("scoreL-style");
 
-        niveau=new Label("Niveau: "+ (stage.getDifficulty()+1));
+        niveau=createLabel("Niveau: "+(stage.getDifficulty()+1), 0, 0);
         niveau.getStyleClass().add("scoreL-style");
         niveau.setLayoutX(20);
         niveau.setLayoutY(100);
-    
+
+        // hiScore = createLabel("High Score :", 0, 0);
+        // hiScore.getStyleClass().add("scoreL-style");
+        // hiScore.setLayoutX(20);
+        // hiScore.setLayoutY(160);
+        
         setLayoutX(10);
         setLayoutY(10);
         getChildren().add(lifeBox);
         getChildren().add(scoreText);
         getChildren().add(niveau);
+        //getChildren().add(hiScore);
         getStylesheets().add(GameConstants.CSS.getPath());
 
+        //ajout de la séparation
     }
 
     private Image initializeLifeImage() {
@@ -131,23 +138,5 @@ public class ScoreLifeGraphics extends Pane {
                 lifeImage3.setImage(lifeKO);
                 break;
         }
-    }
-
-    /**
-     * Méthode pour définir le score.
-     * 
-     * @param score Le nouveau score.
-     */
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    /**
-     * Méthode pour définir la vie.
-     * 
-     * @param life La nouvelle valeur de la .
-     */
-    public void setLife(int life) {
-        this.life = life;
     }
 }

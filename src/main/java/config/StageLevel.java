@@ -19,7 +19,6 @@ public class StageLevel {
     }
 
     public StageLevel(Game game, boolean customGame) {
-
         this.game = game;
         this.customGame = customGame;
     }
@@ -40,6 +39,8 @@ public class StageLevel {
     }
 
     public void resetGame() {
+        game.getBall().reset();
+        game.getRacket().reset();
         game = new Game(
                 GameConstants.PRECONFIG_GAME_BALL[difficulty],
                 GameConstants.PRECONFIG_GAME_RACKET[difficulty],
@@ -53,10 +54,10 @@ public class StageLevel {
     }
 
     public void winAction() {
-        
         if (!customGame) {
             if (!completed) {
                 completed = true;
+                this.setDifficulty(difficulty + 1);
                 PlayerData.expLevel++;
             }
             if (game.getScore() > maxScore) {
@@ -84,6 +85,10 @@ public class StageLevel {
 
     public Game getGame() {
         return game;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 
 }

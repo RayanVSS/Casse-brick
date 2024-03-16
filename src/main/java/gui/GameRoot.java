@@ -37,7 +37,7 @@ public class GameRoot {
     private GameView gameView;
     private StageLevel level;
 
-    public GameRoot( StageLevel level, GameView gameView, Scene scene, Stage primaryStage) {
+    public GameRoot(StageLevel level, GameView gameView, Scene scene, Stage primaryStage) {
         this.level = level;
         this.game = level.getGame();
         this.scene = scene;
@@ -75,19 +75,24 @@ public class GameRoot {
         game.update(deltaT);
         key.touchesM(scene, game);
         if (game.isLost()) {
-            //game.setLost(false);
+            // game.setLost(false);
             gameView.animationStop();
             gameView.getRoot().getChildren().add(new GameOverView(primaryStage, gameView));
             level.lostAction();
         }
         if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
+            level.resetGame();
+            gameView.getRoot().getChildren().add(new WinView(primaryStage, gameView, level));
             gameView.animationStop();
-            gameView.getRoot().getChildren().add(new PauseView(primaryStage, gameView.getRoot(), gameRoot.getRoot(),gameView.getAnimationTimer(), level));
+            // gameView.animationStop();
+            // gameView.getRoot().getChildren().add(new PauseView(primaryStage,
+            //         gameView.getRoot(), gameRoot.getRoot(), gameView.getAnimationTimer(), level));
         }
-        if(level.getGame().isWin()){
+        if (level.getGame().isWin()) {
+            //level.winAction();
+            level.resetGame();
+            gameView.getRoot().getChildren().add(new WinView(primaryStage, gameView, level));
             gameView.animationStop();
-            level.winAction();
-            gameView.getRoot().getChildren().add(new WinView(primaryStage, gameView));
         }
     }
 

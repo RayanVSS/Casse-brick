@@ -32,8 +32,8 @@ public class GameOverController {
      */
     private void replay() {
         Platform.runLater(() -> {
-            Game.score  = 0;
-            App.sceneManager.changeScene(view.getPrimaryStage(), "GameModeView");
+            Game.score=0;
+            new GameView(view.getPrimaryStage(), view.getGame().getStageLevel());
         });
     }
 
