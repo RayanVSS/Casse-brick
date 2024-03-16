@@ -2,6 +2,10 @@ package gui.GraphicsFactory;
 
 import javafx.scene.shape.Rectangle;
 import physics.entity.Racket;
+import entity.ball.ClassicBall;
+import entity.ball.GravityBall;
+import entity.ball.HyperBall;
+import entity.ball.MagnetBall;
 import entity.racket.*;
 import javafx.scene.paint.Color;
 
@@ -45,7 +49,7 @@ public class RacketGraphics extends Rectangle {
         setWidth(racket.getLargeur());
         setHeight(racket.getLongueur());
         if (racket instanceof MagnetRacket) {
-            if (MagnetRacket.getEtat().equals("positif")) {
+            if (((MagnetRacket) racket).getEtat().equals("positif")) {
                 setFill(Color.YELLOW);
             } else {
                 setFill(Color.GREEN);

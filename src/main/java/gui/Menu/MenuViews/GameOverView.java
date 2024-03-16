@@ -1,7 +1,6 @@
 package gui.Menu.MenuViews;
 
 import gui.GameView;
-import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameOverController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,18 +22,18 @@ public class GameOverView extends VBox implements Menu {
     private Button btnQuit;
     private Button btnMenu;
     private Label gameOver;
-    private GameView game;
+    private GameView gameView;
 
     /**
      * Constructeur de la classe GameOver.
      * 
      * @param p    Le stage principal de l'application.
-     * @param game Le pane du jeu.
+     * @param gameView Le pane du jeu.
      */
 
-    public GameOverView(Stage p,GameView game ) {
+    public GameOverView(Stage p,GameView gameView ) {
         this.primaryStage = p;
-        this.game = game;
+        this.gameView = gameView;
         gameOver = createLabel("Game Over", 0, 0);
         gameOver.getStyleClass().add("title-game-over-style");
         btnReplay=createButton("Rejouer",0,0);
@@ -42,10 +41,11 @@ public class GameOverView extends VBox implements Menu {
         btnMenu = createButton("Menu", 0, 0);
         getChildren().addAll(gameOver, btnReplay, btnMenu, btnQuit);
         getStyleClass().add("root-game-over");
-        setLayoutX(game.getRoot().getLayoutX());
-        setLayoutY(game.getRoot().getLayoutY());
-        setPrefWidth(game.getRoot().getWidth());
-        setPrefHeight(game.getRoot().getHeight());
+        setLayoutX(gameView.getRoot().getLayoutX());
+        setLayoutY(gameView.getRoot().getLayoutY());
+        setPrefWidth(gameView.getRoot().getWidth());
+        setPrefHeight(gameView.getRoot().getHeight());
+        //TODO : ajouter le game over dans le scene manager
         getStylesheets().add(GameConstants.CSS);
         new GameOverController(this);
     }
@@ -96,7 +96,16 @@ public class GameOverView extends VBox implements Menu {
         return gameOver;
     }
 
-    public GameView getGame() {
-        return game;
+    /**
+     * Getter pour la VBox racine.
+     * 
+     * @return La VBox racine.
+     */
+    public VBox getRoot() {
+        return this;
+    }
+
+    public GameView getGameView() {
+        return gameView;
     }
 }

@@ -9,12 +9,14 @@ import save.Sauvegarde;
 
 import static utils.GameConstants.LAST_SAVE;
 
+
 public class SaveController {
     private SaveView view;
     private Sauvegarde sauvegarde = new Sauvegarde();
     private Map<String, Object> donnees = new HashMap<>();
 
-    public SaveController(Stage p, SaveView view) {
+
+    public SaveController(Stage p , SaveView view) {
         this.view = view;
         this.view.getBtnBack().setOnAction(e -> back());
         this.view.getBtnload().setOnAction(e -> load());
@@ -25,7 +27,7 @@ public class SaveController {
     }
 
     private void back() {
-        // new StartMenuView(view.getPrimaryStage());
+        //new StartMenuView(view.getPrimaryStage());
         Platform.runLater(() -> {
             App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
         });
@@ -36,10 +38,10 @@ public class SaveController {
             view.afficherMessage("vous n'etes pas connecté a une sauvegarde");
             return;
         } else {
-            // sa marche pas
+            //sa marche pas
             String saveName = LAST_SAVE.replace(".json", "");
             System.out.println(saveName);
-            sauvegarde.sauvegarderToutesDonnees(saveName);
+            sauvegarde.sauvegarderOptionsDuJeu(saveName);
             view.afficherMessage("Sauvegarde '" + LAST_SAVE + "' effectuée avec succès");
         }
 
@@ -49,10 +51,9 @@ public class SaveController {
         String selectedSauvegarde = view.getListSave().getValue();
         System.out.println(selectedSauvegarde);
 
-        if (selectedSauvegarde != null) { // si une sauvegarde est sélectionnée
-            sauvegarde.chargerToutesDonnees(selectedSauvegarde); // Charger la sauvegarde sélectionnée dans le fichier
-            view.afficherMessage("Sauvegarde '" + selectedSauvegarde + "' chargée avec succès"); // Afficher un message
-                                                                                                 // de confirmation
+        if (selectedSauvegarde != null) { //si une sauvegarde est sélectionnée 
+            sauvegarde.chargerOptionsDuJeu(selectedSauvegarde); // Charger la sauvegarde sélectionnée dans le fichier
+            view.afficherMessage("Sauvegarde '" + selectedSauvegarde + "' chargée avec succès"); // Afficher un message de confirmation
         } else {
             view.afficherMessage("Veuillez sélectionner une sauvegarde à charger"); // Afficher un message d'erreur
         }
@@ -60,12 +61,10 @@ public class SaveController {
 
     private void delete() {
         String selectedSauvegarde = view.getListSave().getValue();
-        if (selectedSauvegarde != null) { // si une sauvegarde est sélectionnée
+        if (selectedSauvegarde != null) { //si une sauvegarde est sélectionnée
             sauvegarde.supprimerSauvegarde(selectedSauvegarde);// Supprimer la sauvegarde sélectionnée dans le fichier
-            view.getListSave().getItems().remove(selectedSauvegarde); // Supprimer la sauvegarde sélectionnée dans la
-                                                                      // ComboBox
-            view.afficherMessage("Sauvegarde " + selectedSauvegarde + " supprimée avec succès"); // Afficher un message
-                                                                                                 // de confirmation
+            view.getListSave().getItems().remove(selectedSauvegarde); // Supprimer la sauvegarde sélectionnée dans la ComboBox
+            view.afficherMessage("Sauvegarde " + selectedSauvegarde + " supprimée avec succès"); // Afficher un message de confirmation
         } else {
             view.afficherMessage("Veuillez sélectionner une sauvegarde à supprimer"); // Afficher un message d'erreur
         }
@@ -73,11 +72,9 @@ public class SaveController {
 
     private void ok() {
         String nomUtilisateur = view.getNameSave().getText(); // Récupérer le nom de l'utilisateur
-        sauvegarde.sauvegarderToutesDonnees(nomUtilisateur); // Sauvegarder les options du jeu
-        if (!view.getListSave().getItems().contains(nomUtilisateur + ".json")) // Si le nom de l'utilisateur n'est pas
-                                                                               // déjà dans la ComboBox
-            view.getListSave().getItems().add(nomUtilisateur + ".json"); // Ajouter le nom de l'utilisateur à la
-                                                                         // ComboBox
+        sauvegarde.sauvegarderOptionsDuJeu(nomUtilisateur); // Sauvegarder les options du jeu
+        if (!view.getListSave().getItems().contains(nomUtilisateur + ".json")) // Si le nom de l'utilisateur n'est pas déjà dans la ComboBox
+            view.getListSave().getItems().add(nomUtilisateur + "json"); // Ajouter le nom de l'utilisateur à la ComboBox
         view.afficherMessage("c'est bon"); // Afficher un message de confirmation
     }
 
@@ -86,4 +83,7 @@ public class SaveController {
         sauvegarde.resetLastSave(); // Réinitialiser la dernière sauvegarde
     }
 
+
+
+    
 }

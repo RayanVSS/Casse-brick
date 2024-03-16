@@ -1,6 +1,5 @@
 package gui.Menu.MenuViews;
 
-import gui.Menu.Menu;
 import gui.Menu.MenuControllers.OptionsController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -49,26 +48,15 @@ public class OptionsView implements Menu {
         VBox v1 = new VBox();
         // Bouton pour afficher les FPS
         Label labelfps = createLabel("Afficher les FPS", 0, 0);
-        if(GameConstants.FPS){
-            buttonfps = createToggleButton("ON", false);
-        }else{
-            buttonfps = createToggleButton("OFF", false);
-        }
+        buttonfps = createToggleButton("OFF", false);
+
         // Bouton pour afficher le chemin de la balle
         Label labelpath = createLabel("Afficher le chemin de la balle", 0, 0);
-        if(GameConstants.PATH){
-            buttonpath = createToggleButton("ON", false);
-        }else{
-            buttonpath = createToggleButton("OFF", false);
-        }
+        buttonpath = createToggleButton("OFF", false);
 
         // Bouton pour afficher les trainées de particules
         Label labelparticles = createLabel("Afficher les particules", 0, 0);
-        if(GameConstants.PARTICLES){
-            buttonparticles = createToggleButton("ON", false);
-        }else{
-            buttonparticles = createToggleButton("OFF", false);
-        }
+        buttonparticles = createToggleButton("ON", false);
 
         v1.getChildren().addAll(labelfps, buttonfps, labelpath, buttonpath, labelparticles, buttonparticles);
 
@@ -85,9 +73,8 @@ public class OptionsView implements Menu {
         // ComboBox pour choisir le thème
         Label labeltheme = createLabel("Themes: ", 0, 0);
         listTheme = new ComboBox<String>();
-        listTheme.setPromptText("Choisissez un theme");
-
-        listTheme.getItems().addAll("dark", "pink", "light", "protanopie", "deuteranopie", "tritanopie","achromatopsie");
+        listTheme.setPromptText("Choisir un theme");
+        listTheme.getItems().addAll("dark", "pink", "light");
 
         v2.getChildren().addAll(labelmusic, volumemusic, labelsound, volumesound, labeltheme, listTheme);
 
@@ -108,6 +95,15 @@ public class OptionsView implements Menu {
 
         v3.getChildren().addAll(labelleft, buttonleft, labelright, buttonright, labelpower, buttonpower);
 
+        // Ajout des VBox à la racine et mise en forme
+        // v1.setAlignment(javafx.geometry.Pos.CENTER);
+        // v2.setAlignment(javafx.geometry.Pos.CENTER);
+        // v3.setAlignment(javafx.geometry.Pos.CENTER);
+        // v1.setSpacing(20);
+        // v2.setSpacing(20);
+        // v3.setSpacing(20);
+        // root.setAlignment(javafx.geometry.Pos.CENTER);
+        // root.setSpacing(50);
         v1.getStyleClass().add("vbox");
         v2.getStyleClass().add("vbox");
         v3.getStyleClass().add("vbox");

@@ -1,6 +1,5 @@
 package gui.Menu.MenuViews;
 
-import gui.Menu.Menu;
 import gui.Menu.MenuControllers.StartMenuController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

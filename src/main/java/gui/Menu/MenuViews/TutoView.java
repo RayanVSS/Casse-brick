@@ -4,7 +4,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import utils.GameConstants;
-import gui.Menu.Menu;
 import gui.Menu.SceneManager;
 import gui.Menu.MenuControllers.TutoController;
 import javafx.scene.Scene;

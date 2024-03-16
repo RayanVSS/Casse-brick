@@ -10,11 +10,6 @@ public class Vector {
         this.y = c.getY();
     }
 
-    public Vector(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
-
     public double getX() {
         return x;
     }

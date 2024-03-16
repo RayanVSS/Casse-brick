@@ -2,9 +2,10 @@
   "PATH": false,
   "SPACE": "SPACE",
   "MUSIC": 50,
-  "PARTICLES": false,
-  "LEFT": "LEFT",
-  "FPS": true,
+  "CSS": "/styles/light.css",
+  "PARTICLES": true,
+  "LEFT": "G",
+  "FPS": false,
   "SOUND": 50,
   "RIGHT": "RIGHT"
 }

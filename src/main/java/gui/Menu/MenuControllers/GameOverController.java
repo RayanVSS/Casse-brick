@@ -1,6 +1,6 @@
 package gui.Menu.MenuControllers;
 
-import config.Game;
+
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.GameOverView;
@@ -20,8 +20,8 @@ public class GameOverController {
      * @param p Le stage principal sur lequel la vue de fin de partie est affichée.
      * @param gameView La vue de fin de partie.
      */
-    public GameOverController(GameOverView gameView) {
-        this.view = gameView;
+    public GameOverController( GameOverView gameView) {
+        this.view=gameView;
         this.view.getBtnReplay().setOnAction(e -> replay());
         this.view.getBtnQuit().setOnAction(e -> quit());
         this.view.getBtnMenu().setOnAction(e -> menu());
@@ -32,8 +32,7 @@ public class GameOverController {
      */
     private void replay() {
         Platform.runLater(() -> {
-            Game.score  = 0;
-            new GameView(view.getPrimaryStage(), view.getGame().getStageLevel());
+            new GameView( view.getPrimaryStage(), 1);
         });
     }
 
@@ -42,8 +41,6 @@ public class GameOverController {
      */
     private void quit() {
         view.getPrimaryStage().close();
-        Platform.exit();
-        System.exit(0);
     }
 
     /**
@@ -53,5 +50,6 @@ public class GameOverController {
         Platform.runLater(() -> {
             App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
         });
+        
     }
 }
