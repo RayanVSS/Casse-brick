@@ -243,6 +243,13 @@ public abstract class Racket {
         }
     }
 
+    public void reset(){
+        Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5, GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
+        Vector direction = new Vector(c);
+        this.setC(c);
+        this.setDirection(direction);
+    }
+
     // GET et SET
     public Boolean getJump() {
         return jump;

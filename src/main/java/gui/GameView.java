@@ -30,7 +30,7 @@ public class GameView {
         this.stageLevel = stageLevel;
         Game game = stageLevel.getGame();
         gameRoot = new GameRoot(stageLevel, this, scene, p);
-        scoreLifeView = new ScoreLifeGraphics(game);
+        scoreLifeView = new ScoreLifeGraphics(stageLevel);
         root.getStyleClass().add("game-backgorund");
         if(GameConstants.FPS)
             SLFPS.getChildren().add(fpsGraphics);
@@ -45,7 +45,7 @@ public class GameView {
         this.animation();
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
-        //game.start();
+        game.start();
     }
 
     public void animation() {

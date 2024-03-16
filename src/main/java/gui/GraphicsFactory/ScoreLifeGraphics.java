@@ -1,6 +1,8 @@
 package gui.GraphicsFactory;
 
 import config.Game;
+import config.StageLevel;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -20,13 +22,15 @@ public class ScoreLifeGraphics extends Pane {
     private Text scoreText;
     private int score;
     private int life;
-    private Game game;
+    private StageLevel stage;
     private HBox lifeBox;
     private Image lifeOK ;
     private Image lifeKO ;
     private ImageView lifeImage1  ;
     private ImageView lifeImage2;
     private ImageView lifeImage3 ;
+    private Label niveau;
+    private Game game;
 
     /**
      * Constructeur de ScoreLifeView.
@@ -34,8 +38,9 @@ public class ScoreLifeGraphics extends Pane {
      * @param game L'instance de Game à partir de laquelle obtenir le score et la
      *             vie.
      */
-    public ScoreLifeGraphics(Game game) {
-        this.game = game;
+    public ScoreLifeGraphics(StageLevel stage) {
+        this.stage = stage;
+        this.game = stage.getGame();
         score = game.getScore();
         life = game.getLife();
         lifeBox = new HBox();
@@ -55,11 +60,16 @@ public class ScoreLifeGraphics extends Pane {
         scoreText.setY(80);
         scoreText.getStyleClass().add("scoreL-style");
 
+        niveau=new Label("Niveau: "+ (stage.getDifficulty()+1));
+        niveau.getStyleClass().add("scoreL-style");
+        niveau.setLayoutX(20);
+        niveau.setLayoutY(100);
     
         setLayoutX(10);
         setLayoutY(10);
         getChildren().add(lifeBox);
         getChildren().add(scoreText);
+        getChildren().add(niveau);
         getStylesheets().add(GameConstants.CSS.getPath());
 
     }

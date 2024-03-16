@@ -14,6 +14,7 @@ import gui.GraphicsFactory.ParticleGroup;
 import gui.GraphicsFactory.RacketGraphics;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.PauseView;
+import gui.Menu.MenuViews.WinView;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -86,6 +87,7 @@ public class GameRoot {
         if(level.getGame().isWin()){
             gameView.animationStop();
             level.winAction();
+            gameView.getRoot().getChildren().add(new WinView(primaryStage, gameView));
         }
     }
 

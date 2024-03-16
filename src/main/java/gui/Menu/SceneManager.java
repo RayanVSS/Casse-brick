@@ -16,7 +16,6 @@ import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
-import gui.Menu.MenuViews.TutoView;
 import javafx.util.Duration;
 import utils.GameConstants;
 
@@ -91,7 +90,6 @@ public class SceneManager {
         createStartMenuViewScene(primaryStage);
         createOptionsViewScene(primaryStage);
         createSaveViewScene(primaryStage);
-        createTutoViewScene(primaryStage);
         createGameModeViewScene(primaryStage);
         createStageSelectorViewScene(primaryStage);
         createGameCustomizerViewScene(primaryStage);
@@ -115,12 +113,6 @@ public class SceneManager {
         SaveView saveView = new SaveView(primaryStage);
         addStylesheet(saveView.getScene());
         addScene("SaveView", saveView.getScene());
-    }
-
-    public void createTutoViewScene(Stage primaryStage) {
-        TutoView tutoView = new TutoView(primaryStage);
-        addStylesheet(tutoView.getScene());
-        addScene("TutoView", tutoView.getScene());
     }
 
     public void createGameModeViewScene(Stage primaryStage) {

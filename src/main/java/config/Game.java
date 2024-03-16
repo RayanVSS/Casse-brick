@@ -47,7 +47,6 @@ public class Game {
         if (inGameTimer == null) {
             inGameTimer = new Timer();
             inGameTimer.scheduleAtFixedRate(new TimerTask() {
-
                 @Override
                 public void run() { // chaque seconde
                     timeElapsed++;
@@ -84,6 +83,7 @@ public class Game {
         if (!ball.movement()) {
             life--;
             ball.reset();
+            racket.reset();
         }
         if (life == 0 || !rules.check()) {
             lost = true;

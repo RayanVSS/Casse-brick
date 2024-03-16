@@ -53,7 +53,7 @@ public class StageLevel {
     }
 
     public void winAction() {
-
+        
         if (!customGame) {
             if (!completed) {
                 completed = true;

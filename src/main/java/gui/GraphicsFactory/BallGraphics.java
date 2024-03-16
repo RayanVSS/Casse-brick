@@ -1,7 +1,5 @@
 package gui.GraphicsFactory;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import physics.entity.Ball;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
@@ -59,11 +57,6 @@ import entity.ball.MagnetBall;
 // }
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import physics.entity.Ball;
-import entity.ball.ClassicBall;
-import entity.ball.GravityBall;
-import entity.ball.HyperBall;
-import entity.ball.MagnetBall;
 
 public class BallGraphics extends ImageView {
 
@@ -72,24 +65,25 @@ public class BallGraphics extends ImageView {
     public BallGraphics(Ball ball) {
         this.ball = ball;
         if (ball instanceof ClassicBall)
-            setImage(new Image("/balle/balle1.png")); // Initialisez l'image
+            //setImage(new Image("/balle/balle1.png")); // Initialisez l'image
+            setImage(new Image("/balle/positif.png"));
         else if (ball instanceof HyperBall)
             setImage(new Image("/lifeScore/balle2.png")); // Initialisez l'image
         else if (ball instanceof GravityBall)
             setImage(new Image("/lifeScore/lifeGravity.png")); // Initialisez l'image
         else if (ball instanceof MagnetBall)
             setImage(new Image("/lifeScore/lifeKO.png")); // Initialisez l'image
-        setX(ball.getC().getX() - ball.getRadius());
-        setY(ball.getC().getY() - ball.getRadius());
-        setFitWidth(ball.getRadius() * 3);
-        setFitHeight(ball.getRadius() * 3);
+        setX(ball.getC().getX()-ball.getRadius());
+        setY(ball.getC().getY()-ball.getRadius() );
+        setFitWidth(ball.getRadius()*3);
+        setFitHeight(ball.getRadius()*3);
         setSmooth(true);
         setCache(true);
     }
 
     public void update() {
-        setX(ball.getC().getX() - ball.getRadius());
-        setY(ball.getC().getY() - ball.getRadius());
+        setX(ball.getC().getX()- ball.getRadius());
+        setY(ball.getC().getY()- ball.getRadius());
         if (ball instanceof MagnetBall) {
             if (((MagnetBall) ball).getEtat().equals("positif"))
                 setImage(new Image("/balle/positif.png"));
