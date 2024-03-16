@@ -51,6 +51,12 @@
 }
 
 /* LES TEXTES + LABELS */
+.fin-label{
+    -fx-font-size: 35px;
+    -fx-text-fill: #1DA1F2;
+    -fx-font-weight: bold;
+}
+
 .text-style, .title-style, .title-game-over-style {
     -fx-font-size: 20px;
     -fx-fill: #1DA1F2;

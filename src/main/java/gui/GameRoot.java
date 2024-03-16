@@ -81,15 +81,11 @@ public class GameRoot {
             level.lostAction();
         }
         if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
-            level.resetGame();
-            gameView.getRoot().getChildren().add(new WinView(primaryStage, gameView, level));
             gameView.animationStop();
-            // gameView.animationStop();
-            // gameView.getRoot().getChildren().add(new PauseView(primaryStage,
-            //         gameView.getRoot(), gameRoot.getRoot(), gameView.getAnimationTimer(), level));
+            gameView.getRoot().getChildren().add(new PauseView(primaryStage,
+                    gameView.getRoot(), gameRoot.getRoot(), gameView.getAnimationTimer(), level));
         }
         if (level.getGame().isWin()) {
-            //level.winAction();
             level.resetGame();
             gameView.getRoot().getChildren().add(new WinView(primaryStage, gameView, level));
             gameView.animationStop();
