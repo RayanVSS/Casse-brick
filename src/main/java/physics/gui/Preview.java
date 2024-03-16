@@ -1,10 +1,11 @@
-package physics;
+package physics.gui;
 
 import java.util.ArrayList;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import physics.AppPhysic;
 import physics.config.PhysicEngine;
 import physics.config.PhysicSetting;
 import physics.entity.Ball;
@@ -52,9 +53,9 @@ public class Preview {
         this.d_trajectory = new Vector(new Coordinates(b.getDirection().getX(), b.getDirection().getY()));
     }
 
-    public Coordinates trajectory(){
+    public void trajectory(){
         double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
-        double w = GameConstants.DEFAULT_WINDOW_WIDTH;
+        double w = PhysicEngine.f_WIDTH;
         double newX = c_trajectory.getX() + d_trajectory.getX() * ball.getSpeed() ;
         double newY = c_trajectory.getY() + d_trajectory.getY() * ball.getSpeed() ;
         if (CollisionR) {
@@ -62,8 +63,9 @@ public class Preview {
             newY = c_trajectory.getY() + d_trajectory.getY()*ball.getSpeed();
             CollisionR = false;
         }
-        if (newX < PhysicEngine.START || newX > w - ball.getRadius()) {
-            d_trajectory.setX(-d_trajectory.getX()+(ball.getRotation().getEffect()/90)*d_trajectory.getX());
+        if (newX < PhysicEngine.d_WIDTH || newX > w - ball.getRadius()) {
+            d_trajectory.setX(-d_trajectory.getX());
+            d_trajectory.setY(d_trajectory.getY()+(ball.getRotation().getEffect()/90)*d_trajectory.getY());
             newX = c_trajectory.getX() + d_trajectory.getX()*ball.getSpeed();
             d_trajectory.setX(d_trajectory.getX()*physics.getRetention());
         }
@@ -76,7 +78,6 @@ public class Preview {
         d_trajectory.add(physics.getWind());
         physics.checkGravity(c_trajectory, d_trajectory);
         dt_circle++;
-        return c_trajectory;
     }
 
     public void init_path(){
@@ -108,22 +109,21 @@ public class Preview {
 
     public void add_circle(){
         if(PhysicEngine.PATH){
-            Coordinates c = trajectory();
             if (dt_circle>=5) {
                 dt_circle=0;
-                Circle c1 = new Circle(c.getX(), c.getY(), 2);
+                Circle c1 = new Circle(c_trajectory.getX(), c_trajectory.getY(), 2);
                 c1.setFill(Color.BLUE);
                 root.getChildren().add(c1);
                 circles.add(c1);
                 root.getChildren().remove(circles.get(0));
-                path = new Coordinates(c.getX(), c.getY());
+                path = new Coordinates(circles.get(0).getCenterX(), circles.get(0).getCenterY());
                 circles.remove(0);
             }
         }
     }
 
     public void check(){
-        if(path!=null && (ball.getC().getX()!=path.getX() || ball.getC().getY()!=path.getY())){
+        if(path!=null && dt_circle==0 && ((ball.getC().getX()>path.getX()+1 || ball.getC().getX()<path.getX()-1 || ball.getC().getY()>path.getY()+1 || ball.getC().getY()<path.getY()-1))){
             init_path();
             path = null;
         }
@@ -133,6 +133,36 @@ public class Preview {
         if (PhysicEngine.PATH && physics.checkCollisionRacket(r, c_trajectory, d_trajectory)) {
             CollisionR = true;
         }
+    }
+
+    public static ArrayList<Circle> preview_no_effect(Ball b , Pane root){
+        ArrayList<Circle> circles = new ArrayList<Circle>();
+        Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY());
+        Vector d = new Vector(new Coordinates(b.getDirection().getX(), b.getDirection().getY()));
+        for(int i = 0; i<50; i++){
+            double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
+            double w = PhysicEngine.f_WIDTH;
+            double newX = c.getX() + d.getX() * b.getSpeed() ;
+            double newY = c.getY() + d.getY() * b.getSpeed() ;
+            if (newX < PhysicEngine.d_WIDTH || newX > w - b.getRadius()) {
+                d.setX(-d.getX());
+                newX = c.getX() + d.getX()*b.getSpeed();
+            }
+            if (newY < 0 || newY > h - b.getRadius()) {
+                d.setY(-d.getY());
+                newY = c.getY() + d.getY()*b.getSpeed();
+            } 
+            c=new Coordinates(newX, newY);
+            AppPhysic.physics.checkGravity(c, d);
+            if(i%5==0){
+                Circle c1 = new Circle(c.getX(), c.getY(), 2);
+                c1.setFill(Color.RED);
+                circles.add(c1);
+                root.getChildren().add(c1);
+            }
+
+        }
+        return circles;
     }
 
 }

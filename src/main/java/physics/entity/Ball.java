@@ -3,6 +3,7 @@ package physics.entity;
 import entity.EntityColor;
 import entity.brick.Brick;
 import physics.geometry.*;
+import physics.gui.Preview;
 import physics.config.PhysicSetting;
 import utils.GameConstants;
 
@@ -22,10 +23,11 @@ public abstract class Ball {
     private EntityColor color;
     private Rotation rotation = new Rotation();
     private PhysicSetting physicSetting = new PhysicSetting();
+    private Preview preview;
 
     // colision avec racket
-    public static boolean CollisionR = false;
-    public static boolean CollisionR_Side = false;
+    public boolean CollisionR = false;
+    public boolean CollisionR_Side = false;
 
     public Ball() {
         c=new Coordinates(0, 0);
@@ -82,7 +84,7 @@ public abstract class Ball {
         CollisionR = b;
     }
 
-    public static boolean getCollisionR() {
+    public boolean getCollisionR() {
         return CollisionR;
     }
 
@@ -108,6 +110,22 @@ public abstract class Ball {
 
     public Rotation getRotation() {
         return rotation;
+    }
+
+    public void setPreview(Preview p) {
+        this.preview = p;
+    }
+
+    public Preview getPreview() {
+        return this.preview;
+    }
+
+    public void updatePreview() {
+        if (this.preview != null) {
+            preview.trajectory();
+            preview.add_circle();
+            preview.check();
+        }
     }
 
     public boolean intersectBrick(Brick b) {
@@ -186,6 +204,11 @@ public abstract class Ball {
             }
             return true;
         }
+        return false;
+    }
+
+    public boolean checkCollisionOtherBall(Ball b){
+        // TODO : implement this method
         return false;
     }
 

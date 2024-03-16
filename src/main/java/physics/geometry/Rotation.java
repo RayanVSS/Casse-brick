@@ -18,10 +18,10 @@ public class Rotation {
 
     public void addEffect(char d) {
         if(d=='d'){
-            this.angle += 10;
+            this.angle += 30;
         }
         else{
-            this.angle -= 10;
+            this.angle -= 30;
         }
     }
 
@@ -31,10 +31,10 @@ public class Rotation {
 
     public void Collision() {
         if(angle>0){
-            angle -= 2;
+            angle -= 5;
         }
         else if(angle<0){
-            angle += 2;
+            angle += 5;
         }
     }
 
