@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import utils.GameConstants;
 
 public class BrickSet extends Group {
-    Image image = ImageLoader.loadImage("src/main/ressources/briquee.png");
+    Image image = ImageLoader.loadImage("src/main/ressources/briquee.png"); 
 
     public BrickSet(Brick[][] tab) {
         int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;
@@ -16,16 +16,18 @@ public class BrickSet extends Group {
         for (int i = indexFirstColumn; i < indexFirstColumn +
                 GameConstants.COLUMNS_OF_BRICKS; i++) {
             for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) {
-                EntityColor c = tab[i][j].getColor();
-                if (c != null) {
-                    brick = new BricksGraphics(tab[i][j], i, j, c);
-                } else {
-                    brick = new BricksGraphics(tab[i][j], i, j);
+                if (tab[i][j] != null) {
+                    EntityColor c = tab[i][j].getColor();
+                    if (c != null) {
+                        brick = new BricksGraphics(tab[i][j], i, j, c);
+                    } else {
+                        brick = new BricksGraphics(tab[i][j], i, j);
+                    }
+                    brick.setLayoutX(i * GameConstants.BRICK_WIDTH);
+                    brick.setLayoutY(j * GameConstants.BRICK_HEIGHT);
+                    brick.setVisible(true);
+                    this.getChildren().add(brick);
                 }
-                brick.setLayoutX(i * GameConstants.BRICK_WIDTH);
-                brick.setLayoutY(j * GameConstants.BRICK_HEIGHT);
-                brick.setVisible(true);
-                this.getChildren().add(brick);
             }
         }
     }

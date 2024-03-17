@@ -2,9 +2,9 @@ package physics.config;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import physics.AppPhysic;
-import physics.Preview;
 import physics.entity.Ball;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
@@ -12,12 +12,17 @@ import physics.geometry.Vector;
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 import javafx.scene.input.KeyCode;
+import javafx.scene.shape.Shape;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import config.Game;
+
+import java.util.Map;
 import gui.GraphicsFactory.RacketGraphics;
 import physics.gui.OptionBar;
+import physics.gui.Preview;
 import utils.GameConstants;
 import utils.Key;
 
@@ -39,25 +44,23 @@ import utils.Key;
 
 public class PhysicEngine {
 
-    // Initialisation des objets
-    public static double WIDTH = GameConstants.DEFAULT_WINDOW_WIDTH;
-    public static double START = 0;
-    public static boolean PATH = true;
-    public static boolean RACKET = true;
-
-    Stage primaryStage;
-    Pane root;
-    public OptionBar optionBar;
+    //Initialisation des objets
+    public static double f_WIDTH = GameConstants.DEFAULT_WINDOW_WIDTH;
+    public static double d_WIDTH = 0;
+    public static boolean PATH=true; 
+    public static boolean RACKET=true;
+    
+    private Stage primaryStage;
+    private Pane root;
+    private OptionBar optionBar;
 
     PhysicSetting physics;
 
-    Ball ball;
+    Map<Ball,Circle> listball=new java.util.HashMap<>();
     Circle graphBall;
 
-    Preview preview;
-
     Racket racket;
-    RacketGraphics graphRacket;
+    Shape graphRacket;
     Key key = new Key();
 
     public static Set<KeyCode> direction = new HashSet<KeyCode>();
@@ -74,55 +77,51 @@ public class PhysicEngine {
 
         this.primaryStage = pStage;
         root = new Pane();
-        optionBar = new OptionBar(primaryStage);
-        primaryStage.setScene(
-                new javafx.scene.Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT));
+        optionBar = new OptionBar(root,listball);
+        primaryStage.setScene(new javafx.scene.Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT));
 
         // Initialisation de la simulation
 
         this.physics = AppPhysic.physics;
-        physics.setRetention(0.8);
 
-        ball = init_ball();
-
-        // Initialisation de la partie graphique
-
-        if (RACKET) {
-            racket = init_racket();
-            graphRacket = new RacketGraphics(racket, "rectangle");
-            graphRacket.getShape().setFill(Color.BLACK);
-            root.getChildren().add(graphRacket.getShape());
-        }
-
+        Ball ball = init_ball();
         graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getRadius() * 2);
         root.getChildren().add(graphBall);
+        listball.put(ball, graphBall);
+    
+
+        if(RACKET){
+            racket=init_racket();
+            graphRacket = (new RacketGraphics(racket,"rectangle")).getShape();
+            graphRacket.setFill(Color.BLACK);
+            root.getChildren().add(graphRacket);
+        }
         primaryStage.show();
 
         // Initialisation de la trajectoire
 
-        preview = new Preview(ball, physics, root);
-        preview.init_path();
+        ball.setPreview(new Preview(ball, physics, root));
+        ball.getPreview().init_path();
 
-        // Initialisation des evenements de la souris
+        //Initialisation des evenements de la souris
 
         graphBall.setOnMousePressed(event -> {
-            mouseX = event.getSceneX();
-            mouseY = event.getSceneY();
-            double ballX = ball.getC().getX();
-            double ballY = ball.getC().getY();
-            double distance = Math.sqrt(Math.pow(mouseX - ballX, 2) + Math.pow(mouseY - ballY, 2));
-            if (distance <= ball.getRadius() + 10) {
-                isMouseDraggingBall = true;
-                preview.clear_path(root);
+            if(!optionBar.isBar()){
+                mouseX = event.getSceneX();
+                mouseY = event.getSceneY();
+                double ballX = ball.getC().getX();
+                double ballY = ball.getC().getY();
+                double distance = Math.sqrt(Math.pow(mouseX - ballX, 2) + Math.pow(mouseY - ballY, 2));
+                if (distance <= ball.getRadius()+10) {
+                    isMouseDraggingBall = true;
+                    ball.getPreview().clear_path(root);
+                }
             }
         });
 
         graphBall.setOnMouseDragged(event -> {
-            if (isMouseDraggingBall) {
-                if (event.getSceneX() > ball.getRadius()
-                        && event.getSceneX() < GameConstants.DEFAULT_WINDOW_WIDTH - ball.getRadius()
-                        && event.getSceneY() > ball.getRadius() + START
-                        && event.getSceneY() < GameConstants.DEFAULT_WINDOW_HEIGHT - ball.getRadius()) {
+            if (isMouseDraggingBall && !optionBar.isBar()) {
+                if(event.getSceneX() > d_WIDTH+ball.getRadius() && event.getSceneX() < f_WIDTH-ball.getRadius() && event.getSceneY() > ball.getRadius() && event.getSceneY() < GameConstants.DEFAULT_WINDOW_HEIGHT-ball.getRadius()){
                     ball.getC().setX(event.getSceneX());
                     ball.getC().setY(event.getSceneY());
                 }
@@ -130,7 +129,7 @@ public class PhysicEngine {
         });
 
         graphBall.setOnMouseReleased(event -> {
-            if (isMouseDraggingBall) {
+            if (isMouseDraggingBall && !optionBar.isBar()) {
                 isMouseDraggingBall = false;
                 double dx = (event.getSceneX() - mouseX) / 40;
                 double dy = (event.getSceneY() - mouseY) / 40;
@@ -143,7 +142,7 @@ public class PhysicEngine {
                 Vector newVelocity = new Vector(new Coordinates(dx, dy));
                 ball.getRotation().stopRotation();
                 ball.setDirection(newVelocity);
-                preview.init_path();
+                ball.getPreview().init_path();
             }
         });
 
@@ -174,9 +173,10 @@ public class PhysicEngine {
                     stop();
                     primaryStage.setScene(appPhysic.getScene());
                     appPhysic.menu();
-                } else if (key.getKeysPressed().contains(KeyCode.M)) {
-                    optionBar.update();
-                    // launchOptionBar();
+                }
+                else if(key.getKeysPressed().contains(KeyCode.M)){
+                    optionBar.update(ball);
+                    key.getKeysPressed().remove(KeyCode.M);
                 }
             }
         };
@@ -185,34 +185,41 @@ public class PhysicEngine {
     }
 
     public void update() {
-        // Mise à jour de la position de la balle et de la trajectoire
-        if (!isMouseDraggingBall) {
-            ball.movement();
-            preview.add_circle();
-            // preview.check();
-            // check_ball();
-        }
+        if(!optionBar.isBar()){
+            // Mise à jour de la position de la balle et de la trajectoire
+            if(!isMouseDraggingBall){
+                for(Ball b : listball.keySet()){
+                    b.movement();
+                    if(b.getPreview()!=null){
+                        b.updatePreview();
+                    }
+                }
+            }
 
-        graphBall.setCenterX(ball.getC().getX());
-        graphBall.setCenterY(ball.getC().getY());
-        graphBall.setRotate(ball.getRotation().getAngle());
+            for(Ball b : listball.keySet()){
+                listball.get(b).setCenterX(b.getC().getX());
+                listball.get(b).setCenterY(b.getC().getY());
+                listball.get(b).setRotate(b.getRotation().getAngle());
+            }
 
-        // Mise à jour de la position de la raquette
-        if (RACKET) {
-            update_racket();
+
+            // Mise à jour de la position de la raquette
+            if(RACKET){
+                update_racket();
+            }
         }
     }
 
-    public Ball init_ball() {
-        return new Ball(new Coordinates(primaryStage.getWidth() / 2, primaryStage.getHeight() / 2),
-                physics.randomDirection(), 1, physics.getRadius()) {
-
+    public static Ball init_ball(){
+        PhysicSetting physics = AppPhysic.physics;
+        return new Ball(GameConstants.DEFAULT_BALL_START_COORDINATES,
+        GameConstants.DEFAULT_BALL_START_DIRECTION,1, physics.getRadius()){
             @Override
             public boolean movement() {
                 double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
-                double w = GameConstants.DEFAULT_WINDOW_WIDTH;
-                double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
-                double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
+                double w = f_WIDTH;
+                double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed() ;
+                double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed() ;
                 if (CollisionR) {
                     if (BougePColision || CollisionR_Side) {
                         this.getDirection().setY(-this.getDirection().getY()
@@ -221,8 +228,8 @@ public class PhysicEngine {
                         newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                         CollisionR = false;
                         CollisionR_Side = false;
-                        preview.init_path();
-                    } else {
+                    }
+                    else {
                         for (KeyCode key : direction) {
                             switch (key) {
                                 case RIGHT:
@@ -233,7 +240,6 @@ public class PhysicEngine {
                                     newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                                     CollisionR = false;
-                                    preview.init_path();
                                     break;
                                 case LEFT:
                                 case Q:
@@ -243,17 +249,16 @@ public class PhysicEngine {
                                     newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                                     CollisionR = false;
-                                    preview.init_path();
                                     break;
                                 default:
                                     break;
                             }
                         }
                     }
-                }
-                if (newX < START || newX > w - this.getRadius()) {
-                    this.getDirection().setX(-this.getDirection().getX()
-                            + (this.getRotation().getEffect()) / 90 * this.getDirection().getX());
+                }   
+                if (newX < d_WIDTH || newX > w - this.getRadius()) {
+                    this.getDirection().setX(-this.getDirection().getX());
+                    this.getDirection().setY(this.getDirection().getY()+(this.getRotation().getEffect())/90*this.getDirection().getY());
                     this.getRotation().Collision();
                     newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                     this.getDirection().setX(this.getDirection().getX() * physics.getRetention());
@@ -267,7 +272,7 @@ public class PhysicEngine {
                 }
                 this.setC(new Coordinates(newX, newY));
                 this.getDirection().add(physics.getWind());
-                physics.checkGravity(ball.getC(), ball.getDirection());
+                physics.checkGravity(this.getC(), this.getDirection());
                 return true;
             }
         };
@@ -278,12 +283,12 @@ public class PhysicEngine {
             @Override
             public void handleKeyPress(Set<KeyCode> keysPressed) {
                 for (KeyCode key : keysPressed) {
-                    if (key == GameConstants.LEFT) {
-                        if (this.mX() > -largeur / 2 + START)
+                    if(key==GameConstants.LEFT){
+                        if (this.mX() > -largeur / 2 + d_WIDTH)
                             this.mX(this.mX() - speed);
                     }
-                    if (key == GameConstants.RIGHT) {
-                        if (this.mX() < GameConstants.DEFAULT_WINDOW_WIDTH - longueur - 70)
+                    if(key==GameConstants.RIGHT){
+                        if (this.mX() < f_WIDTH - longueur - 70)
                             this.mX(this.mX() + speed);
                     }
                     if (key == GameConstants.SPACE) {
@@ -306,13 +311,18 @@ public class PhysicEngine {
         });
         BougePColision = key.isEmpty();
         direction = key.getKeysPressed();
-        if (physics.checkCollisionRacket(racket, ball.getC(), ball.getDirection())) {
-            ball.setCollisionR(true);
+        for(Ball ball : listball.keySet()){
+            if (physics.checkCollisionRacket(racket, ball)) {
+                ball.setCollisionR(true);
+            }
+            if(ball.getPreview()!=null){
+                ball.getPreview().update(racket);
+            }
         }
-        preview.update(racket);
         primaryStage.getScene().setOnKeyPressed(eWind -> {
             key.getKeysPressed().add(eWind.getCode());
         });
-        graphRacket.update();
+        ((Rectangle)graphRacket).setX(racket.mX());
+        ((Rectangle)graphRacket).setY(racket.mY());
     }
 }

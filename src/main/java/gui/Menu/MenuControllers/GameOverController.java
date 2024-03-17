@@ -32,7 +32,7 @@ public class GameOverController {
      */
     private void replay() {
         Platform.runLater(() -> {
-            Game.score  = 0;
+            Game.score=0;
             new GameView(view.getPrimaryStage(), view.getGame().getStageLevel());
         });
     }

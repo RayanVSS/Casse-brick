@@ -72,8 +72,6 @@ public class RacketGraphics {
             shape.getStyleClass().add("magnetracket");
     }
 
-    
-
     public Shape getShape() {
         return shape;
     }

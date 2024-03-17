@@ -151,21 +151,24 @@ public class AppPhysic extends Application {
     }
 
     public void Gravity(){
-        Label labelGravity = new Label("Intensite de la gravite : "+physics.getGravite()*100+" m/s^2");
+        Label labelGravity = new Label("Gravite terrestre");
         labelGravity.setStyle("-fx-text-fill: #d5bbb1;");
         labelGravity.setTranslateY(0);
         labelGravity.setTranslateX(-350);
-        Slider gravity = new Slider(-10, 10, physics.getGravite());
-        gravity.setOrientation(Orientation.HORIZONTAL);
-        gravity.setMaxWidth(200);
-        gravity.valueProperty().addListener((observable, oldvalue, newvalue) -> {
-            physics.setGravite(newvalue.intValue()/100);
-            labelGravity.setText("Intensite de la gravite : " + newvalue.intValue() + " m/s^2");
+        Button buttonGravity = new Button("OFF");
+        buttonGravity.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        buttonGravity.setOnAction(e -> {
+            physics.changeGravity();
+            if(physics.getGravity()){
+                buttonGravity.setText("ON");
+            }
+            else{
+                buttonGravity.setText("OFF");
+            }
         });
-        gravity.setTranslateX(labelGravity.getTranslateX());
-        gravity.setTranslateY(labelGravity.getTranslateY() + 30);
-        gravity.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
-        root.getChildren().addAll(labelGravity, gravity);
+        buttonGravity.setTranslateX(labelGravity.getTranslateX());
+        buttonGravity.setTranslateY(labelGravity.getTranslateY() + 30);
+        root.getChildren().addAll(labelGravity, buttonGravity);
     }
 
     public void Mass(){

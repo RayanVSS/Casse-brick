@@ -115,20 +115,6 @@ public abstract class Racket {
         return false;
     }
 
-    public boolean CollisionRacket2(Ball b) {
-        boolean verifX = c.getX() > getC().getX() && c.getX() < getC().getX() + largeur;
-        boolean verifY = c.getY() > getC().getY() && c.getY() < getC().getY() + longueur;
-        boolean verifX1 = c.getX() <= getC().getX() && c.getX() > getC().getX() - b.getRadius()
-                || c.getX() >= getC().getX() + largeur && c.getX() < getC().getX() + largeur + b.getRadius();
-        boolean verifY1 = c.getY() >= getC().getY() && c.getY() < getC().getY() + longueur;
-        if (verifX1 && verifY1) {
-            b.getDirection().setX(-b.getDirection().getX());
-            b.CollisionR_Side = true;
-            return true;
-        }
-        return verifX && verifY;
-    }
-
     // fonction obligatoire
     public abstract void handleKeyPress(Set<KeyCode> keysPressed);
 
@@ -296,6 +282,13 @@ public abstract class Racket {
                 startIntensityBall(GameConstants.BOOST_DURATION_INTENSITY_BALL);
             }
         }
+    }
+
+    public void reset(){
+        Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5, GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
+        Vector direction = new Vector(c);
+        this.setC(c);
+        this.setDirection(direction);
     }
 
     // GET et SET

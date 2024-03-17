@@ -2,11 +2,13 @@ package utils;
 
 import config.GameRules;
 import config.GameRules.BricksArrangement;
+import entity.ball.ClassicBall;
+import entity.racket.ClassicRacket;
+import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
-import physics.config.PhysicSetting;
 import physics.entity.*;
 import entity.ball.*;
 import entity.racket.*;
@@ -40,7 +42,7 @@ public final class GameConstants {
 
         public static final double DEFAULT_WINDOW_WIDTH = 1100.0;
         public static final double DEFAULT_WINDOW_HEIGHT = 800.0;
-        public static final double DEFAULT_GAME_ROOT_WIDTH = 1100.0 - 150.0;
+        public static final double DEFAULT_GAME_ROOT_WIDTH = DEFAULT_WINDOW_WIDTH - 200.0;
 
         // public static final double DEFAULT_WINDOW_WIDTH =
         // Screen.getPrimary().getVisualBounds().getWidth();
@@ -92,7 +94,7 @@ public final class GameConstants {
         public static KeyCode LEFT = KeyCode.LEFT;
         public static KeyCode RIGHT = KeyCode.RIGHT;
         public static KeyCode SPACE = KeyCode.SPACE;
-        public static String CSS = "/styles/dark.css";
+        public static Theme CSS = Theme.DARK;
 
         // derniere save
         public static String LAST_SAVE;

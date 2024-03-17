@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import config.StagesProgress;
+import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
 
 import java.io.File;
@@ -135,7 +136,7 @@ public class Sauvegarde {
             LEFT = Sauvegarde.getKeyCode((String) options.getOrDefault("LEFT", "LEFT"));
             RIGHT = Sauvegarde.getKeyCode((String) options.getOrDefault("RIGHT", "RIGHT"));
             SPACE = Sauvegarde.getKeyCode((String) options.getOrDefault("SPACE", "SPACE"));
-            CSS = (String) options.getOrDefault("CSS", "/styles/dark.css");
+            CSS =  /*options.getOrDefault("CSS", Theme.DARK);*/ Theme.valueOf((String) options.getOrDefault("CSS", "DARK"));
         }
     }
 
