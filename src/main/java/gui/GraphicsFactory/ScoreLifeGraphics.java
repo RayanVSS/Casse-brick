@@ -3,6 +3,7 @@ package gui.GraphicsFactory;
 import config.Game;
 import config.StageLevel;
 import gui.Menu.Menu;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,9 +27,7 @@ public class ScoreLifeGraphics extends Pane implements Menu {
     private HBox lifeBox;
     private Image lifeOK ;
     private Image lifeKO ;
-    private ImageView lifeImage1  ;
-    private ImageView lifeImage2;
-    private ImageView lifeImage3 ;
+    private ImageView[] lifeImages = new ImageView[3];
     private Label niveau;
     private Game game;
     private Label hiScore;
@@ -49,11 +48,9 @@ public class ScoreLifeGraphics extends Pane implements Menu {
         lifeOK = initializeLifeImage();
         lifeKO = new Image("/lifeScore/lifeKO.png");
     
-        lifeImage1 = initializeLifeImageView();
-        lifeImage2 = initializeLifeImageView();
-        lifeImage3 = initializeLifeImageView();
+        initializeLifeImages();
     
-        lifeBox.getChildren().addAll(lifeImage1, lifeImage2, lifeImage3);
+        lifeBox.getChildren().addAll(lifeImages);
     
         scoreText = new Text("Score: " + score);
         scoreText.setX(20);
@@ -64,18 +61,12 @@ public class ScoreLifeGraphics extends Pane implements Menu {
         niveau.getStyleClass().add("scoreL-style");
         niveau.setLayoutX(20);
         niveau.setLayoutY(100);
-
-        // hiScore = createLabel("High Score :", 0, 0);
-        // hiScore.getStyleClass().add("scoreL-style");
-        // hiScore.setLayoutX(20);
-        // hiScore.setLayoutY(160);
         
         setLayoutX(10);
         setLayoutY(10);
         getChildren().add(lifeBox);
         getChildren().add(scoreText);
         getChildren().add(niveau);
-        //getChildren().add(hiScore);
         getStylesheets().add(GameConstants.CSS.getPath());
 
         //ajout de la séparation
@@ -104,12 +95,17 @@ public class ScoreLifeGraphics extends Pane implements Menu {
         }
     }
 
+    private void initializeLifeImages() {
+        for (int i = 0; i < lifeImages.length; i++) {
+            lifeImages[i] = initializeLifeImageView();
+        }
+    }
+
     private ImageView initializeLifeImageView() {
         ImageView imageView = new ImageView(lifeOK);
         imageView.setFitHeight(60);
         imageView.setFitWidth(60);
         imageView.setSmooth(true);
-        imageView.setCache(true);
         imageView.setPreserveRatio(true);
         imageView.smoothProperty().set(true);
         return imageView;
@@ -122,21 +118,8 @@ public class ScoreLifeGraphics extends Pane implements Menu {
         score = game.getScore();
         life = game.getLife();
         scoreText.setText("Score: " + score);
-        switch (life) {
-            case 3:
-                lifeImage1.setImage(lifeOK);
-                lifeImage2.setImage(lifeOK);
-                lifeImage3.setImage(lifeOK);
-                break;
-            case 2:
-                lifeImage3.setImage(lifeKO);
-                break;
-            case 1:
-                lifeImage2.setImage(lifeKO);
-                break;
-            case 0:
-                lifeImage3.setImage(lifeKO);
-                break;
+        for (int i = 0; i < lifeImages.length; i++) {
+            lifeImages[i].setImage(i < life ? lifeOK : lifeKO);
         }
     }
 }
