@@ -56,11 +56,12 @@
 }
 
 /* LES TEXTES + LABELS */
-.fin-label{
+.fin-label {
     -fx-font-size: 35px;
     -fx-text-fill: #d5bbb1;
     -fx-font-weight: bold;
 }
+
 .text-style,
 .title-style,
 .title-game-over-style {
@@ -125,4 +126,31 @@
 
 .magnetracketnegatif {
     -fx-fill: GREEN;
+}
+
+.label-toggle-button-hbox,
+.label-slider-hbox,
+.label-combobox-hbox {
+    -fx-background-color: #313e57;
+    -fx-border-color: #7a6f6b;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 8px;
+}
+
+.label-vbox {
+    -fx-background-color: #2f3d57;
+    -fx-border-color: #7a6f6b;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 5px;
+}
+
+.label-vbox-description {
+    -fx-font-size: 13px;
+    -fx-text-fill: #d5bbb1;
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
 }
