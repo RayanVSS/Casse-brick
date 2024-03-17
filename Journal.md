@@ -447,3 +447,18 @@ affichage de la racket
 ### À faire
 
 - lister quelques phénomènes physiques amusants à ajouter, écrire les issues, rechercher la physique, commencer à implémenter
+
+## Semaine 6 (18/3):
+
+### Belhassen Rayan  
+<span style="color:green">**Fait:**</span>
+
+- graphique: la raquette peut avoir des forme differente 
+- collision: les collisions fonctionne sur des raquettes non rectangle 
+- raquette: nouvelle raquette "CircleRacket","DegradeRacket" et "DiamondRacket"
+- boost: nouveau boost intensityBall
+- 
+<span style="color:purple">**A Faire:**</span>
+
+- terminer repair_software 
+
