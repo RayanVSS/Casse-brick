@@ -3,7 +3,6 @@ package utils;
 import config.GameRules;
 import config.GameRules.BricksArrangement;
 import entity.ball.ClassicBall;
-import entity.racket.ClassicRacket;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
