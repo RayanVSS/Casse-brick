@@ -3,8 +3,10 @@ package gui;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Iterator;
-import javafx.scene.input.KeyCode;
+import java.util.List;
+import java.util.ArrayList;
 
+import javafx.scene.input.KeyCode;
 import config.Game;
 import config.StageLevel;
 import entity.Boost;
@@ -15,11 +17,16 @@ import gui.GraphicsFactory.RacketGraphics;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.PauseView;
 import gui.Menu.MenuViews.WinView;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.GameConstants;
 import utils.Key;
+
+//pour les boosts
+import static physics.entity.Racket.StopBall;
+import static physics.entity.Racket.AddIntensityBall;;
 
 public class GameRoot {
     private Pane root = new Pane();
@@ -46,21 +53,25 @@ public class GameRoot {
         this.primaryStage = primaryStage;
         this.graphBrickSet = new BrickSet(game.getMap().getBricks());
         this.graphBall = new BallGraphics(game.getBall());
-        this.graphRacket = new RacketGraphics(game.getRacket());
+        // rectangle rond losange triangle
+        this.graphRacket = new RacketGraphics(game.getRacket(), "rectangle");
         if (GameConstants.PARTICLES) {
             this.particleGroup = new ParticleGroup(root, game);
         }
         this.root.getChildren().add(graphBrickSet);
         this.root.getChildren().add(graphBall);
-        this.root.getChildren().add(graphRacket);
+        this.root.getChildren().add(graphRacket.getShape());
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         root.getStyleClass().add("game-backgorund");
         game.start();
     }
 
     public void update(long deltaT) {
+        BoostAction();
         graphBall.update();
+        root.getChildren().remove(graphRacket.getShape());
         graphRacket.update();
+        root.getChildren().add(graphRacket.getShape()); // Ajoute la forme de la raquette mise à jour
         if (GameConstants.PARTICLES) {
             particleGroup.update();
         }
@@ -82,8 +93,8 @@ public class GameRoot {
         }
         if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
             gameView.animationStop();
-            gameView.getRoot().getChildren().add(new PauseView(primaryStage,
-                    gameView.getRoot(), gameRoot.getRoot(), gameView.getAnimationTimer(), level));
+            gameView.getRoot().getChildren().add(new PauseView(primaryStage, gameView.getRoot(), gameRoot.getRoot(),
+                    gameView.getAnimationTimer(), level));
         }
         if (level.getGame().isWin()) {
             level.resetGame();
@@ -108,6 +119,18 @@ public class GameRoot {
                     iterator.remove();
                 }
             }
+        }
+    }
+
+    // gere les modifiactaion fait par les boosts
+    public void BoostAction() {
+        if (StopBall) {
+            game.getBall().setSpeed(0);
+            game.getBall().setDirection(new physics.geometry.Vector(0, 1));
+        } else if (AddIntensityBall) {
+            game.getBall().setSpeed(GameConstants.DEFAULT_BALL_SPEED * GameConstants.BOOST_INTENSITY_BALL);
+        } else {
+            game.getBall().setSpeed(GameConstants.DEFAULT_BALL_SPEED);
         }
     }
 

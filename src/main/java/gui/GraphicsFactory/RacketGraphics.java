@@ -1,55 +1,88 @@
 package gui.GraphicsFactory;
 
-import javafx.scene.shape.Rectangle;
-import physics.entity.Racket;
-import entity.racket.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import physics.entity.*;
+import entity.racket.*;
+import physics.entity.Racket;
 
 /**
- * Classe RacketGraphics qui étend Rectangle pour représenter graphiquement une
- * raquette.
+ * Classe RacketGraphics qui encapsule un objet Shape pour représenter graphiquement une raquette.
  * 
- * @author Benmalek Majda
+ * @author Benmalek Majda | belhassen rayan
  */
-public class RacketGraphics extends Rectangle {
+public class RacketGraphics {
+    private Shape shape;
     private Racket racket;
+    private String shapeType;
 
-    /**
-     * Constructeur de RacketGraphics.
-     * 
-     * @param racket L'instance de Racket à représenter graphiquement.
-     */
-    public RacketGraphics(Racket racket) {
+    public RacketGraphics(Racket racket, String shapeType) {
         this.racket = racket;
-        setX(racket.getC().getX());
-        setY(racket.getC().getY());
-        setWidth(racket.getLargeur());
-        setHeight(racket.getLongueur());
-        setArcWidth(20);
-        setArcHeight(20);
-
-        if (racket instanceof ClassicRacket)
-            getStyleClass().add("racket");
-        else if (racket instanceof YNotFixeRacket)
-            getStyleClass().add("ynotfixeracket");
-        else if (racket instanceof MagnetRacket)
-            getStyleClass().add("magnetracket");
+        this.shapeType = shapeType;
+        setShape();
     }
 
-    /**
-     * Méthode pour mettre à jour les coordonnées et les dimensions de la raquette.
-     */
+    private void setShape() {
+        switch (shapeType.toLowerCase()) {
+            case "rectangle":
+                shape = new Rectangle();
+                ((Rectangle) shape).setX(racket.getC().getX());
+                ((Rectangle) shape).setY(racket.getC().getY());
+                ((Rectangle) shape).setWidth(racket.getLargeur());
+                ((Rectangle) shape).setHeight(racket.getLongueur());
+                ((Rectangle) shape).setArcWidth(20);
+                ((Rectangle) shape).setArcHeight(20);
+                break;
+            case "losange":
+                shape = new Polygon();
+                ((Polygon) shape).getPoints().addAll(new Double[] {
+                        racket.getC().getX(), racket.getC().getY() - racket.getLongueur() / 2,
+                        racket.getC().getX() + racket.getLargeur() / 2, racket.getC().getY(),
+                        racket.getC().getX(), racket.getC().getY() + racket.getLongueur() / 2,
+                        racket.getC().getX() - racket.getLargeur() / 2, racket.getC().getY()
+                });
+                break;
+            case "rond":
+                shape = new Ellipse();
+                ((Ellipse) shape).setCenterX(racket.getC().getX());
+                ((Ellipse) shape).setCenterY(racket.getC().getY());
+                ((Ellipse) shape).setRadiusX(racket.getLargeur() / 2);
+                ((Ellipse) shape).setRadiusY(racket.getLongueur() / 2);
+                break;
+            case "triangle":
+                shape = new Polygon();
+                ((Polygon) shape).getPoints().addAll(new Double[] {
+                        racket.getC().getX(), racket.getC().getY() - racket.getLongueur() / 2,
+                        racket.getC().getX() + racket.getLargeur() / 2, racket.getC().getY() + racket.getLongueur() / 2,
+                        racket.getC().getX() - racket.getLargeur() / 2, racket.getC().getY() + racket.getLongueur() / 2
+                });
+                break;
+            default:
+                throw new IllegalArgumentException("Forme non reconnue: " + shapeType);
+        }
+
+        if (racket instanceof ClassicRacket)
+            shape.getStyleClass().add("racket");
+        else if (racket instanceof YNotFixeRacket)
+            shape.getStyleClass().add("ynotfixeracket");
+        else if (racket instanceof MagnetRacket)
+            shape.getStyleClass().add("magnetracket");
+    }
+
+    public Shape getShape() {
+        return shape;
+    }
+
     public void update() {
-        setX(racket.getC().getX());
-        setY(racket.getC().getY());
-        setWidth(racket.getLargeur());
-        setHeight(racket.getLongueur());
+        setShape();
         if (racket instanceof MagnetRacket) {
-            if (((MagnetRacket) racket).getEtat().equals("positif")) {
-                //setFill(Color.YELLOW);
-                getStyleClass().add("magnetracketpositif");
+            if (MagnetRacket.getEtat().equals("positif")) {
+                shape.setFill(Color.YELLOW);
             } else {
-                getStyleClass().add("magnetracketnegatif");
+                shape.setFill(Color.GREEN);
             }
         }
     }

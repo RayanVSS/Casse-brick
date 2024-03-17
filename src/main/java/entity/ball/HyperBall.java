@@ -60,7 +60,8 @@ public class HyperBall extends Ball {
             }
         }
         if (newX < 0 || newX > w - this.getRadius()) {
-            this.getDirection().setX(-this.getDirection().getX()+(this.getRotation().getEffect()/90)*this.getDirection().getX());
+            this.getDirection().setX(-this.getDirection().getX());
+            this.getDirection().setY(this.getDirection().getY()+(this.getRotation().getEffect()/90)*this.getDirection().getY());
             this.getRotation().Collision();
             newX = this.getC().getX() + this.getDirection().getX()*this.getSpeed();
             this.getDirection().setX(this.getDirection().getX()*super.getPhysicSetting().getRetention());
