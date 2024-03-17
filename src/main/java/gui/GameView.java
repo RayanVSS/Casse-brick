@@ -1,7 +1,12 @@
 package gui;
 
 import javafx.animation.*;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
+import javafx.scene.control.Separator;
+import javafx.scene.control.skin.SeparatorSkin;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import config.*;
@@ -24,6 +29,7 @@ public class GameView {
     private ScoreLifeGraphics scoreLifeView;
     // animation
     private AnimationTimer animationTimer;
+    private ImageView imageView=new ImageView(new Image("/lifeScore/separateur.png"));
 
     public GameView(Stage p, StageLevel stageLevel) {
         this.primaryStage = p;
@@ -35,8 +41,14 @@ public class GameView {
         if(GameConstants.FPS)
             SLFPS.getChildren().add(fpsGraphics);
         SLFPS.getChildren().add(scoreLifeView);
-        SLFPS.setPrefWidth(150.0);
-        this.pane.setCenter(gameRoot.getRoot());
+        SLFPS.setPrefWidth(200.0);
+        this.pane.setRight((gameRoot.getRoot()));
+        gameRoot.getRoot().setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
+        imageView.setFitWidth(15);
+        imageView.setFitHeight(GameConstants.DEFAULT_WINDOW_HEIGHT+10);
+        imageView.setPreserveRatio(false);
+        imageView.setSmooth(true);
+        this.pane.setCenter(imageView);
         this.pane.setLeft(SLFPS);
         this.root.getChildren().add(pane);
         this.primaryStage.setScene(scene);
