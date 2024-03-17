@@ -9,43 +9,49 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.checkerframework.checker.units.qual.s;
+import gui.GraphicsFactory.RacketGraphics;
 
 /***************************************************************************
  * Explication de classe pour la raquette *
  * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*
- * Base:
  * 
+ * @Base:
  * @var Coordonnee c : Coordonnée de la raquette
  * @var Vector direction : Direction de la raquette
  * @var int speed : Vitesse de la raquette
  * @var int longueur : Longueur de la raquette
  * @var int largeur : Largeur de la raquette
+ * @var String shape : Forme de la raquette
  * @var boolean fixeY : Si la raquette est fixe en y
  * @var boolean jump : Si la raquette peut sauter
  * 
- *      boost:
+ * @Boost:
  * @var Boolean vitesseP :raquette a un boost de vitesse
  * @var Boolean vitesseM :raquette a un malus de vitesse
  * @var Boolean largeurP :raquette a un boost de largeur
  * @var Boolean largeurM :raquette a un malus de largeur
  * @var boolean freeze :le temps est freeze
  * 
- *      GET et SET:
- *      je pense pas qui'il y ait besoin d'expliquer ;)
+ * @GET_et_SET:
+ *              je pense pas qui'il y ait besoin d'expliquer ;)
  * 
- *      Collision:
- * @param c : Coordonnée de l'objet avec lequel on veut vérifier la collision
+ * @Collision:
+ * @param b : Coordonnée de la balle
  * @return : true si il y a collision, false sinon
  * 
- *         Mouvement a l'appui des touches: :
+ * @Mouvement a l'appui des touches: :
  * @param keysPressed : toutes les touches appuyées
- *
- *                    Mouvement au relachement des touches:
- * @param event:      touche relachée
+ * @param event       : la touche relachée
  * 
- *                    Saut:
- *                    pas fini pour l'instant
+ * @Saut:
+ *        pas fini pour l'instant
+ * 
+ * @forme:
+ *         pour modifier la forme de la raquette il suffit de cahnger la
+ *         variable shape
+ *         valeurs : "rectangle", "losange", "rond","triangle"
+ * @see RacketGraphics (pour voir comment est gere la forme de la raquette)
+ * 
  *
  * @author Rayan Belhassen
  **************************************************************************/
@@ -59,6 +65,7 @@ public abstract class Racket {
     public double speed;
     public int longueur;
     public int largeur;
+    public String shape;
     public boolean fixeY;
     public boolean jump;
 
@@ -78,9 +85,10 @@ public abstract class Racket {
     private long jumpStartTime;
 
     // creation de la raquette
-    public Racket(int largeur, int longueur, int speed, boolean fixeY, boolean jump) {
+    public Racket(int largeur, int longueur, String shape, int speed, boolean fixeY, boolean jump) {
         this.longueur = longueur;
         this.largeur = largeur;
+        this.shape = shape;
         this.speed = speed;
         this.fixeY = fixeY;
         this.jump = jump;
@@ -96,6 +104,19 @@ public abstract class Racket {
     }
 
     public boolean CollisionRacket(Ball b) {
+        if (shape.equals("rectangle")) {
+            return CollisionRectangle(b);
+        } else if (shape.equals("triangle")) {
+            return CollisionTriangle(b);
+        } else if (shape.equals("rond")) {
+            return CollisionRond(b);
+        } else if (shape.equals("losange")) {
+            return CollisionLosange(b);
+        }
+        return false;
+    }
+
+    public boolean CollisionRectangle(Ball b) {
         // if (b.getC().getX() > this.c.getX() && b.getC().getX() < this.c.getX() +
         // this.largeur
         // && b.getC().getY() > this.c.getY()
@@ -111,6 +132,78 @@ public abstract class Racket {
         if (distance < b.getRadius()) {
             b.getC().setY(this.getC().getY() - b.getRadius());
             return true;
+        }
+        return false;
+    }
+
+    public boolean CollisionTriangle(Ball b) {
+        // coordonnees du triangle
+        double x1 = this.getC().getX();
+        double y1 = this.getC().getY() - this.getLongueur() / 2;
+        double x2 = this.getC().getX() + this.getLargeur() / 2;
+        double y2 = this.getC().getY() + this.getLongueur() / 2;
+        double x3 = this.getC().getX() - this.getLargeur() / 2;
+        double y3 = this.getC().getY() + this.getLongueur() / 2;
+
+        // verifier avec le produit vectoriel
+        double denominator = (y2 - y3) * (x1 - x3) + (x3 - x2) * (y1 - y3);
+        double a = ((y2 - y3) * (b.getC().getX() - x3) + (x3 - x2) * (b.getC().getY() - y3)) / denominator;
+        double b1 = ((y3 - y1) * (b.getC().getX() - x3) + (x1 - x3) * (b.getC().getY() - y3)) / denominator;
+        double b2 = 1 - a - b1;
+
+        // balle touche triangle
+        if (a > -0.1 && b1 > -0.1 && b2 > -0.1) {
+            b.getC().setY(b.getC().getY() - b.getRadius());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean CollisionRond(Ball b) {
+        double rx = this.getC().getX(); // centre x
+        double ry = this.getC().getY(); // centre y
+        double radiusX = this.getLargeur() / 2; // Rayon horizontal de l'ellipse
+        double radiusY = this.getLongueur() / 2; // Rayon vertical de l'ellipse
+        ry += 170;
+        double dx = b.getC().getX() - rx;
+        double dy = b.getC().getY() - ry;
+        // normalisation
+        double nx = dx / radiusX;
+        double ny = dy / radiusY;
+        double distance = Math.sqrt(nx * nx + ny * ny);
+        if (distance < b.getRadius()) {
+            double newBallX = rx + nx * radiusX;
+            double newBallY = ry + ny * radiusY;
+            b.getC().setX(newBallX);
+            b.getC().setY(newBallY);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean CollisionLosange(Ball b) {
+        double[] points = {
+                this.getC().getX(), this.getC().getY() - this.getLongueur() / 2,
+                this.getC().getX() + this.getLargeur() / 2, this.getC().getY(),
+                this.getC().getX(), this.getC().getY() + this.getLongueur() / 2,
+                this.getC().getX() - this.getLargeur() / 2, this.getC().getY()
+        };
+
+        double cx = b.getC().getX() - 0.40;
+        double cy = b.getC().getY() - 0.40;
+
+        int j = points.length - 2;
+        for (int i = 0; i < points.length; i += 2) {
+            double px1 = points[i];
+            double py1 = points[i + 1];
+            double px2 = points[j];
+            double py2 = points[j + 1];
+
+            if (((py1 <= cy && cy < py2) || (py2 <= cy && cy < py1)) &&
+                    (cx < (px2 - px1) * (cy - py1) / (py2 - py1) + px1)) {
+                return true;
+            }
+            j = i;
         }
         return false;
     }
@@ -394,6 +487,14 @@ public abstract class Racket {
 
     public boolean getZhonya() {
         return zhonya;
+    }
+
+    public boolean getIntensityBall() {
+        return intensityBall;
+    }
+
+    public String getShapeType() {
+        return shape;
     }
 
 }

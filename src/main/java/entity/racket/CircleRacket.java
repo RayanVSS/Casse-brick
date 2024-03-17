@@ -7,14 +7,14 @@ import utils.GameConstants;
 import java.util.Set;
 
 /**
- * Raquette en forme de triangle
+ * Raquette en forme de rond
  *
  * @see RaketGraphics
  */
-public class DegradeRacket extends Racket {
+public class CircleRacket extends Racket {
 
-    public DegradeRacket() {
-        super(200, 20, "triangle", 8, false, true);
+    public CircleRacket() {
+        super(180, 40, "rond", 8, false, true);
     }
 
     public void handleKeyPress(Set<KeyCode> keysPressed) {

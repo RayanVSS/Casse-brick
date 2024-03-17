@@ -7,14 +7,14 @@ import utils.GameConstants;
 import java.util.Set;
 
 /**
- * Raquette en forme de triangle
+ * Raquette en forme de le losange
  *
  * @see RaketGraphics
  */
-public class DegradeRacket extends Racket {
+public class DiamondRacket extends Racket {
 
-    public DegradeRacket() {
-        super(200, 20, "triangle", 8, false, true);
+    public DiamondRacket() {
+        super(200, 40, "losange", 8, false, true);
     }
 
     public void handleKeyPress(Set<KeyCode> keysPressed) {

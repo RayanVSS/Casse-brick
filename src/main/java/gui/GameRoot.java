@@ -54,7 +54,7 @@ public class GameRoot {
         this.graphBrickSet = new BrickSet(game.getMap().getBricks());
         this.graphBall = new BallGraphics(game.getBall());
         // rectangle rond losange triangle
-        this.graphRacket = new RacketGraphics(game.getRacket(), "rectangle");
+        this.graphRacket = new RacketGraphics(game.getRacket(), game.getRacket().getShapeType());
         if (GameConstants.PARTICLES) {
             this.particleGroup = new ParticleGroup(root, game);
         }
