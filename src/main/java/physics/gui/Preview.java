@@ -135,11 +135,19 @@ public class Preview {
         }
     }
 
+    public int getdt(){
+        return dt_circle;
+    }
+
     public static ArrayList<Circle> preview_no_effect(Ball b , Pane root){
         ArrayList<Circle> circles = new ArrayList<Circle>();
+        int compt = 0;
         Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY());
         Vector d = new Vector(new Coordinates(b.getDirection().getX(), b.getDirection().getY()));
-        for(int i = 0; i<50; i++){
+        if(b.getPreview()!=null){
+            compt = b.getPreview().getdt()-1;
+        }
+        for(int i = compt; i<50; i++){
             double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
             double w = PhysicEngine.f_WIDTH;
             double newX = c.getX() + d.getX() * b.getSpeed() ;
