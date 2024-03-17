@@ -19,7 +19,7 @@ public class BricksGraphics extends StackPane {
     public BricksGraphics(Brick brick, int i, int j) {
         Image image;
         if (brick.isUnbreakable()) {
-            image = ImageLoader.loadImage("src/main/ressources/briqueii.png");
+            image = ImageLoader.loadImage("src/main/ressources/briqueii.png"); 
         } else {
             image = ImageLoader.loadImage("src/main/ressources/briquee.png");
         }

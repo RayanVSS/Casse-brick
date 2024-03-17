@@ -47,7 +47,6 @@ public class Game {
         if (inGameTimer == null) {
             inGameTimer = new Timer();
             inGameTimer.scheduleAtFixedRate(new TimerTask() {
-
                 @Override
                 public void run() { // chaque seconde
                     timeElapsed++;
@@ -84,6 +83,7 @@ public class Game {
         if (!ball.movement()) {
             life--;
             ball.reset();
+            racket.reset();
         }
         if (life == 0 || !rules.check()) {
             lost = true;
@@ -103,11 +103,6 @@ public class Game {
                 ((MagnetBall) ball).setFront(false);
             }
         }
-    }
-
-    public boolean collisionRacket(Coordinates c) {
-        return c.getX() >= racket.getC().getX() && c.getX() <= racket.getC().getX() + racket.getLongueur()
-                && c.getY() >= racket.getC().getY() && c.getY() <= racket.getC().getY() + racket.getLargeur();
     }
 
     // Vérifie si la balle est devant la raquette

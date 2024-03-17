@@ -3,8 +3,10 @@ package gui.Menu.MenuControllers;
 import gui.App;
 import gui.Menu.MenuViews.OptionsView;
 import javafx.application.Platform;
+
 import javafx.stage.Stage;
 import utils.GameConstants;
+import gui.Menu.Menu.Theme;
 
 /**
  * Classe OptionsController qui gère les interactions de l'utilisateur avec la
@@ -130,7 +132,7 @@ public class OptionsController {
     private void Theme() {
         String selectedTheme = view.getListTheme().getValue();
         if (selectedTheme != null) {
-            GameConstants.CSS = "/styles/" + selectedTheme + ".css";
+            GameConstants.CSS = Theme.valueOf(selectedTheme.toUpperCase());
             //change le css de chaque scene dans SceneManager
             App.sceneManager.getScenes().forEach((k, v) -> {
                 App.sceneManager.addStylesheet(v);

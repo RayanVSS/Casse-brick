@@ -1,6 +1,13 @@
 package gui.GraphicsFactory;
 
 import config.Game;
+import config.StageLevel;
+import gui.Menu.Menu;
+import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import utils.GameConstants;
@@ -12,12 +19,18 @@ import utils.GameConstants;
  * 
  * @author Benmalek Majda
  */
-public class ScoreLifeGraphics extends Pane {
+public class ScoreLifeGraphics extends Pane implements Menu {
     private Text scoreText;
-    private Text lifeText;
     private int score;
     private int life;
+    private StageLevel stage;
+    private HBox lifeBox;
+    private Image lifeOK ;
+    private Image lifeKO ;
+    private ImageView[] lifeImages = new ImageView[3];
+    private Label niveau;
     private Game game;
+    private Label hiScore;
 
     /**
      * Constructeur de ScoreLifeView.
@@ -25,24 +38,77 @@ public class ScoreLifeGraphics extends Pane {
      * @param game L'instance de Game à partir de laquelle obtenir le score et la
      *             vie.
      */
-    public ScoreLifeGraphics(Game game) {
-        this.game = game;
+    public ScoreLifeGraphics(StageLevel stage) {
+        this.stage = stage;
+        this.game = stage.getGame();
         score = game.getScore();
         life = game.getLife();
+        lifeBox = new HBox();
+    
+        lifeOK = initializeLifeImage();
+        lifeKO = new Image("/lifeScore/lifeKO.png");
+    
+        initializeLifeImages();
+    
+        lifeBox.getChildren().addAll(lifeImages);
+    
         scoreText = new Text("Score: " + score);
-        lifeText = new Text("Life: " + life);
-        scoreText.setX(10);
-        scoreText.setY(40);
-        lifeText.setX(10);
-        lifeText.setY(20);
+        scoreText.setX(20);
+        scoreText.setY(80);
         scoreText.getStyleClass().add("scoreL-style");
-        lifeText.getStyleClass().add("scoreL-style");
-        // setLayoutX(10);
-        // setLayoutY(10);
-        getChildren().add(lifeText);
-        getChildren().add(scoreText);
-        getStylesheets().add(GameConstants.CSS);
 
+        niveau=createLabel("Niveau: "+(stage.getDifficulty()+1), 0, 0);
+        niveau.getStyleClass().add("scoreL-style");
+        niveau.setLayoutX(20);
+        niveau.setLayoutY(100);
+        
+        setLayoutX(10);
+        setLayoutY(10);
+        getChildren().add(lifeBox);
+        getChildren().add(scoreText);
+        getChildren().add(niveau);
+        getStylesheets().add(GameConstants.CSS.getPath());
+
+        //ajout de la séparation
+    }
+
+    private Image initializeLifeImage() {
+        switch (GameConstants.CSS) {
+            case PINK:
+                return new Image("/lifeScore/lifePink.png");
+            case DARK:
+                return new Image("/lifeScore/lifeBlack.png");
+            case BLACK:
+                return new Image("/lifeScore/lifeBlack.png");
+            case LIGHT:
+                return new Image("/lifeScore/lifeBlack.png");
+            case ACHROMATOPSIE:
+                return new Image("/lifeScore/lifeAchromatopsie+.png");
+            case DEUTERANOPIE:
+                return new Image("/lifeScore/lifeDeuteranopie+.png");
+            case TRITANOPIE:
+                return new Image("/lifeScore/lifeTritanopie+.png");
+            case PROTANOPIE:
+                return new Image("/lifeScore/lifeProtanopie+.png");
+            default:
+                return null;
+        }
+    }
+
+    private void initializeLifeImages() {
+        for (int i = 0; i < lifeImages.length; i++) {
+            lifeImages[i] = initializeLifeImageView();
+        }
+    }
+
+    private ImageView initializeLifeImageView() {
+        ImageView imageView = new ImageView(lifeOK);
+        imageView.setFitHeight(60);
+        imageView.setFitWidth(60);
+        imageView.setSmooth(true);
+        imageView.setPreserveRatio(true);
+        imageView.smoothProperty().set(true);
+        return imageView;
     }
 
     /**
@@ -52,24 +118,8 @@ public class ScoreLifeGraphics extends Pane {
         score = game.getScore();
         life = game.getLife();
         scoreText.setText("Score: " + score);
-        lifeText.setText("Life: " + life);
-    }
-
-    /**
-     * Méthode pour définir le score.
-     * 
-     * @param score Le nouveau score.
-     */
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    /**
-     * Méthode pour définir la vie.
-     * 
-     * @param life La nouvelle valeur de la .
-     */
-    public void setLife(int life) {
-        this.life = life;
+        for (int i = 0; i < lifeImages.length; i++) {
+            lifeImages[i].setImage(i < life ? lifeOK : lifeKO);
+        }
     }
 }

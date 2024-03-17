@@ -29,7 +29,7 @@ public class PauseView extends VBox implements Menu {
         this.gameRoot = gameRoot;
         this.root = game;
         this.stageLevel = stageLevel;
-        this.getStylesheets().add(GameConstants.CSS);
+        this.getStylesheets().add(GameConstants.CSS.getPath());
         this.getStyleClass().add("pause-view");
         pause=createLabel("Pause", 0, 0);
         pause.getStyleClass().add("title-game-over-style");
