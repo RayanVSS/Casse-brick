@@ -92,8 +92,7 @@ public class PhysicEngine {
 
         if(RACKET){
             racket=init_racket();
-            graphRacket = (new RacketGraphics(racket,"rectangle")).getShape();
-            graphRacket.setFill(Color.BLACK);
+            graphRacket = (new RacketGraphics(racket, racket.getShapeType())).getShape();            graphRacket.setFill(Color.BLACK);
             root.getChildren().add(graphRacket);
         }
         primaryStage.show();
@@ -279,7 +278,7 @@ public class PhysicEngine {
     }
 
     public Racket init_racket() {
-        return new Racket(200, 20, 8, false, true) {
+        return new Racket(200, 20, "rectangle", 8, false, true) {
             @Override
             public void handleKeyPress(Set<KeyCode> keysPressed) {
                 for (KeyCode key : keysPressed) {
