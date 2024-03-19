@@ -508,3 +508,9 @@ affichage de la racket
 
 <span style="color:purple">**A Faire:**</span>
 -  mode infini
+-  
+
+### À faire
+
+- déboguer (nombreux chantiers en cours à finaliser, notamment rebonds en biais)
+- relire code et refactoriser
