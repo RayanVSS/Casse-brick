@@ -470,3 +470,20 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 
 - Continuer les briques physiques
+
+### Bencheikh Ilias
+<span style="color:green">**Fait:**</span>
+
+- Amélioration des effets de la balle #32
+- Moteur physique réparé #53
+- Implémentation de plusieurs balles dans la simulation #54
+- Implémentation d'un menu in-simulation #59
+- Problème de trajectoire régler #46
+    
+<span style="color:purple">**A Faire:**</span>
+
+- Régler le problème de FPS #43
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+- Début implémentation des collisions de balles entre eux #55
