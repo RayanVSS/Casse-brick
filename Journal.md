@@ -487,3 +487,24 @@ affichage de la racket
 - Améliorer la collision de la balle et des briques (avec Olivier) #52
 - Améliorer la structure de la partie physique #49
 - Début implémentation des collisions de balles entre eux #55
+
+### Benmalek Majda
+<span style="color:green">**Fait:**</span>
+- Ecran de victoire
+- Ecran de fin du jeu
+- La balle est une image maintenant (reste a adapter l'image au theme)
+- Modif de l'affiche des vies (aussi fais avec des images maintenant)
+- Ajout du niveau en cours dans la barre d'info
+- Ajout d'un separateur entre les info du jeu et le jeu (provisoire a ameliorer)
+
+<span style="color:purple">**A Faire:**</span>
+- Continuer de modifier l'affiche des balles
+- Essayer de faire une balle carrée 
+
+### Mushtaq Amanh
+
+<span style="color:green">**Fait:**</span>
+- Suite du mode infini 
+
+<span style="color:purple">**A Faire:**</span>
+-  mode infini
