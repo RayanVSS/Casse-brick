@@ -448,7 +448,7 @@ affichage de la racket
 
 - lister quelques phénomènes physiques amusants à ajouter, écrire les issues, rechercher la physique, commencer à implémenter
 
-## Semaine 6 (18/3):
+## Semaine 6 (19/3):
 
 ### Belhassen Rayan  
 <span style="color:green">**Fait:**</span>
@@ -462,3 +462,11 @@ affichage de la racket
 
 - terminer repair_software 
 
+### Guan Olivier 
+<span style="color:green">**Fait:**</span>
+
+- Debut modèle de briques physiques
+
+<span style="color:purple">**A Faire:**</span>
+
+- Continuer les briques physiques
