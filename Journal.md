@@ -448,7 +448,7 @@ affichage de la racket
 
 - lister quelques phénomènes physiques amusants à ajouter, écrire les issues, rechercher la physique, commencer à implémenter
 
-## Semaine 6 (18/3):
+## Semaine 6 (19/3):
 
 ### Belhassen Rayan  
 <span style="color:green">**Fait:**</span>
@@ -462,3 +462,55 @@ affichage de la racket
 
 - terminer repair_software 
 
+### Guan Olivier 
+<span style="color:green">**Fait:**</span>
+
+- Debut modèle de briques physiques
+
+<span style="color:purple">**A Faire:**</span>
+
+- Continuer les briques physiques
+
+### Bencheikh Ilias
+<span style="color:green">**Fait:**</span>
+
+- Amélioration des effets de la balle #32
+- Moteur physique réparé #53
+- Implémentation de plusieurs balles dans la simulation #54
+- Implémentation d'un menu in-simulation #59
+- Problème de trajectoire régler #46
+    
+<span style="color:purple">**A Faire:**</span>
+
+- Régler le problème de FPS #43
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+- Début implémentation des collisions de balles entre eux #55
+
+### Benmalek Majda
+<span style="color:green">**Fait:**</span>
+- Ecran de victoire
+- Ecran de fin du jeu
+- La balle est une image maintenant (reste a adapter l'image au theme)
+- Modif de l'affiche des vies (aussi fais avec des images maintenant)
+- Ajout du niveau en cours dans la barre d'info
+- Ajout d'un separateur entre les info du jeu et le jeu (provisoire a ameliorer)
+
+<span style="color:purple">**A Faire:**</span>
+- Continuer de modifier l'affiche des balles
+- Essayer de faire une balle carrée 
+
+### Mushtaq Amanh
+
+<span style="color:green">**Fait:**</span>
+- Suite du mode infini 
+
+<span style="color:purple">**A Faire:**</span>
+-  mode infini
+-  
+
+### À faire
+
+- déboguer (nombreux chantiers en cours à finaliser, notamment rebonds en biais)
+- relire code et refactoriser
