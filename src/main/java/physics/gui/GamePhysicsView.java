@@ -1,5 +1,7 @@
 package physics.gui;
 
+import config.Game;
+import gui.GameView;
 import physics.config.GamePhysics;
 
 /**

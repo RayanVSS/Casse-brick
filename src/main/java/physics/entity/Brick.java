@@ -1,13 +1,11 @@
 package physics.entity;
 
-import entity.Entity;
 import entity.EntityColor;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 
 public abstract class Brick extends Entity {
 
-    private Vector vector;
     private int durability;
     private boolean destroyed;
 
@@ -27,7 +25,7 @@ public abstract class Brick extends Entity {
 
     protected Brick(Coordinates c, Vector vector, int durability) {
         this(c, durability, null);
-        this.vector = vector;
+        setDirection(vector);
     }
 
     public void absorb(int damage) {

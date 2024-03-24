@@ -4,7 +4,11 @@ import gui.GraphicsToolkit.LabelToggleButtonHBox;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  * Composant de l'environnement de test des briques physiques.
@@ -20,6 +24,7 @@ public class GamePhysicsToolBox extends VBox {
         setAlignment(Pos.CENTER);
 
         createButtons();
+        setStyle();
 
         getChildren().addAll(addBrickButton, addBallButton);
     }
@@ -30,6 +35,11 @@ public class GamePhysicsToolBox extends VBox {
 
         addBallButton = new LabelToggleButtonHBox("Ajouter une balle", false);
         addBallButton.getToggleButton().setOnAction(e -> addBallButton.action());
+    }
+
+    private void setStyle() {
+        setStyle("-fx-border-color: #7a6f6b; " +
+                "-fx-border-width: 2px; ");
     }
 
     public LabelToggleButtonHBox getAddBrickButton() {
