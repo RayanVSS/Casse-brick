@@ -75,9 +75,9 @@ task physic(type: JavaExec) {
 }
 
 task bricksEnv(type: JavaExec) {
-    description = "Exécute l'application BricksEnvTest"
+    description = "Exécute l'application BricksEnvironment"
     group = "custom"
-    main = 'physics.BricksEnvTest'
+    main = 'physics.BricksEnvironment'
     classpath = sourceSets.main.runtimeClasspath
 
     doFirst {
