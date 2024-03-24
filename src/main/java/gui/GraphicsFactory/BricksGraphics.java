@@ -6,9 +6,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import physics.entity.Brick;
+import physics.entity.Entity;
 import utils.*;
 
-public class BricksGraphics extends StackPane {
+public class BricksGraphics extends StackPane implements EntityGraphics {
     public ImageView imageView;
     public Brick brick;
     public int i;
@@ -116,5 +117,9 @@ public class BricksGraphics extends StackPane {
                 }
             }
         }
+    }
+
+    public Entity getEntity() {
+        return brick;
     }
 }

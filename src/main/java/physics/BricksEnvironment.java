@@ -56,7 +56,7 @@ public class BricksEnvironment extends Application {
 
         // Création du jeu
         game = new GamePhysics();
-        gameView = new GamePhysicsView(game);
+        gameView = new GamePhysicsView(primaryStage, game);
 
         // Création de la boîte à outils
         toolBox = new GamePhysicsToolBox();
@@ -89,7 +89,6 @@ public class BricksEnvironment extends Application {
                     lastUpdateTime = now;
                     game.update();
                     gameView.update();
-                    System.out.println("updated");
                 }
             }
         };

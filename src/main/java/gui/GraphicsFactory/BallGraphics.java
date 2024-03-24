@@ -1,6 +1,7 @@
 package gui.GraphicsFactory;
 
 import physics.entity.Ball;
+import physics.entity.Entity;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
@@ -9,7 +10,7 @@ import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class BallGraphics extends ImageView {
+public class BallGraphics extends ImageView implements EntityGraphics {
 
     private Ball ball;
     private Image classicBall = new Image("/balle/balle1.png");
@@ -65,4 +66,9 @@ public class BallGraphics extends ImageView {
         setPreserveRatio(true);
         setCache(true);
     }
+
+    public Entity getEntity() {
+        return ball;
+    }
+
 }

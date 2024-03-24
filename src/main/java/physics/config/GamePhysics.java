@@ -1,9 +1,12 @@
 package physics.config;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import config.Game;
+import gui.GraphicsFactory.BallGraphics;
+import gui.GraphicsFactory.BricksGraphics;
 import gui.GraphicsFactory.EntityGraphics;
 import physics.entity.Ball;
 import physics.entity.Brick;
@@ -22,16 +25,17 @@ public class GamePhysics {
     public GamePhysics() {
         bricks = new ArrayList<>();
         balls = new ArrayList<>();
+        entities = new HashMap<>();
     }
 
     public void addBrick(Brick brick) {
         bricks.add(brick);
-        entities.put(brick, new EntityGraphics());
+        entities.put(brick, new BricksGraphics(brick, 0, 0));
     }
 
     public void addBall(Ball ball) {
         balls.add(ball);
-        entities.put(ball, new EntityGraphics());
+        entities.put(ball, new BallGraphics(ball));
     }
 
     public void update() {
@@ -46,4 +50,17 @@ public class GamePhysics {
     private void updateBalls() {
 
     }
+
+    public ArrayList<Brick> getBricks() {
+        return bricks;
+    }
+
+    public ArrayList<Ball> getBalls() {
+        return balls;
+    }
+
+    public Map<Entity, EntityGraphics> getEntities() {
+        return entities;
+    }
+
 }

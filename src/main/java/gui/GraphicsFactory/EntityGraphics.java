@@ -1,5 +1,10 @@
 package gui.GraphicsFactory;
 
-public class EntityGraphics {
+import physics.entity.Entity;
 
+public interface EntityGraphics {
+
+    void update();
+
+    Entity getEntity();
 }
