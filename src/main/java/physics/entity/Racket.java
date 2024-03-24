@@ -152,8 +152,28 @@ public abstract class Racket {
         double b2 = 1 - a - b1;
 
         // balle touche triangle
-        if (a > -0.1 && b1 > -0.1 && b2 > -0.1) {
-            b.getC().setY(b.getC().getY() - b.getRadius());
+        if (a > -0.2 && b1 > -0.2 && b2 > -0.2) {
+            System.out.println(b.getC().getX() + "  " + this.getC().getX() + " " + b.getDirection().getX());
+            // balle touche le hau tdu triangle
+            if (b.getC().getX() > this.getC().getX() - 14 && b.getC().getX() < this.getC().getX() + 14) {
+                b.getC().setY(b.getC().getY() - b.getRadius());
+            } else if (b.getC().getX() < this.getC().getX()) {
+                if (b.getDirection().getX() < 0.1 && b.getDirection().getX() > -0.1) {
+                    b.setDirection(new Vector(new Coordinates(b.getDirection().getX() * 3, b.getDirection().getY() * 0.5)));
+                }
+                if (b.getDirection().getX() > 0) {
+                    b.setDirection(
+                            new Vector(new Coordinates(b.getDirection().getX() * 0.5, b.getDirection().getY() * 1.5)));
+                } else {
+                    b.setDirection(new Vector(new Coordinates(b.getDirection().getX() * 2, b.getDirection().getY()*0.5 )));
+                }
+            } else {
+                if (b.getDirection().getX() < 0) {
+                    b.setDirection(new Vector(new Coordinates(b.getDirection().getX() * 0.5, b.getDirection().getY()*2)));
+                } else {
+                    b.setDirection(new Vector(new Coordinates(b.getDirection().getX() * 2, b.getDirection().getY()*0.5)));
+                }
+            }
             return true;
         }
         return false;
@@ -377,8 +397,9 @@ public abstract class Racket {
         }
     }
 
-    public void reset(){
-        Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5, GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
+    public void reset() {
+        Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5,
+                GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
         Vector direction = new Vector(c);
         this.setC(c);
         this.setDirection(direction);

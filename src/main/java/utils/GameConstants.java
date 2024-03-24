@@ -125,7 +125,7 @@ public final class GameConstants {
                         new ClassicBall() };
 
         // à changer plus tard
-        public static Racket[] PRECONFIG_GAME_RACKET = { new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
+        public static Racket[] PRECONFIG_GAME_RACKET = { new DegradeRacket(), new ClassicRacket(), new ClassicRacket(),
                         new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
                         new ClassicRacket(), new ClassicRacket(), };
 
