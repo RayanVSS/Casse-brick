@@ -1,7 +1,6 @@
 package physics.entity;
 
 import entity.EntityColor;
-import entity.brick.Brick;
 import physics.geometry.*;
 import physics.gui.Preview;
 import physics.config.PhysicSetting;

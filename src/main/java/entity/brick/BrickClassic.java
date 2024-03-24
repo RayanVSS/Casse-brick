@@ -1,5 +1,6 @@
 package entity.brick;
 
+import physics.entity.Brick;
 import physics.geometry.Coordinates;
 
 public class BrickClassic extends Brick {

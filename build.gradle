@@ -74,4 +74,18 @@ task physic(type: JavaExec) {
     }
 }
 
+task bricksEnv(type: JavaExec) {
+    description = "Exécute l'application BricksEnvTest"
+    group = "custom"
+    main = 'physics.BricksEnvTest'
+    classpath = sourceSets.main.runtimeClasspath
+
+    doFirst {
+        jvmArgs = [
+            '--module-path', classpath.asPath,
+            '--add-modules', 'javafx.controls,javafx.media,javafx.base,javafx.graphics'
+        ]
+    }
+}
+
 

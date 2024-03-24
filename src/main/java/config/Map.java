@@ -1,8 +1,8 @@
 package config;
 
-import entity.brick.Brick;
 import entity.brick.BrickClassic;
 import physics.entity.Ball;
+import physics.entity.Brick;
 import physics.geometry.Coordinates;
 import utils.GameConstants;
 
@@ -85,7 +85,7 @@ public class Map {
                         }
                         return;
                     }
-                    
+
                 }
             }
         }
@@ -112,11 +112,13 @@ public class Map {
     private void handleCollisionDirection(Ball ball, int i, int j) { // changement directionnel simple en attendant la
                                                                      // physique plus complexe
         if (i != 0)
-            ball.getDirection().setX(-ball.getDirection().getX()+(ball.getRotation().getEffect()/90)*ball.getDirection().getX());
-            ball.getRotation().Collision();    
+            ball.getDirection().setX(
+                    -ball.getDirection().getX() + (ball.getRotation().getEffect() / 90) * ball.getDirection().getX());
+        ball.getRotation().Collision();
         if (j != 0)
-            ball.getDirection().setY(-ball.getDirection().getY()+(ball.getRotation().getEffect()/90)*ball.getDirection().getY());
-            ball.getRotation().Collision();
+            ball.getDirection().setY(
+                    -ball.getDirection().getY() + (ball.getRotation().getEffect() / 90) * ball.getDirection().getY());
+        ball.getRotation().Collision();
 
     }
 

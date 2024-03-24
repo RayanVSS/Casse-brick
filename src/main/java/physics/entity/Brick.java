@@ -1,4 +1,4 @@
-package entity.brick;
+package physics.entity;
 
 import entity.Entity;
 import entity.EntityColor;
