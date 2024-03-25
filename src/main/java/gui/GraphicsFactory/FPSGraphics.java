@@ -30,7 +30,7 @@ public class FPSGraphics extends Pane {
         maxfpsText.getStyleClass().add("scoreL-style");
         getChildren().add(fpsText);
         getChildren().add(maxfpsText);
-        getStylesheets().add(GameConstants.CSS);
+        getStylesheets().add(GameConstants.CSS.getPath());
     }
 
     /**

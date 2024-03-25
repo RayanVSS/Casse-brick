@@ -20,6 +20,7 @@ public abstract class Ball {
     private Vector direction;
     private int radius;
     private double speed;
+    private double baseSpeed;
     private EntityColor color;
     private Rotation rotation = new Rotation();
     private PhysicSetting physicSetting = new PhysicSetting();
@@ -31,24 +32,26 @@ public abstract class Ball {
     public boolean CollisionB =false;
 
     public Ball() {
-        c=new Coordinates(0, 0);
+        c = new Coordinates(0, 0);
         this.direction = new Vector(new Coordinates(0, 0));
         this.speed = 0;
         this.radius = GameConstants.DEFAULT_BALL_RADIUS;
+        this.baseSpeed = GameConstants.DEFAULT_BALL_SPEED;
     }
 
     public Ball(int r) {
-        c=new Coordinates(0, 0);
+        c = new Coordinates(0, 0);
         this.direction = new Vector(new Coordinates(0, 0));
         this.speed = 0;
         this.radius = r;
     }
 
     public Ball(Coordinates c, Vector direction, int speed, int d) {
-        this.c=c;
+        this.c = c;
         this.direction = direction;
         this.speed = speed;
         this.radius = d;
+        this.baseSpeed = GameConstants.DEFAULT_BALL_SPEED;
     }
 
     // Setters/getters
@@ -101,7 +104,7 @@ public abstract class Ball {
         return physicSetting;
     }
 
-     public EntityColor getColor() {
+    public EntityColor getColor() {
         return color;
     }
 
@@ -119,6 +122,10 @@ public abstract class Ball {
 
     public Preview getPreview() {
         return this.preview;
+    }
+
+    public void setBaseSpeed(double baseSpeed) {
+        this.baseSpeed = baseSpeed;
     }
 
     public void updatePreview() {
@@ -192,16 +199,20 @@ public abstract class Ball {
         this.setSpeed(GameConstants.DEFAULT_BALL_SPEED);
         this.setRadius(GameConstants.DEFAULT_BALL_RADIUS);
         rotation.stopRotation();
+        this.setSpeed(baseSpeed);
     }
 
     public boolean checkCollision(Brick b) {
         if (this.intersectBrick(b)) {
-            if (this.getC().getX() + this.getRadius() > b.getC().getX() && this.getC().getX() - this.getRadius() < b.getC().getX() + GameConstants.BRICK_WIDTH) {
+            if (this.getC().getX() + this.getRadius() > b.getC().getX()
+                    && this.getC().getX() - this.getRadius() < b.getC().getX() + GameConstants.BRICK_WIDTH) {
                 this.setDirection(new Vector(new Coordinates(this.getDirection().getX(), -this.getDirection().getY())));
-            } else if (this.getC().getY() + this.getRadius() > b.getC().getY() && this.getC().getY() - this.getRadius() < b.getC().getY() + GameConstants.BRICK_HEIGHT) {
+            } else if (this.getC().getY() + this.getRadius() > b.getC().getY()
+                    && this.getC().getY() - this.getRadius() < b.getC().getY() + GameConstants.BRICK_HEIGHT) {
                 this.setDirection(new Vector(new Coordinates(-this.getDirection().getX(), this.getDirection().getY())));
             } else {
-                this.setDirection(new Vector(new Coordinates(-this.getDirection().getX(), -this.getDirection().getY())));
+                this.setDirection(
+                        new Vector(new Coordinates(-this.getDirection().getX(), -this.getDirection().getY())));
             }
             return true;
         }

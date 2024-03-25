@@ -1,7 +1,9 @@
 /* LES ROOTS */
-.root, .root-options {
+.root,
+.root-options {
     -fx-background-color: #273654;
     -fx-alignment: center;
+    -fx-spacing: 20;
 }
 
 .root-options {
@@ -12,10 +14,11 @@
     -fx-background-color: #B9D9EB;
 }
 
-.root-game-over, .pause-view {
+.root-game-over,
+.pause-view {
     -fx-opacity: 0.7;
     -fx-alignment: center;
-    -fx-spacing: 10;
+    -fx-spacing: 20;
     -fx-background-color: #78859f;
 }
 
@@ -32,15 +35,18 @@
 }
 
 /* LES BOUTONS */
-.button-style, .button-hover, .label-style, .slider-style {
+.button-style,
+.button-hover,
+.label-style {
     -fx-font-size: 20px;
 }
 
-.button-style, .slider-style {
+.button-style {
     -fx-background-color: #1b263b;
 }
 
-.button-style, .label-style {
+.button-style,
+.label-style {
     -fx-text-fill: #d5bbb1;
 }
 
@@ -50,12 +56,21 @@
 }
 
 /* LES TEXTES + LABELS */
-.text-style, .title-style, .title-game-over-style {
+.fin-label {
+    -fx-font-size: 35px;
+    -fx-text-fill: #d5bbb1;
+    -fx-font-weight: bold;
+}
+
+.text-style,
+.title-style,
+.title-game-over-style {
     -fx-font-size: 20px;
     -fx-fill: #d5bbb1;
 }
 
-.title-style, .title-game-over-style {
+.title-style,
+.title-game-over-style {
     -fx-font-size: 50;
     -fx-text-fill: #d5bbb1;
     -fx-font-weight: bold;
@@ -74,22 +89,22 @@
 }
 
 .slider-style {
-    -fx-font-size: 20px;
     -fx-background-color: #273654;
 }
 
-.pause-view{
+.pause-view {
     -fx-opacity: 0.7;
     -fx-alignment: center;
     -fx-spacing: 10;
     -fx-background-color: #78859f;
 }
 
-.ball{
-    -fx-fill : black;
+.ball {
+    -fx-fill: black;
 }
 
-.hyperball, .ynotfixeracket {
+.hyperball,
+.ynotfixeracket {
     -fx-fill: #00308F;
 }
 
@@ -111,4 +126,31 @@
 
 .magnetracketnegatif {
     -fx-fill: GREEN;
+}
+
+.label-toggle-button-hbox,
+.label-slider-hbox,
+.label-combobox-hbox {
+    -fx-background-color: #313e57;
+    -fx-border-color: #7a6f6b;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 8px;
+}
+
+.label-vbox {
+    -fx-background-color: #2f3d57;
+    -fx-border-color: #7a6f6b;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 5px;
+}
+
+.label-vbox-description {
+    -fx-font-size: 13px;
+    -fx-text-fill: #d5bbb1;
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
 }

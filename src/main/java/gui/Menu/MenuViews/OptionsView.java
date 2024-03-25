@@ -45,28 +45,28 @@ public class OptionsView implements Menu {
         this.primaryStage = p;
         btnBack = createButton("Retour", 0, 0);
 
-        // VBox 1: FPS, Chemain de la balle,Particules
+        // VBox 1: FPS, Chemin de la balle,Particules
         VBox v1 = new VBox();
         // Bouton pour afficher les FPS
         Label labelfps = createLabel("Afficher les FPS", 0, 0);
-        if(GameConstants.FPS){
+        if (GameConstants.FPS) {
             buttonfps = createToggleButton("ON", false);
-        }else{
+        } else {
             buttonfps = createToggleButton("OFF", false);
         }
         // Bouton pour afficher le chemin de la balle
         Label labelpath = createLabel("Afficher le chemin de la balle", 0, 0);
-        if(GameConstants.PATH){
+        if (GameConstants.PATH) {
             buttonpath = createToggleButton("ON", false);
-        }else{
+        } else {
             buttonpath = createToggleButton("OFF", false);
         }
 
         // Bouton pour afficher les trainées de particules
         Label labelparticles = createLabel("Afficher les particules", 0, 0);
-        if(GameConstants.PARTICLES){
+        if (GameConstants.PARTICLES) {
             buttonparticles = createToggleButton("ON", false);
-        }else{
+        } else {
             buttonparticles = createToggleButton("OFF", false);
         }
 
@@ -87,7 +87,8 @@ public class OptionsView implements Menu {
         listTheme = new ComboBox<String>();
         listTheme.setPromptText("Choisissez un theme");
 
-        listTheme.getItems().addAll("dark", "pink", "light", "protanopie", "deuteranopie", "tritanopie","achromatopsie");
+        listTheme.getItems().addAll("dark", "pink", "light", "protanopie", "deuteranopie", "tritanopie",
+                "achromatopsie", "black");
 
         v2.getChildren().addAll(labelmusic, volumemusic, labelsound, volumesound, labeltheme, listTheme);
 

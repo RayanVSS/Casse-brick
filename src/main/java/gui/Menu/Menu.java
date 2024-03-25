@@ -17,6 +17,29 @@ import javafx.scene.layout.StackPane;
  */
 public interface Menu {
 
+    public enum Theme {
+        PINK("/styles/pink.css"), 
+        LIGHT("/styles/light.css"), 
+        DARK("/styles/dark.css"),
+        BLACK("/styles/black.css"),
+        ACHROMATOPSIE("/styles/achromatopsie.css"),
+        DEUTERANOPIE("/styles/deuteranopie.css"),
+        TRITANOPIE("/styles/tritanopie.css"),
+        PROTANOPIE("/styles/protanopie.css")
+        ;
+
+        private String path;
+
+        public String getPath() {
+            return path;
+        }
+
+        Theme(String path) {
+            this.path = path;
+        }
+    }
+
+
     /**
      * Crée un bouton avec le texte, la marge droite et la marge inférieure
      * spécifiés.
@@ -66,7 +89,7 @@ public interface Menu {
      */
     default ToggleButton createToggleButton(String text, boolean selected) {
         ToggleButton button = new ToggleButton(text);
-        if(selected)
+        if (selected)
             button.getStyleClass().add("button-hover");
         else
             button.getStyleClass().add("button-style");

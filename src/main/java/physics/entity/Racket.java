@@ -9,53 +9,64 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import gui.GraphicsFactory.RacketGraphics;
+
 /***************************************************************************
- *                  Explication de classe pour la raquette                 *
+ * Explication de classe pour la raquette *
  * ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*
- *      Base: 
- * @var Coordonnee c : Coordonnée de la raquette 
- * @var Vector direction : Direction de la raquette 
- * @var int speed : Vitesse de la raquette 
- * @var int longueur : Longueur de la raquette 
- * @var int largeur : Largeur de la raquette 
- * @var boolean fixeY : Si la raquette est fixe en y 
- * @var boolean jump : Si la raquette peut sauter 
- *      
- *      boost: 
- * @var Boolean vitesseP :raquette a un boost de vitesse 
- * @var Boolean vitesseM :raquette a un malus de vitesse 
+ * 
+ * @Base:
+ * @var Coordonnee c : Coordonnée de la raquette
+ * @var Vector direction : Direction de la raquette
+ * @var int speed : Vitesse de la raquette
+ * @var int longueur : Longueur de la raquette
+ * @var int largeur : Largeur de la raquette
+ * @var String shape : Forme de la raquette
+ * @var boolean fixeY : Si la raquette est fixe en y
+ * @var boolean jump : Si la raquette peut sauter
+ * 
+ * @Boost:
+ * @var Boolean vitesseP :raquette a un boost de vitesse
+ * @var Boolean vitesseM :raquette a un malus de vitesse
  * @var Boolean largeurP :raquette a un boost de largeur
  * @var Boolean largeurM :raquette a un malus de largeur
- * @var boolean freeze :le temps est freeze 
- *      
- *      GET et SET: 
- *je pense pas qui'il y ait besoin d'expliquer ;) 
- *        
- *      Collision: 
- * @param c : Coordonnée de l'objet avec lequel on veut vérifier la collision
- * @return : true si il y a collision, false sinon 
- *         
- *      Mouvement a l'appui des touches: :
- * @param keysPressed : toutes les touches appuyées 
+ * @var boolean freeze :le temps est freeze
+ * 
+ * @GET_et_SET:
+ *              je pense pas qui'il y ait besoin d'expliquer ;)
+ * 
+ * @Collision:
+ * @param b : Coordonnée de la balle
+ * @return : true si il y a collision, false sinon
+ * 
+ * @Mouvement a l'appui des touches: :
+ * @param keysPressed : toutes les touches appuyées
+ * @param event       : la touche relachée
+ * 
+ * @Saut:
+ *        pas fini pour l'instant
+ * 
+ * @forme:
+ *         pour modifier la forme de la raquette il suffit de cahnger la
+ *         variable shape
+ *         valeurs : "rectangle", "losange", "rond","triangle"
+ * @see RacketGraphics (pour voir comment est gere la forme de la raquette)
+ * 
  *
- *      Mouvement au relachement des touches: 
- * @param event: touche relachée 
- *                    
- *      Saut: 
- *pas fini pour l'instant 
- *
- * @author Rayan Belhassen 
+ * @author Rayan Belhassen
  **************************************************************************/
 
 public abstract class Racket {
 
     // base
-    Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5, GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
-    Vector direction = new Vector(c);
+    Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5,
+            GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
+    public Vector direction = new Vector(c);
     public double speed;
     public int longueur;
     public int largeur;
-    boolean fixeY;
+    public String shape;
+    public boolean fixeY;
     public boolean jump;
 
     // boost
@@ -64,13 +75,20 @@ public abstract class Racket {
     Boolean largeurP = false;
     Boolean largeurM = false;
     boolean freeze = false;
+    boolean zhonya = false;
+    boolean intensityBall = false;
+
+    // varible pour les boosts
+    public static boolean StopBall = false;
+    public static boolean AddIntensityBall = false;
 
     private long jumpStartTime;
 
     // creation de la raquette
-    public Racket(int largeur, int longueur, int speed, boolean fixeY, boolean jump) {
+    public Racket(int largeur, int longueur, String shape, int speed, boolean fixeY, boolean jump) {
         this.longueur = longueur;
         this.largeur = largeur;
+        this.shape = shape;
         this.speed = speed;
         this.fixeY = fixeY;
         this.jump = jump;
@@ -86,19 +104,106 @@ public abstract class Racket {
     }
 
     public boolean CollisionRacket(Ball b) {
-        // if (b.getC().getX() > this.c.getX() && b.getC().getX() < this.c.getX() + this.largeur
-        //         && b.getC().getY() > this.c.getY()
-        //         && b.getC().getY() < this.c.getY() + this.longueur) {
-        //     b.getC().setY(this.getC().getY() - b.getRadius());
-        //     return true;
+        if (shape.equals("rectangle")) {
+            return CollisionRectangle(b);
+        } else if (shape.equals("triangle")) {
+            return CollisionTriangle(b);
+        } else if (shape.equals("rond")) {
+            return CollisionRond(b);
+        } else if (shape.equals("losange")) {
+            return CollisionLosange(b);
+        }
+        return false;
+    }
+
+    public boolean CollisionRectangle(Ball b) {
+        // if (b.getC().getX() > this.c.getX() && b.getC().getX() < this.c.getX() +
+        // this.largeur
+        // && b.getC().getY() > this.c.getY()
+        // && b.getC().getY() < this.c.getY() + this.longueur) {
+        // b.getC().setY(this.getC().getY() - b.getRadius());
+        // return true;
         // }
         // return false;
         double dx = Math.max(this.c.getX(), Math.min(b.getC().getX(), this.c.getX() + this.largeur));
         double dy = Math.max(this.c.getY(), Math.min(b.getC().getY(), this.c.getY() + this.longueur));
-        double distance = Math.sqrt((b.getC().getX() - dx) * (b.getC().getX() - dx) + (b.getC().getY() - dy) * (b.getC().getY() - dy));
+        double distance = Math.sqrt(
+                (b.getC().getX() - dx) * (b.getC().getX() - dx) + (b.getC().getY() - dy) * (b.getC().getY() - dy));
         if (distance < b.getRadius()) {
             b.getC().setY(this.getC().getY() - b.getRadius());
             return true;
+        }
+        return false;
+    }
+
+    public boolean CollisionTriangle(Ball b) {
+        // coordonnees du triangle
+        double x1 = this.getC().getX();
+        double y1 = this.getC().getY() - this.getLongueur() / 2;
+        double x2 = this.getC().getX() + this.getLargeur() / 2;
+        double y2 = this.getC().getY() + this.getLongueur() / 2;
+        double x3 = this.getC().getX() - this.getLargeur() / 2;
+        double y3 = this.getC().getY() + this.getLongueur() / 2;
+
+        // verifier avec le produit vectoriel
+        double denominator = (y2 - y3) * (x1 - x3) + (x3 - x2) * (y1 - y3);
+        double a = ((y2 - y3) * (b.getC().getX() - x3) + (x3 - x2) * (b.getC().getY() - y3)) / denominator;
+        double b1 = ((y3 - y1) * (b.getC().getX() - x3) + (x1 - x3) * (b.getC().getY() - y3)) / denominator;
+        double b2 = 1 - a - b1;
+
+        // balle touche triangle
+        if (a > -0.1 && b1 > -0.1 && b2 > -0.1) {
+            b.getC().setY(b.getC().getY() - b.getRadius());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean CollisionRond(Ball b) {
+        double rx = this.getC().getX(); // centre x
+        double ry = this.getC().getY(); // centre y
+        double radiusX = this.getLargeur() / 2; // Rayon horizontal de l'ellipse
+        double radiusY = this.getLongueur() / 2; // Rayon vertical de l'ellipse
+        ry += 170;
+        double dx = b.getC().getX() - rx;
+        double dy = b.getC().getY() - ry;
+        // normalisation
+        double nx = dx / radiusX;
+        double ny = dy / radiusY;
+        double distance = Math.sqrt(nx * nx + ny * ny);
+        if (distance < b.getRadius()) {
+            double newBallX = rx + nx * radiusX;
+            double newBallY = ry + ny * radiusY;
+            b.getC().setX(newBallX);
+            b.getC().setY(newBallY);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean CollisionLosange(Ball b) {
+        double[] points = {
+                this.getC().getX(), this.getC().getY() - this.getLongueur() / 2,
+                this.getC().getX() + this.getLargeur() / 2, this.getC().getY(),
+                this.getC().getX(), this.getC().getY() + this.getLongueur() / 2,
+                this.getC().getX() - this.getLargeur() / 2, this.getC().getY()
+        };
+
+        double cx = b.getC().getX() - 0.40;
+        double cy = b.getC().getY() - 0.40;
+
+        int j = points.length - 2;
+        for (int i = 0; i < points.length; i += 2) {
+            double px1 = points[i];
+            double py1 = points[i + 1];
+            double px2 = points[j];
+            double py2 = points[j + 1];
+
+            if (((py1 <= cy && cy < py2) || (py2 <= cy && cy < py1)) &&
+                    (cx < (px2 - px1) * (cy - py1) / (py2 - py1) + px1)) {
+                return true;
+            }
+            j = i;
         }
         return false;
     }
@@ -108,24 +213,22 @@ public abstract class Racket {
 
     public abstract void handleKeyRelease(KeyCode event);
 
-
     // boost
-    //boost VitesseP
+    // boost VitesseP
     public void startVitesseP(int duration) {
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                vitesseP = false;// À la fin du délai réinitialiser le boost 
+                vitesseP = false;// À la fin du délai réinitialiser le boost
                 speed = speed / GameConstants.BOOST_VITESSEP;// Réinitialiser la vitesse
                 BoostTimer.cancel();// Arrêter le timer
             }
-        }, duration*1000); 
+        }, duration * 1000);
     }
 
-
     public void setVitesseP(Boolean vitesse) {
-        if (!vitesseP){
+        if (!vitesseP) {
             this.vitesseP = vitesse;
             // Si le boost est activé, démarrer le timer
             if (vitesseP) {
@@ -135,7 +238,7 @@ public abstract class Racket {
         }
     }
 
-    //boost VitesseM
+    // boost VitesseM
     public void startVitesseM(int duration) {
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
@@ -145,11 +248,11 @@ public abstract class Racket {
                 speed = speed * GameConstants.BOOST_VITESSEM;
                 BoostTimer.cancel();
             }
-        }, duration*1000); 
+        }, duration * 1000);
     }
 
     public void setVitesseM(Boolean vitesse) {
-        if (!vitesseM){
+        if (!vitesseM) {
             this.vitesseM = vitesse;
             if (vitesseM) {
                 speed = this.speed / GameConstants.BOOST_VITESSEM;
@@ -158,7 +261,7 @@ public abstract class Racket {
         }
     }
 
-    //boost largeurP
+    // boost largeurP
     public void startlargeurP(int duration) {
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
@@ -168,11 +271,11 @@ public abstract class Racket {
                 largeur = largeur - GameConstants.BOOST_LARGEURP;
                 BoostTimer.cancel();
             }
-        }, duration*1000); 
+        }, duration * 1000);
     }
 
     public void setlargeurP(Boolean Largeur) {
-        if (!largeurP){
+        if (!largeurP) {
             this.largeurP = Largeur;
             if (largeurP) {
                 largeur = this.largeur + GameConstants.BOOST_LARGEURP;
@@ -181,21 +284,21 @@ public abstract class Racket {
         }
     }
 
-    //boost longueurM
+    // boost longueurM
     public void startLargeurM(int duration) {
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 largeur = largeur + GameConstants.BOOST_LARGEURM;
-                largeurM = false; 
+                largeurM = false;
                 BoostTimer.cancel();
             }
-        }, duration*1000); 
+        }, duration * 1000);
     }
 
     public void setLargeurM(Boolean Largeur) {
-        if (!largeurM){
+        if (!largeurM) {
             this.largeurM = Largeur;
             if (largeurM) {
                 largeur = this.largeur - GameConstants.BOOST_LARGEURM;
@@ -204,28 +307,81 @@ public abstract class Racket {
         }
     }
 
-    //boost Freeze
+    // boost Freeze
     public void startFreeze(int duration, double tmp) {
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
             @Override
             public void run() {
                 freeze = false;
-                speed = tmp; 
+                speed = tmp;
                 BoostTimer.cancel();
             }
-        }, duration*1000); 
+        }, duration * 1000);
     }
 
     public void setFreeze(Boolean freeze) {
-        if (!this.freeze){
+        if (!this.freeze) {
             this.freeze = freeze;
             if (this.freeze) {
                 double tmp = this.speed;
                 speed = 0;
-                startFreeze(GameConstants.BOOST_DURATION_FREEZE,tmp);
+                startFreeze(GameConstants.BOOST_DURATION_FREEZE, tmp);
             }
         }
+    }
+
+    // boost Zhonya
+    public void startZhonya(int duration) {
+        Timer BoostTimer = new Timer();
+        BoostTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                zhonya = false;
+                StopBall = false;
+                BoostTimer.cancel();
+            }
+        }, duration * 1000);
+    }
+
+    public void setZhonya(Boolean zhonya) {
+        if (!this.zhonya) {
+            this.zhonya = zhonya;
+            if (this.zhonya) {
+                StopBall = true;
+                startZhonya(GameConstants.BOOST_DURATION_ZHONYA);
+            }
+        }
+    }
+
+    // boost IntensityBall
+    public void startIntensityBall(int duration) {
+        Timer BoostTimer = new Timer();
+        BoostTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                intensityBall = false;
+                AddIntensityBall = false;
+                BoostTimer.cancel();
+            }
+        }, duration * 1000);
+    }
+
+    public void setIntensityBall(Boolean intensityBall) {
+        if (!this.intensityBall) {
+            this.intensityBall = intensityBall;
+            if (this.intensityBall) {
+                AddIntensityBall = true;
+                startIntensityBall(GameConstants.BOOST_DURATION_INTENSITY_BALL);
+            }
+        }
+    }
+
+    public void reset(){
+        Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5, GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
+        Vector direction = new Vector(c);
+        this.setC(c);
+        this.setDirection(direction);
     }
 
     // GET et SET
@@ -264,7 +420,7 @@ public abstract class Racket {
     public void setDirection(Vector direction) {
         this.direction = direction;
     }
-    
+
     public void mMouseMove(MouseEvent e) {
         this.mOnMouseMoved(e);
     }
@@ -309,16 +465,13 @@ public abstract class Racket {
         return speed;
     }
 
-
     public Boolean getVitesseP() {
         return vitesseP;
     }
 
-
     public Boolean getVitesseM() {
         return vitesseM;
     }
-
 
     public Boolean getLargeurP() {
         return largeurP;
@@ -332,7 +485,16 @@ public abstract class Racket {
         return freeze;
     }
 
+    public boolean getZhonya() {
+        return zhonya;
+    }
 
+    public boolean getIntensityBall() {
+        return intensityBall;
+    }
 
+    public String getShapeType() {
+        return shape;
+    }
 
 }

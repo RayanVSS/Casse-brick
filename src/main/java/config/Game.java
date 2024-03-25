@@ -7,6 +7,7 @@ import entity.Boost;
 import physics.entity.Ball;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
+import utils.GameConstants;
 import entity.ball.MagnetBall;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,16 +31,16 @@ public class Game {
         this.ball = ball;
         this.racket = racket;
         this.rules = rules;
-        this.map = new Map(rules);
+        this.map = new Map(rules, GameConstants.COLUMNS_OF_BRICKS, GameConstants.ROWS_OF_BRICKS);
         rules.initRules(this);
     }
 
-    public Game(Ball ball, Racket racket, int mapWidth, int mapHeight, int life, GameRules rules) {
+    public Game(Ball ball, Racket racket, int life, GameRules rules, int columnsBricks, int rowsBricks) {
         this.ball = ball;
         this.racket = racket;
-        // this.map = new Map(rules, mapWidth, mapHeight);
         this.life = life;
         this.rules = rules;
+        this.map = new Map(rules, columnsBricks, rowsBricks);
         rules.initRules(this);
     }
 
@@ -47,7 +48,6 @@ public class Game {
         if (inGameTimer == null) {
             inGameTimer = new Timer();
             inGameTimer.scheduleAtFixedRate(new TimerTask() {
-
                 @Override
                 public void run() { // chaque seconde
                     timeElapsed++;
@@ -65,7 +65,7 @@ public class Game {
         start();
         //Vérifie si la balle touche une brique
         map.handleCollisionBricks(ball, rules); //gérer la collision des briques
-        if (map.updateBricksStatus()) {  
+        if (map.updateBricksStatus()) {
             //si la briques est cassée, chance d'avoir un boost
             Boost boost = Boost.createBoost(ball.getC());
             if (boost != null) {
@@ -84,6 +84,7 @@ public class Game {
         if (!ball.movement()) {
             life--;
             ball.reset();
+            racket.reset();
         }
         if (life == 0 || !rules.check()) {
             lost = true;
@@ -103,11 +104,6 @@ public class Game {
                 ((MagnetBall) ball).setFront(false);
             }
         }
-    }
-
-    public boolean collisionRacket(Coordinates c) {
-        return c.getX() >= racket.getC().getX() && c.getX() <= racket.getC().getX() + racket.getLongueur()
-                && c.getY() >= racket.getC().getY() && c.getY() <= racket.getC().getY() + racket.getLargeur();
     }
 
     // Vérifie si la balle est devant la raquette

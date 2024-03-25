@@ -1,7 +1,12 @@
 package gui;
 
 import javafx.animation.*;
+import javafx.geometry.Orientation;
 import javafx.scene.Scene;
+import javafx.scene.control.Separator;
+import javafx.scene.control.skin.SeparatorSkin;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import config.*;
@@ -24,28 +29,35 @@ public class GameView {
     private ScoreLifeGraphics scoreLifeView;
     // animation
     private AnimationTimer animationTimer;
+    private ImageView imageView=new ImageView(new Image("/lifeScore/separateur.png"));
 
     public GameView(Stage p, StageLevel stageLevel) {
         this.primaryStage = p;
         this.stageLevel = stageLevel;
         Game game = stageLevel.getGame();
         gameRoot = new GameRoot(stageLevel, this, scene, p);
-        scoreLifeView = new ScoreLifeGraphics(game);
+        scoreLifeView = new ScoreLifeGraphics(stageLevel);
         root.getStyleClass().add("game-backgorund");
         if(GameConstants.FPS)
             SLFPS.getChildren().add(fpsGraphics);
         SLFPS.getChildren().add(scoreLifeView);
-        SLFPS.setPrefWidth(150.0);
-        this.pane.setCenter(gameRoot.getRoot());
+        SLFPS.setPrefWidth(200.0);
+        this.pane.setRight((gameRoot.getRoot()));
+        gameRoot.getRoot().setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
+        imageView.setFitWidth(15);
+        imageView.setFitHeight(GameConstants.DEFAULT_WINDOW_HEIGHT+10);
+        imageView.setPreserveRatio(false);
+        imageView.setSmooth(true);
+        this.pane.setCenter(imageView);
         this.pane.setLeft(SLFPS);
         this.root.getChildren().add(pane);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
-        scene.getStylesheets().add(GameConstants.CSS);
+        scene.getStylesheets().add(GameConstants.CSS.getPath());
         this.animation();
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
-        //game.start();
+        game.start();
     }
 
     public void animation() {
@@ -64,10 +76,11 @@ public class GameView {
                 if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
                 } else if (now - last > 1000000000 / 120) {
-                    gameRoot.update(deltaT);
                     if(GameConstants.FPS)
                         fpsGraphics.update();
+                    gameRoot.update(deltaT);
                     scoreLifeView.update();
+                    scene.getStylesheets().add(GameConstants.CSS.getPath());
                 }
                 last = now;
             }
@@ -101,6 +114,10 @@ public class GameView {
 
     public StageLevel getStageLevel() {
         return stageLevel;
+    }
+
+    public ScoreLifeGraphics getScoreLifeView() {
+        return scoreLifeView;
     }
 
 }

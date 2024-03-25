@@ -9,8 +9,7 @@ import javafx.stage.Stage;
 /**
  * Classe contrôleur pour le menu de démarrage.
  * Elle gère les interactions de l'utilisateur avec la vue StartMenuView.
- * Elle permet de démarrer le jeu, afficher les options, quitter le jeu et
- * afficher le tutoriel.
+ * Elle permet de démarrer le jeu, afficher les options, quitter le jeu.
  * 
  * @see StartMenuView
  * @author Benmalek Majda
@@ -33,9 +32,6 @@ public class StartMenuController {
         });
         this.view.getBtnQuit().setOnAction(e -> {
             quit();
-        });
-        this.view.getBtnTuto().setOnAction(e -> {
-            tuto();
         });
         this.view.getBtnSave().setOnAction(e -> {
             sauvegarde();
@@ -69,15 +65,6 @@ public class StartMenuController {
         view.getPrimaryStage().close();
         Platform.exit();
         System.exit(0);
-    }
-
-    /**
-     * Méthode pour afficher le tutoriel.
-     */
-    private void tuto() {
-        Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "TutoView");
-        });
     }
 
     /**

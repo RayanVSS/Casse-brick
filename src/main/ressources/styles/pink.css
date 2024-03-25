@@ -1,76 +1,100 @@
-/* Styles généraux */
-.root,
-.root-option,
-.game-backgorund,
-.root-game-over,
-.pause-view {
+/* LES ROOTS */
+.root, .root-options {
     -fx-background-color: #ffd7e9;
     -fx-alignment: center;
+    -fx-spacing: 20;
 }
 
-.vbox,
-.grid-style {
+.root-options {
+    -fx-spacing: 50;
+}
+
+.game-backgorund {
+    -fx-background-color: #ffd7e9;
+}
+
+.root-game-over, .pause-view {
+    -fx-opacity: 0.7;
     -fx-alignment: center;
     -fx-spacing: 20;
+    -fx-background-color: #ffd7e9;
+}
+
+.vbox {
+    -fx-spacing: 20;
+    -fx-alignment: center;
 }
 
 .grid-style {
     -fx-hgap: 10;
     -fx-vgap: 10;
     -fx-padding: 25;
+    -fx-alignment: center;
 }
 
-.root-game-over,
-.pause-view {
-    -fx-opacity: 0.7;
-    -fx-spacing: 20;
-}
-
-/* Styles de texte */
-.text-style,
-.button-style,
-.label-style {
+/* LES BOUTONS */
+.button-style, .button-hover, .label-style {
     -fx-font-size: 20px;
-    -fx-text-fill: #C71585;
 }
 
-.title-style {
-    -fx-font-size: 40px;
-}
-
-.scoreL-style {
-    -fx-font-size: 25px;
-}
-
-.title-game-over-style {
-    -fx-font-size: 50px;
-    -fx-font-weight: bold;
-}
-
-/* Styles de boutons */
 .button-style {
     -fx-background-color: #FFB6C1;
 }
 
+.button-style, .label-style {
+    -fx-text-fill: #C71585;
+}
+
 .button-hover {
-    -fx-font-size: 20px;
     -fx-background-color: #C71585;
     -fx-text-fill: #FFB6C1;
 }
 
-/* Styles de curseur */
+/* LES TEXTES + LABELS */
+.fin-label{
+    -fx-font-size: 35px;
+    -fx-text-fill: #C71585;
+    -fx-font-weight: bold;
+}
+.text-style, .title-style, .title-game-over-style {
+    -fx-font-size: 20px;
+    -fx-fill: #C71585;
+}
+
+.title-style, .title-game-over-style {
+    -fx-font-size: 50;
+    -fx-text-fill: #C71585;
+    -fx-font-weight: bold;
+}
+
+.scoreL-style {
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-fill: #C71585;
+}
+
+.title-game-over-style {
+    -fx-font-size: 50px;
+    -fx-text-fill: #C71585;
+    -fx-font-weight: bold;
+}
+
 .slider-style {
     -fx-background-color: #ffd7e9;
 }
 
-/* Styles de jeu */
-.ball,
-.racket {
-    -fx-fill: #FE6E87;
+.pause-view{
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-background-color: #ffd7e9;
 }
 
-.hyperball,
-.ynotfixeracket {
+.ball{
+    -fx-fill : #FE6E87;
+}
+
+.hyperball, .ynotfixeracket {
     -fx-fill: #E5194C;
 }
 
@@ -84,6 +108,10 @@
 
 .magnetracketpositif {
     -fx-fill: YELLOW;
+}
+
+.racket {
+    -fx-fill: #FE6E87;
 }
 
 .magnetracketnegatif {

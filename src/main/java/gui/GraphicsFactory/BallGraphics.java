@@ -1,58 +1,68 @@
 package gui.GraphicsFactory;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import physics.entity.Ball;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
 import entity.ball.MagnetBall;
+import gui.ImageLoader;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class BallGraphics extends Circle {
+public class BallGraphics extends ImageView {
 
     private Ball ball;
+    private Image classicBall = new Image("/balle/balle1.png");
+    private Image hyperBall = new Image("/balle/balleHyper.png");
+    private Image gravityBall = new Image("/balle/balleGravity.png");
+    private Image positifBall = new Image("/balle/positif.png");
+    private Image negatifBall = new Image("/balle/negatif.png");
+    private Image redBall = new Image("/balle/balleRouge.png");
+    private Image greenBall = new Image("/balle/balleVert.png");
+    private Image blueBall = new Image("/balle/balleBleu.png");
 
     public BallGraphics(Ball ball) {
         this.ball = ball;
-        setCenterX(ball.getC().getX());
-        setCenterY(ball.getC().getY());
-        setRadius(ball.getRadius());
-        if (ball instanceof ClassicBall)
-            getStyleClass().add("ball");
-        else if (ball instanceof HyperBall)
-            getStyleClass().add("hyperball");
-        else if (ball instanceof GravityBall)
-            getStyleClass().add("gravityball");
-        else if (ball instanceof MagnetBall)
-            getStyleClass().add("magnetball");
+        updateImageAndProperties();
+        setX(ball.getC().getX() - ball.getRadius());
+        setY(ball.getC().getY() - ball.getRadius());
     }
 
     public void update() {
-        setCenterX(ball.getC().getX());
-        setCenterY(ball.getC().getY());
-        if (ball instanceof MagnetBall) {
+        setX(ball.getC().getX() - ball.getRadius());
+        setY(ball.getC().getY() - ball.getRadius());
+        updateImageAndProperties();
+    }
+
+    private void updateImageAndProperties() {
+        if (ball instanceof ClassicBall)
+            setImage(classicBall);
+        else if (ball instanceof HyperBall)
+            setImage(hyperBall);
+        else if (ball instanceof GravityBall)
+            setImage(gravityBall);
+        else if (ball instanceof MagnetBall) {
             if (((MagnetBall) ball).getEtat().equals("positif"))
-                setFill(Color.GREEN);
+                setImage(positifBall);
             else
-                setFill(Color.YELLOW);
+                setImage(negatifBall);
         }
         if (ball.getColor() != null) {
             switch (ball.getColor()) {
                 case RED:
-                    setFill(Color.RED);
+                    setImage(redBall);
                     break;
                 case GREEN:
-                    setFill(Color.GREEN);
+                    setImage(greenBall);
                     break;
                 case BLUE:
-                    setFill(Color.BLUE);
-                    break;
-                default:
-                    setFill(Color.GRAY);
+                    setImage(blueBall);
                     break;
             }
         }
-
+        setFitWidth(ball.getRadius() * 3);
+        setFitHeight(ball.getRadius() * 3);
+        setPreserveRatio(true);
+        setCache(true);
     }
-
 }
