@@ -1,10 +1,6 @@
 package gui.Menu;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
@@ -16,7 +12,6 @@ import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
-import javafx.util.Duration;
 import utils.GameConstants;
 
 /**

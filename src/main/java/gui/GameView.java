@@ -87,7 +87,21 @@ public class GameView {
     }
 
     private ImageView setSeparator(){
-        separator = new ImageView(new Image("/lifeScore/pinkSep.png"));
+        Image image=null;
+        switch(GameConstants.CSS){
+            case PINK:
+                image=ImageLoader.loadImage("src/main/ressources/lifeScore/pinkSep.png");
+            case DARK:
+            case BLACK:
+            case LIGHT:
+                image=ImageLoader.loadImage("src/main/ressources/lifeScore/blackSep.png");
+            case ACHROMATOPSIE:
+            case DEUTERANOPIE:
+            case TRITANOPIE:
+            case PROTANOPIE:
+            //TODO: ajouter les images pour les autres thèmes
+        }
+        separator = new ImageView(image);
         double windowHeight = scene.getHeight();
         separator.setFitHeight(windowHeight);
         separator.setFitWidth(20);

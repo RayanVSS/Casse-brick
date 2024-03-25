@@ -11,7 +11,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import utils.GameConstants;
-import utils.ImageCache;
 
 /**
  * Classe ScoreLifeView qui étend Pane pour afficher le score et la vie dans le
@@ -58,7 +57,7 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         scoreText.setX(20);
         scoreText.setY(80);
         scoreText.getStyleClass().add("scoreL-style");
-
+        
         niveau = createLabel("Niveau: " + (stage.getDifficulty() + 1), 0, 0);
         niveau.getStyleClass().add("scoreL-style");
         niveau.setLayoutX(20);
@@ -80,7 +79,6 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         }
 
         if (game.getRules().isLimitedBounces()) {
-            // TODO: changer la taille de la police dans tout les fichiers css
             bounces = createLabel("Rebonds restants: " + game.getRules().getRemainingBounces(), 0, 0);
             bounces.setVisible(true);
             bounces.getStyleClass().add("scoreL-style");
@@ -112,7 +110,7 @@ public class ScoreLifeGraphics extends VBox implements Menu {
             case DARK:
             case BLACK:
             case LIGHT:
-                return "src/main/ressources/lifeScore/lifeBlack.png";
+                return "src/main/ressources/lifeScore/lifeOKb.png";
             case ACHROMATOPSIE:
                 return "src/main/ressources/lifeScore/lifeAchromatopsie+.png";
             case DEUTERANOPIE:
@@ -133,7 +131,7 @@ public class ScoreLifeGraphics extends VBox implements Menu {
             case DARK:
             case BLACK:
             case LIGHT:
-                return "src/main/ressources/lifeScore/lifeKO.png";
+                return "src/main/ressources/lifeScore/lifeKOb.png";
             case ACHROMATOPSIE:
                 return "src/main/ressources/lifeScore/lifeAchromatopsie-.png";
             case DEUTERANOPIE:
