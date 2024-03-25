@@ -20,6 +20,7 @@ public class BallGraphics extends ImageView {
     private Image redBall = new Image("/balle/balleRouge.png");
     private Image greenBall = new Image("/balle/balleVert.png");
     private Image blueBall = new Image("/balle/balleBleu.png");
+    private Image physicBall=new Image("/balle/ballephysic.png");
 
     public BallGraphics(Ball ball) {
         this.ball = ball;
@@ -28,10 +29,50 @@ public class BallGraphics extends ImageView {
         setY(ball.getC().getY() - ball.getRadius());
     }
 
+    public BallGraphics(String id,Ball ball) {
+        this.ball = ball;
+        updateImageAndProperties();
+        setX(ball.getC().getX() - ball.getRadius());
+        setY(ball.getC().getY() - ball.getRadius());
+        switch (id) {
+            case "classicBall":
+                setImage(classicBall);
+                break;
+            case "hyperBall":
+                setImage(hyperBall);
+                break;
+            case "gravityBall":
+                setImage(gravityBall);
+                break;
+            case "positifBall":
+                setImage(positifBall);
+                break;
+            case "negatifBall":
+                setImage(negatifBall);
+                break;
+            case "redBall":
+                setImage(redBall);
+                break;
+            case "greenBall":
+                setImage(greenBall);
+                break;
+            case "blueBall":
+                setImage(blueBall);
+                break;
+            default:
+                setImage(physicBall);
+                break;
+        }
+        setFitWidth(ball.getRadius() * 3);
+        setFitHeight(ball.getRadius() * 3);
+        setPreserveRatio(true);
+        setCache(true);
+    }
+
     public void update() {
         setX(ball.getC().getX() - ball.getRadius());
         setY(ball.getC().getY() - ball.getRadius());
-        updateImageAndProperties();
+        //updateImageAndProperties();
     }
 
     private void updateImageAndProperties() {

@@ -12,6 +12,8 @@ import java.util.Arrays;
 import javafx.scene.paint.Color;
 
 import java.util.Map;
+
+import gui.GraphicsFactory.BallGraphics;
 import utils.GameConstants;
 
 
@@ -22,11 +24,11 @@ public class OptionBar {
     private Pane bar;
     private ArrayList<Circle> circles=new ArrayList<>();
     private char position = 'g';
-    private Map<Ball,Circle> map;
-    private ArrayList<Color> list_color=new ArrayList<>(Arrays.asList(Color.RED,Color.BLUE,Color.GREEN,Color.YELLOW,Color.ORANGE,Color.PURPLE,Color.BROWN,Color.PINK,Color.CYAN,Color.MAGENTA));
+    private Map<Ball,BallGraphics> map;
+    private ArrayList<String> list_color=new ArrayList<>(Arrays.asList("classicBall","hyperBall","gravityBall","positifBall","negatifBall","redBall","greenBall","blueBall"));
     private ArrayList<Ball> list_ball=new ArrayList<>();
 
-    public OptionBar(Pane root, Map<Ball,Circle> map){
+    public OptionBar(Pane root, Map<Ball,BallGraphics> map){
         this.root= root;
         this.map = map;
         bar = new Pane();
@@ -84,13 +86,12 @@ public class OptionBar {
         button2.setOnAction(e->{
             if(list_color.size()>0){
                 Ball b2 = PhysicEngine.init_ball();
-                Circle c = new Circle(b2.getC().getX(),b2.getC().getY(),b.getRadius()*2);
-                Color color= list_color.get((int)(Math.random()*list_color.size()));
-                c.setFill(color);
+                String color= list_color.get((int)(Math.random()*list_color.size()));
+                BallGraphics ballg = new BallGraphics(color,b2);
                 list_color.remove(color);
                 list_ball.add(b2);
-                map.put(b2,c);
-                root.getChildren().add(c);
+                map.put(b2,ballg);
+                root.getChildren().add(ballg);
             }
             else{
                 Label l= new Label("Vous avez atteint le nombre maximal de balles");
@@ -127,7 +128,7 @@ public class OptionBar {
             map.remove(b);
         }
         list_ball.clear();
-        list_color=new ArrayList<>(Arrays.asList(Color.RED,Color.BLUE,Color.GREEN,Color.YELLOW,Color.ORANGE,Color.PURPLE,Color.BROWN,Color.PINK,Color.CYAN,Color.MAGENTA));
+        list_color=new ArrayList<>(Arrays.asList("classicBall","hyperBall","gravityBall","positifBall","negatifBall","redBall","greenBall","blueBall"));
     }
 
     public void clearCircles(){

@@ -20,6 +20,8 @@ import java.util.Set;
 import config.Game;
 
 import java.util.Map;
+
+import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.RacketGraphics;
 import physics.gui.OptionBar;
 import physics.gui.Preview;
@@ -53,11 +55,12 @@ public class PhysicEngine {
     private Stage primaryStage;
     private Pane root;
     private OptionBar optionBar;
+    private Ball pointeur;
 
     PhysicSetting physics;
 
-    Map<Ball,Circle> listball=new java.util.HashMap<>();
-    Circle graphBall;
+    Map<Ball,BallGraphics> listball=new java.util.HashMap<>();
+    BallGraphics graphBall;
 
     Racket racket;
     Shape graphRacket;
@@ -85,7 +88,7 @@ public class PhysicEngine {
         this.physics = AppPhysic.physics;
 
         Ball ball = init_ball();
-        graphBall = new Circle(ball.getC().getX(), ball.getC().getY(), ball.getRadius() * 2);
+        graphBall = new BallGraphics("",ball);
         root.getChildren().add(graphBall);
         listball.put(ball, graphBall);
     
@@ -108,12 +111,15 @@ public class PhysicEngine {
             if(!optionBar.isBar()){
                 mouseX = event.getSceneX();
                 mouseY = event.getSceneY();
-                double ballX = ball.getC().getX();
-                double ballY = ball.getC().getY();
-                double distance = Math.sqrt(Math.pow(mouseX - ballX, 2) + Math.pow(mouseY - ballY, 2));
-                if (distance <= ball.getRadius()+10) {
-                    isMouseDraggingBall = true;
-                    ball.getPreview().clear_path(root);
+                for(Ball b : listball.keySet()){
+                    double ballX = b.getC().getX();
+                    double ballY = b.getC().getY();
+                    double distance = Math.sqrt(Math.pow(mouseX - ballX, 2) + Math.pow(mouseY - ballY, 2));
+                    if (distance <= ball.getRadius()+10) {
+                        isMouseDraggingBall = true;
+                        pointeur = b;
+                        b.getPreview().clear_path(root);
+                    }
                 }
             }
         });
@@ -121,8 +127,8 @@ public class PhysicEngine {
         graphBall.setOnMouseDragged(event -> {
             if (isMouseDraggingBall && !optionBar.isBar()) {
                 if(event.getSceneX() > d_WIDTH+ball.getRadius() && event.getSceneX() < f_WIDTH-ball.getRadius() && event.getSceneY() > ball.getRadius() && event.getSceneY() < GameConstants.DEFAULT_WINDOW_HEIGHT-ball.getRadius()){
-                    ball.getC().setX(event.getSceneX());
-                    ball.getC().setY(event.getSceneY());
+                    pointeur.getC().setX(event.getSceneX());
+                    pointeur.getC().setY(event.getSceneY());
                 }
             }
         });
@@ -139,9 +145,11 @@ public class PhysicEngine {
                     dy = 7;
                 }
                 Vector newVelocity = new Vector(new Coordinates(dx, dy));
-                ball.getRotation().stopRotation();
-                ball.setDirection(newVelocity);
-                ball.getPreview().init_path();
+                pointeur.getRotation().stopRotation();
+                pointeur.setDirection(newVelocity);
+                if(pointeur.getPreview()!=null){
+                    pointeur.getPreview().init_path();
+                }
             }
         });
 
@@ -201,9 +209,7 @@ public class PhysicEngine {
             }
 
             for(Ball b : listball.keySet()){
-                listball.get(b).setCenterX(b.getC().getX());
-                listball.get(b).setCenterY(b.getC().getY());
-                listball.get(b).setRotate(b.getRotation().getAngle());
+                listball.get(b).update();
                 b.CollisionB=false;
             }
 
@@ -218,7 +224,7 @@ public class PhysicEngine {
     public static Ball init_ball(){
         PhysicSetting physics = AppPhysic.physics;
         return new Ball(GameConstants.DEFAULT_BALL_START_COORDINATES,
-        GameConstants.DEFAULT_BALL_START_DIRECTION,1, physics.getRadius()){
+        GameConstants.DEFAULT_BALL_START_DIRECTION,1, GameConstants.DEFAULT_BALL_RADIUS){
             @Override
             public boolean movement() {
                 double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
