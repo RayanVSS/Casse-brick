@@ -5,7 +5,6 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import physics.entity.*;
 import entity.racket.*;
 import physics.entity.Racket;
 

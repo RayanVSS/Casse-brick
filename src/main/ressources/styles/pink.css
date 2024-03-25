@@ -68,8 +68,8 @@
 }
 
 .scoreL-style {
-    -fx-font-size: 25px;
-    -fx-font-weight: bold;
+    -fx-font-size: 20px;
+    /*-fx-font-weight: light;*/
     -fx-fill: #C71585;
 }
 

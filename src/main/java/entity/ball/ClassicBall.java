@@ -75,7 +75,7 @@ public class ClassicBall extends Ball {
             newX = this.getC().getX() + this.getDirection().getX()*this.getSpeed();
             this.getDirection().setX(this.getDirection().getX()*super.getPhysicSetting().getRetention());
         }
-        if (newY < 0) {
+        else if (newY < 0) {
             this.getDirection().setY(-this.getDirection().getY()+(this.getRotation().getEffect()/90)*this.getDirection().getY());
             this.getRotation().Collision();
             newY = this.getC().getY() + this.getDirection().getY()* this.getSpeed();
