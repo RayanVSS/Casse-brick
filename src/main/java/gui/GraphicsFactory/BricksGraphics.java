@@ -16,6 +16,7 @@ public class BricksGraphics extends StackPane implements EntityGraphics {
     public int j;
     public boolean isUnbreakable;
     public boolean isTransparent;
+    private boolean waitingAdded, waitingRemoved;
 
     public BricksGraphics(Brick brick, int i, int j) {
         Image image;
@@ -122,4 +123,21 @@ public class BricksGraphics extends StackPane implements EntityGraphics {
     public Entity getEntity() {
         return brick;
     }
+
+    public boolean isWaitingAdded() {
+        return waitingAdded;
+    }
+
+    public void setWaitingAdded(boolean waitingAdded) {
+        this.waitingAdded = waitingAdded;
+    }
+
+    public boolean isWaitingRemoved() {
+        return waitingRemoved;
+    }
+
+    public void setWaitingRemoved(boolean waitingRemoved) {
+        this.waitingRemoved = waitingRemoved;
+    }
+
 }

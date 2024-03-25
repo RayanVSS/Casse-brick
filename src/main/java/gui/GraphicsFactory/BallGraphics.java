@@ -21,12 +21,14 @@ public class BallGraphics extends ImageView implements EntityGraphics {
     private Image redBall = new Image("/balle/balleRouge.png");
     private Image greenBall = new Image("/balle/balleVert.png");
     private Image blueBall = new Image("/balle/balleBleu.png");
+    private boolean waitingAdded, waitingRemoved;
 
     public BallGraphics(Ball ball) {
         this.ball = ball;
         updateImageAndProperties();
         setX(ball.getC().getX() - ball.getRadius());
         setY(ball.getC().getY() - ball.getRadius());
+        waitingAdded = true;
     }
 
     public void update() {
@@ -69,6 +71,22 @@ public class BallGraphics extends ImageView implements EntityGraphics {
 
     public Entity getEntity() {
         return ball;
+    }
+
+    public boolean isWaitingAdded() {
+        return waitingAdded;
+    }
+
+    public void setWaitingAdded(boolean waitingAdded) {
+        this.waitingAdded = waitingAdded;
+    }
+
+    public boolean isWaitingRemoved() {
+        return waitingRemoved;
+    }
+
+    public void setWaitingRemoved(boolean waitingRemoved) {
+        this.waitingRemoved = waitingRemoved;
     }
 
 }

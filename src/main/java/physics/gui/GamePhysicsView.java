@@ -1,12 +1,16 @@
 package physics.gui;
 
 import java.util.Map.Entry;
+import java.util.Iterator;
 
 import config.Game;
 import gui.GameView;
+import gui.GraphicsFactory.BallGraphics;
+import gui.GraphicsFactory.BricksGraphics;
 import gui.GraphicsFactory.EntityGraphics;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import physics.config.GamePhysics;
 import physics.entity.Entity;
@@ -18,17 +22,12 @@ import utils.GameConstants;
 
 public class GamePhysicsView {
 
-    private Stage primaryStage;
-    private Pane root;
-    private Scene scene;
-
+    private Pane entitiesArea;
     private GamePhysics game;
 
-    public GamePhysicsView(Stage p, GamePhysics game) {
-        this.primaryStage = p;
-        this.root = new Pane();
-        this.scene = new Scene(root);
-
+    public GamePhysicsView(Pane gameArea, GamePhysics game) {
+        entitiesArea = new Pane();
+        gameArea.getChildren().addAll(entitiesArea);
         this.game = game;
     }
 
@@ -37,8 +36,27 @@ public class GamePhysicsView {
     }
 
     private void updateEntitiesGraphics() {
-        for (Entry<Entity, EntityGraphics> entry : game.getEntities().entrySet()) {
-            entry.getValue().update();
+        Iterator<Entry<Entity, EntityGraphics>> iterator = game.getEntities().entrySet().iterator();
+        while (iterator.hasNext()) {
+            Entry<Entity, EntityGraphics> entry = iterator.next();
+            EntityGraphics eg = entry.getValue();
+            if (eg.isWaitingAdded()) {
+                if (eg instanceof BricksGraphics) {
+                    entitiesArea.getChildren().add((BricksGraphics) eg);
+                } else if (eg instanceof BallGraphics) {
+                    entitiesArea.getChildren().add((BallGraphics) eg);
+                }
+                eg.setWaitingAdded(false);
+            }
+            if (eg.isWaitingRemoved()) {
+                if (eg instanceof BricksGraphics) {
+                    entitiesArea.getChildren().remove((BricksGraphics) eg);
+                } else if (eg instanceof BallGraphics) {
+                    entitiesArea.getChildren().remove((BallGraphics) eg);
+                }
+                iterator.remove();
+            }
+            eg.update();
         }
     }
 }

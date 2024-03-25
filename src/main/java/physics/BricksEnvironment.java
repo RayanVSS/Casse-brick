@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -33,9 +34,9 @@ public class BricksEnvironment extends Application {
 
     private Stage primaryStage;
     private Scene scene;
-    private StackPane root;
-    private BorderPane mainPane;
-    private StackPane gameArea; //tmp
+    private BorderPane root;
+    private StackPane uiPane;
+    private StackPane gameArea;
     private AnimationTimer animTimer;
 
     // Composant de l'environnement de test des briques physiques.
@@ -47,22 +48,22 @@ public class BricksEnvironment extends Application {
     public void start(Stage p) throws Exception {
 
         primaryStage = p;
-        root = new StackPane();
-        mainPane = new BorderPane();
+        root = new BorderPane();
 
-        // Création de la zone de jeu
+        uiPane = new StackPane();
         gameArea = new StackPane();
-        mainPane.setCenter(gameArea);
+        root.setLeft(uiPane);
+        root.setCenter(gameArea);
 
         // Création du jeu
         game = new GamePhysics();
-        gameView = new GamePhysicsView(primaryStage, game);
+        gameView = new GamePhysicsView(gameArea, game);
 
         // Création de la boîte à outils
         toolBox = new GamePhysicsToolBox();
-        mainPane.setLeft(toolBox);
+        uiPane.getChildren().addAll(toolBox);
 
-        scene = new Scene(mainPane, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
+        scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
         scene.getStylesheets().add(getClass().getResource(GameConstants.CSS.getPath()).toExternalForm());
 
         addControls();
@@ -96,11 +97,11 @@ public class BricksEnvironment extends Application {
     }
 
     private void addControls() {
-        mainPane.setOnMouseClicked(event -> {
+        gameArea.setOnMouseClicked(event -> {
             // Vérifier si la souris est dans la zone de jeu
             double mouseX = event.getX();
             double mouseY = event.getY();
-            Bounds gameAreaBounds = mainPane.getCenter().getBoundsInParent();
+            Bounds gameAreaBounds = gameArea.getBoundsInLocal(); // Obtenir les limites locales du StackPane
 
             if (gameAreaBounds.contains(mouseX, mouseY)) {
                 if (toolBox.getAddBrickButton().getToggleButton().isSelected()) {
@@ -108,7 +109,7 @@ public class BricksEnvironment extends Application {
                     toolBox.getAddBrickButton().getToggleButton().setSelected(false);
                     toolBox.getAddBrickButton().action();
                 } else if (toolBox.getAddBallButton().getToggleButton().isSelected()) {
-                    game.addBall(new ClassicBall(new Coordinates(mouseX, mouseY), new Vector(new Coordinates(0, 0))));
+                    game.addBall(new ClassicBall(new Coordinates(mouseX, mouseY), new Vector(new Coordinates(1, 1))));
                     toolBox.getAddBallButton().getToggleButton().setSelected(false);
                     toolBox.getAddBallButton().action();
                 }

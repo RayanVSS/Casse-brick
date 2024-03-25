@@ -9,6 +9,7 @@ public abstract class Entity {
 
     protected Entity(Coordinates c, Vector vector) {
         this.c = c;
+        this.direction = vector;
     }
 
     protected Entity(Coordinates c) {
