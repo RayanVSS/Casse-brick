@@ -28,6 +28,7 @@ public abstract class Ball {
     // colision avec racket
     public boolean CollisionR = false;
     public boolean CollisionR_Side = false;
+    public boolean CollisionB =false;
 
     public Ball() {
         c=new Coordinates(0, 0);
@@ -207,9 +208,23 @@ public abstract class Ball {
         return false;
     }
 
-    public boolean checkCollisionOtherBall(Ball b){
+    public void checkCollisionOtherBall(Ball b){
         // TODO : implement this method
-        return false;
+        if(!CollisionB){
+            if(c.getX()>=b.getC().getX()-radius && c.getX()<=b.getC().getX()+radius){
+                b.getDirection().setX(-b.getDirection().getX()+(b.getRotation().getEffect())/90*b.getDirection().getX());
+                direction.setX(-direction.getX()+(b.getRotation().getEffect())/90*direction.getX());
+                CollisionB=true;
+                b.CollisionB=true;
+            } 
+            if(c.getY()>=b.getC().getY()-radius && c.getY()<=b.getC().getY()+radius){
+                b.getDirection().setY(-b.getDirection().getY()+(b.getRotation().getEffect())/90*b.getDirection().getY());
+                direction.setY(-direction.getY()+(b.getRotation().getEffect())/90*direction.getY());
+                CollisionB=true;
+                b.CollisionB=true;
+            }
+        }
+        
     }
 
 }

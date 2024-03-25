@@ -188,6 +188,11 @@ public class PhysicEngine {
             // Mise à jour de la position de la balle et de la trajectoire
             if(!isMouseDraggingBall){
                 for(Ball b : listball.keySet()){
+                    for(Ball b2 : listball.keySet()){
+                        if(b!=b2){
+                            b.checkCollisionOtherBall(b2);
+                        }
+                    }
                     b.movement();
                     if(b.getPreview()!=null){
                         b.updatePreview();
@@ -199,6 +204,7 @@ public class PhysicEngine {
                 listball.get(b).setCenterX(b.getC().getX());
                 listball.get(b).setCenterY(b.getC().getY());
                 listball.get(b).setRotate(b.getRotation().getAngle());
+                b.CollisionB=false;
             }
 
 
