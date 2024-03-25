@@ -1,26 +1,26 @@
 package gui.GraphicsFactory;
 
 import physics.entity.Ball;
-import utils.ImageCache;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
 import entity.ball.MagnetBall;
+import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class BallGraphics extends ImageView {
+    private static final Image CLASSIC_BALL = ImageLoader.loadImage("src/main/ressources/balle/balle1.png");
+    private static final Image HYPER_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleHyper.png");
+    private static final Image GRAVITY_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleGravity.png");
+    private static final Image POSITIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/positif.png");
+    private static final Image NEGATIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/negatif.png");
+    private static final Image RED_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleRouge.png");
+    private static final Image GREEN_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleVert.png");
+    private static final Image BLUE_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleBleu.png");
 
     private Ball ball;
-    private Image classicBall = ImageCache.getImage("/balle/balle1.png");
-    private Image hyperBall = ImageCache.getImage("/balle/balleHyper.png");
-    private Image gravityBall = ImageCache.getImage("/balle/balleGravity.png");
-    private Image positifBall = ImageCache.getImage("/balle/positif.png");
-    private Image negatifBall = ImageCache.getImage("/balle/negatif.png");
-    private Image redBall = ImageCache.getImage("/balle/balleRouge.png");
-    private Image greenBall = ImageCache.getImage("/balle/balleVert.png");
-    private Image blueBall = ImageCache.getImage("/balle/balleBleu.png");
-    
+    private Image currentImage;
 
     public BallGraphics(Ball ball) {
         this.ball = ball;
@@ -37,14 +37,15 @@ public class BallGraphics extends ImageView {
 
     private void setImageAndProperties() {
         if (ball instanceof ClassicBall) {
-            setImage(classicBall);
+            currentImage = CLASSIC_BALL;
         } else if (ball instanceof HyperBall) {
-            setImage(hyperBall);
+            currentImage = HYPER_BALL;
         } else if (ball instanceof GravityBall) {
-            setImage(gravityBall);
+            currentImage = GRAVITY_BALL;
         } else if (ball instanceof MagnetBall) {
-            setImage(positifBall);
+            currentImage = POSITIF_BALL;
         }
+        setImage(currentImage);
         setFitWidth(ball.getRadius() * 2);
         setPreserveRatio(true);
         setSmooth(true);
@@ -52,23 +53,30 @@ public class BallGraphics extends ImageView {
 
     private void updateImageAndProperties() {
         if (ball instanceof MagnetBall) {
-            if (((MagnetBall) ball).getEtat().equals("positif")) {
-                setImage(positifBall);
-            } else {
-                setImage(negatifBall);
+            Image newImage = ((MagnetBall) ball).getEtat().equals("positif") ? POSITIF_BALL : NEGATIF_BALL;
+            if (newImage != currentImage) {
+                currentImage = newImage;
+                setImage(currentImage);
             }
         }
         if (ball.getColor() != null) {
+            Image newImage;
             switch (ball.getColor()) {
                 case RED:
-                    setImage(redBall);
+                    newImage = RED_BALL;
                     break;
                 case GREEN:
-                    setImage(greenBall);
+                    newImage = GREEN_BALL;
                     break;
                 case BLUE:
-                    setImage(blueBall);
+                    newImage = BLUE_BALL;
                     break;
+                default:
+                    newImage = currentImage;
+            }
+            if (newImage != currentImage) {
+                currentImage = newImage;
+                setImage(currentImage);
             }
         }
     }
