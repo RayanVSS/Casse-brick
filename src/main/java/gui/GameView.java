@@ -1,10 +1,7 @@
 package gui;
 
 import javafx.animation.*;
-import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.Separator;
-import javafx.scene.control.skin.SeparatorSkin;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -13,42 +10,38 @@ import config.*;
 import gui.GraphicsFactory.*;
 import utils.*;
 
-
 public class GameView {
     private Stage primaryStage;
-    private Pane root=new Pane();
-    private VBox SLFPS=new VBox();
-    private BorderPane pane=new BorderPane();
+    private Pane root = new Pane();
+    private VBox SLFPS = new VBox();
+    private BorderPane pane = new BorderPane();
     private GameRoot gameRoot;
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     private StageLevel stageLevel;
     // lire les touches
     Key key = new Key();
     // fps & lifeScore
-    private FPSGraphics fpsGraphics=new FPSGraphics();
+    private FPSGraphics fpsGraphics = new FPSGraphics();
     private ScoreLifeGraphics scoreLifeView;
     // animation
     private AnimationTimer animationTimer;
-    private ImageView imageView=new ImageView(new Image("/lifeScore/separateur.png"));
+    private ImageView separator ;
 
     public GameView(Stage p, StageLevel stageLevel) {
         this.primaryStage = p;
         this.stageLevel = stageLevel;
         Game game = stageLevel.getGame();
         gameRoot = new GameRoot(stageLevel, this, scene, p);
-        scoreLifeView = new ScoreLifeGraphics(stageLevel);
+        scoreLifeView = new ScoreLifeGraphics(game, stageLevel);
         root.getStyleClass().add("game-backgorund");
-        if(GameConstants.FPS)
+        if (GameConstants.FPS)
             SLFPS.getChildren().add(fpsGraphics);
+        scoreLifeView.setPrefWidth(200.0);
         SLFPS.getChildren().add(scoreLifeView);
         SLFPS.setPrefWidth(200.0);
         this.pane.setRight((gameRoot.getRoot()));
         gameRoot.getRoot().setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
-        imageView.setFitWidth(15);
-        imageView.setFitHeight(GameConstants.DEFAULT_WINDOW_HEIGHT+10);
-        imageView.setPreserveRatio(false);
-        imageView.setSmooth(true);
-        this.pane.setCenter(imageView);
+        this.pane.setCenter(setSeparator());
         this.pane.setLeft(SLFPS);
         this.root.getChildren().add(pane);
         this.primaryStage.setScene(scene);
@@ -76,7 +69,7 @@ public class GameView {
                 if (delay < 2.0) {
                     delay += deltaT / 1000000000.0;
                 } else if (now - last > 1000000000 / 120) {
-                    if(GameConstants.FPS)
+                    if (GameConstants.FPS)
                         fpsGraphics.update();
                     gameRoot.update(deltaT);
                     scoreLifeView.update();
@@ -87,9 +80,34 @@ public class GameView {
         };
         animationTimer.start();
     }
+
     public void animationStart() {
         System.out.println("GameView.animationStart()");
         animationTimer.start();
+    }
+
+    private ImageView setSeparator(){
+        Image image=null;
+        switch(GameConstants.CSS){
+            case PINK:
+                image=ImageLoader.loadImage("src/main/ressources/lifeScore/pinkSep.png");
+            case DARK:
+            case BLACK:
+            case LIGHT:
+                image=ImageLoader.loadImage("src/main/ressources/lifeScore/blackSep.png");
+            case ACHROMATOPSIE:
+            case DEUTERANOPIE:
+            case TRITANOPIE:
+            case PROTANOPIE:
+            //TODO: ajouter les images pour les autres thèmes
+        }
+        separator = new ImageView(image);
+        double windowHeight = scene.getHeight();
+        separator.setFitHeight(windowHeight);
+        separator.setFitWidth(20);
+        separator.setSmooth(true);
+        separator.setPreserveRatio(false);
+        return separator;
     }
 
     public void animationStop() {

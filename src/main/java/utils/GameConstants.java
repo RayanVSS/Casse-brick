@@ -2,7 +2,6 @@ package utils;
 
 import config.GameRules;
 import config.GameRules.BricksArrangement;
-import entity.ball.ClassicBall;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -25,8 +24,8 @@ public final class GameConstants {
         public static final int BRICK_HEIGHT = 32;
 
         // ball
-        public static final int DEFAULT_BALL_SPEED = 3;
-        public static final int DEFAULT_BALL_RADIUS = 10;
+        public static final int DEFAULT_BALL_SPEED = 5;
+        public static final int DEFAULT_BALL_RADIUS = 15;
 
         static Random rand = new Random();
         public static final Vector DEFAULT_BALL_START_DIRECTION = new Vector(

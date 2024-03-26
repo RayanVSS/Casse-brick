@@ -70,7 +70,7 @@ public class GameCustomizerView implements Menu {
         LabelVBox ballVBox = new LabelVBox("Ball", 5);
         ball = new LabelComboBoxHBox("Type de balle",
                 new String[] { "Classic", "Gravity", "Hyper", "Magnet" }, "Classic");
-        ballSize = new LabelSliderHBox("Taille de la balle", 1, 20, 10, false, 1);
+        ballSize = new LabelSliderHBox("Taille de la balle", 1, 20, GameConstants.DEFAULT_BALL_RADIUS, false, 1);
         ballSpeed = new LabelSliderHBox("Vitesse de la balle", 1, 20, 5, false, 1);
         ballVBox.getChildren().addAll(ball, ballSize, ballSpeed);
 

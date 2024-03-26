@@ -247,6 +247,14 @@ public class GameRules {
         this.remainingTime = remainingTime;
     }
 
+    public int getRemainingTime() {
+        return remainingTime;
+    }
+
+    public int getRemainingBounces() {
+        return remainingBounces;
+    }
+
     public void setRemainingBounces(int remainingBounces) {
         this.remainingBounces = remainingBounces;
     }

@@ -3,9 +3,6 @@ package gui;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Iterator;
-import java.util.List;
-import java.util.ArrayList;
-
 import javafx.scene.input.KeyCode;
 import config.Game;
 import config.StageLevel;
@@ -17,7 +14,6 @@ import gui.GraphicsFactory.RacketGraphics;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.PauseView;
 import gui.Menu.MenuViews.WinView;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;

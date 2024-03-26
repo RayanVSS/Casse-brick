@@ -156,8 +156,16 @@ public class Game {
         return map;
     }
 
+    public int getTimeElapsed() {
+        return timeElapsed;
+    }
+
     public void setRa() {
         MagnetBall.getRa = racket.getC();
+    }
+
+    public GameRules getRules() {
+        return rules;
     }
 
     public List<Boost> getBoosts() {
