@@ -532,6 +532,7 @@ affichage de la racket
 
 - Début implémentation des collisions de balles entre eux (dans simulation béta) #55
 - Amélioration du menu in-simulation #59
+- Début de la rotation graphique de la balle #61
     
 <span style="color:purple">**A Faire:**</span>
 
