@@ -514,3 +514,15 @@ affichage de la racket
 
 - déboguer (nombreux chantiers en cours à finaliser, notamment rebonds en biais)
 - relire code et refactoriser
+
+## Semaine 6 (26/3):
+
+### Belhassen Rayan  
+<span style="color:green">**Fait:**</span>
+
+- collision: amélioration des collisions de la raquette triangle (pas encore fini)
+
+<span style="color:purple">**A Faire:**</span>
+
+- terminer repair_software 
+- retravailler les collisions des raquettes non rectangle 
