@@ -526,3 +526,18 @@ affichage de la racket
 
 - terminer repair_software 
 - retravailler les collisions des raquettes non rectangle 
+
+### Bencheikh Ilias
+<span style="color:green">**Fait:**</span>
+
+- Début implémentation des collisions de balles entre eux (dans simulation béta) #55
+- Amélioration du menu in-simulation #59
+    
+<span style="color:purple">**A Faire:**</span>
+
+- Régler le problème de FPS #43
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+- Régler les differents problèmes de collisions de balles entre eux #55
+- Ajout de fonctionalité dans la simulation (changement de racket et autre)
