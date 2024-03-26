@@ -542,3 +542,14 @@ affichage de la racket
 - Améliorer la structure de la partie physique #49
 - Régler les differents problèmes de collisions de balles entre eux #55
 - Ajout de fonctionalité dans la simulation (changement de racket et autre)
+- 
+
+### Guan Olivier 
+
+<span style="color:green">**Fait:**</span>
+
+- Création d'une interface de développement des briques et balles avec réactions physiques entre-elles (pas fini)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finir l'outil et les collisions
