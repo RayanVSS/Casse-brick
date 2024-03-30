@@ -32,8 +32,10 @@ public class BallGraphics extends ImageView {
     public BallGraphics(String id,Ball ball) {
         this.ball = ball;
         updateImageAndProperties();
-        setX(ball.getC().getX() - ball.getRadius());
-        setY(ball.getC().getY() - ball.getRadius());
+        setX(ball.getC().getX());
+        setY(ball.getC().getY());
+        setScaleX(ball.getRadius());
+        setScaleY(ball.getRadius());
         switch (id) {
             case "classicBall":
                 setImage(classicBall);
@@ -63,15 +65,15 @@ public class BallGraphics extends ImageView {
                 setImage(physicBall);
                 break;
         }
-        setFitWidth(ball.getRadius() * 3);
-        setFitHeight(ball.getRadius() * 3);
+        setFitWidth(5);
+        setFitHeight(5);
         setPreserveRatio(true);
         setCache(true);
     }
 
     public void update() {
-        setX(ball.getC().getX() - ball.getRadius());
-        setY(ball.getC().getY() - ball.getRadius());
+        setX(ball.getC().getX());
+        setY(ball.getC().getY());
         //updateImageAndProperties();
     }
 

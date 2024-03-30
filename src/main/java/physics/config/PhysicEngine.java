@@ -126,7 +126,7 @@ public class PhysicEngine {
 
         graphBall.setOnMouseDragged(event -> {
             if (isMouseDraggingBall && !optionBar.isBar()) {
-                if(event.getSceneX() > d_WIDTH+ball.getRadius() && event.getSceneX() < f_WIDTH-ball.getRadius() && event.getSceneY() > ball.getRadius() && event.getSceneY() < GameConstants.DEFAULT_WINDOW_HEIGHT-ball.getRadius()){
+                if(event.getSceneX() > d_WIDTH+pointeur.getRadius() && event.getSceneX() < f_WIDTH-pointeur.getRadius() && event.getSceneY() > pointeur.getRadius() && event.getSceneY() < GameConstants.DEFAULT_WINDOW_HEIGHT-pointeur.getRadius()){
                     pointeur.getC().setX(event.getSceneX());
                     pointeur.getC().setY(event.getSceneY());
                 }
@@ -224,7 +224,7 @@ public class PhysicEngine {
     public static Ball init_ball(){
         PhysicSetting physics = AppPhysic.physics;
         return new Ball(GameConstants.DEFAULT_BALL_START_COORDINATES,
-        GameConstants.DEFAULT_BALL_START_DIRECTION,1, GameConstants.DEFAULT_BALL_RADIUS){
+        GameConstants.DEFAULT_BALL_START_DIRECTION,1, physics.getRadius()){
             @Override
             public boolean movement() {
                 double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
@@ -234,7 +234,7 @@ public class PhysicEngine {
                 if (CollisionR) {
                     if (BougePColision || CollisionR_Side) {
                         this.getDirection().setY(-this.getDirection().getY()
-                                + (this.getRotation().getEffect()) / 90 * this.getDirection().getY());
+                                + (this.getRotation().getAngle()) / 90 * this.getDirection().getY());
                         this.getRotation().Collision();
                         newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                         CollisionR = false;
@@ -246,7 +246,7 @@ public class PhysicEngine {
                                 case RIGHT:
                                 case D:
                                     this.getDirection().setY(-this.getDirection().getY()
-                                            + (this.getRotation().getEffect()) / 90 * this.getDirection().getY());
+                                            + (this.getRotation().getAngle()) / 90 * this.getDirection().getY());
                                     this.getRotation().addEffect('d');
                                     newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
@@ -255,7 +255,7 @@ public class PhysicEngine {
                                 case LEFT:
                                 case Q:
                                     this.getDirection().setY(-this.getDirection().getY()
-                                            + (this.getRotation().getEffect()) / 90 * this.getDirection().getY());
+                                            + (this.getRotation().getAngle()) / 90 * this.getDirection().getY());
                                     this.getRotation().addEffect('g');
                                     newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
@@ -269,14 +269,14 @@ public class PhysicEngine {
                 }   
                 if (newX < d_WIDTH || newX > w - this.getRadius()) {
                     this.getDirection().setX(-this.getDirection().getX());
-                    this.getDirection().setY(this.getDirection().getY()+(this.getRotation().getEffect())/90*this.getDirection().getY());
+                    this.getDirection().setY(this.getDirection().getY()+(this.getRotation().getAngle())/90*this.getDirection().getY());
                     this.getRotation().Collision();
                     newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
                     this.getDirection().setX(this.getDirection().getX() * physics.getRetention());
                 }
                 if (newY < 0 || newY > h - this.getRadius()) {
                     this.getDirection().setY(-this.getDirection().getY()
-                            + (this.getRotation().getEffect()) / 90 * this.getDirection().getY());
+                            + (this.getRotation().getAngle()) / 90 * this.getDirection().getY());
                     this.getRotation().Collision();
                     newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
                     this.getDirection().setY(this.getDirection().getY() * physics.getRetention());
