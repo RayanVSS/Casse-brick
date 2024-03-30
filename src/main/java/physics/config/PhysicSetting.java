@@ -42,12 +42,16 @@ import physics.entity.Ball;
 
 public class PhysicSetting {
 
+    public static double DEFAULT_WINDOW_WIDTH ;
+    public static double DEFAULT_WINDOW_HEIGHT;
+    public static Coordinates DEFAULT_BALL_START_COORDINATES;
+
     // variables pour la balle
     private int Radius;
     private Vector Wind;
 
     // variables par défaut pour la simulation
-    private int Speed_Ball = 0;
+    private double Speed_Ball = 0;
     private int Speed_Wind = 0;
     private int Direction_Wind = 0;
 
@@ -56,14 +60,30 @@ public class PhysicSetting {
     private double Gravite = 0.1;
     private double Mass = 1;
     private final double stop_bounce = 0.3;
-    private double retention = 0.8;
+    private double retention = 1;
     private final double friction_sol = 0.1;
     private final double friction_air = 0.01;
     private final double MAX_VELOCITY = 10;
 
+    static Random rand = new Random();
+    public static Vector NEW_BALL_DIRECTION() {
+        return new Vector(new Coordinates(rand.nextBoolean() ? 1 : -1, rand.nextBoolean() ? 1 : -1));
+    };
+
     public PhysicSetting(){
         Radius = GameConstants.DEFAULT_BALL_RADIUS/2;
         this.Wind = vectorWind(Speed_Wind, Direction_Wind);
+        DEFAULT_WINDOW_HEIGHT = 800.0;
+        DEFAULT_WINDOW_WIDTH = 1100.0;
+        DEFAULT_BALL_START_COORDINATES=new Coordinates(DEFAULT_WINDOW_WIDTH/ 2, DEFAULT_WINDOW_HEIGHT / 2);
+    }
+
+    public PhysicSetting(int R , double WIDTH , double HEIGHT){
+        this.Radius = R;
+        DEFAULT_WINDOW_HEIGHT = HEIGHT;
+        DEFAULT_WINDOW_WIDTH = WIDTH;
+        DEFAULT_WINDOW_WIDTH = 1100.0;
+        DEFAULT_BALL_START_COORDINATES=new Coordinates(DEFAULT_WINDOW_WIDTH/ 2, DEFAULT_WINDOW_HEIGHT / 2);
     }
 
     public PhysicSetting(int R , double gravite , Vector Wind , double mass){
@@ -71,28 +91,26 @@ public class PhysicSetting {
         Gravite = gravite;
         Mass = mass;
         this.Wind = Wind;
-        retention = 0.8;
     }
 
-    public static String CalculateAngle(Vector d){
-        double angle = Math.atan2(d.getY(), d.getX());
-        if(angle < 0){
-            angle += 2*Math.PI;
-        }
-        angle = Math.toDegrees(angle);
-        return "Angle :"+String.valueOf(angle);
+    public static String CalculateAngle(Ball b){
+        //(90-b.getRotation().getAngle())
+        return String.format("%.2f", Math.toDegrees(Math.atan2(b.getY(), b.getX())));
     }
 
-    public static double CalculateSpeed(Vector d){
-        double speed = Math.sqrt(d.getX()*d.getX() + d.getY()*d.getY());
-        return speed;
+    public static String CalculateRotation(Ball b){
+        return (b.getRotation().getAngle()==0?"":b.getRotation().getAngle()>0?"Droite":" Gauche")+" "+String.format("%.2f", Math.abs(b.getRotation().getAngle()));
+    }
+
+    public static String CalculateSpeed(Vector d){
+        return String.format("%.2f", Math.sqrt(d.getX()*d.getX() + d.getY()*d.getY()));
     }
 
     public void checkGravity(Coordinates c, Vector d) {
         if(!Gravity){
             return;
         }
-        if (c.getY() < GameConstants.DEFAULT_GAME_ROOT_WIDTH - Radius) {
+        if (c.getY() < DEFAULT_WINDOW_WIDTH - Radius) {
             d.setY(d.getY() + Gravite*Mass);
         } else {
             if (d.getY() > stop_bounce) {
@@ -221,7 +239,7 @@ public class PhysicSetting {
         Mass = mass;
     }
 
-    public void setSpeed_Ball(int speed_Ball) {
+    public void setSpeed_Ball(double speed_Ball) {
         Speed_Ball = speed_Ball;
     }
 
@@ -233,7 +251,7 @@ public class PhysicSetting {
         Direction_Wind = direction_Wind;
     }
 
-    public int getSpeed_Ball() {
+    public double getSpeed_Ball() {
         return Speed_Ball;
     }
 
@@ -251,9 +269,20 @@ public class PhysicSetting {
 
     public void changeGravity(){
         Gravity = !Gravity;
+        if(Gravity){
+            retention = 0.8;
+        }
+        else{
+            retention = 1;
+        }   
     }
 
     public boolean getGravity(){
         return Gravity;
+    }
+
+    public void setWindow(double width, double height){
+        DEFAULT_WINDOW_WIDTH = width;
+        DEFAULT_WINDOW_HEIGHT = height;
     }
 }

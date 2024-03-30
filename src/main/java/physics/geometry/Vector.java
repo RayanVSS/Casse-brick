@@ -74,4 +74,9 @@ public class Vector {
     public Vector clone() {
         return new Vector(x, y);
     }
+
+    public void set(Vector other) {
+        x = other.x;
+        y = other.y;
+    }
 }

@@ -37,13 +37,18 @@ public abstract class Ball {
         this.speed = 0;
         this.radius = GameConstants.DEFAULT_BALL_RADIUS;
         this.baseSpeed = GameConstants.DEFAULT_BALL_SPEED;
+        physicSetting.setSpeed_Ball(baseSpeed);
+        physicSetting.setRadius(radius);
     }
 
     public Ball(int r) {
         c = new Coordinates(0, 0);
         this.direction = new Vector(new Coordinates(0, 0));
-        this.speed = 0;
+        this.speed = 1;
         this.radius = r;
+        physicSetting.setSpeed_Ball(speed);
+        physicSetting.setRadius(radius);
+
     }
 
     public Ball(Coordinates c, Vector direction, int speed, int d) {
@@ -52,6 +57,8 @@ public abstract class Ball {
         this.speed = speed;
         this.radius = d;
         this.baseSpeed = GameConstants.DEFAULT_BALL_SPEED;
+        physicSetting.setSpeed_Ball(baseSpeed);
+        physicSetting.setRadius(radius);
     }
 
     // Setters/getters
@@ -62,6 +69,14 @@ public abstract class Ball {
 
     public void setC(Coordinates c) {
         this.c = c;
+    }
+
+    public double getX() {
+        return c.getX();
+    }
+
+    public double getY() {
+        return c.getY();
     }
 
     public int getRadius() {
@@ -220,7 +235,6 @@ public abstract class Ball {
     }
 
     public void checkCollisionOtherBall(Ball b){
-        // TODO : implement this method
         if(!CollisionB){
             if((c.getX()+radius>=b.getC().getX()-radius || c.getX()-radius<=b.getC().getX()+radius) && (c.getY()+radius>=b.getC().getY()-radius && c.getY()-radius<=b.getC().getY()+radius)){
                 b.getDirection().setX(-b.getDirection().getX()+(b.getRotation().getEffect())/90*b.getDirection().getX());
@@ -228,7 +242,7 @@ public abstract class Ball {
                 CollisionB=true;
                 b.CollisionB=true;
             } 
-            if((c.getY()+radius>=b.getC().getY()-radius || c.getY()-radius<=b.getC().getY()+radius) && (c.getX()+radius>=b.getC().getX()-radius && c.getX()-radius<=b.getC().getX()+radius)){
+            else if((c.getY()+radius>=b.getC().getY()-radius || c.getY()-radius<=b.getC().getY()+radius) && (c.getX()+radius>=b.getC().getX()-radius && c.getX()-radius<=b.getC().getX()+radius)){
                 b.getDirection().setY(-b.getDirection().getY()+(b.getRotation().getEffect())/90*b.getDirection().getY());
                 direction.setY(-direction.getY()+(rotation.getEffect())/90*direction.getY());
                 CollisionB=true;
