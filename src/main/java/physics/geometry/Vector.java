@@ -70,4 +70,8 @@ public class Vector {
         this.setX(getX()-f.getX());
         this.setY(getY()-f.getY());
     }
+
+    public Vector clone() {
+        return new Vector(x, y);
+    }
 }

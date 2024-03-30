@@ -6,12 +6,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import physics.entity.Ball;
 import java.util.ArrayList;
 import java.util.Arrays;
-import javafx.scene.paint.Color;
 
 import java.util.Map;
+import java.util.Random;
 
 import gui.GraphicsFactory.BallGraphics;
 import utils.GameConstants;
@@ -25,8 +26,16 @@ public class OptionBar {
     private ArrayList<Circle> circles=new ArrayList<>();
     private char position = 'g';
     private Map<Ball,BallGraphics> map;
-    private ArrayList<String> list_color=new ArrayList<>(Arrays.asList("classicBall","hyperBall","gravityBall","positifBall","negatifBall","redBall","greenBall","blueBall"));
+    private ArrayList<Integer> list=new ArrayList<>(Arrays.asList(0,1,2,3,4));
+    private ArrayList<Image> list_image=new ArrayList<>(Arrays.asList(
+        new Image("/balle/physic/balle1.png"),
+        new Image("/balle/physic/balle2.png"),
+        new Image("/balle/physic/balle3.png"),
+        new Image("/balle/physic/balle4.png"),
+        new Image("/balle/physic/balle5.png")
+    ));
     private ArrayList<Ball> list_ball=new ArrayList<>();
+    private Random random = new Random();
 
     public OptionBar(Pane root, Map<Ball,BallGraphics> map){
         this.root= root;
@@ -84,11 +93,12 @@ public class OptionBar {
         button2.setLayoutY(190);
 
         button2.setOnAction(e->{
-            if(list_color.size()>0){
+            if(list.size()>0){
                 Ball b2 = PhysicEngine.init_ball();
-                String color= list_color.get((int)(Math.random()*list_color.size()));
-                BallGraphics ballg = new BallGraphics(color,b2);
-                list_color.remove(color);
+                Integer nb = list.get(random.nextInt(list.size()));
+                BallGraphics ballg = new BallGraphics(list_image.get(nb),b2);
+                PhysicEngine.setTakeBall(ballg, b2, this, root);
+                list.remove(nb);
                 list_ball.add(b2);
                 map.put(b2,ballg);
                 root.getChildren().add(ballg);
@@ -128,7 +138,9 @@ public class OptionBar {
             map.remove(b);
         }
         list_ball.clear();
-        list_color=new ArrayList<>(Arrays.asList("classicBall","hyperBall","gravityBall","positifBall","negatifBall","redBall","greenBall","blueBall"));
+        for(int i=1;i<6;i++){
+            list.add(i);
+        }
     }
 
     public void clearCircles(){

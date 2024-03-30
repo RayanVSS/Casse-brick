@@ -16,8 +16,7 @@ import javafx.scene.shape.Shape;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import config.Game;
+import java.util.ArrayList;
 
 import java.util.Map;
 
@@ -55,7 +54,6 @@ public class PhysicEngine {
     private Stage primaryStage;
     private Pane root;
     private OptionBar optionBar;
-    private Ball pointeur;
 
     PhysicSetting physics;
 
@@ -68,11 +66,7 @@ public class PhysicEngine {
 
     public static Set<KeyCode> direction = new HashSet<KeyCode>();
     public static boolean BougePColision;
-    public static boolean CollisionR_Side = false;
 
-    double mouseX = 0;
-    double mouseY = 0;
-    boolean isMouseDraggingBall = false;
 
     public PhysicEngine(Stage pStage, AppPhysic appPhysic) {
 
@@ -88,7 +82,7 @@ public class PhysicEngine {
         this.physics = AppPhysic.physics;
 
         Ball ball = init_ball();
-        graphBall = new BallGraphics("",ball);
+        graphBall = new BallGraphics(null,ball);
         root.getChildren().add(graphBall);
         listball.put(ball, graphBall);
     
@@ -107,51 +101,7 @@ public class PhysicEngine {
 
         //Initialisation des evenements de la souris
 
-        graphBall.setOnMousePressed(event -> {
-            if(!optionBar.isBar()){
-                mouseX = event.getSceneX();
-                mouseY = event.getSceneY();
-                for(Ball b : listball.keySet()){
-                    double ballX = b.getC().getX();
-                    double ballY = b.getC().getY();
-                    double distance = Math.sqrt(Math.pow(mouseX - ballX, 2) + Math.pow(mouseY - ballY, 2));
-                    if (distance <= ball.getRadius()+10) {
-                        isMouseDraggingBall = true;
-                        pointeur = b;
-                        b.getPreview().clear_path(root);
-                    }
-                }
-            }
-        });
-
-        graphBall.setOnMouseDragged(event -> {
-            if (isMouseDraggingBall && !optionBar.isBar()) {
-                if(event.getSceneX() > d_WIDTH+pointeur.getRadius() && event.getSceneX() < f_WIDTH-pointeur.getRadius() && event.getSceneY() > pointeur.getRadius() && event.getSceneY() < GameConstants.DEFAULT_WINDOW_HEIGHT-pointeur.getRadius()){
-                    pointeur.getC().setX(event.getSceneX());
-                    pointeur.getC().setY(event.getSceneY());
-                }
-            }
-        });
-
-        graphBall.setOnMouseReleased(event -> {
-            if (isMouseDraggingBall && !optionBar.isBar()) {
-                isMouseDraggingBall = false;
-                double dx = (event.getSceneX() - mouseX) / 40;
-                double dy = (event.getSceneY() - mouseY) / 40;
-                if (dx > 7) {
-                    dx = 7;
-                }
-                if (dy > 7) {
-                    dy = 7;
-                }
-                Vector newVelocity = new Vector(new Coordinates(dx, dy));
-                pointeur.getRotation().stopRotation();
-                pointeur.setDirection(newVelocity);
-                if(pointeur.getPreview()!=null){
-                    pointeur.getPreview().init_path();
-                }
-            }
-        });
+        setTakeBall(graphBall,ball,optionBar,root);
 
         // Initialisation de l'animation
 
@@ -194,8 +144,8 @@ public class PhysicEngine {
     public void update() {
         if(!optionBar.isBar()){
             // Mise à jour de la position de la balle et de la trajectoire
-            if(!isMouseDraggingBall){
-                for(Ball b : listball.keySet()){
+            for(Ball b : listball.keySet()){
+                if(!listball.get(b).IsMouseDraggingBall()){
                     for(Ball b2 : listball.keySet()){
                         if(b!=b2){
                             b.checkCollisionOtherBall(b2);
@@ -207,24 +157,23 @@ public class PhysicEngine {
                     }
                 }
             }
+        }
 
-            for(Ball b : listball.keySet()){
-                listball.get(b).update();
-                b.CollisionB=false;
-            }
+        for(Ball b : listball.keySet()){
+            listball.get(b).update();
+            b.CollisionB=false;
+        }
 
-
-            // Mise à jour de la position de la raquette
-            if(RACKET){
-                update_racket();
-            }
+        // Mise à jour de la position de la raquette
+        if(RACKET){
+            update_racket();
         }
     }
 
     public static Ball init_ball(){
         PhysicSetting physics = AppPhysic.physics;
-        return new Ball(GameConstants.DEFAULT_BALL_START_COORDINATES,
-        GameConstants.DEFAULT_BALL_START_DIRECTION,1, physics.getRadius()){
+        return new Ball(GameConstants.DEFAULT_BALL_START_COORDINATES.clone(),
+        GameConstants.DEFAULT_BALL_START_DIRECTION.clone(),1, physics.getRadius()){
             @Override
             public boolean movement() {
                 double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
@@ -335,5 +284,50 @@ public class PhysicEngine {
         });
         ((Rectangle)graphRacket).setX(racket.mX());
         ((Rectangle)graphRacket).setY(racket.mY());
+    }
+
+    public static void setTakeBall(BallGraphics g,Ball b,OptionBar optionBar,Pane root){
+        g.setOnMousePressed(event -> {
+            if(!optionBar.isBar()){
+                g.setMouseXY(event.getSceneX(),event.getSceneY());
+                double ballX = b.getC().getX();
+                double ballY = b.getC().getY();
+                double distance = Math.sqrt(Math.pow(g.getMouseX() - ballX, 2) + Math.pow(g.getMouseY() - ballY, 2));
+                if (distance <= b.getRadius()+10) {
+                    g.setMouseDraggingBall(true);
+                    if(b.getPreview()!=null){
+                        b.getPreview().clear_path(root);
+                    }
+                }
+            }
+        });
+
+        g.setOnMouseDragged(event -> {
+            if (g.IsMouseDraggingBall() && !optionBar.isBar()) {
+                if(event.getSceneX() > d_WIDTH+b.getRadius() && event.getSceneX() < f_WIDTH-b.getRadius() && event.getSceneY() > b.getRadius() && event.getSceneY() < GameConstants.DEFAULT_WINDOW_HEIGHT-b.getRadius()){
+                    b.getC().setX(event.getSceneX());
+                    b.getC().setY(event.getSceneY());
+                }
+            }
+        });
+
+        g.setOnMouseReleased(event -> {
+            if (g.IsMouseDraggingBall()&& !optionBar.isBar()) {
+                g.setMouseDraggingBall(false);
+                double dx = (event.getSceneX() - g.getMouseX()) / 40;
+                double dy = (event.getSceneY() - g.getMouseY()) / 40;
+                if (dx > 7) {
+                    dx = 7;
+                }
+                if (dy > 7) {
+                    dy = 7;
+                }
+                b.getRotation().stopRotation();
+                b.setDirection(new Vector(new Coordinates(dx, dy)));
+                if(b.getPreview()!=null){
+                    b.getPreview().init_path();
+                }
+            }
+        });
     }
 }

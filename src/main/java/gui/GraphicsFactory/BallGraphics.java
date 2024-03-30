@@ -20,7 +20,11 @@ public class BallGraphics extends ImageView {
     private Image redBall = new Image("/balle/balleRouge.png");
     private Image greenBall = new Image("/balle/balleVert.png");
     private Image blueBall = new Image("/balle/balleBleu.png");
-    private Image physicBall=new Image("/balle/ballephysic.png");
+    private Image physicBall = new Image("/balle/ballePhysic.png");
+
+    //Partie pour le drag and drop
+    private boolean isMouseDraggingBall = false;
+    private double mouseX , mouseY = 0;
 
     public BallGraphics(Ball ball) {
         this.ball = ball;
@@ -31,40 +35,16 @@ public class BallGraphics extends ImageView {
         setScaleY(ball.getRadius());
     }
 
-    public BallGraphics(String id,Ball ball) {
+    public BallGraphics(Image i,Ball ball) {
         this.ball = ball;
         updateImageAndProperties();
+        setImage(i);
+        if(i==null){
+            setImage(physicBall);
+        }
         setX(ball.getC().getX());
         setY(ball.getC().getY());
-        switch (id) {
-            case "classicBall":
-                setImage(classicBall);
-                break;
-            case "hyperBall":
-                setImage(hyperBall);
-                break;
-            case "gravityBall":
-                setImage(gravityBall);
-                break;
-            case "positifBall":
-                setImage(positifBall);
-                break;
-            case "negatifBall":
-                setImage(negatifBall);
-                break;
-            case "redBall":
-                setImage(redBall);
-                break;
-            case "greenBall":
-                setImage(greenBall);
-                break;
-            case "blueBall":
-                setImage(blueBall);
-                break;
-            default:
-                setImage(physicBall);
-                break;
-        }
+        
         setScaleX(ball.getRadius());
         setScaleY(ball.getRadius());
     }
@@ -105,5 +85,30 @@ public class BallGraphics extends ImageView {
         setFitHeight(4);
         setPreserveRatio(true);
         setCache(true);
+    }
+
+    public boolean IsMouseDraggingBall() {
+        return isMouseDraggingBall;
+    }
+
+    public void setMouseDraggingBall(boolean isMouseDraggingBall) {
+        this.isMouseDraggingBall = isMouseDraggingBall;
+    }
+
+    public void setMouseXY(double x, double y) {
+        mouseX = x;
+        mouseY = y;
+    }
+
+    public double getMouseX() {
+        return mouseX;
+    }
+
+    public double getMouseY() {
+        return mouseY;
+    }
+
+    public Ball getBall() {
+        return ball;
     }
 }

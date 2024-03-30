@@ -222,13 +222,13 @@ public abstract class Ball {
     public void checkCollisionOtherBall(Ball b){
         // TODO : implement this method
         if(!CollisionB){
-            if((c.getX()+radius>=b.getC().getX()-radius || c.getX()-radius<=b.getC().getX()+radius) && (c.getY()-radius>=b.getC().getY()+radius && c.getY()+radius<=b.getC().getY()+radius)){
+            if((c.getX()+radius>=b.getC().getX()-radius || c.getX()-radius<=b.getC().getX()+radius) && (c.getY()+radius>=b.getC().getY()-radius && c.getY()-radius<=b.getC().getY()+radius)){
                 b.getDirection().setX(-b.getDirection().getX()+(b.getRotation().getEffect())/90*b.getDirection().getX());
                 direction.setX(-direction.getX()+(rotation.getEffect())/90*direction.getX());
                 CollisionB=true;
                 b.CollisionB=true;
             } 
-            if((c.getY()+radius>=b.getC().getY()-radius && c.getY()-radius<=b.getC().getY()+radius) && (c.getX()-radius>=b.getC().getX()+radius && c.getX()+radius<=b.getC().getX()+radius)){
+            if((c.getY()+radius>=b.getC().getY()-radius || c.getY()-radius<=b.getC().getY()+radius) && (c.getX()+radius>=b.getC().getX()-radius && c.getX()-radius<=b.getC().getX()+radius)){
                 b.getDirection().setY(-b.getDirection().getY()+(b.getRotation().getEffect())/90*b.getDirection().getY());
                 direction.setY(-direction.getY()+(rotation.getEffect())/90*direction.getY());
                 CollisionB=true;
