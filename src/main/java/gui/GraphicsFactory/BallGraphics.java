@@ -37,14 +37,16 @@ public class BallGraphics extends ImageView {
 
     public BallGraphics(Image i,Ball ball) {
         this.ball = ball;
-        updateImageAndProperties();
         setImage(i);
         if(i==null){
             setImage(physicBall);
         }
+        setFitWidth(3);
+        setFitHeight(3);
+        setPreserveRatio(true);
+        setCache(true);
         setX(ball.getC().getX());
         setY(ball.getC().getY());
-        
         setScaleX(ball.getRadius());
         setScaleY(ball.getRadius());
     }
@@ -81,8 +83,8 @@ public class BallGraphics extends ImageView {
                     break;
             }
         }
-        setFitWidth(4);
-        setFitHeight(4);
+        setFitWidth(3);
+        setFitHeight(3);
         setPreserveRatio(true);
         setCache(true);
     }
