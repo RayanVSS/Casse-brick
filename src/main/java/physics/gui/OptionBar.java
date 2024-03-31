@@ -4,6 +4,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.Random;
 
 import gui.GraphicsFactory.BallGraphics;
+import gui.GraphicsFactory.RacketGraphics;
 import utils.GameConstants;
 import physics.entity.Ball;
 import physics.config.PhysicEngine;
@@ -140,12 +142,26 @@ public class OptionBar {
         });
 
         root.getChildren().add(button3);
+
+        ComboBox<String> listracket = new ComboBox<String>();
+        listracket.getItems().addAll("rectangle","rond","triangle","losange");
+        listracket.setValue("rectangle");
+        listracket.setLayoutX(start+30);
+        listracket.setLayoutY(280);
+        listracket.setOnAction(e -> {
+            root.getChildren().remove(PhysicEngine.graphRacket.getShape());
+            PhysicEngine.racket = PhysicEngine.init_racket(listracket.getValue());
+            PhysicEngine.graphRacket =new RacketGraphics(PhysicEngine.racket, PhysicEngine.racket.getShapeType());
+            root.getChildren().add(PhysicEngine.graphRacket.getShape());   
+        });
+
+        root.getChildren().add(listracket);
         
     }
 
     public void reset(){
         clearCircles();
-        root.getChildren().removeIf(e -> e instanceof Button || e instanceof CheckBox || e instanceof Label);
+        root.getChildren().removeIf(e -> e instanceof Button || e instanceof CheckBox || e instanceof Label || e instanceof ComboBox);
     }
 
     public void removeBall(){

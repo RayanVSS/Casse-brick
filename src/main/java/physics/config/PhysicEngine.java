@@ -61,8 +61,8 @@ public class PhysicEngine {
     Map<Ball,BallGraphics> listball=new java.util.HashMap<>();
     BallGraphics graphBall;
 
-    Racket racket;
-    Shape graphRacket;
+    public static Racket racket;
+    public static RacketGraphics graphRacket;
     Key key = new Key();
 
     public static Set<KeyCode> direction = new HashSet<KeyCode>();
@@ -92,9 +92,10 @@ public class PhysicEngine {
         optionBar = new OptionBar(root,listball,ball);
 
         if(RACKET){
-            racket=init_racket();
-            graphRacket = (new RacketGraphics(racket, racket.getShapeType())).getShape();            graphRacket.setFill(Color.BLACK);
-            root.getChildren().add(graphRacket);
+            racket=init_racket("rectangle");
+            graphRacket = new RacketGraphics(racket, racket.getShapeType());
+            graphRacket.getShape().setFill(Color.BLACK);
+            root.getChildren().add(graphRacket.getShape());
         }
         primaryStage.show();
 
@@ -249,8 +250,8 @@ public class PhysicEngine {
         };
     }
 
-    public Racket init_racket() {
-        return new Racket(200, 20, "rectangle", 8, false, true) {
+    public static Racket init_racket(String type) {
+        return new Racket(200, 20, type, 8, false, true) {
             @Override
             public void handleKeyPress(Set<KeyCode> keysPressed) {
                 for (KeyCode key : keysPressed) {
@@ -289,8 +290,7 @@ public class PhysicEngine {
         primaryStage.getScene().setOnKeyPressed(eWind -> {
             key.getKeysPressed().add(eWind.getCode());
         });
-        ((Rectangle)graphRacket).setX(racket.mX());
-        ((Rectangle)graphRacket).setY(racket.mY());
+        
     }
 
     public static void setTakeBall(BallGraphics g,Ball b,OptionBar optionBar,Pane root){
