@@ -553,3 +553,12 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 
 - Finir l'outil et les collisions
+
+
+### Benmalek Majda
+<span style="color:green">**Fait:**</span>
+- affichage du temps restant
+- affichage des rebonds restants
+- affichage du niveau
+- affichage des vies amélioré
+- ameliorations de l'affichage des images
