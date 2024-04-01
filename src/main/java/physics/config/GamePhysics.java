@@ -21,11 +21,13 @@ public class GamePhysics {
     private ArrayList<Brick> bricks;
     private ArrayList<Ball> balls;
     private Map<Entity, EntityGraphics> entities;
+    private boolean paused;
 
     public GamePhysics() {
         bricks = new ArrayList<>();
         balls = new ArrayList<>();
         entities = new HashMap<>();
+        paused = true;
     }
 
     public void addBrick(Brick brick) {
@@ -39,8 +41,10 @@ public class GamePhysics {
     }
 
     public void update() {
-        updateBricks();
-        updateBalls();
+        if (!paused) {
+            updateBricks();
+            updateBalls();
+        }
     }
 
     private void updateBricks() {
@@ -49,6 +53,13 @@ public class GamePhysics {
 
     private void updateBalls() {
 
+    }
+
+    public void reset() {
+        bricks.clear();
+        balls.clear();
+        entities.clear();
+        paused = true;
     }
 
     public ArrayList<Brick> getBricks() {
@@ -61,6 +72,14 @@ public class GamePhysics {
 
     public Map<Entity, EntityGraphics> getEntities() {
         return entities;
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
     }
 
 }

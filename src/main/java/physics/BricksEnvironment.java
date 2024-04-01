@@ -60,7 +60,7 @@ public class BricksEnvironment extends Application {
         gameView = new GamePhysicsView(gameArea, game);
 
         // Création de la boîte à outils
-        toolBox = new GamePhysicsToolBox();
+        toolBox = new GamePhysicsToolBox(game, gameView);
         uiPane.getChildren().addAll(toolBox);
 
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);

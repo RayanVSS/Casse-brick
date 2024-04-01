@@ -54,9 +54,13 @@ public class GamePhysicsView {
                 } else if (eg instanceof BallGraphics) {
                     entitiesArea.getChildren().remove((BallGraphics) eg);
                 }
-                iterator.remove();
+                iterator.remove(); // à vérifier fonctionnement
             }
             eg.update();
         }
+    }
+
+    public void reset() {
+        entitiesArea.getChildren().clear();
     }
 }
