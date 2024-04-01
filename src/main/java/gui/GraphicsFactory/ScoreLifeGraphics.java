@@ -54,10 +54,10 @@ public class ScoreLifeGraphics extends VBox implements Menu {
 
         initializeLifeImages();
         scoreText = new Text("Score: " + score);
+        scoreText.getStyleClass().add("scoreL-style");
         scoreText.setX(20);
         scoreText.setY(80);
-        scoreText.getStyleClass().add("scoreL-style");
-        
+
         niveau = createLabel("Niveau: " + (stage.getDifficulty() + 1), 0, 0);
         niveau.getStyleClass().add("scoreL-style");
         niveau.setLayoutX(20);
@@ -107,18 +107,15 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         switch (GameConstants.CSS) {
             case PINK:
                 return "src/main/ressources/lifeScore/lifeOKp.png";
-            case DARK:
             case BLACK:
+                return "src/main/ressources/lifeScore/lifeOKw.png";
+            case CLASSIC:
             case LIGHT:
-                return "src/main/ressources/lifeScore/lifeOKb.png";
             case ACHROMATOPSIE:
-                return "src/main/ressources/lifeScore/lifeAchromatopsie+.png";
             case DEUTERANOPIE:
-                return "src/main/ressources/lifeScore/lifeDeuteranopie+.png";
             case TRITANOPIE:
-                return "/src/main/ressourceslifeScore/lifeTritanopie+.png";
             case PROTANOPIE:
-                return "src/main/ressources/lifeScore/lifeProtanopie+.png";
+                return "src/main/ressources/lifeScore/lifeOKb.png";
             default:
                 return null;
         }
@@ -128,18 +125,15 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         switch (GameConstants.CSS) {
             case PINK:
                 return "src/main/ressources/lifeScore/lifeKOp.png";
-            case DARK:
             case BLACK:
+                return "src/main/ressources/lifeScore/lifeKOw.png";
+            case CLASSIC:
             case LIGHT:
-                return "src/main/ressources/lifeScore/lifeKOb.png";
             case ACHROMATOPSIE:
-                return "src/main/ressources/lifeScore/lifeAchromatopsie-.png";
             case DEUTERANOPIE:
-                return "src/main/ressources/lifeScore/lifeDeuteranopie-.png";
             case TRITANOPIE:
-                return "src/main/ressources/lifeScore/lifeTritanopie-.png";
             case PROTANOPIE:
-                return "src/main/ressources/lifeScore/lifeProtanopie-.png";
+                return "src/main/ressources/lifeScore/lifeKOb.png";
             default:
                 return null;
         }

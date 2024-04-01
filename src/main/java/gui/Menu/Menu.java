@@ -20,7 +20,7 @@ public interface Menu {
     public enum Theme {
         PINK("/styles/pink.css"), 
         LIGHT("/styles/light.css"), 
-        DARK("/styles/dark.css"),
+        CLASSIC("/styles/classic.css"),
         BLACK("/styles/black.css"),
         ACHROMATOPSIE("/styles/achromatopsie.css"),
         DEUTERANOPIE("/styles/deuteranopie.css"),

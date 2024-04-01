@@ -25,7 +25,7 @@ public class GameView {
     private ScoreLifeGraphics scoreLifeView;
     // animation
     private AnimationTimer animationTimer;
-    private ImageView separator ;
+    private ImageView separator;
 
     public GameView(Stage p, StageLevel stageLevel) {
         this.primaryStage = p;
@@ -86,20 +86,23 @@ public class GameView {
         animationTimer.start();
     }
 
-    private ImageView setSeparator(){
-        Image image=null;
-        switch(GameConstants.CSS){
+    private ImageView setSeparator() {
+        Image image = null;
+        switch (GameConstants.CSS) {
             case PINK:
-                image=ImageLoader.loadImage("src/main/ressources/lifeScore/pinkSep.png");
-            case DARK:
+                image = ImageLoader.loadImage("src/main/ressources/lifeScore/pinkSep.png");
+                break;
             case BLACK:
+                image = ImageLoader.loadImage("src/main/ressources/lifeScore/whiteSep.png");
+                break;
             case LIGHT:
-                image=ImageLoader.loadImage("src/main/ressources/lifeScore/blackSep.png");
+            case CLASSIC:
             case ACHROMATOPSIE:
             case DEUTERANOPIE:
             case TRITANOPIE:
             case PROTANOPIE:
-            //TODO: ajouter les images pour les autres thèmes
+                image = ImageLoader.loadImage("src/main/ressources/lifeScore/blackSep.png");
+                break;
         }
         separator = new ImageView(image);
         double windowHeight = scene.getHeight();

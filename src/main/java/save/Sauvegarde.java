@@ -141,7 +141,7 @@ public class Sauvegarde {
         try {
             CSS = Theme.valueOf(cssOption.toUpperCase());
         } catch (IllegalArgumentException e) {
-            CSS = Theme.DARK; // valeur par défaut si l'option CSS n'est pas une constante de l'énumération Theme
+            CSS = Theme.CLASSIC; // valeur par défaut si l'option CSS n'est pas une constante de l'énumération Theme
         }
         }
     }

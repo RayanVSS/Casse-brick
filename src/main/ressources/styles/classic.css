@@ -98,35 +98,6 @@
     -fx-background-color: #78859f;
 }
 
-.ball {
-    -fx-fill: black;
-}
-
-.hyperball,
-.ynotfixeracket {
-    -fx-fill: #00308F;
-}
-
-.gravityball {
-    -fx-fill: #6699CC;
-}
-
-.magnetball {
-    -fx-fill: #5072A7;
-}
-
-.magnetracketpositif {
-    -fx-fill: YELLOW;
-}
-
-.racket {
-    -fx-fill: #FF0000;
-}
-
-.magnetracketnegatif {
-    -fx-fill: GREEN;
-}
-
 .label-toggle-button-hbox,
 .label-slider-hbox,
 .label-combobox-hbox {
