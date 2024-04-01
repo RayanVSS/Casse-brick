@@ -175,7 +175,7 @@ public class PhysicEngine {
         if(RACKET){
             update_racket();
         }
-
+        
         if(optionBar.isBar()){
             optionBar.updateData();
         }
@@ -290,7 +290,7 @@ public class PhysicEngine {
         primaryStage.getScene().setOnKeyPressed(eWind -> {
             key.getKeysPressed().add(eWind.getCode());
         });
-        
+        graphRacket.updatePos();
     }
 
     public static void setTakeBall(BallGraphics g,Ball b,OptionBar optionBar,Pane root){

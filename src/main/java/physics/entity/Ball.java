@@ -234,22 +234,27 @@ public abstract class Ball {
         return false;
     }
 
-    public void checkCollisionOtherBall(Ball b){
-        if(!CollisionB){
-            if((c.getX()+radius>=b.getC().getX()-radius || c.getX()-radius<=b.getC().getX()+radius) && (c.getY()+radius>=b.getC().getY()-radius && c.getY()-radius<=b.getC().getY()+radius)){
-                b.getDirection().setX(-b.getDirection().getX()+(b.getRotation().getEffect())/90*b.getDirection().getX());
-                direction.setX(-direction.getX()+(rotation.getEffect())/90*direction.getX());
-                CollisionB=true;
-                b.CollisionB=true;
-            } 
-            else if((c.getY()+radius>=b.getC().getY()-radius || c.getY()-radius<=b.getC().getY()+radius) && (c.getX()+radius>=b.getC().getX()-radius && c.getX()-radius<=b.getC().getX()+radius)){
-                b.getDirection().setY(-b.getDirection().getY()+(b.getRotation().getEffect())/90*b.getDirection().getY());
-                direction.setY(-direction.getY()+(rotation.getEffect())/90*direction.getY());
-                CollisionB=true;
-                b.CollisionB=true;
+    public void checkCollisionOtherBall(Ball b) {
+        if (!CollisionB) {
+            double bX = b.getC().getX();
+            double bY = b.getC().getY();
+            double bRadius = b.getRadius();
+            if ((c.getX() + radius >= bX - bRadius || bX + bRadius >= c.getX() - radius) && 
+                (c.getY() >= bY - radius && c.getY() <= bY + radius)) {
+                b.getDirection().setX(-b.getDirection().getX() + (b.getRotation().getEffect()) / 90 * b.getDirection().getX());
+                direction.setX(-direction.getX() + (rotation.getEffect()) / 90 * direction.getX());
+                CollisionB = true;
+                b.CollisionB = true;
+            }
+            else if ((c.getY() + radius >= bY - bRadius || c.getY() - radius <= bY + bRadius) && 
+                     (c.getX() >= bX - radius && c.getX() <= bX + radius)) {
+                b.getDirection().setY(-b.getDirection().getY() + (b.getRotation().getEffect()) / 90 * b.getDirection().getY());
+                direction.setY(-direction.getY() + (rotation.getEffect()) / 90 * direction.getY());
+                CollisionB = true;
+                b.CollisionB = true;
             }
         }
-        
     }
+    
 
 }

@@ -41,8 +41,8 @@ public class BallGraphics extends ImageView {
         if(i==null){
             setImage(physicBall);
         }
-        setFitWidth(3);
-        setFitHeight(3);
+        setFitWidth(5);
+        setFitHeight(5);
         setPreserveRatio(true);
         setCache(true);
         setX(ball.getC().getX());
@@ -54,7 +54,7 @@ public class BallGraphics extends ImageView {
     public void update() {
         setX(ball.getC().getX());
         setY(ball.getC().getY());
-        //updateImageAndProperties();
+        setRotate(getRotate()+ball.getRotation().getAngle()/2);
     }
 
     private void updateImageAndProperties() {
