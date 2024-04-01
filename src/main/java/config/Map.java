@@ -11,6 +11,8 @@ import utils.GameConstants;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.checkerframework.checker.units.qual.A;
+
 public class Map {
 
     private Brick[][] bricks;
@@ -27,6 +29,9 @@ public class Map {
                 initDefaultBricksArrangement();
                 break;
 
+            case INFINITE:
+                initInfiniteBricksArrangement();
+                break;
             case RANDOM:
 
                 break;
@@ -43,6 +48,21 @@ public class Map {
             for (int i = indexFirstColumn; i < indexFirstColumn + GameConstants.COLUMNS_OF_BRICKS; i++) { // espace côté
                                                                                                           // gauche/droit
                 for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) { // 1 espace en haut
+                    bricks[i][j] = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
+                            j * GameConstants.BRICK_HEIGHT));
+                }
+            }
+        } else {
+            throw new IllegalArgumentException("Erreur sur la config de la map.");
+        }
+    }
+
+    // TODO A FACTORISER
+    private void initInfiniteBricksArrangement() {
+        if (checkDefaultParameters()) {
+            bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT];
+            for (int i = 0; i < GameConstants.MAP_WIDTH; i++) {
+                for (int j = 0; j < GameConstants.ROWS_OF_BRICKS; j++) {
                     bricks[i][j] = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
                             j * GameConstants.BRICK_HEIGHT));
                 }
@@ -130,7 +150,7 @@ public class Map {
                 }
             }
         }
-        return false ;
+        return false;
     }
 
     public int countBricks() {
@@ -155,6 +175,44 @@ public class Map {
             }
         }
         return list;
+    }
+    // TODO méthode :
+    // - pour savoir si une brique est arrivé en bas
+    // - pour descendre les briques et créer de nouvelle briques FAIT
+
+    public boolean isLost() {
+        for (int i = 0; i < bricks.length; i++) {
+            if (bricks[i][bricks[0].length - 1] != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void infiniteUpdate() {
+        ArrayList<Brick> list = getListOfBricks();
+        for (int i = list.size() - 1; i > -1; i--) {
+            Brick b = list.get(i);
+            Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY() + 0.60);
+            if (inMap(c.getIntX() / GameConstants.BRICK_WIDTH, c.getIntY() / GameConstants.BRICK_HEIGHT)) {
+                bricks[(int) b.getC().getX() / GameConstants.BRICK_WIDTH][(int) b.getC().getY()
+                        / GameConstants.BRICK_HEIGHT] = null;
+                b.setC(c);
+                bricks[(int) b.getC().getX() / GameConstants.BRICK_WIDTH][(int) b.getC().getY()
+                        / GameConstants.BRICK_HEIGHT] = b;
+            }
+        }
+        for (int ii = 0; ii < bricks.length; ii++) {
+            for (int jj = 0; jj < bricks[0].length; jj++) {
+                if (bricks[ii][jj] == null) {
+                    bricks[ii][jj] = new BrickClassic(
+                            new Coordinates(ii * GameConstants.BRICK_WIDTH, jj * GameConstants.BRICK_HEIGHT));
+                } else {
+                    break;
+                }
+            }
+        }
+        displayBricksInTerminal();
     }
 
     public void displayBricksInTerminal() { // pour les tests
@@ -221,3 +279,31 @@ public class Map {
     }
 
 }
+
+// int borneXJ = (int) list.get(0).getC().getIntX() / GameConstants.BRICK_WIDTH;
+// int borneYI = (int) list.get(0).getC().getIntY() /
+// GameConstants.BRICK_HEIGHT;
+// for (int i = 0; i < borneYI; i++) {
+// for (int j = 0; j < borneXJ; j++) {
+// // if (bricks[j][i] == null) {
+// bricks[i][j] = new BrickClassic(new Coordinates(i *
+// GameConstants.BRICK_WIDTH,
+// j * GameConstants.BRICK_HEIGHT));
+// // }
+// }
+// }
+
+// int ii = 0;
+// int jj = 0;
+// while (bricks[jj][ii] == null) {
+// bricks[jj][ii] = new BrickClassic(
+// new Coordinates(ii * GameConstants.BRICK_WIDTH, jj *
+// GameConstants.BRICK_HEIGHT));
+// if (ii == bricks[0].length - 1) {
+// jj = 0;
+// ii++;
+// } else {
+// jj++;
+// }
+// }
+// displayBricksInTerminal();

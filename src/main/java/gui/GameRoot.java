@@ -36,7 +36,7 @@ public class GameRoot {
     private GameView gameView;
     private StageLevel level;
 
-    public GameRoot( StageLevel level, GameView gameView, Scene scene, Stage primaryStage) {
+    public GameRoot(StageLevel level, GameView gameView, Scene scene, Stage primaryStage) {
         this.level = level;
         this.game = level.getGame();
         this.scene = scene;
@@ -63,7 +63,12 @@ public class GameRoot {
         if (GameConstants.PARTICLES) {
             particleGroup.update();
         }
-        graphBrickSet.update();
+        if (game.isInfinite()) {
+            graphBrickSet.infiniteUpdate(game.getMap());
+        } else {
+            graphBrickSet.update();
+        }
+
         BoostUpdate();
         BougePColision = key.isEmpty();
         key.handleInput(game);
@@ -74,16 +79,17 @@ public class GameRoot {
         game.update(deltaT);
         key.touchesM(scene, game);
         if (game.isLost()) {
-            //game.setLost(false);
+            // game.setLost(false);
             gameView.animationStop();
             gameView.getRoot().getChildren().add(new GameOverView(primaryStage, gameView));
             level.lostAction();
         }
         if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
             gameView.animationStop();
-            gameView.getRoot().getChildren().add(new PauseView(primaryStage, gameView.getRoot(), gameRoot.getRoot(),gameView.getAnimationTimer(), level));
+            gameView.getRoot().getChildren().add(new PauseView(primaryStage, gameView.getRoot(), gameRoot.getRoot(),
+                    gameView.getAnimationTimer(), level));
         }
-        if(level.getGame().isWin()){
+        if (level.getGame().isWin()) {
             gameView.animationStop();
             level.winAction();
         }

@@ -27,6 +27,7 @@ public class Game {
     private Timer inGameTimer;
     private int timeElapsed = 0; // en secondes
     private List<Boost> boosts = new ArrayList<>();
+    private boolean isInfinite;
 
     public Game(Ball ball, Racket racket, GameRules rules) {
         this.ball = ball;
@@ -34,6 +35,7 @@ public class Game {
         this.rules = rules;
         this.map = new Map(rules);
         rules.initRules(this);
+        this.isInfinite = false;
     }
 
     public Game(Ball ball, Racket racket, int mapWidth, int mapHeight, int life, GameRules rules) {
@@ -42,6 +44,16 @@ public class Game {
         // this.map = new Map(rules, mapWidth, mapHeight);
         this.life = life;
         this.rules = rules;
+        this.isInfinite = false;
+        rules.initRules(this);
+    }
+
+    public Game(Ball ball, Racket racket, GameRules rules, boolean isInfinite) {
+        this.ball = ball;
+        this.racket = racket;
+        this.rules = rules;
+        this.map = new Map(rules);
+        this.isInfinite = isInfinite;
         rules.initRules(this);
     }
 
@@ -66,10 +78,10 @@ public class Game {
     public void update(long deltaT) {
 
         start();
-        //Vérifie si la balle touche une brique
-        map.handleCollisionBricks(ball, rules); //gérer la collision des briques
-        if (map.updateBricksStatus()) {  
-            //si la briques est cassée, chance d'avoir un boost
+        // Vérifie si la balle touche une brique
+        map.handleCollisionBricks(ball, rules); // gérer la collision des briques
+        if (map.updateBricksStatus()) {
+            // si la briques est cassée, chance d'avoir un boost
             Boost boost = Boost.createBoost(ball.getC());
             if (boost != null) {
                 boosts.add(boost);
@@ -106,6 +118,13 @@ public class Game {
                 ((MagnetBall) ball).setFront(false);
             }
         }
+        if (isInfinite) {
+            map.infiniteUpdate();
+            if (map.isLost()) {
+                lost = true;
+            }
+        }
+
     }
 
     public boolean collisionRacket(Coordinates c) {
@@ -169,5 +188,9 @@ public class Game {
 
     public List<Boost> getBoosts() {
         return boosts;
+    }
+
+    public boolean isInfinite() {
+        return isInfinite;
     }
 }

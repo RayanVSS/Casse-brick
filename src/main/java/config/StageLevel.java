@@ -26,6 +26,10 @@ public class StageLevel {
         this.customGame = customGame;
     }
 
+    public StageLevel(Game game) {
+        this.game = game;
+    }
+
     public boolean canLoadGame() {
         if (PlayerData.expLevel >= unlockLevel) {
             if (game == null) {

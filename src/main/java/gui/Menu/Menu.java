@@ -3,10 +3,12 @@ package gui.Menu;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 /**
  * Interface Menu qui définit les méthodes pour créer des éléments
@@ -66,7 +68,7 @@ public interface Menu {
      */
     default ToggleButton createToggleButton(String text, boolean selected) {
         ToggleButton button = new ToggleButton(text);
-        if(selected)
+        if (selected)
             button.getStyleClass().add("button-hover");
         else
             button.getStyleClass().add("button-style");
@@ -98,5 +100,13 @@ public interface Menu {
         slider.setMaxWidth(maxwidth);
         slider.setOrientation(Orientation.HORIZONTAL);
         return slider;
+    }
+
+    default CheckBox createCheckBox(String text) {
+        CheckBox checkBox = new CheckBox(text);
+        checkBox.setTextFill(Color.WHITE);
+        checkBox.setVisible(true);
+        checkBox.getStyleClass().add("checkbox-style");
+        return checkBox;
     }
 }

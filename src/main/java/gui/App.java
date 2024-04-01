@@ -18,7 +18,6 @@ public class App extends Application {
         PlayerData.initPlayerData();
         // chargement de la derniere sauvegarde
         sauvegarde.setupLastSave();
-
         primaryStage = p;
         Image icon = new Image("icon.png");
         primaryStage.getIcons().add(icon);

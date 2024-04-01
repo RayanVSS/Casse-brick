@@ -65,6 +65,14 @@ public class BricksGraphics extends StackPane {
         getChildren().add(this.imageView);
     }
 
+    public int getI() {
+        return i;
+    }
+
+    public int getJ() {
+        return j;
+    }
+
     public void update() {
         if (brick != null) {
             if (brick.isDestroyed()) {

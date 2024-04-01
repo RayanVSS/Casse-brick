@@ -13,7 +13,7 @@ public class GameRules {
 
     private BricksArrangement arrangement;
 
-    //options de jeu à activer et à implémenter...
+    // options de jeu à activer et à implémenter...
     private boolean limitedTime;
     private boolean limitedBounces;
     private boolean randomSwitchBricks;
@@ -40,7 +40,7 @@ public class GameRules {
     }
 
     public enum BricksArrangement {
-        DEFAULT, RANDOM;
+        DEFAULT, RANDOM, INFINITE;
     }
 
     public boolean check() {
@@ -99,8 +99,10 @@ public class GameRules {
         }
         initialBricksZone = new int[][] { coinSupGauche, coinInfDroit };
         // System.out.println("Zone de jeu : ");
-        // System.out.println("Debut : " + initialBricksZone[0][0] + " , " + initialBricksZone[0][1]);
-        // System.out.println("Fin : " + initialBricksZone[1][0] + " , " + initialBricksZone[1][1]);
+        // System.out.println("Debut : " + initialBricksZone[0][0] + " , " +
+        // initialBricksZone[0][1]);
+        // System.out.println("Fin : " + initialBricksZone[1][0] + " , " +
+        // initialBricksZone[1][1]);
     }
 
     public void shuffleBricks(Brick[][] bricks) {
@@ -135,7 +137,8 @@ public class GameRules {
                         bricks[i][j].setC(bricks[m][n].getC());
                         bricks[m][n].setC(tempC);
                     }
-                    // System.out.println("BRICK X:" + i + " Y:" + j + " VERS " + "BRICK X:" + m + " Y:" + n);
+                    // System.out.println("BRICK X:" + i + " Y:" + j + " VERS " + "BRICK X:" + m + "
+                    // Y:" + n);
                 }
             }
         }
@@ -177,7 +180,8 @@ public class GameRules {
                 }
             }
 
-            // On enleve dans les briques restantes ceux ayant l'effet transparent du dernier tour
+            // On enleve dans les briques restantes ceux ayant l'effet transparent du
+            // dernier tour
             for (Brick brick : tempList) {
                 if (brick.isTransparent()) {
                     brick.setTransparent(false);
@@ -200,7 +204,8 @@ public class GameRules {
                 }
             }
 
-            // On enleve dans les briques restantes ceux ayant l'effet unbreakable du dernier tour
+            // On enleve dans les briques restantes ceux ayant l'effet unbreakable du
+            // dernier tour
             for (Brick brick : tempList) {
                 if (brick.isUnbreakable()) {
                     brick.setUnbreakable(false);

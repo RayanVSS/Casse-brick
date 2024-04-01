@@ -13,49 +13,50 @@ import geometry.Coordinates;
 import geometry.Vector;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+
 public final class GameConstants {
 
-    	// brick
-    	public static final int MAP_HEIGHT = 24;
-    	public static final int MAP_WIDTH = 15;
-    	public static final int ROWS_OF_BRICKS = 5;
-    	public static final int COLUMNS_OF_BRICKS = 13;
-    	public static final int MIN_SPACE_BETWEEN_RACKET_BRICKS = 5;
-    	public static final int BRICK_WIDTH = 60;
-    	public static final int BRICK_HEIGHT = 32;
+        // brick
+        public static final int MAP_HEIGHT = 24;
+        public static final int MAP_WIDTH = 15;
+        public static final int ROWS_OF_BRICKS = 5;
+        public static final int COLUMNS_OF_BRICKS = 13;
 
-    	// ball
-    	public static final int DEFAULT_BALL_SPEED = 5;
-    	public static final int DEFAULT_BALL_RADIUS = 10;
-    
+        public static final int MIN_SPACE_BETWEEN_RACKET_BRICKS = 5;
+        public static final int BRICK_WIDTH = 60;
+        public static final int BRICK_HEIGHT = 32;
 
-	static Random rand = new Random();
-	public static final Vector DEFAULT_BALL_START_DIRECTION = new Vector(
-			new Coordinates(rand.nextBoolean() ? 1 : -1, rand.nextBoolean() ? 1 : -1));
-    	public static final Coordinates DEFAULT_BALL_START_COORDINATES = new Coordinates(
-            			GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2, GameConstants.DEFAULT_WINDOW_HEIGHT / 2);
-    	public static final double POWER_MAGNET = 0.5; // puissance de l'attraction des aimants
+        // ball
+        public static final int DEFAULT_BALL_SPEED = 5;
+        public static final int DEFAULT_BALL_RADIUS = 10;
 
-    	// fenetre
-    	// public static final double DEFAULT_WINDOW_WIDTH = MAP_WIDTH * BRICK_WIDTH;
-    	// public static final double DEFAULT_WINDOW_HEIGHT = MAP_HEIGHT * BRICK_HEIGHT;
+        static Random rand = new Random();
+        public static final Vector DEFAULT_BALL_START_DIRECTION = new Vector(
+                        new Coordinates(rand.nextBoolean() ? 1 : -1, rand.nextBoolean() ? 1 : -1));
+        public static final Coordinates DEFAULT_BALL_START_COORDINATES = new Coordinates(
+                        GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2, GameConstants.DEFAULT_WINDOW_HEIGHT / 2);
+        public static final double POWER_MAGNET = 0.5; // puissance de l'attraction des aimants
 
-    	public static final double DEFAULT_WINDOW_WIDTH = 1100.0;
-    	public static final double DEFAULT_WINDOW_HEIGHT = 800.0;
-	public static final double DEFAULT_GAME_ROOT_WIDTH = 1100.0 - 150.0;
+        // fenetre
+        // public static final double DEFAULT_WINDOW_WIDTH = MAP_WIDTH * BRICK_WIDTH;
+        // public static final double DEFAULT_WINDOW_HEIGHT = MAP_HEIGHT * BRICK_HEIGHT;
 
-    	// public static final double DEFAULT_WINDOW_WIDTH =
-    	// Screen.getPrimary().getVisualBounds().getWidth();
-    	// public static final double DEFAULT_WINDOW_HEIGHT =
-    	// Screen.getPrimary().getVisualBounds().getHeight();
+        public static final double DEFAULT_WINDOW_WIDTH = 1100.0;
+        public static final double DEFAULT_WINDOW_HEIGHT = 800.0;
+        public static final double DEFAULT_GAME_ROOT_WIDTH = 1100.0 - 150.0;
 
-    	public static final int DEFAULT_FPS = 120;
+        // public static final double DEFAULT_WINDOW_WIDTH =
+        // Screen.getPrimary().getVisualBounds().getWidth();
+        // public static final double DEFAULT_WINDOW_HEIGHT =
+        // Screen.getPrimary().getVisualBounds().getHeight();
 
-    	// particle de traînée
-    	public static final int DEFAULT_trailLength = 10; // nombre de particules
-    	public static final double DEFAULT_PARTICLE_RADIUS = 0.5;
-    	public static final double DEFAULT_FLUCTUATION = 8;
-    	public static final int DEFAULT_PARTICLE = 10; // taille de la trainée
+        public static final int DEFAULT_FPS = 120;
+
+        // particle de traînée
+        public static final int DEFAULT_trailLength = 10; // nombre de particules
+        public static final double DEFAULT_PARTICLE_RADIUS = 0.5;
+        public static final double DEFAULT_FLUCTUATION = 8;
+        public static final int DEFAULT_PARTICLE = 10; // taille de la trainée
 
         // boost
         // temps des boosts
@@ -90,8 +91,8 @@ public final class GameConstants {
         public static KeyCode SPACE = KeyCode.SPACE;
         public static String CSS = "/styles/dark.css";
 
-    	// derniere save
-    	public static String LAST_SAVE;
+        // derniere save
+        public static String LAST_SAVE;
 
         // GameRules (GR) options
         public static int GR_REMAINING_TIME = 300; // 5 minutes
@@ -112,7 +113,12 @@ public final class GameConstants {
                         new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false),
                         new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true),
                         new GameRules(BricksArrangement.DEFAULT, true, true, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true) };
+                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true)
+        };
+
+        public static GameRules INFINITE_MODE = new GameRules(BricksArrangement.INFINITE, false, false, false, false,
+                        false,
+                        false);
 
         // à changer plus tard
         public static Ball[] PRECONFIG_GAME_BALL = { new ClassicBall(), new ClassicBall(), new ClassicBall(),

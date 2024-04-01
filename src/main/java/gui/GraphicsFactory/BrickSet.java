@@ -1,32 +1,54 @@
 package gui.GraphicsFactory;
 
+import config.Map;
 import entity.EntityColor;
 import entity.brick.Brick;
-import gui.ImageLoader;
+// import gui.ImageLoader;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
+// import javafx.scene.image.Image;
 import utils.GameConstants;
-import entity.EntityColor;
+// import entity.EntityColor;
 
 public class BrickSet extends Group {
-    Image image = ImageLoader.loadImage("src/main/ressources/briquee.png");
+    // Image image = ImageLoader.loadImage("src/main/ressources/briquee.png");
+
+    // public BrickSet(Brick[][] tab) {
+    // int indexFirstColumn = GameConstants.MAP_WIDTH /
+    // GameConstants.COLUMNS_OF_BRICKS;
+    // BricksGraphics brick = null;
+    // for (int i = indexFirstColumn; i < indexFirstColumn +
+    // GameConstants.COLUMNS_OF_BRICKS; i++) {
+    // for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) {
+    // EntityColor c = tab[i][j].getColor();
+    // if (c != null) {
+    // brick = new BricksGraphics(tab[i][j], i, j, c);
+    // } else {
+    // brick = new BricksGraphics(tab[i][j], i, j);
+    // }
+    // brick.setLayoutX(i * GameConstants.BRICK_WIDTH);
+    // brick.setLayoutY(j * GameConstants.BRICK_HEIGHT);
+    // brick.setVisible(true);
+    // this.getChildren().add(brick);
+    // }
+    // }
+    // }
 
     public BrickSet(Brick[][] tab) {
-        int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;
         BricksGraphics brick = null;
-        for (int i = indexFirstColumn; i < indexFirstColumn +
-                GameConstants.COLUMNS_OF_BRICKS; i++) {
-            for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) {
-                EntityColor c = tab[i][j].getColor();
-                if (c != null) {
-                    brick = new BricksGraphics(tab[i][j], i, j, c);
-                } else {
-                    brick = new BricksGraphics(tab[i][j], i, j);
+        for (int i = 0; i < tab.length; i++) {
+            for (int j = 0; j < tab[0].length; j++) {
+                if (tab[i][j] != null) {
+                    EntityColor c = tab[i][j].getColor();
+                    if (c != null) {
+                        brick = new BricksGraphics(tab[i][j], i, j, c);
+                    } else {
+                        brick = new BricksGraphics(tab[i][j], i, j);
+                    }
+                    brick.setLayoutX(i * GameConstants.BRICK_WIDTH);
+                    brick.setLayoutY(j * GameConstants.BRICK_HEIGHT);
+                    brick.setVisible(true);
+                    this.getChildren().add(brick);
                 }
-                brick.setLayoutX(i * GameConstants.BRICK_WIDTH);
-                brick.setLayoutY(j * GameConstants.BRICK_HEIGHT);
-                brick.setVisible(true);
-                this.getChildren().add(brick);
             }
         }
     }
@@ -39,6 +61,36 @@ public class BrickSet extends Group {
                 brick.update();
                 // brick.setVisible(true);
                 // this.getChildren().add(brick);
+            }
+        }
+    }
+
+    public boolean isCreated(int i, int j) {
+        for (int k = 0; k < this.getChildren().size(); k++) {
+            BricksGraphics brick = (BricksGraphics) this.getChildren().get(k);
+            if (brick.getI() == i && brick.getJ() == j) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void infiniteUpdate(Map map) {
+        for (int i = 0; i < map.getBricks().length; i++) {
+            for (int j = 0; j < map.getBricks()[0].length; j++) {
+                if (map.getBricks()[i][j] != null) {
+                    if (isCreated(i, j)) {
+                        BricksGraphics brick = (BricksGraphics) this.getChildren()
+                                .get(i * GameConstants.ROWS_OF_BRICKS + j);
+                        brick.update();
+                    } else {
+                        BricksGraphics newBrick = new BricksGraphics(map.getBricks()[i][j], i, j);
+                        newBrick.setLayoutX(i * GameConstants.BRICK_WIDTH);
+                        newBrick.setLayoutY(j * GameConstants.BRICK_HEIGHT);
+                        newBrick.setVisible(true);
+                        this.getChildren().add(newBrick);
+                    }
+                }
             }
         }
     }
