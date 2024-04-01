@@ -53,10 +53,10 @@ public class GamePhysicsToolBox extends VBox {
 
     private void createUtilsButtons() {
         addBrickButton = new LabelToggleButtonHBox("Ajouter une brique", false);
-        addBrickButton.getToggleButton().setOnAction(e -> addBrickButton.action());
+        addBrickButton.getToggleButton().setOnAction(e -> addBrickButton.updateText());
 
         addBallButton = new LabelToggleButtonHBox("Ajouter une balle", false);
-        addBallButton.getToggleButton().setOnAction(e -> addBallButton.action());
+        addBallButton.getToggleButton().setOnAction(e -> addBallButton.updateText());
 
         pauseButton = new LabelToggleButtonHBox("Partie en pause : ", true);
         pauseButton.getToggleButton().setOnAction(e -> pauseButtonAction());
@@ -103,10 +103,14 @@ public class GamePhysicsToolBox extends VBox {
     private void resetGame() {
         game.reset();
         view.reset();
+        if (!pauseButton.getToggleButton().isSelected()) {
+            pauseButton.getToggleButton().setSelected(true);
+            pauseButton.updateText();
+        }
     }
 
     private void pauseButtonAction() {
-        pauseButton.action();
+        pauseButton.updateText();
         game.setPaused(pauseButton.getToggleButton().isSelected());
     }
 

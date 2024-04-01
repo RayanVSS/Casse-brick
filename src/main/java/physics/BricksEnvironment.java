@@ -107,11 +107,11 @@ public class BricksEnvironment extends Application {
                 if (toolBox.getAddBrickButton().getToggleButton().isSelected()) {
                     game.addBrick(new BrickClassic(new Coordinates(mouseX, mouseY), new Vector(new Coordinates(0, 0))));
                     toolBox.getAddBrickButton().getToggleButton().setSelected(false);
-                    toolBox.getAddBrickButton().action();
+                    toolBox.getAddBrickButton().updateText();
                 } else if (toolBox.getAddBallButton().getToggleButton().isSelected()) {
                     game.addBall(new ClassicBall(new Coordinates(mouseX, mouseY), new Vector(new Coordinates(1, 1))));
                     toolBox.getAddBallButton().getToggleButton().setSelected(false);
-                    toolBox.getAddBallButton().action();
+                    toolBox.getAddBallButton().updateText();
                 }
             }
         });

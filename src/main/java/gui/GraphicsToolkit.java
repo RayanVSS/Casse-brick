@@ -137,7 +137,7 @@ public final class GraphicsToolkit {
             });
         }
 
-        public void action() {
+        public void updateText() {
             toggleButton.setText(toggleButton.isSelected() ? "On" : "Off");
         }
 
