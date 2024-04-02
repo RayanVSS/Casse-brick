@@ -593,4 +593,12 @@ affichage de la racket
 - Améliorer la structure de la partie physique #49
 - Régler les differents problèmes de collisions de balles entre eux #55
 - Implémenter le fonctionnement et la gestion de plusieurs balles dans le jeu (seulement présent dans la simulation) #54
-    
+
+### Benmalek Majda
+<span style="color:green">**Fait:**</span>
+- Création de toute les images pour les balles par rapport au themes
+- Modifications de l'affichage des options 
+
+<span style="color:purple">**A Faire:**</span>
+- Ajout du son
+- Affichage de la racket avec une image et l'adapter en fonctions du theme 
