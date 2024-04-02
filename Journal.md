@@ -562,3 +562,15 @@ affichage de la racket
 - affichage du niveau
 - affichage des vies amélioré
 - ameliorations de l'affichage des images
+
+## Semaine 7 (02/4):
+
+### Guan Olivier 
+
+<span style="color:green">**Fait:**</span>
+
+- Presets de l'environnement avec arrêt/pause (manque affichage Brique à régler + fusionner les implémentation avec collisions entre balles)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finaliser l'outil
