@@ -563,7 +563,7 @@ affichage de la racket
 - ameliorations de l'affichage des images
 
 ### Belhassen Rayan :
-<span style="color:red">**    Absent**</span>
+<span style="color:red">**Absent**</span>
 
 ### Bencheikh Ilias :
 <span style="color:green">**Fait:**</span>
