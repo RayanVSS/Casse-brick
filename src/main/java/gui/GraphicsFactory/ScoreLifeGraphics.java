@@ -58,24 +58,25 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         scoreText.setX(20);
         scoreText.setY(80);
 
-        niveau = createLabel("Niveau: " + (stage.getDifficulty() + 1), 0, 0);
-        niveau.getStyleClass().add("scoreL-style");
-        niveau.setLayoutX(20);
-        niveau.setLayoutY(100);
-
         maxScore = createLabel("Meilleur score: " + stage.getMaxScore(), 0, 0);
         maxScore.getStyleClass().add("scoreL-style");
         maxScore.setLayoutX(20);
         maxScore.setLayoutY(120);
+
+        if (!stage.isCustomGame()) {
+            niveau = createLabel("Niveau: " + (stage.getDifficulty() + 1), 0, 0);
+            niveau.getStyleClass().add("scoreL-style");
+            niveau.setLayoutX(20);
+            bounces.setVisible(true);
+            setMargin(niveau, new javafx.geometry.Insets(10, 10, 10, 10));
+        }
 
         if (game.getRules().isLimitedTime()) {
             time = createLabel("Temps restant: " + game.getRules().getRemainingTime(), 0, 0);
             time.setVisible(true);
             time.getStyleClass().add("scoreL-style");
             time.setLayoutX(20);
-            time.setLayoutY(140);
             setMargin(time, new javafx.geometry.Insets(10, 10, 10, 10));
-            getChildren().add(time);
         }
 
         if (game.getRules().isLimitedBounces()) {
@@ -83,22 +84,28 @@ public class ScoreLifeGraphics extends VBox implements Menu {
             bounces.setVisible(true);
             bounces.getStyleClass().add("scoreL-style");
             bounces.setLayoutX(20);
-            bounces.setLayoutY(160);
             setMargin(bounces, new javafx.geometry.Insets(10, 10, 10, 10));
-            getChildren().add(bounces);
         }
 
         setMargin(lifeGrid, new javafx.geometry.Insets(10, 10, 10, 10));
         setMargin(scoreText, new javafx.geometry.Insets(10, 10, 10, 10));
-        setMargin(niveau, new javafx.geometry.Insets(10, 10, 10, 10));
         setMargin(maxScore, new javafx.geometry.Insets(10, 10, 10, 10));
 
         setLayoutX(10);
         setLayoutY(10);
         getChildren().add(lifeGrid);
         getChildren().add(scoreText);
-        getChildren().add(niveau);
         getChildren().add(maxScore);
+        if (!stage.isCustomGame()) {
+            getChildren().add(niveau);
+        }
+        if (game.getRules().isLimitedTime()) {
+            getChildren().add(time);
+        }
+        if (game.getRules().isLimitedBounces()) {
+            getChildren().add(bounces);
+        }
+
         getStylesheets().add(GameConstants.CSS.getPath());
 
     }

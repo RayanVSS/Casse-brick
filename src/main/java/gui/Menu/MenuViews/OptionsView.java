@@ -1,173 +1,178 @@
 package gui.Menu.MenuViews;
 
+import gui.GraphicsToolkit.LabelButton;
+import gui.GraphicsToolkit.LabelComboBoxHBox;
+import gui.GraphicsToolkit.LabelSliderHBox;
+import gui.GraphicsToolkit.LabelToggleButtonHBox;
+import gui.GraphicsToolkit.LabelVBox;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.OptionsController;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.Slider;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
-/**
- * Classe OptionsView qui implémente l'interface Menu pour représenter la vue
- * des options.
- * 
- * @author Benmalek Majda
- * @author Bencheikh Ilias
- */
 public class OptionsView implements Menu {
     private Stage primaryStage;
-    private static HBox root = new HBox();
-    private static Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,
-            GameConstants.DEFAULT_WINDOW_HEIGHT);
-    private Button btnBack;
-    private ToggleButton buttonfps;
-    private ToggleButton buttonpath;
-    private ToggleButton buttonparticles;
-    private Slider volumemusic;
-    private Slider volumesound;
-    private Button buttonleft;
-    private Button buttonright;
-    private Button buttonpower;
-    private ComboBox<String> listTheme;
+    private VBox root;
+    private Scene scene;
 
-    /**
-     * Constructeur de OptionsView.
-     * 
-     * @param p Le stage principal sur lequel la vue des options est affichée.
-     */
-    public OptionsView(Stage p) {
-        this.primaryStage = p;
-        btnBack = createButton("Retour", 0, 0);
+    private HBox options;
+    private VBox optionsLeft, optionsCentre, optionsRight;
 
-        // VBox 1: FPS, Chemin de la balle,Particules
-        VBox v1 = new VBox();
-        // Bouton pour afficher les FPS
-        Label labelfps = createLabel("Afficher les FPS", 0, 0);
-        if (GameConstants.FPS) {
-            buttonfps = createToggleButton("ON", false);
-        } else {
-            buttonfps = createToggleButton("OFF", false);
-        }
-        // Bouton pour afficher le chemin de la balle
-        Label labelpath = createLabel("Afficher le chemin de la balle", 0, 0);
-        if (GameConstants.PATH) {
-            buttonpath = createToggleButton("ON", false);
-        } else {
-            buttonpath = createToggleButton("OFF", false);
-        }
+    private LabelSliderHBox volumeMusic, volumeSound;
+    private LabelComboBoxHBox theme;
+    private LabelToggleButtonHBox fps, path, particles;
+    private LabelButton buttonleft, buttonpower, buttonright;
 
-        // Bouton pour afficher les trainées de particules
-        Label labelparticles = createLabel("Afficher les particules", 0, 0);
-        if (GameConstants.PARTICLES) {
-            buttonparticles = createToggleButton("ON", false);
-        } else {
-            buttonparticles = createToggleButton("OFF", false);
-        }
+    private HBox actionButtons;
+    private Button backButton;
 
-        v1.getChildren().addAll(labelfps, buttonfps, labelpath, buttonpath, labelparticles, buttonparticles);
+    public OptionsView(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        root = new VBox(50);
+        scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
 
-        // VBox 2: Volume de la musique, Volume des sons
-        VBox v2 = new VBox();
-        // Slider pour le volume de la musique
-        Label labelmusic = createLabel("Volume de la musique", 0, 0);
-        volumemusic = createSlider(0, 100, GameConstants.MUSIC, 200);
+        initOptions();
+        initActionButtons();
 
-        // Slider pour le volume des sons
-        Label labelsound = createLabel("Volume des sons", 0, 0);
-        volumesound = createSlider(0, 100, GameConstants.SOUND, 200);
-
-        // ComboBox pour choisir le thème
-        Label labeltheme = createLabel("Themes: ", 0, 0);
-        listTheme = new ComboBox<String>();
-        listTheme.setPromptText("Choisissez un theme");
-
-        listTheme.getItems().addAll("classic", "pink", "light", "protanopie", "deuteranopie", "tritanopie",
-                "achromatopsie", "black");
-
-        v2.getChildren().addAll(labelmusic, volumemusic, labelsound, volumesound, labeltheme, listTheme);
-
-        // VBox 3: Modif des : Touche gauche, Touche droite, Touche pour activer le
-        // pouvoir
-        VBox v3 = new VBox();
-        // Bouton pour configurer la touche gauche
-        Label labelleft = createLabel("Touche pour aller a gauche", 0, 0);
-        buttonleft = createButton(GameConstants.LEFT.getName(), 0, 0);
-
-        // Bouton pour configurer la touche droite
-        Label labelright = createLabel("Touche pour aller a droite", 0, 0);
-        buttonright = createButton(GameConstants.RIGHT.getName(), 0, 0);
-
-        // Bouton pour configure la touche pour activer le pouvoir
-        Label labelpower = createLabel("Touche pour activer le pouvoir", 0, 0);
-        buttonpower = createButton(GameConstants.SPACE.getName(), 0, 0);
-
-        v3.getChildren().addAll(labelleft, buttonleft, labelright, buttonright, labelpower, buttonpower);
-
-        v1.getStyleClass().add("vbox");
-        v2.getStyleClass().add("vbox");
-        v3.getStyleClass().add("vbox");
-        root.getStyleClass().add("root-option");
-        root.getChildren().addAll(v1, v2, v3, btnBack);
-        new OptionsController(p, this);
+        root.getChildren().addAll(options, actionButtons);
+        new OptionsController(primaryStage, this);
     }
 
-    // Getters
-
-    public HBox getRoot() {
-        return root;
+    private void initOptions() {
+        options = new HBox(50);
+        options.setAlignment(Pos.CENTER);
+        initOptionsLeft();
+        initOptionsCentre();
+        initOptionsRight();
+        options.getChildren().addAll(optionsLeft, optionsCentre, optionsRight);
     }
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
+    private void initOptionsLeft() {
+
+        optionsLeft = new VBox(25);
+        optionsLeft.setAlignment(Pos.CENTER);
+
+        LabelVBox labelVBox = new LabelVBox("Musique & Themes", 12);
+        volumeMusic = new LabelSliderHBox("Musique", 0, 100, 50, false, 1);
+        volumeSound = new LabelSliderHBox("Sons", 0, 100, 50, false, 1);
+        String[] themes = { "Classic", "Black", "Light", "Pink" };
+        String name = GameConstants.CSS.name();
+        String capitalizedPath = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+        theme = new LabelComboBoxHBox(capitalizedPath, themes, capitalizedPath);
+
+        labelVBox.getChildren().addAll(volumeMusic, volumeSound, theme);
+        optionsLeft.getChildren().addAll(labelVBox);
+    }
+
+    private void initOptionsCentre() {
+        optionsCentre = new VBox(25);
+        optionsCentre.setAlignment(Pos.CENTER);
+        LabelVBox labelVBox = new LabelVBox("Afficage", 12);
+        fps = new LabelToggleButtonHBox("FPS", GameConstants.FPS);
+        path = new LabelToggleButtonHBox("Chemin de la balle", GameConstants.PATH);
+        particles = new LabelToggleButtonHBox("Particules", GameConstants.PARTICLES);
+
+        labelVBox.getChildren().addAll(fps, path, particles);
+        optionsCentre.getChildren().addAll(labelVBox);
+    }
+
+    private void initOptionsRight() {
+        optionsRight = new VBox(25);
+        optionsRight.setAlignment(Pos.CENTER);
+        LabelVBox labelVBox = new LabelVBox("Controles", 12);
+        buttonleft = new LabelButton("Controle Gauche", GameConstants.LEFT.getName());
+        buttonright = new LabelButton("Controle Droite", GameConstants.RIGHT.getName());
+        buttonpower = new LabelButton("Controle Magnet", GameConstants.SPACE.getName());
+
+        labelVBox.getChildren().addAll(buttonleft, buttonright, buttonpower);
+        optionsRight.getChildren().addAll(labelVBox);
+    }
+
+    private void initActionButtons() {
+        actionButtons = new HBox(50);
+        actionButtons.setAlignment(Pos.CENTER);
+
+        backButton = createButton("Retour",0,0);
+
+        actionButtons.getChildren().add(backButton);
     }
 
     public Scene getScene() {
         return scene;
     }
 
-    public Button getBtnBack() {
-        return btnBack;
+    public Button getBackButton() {
+        return backButton;
     }
 
-    public ToggleButton getButtonfps() {
-        return buttonfps;
+    public LabelSliderHBox getVolumeMusic() {
+        return volumeMusic;
     }
 
-    public ToggleButton getButtonpath() {
-        return buttonpath;
+    public LabelSliderHBox getVolumeSound() {
+        return volumeSound;
     }
 
-    public ToggleButton getButtonparticles() {
-        return buttonparticles;
+    public LabelComboBoxHBox getTheme() {
+        return theme;
     }
 
-    public Slider getVolumemusic() {
-        return volumemusic;
+    public LabelToggleButtonHBox getFps() {
+        return fps;
     }
 
-    public Slider getVolumesound() {
-        return volumesound;
+    public LabelToggleButtonHBox getPath() {
+        return path;
     }
 
-    public Button getButtonleft() {
+    public LabelToggleButtonHBox getParticles() {
+        return particles;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public VBox getRoot() {
+        return root;
+    }
+
+    public HBox getOptions() {
+        return options;
+    }
+
+    public VBox getOptionsLeft() {
+        return optionsLeft;
+    }
+
+    public VBox getOptionsCentre() {
+        return optionsCentre;
+    }
+
+    public VBox getOptionsRight() {
+        return optionsRight;
+    }
+
+    public HBox getActionButtons() {
+        return actionButtons;
+    }
+
+    public LabelButton getButtonleft() {
         return buttonleft;
     }
 
-    public Button getButtonright() {
-        return buttonright;
-    }
-
-    public Button getButtonpower() {
+    public LabelButton getButtonpower() {
         return buttonpower;
     }
 
-    public ComboBox<String> getListTheme() {
-        return listTheme;
+    public LabelButton getButtonright() {
+        return buttonright;
     }
 }
