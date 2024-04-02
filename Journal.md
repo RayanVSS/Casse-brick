@@ -583,6 +583,7 @@ affichage de la racket
 - test des différents cas de collisions entre deux balles #55
 - rotation graphique de la balle (dans la simulation et le jeu) #61
 - améliorations des problèmes d'image de balle et des formes de la recket (surchargé lié au problème de FPS #43) 
+- Problème de décalage de la balle et de son image réglé (lié au problème de coeff de décalage de la collision avec la racket )
 - Ajout de fonctionalité dans la simulation (changement de racket et autre)
 
 <span style="color:purple">**A Faire:**</span>
