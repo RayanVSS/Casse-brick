@@ -542,7 +542,6 @@ affichage de la racket
 - Améliorer la structure de la partie physique #49
 - Régler les differents problèmes de collisions de balles entre eux #55
 - Ajout de fonctionalité dans la simulation (changement de racket et autre)
-- 
 
 ### Guan Olivier 
 
@@ -574,3 +573,24 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 
 - Finaliser l'outil
+
+### Belhassen Rayan :
+<span style="color:red">**Absent**</span>
+
+### Bencheikh Ilias :
+<span style="color:green">**Fait:**</span>
+
+- test des différents cas de collisions entre deux balles #55
+- rotation graphique de la balle (dans la simulation et le jeu) #61
+- améliorations des problèmes d'image de balle et des formes de la recket (surchargé lié au problème de FPS #43) 
+- Ajout de fonctionalité dans la simulation (changement de racket et autre)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Régler le problème de FPS #43
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+- Régler les differents problèmes de collisions de balles entre eux #55
+- Implémenter le fonctionnement et la gestion de plusieurs balles dans le jeu (seulement présent dans la simulation) #54
+    
