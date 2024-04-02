@@ -27,11 +27,16 @@ public abstract class Ball extends Entity {
     public boolean CollisionR = false;
     public boolean CollisionR_Side = false;
 
+    // Collision avec les murs
+    private double zoneWidth, zoneHeight;
+
     public Ball() {
         super(new Coordinates(0, 0), new Vector(new Coordinates(0, 0)));
         this.speed = 0;
         this.radius = GameConstants.DEFAULT_BALL_RADIUS;
         this.baseSpeed = GameConstants.DEFAULT_BALL_SPEED;
+        this.zoneWidth = GameConstants.DEFAULT_GAME_ROOT_WIDTH;
+        this.zoneHeight = GameConstants.DEFAULT_WINDOW_HEIGHT;
     }
 
     public Ball(int r) {
@@ -103,6 +108,22 @@ public abstract class Ball extends Entity {
 
     public void setBaseSpeed(double baseSpeed) {
         this.baseSpeed = baseSpeed;
+    }
+
+    public double getZoneWidth() {
+        return zoneWidth;
+    }
+
+    public double getZoneHeight() {
+        return zoneHeight;
+    }
+
+    public void setZoneWidth(double zoneWidth) {
+        this.zoneWidth = zoneWidth;
+    }
+
+    public void setZoneHeight(double zoneHeight) {
+        this.zoneHeight = zoneHeight;
     }
 
     public void updatePreview() {

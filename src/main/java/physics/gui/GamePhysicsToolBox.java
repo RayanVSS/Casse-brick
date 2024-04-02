@@ -2,6 +2,7 @@ package physics.gui;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 import config.Game;
 import entity.ball.ClassicBall;
@@ -18,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import physics.config.GamePhysics;
+import physics.entity.Ball;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 
@@ -36,7 +38,7 @@ public class GamePhysicsToolBox extends VBox {
     private GridPane presetsButtons;
     private LabelToggleButtonHBox pauseButton;
 
-    public GamePhysicsToolBox(GamePhysics game, GamePhysicsView view) {
+    public GamePhysicsToolBox(GamePhysics game, GamePhysicsView view, double zoneWidth, double zoneHeight) {
 
         super(15);
         this.game = game;
@@ -45,7 +47,7 @@ public class GamePhysicsToolBox extends VBox {
         setAlignment(Pos.CENTER);
 
         createUtilsButtons();
-        createPresetButtons();
+        createPresetButtons(zoneWidth, zoneHeight);
         setStyle();
 
         getChildren().addAll(addBrickButton, addBallButton, presetsPlusReset, pauseButton);
@@ -70,13 +72,13 @@ public class GamePhysicsToolBox extends VBox {
                 "-fx-border-width: 1px; ");
     }
 
-    private void createPresetButtons() {
+    private void createPresetButtons(double zoneWidth, double zoneHeight) {
         presetsButtons = new GridPane();
         for (int i = 0; i < 9; i++) {
             Button temp = new Button("" + (i + 1));
             final int j = i;
             temp.setOnAction(event -> {
-                setupPreset(j);
+                setupPreset(j, zoneWidth, zoneHeight);
             });
             presetsButtons.add(temp, i % 3, i / 3);
         }
@@ -85,15 +87,54 @@ public class GamePhysicsToolBox extends VBox {
         presetsPlusReset.getChildren().addAll(presetsButtons, clearButton);
     }
 
-    private void setupPreset(int presetIndex) {
+    private void setupPreset(int presetIndex, double zoneWidth, double zoneHeight) { // à simplifier
         resetGame();
+        Random random = new Random();
+        Ball temp;
         switch (presetIndex) {
             case 0:
-                // game.addBrick(new BrickClassic(new Coordinates(150, 520)));
+                break;
+
+            case 1:
+                temp = new ClassicBall(new Coordinates(random.nextInt(200), random.nextInt(800)),
+                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble())));
+                // temp.setZoneWidth(700);
+                // temp.setZoneHeight(700);
+                System.out.println(zoneWidth + "+" + zoneHeight);
+                game.addBall(temp);
+                break;
+            case 2:
+                game.addBall(new ClassicBall(new Coordinates(random.nextInt(200), random.nextInt(800)),
+                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
+                game.addBall(new ClassicBall(new Coordinates(random.nextInt(200), random.nextInt(800)),
+                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
+                break;
+            case 3:
                 game.addBall(new ClassicBall(new Coordinates(150, 520), new Vector(new Coordinates(0, 1))));
                 game.addBall(new ClassicBall(new Coordinates(50, 720), new Vector(new Coordinates(1, 0))));
                 break;
-
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                game.addBall(new ClassicBall(new Coordinates(random.nextInt(200), random.nextInt(800)),
+                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
+                game.addBall(new ClassicBall(new Coordinates(random.nextInt(200), random.nextInt(800)),
+                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
+                game.addBall(new ClassicBall(new Coordinates(random.nextInt(200), random.nextInt(800)),
+                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
+                game.addBall(new ClassicBall(new Coordinates(random.nextInt(200), random.nextInt(800)),
+                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
+                game.addBall(new ClassicBall(new Coordinates(random.nextInt(200), random.nextInt(800)),
+                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
+                game.addBall(new ClassicBall(new Coordinates(random.nextInt(200), random.nextInt(800)),
+                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
+                break;
             default:
 
                 break;

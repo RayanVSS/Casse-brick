@@ -36,8 +36,8 @@ public class ClassicBall extends Ball {
      */
     public boolean movement() {
         boolean lost = true;
-        double w = GameConstants.DEFAULT_GAME_ROOT_WIDTH;
-        double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
+        double w = getZoneWidth();
+        double h = getZoneHeight();
         double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
         double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
         if (CollisionR) {

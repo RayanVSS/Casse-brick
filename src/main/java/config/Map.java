@@ -123,16 +123,17 @@ public class Map {
     }
 
     public boolean updateBricksStatus() {
+        boolean destroyed = false;
         for (int i = 0; i < bricks.length; i++) {
             for (int j = 0; j < bricks[0].length; j++) {
                 if (bricks[i][j] != null && bricks[i][j].isDestroyed()) {
                     bricks[i][j] = null;
                     Game.score += 10;
-                    return true;
+                    destroyed = true;
                 }
             }
         }
-        return false;
+        return destroyed;
     }
 
     public int countBricks() {

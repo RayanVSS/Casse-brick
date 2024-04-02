@@ -52,7 +52,9 @@ public class GamePhysics {
     }
 
     private void updateBalls() {
-
+        for (Ball ball : balls) {
+            ball.movement();
+        }
     }
 
     public void reset() {
