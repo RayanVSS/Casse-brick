@@ -114,17 +114,17 @@ public class BallGraphics extends ImageView {
 
     private void setClassicImage() {
         if (ball instanceof ClassicBall) {
-            CLASSIC_BALL = ImageLoader.loadImage("src/main/ressources/balle/classic.png");
+            CLASSIC_BALL = ImageLoader.loadImage("src/main/ressources/balle/classic/classic.png");
             currentImage = CLASSIC_BALL;
         } else if (ball instanceof HyperBall) {
-            HYPER_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleHyper.png");
+            HYPER_BALL = ImageLoader.loadImage("src/main/ressources/balle/classic/hyper.png");
             currentImage = HYPER_BALL;
         } else if (ball instanceof GravityBall) {
-            GRAVITY_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleGravity.png");
+            GRAVITY_BALL = ImageLoader.loadImage("src/main/ressources/balle/classic/gravity.png");
             currentImage = GRAVITY_BALL;
         } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/positif.png");
-            NEGATIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/negatif.png");
+            POSITIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/classic/positif.png");
+            NEGATIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/classic/negatif.png");
             currentImage = POSITIF_BALL;
         }
         setImage(currentImage);
@@ -156,17 +156,17 @@ public class BallGraphics extends ImageView {
 
     private void setBlackImage() {
         if (ball instanceof ClassicBall) {
-            CLASSIC_BALL = ImageLoader.loadImage("src/main/ressources/balle/blackClassic.png");
+            CLASSIC_BALL = ImageLoader.loadImage("src/main/ressources/balle/black/classic.png");
             currentImage = CLASSIC_BALL;
         } else if (ball instanceof HyperBall) {
-            HYPER_BALL = ImageLoader.loadImage("src/main/ressources/balle/blackHyper.png");
+            HYPER_BALL = ImageLoader.loadImage("src/main/ressources/balle/black/hyper.png");
             currentImage = HYPER_BALL;
         } else if (ball instanceof GravityBall) {
-            GRAVITY_BALL = ImageLoader.loadImage("src/main/ressources/balle/blackGravity.png");
+            GRAVITY_BALL = ImageLoader.loadImage("src/main/ressources/balle/black/gravity.png");
             currentImage = GRAVITY_BALL;
         } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/lightPos.png");
-            NEGATIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/lightNeg.png");
+            POSITIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/black/positif.png");
+            NEGATIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/black/negatif.png");
             currentImage = POSITIF_BALL;
         }
         setImage(currentImage);
