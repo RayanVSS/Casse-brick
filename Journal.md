@@ -542,7 +542,6 @@ affichage de la racket
 - Améliorer la structure de la partie physique #49
 - Régler les differents problèmes de collisions de balles entre eux #55
 - Ajout de fonctionalité dans la simulation (changement de racket et autre)
-- 
 
 ### Guan Olivier 
 
@@ -553,3 +552,54 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 
 - Finir l'outil et les collisions
+
+
+### Benmalek Majda
+<span style="color:green">**Fait:**</span>
+- affichage du temps restant
+- affichage des rebonds restants
+- affichage du niveau
+- affichage des vies amélioré
+- ameliorations de l'affichage des images
+
+## Semaine 7 (02/4):
+
+### Guan Olivier 
+
+<span style="color:green">**Fait:**</span>
+
+- Presets de l'environnement avec arrêt/pause (manque affichage Brique à régler + fusionner les implémentation avec collisions entre balles)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finaliser l'outil
+
+### Belhassen Rayan :
+<span style="color:red">**Absent**</span>
+
+### Bencheikh Ilias :
+<span style="color:green">**Fait:**</span>
+
+- test des différents cas de collisions entre deux balles #55
+- rotation graphique de la balle (dans la simulation et le jeu) #61
+- améliorations des problèmes d'image de balle et des formes de la recket (surchargé lié au problème de FPS #43) 
+- Problème de décalage de la balle et de son image réglé (lié au problème de coeff de décalage de la collision avec la racket )
+- Ajout de fonctionalité dans la simulation (changement de racket et autre)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Régler le problème de FPS #43
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+- Régler les differents problèmes de collisions de balles entre eux #55
+- Implémenter le fonctionnement et la gestion de plusieurs balles dans le jeu (seulement présent dans la simulation) #54
+
+### Benmalek Majda
+<span style="color:green">**Fait:**</span>
+- Création de toute les images pour les balles par rapport au themes
+- Modifications de l'affichage des options 
+
+<span style="color:purple">**A Faire:**</span>
+- Ajout du son
+- Affichage de la racket avec une image et l'adapter en fonctions du theme 
