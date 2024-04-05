@@ -67,7 +67,7 @@ public class ScoreLifeGraphics extends VBox implements Menu {
             niveau = createLabel("Niveau: " + (stage.getDifficulty() + 1), 0, 0);
             niveau.getStyleClass().add("scoreL-style");
             niveau.setLayoutX(20);
-            bounces.setVisible(true);
+            niveau.setVisible(true);
             setMargin(niveau, new javafx.geometry.Insets(10, 10, 10, 10));
         }
 

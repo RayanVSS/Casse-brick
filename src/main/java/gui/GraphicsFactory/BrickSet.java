@@ -2,13 +2,10 @@ package gui.GraphicsFactory;
 
 import entity.EntityColor;
 import entity.brick.Brick;
-import gui.ImageLoader;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
 import utils.GameConstants;
 
 public class BrickSet extends Group {
-    Image image = ImageLoader.loadImage("src/main/ressources/briquee.png"); 
 
     public BrickSet(Brick[][] tab) {
         int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;

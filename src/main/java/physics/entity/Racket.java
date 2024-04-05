@@ -68,6 +68,7 @@ public abstract class Racket {
     public String shape;
     public boolean fixeY;
     public boolean jump;
+    
 
     // boost
     Boolean vitesseP = false;

@@ -1,5 +1,8 @@
 package gui.GraphicsFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import entity.EntityColor;
 import entity.brick.Brick;
 import gui.ImageLoader;
@@ -15,6 +18,15 @@ public class BricksGraphics extends StackPane {
     public int j;
     public boolean isUnbreakable;
     public boolean isTransparent;
+
+    private static final Map<EntityColor, String> colorToImageMap;
+
+    static {
+        colorToImageMap = new HashMap<>();
+        colorToImageMap.put(EntityColor.RED, "src/main/ressources/brique.png");
+        colorToImageMap.put(EntityColor.GREEN, "src/main/ressources/briquev.png");
+        colorToImageMap.put(EntityColor.BLUE, "src/main/ressources/briqueb.png");
+    }
 
     public BricksGraphics(Brick brick, int i, int j) {
         Image image;
@@ -36,19 +48,7 @@ public class BricksGraphics extends StackPane {
         if (brick.isUnbreakable()) {
             image = ImageLoader.loadImage("src/main/ressources/briqueii.png");
         } else {
-            switch (c) {
-                case RED:
-                    image = ImageLoader.loadImage("src/main/ressources/brique.png");
-                    break;
-                case GREEN:
-                    image = ImageLoader.loadImage("src/main/ressources/briquev.png");
-                    break;
-                case BLUE:
-                    image = ImageLoader.loadImage("src/main/ressources/briqueb.png");
-                    break;
-                default:
-                    break;
-            }
+            image = ImageLoader.loadImage(colorToImageMap.get(c));
         }
         this.brick = brick;
         this.i = i;
@@ -89,19 +89,7 @@ public class BricksGraphics extends StackPane {
                     getChildren().remove(imageView);
                     Image image = null;
                     if (brick.getColor() != null) {
-                        switch (brick.getColor()) {
-                            case RED:
-                                image = ImageLoader.loadImage("src/main/ressources/brique.png");
-                                break;
-                            case GREEN:
-                                image = ImageLoader.loadImage("src/main/ressources/briquev.png");
-                                break;
-                            case BLUE:
-                                image = ImageLoader.loadImage("src/main/ressources/briqueb.png");
-                                break;
-                            default:
-                                break;
-                        }
+                        image = ImageLoader.loadImage(colorToImageMap.get(brick.getColor()));
                     } else {
                         image = ImageLoader.loadImage("src/main/ressources/briquee.png");
                     }

@@ -3,7 +3,6 @@ package gui.Menu.MenuControllers;
 import gui.App;
 import gui.Menu.Menu.Theme;
 import gui.Menu.MenuViews.OptionsView;
-import gui.Menu.MenuViews.OptionsView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import utils.GameConstants;

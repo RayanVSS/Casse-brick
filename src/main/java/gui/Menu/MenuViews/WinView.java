@@ -1,14 +1,11 @@
 package gui.Menu.MenuViews;
 
-import config.Game;
 import config.StageLevel;
 import gui.GameView;
 import gui.Menu.Menu;
-import gui.Menu.MenuControllers.GameOverController;
 import gui.Menu.MenuControllers.WinController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;

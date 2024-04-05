@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import entity.Boost;
 import physics.entity.Ball;
 import physics.entity.Racket;
-import physics.geometry.Coordinates;
 import utils.GameConstants;
 import entity.ball.MagnetBall;
 import java.util.Timer;

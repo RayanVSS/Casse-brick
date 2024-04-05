@@ -2,7 +2,6 @@ package gui.Menu.MenuControllers;
 
 import config.Game;
 import config.GameRules;
-import config.Map;
 import config.StageLevel;
 import config.GameRules.BricksArrangement;
 import physics.entity.Ball;
