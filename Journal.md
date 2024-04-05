@@ -603,3 +603,11 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 - Ajout du son
 - Affichage de la racket avec une image et l'adapter en fonctions du theme 
+
+### Mushtaq Amenah
+<span style="color:green">**Fait:**</span>
+- Mode infini
+
+<span style="color:purple">**A Faire:**</span>
+- Bug sur le mode infini a reglé 
+- Modification de l'affichage des briques 
