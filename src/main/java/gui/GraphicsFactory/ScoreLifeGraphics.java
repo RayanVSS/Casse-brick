@@ -1,6 +1,7 @@
 package gui.GraphicsFactory;
 
 import config.Game;
+import config.GameRules;
 import config.StageLevel;
 import gui.ImageLoader;
 import gui.Menu.Menu;
@@ -21,17 +22,13 @@ import utils.GameConstants;
  */
 public class ScoreLifeGraphics extends VBox implements Menu {
     private Text scoreText;
-    private int score;
-    private int life;
+    private int score, life;
     private GridPane lifeGrid;
-    private Image lifeOK;
-    private Image lifeKO;
+    private Image lifeOK, lifeKO;
     private ImageView[] lifeImages;
-    private Label niveau;
     private Game game;
-    private Label maxScore;
-    private Label time;
-    private Label bounces;
+    private Label maxScore, time, bounces, niveau;
+    private GameRules rules;
 
     /**
      * Constructeur de ScoreLifeView.
@@ -43,6 +40,7 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         this.game = game;
         score = game.getScore();
         life = game.getLife();
+        rules = game.getRules();
         lifeGrid = new GridPane();
         lifeGrid.setHgap(10);
         lifeGrid.setVgap(10);
@@ -57,7 +55,6 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         scoreText.getStyleClass().add("scoreL-style");
         scoreText.setX(20);
         scoreText.setY(80);
-
         maxScore = createLabel("Meilleur score: " + stage.getMaxScore(), 0, 0);
         maxScore.getStyleClass().add("scoreL-style");
         maxScore.setLayoutX(20);
@@ -71,16 +68,16 @@ public class ScoreLifeGraphics extends VBox implements Menu {
             setMargin(niveau, new javafx.geometry.Insets(10, 10, 10, 10));
         }
 
-        if (game.getRules().isLimitedTime()) {
-            time = createLabel("Temps restant: " + game.getRules().getRemainingTime(), 0, 0);
+        if (rules.isLimitedTime()) {
+            time = createLabel("Temps restant: " + rules.getRemainingTime(), 0, 0);
             time.setVisible(true);
             time.getStyleClass().add("scoreL-style");
             time.setLayoutX(20);
             setMargin(time, new javafx.geometry.Insets(10, 10, 10, 10));
         }
 
-        if (game.getRules().isLimitedBounces()) {
-            bounces = createLabel("Rebonds restants: " + game.getRules().getRemainingBounces(), 0, 0);
+        if (rules.isLimitedBounces()) {
+            bounces = createLabel("Rebonds restants: " + rules.getRemainingBounces(), 0, 0);
             bounces.setVisible(true);
             bounces.getStyleClass().add("scoreL-style");
             bounces.setLayoutX(20);
@@ -99,13 +96,12 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         if (!stage.isCustomGame()) {
             getChildren().add(niveau);
         }
-        if (game.getRules().isLimitedTime()) {
+        if (rules.isLimitedTime()) {
             getChildren().add(time);
         }
-        if (game.getRules().isLimitedBounces()) {
+        if (rules.isLimitedBounces()) {
             getChildren().add(bounces);
         }
-
         getStylesheets().add(GameConstants.CSS.getPath());
 
     }
@@ -169,12 +165,12 @@ public class ScoreLifeGraphics extends VBox implements Menu {
     public void update() {
         score = game.getScore();
         life = game.getLife();
-        scoreText.setText("Score: " + score);
-        if (game.getRules().isLimitedTime()) {
-            time.setText("Temps restant: " + game.getRules().getRemainingTime());
+        scoreText.setText(new StringBuilder("Score: ").append(score).toString());
+        if (rules.isLimitedTime()) {
+            time.setText("Temps restant: " + rules.getRemainingTime());
         }
-        if (game.getRules().isLimitedBounces()) {
-            bounces.setText("Rebonds restants: " + game.getRules().getRemainingBounces());
+        if (rules.isLimitedBounces()) {
+            bounces.setText("Rebonds restants: " + rules.getRemainingBounces());
         }
         for (int i = 0; i < lifeImages.length; i++) {
             Image newImage = i < life ? lifeOK : lifeKO;

@@ -10,15 +10,12 @@ import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class BallGraphics extends ImageView {
-    private static Image CLASSIC_BALL;
-    private static Image HYPER_BALL;
-    private static Image GRAVITY_BALL;
-    private static Image POSITIF_BALL;
-    private static Image NEGATIF_BALL;
-    private static Image RED_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleRouge.png");
-    private static Image GREEN_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleVert.png");
-    private static Image BLUE_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleBleu.png");
+public class BallGraphics extends ImageView { 
+    private static String POSITIF_BALL;
+    private static String NEGATIF_BALL;
+    private static String RED_BALL = ("src/main/ressources/balle/red.png");
+    private static String GREEN_BALL = ("src/main/ressources/balle/green.png");
+    private static String BLUE_BALL = ("src/main/ressources/balle/blue.png");
 
     private Ball ball;
     private Image currentImage;
@@ -63,23 +60,24 @@ public class BallGraphics extends ImageView {
 
     private void updateImageAndProperties() {
         if (ball instanceof MagnetBall) {
-            Image newImage = ((MagnetBall) ball).getEtat().equals("positif") ? POSITIF_BALL : NEGATIF_BALL;
+            Image newImage =null;
+            setImage((((MagnetBall) ball).getEtat().equals("positif") ? POSITIF_BALL : NEGATIF_BALL),newImage);
             if (newImage != currentImage) {
                 currentImage = newImage;
                 setImage(currentImage);
             }
         }
         if (ball.getColor() != null) {
-            Image newImage;
+            Image newImage=null;
             switch (ball.getColor()) {
                 case RED:
-                    newImage = RED_BALL;
+                    setImage(RED_BALL,newImage);
                     break;
                 case GREEN:
-                    newImage = GREEN_BALL;
+                    setImage(GREEN_BALL,newImage);
                     break;
                 case BLUE:
-                    newImage = BLUE_BALL;
+                    setImage(BLUE_BALL,newImage);
                     break;
                 default:
                     newImage = currentImage;
@@ -91,85 +89,66 @@ public class BallGraphics extends ImageView {
         }
     }
 
+
     private void setPinkImage() {
         if (ball instanceof ClassicBall) {
-            CLASSIC_BALL = ImageLoader.loadImage("src/main/ressources/balle/pink/classic.png");
-            currentImage = CLASSIC_BALL;
+            setImage("src/main/ressources/balle/pink/classic.png",currentImage);
         } else if (ball instanceof HyperBall) {
-            HYPER_BALL = ImageLoader.loadImage("src/main/ressources/balle/pink/hyper.png");
-            currentImage = HYPER_BALL;
+            setImage("src/main/ressources/balle/pink/hyper.png",currentImage);
         } else if (ball instanceof GravityBall) {
-            GRAVITY_BALL = ImageLoader.loadImage("src/main/ressources/balle/pink/gravity.png");
-            currentImage = GRAVITY_BALL;
+            setImage("src/main/ressources/balle/pink/gravity.png",currentImage);
         } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/pink/positif.png");
-            NEGATIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/pink/negatif.png");
-            currentImage = POSITIF_BALL;
+            POSITIF_BALL = ("src/main/ressources/balle/pink/positif.png");
+            NEGATIF_BALL = ("src/main/ressources/balle/pink/negatif.png");
+            setImage(POSITIF_BALL,currentImage);
         }
-        setImage(currentImage);
-        setFitWidth(ball.getRadius() * 2);
-        setPreserveRatio(true);
-        setSmooth(true);
     }
 
     private void setClassicImage() {
         if (ball instanceof ClassicBall) {
-            CLASSIC_BALL = ImageLoader.loadImage("src/main/ressources/balle/classic/classic.png");
-            currentImage = CLASSIC_BALL;
+            setImage("src/main/ressources/balle/classic/classic.png",currentImage);
         } else if (ball instanceof HyperBall) {
-            HYPER_BALL = ImageLoader.loadImage("src/main/ressources/balle/classic/hyper.png");
-            currentImage = HYPER_BALL;
+            setImage("src/main/ressources/balle/classic/hyper.png",currentImage);
         } else if (ball instanceof GravityBall) {
-            GRAVITY_BALL = ImageLoader.loadImage("src/main/ressources/balle/classic/gravity.png");
-            currentImage = GRAVITY_BALL;
+            setImage("src/main/ressources/balle/classic/gravity.png",currentImage);
         } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/classic/positif.png");
-            NEGATIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/classic/negatif.png");
-            currentImage = POSITIF_BALL;
+            POSITIF_BALL = ("src/main/ressources/balle/classic/positif.png");
+            NEGATIF_BALL = ("src/main/ressources/balle/classic/negatif.png");
+            setImage(POSITIF_BALL,currentImage);
         }
-        setImage(currentImage);
-        setFitWidth(ball.getRadius() * 2);
-        setPreserveRatio(true);
-        setSmooth(true);
     }
 
     private void setLightImage() {
         if (ball instanceof ClassicBall) {
-            CLASSIC_BALL = ImageLoader.loadImage("src/main/ressources/balle/light/classic.png");
-            currentImage = CLASSIC_BALL;
+            setImage("src/main/ressources/balle/light/classic.png",currentImage);
         } else if (ball instanceof HyperBall) {
-            HYPER_BALL = ImageLoader.loadImage("src/main/ressources/balle/light/hyper.png");
-            currentImage = HYPER_BALL;
+            setImage("src/main/ressources/balle/light/hyper.png",currentImage);
         } else if (ball instanceof GravityBall) {
-            GRAVITY_BALL = ImageLoader.loadImage("src/main/ressources/balle/light/gravity.png");
-            currentImage = GRAVITY_BALL;
+            setImage("src/main/ressources/balle/light/gravity.png",currentImage);
         } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/light/positif.png");
-            NEGATIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/light/negatif.png");
-            currentImage = POSITIF_BALL;
+            POSITIF_BALL = ("src/main/ressources/balle/light/positif.png");
+            NEGATIF_BALL = ("src/main/ressources/balle/light/negatif.png");
+            setImage(POSITIF_BALL,currentImage);
         }
-        setImage(currentImage);
-        setFitWidth(ball.getRadius() * 2);
-        setPreserveRatio(true);
-        setSmooth(true);
     }
 
     private void setBlackImage() {
         if (ball instanceof ClassicBall) {
-            CLASSIC_BALL = ImageLoader.loadImage("src/main/ressources/balle/black/classic.png");
-            currentImage = CLASSIC_BALL;
+            setImage("src/main/ressources/balle/black/classic.png",currentImage);
         } else if (ball instanceof HyperBall) {
-            HYPER_BALL = ImageLoader.loadImage("src/main/ressources/balle/black/hyper.png");
-            currentImage = HYPER_BALL;
+            setImage("src/main/ressources/balle/black/hyper.png",currentImage);
         } else if (ball instanceof GravityBall) {
-            GRAVITY_BALL = ImageLoader.loadImage("src/main/ressources/balle/black/gravity.png");
-            currentImage = GRAVITY_BALL;
+            setImage("src/main/ressources/balle/black/gravity.png",currentImage);
         } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/black/positif.png");
-            NEGATIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/black/negatif.png");
-            currentImage = POSITIF_BALL;
+            POSITIF_BALL = ("src/main/ressources/balle/black/positif.png");
+            NEGATIF_BALL =("src/main/ressources/balle/black/negatif.png");
+            setImage(POSITIF_BALL,currentImage);
         }
-        setImage(currentImage);
+    }
+
+    private void setImage(String imagePath,Image image) {
+        image = ImageLoader.loadImage(imagePath);
+        setImage(image);
         setFitWidth(ball.getRadius() * 2);
         setPreserveRatio(true);
         setSmooth(true);
