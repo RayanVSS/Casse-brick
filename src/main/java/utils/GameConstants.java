@@ -56,6 +56,11 @@ public final class GameConstants {
         public static final double DEFAULT_FLUCTUATION = 8;
         public static final int DEFAULT_PARTICLE = 10; // taille de la trainée
 
+        // racket
+        //DegradeRacket
+        public static final double DEGRADERACKET_TOLERANCE = -0.2;
+        public static final double DEGRADERACKET_CHANGE_DIRECTION= 0.3;
+
         // boost
         // temps des boosts
         public static final int BOOST_DURATION_VITESSEP = 5;
@@ -77,10 +82,8 @@ public final class GameConstants {
         public static final int HEIGHT = 20;
         public static final double BONUS_SPEED = 2;
         public static final double BONUS_CHANCE = 0.2;
-        // "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya",
-        // "intensityBall"
-        public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya",
-                        "intensityBall" };
+        // "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall"
+        public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall" };
         public static final Color COLOR_BONUS = Color.GREEN;
         public static final Color COLOR_MALUS = Color.RED;
 
@@ -125,7 +128,7 @@ public final class GameConstants {
                         new ClassicBall() };
 
         // à changer plus tard
-        public static Racket[] PRECONFIG_GAME_RACKET = { new DegradeRacket(), new ClassicRacket(), new ClassicRacket(),
+        public static Racket[] PRECONFIG_GAME_RACKET = { new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
                         new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
                         new ClassicRacket(), new ClassicRacket(), };
 

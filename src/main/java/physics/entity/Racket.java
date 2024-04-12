@@ -95,10 +95,15 @@ public abstract class Racket {
     }
 
     // Collision
-    public boolean CollisionRacket(Coordinates c) {
-        if (c.getX() > this.c.getX() && c.getX() < this.c.getX() + this.largeur && c.getY() > this.c.getY()
-                && c.getY() < this.c.getY() + this.longueur) {
-            return true;
+    public boolean CollisionRacket(Coordinates c,String shape) {
+        if (shape.equals("rectangle")) {
+            return CollisionRectangle(c);
+        } else if (shape.equals("triangle")) {
+            return CollisionTriangle(c);
+        } else if (shape.equals("rond")) {
+            return CollisionRond(c);
+        } else if (shape.equals("losange")) {
+            return CollisionLosange(c);
         }
         return false;
     }
@@ -136,6 +141,14 @@ public abstract class Racket {
         return false;
     }
 
+    public boolean CollisionRectangle(Coordinates c) {
+        if (c.getX() > this.c.getX() && c.getX() < this.c.getX() + this.largeur && c.getY() > this.c.getY()
+                && c.getY() < this.c.getY() + this.longueur) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean CollisionTriangle(Ball b) {
         // coordonnees du triangle
         double x1 = this.getC().getX();
@@ -152,32 +165,64 @@ public abstract class Racket {
         double b2 = 1 - a - b1;
 
         // balle touche triangle
-        if (a > -0.2 && b1 > -0.2 && b2 > -0.2) {
+        if (a > GameConstants.DEGRADERACKET_TOLERANCE && b1 > GameConstants.DEGRADERACKET_TOLERANCE && b2 > GameConstants.DEGRADERACKET_TOLERANCE && b.getDirection().getY()>0) {
             System.out.println(b.getC().getX() + "  " + this.getC().getX() + " " + b.getDirection().getX());
-            // balle touche le hau tdu triangle
-            if (b.getC().getX() > this.getC().getX() - 14 && b.getC().getX() < this.getC().getX() + 14) {
+
+            double changeDirectionN = 1-GameConstants.DEGRADERACKET_CHANGE_DIRECTION;
+            double changeDirectionP = 1+GameConstants.DEGRADERACKET_CHANGE_DIRECTION;
+            
+            // balle touche le haut du triangle
+            if (b.getC().getX() > this.getC().getX() - 10 && b.getC().getX() < this.getC().getX() + 10) {
                 b.getC().setY(b.getC().getY() - b.getRadius());
+
+            // balle touche le cote gauche du triangle
             } else if (b.getC().getX() < this.getC().getX()) {
-                if (b.getDirection().getX() < 0.1 && b.getDirection().getX() > -0.1) {
-                    b.setDirection(new Vector(new Coordinates(b.getDirection().getX() * 3, b.getDirection().getY() * 0.5)));
-                }
+                // balle qui va vers la droite
                 if (b.getDirection().getX() > 0) {
-                    b.setDirection(
-                            new Vector(new Coordinates(b.getDirection().getX() * 0.5, b.getDirection().getY() * 1.5)));
+                    b.setDirection(new Vector(0.1+b.getDirection().getX() * changeDirectionN,-0.1+b.getDirection().getY() * changeDirectionP));
+                // balle qui va vers la gauche
                 } else {
-                    b.setDirection(new Vector(new Coordinates(b.getDirection().getX() * 2, b.getDirection().getY()*0.5 )));
+                    b.setDirection(new Vector(-0.1+b.getDirection().getX() * changeDirectionP,0.1+b.getDirection().getY() * changeDirectionN));
                 }
+
+            // balle touche le cote droit du triangle
             } else {
-                if (b.getDirection().getX() < 0) {
-                    b.setDirection(new Vector(new Coordinates(b.getDirection().getX() * 0.5, b.getDirection().getY()*2)));
+                // balle qui va vers la droite
+                if (b.getDirection().getX() > 0) {
+                    b.setDirection(new Vector(-0.1+b.getDirection().getX() * changeDirectionP, 0.1+b.getDirection().getY() * changeDirectionN));
+                // balle qui va vers la gauche
                 } else {
-                    b.setDirection(new Vector(new Coordinates(b.getDirection().getX() * 2, b.getDirection().getY()*0.5)));
+                    b.setDirection(new Vector(0.1+b.getDirection().getX() * changeDirectionN, -0.1+ b.getDirection().getY() * changeDirectionP));
                 }
             }
+            b.setSpeed(b.getSpeed()*1.1);;
             return true;
         }
         return false;
     }
+
+    public boolean CollisionTriangle(Coordinates c) {
+        // coordonnees du triangle
+        double x1 = this.getC().getX();
+        double y1 = this.getC().getY() - this.getLongueur() / 2;
+        double x2 = this.getC().getX() + this.getLargeur() / 2;
+        double y2 = this.getC().getY() + this.getLongueur() / 2;
+        double x3 = this.getC().getX() - this.getLargeur() / 2;
+        double y3 = this.getC().getY() + this.getLongueur() / 2;
+
+        // verifier avec le produit vectoriel
+        double denominator = (y2 - y3) * (x1 - x3) + (x3 - x2) * (y1 - y3);
+        double a = ((y2 - y3) * (c.getX() - x3) + (x3 - x2) * (c.getY() - y3)) / denominator;
+        double b1 = ((y3 - y1) * (c.getX() - x3) + (x1 - x3) * (c.getY() - y3)) / denominator;
+        double b2 = 1 - a - b1;
+
+        // balle touche triangle
+        if (a > 0 && b1 > 0 && b2 > 0) {
+            return true;
+        }
+        return false;
+    }
+
 
     public boolean CollisionRond(Ball b) {
         double rx = this.getC().getX(); // centre x
@@ -191,11 +236,37 @@ public abstract class Racket {
         double nx = dx / radiusX;
         double ny = dy / radiusY;
         double distance = Math.sqrt(nx * nx + ny * ny);
-        if (distance < b.getRadius()) {
-            double newBallX = rx + nx * radiusX;
-            double newBallY = ry + ny * radiusY;
-            b.getC().setX(newBallX);
-            b.getC().setY(newBallY);
+        if (distance < b.getRadius()-0.2) {
+            // Calculer l'angle d'incidence de la balle par rapport à la raquette
+            double incidentAngle = Math.atan2(dy, dx);
+    
+            // Calculer le nouvel angle de rebond en fonction de l'angle d'incidence
+            double newAngle = Math.PI + (Math.PI - incidentAngle);
+    
+            // Mettre à jour la direction de la balle pour refléter le nouvel angle de rebond
+            double newDirectionX = Math.cos(newAngle)*1.1;
+            double newDirectionY = Math.sin(newAngle)*1.1;
+            b.setDirection(new Vector(newDirectionX, newDirectionY));
+    
+            return true;
+        }
+        return false;
+    }
+    
+    
+    public boolean CollisionRond(Coordinates c) {
+        double rx = this.getC().getX(); // centre x
+        double ry = this.getC().getY(); // centre y
+        double radiusX = this.getLargeur() / 2; // Rayon horizontal de l'ellipse
+        double radiusY = this.getLongueur() / 2; // Rayon vertical de l'ellipse
+        ry += 170;
+        double dx = c.getX() - rx;
+        double dy = c.getY() - ry;
+        // normalisation
+        double nx = dx / radiusX;
+        double ny = dy / radiusY;
+        double distance = Math.sqrt(nx * nx + ny * ny);
+        if (distance < 6.5) {
             return true;
         }
         return false;
@@ -215,12 +286,39 @@ public abstract class Racket {
         int j = points.length - 2;
         for (int i = 0; i < points.length; i += 2) {
             double px1 = points[i];
+            double py1 = points[i+1];
+            double px2 = points[j];
+            double py2 = points[j+1];
+
+            if (((py1 <= cy && cy < py2) || (py2 <= cy && cy < py1)) && (cx < (px2 - px1) * (cy - py1) / (py2 - py1) + px1)) {
+                return true;
+            }
+            j = i;
+        }
+        return false;
+    }
+
+    public boolean CollisionLosange(Coordinates c) {
+        double[] points = {
+                this.getC().getX(), this.getC().getY() - this.getLongueur() / 2,
+                this.getC().getX() + this.getLargeur() / 2, this.getC().getY(),
+                this.getC().getX(), this.getC().getY() + this.getLongueur() / 2,
+                this.getC().getX() - this.getLargeur() / 2, this.getC().getY()
+        };
+
+        double cx = c.getX() - 0.40;
+        double cy = c.getY() - 0.40;
+
+        int j = points.length - 2;
+        for (int i = 0; i < points.length; i += 2) {
+            double px1 = points[i];
             double py1 = points[i + 1];
             double px2 = points[j];
             double py2 = points[j + 1];
 
-            if (((py1 <= cy && cy < py2) || (py2 <= cy && cy < py1)) &&
-                    (cx < (px2 - px1) * (cy - py1) / (py2 - py1) + px1)) {
+            if (((py1 <= cy && cy < py2) || (py2 <= cy && cy < py1)) && (cx < (px2 - px1) * (cy - py1) / (py2 - py1) + px1)) {
+
+
                 return true;
             }
             j = i;

@@ -107,7 +107,7 @@ public class GameRoot {
         Iterator<Boost> iterator = game.getBoosts().iterator();
         while (iterator.hasNext()) {
             Boost boost = iterator.next();
-            if (boost.move(game.getRacket().CollisionRacket(boost.getC()), game.getRacket())) {
+            if (boost.move(game.getRacket().CollisionRacket(boost.getC(),game.getRacket().getShapeType()), game.getRacket())) {
                 root.getChildren().remove(boost);
                 iterator.remove();
             } else {
