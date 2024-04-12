@@ -6,6 +6,7 @@ import gui.Menu.MenuViews.OptionsView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import utils.GameConstants;
+import utils.Sound.ClickSound;
 
 /**
  * Classe OptionsController qui gère les interactions de l'utilisateur avec la
@@ -17,6 +18,7 @@ import utils.GameConstants;
  */
 public class OptionsController {
     private OptionsView view;
+    private ClickSound click = App.clickSoundPlayer;
 
     /**
      * Constructeur de OptionsController.
@@ -26,10 +28,22 @@ public class OptionsController {
     public OptionsController(Stage p, OptionsView view) {
         this.view = view;
 
-        this.view.getBackButton().setOnAction(e -> back());
-        this.view.getFps().getToggleButton().setOnAction(e -> fps());
-        this.view.getPath().getToggleButton().setOnAction(e -> path());
-        this.view.getParticles().getToggleButton().setOnAction(e -> particles());
+        this.view.getBackButton().setOnAction(e -> {
+            click.play();
+            back();
+        });
+        this.view.getFps().getToggleButton().setOnAction(e -> {
+            click.play();
+            fps();
+        });
+        this.view.getPath().getToggleButton().setOnAction(e -> {
+            click.play();
+            path();
+        });
+        this.view.getParticles().getToggleButton().setOnAction(e -> {
+            click.play();
+            particles();
+        });
         this.view.getVolumeMusic().getSlider().valueProperty().addListener((observable, oldValue, newValue) -> {
             GameConstants.MUSIC = newValue.intValue();
         });
@@ -132,11 +146,10 @@ public class OptionsController {
         String selectedTheme = view.getTheme().getComboBox().getValue();
         if (selectedTheme != null) {
             GameConstants.CSS = Theme.valueOf(selectedTheme.toUpperCase());
-            //change le css de chaque scene dans SceneManager
+            // change le css de chaque scene dans SceneManager
             App.sceneManager.getScenes().forEach((k, v) -> {
                 App.sceneManager.addStylesheet(v);
             });
         }
     }
 }
-

@@ -23,13 +23,13 @@ public class BallGraphics extends ImageView {
     public BallGraphics(Ball ball) {
         this.ball = ball;
         setImageAndProperties();
-        setX(ball.getC().getX() - ball.getRadius());
-        setY(ball.getC().getY() - ball.getRadius());
+        setX(ball.getC().getX());
+        setY(ball.getC().getY());
     }
 
     public void update() {
-        setX(ball.getC().getX() - ball.getRadius());
-        setY(ball.getC().getY() - ball.getRadius());
+        setX(ball.getC().getX()-ball.getRadius());
+        setY(ball.getC().getY()-ball.getRadius());
         updateImageAndProperties();
     }
 

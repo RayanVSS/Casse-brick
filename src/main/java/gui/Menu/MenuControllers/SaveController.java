@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import java.util.*;
 import save.Sauvegarde;
+import utils.Sound.ClickSound;
 
 import static utils.GameConstants.LAST_SAVE;
 
@@ -13,15 +14,34 @@ public class SaveController {
     private SaveView view;
     private Sauvegarde sauvegarde = new Sauvegarde();
     private Map<String, Object> donnees = new HashMap<>();
+    private ClickSound click = App.clickSoundPlayer;
 
     public SaveController(Stage p, SaveView view) {
         this.view = view;
-        this.view.getBtnBack().setOnAction(e -> back());
-        this.view.getBtnload().setOnAction(e -> load());
-        this.view.getBtnsave().setOnAction(e -> save());
-        this.view.getBtndelete().setOnAction(e -> delete());
-        this.view.getBtnOK().setOnAction(e -> ok());
-        this.view.getResetSave().setOnAction(e -> resetSave());
+        this.view.getBtnBack().setOnAction(e ->{ 
+            click.play();
+            back();
+        });
+        this.view.getBtnload().setOnAction(e -> {
+            click.play();
+            load();
+        });
+        this.view.getBtnsave().setOnAction(e -> {
+            click.play();
+            save();
+        });
+        this.view.getBtndelete().setOnAction(e -> {
+            click.play();
+            delete();
+        });
+        this.view.getBtnOK().setOnAction(e -> {
+            click.play();
+            ok();
+        });
+        this.view.getResetSave().setOnAction(e -> {
+            click.play();
+            resetSave();
+        });
     }
 
     private void back() {

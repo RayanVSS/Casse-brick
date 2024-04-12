@@ -7,12 +7,14 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import save.PlayerData;
 import save.Sauvegarde;
+import utils.Sound.ClickSound;
 
 public class App extends Application {
 
     protected Stage primaryStage;
     public static SceneManager sceneManager = new SceneManager();
     private Sauvegarde sauvegarde = new Sauvegarde();
+    public static ClickSound clickSoundPlayer = new ClickSound();
 
     @Override
     public void start(Stage p) throws Exception {
