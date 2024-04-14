@@ -1,11 +1,14 @@
 {
   "PATH": false,
-  "SPACE": "SPACE",
-  "MUSIC": 50,
-  "CSS": "/styles/pink.css",
+  "MUSIC": 100,
+  "CSS": "BLACK",
+  "MONEY": 0,
   "PARTICLES": false,
   "LEFT": "LEFT",
   "FPS": true,
-  "SOUND": 50,
+  "PSEUDO": "",
+  "SPACE": "SPACE",
+  "EXP_LEVEL": 1,
+  "SOUND": 100,
   "RIGHT": "RIGHT"
 }

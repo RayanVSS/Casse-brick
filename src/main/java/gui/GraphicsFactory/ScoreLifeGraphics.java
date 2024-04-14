@@ -45,7 +45,6 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         lifeGrid.setHgap(10);
         lifeGrid.setVgap(10);
         lifeImages = new ImageView[life];
-        System.out.println("life: " + life);
 
         lifeOK = ImageLoader.loadImage(getLifeOkImagePath());
         lifeKO = ImageLoader.loadImage(getLifeKoImagePath());

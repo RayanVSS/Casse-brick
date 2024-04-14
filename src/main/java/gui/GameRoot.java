@@ -83,6 +83,7 @@ public class GameRoot {
         key.touchesM(scene, game);
         if (game.isLost()) {
             // game.setLost(false);
+            App.gameOverS.play();
             gameView.animationStop();
             gameView.getRoot().getChildren().add(new GameOverView(primaryStage, gameView));
             level.lostAction();

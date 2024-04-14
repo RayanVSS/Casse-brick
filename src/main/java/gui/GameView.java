@@ -74,15 +74,11 @@ public class GameView {
                     gameRoot.update(deltaT);
                     scoreLifeView.update();
                     scene.getStylesheets().add(GameConstants.CSS.getPath());
+
                 }
                 last = now;
             }
         };
-        animationTimer.start();
-    }
-
-    public void animationStart() {
-        System.out.println("GameView.animationStart()");
         animationTimer.start();
     }
 
