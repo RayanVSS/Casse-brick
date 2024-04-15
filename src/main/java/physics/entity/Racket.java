@@ -3,6 +3,7 @@ package physics.entity;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import physics.geometry.Coordinates;
+import physics.geometry.Segment;
 import physics.geometry.Vector;
 import utils.GameConstants;
 import java.util.Set;
@@ -199,8 +200,12 @@ public abstract class Racket {
             double px2 = points[j];
             double py2 = points[j + 1];
 
-            if (((py1 <= cy && cy < py2) || (py2 <= cy && cy < py1)) &&
-                    (cx < (px2 - px1) * (cy - py1) / (py2 - py1) + px1)) {
+            if ((py1 <= cy && cy < py2) && (cx < (px2 - px1) * (cy - py1) / (py2 - py1) + px1)) {
+                b.checkCollision(new Segment(new Coordinates(px1, py1), new Coordinates(px2, py2)));
+                return true;
+            }
+            else if ((py2 <= cy && cy < py1) &&(cx < (px2 - px1) * (cy - py1) / (py2 - py1) + px1)){
+                b.checkCollision(new Segment(new Coordinates(px1, py2), new Coordinates(px2, py1)));
                 return true;
             }
             j = i;

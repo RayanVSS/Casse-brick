@@ -72,6 +72,8 @@ public class PhysicEngine {
 
     public PhysicEngine(Stage pStage, AppPhysic appPhysic) {
 
+        clear();
+
         // Initialisation de la fenetre
 
         this.primaryStage = pStage;
@@ -251,7 +253,25 @@ public class PhysicEngine {
     }
 
     public static Racket init_racket(String type) {
-        return new Racket(200, 20, type, 8, false, true) {
+        int longueur=0;
+        int largeur=0;
+        if(type.equals("rectangle")){
+            longueur=200;
+            largeur=20;
+        }
+        else if(type.equals("losange")){
+            longueur=200;
+            largeur=40;
+        }
+        else if(type.equals("rond")){
+            longueur=200;
+            largeur=200;
+        }
+        else if(type.equals("triangle")){
+            longueur=200;
+            largeur=200;
+        }
+        return new Racket(longueur, largeur, type, 8, false, true) {
             @Override
             public void handleKeyPress(Set<KeyCode> keysPressed) {
                 for (KeyCode key : keysPressed) {
@@ -336,5 +356,13 @@ public class PhysicEngine {
                 }
             }
         });
+    }
+
+    public void clear(){
+        f_WIDTH = PhysicSetting.DEFAULT_WINDOW_WIDTH;
+        d_WIDTH = 0;
+        direction.clear();
+        Pause = false;
+        BougePColision = false;
     }
 }

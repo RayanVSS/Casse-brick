@@ -1,6 +1,7 @@
 package physics.entity;
 
 import entity.EntityColor;
+import entity.ball.ClassicBall;
 import entity.brick.Brick;
 import physics.geometry.*;
 import physics.gui.Preview;
@@ -256,5 +257,31 @@ public abstract class Ball {
         }
     }
     
-
+    public void checkCollision(Segment s){
+        double x1 = s.getStart().getX();
+        double y1 = s.getStart().getY();
+        double x2 = s.getEnd().getX();
+        double y2 = s.getEnd().getY();
+        double x = c.getX();
+        double y = c.getY();
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        double a = dx * dx + dy * dy;
+        double b = 2 * (dx * (x1 - x) + dy * (y1 - y));
+        double c = x * x + y * y + x1 * x1 + y1 * y1 - 2 * (x * x1 + y * y1) - radius * radius;
+        double delta = b * b - 4 * a * c;
+        if (delta >= 0) {
+            double t = (-b - Math.sqrt(delta)) / (2 * a);
+            double xInt = x1 + t * dx;
+            double yInt = y1 + t * dy;
+            double nx = xInt - x;
+            double ny = yInt - y;
+            double n = Math.sqrt(nx * nx + ny * ny);
+            nx /= n;
+            ny /= n;
+            double d = 2 * (direction.getX() * nx + direction.getY() * ny);
+            direction.setX(direction.getX() - d * nx);
+            direction.setY(direction.getY() - d * ny);
+        }
+    }
 }
