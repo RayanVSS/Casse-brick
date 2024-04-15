@@ -237,22 +237,45 @@ public abstract class Ball {
 
     public void checkCollisionOtherBall(Ball b) {
         if (!CollisionB) {
-            double bX = b.getC().getX();
-            double bY = b.getC().getY();
-            double bRadius = b.getRadius();
-            if ((c.getX() + radius >= bX - bRadius || bX + bRadius >= c.getX() - radius) && 
-                (c.getY() >= bY - radius && c.getY() <= bY + radius)) {
-                b.getDirection().setX(-b.getDirection().getX() + (b.getRotation().getEffect()) / 90 * b.getDirection().getX());
-                direction.setX(-direction.getX() + (rotation.getEffect()) / 90 * direction.getX());
+            // gestion de la collision entre les balles en X
+            boolean collisionX1 = c.getX()+radius>=b.getC().getX()-b.getRadius() && c.getX()-radius<b.getC().getX()+b.getRadius();
+            boolean collisionX2 = b.getX()+b.getRadius()>=getX()-radius && b.getX()-b.getRadius()<getX()+radius;
+            boolean collisionXY = c.getY()+radius<=Math.max(c.getY()+radius,b.getY()+b.getRadius()) && c.getY()-radius>=Math.min(c.getY()-radius,b.getY()-b.getRadius()) && b.getY()+b.getRadius()<=Math.max(c.getY()+radius,b.getY()+b.getRadius()) && b.getY()-b.getRadius()>=Math.min(c.getY()-radius,b.getY()-b.getRadius());
+            // gestion de la collision entre les balles en Y
+            boolean collisionY1 = c.getY()+radius>=b.getC().getY()-b.getRadius() && c.getY()-radius<b.getC().getY()+b.getRadius() ;
+            boolean collisionY2 = b.getY()+b.getRadius()>=getY()-radius && b.getY()-b.getRadius()<getY()+radius ;
+            boolean collisionYX = c.getX()+radius<=Math.max(c.getX()+radius,b.getX()+b.getRadius()) && c.getX()-radius>=Math.min(c.getX()-radius,b.getX()-b.getRadius()) && b.getX()+b.getRadius()<=Math.max(c.getX()+radius,b.getX()+b.getRadius()) && b.getX()-b.getRadius()>=Math.min(c.getX()-radius,b.getX()-b.getRadius());
+            if(collisionX1||collisionX2 && collisionXY){
+                if(direction.getX() > 0 && b.getDirection().getX() < 0){
+                    direction.setX(-b.getDirection().getX());
+                    b.getDirection().setX(-direction.getX());
+                }
+                else if(direction.getX() > 0 && b.getDirection().getX() > 0){
+                    direction.setX(-direction.getX()+b.getDirection().getX());
+                    b.getDirection().setX(Math.max(direction.getX(), b.getDirection().getX()));
+                }
+                else if(direction.getX() < 0 && b.getDirection().getX() < 0){
+                    direction.setX(Math.min(direction.getX(), b.getDirection().getX()));
+                    b.getDirection().setX(-b.getDirection().getX()+direction.getX());
+                }
                 CollisionB = true;
-                b.CollisionB = true;
+                b.CollisionB=true;
             }
-            else if ((c.getY() + radius >= bY - bRadius || c.getY() - radius <= bY + bRadius) && 
-                     (c.getX() >= bX - radius && c.getX() <= bX + radius)) {
-                b.getDirection().setY(-b.getDirection().getY() + (b.getRotation().getEffect()) / 90 * b.getDirection().getY());
-                direction.setY(-direction.getY() + (rotation.getEffect()) / 90 * direction.getY());
+            else if(collisionY1 || collisionY2 && collisionYX){
+                if(direction.getY() > 0 && b.getDirection().getY() < 0){
+                    direction.setY(-b.getDirection().getY());
+                    b.getDirection().setY(-direction.getY());
+                }
+                else if(direction.getY() > 0 && b.getDirection().getY() > 0){
+                    direction.setY(-direction.getY()+b.getDirection().getY());
+                    b.getDirection().setY(Math.max(direction.getY(), b.getDirection().getY()));
+                }
+                else if(direction.getY() < 0 && b.getDirection().getY() < 0){
+                    direction.setY(Math.min(direction.getY(), b.getDirection().getY()));
+                    b.getDirection().setY(-b.getDirection().getY()+direction.getY());
+                }
                 CollisionB = true;
-                b.CollisionB = true;
+                b.CollisionB=true;
             }
         }
     }
