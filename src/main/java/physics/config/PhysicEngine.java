@@ -1,8 +1,6 @@
 package physics.config;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import physics.AppPhysic;
 import physics.entity.Ball;
@@ -12,11 +10,9 @@ import physics.geometry.Vector;
 import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
 import javafx.scene.input.KeyCode;
-import javafx.scene.shape.Shape;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.ArrayList;
 
 import java.util.Map;
 
@@ -24,11 +20,10 @@ import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.RacketGraphics;
 import physics.gui.OptionBar;
 import physics.gui.Preview;
-import utils.GameConstants;
 import utils.Key;
 
 /***************************************************************************
- * Explication de classe Simulation
+ * Explication de classe PhysicEngine :
  * 
  * @var physics contient les informations de la simulation
  * @var Ball ball : La balle de la simulation
@@ -162,7 +157,7 @@ public class PhysicEngine {
                 }
                 b.movement();
                 if(b.getPreview()!=null){
-                    b.updatePreview();
+                    b.updatePreview(listball.keySet());
                 }
             }
         }
