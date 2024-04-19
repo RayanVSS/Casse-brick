@@ -447,3 +447,167 @@ affichage de la racket
 ### À faire
 
 - lister quelques phénomènes physiques amusants à ajouter, écrire les issues, rechercher la physique, commencer à implémenter
+
+## Semaine 6 (19/3):
+
+### Belhassen Rayan  
+<span style="color:green">**Fait:**</span>
+
+- graphique: la raquette peut avoir des forme differente 
+- collision: les collisions fonctionne sur des raquettes non rectangle 
+- raquette: nouvelle raquette "CircleRacket","DegradeRacket" et "DiamondRacket"
+- boost: nouveau boost intensityBall
+- 
+<span style="color:purple">**A Faire:**</span>
+
+- terminer repair_software 
+
+### Guan Olivier 
+<span style="color:green">**Fait:**</span>
+
+- Debut modèle de briques physiques
+
+<span style="color:purple">**A Faire:**</span>
+
+- Continuer les briques physiques
+
+### Bencheikh Ilias
+<span style="color:green">**Fait:**</span>
+
+- Amélioration des effets de la balle #32
+- Moteur physique réparé #53
+- Implémentation de plusieurs balles dans la simulation #54
+- Implémentation d'un menu in-simulation #59
+- Problème de trajectoire régler #46
+    
+<span style="color:purple">**A Faire:**</span>
+
+- Régler le problème de FPS #43
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+- Début implémentation des collisions de balles entre eux #55
+
+### Benmalek Majda
+<span style="color:green">**Fait:**</span>
+- Ecran de victoire
+- Ecran de fin du jeu
+- La balle est une image maintenant (reste a adapter l'image au theme)
+- Modif de l'affiche des vies (aussi fais avec des images maintenant)
+- Ajout du niveau en cours dans la barre d'info
+- Ajout d'un separateur entre les info du jeu et le jeu (provisoire a ameliorer)
+
+<span style="color:purple">**A Faire:**</span>
+- Continuer de modifier l'affiche des balles
+- Essayer de faire une balle carrée 
+
+### Mushtaq Amanh
+
+<span style="color:green">**Fait:**</span>
+- Suite du mode infini 
+
+<span style="color:purple">**A Faire:**</span>
+-  mode infini
+-  
+
+### À faire
+
+- déboguer (nombreux chantiers en cours à finaliser, notamment rebonds en biais)
+- relire code et refactoriser
+
+## Semaine 6 (26/3):
+
+### Belhassen Rayan  
+<span style="color:green">**Fait:**</span>
+
+- collision: amélioration des collisions de la raquette triangle (pas encore fini)
+
+<span style="color:purple">**A Faire:**</span>
+
+- terminer repair_software 
+- retravailler les collisions des raquettes non rectangle 
+
+### Bencheikh Ilias
+<span style="color:green">**Fait:**</span>
+
+- Début implémentation des collisions de balles entre eux (dans simulation béta) #55
+- Amélioration du menu in-simulation #59
+- Début de la rotation graphique de la balle #61
+    
+<span style="color:purple">**A Faire:**</span>
+
+- Régler le problème de FPS #43
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+- Régler les differents problèmes de collisions de balles entre eux #55
+- Ajout de fonctionalité dans la simulation (changement de racket et autre)
+
+### Guan Olivier 
+
+<span style="color:green">**Fait:**</span>
+
+- Création d'une interface de développement des briques et balles avec réactions physiques entre-elles (pas fini)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finir l'outil et les collisions
+
+
+### Benmalek Majda
+<span style="color:green">**Fait:**</span>
+- affichage du temps restant
+- affichage des rebonds restants
+- affichage du niveau
+- affichage des vies amélioré
+- ameliorations de l'affichage des images
+
+## Semaine 7 (02/4):
+
+### Guan Olivier 
+
+<span style="color:green">**Fait:**</span>
+
+- Presets de l'environnement avec arrêt/pause (manque affichage Brique à régler + fusionner les implémentation avec collisions entre balles)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finaliser l'outil
+
+### Belhassen Rayan :
+<span style="color:red">**Absent**</span>
+
+### Bencheikh Ilias :
+<span style="color:green">**Fait:**</span>
+
+- test des différents cas de collisions entre deux balles #55
+- rotation graphique de la balle (dans la simulation et le jeu) #61
+- améliorations des problèmes d'image de balle et des formes de la recket (surchargé lié au problème de FPS #43) 
+- Problème de décalage de la balle et de son image réglé (lié au problème de coeff de décalage de la collision avec la racket )
+- Ajout de fonctionalité dans la simulation (changement de racket et autre)
+
+<span style="color:purple">**A Faire:**</span>
+
+- Régler le problème de FPS #43
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+- Régler les differents problèmes de collisions de balles entre eux #55
+- Implémenter le fonctionnement et la gestion de plusieurs balles dans le jeu (seulement présent dans la simulation) #54
+
+### Benmalek Majda
+<span style="color:green">**Fait:**</span>
+- Création de toute les images pour les balles par rapport au themes
+- Modifications de l'affichage des options 
+
+<span style="color:purple">**A Faire:**</span>
+- Ajout du son
+- Affichage de la racket avec une image et l'adapter en fonctions du theme 
+
+### Mushtaq Amenah
+<span style="color:green">**Fait:**</span>
+- Mode infini
+
+<span style="color:purple">**A Faire:**</span>
+- Bug sur le mode infini a reglé 
+- Modification de l'affichage des briques 

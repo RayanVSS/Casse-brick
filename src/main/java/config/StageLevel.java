@@ -1,5 +1,6 @@
 package config;
 
+import gui.Menu.MenuControllers.GameCustomizerController;
 import save.PlayerData;
 import utils.GameConstants;
 
@@ -11,6 +12,7 @@ public class StageLevel {
     private int maxScore;
     private transient Game game;
     private boolean customGame;
+    private transient GameCustomizerController gameReinitializer;
 
     public StageLevel(int difficulty, int unlockLevel, boolean customGame) {
 
@@ -89,6 +91,18 @@ public class StageLevel {
 
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public boolean isCustomGame() {
+        return customGame;
+    }
+
+    public GameCustomizerController getGameReinitializer() {
+        return gameReinitializer;
+    }
+
+    public void setGameReinitializer(GameCustomizerController gameReinitializer) {
+        this.gameReinitializer = gameReinitializer;
     }
 
 }

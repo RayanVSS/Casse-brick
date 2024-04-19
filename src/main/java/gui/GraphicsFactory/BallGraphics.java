@@ -10,20 +10,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class BallGraphics extends ImageView {
+    private static final Image CLASSIC_BALL = ImageLoader.loadImage("src/main/ressources/balle/balle1.png");
+    private static final Image HYPER_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleHyper.png");
+    private static final Image GRAVITY_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleGravity.png");
+    private static final Image POSITIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/positif.png");
+    private static final Image NEGATIF_BALL = ImageLoader.loadImage("src/main/ressources/balle/negatif.png");
+    private static final Image RED_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleRouge.png");
+    private static final Image GREEN_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleVert.png");
+    private static final Image BLUE_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleBleu.png");
 
     private Ball ball;
-    private Image classicBall = new Image("/balle/balle1.png");
-    private Image hyperBall = new Image("/balle/balleHyper.png");
-    private Image gravityBall = new Image("/balle/balleGravity.png");
-    private Image positifBall = new Image("/balle/positif.png");
-    private Image negatifBall = new Image("/balle/negatif.png");
-    private Image redBall = new Image("/balle/balleRouge.png");
-    private Image greenBall = new Image("/balle/balleVert.png");
-    private Image blueBall = new Image("/balle/balleBleu.png");
+    private Image currentImage;
 
     public BallGraphics(Ball ball) {
         this.ball = ball;
-        updateImageAndProperties();
+        setImageAndProperties();
         setX(ball.getC().getX() - ball.getRadius());
         setY(ball.getC().getY() - ball.getRadius());
     }
@@ -34,35 +35,49 @@ public class BallGraphics extends ImageView {
         updateImageAndProperties();
     }
 
-    private void updateImageAndProperties() {
-        if (ball instanceof ClassicBall)
-            setImage(classicBall);
-        else if (ball instanceof HyperBall)
-            setImage(hyperBall);
-        else if (ball instanceof GravityBall)
-            setImage(gravityBall);
-        else if (ball instanceof MagnetBall) {
-            if (((MagnetBall) ball).getEtat().equals("positif"))
-                setImage(positifBall);
-            else
-                setImage(negatifBall);
+    private void setImageAndProperties() {
+        if (ball instanceof ClassicBall) {
+            currentImage = CLASSIC_BALL;
+        } else if (ball instanceof HyperBall) {
+            currentImage = HYPER_BALL;
+        } else if (ball instanceof GravityBall) {
+            currentImage = GRAVITY_BALL;
+        } else if (ball instanceof MagnetBall) {
+            currentImage = POSITIF_BALL;
         }
-        if (ball.getColor() != null) {
-            switch (ball.getColor()) {
-                case RED:
-                    setImage(redBall);
-                    break;
-                case GREEN:
-                    setImage(greenBall);
-                    break;
-                case BLUE:
-                    setImage(blueBall);
-                    break;
+        setImage(currentImage);
+        setFitWidth(ball.getRadius() * 2);
+        setPreserveRatio(true);
+        setSmooth(true);
+    }
+
+    private void updateImageAndProperties() {
+        if (ball instanceof MagnetBall) {
+            Image newImage = ((MagnetBall) ball).getEtat().equals("positif") ? POSITIF_BALL : NEGATIF_BALL;
+            if (newImage != currentImage) {
+                currentImage = newImage;
+                setImage(currentImage);
             }
         }
-        setFitWidth(ball.getRadius() * 3);
-        setFitHeight(ball.getRadius() * 3);
-        setPreserveRatio(true);
-        setCache(true);
+        if (ball.getColor() != null) {
+            Image newImage;
+            switch (ball.getColor()) {
+                case RED:
+                    newImage = RED_BALL;
+                    break;
+                case GREEN:
+                    newImage = GREEN_BALL;
+                    break;
+                case BLUE:
+                    newImage = BLUE_BALL;
+                    break;
+                default:
+                    newImage = currentImage;
+            }
+            if (newImage != currentImage) {
+                currentImage = newImage;
+                setImage(currentImage);
+            }
+        }
     }
 }

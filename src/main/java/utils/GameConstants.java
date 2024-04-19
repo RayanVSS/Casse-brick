@@ -25,8 +25,8 @@ public final class GameConstants {
         public static final int BRICK_HEIGHT = 32;
 
         // ball
-        public static final int DEFAULT_BALL_SPEED = 3;
-        public static final int DEFAULT_BALL_RADIUS = 10;
+        public static final int DEFAULT_BALL_SPEED = 5;
+        public static final int DEFAULT_BALL_RADIUS = 15;
 
         static Random rand = new Random();
         public static final Vector DEFAULT_BALL_START_DIRECTION = new Vector(
