@@ -99,7 +99,8 @@ public final class GameConstants {
         public static KeyCode RIGHT = KeyCode.RIGHT;
         public static KeyCode SPACE = KeyCode.SPACE;
         public static Theme CSS = Theme.DARK;
-
+        public static String TEXTURE = "Null"; 
+        
         // derniere save
         public static String LAST_SAVE;
 
