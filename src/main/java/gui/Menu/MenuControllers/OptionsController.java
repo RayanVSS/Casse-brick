@@ -7,6 +7,8 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import utils.GameConstants;
 import gui.Menu.Menu.Theme;
+import java.io.File;
+import javafx.scene.image.Image;
 
 /**
  * Classe OptionsController qui gère les interactions de l'utilisateur avec la
@@ -44,6 +46,10 @@ public class OptionsController {
         this.view.getButtonleft().setOnAction(e -> left());
         this.view.getButtonpower().setOnAction(e -> power());
         this.view.getButtonright().setOnAction(e -> right());
+        this.view.getTextureComboBox().getSelectionModel().selectedItemProperty()
+        .addListener((obs, oldSelection, newSelection) -> {
+            textureImage();
+        });
 
     }
 
@@ -138,5 +144,10 @@ public class OptionsController {
                 App.sceneManager.addStylesheet(v);
             });
         }
+    }
+
+    public void textureImage() {
+        //la fonction a était mise dans OptionView car elle ne veut pas marcher ici
+        // ligne 137
     }
 }
