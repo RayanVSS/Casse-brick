@@ -76,7 +76,7 @@ public class Game {
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
-            App.ballSound.updateS();
+            App.ballSound.update();
             App.ballSound.play();
             rules.updateRemainingBounces();
             rules.updateBricksTransparency(map);

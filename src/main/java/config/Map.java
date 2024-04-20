@@ -79,11 +79,11 @@ public class Map {
                     targetBrick = bricks[ballBrickX + i][ballBrickY + j];
                     if (!targetBrick.isDestroyed() && ball.intersectBrick(targetBrick)) {
                         if (rules.haveBricksCollisionRules()) { // Application des règles du jeu aux collisions
-                            App.ballSound.updateS();
+                            App.ballSound.update();
                             App.ballSound.play();
                             handleBricksCollisionRules(targetBrick, ball, rules, i, j);
                         } else {
-                            App.ballSound.updateS();
+                            App.ballSound.update();
                             App.ballSound.play();
                             handleCollisionDirection(ball, i, j);
                             targetBrick.setDestroyed(true);

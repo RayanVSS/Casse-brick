@@ -9,12 +9,14 @@ import gui.GameView;
 import gui.Menu.MenuViews.PauseView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import utils.GameConstants;
 import utils.Sound.ClickSound;
 
 public class PauseController {
     private Timer timer;
     private PauseView view;
     private ClickSound click = App.clickSoundPlayer;
+    private int sound = GameConstants.SOUND;
 
     public PauseController(Stage p, PauseView view) {
         this.timer = new Timer();
@@ -35,6 +37,17 @@ public class PauseController {
             click.play();
             resume();
         });
+
+        this.view.getBtnMuteMusic().setOnAction(e -> {
+            click.play();
+            muteMusic();
+        });
+
+        this.view.getBtnMuteSound().setOnAction(e -> {
+            click.play();
+            muteSound();
+        });
+
     }
 
     private void replay() {
@@ -66,6 +79,37 @@ public class PauseController {
             }
         };
         timer.schedule(task, 1000);
+    }
+
+    public void muteMusic() {
+        if(GameConstants.MUSIC == 0) {
+            this.view.getBtnMuteMusic().setGraphic(view.getMuteImageView());
+            return;
+        }
+        if (App.music.isMute()) {
+            this.view.getBtnMuteMusic().setGraphic(view.getUnmuteImageView());
+            App.music.play();
+        } else if (!App.music.isMute()) {
+            this.view.getBtnMuteMusic().setGraphic(view.getMuteImageView());
+            App.music.stop();
+        }
+    }
+
+    private void muteSound() {
+        if (GameConstants.SOUND == 0) {
+            this.view.getBtnMuteSound().setGraphic(view.getUnmuteImageView2());
+            if (sound == 0) {
+                sound = 50;
+            }
+            GameConstants.SOUND = sound;
+            App.clickSoundPlayer.update();
+            App.ballSound.update();
+        } else {
+            this.view.getBtnMuteSound().setGraphic(view.getMuteImageView2());
+            GameConstants.SOUND = 0;
+            App.clickSoundPlayer.update();
+            App.ballSound.update();
+        }
     }
 
     public PauseView getView() {

@@ -1,7 +1,7 @@
 {
   "PATH": false,
-  "MUSIC": 14,
-  "CSS": "BLACK",
+  "MUSIC": 0,
+  "CSS": "PINK",
   "MONEY": 0,
   "PARTICLES": true,
   "LEFT": "LEFT",
@@ -76,6 +76,6 @@
       }
     ]
   },
-  "SOUND": 69,
+  "SOUND": 52,
   "RIGHT": "RIGHT"
 }

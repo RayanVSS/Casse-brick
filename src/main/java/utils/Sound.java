@@ -12,8 +12,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Sound {
     private Clip clip;
-    private static double volumeS=GameConstants.SOUND/100;
-    private static double volumeM=GameConstants.MUSIC/100;
+    private static double volumeS = GameConstants.SOUND / 100;
+    private static double volumeM = GameConstants.MUSIC / 100;
 
     public Sound(String path) {
         try {
@@ -25,33 +25,40 @@ public class Sound {
         }
     }
 
+    public void update() {
+        volumeS = GameConstants.SOUND / 100.0;
+        FloatControl volumeControl = (FloatControl) this.getClip().getControl(FloatControl.Type.MASTER_GAIN);
+        volumeControl.setValue((float) (Math.log(volumeS) / Math.log(10.0) * 20.0));
+    }
+
     public void play() {
-        clip.setFramePosition(0); // Reset the sound to the beginning
-        clip.start(); // Play the sound
+        this.getClip().setFramePosition(0); // Reset the sound to the beginning
+        this.getClip().start(); // Play the sound
     }
 
     public void stop() {
-        clip.stop();
-    }
-
-    public void updateS(){
-        volumeS = GameConstants.SOUND / 100.0;
-        FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        volumeControl.setValue((float) (Math.log(volumeS) / Math.log(10.0) * 20.0));
-        System.out.println("volumeS = " + volumeS);
-        System.out.println("GameConstants.SOUND = " + GameConstants.SOUND);
-    }
-
-    public void updateM() {
-        volumeM = GameConstants.MUSIC / 100.0;
-        FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        volumeControl.setValue((float) (Math.log(volumeM) / Math.log(10.0) * 20.0));
-        System.out.println("volumeM = " + volumeM);
-        System.out.println("GameConstants.MUSIC = " + GameConstants.MUSIC);
+        System.out.println("MUSIC is stopping.");
+        this.getClip().stop();
     }
 
     public Clip getClip() {
-        return clip;
+        return this.clip;
+    }
+
+    public static double getVolumeS() {
+        return volumeS;
+    }
+
+    public static double getVolumeM() {
+        return volumeM;
+    }
+
+    public static void setVolumeS(double volumeS) {
+        Sound.volumeS = volumeS;
+    }
+
+    public static void setVolumeM(double volumeM) {
+        Sound.volumeM = volumeM;
     }
 
     public static class ClickSound extends Sound {
@@ -59,29 +66,26 @@ public class Sound {
             super("src/main/ressources/sound/clickv2.wav");
         }
 
-        @Override   
-        public void updateS() {
-            stop();
+        @Override
+        public void update() {
             volumeS = GameConstants.SOUND / 100.0;
-            FloatControl volumeControl = (FloatControl) getClip().getControl(FloatControl.Type.MASTER_GAIN);
+            FloatControl volumeControl = (FloatControl) this.getClip().getControl(FloatControl.Type.MASTER_GAIN);
             volumeControl.setValue((float) (Math.log(volumeS) / Math.log(10.0) * 20.0));
-            System.out.println("volumeS = " + volumeS);
-            System.out.println("GameConstants.SOUND = " + GameConstants.SOUND);
-            play();
+            this.play();
         }
     }
 
     public static class GameOverSound extends Sound {
         public GameOverSound() {
             super("src/main/ressources/sound/losing.wav");
-            this.updateS();
+            this.update();
         }
     }
 
     public static class GameWinSound extends Sound {
         public GameWinSound() {
             super("src/main/ressources/sound/gamewin.wav");
-            this.updateS();
+            this.update();
         }
     }
 
@@ -89,14 +93,34 @@ public class Sound {
         public Music() {
             super("src/main/ressources/sound/music.wav");
             this.getClip().loop(Clip.LOOP_CONTINUOUSLY);
-            this.updateM();
+            this.update();
+        }
+
+        @Override
+        public void play() {
+            this.getClip().setFramePosition(0); // Reset the sound to the beginning
+            this.getClip().start(); // Play the sound
+        }
+
+        public boolean isMute() {
+            return !this.getClip().isRunning();
+        }
+
+        @Override
+        public void update() {
+            volumeM = GameConstants.MUSIC / 100.0;
+            FloatControl volumeControl = (FloatControl) this.getClip().getControl(FloatControl.Type.MASTER_GAIN);
+            volumeControl.setValue((float) (Math.log(volumeM) / Math.log(10.0) * 20.0));
+            if(volumeM == 0) {
+                this.stop();
+            } 
         }
     }
 
     public static class BallSound extends Sound {
         public BallSound() {
             super("src/main/ressources/sound/ball.wav");
-            this.updateS();
+            this.update();
         }
     }
 }

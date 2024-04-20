@@ -73,13 +73,13 @@ public class ClassicBall extends Ball {
             this.getDirection().setY(this.getDirection().getY()+(this.getRotation().getEffect()/90)*this.getDirection().getY());
             this.getRotation().Collision();
             newX = this.getC().getX() + this.getDirection().getX()*this.getSpeed();
-            this.getDirection().setX(this.getDirection().getX()*super.getPhysicSetting().getRetention());
+            this.getDirection().setX(this.getDirection().getX()/*super.getPhysicSetting().getRetention()*/);
         }
         else if (newY < 0) {
             this.getDirection().setY(-this.getDirection().getY()+(this.getRotation().getEffect()/90)*this.getDirection().getY());
             this.getRotation().Collision();
             newY = this.getC().getY() + this.getDirection().getY()* this.getSpeed();
-            this.getDirection().setY(this.getDirection().getY()*super.getPhysicSetting().getRetention());
+            this.getDirection().setY(this.getDirection().getY()/*super.getPhysicSetting().getRetention()*/);
         } 
         if (newY > h - this.getRadius()) {
             lost = false;

@@ -78,7 +78,7 @@ public abstract class Racket {
     boolean freeze = false;
     boolean zhonya = false;
     boolean intensityBall = false;
-
+    private long startTimer;
     // varible pour les boosts
     public static boolean StopBall = false;
     public static boolean AddIntensityBall = false;
@@ -218,6 +218,7 @@ public abstract class Racket {
     // boost VitesseP
     public void startVitesseP(int duration) {
         Timer BoostTimer = new Timer();
+        startTimer = System.currentTimeMillis();
         BoostTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -242,6 +243,7 @@ public abstract class Racket {
     // boost VitesseM
     public void startVitesseM(int duration) {
         Timer BoostTimer = new Timer();
+        startTimer = System.currentTimeMillis();
         BoostTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -265,6 +267,7 @@ public abstract class Racket {
     // boost largeurP
     public void startlargeurP(int duration) {
         Timer BoostTimer = new Timer();
+        startTimer = System.currentTimeMillis();
         BoostTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -287,6 +290,7 @@ public abstract class Racket {
 
     // boost longueurM
     public void startLargeurM(int duration) {
+        startTimer = System.currentTimeMillis();
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
             @Override
@@ -310,6 +314,7 @@ public abstract class Racket {
 
     // boost Freeze
     public void startFreeze(int duration, double tmp) {
+        startTimer = System.currentTimeMillis();
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
             @Override
@@ -334,6 +339,7 @@ public abstract class Racket {
 
     // boost Zhonya
     public void startZhonya(int duration) {
+        startTimer = System.currentTimeMillis();
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
             @Override
@@ -357,6 +363,7 @@ public abstract class Racket {
 
     // boost IntensityBall
     public void startIntensityBall(int duration) {
+        startTimer = System.currentTimeMillis();
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
             @Override
@@ -498,4 +505,8 @@ public abstract class Racket {
         return shape;
     }
 
+
+    public long getBoostDuration() {
+        return System.currentTimeMillis() - startTimer;
+    }
 }

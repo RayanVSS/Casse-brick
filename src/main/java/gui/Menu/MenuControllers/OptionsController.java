@@ -47,12 +47,12 @@ public class OptionsController {
         this.view.getVolumeMusic().getSlider().setValue(GameConstants.MUSIC);
         this.view.getVolumeMusic().getSlider().valueProperty().addListener((observable, oldValue, newValue) -> {
             GameConstants.MUSIC = newValue.intValue();
-            App.music.updateM();
+            App.music.update();
         });
         this.view.getVolumeSound().getSlider().setValue(GameConstants.SOUND);
         this.view.getVolumeSound().getSlider().valueProperty().addListener((observable, oldValue, newValue) -> {
             GameConstants.SOUND = newValue.intValue();
-            App.clickSoundPlayer.updateS();
+            App.clickSoundPlayer.update();
         });
         this.view.getTheme().getComboBox().getSelectionModel().selectedItemProperty()
                 .addListener((obs, oldSelection, newSelection) -> {

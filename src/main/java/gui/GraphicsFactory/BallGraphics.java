@@ -26,7 +26,6 @@ public class BallGraphics extends ImageView {
         setX(ball.getC().getX());
         setY(ball.getC().getY());
     }
-
     public void update() {
         setX(ball.getC().getX()-ball.getRadius());
         setY(ball.getC().getY()-ball.getRadius());

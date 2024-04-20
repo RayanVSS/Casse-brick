@@ -1,5 +1,6 @@
 package gui.GraphicsFactory;
 
+
 import config.Game;
 import config.GameRules;
 import config.StageLevel;
@@ -99,8 +100,10 @@ public class ScoreLifeGraphics extends VBox implements Menu {
             getChildren().add(time);
         }
         if (rules.isLimitedBounces()) {
+            bounces = createLabel("Bounces: ", 0, 0);
             getChildren().add(bounces);
         }
+
         getStylesheets().add(GameConstants.CSS.getPath());
 
     }

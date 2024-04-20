@@ -35,7 +35,6 @@ public class App extends Application {
                 gameOverS = new GameOverSound();
                 music = new Music();
                 ballSound = new BallSound();
-                music.play();
 
                 primaryStage = p;
                 Image icon = new Image("icon.png");

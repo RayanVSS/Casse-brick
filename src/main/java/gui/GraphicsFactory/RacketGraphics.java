@@ -7,9 +7,11 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import entity.racket.*;
 import physics.entity.Racket;
+import utils.GameConstants;
 
 /**
- * Classe RacketGraphics qui encapsule un objet Shape pour représenter graphiquement une raquette.
+ * Classe RacketGraphics qui encapsule un objet Shape pour représenter
+ * graphiquement une raquette.
  * 
  * @author Benmalek Majda | belhassen rayan
  */
@@ -17,11 +19,14 @@ public class RacketGraphics {
     private Shape shape;
     private Racket racket;
     private String shapeType;
+    private Color color;
 
     public RacketGraphics(Racket racket, String shapeType) {
         this.racket = racket;
         this.shapeType = shapeType;
         setShape();
+        color();
+        shape.setFill(color);
     }
 
     private void setShape() {
@@ -62,13 +67,6 @@ public class RacketGraphics {
             default:
                 throw new IllegalArgumentException("Forme non reconnue: " + shapeType);
         }
-
-        if (racket instanceof ClassicRacket)
-            shape.getStyleClass().add("racket");
-        else if (racket instanceof YNotFixeRacket)
-            shape.getStyleClass().add("ynotfixeracket");
-        else if (racket instanceof MagnetRacket)
-            shape.getStyleClass().add("magnetracket");
     }
 
     public Shape getShape() {
@@ -79,10 +77,70 @@ public class RacketGraphics {
         setShape();
         if (racket instanceof MagnetRacket) {
             if (MagnetRacket.getEtat().equals("positif")) {
-                shape.setFill(Color.YELLOW);
+                magnetPosColor();
             } else {
-                shape.setFill(Color.GREEN);
+                magnetNegColor();
             }
+        }   
+        shape.setStrokeWidth(5);
+        //TODO: changer les couleurs
+        if (racket.getFreeze()) {
+            shape.setFill(color);
+            shape.setStroke(Color.rgb(165, 197, 217));
+        } else if (racket.getLargeurM()) {
+            shape.setFill(color);
+            shape.setStroke(Color.rgb(255, 0, 0));
+        } else if (racket.getLargeurP()) {
+            shape.setFill(color);
+            shape.setStroke(Color.BLUE);
+        } else if (racket.getVitesseP()) {
+            shape.setFill(color);
+            shape.setStroke(Color.BLUE);
+        } else if (racket.getVitesseM()) {
+            shape.setFill(color);
+            shape.setStroke(Color.rgb(255, 0, 0));
+        } else if (racket.getIntensityBall()) {
+            shape.setFill(color);
+            shape.setStroke(Color.BLUE);
+        } else if (racket.getZhonya()) {
+            shape.setFill(color);
+            shape.setStroke(Color.BLUE);
+        } else {
+            shape.setFill(color);
         }
+    }
+
+    public Color color() {
+        switch (GameConstants.CSS) {
+            case PINK:
+                color = Color.rgb(199, 21, 133);
+                break;
+            case CLASSIC:
+                color = Color.rgb(39, 54, 84);
+                break;
+            case LIGHT:
+                color = Color.rgb(101, 119, 134);
+                break;
+            case BLACK:
+                color = Color.rgb(245, 245, 245);
+                break;
+            case ACHROMATOPSIE:
+            case DEUTERANOPIE:
+            case PROTANOPIE:
+            case TRITANOPIE:
+                color = Color.rgb(101, 119, 134);
+                break;
+            default:
+                break;
+        }
+        return color;
+    }
+
+    public void magnetPosColor() {
+        shape.setFill(Color.YELLOW);
+    }
+
+    public void magnetNegColor() {
+        shape.setFill(Color.GREEN);
     }
 }
