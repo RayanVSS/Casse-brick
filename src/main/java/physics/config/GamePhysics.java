@@ -38,6 +38,8 @@ public class GamePhysics {
     public void addBall(Ball ball) {
         balls.add(ball);
         entities.put(ball, new BallGraphics(ball));
+        ball.setZoneWidth(500);
+        ball.setZoneHeight(500);
     }
 
     public void update() {
@@ -53,7 +55,10 @@ public class GamePhysics {
 
     private void updateBalls() {
         for (Ball ball : balls) {
-            ball.movement();
+            if (!ball.movement()) {
+                // ball.getC().setX(-ball.getC().getX());
+                // ball.getC().setY(-ball.getC().getY());
+            }
         }
     }
 

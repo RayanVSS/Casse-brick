@@ -30,7 +30,7 @@ import utils.GameConstants;
  * @usage ./gradlew bricks ou ./gradlew bricksEnv
  */
 
-public class BricksEnvironment extends Application {
+public class DemoEnvironment extends Application {
 
     private Stage primaryStage;
     private Scene scene;
@@ -68,7 +68,7 @@ public class BricksEnvironment extends Application {
 
         addControls();
 
-        primaryStage.setTitle("Environnement de développement des briques physiques");
+        primaryStage.setTitle("Environnement de démonstration");
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.resizableProperty().setValue(false);
