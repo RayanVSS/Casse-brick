@@ -1,8 +1,8 @@
-package entity.brick;
+package physics.entity;
 
-import entity.Entity;
 import entity.EntityColor;
 import physics.geometry.Coordinates;
+import physics.geometry.Vector;
 
 public abstract class Brick extends Entity {
 
@@ -21,6 +21,11 @@ public abstract class Brick extends Entity {
 
     protected Brick(Coordinates c, int durability) {
         this(c, durability, null);
+    }
+
+    protected Brick(Coordinates c, Vector vector, int durability) {
+        this(c, durability, null);
+        setDirection(vector);
     }
 
     public void absorb(int damage) {

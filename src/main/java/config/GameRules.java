@@ -5,7 +5,7 @@ import java.util.Random;
 
 import entity.EntityColor;
 import physics.entity.Ball;
-import entity.brick.Brick;
+import physics.entity.Brick;
 import physics.geometry.Coordinates;
 import utils.GameConstants;
 

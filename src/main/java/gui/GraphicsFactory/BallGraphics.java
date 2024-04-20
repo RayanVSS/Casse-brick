@@ -1,6 +1,7 @@
 package gui.GraphicsFactory;
 
 import physics.entity.Ball;
+import physics.entity.Entity;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
@@ -9,7 +10,7 @@ import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class BallGraphics extends ImageView {
+public class BallGraphics extends ImageView implements EntityGraphics {
     private static final Image CLASSIC_BALL = ImageLoader.loadImage("src/main/ressources/balle/balle1.png");
     private static final Image HYPER_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleHyper.png");
     private static final Image GRAVITY_BALL = ImageLoader.loadImage("src/main/ressources/balle/balleGravity.png");
@@ -21,12 +22,14 @@ public class BallGraphics extends ImageView {
 
     private Ball ball;
     private Image currentImage;
+    private boolean waitingAdded, waitingRemoved;
 
     public BallGraphics(Ball ball) {
         this.ball = ball;
         setImageAndProperties();
         setX(ball.getC().getX() - ball.getRadius());
         setY(ball.getC().getY() - ball.getRadius());
+        waitingAdded = true;
     }
 
     public void update() {
@@ -80,4 +83,25 @@ public class BallGraphics extends ImageView {
             }
         }
     }
+
+    public Entity getEntity() {
+        return ball;
+    }
+
+    public boolean isWaitingAdded() {
+        return waitingAdded;
+    }
+
+    public void setWaitingAdded(boolean waitingAdded) {
+        this.waitingAdded = waitingAdded;
+    }
+
+    public boolean isWaitingRemoved() {
+        return waitingRemoved;
+    }
+
+    public void setWaitingRemoved(boolean waitingRemoved) {
+        this.waitingRemoved = waitingRemoved;
+    }
+
 }

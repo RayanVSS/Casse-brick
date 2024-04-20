@@ -38,26 +38,26 @@ public class GameCustomizerController {
                 .setOnAction(e -> ruleLimitedBouncesAction());
 
         gameCustomizerView.getRuleRandomSwitchBricks().getToggleButton()
-                .setOnAction(e -> gameCustomizerView.getRuleRandomSwitchBricks().action());
+                .setOnAction(e -> gameCustomizerView.getRuleRandomSwitchBricks().updateText());
 
         gameCustomizerView.getRuleColorRestricted().getToggleButton()
-                .setOnAction(e -> gameCustomizerView.getRuleColorRestricted().action());
+                .setOnAction(e -> gameCustomizerView.getRuleColorRestricted().updateText());
 
         gameCustomizerView.getRuleTransparent().getToggleButton()
-                .setOnAction(e -> gameCustomizerView.getRuleTransparent().action());
+                .setOnAction(e -> gameCustomizerView.getRuleTransparent().updateText());
 
         gameCustomizerView.getRuleUnbreakable().getToggleButton()
-                .setOnAction(e -> gameCustomizerView.getRuleUnbreakable().action());
+                .setOnAction(e -> gameCustomizerView.getRuleUnbreakable().updateText());
     }
 
     private void ruleLimitedTimeAction() {
-        gameCustomizerView.getRuleLimitedTime().action();
+        gameCustomizerView.getRuleLimitedTime().updateText();
         gameCustomizerView.getTimeLimit().getSlider()
                 .setDisable(!gameCustomizerView.getRuleLimitedTime().getToggleButton().isSelected());
     }
 
     private void ruleLimitedBouncesAction() {
-        gameCustomizerView.getRuleLimitedBounces().action();
+        gameCustomizerView.getRuleLimitedBounces().updateText();
         gameCustomizerView.getBouncesLimit().getSlider()
                 .setDisable(!gameCustomizerView.getRuleLimitedBounces().getToggleButton().isSelected());
     }

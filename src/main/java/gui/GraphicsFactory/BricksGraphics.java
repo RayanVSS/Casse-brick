@@ -1,25 +1,27 @@
 package gui.GraphicsFactory;
 
 import entity.EntityColor;
-import entity.brick.Brick;
 import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import physics.entity.Brick;
+import physics.entity.Entity;
 import utils.*;
 
-public class BricksGraphics extends StackPane {
+public class BricksGraphics extends StackPane implements EntityGraphics {
     public ImageView imageView;
     public Brick brick;
     public int i;
     public int j;
     public boolean isUnbreakable;
     public boolean isTransparent;
+    private boolean waitingAdded, waitingRemoved;
 
     public BricksGraphics(Brick brick, int i, int j) {
         Image image;
         if (brick.isUnbreakable()) {
-            image = ImageLoader.loadImage("src/main/ressources/briqueii.png"); 
+            image = ImageLoader.loadImage("src/main/ressources/briqueii.png");
         } else {
             image = ImageLoader.loadImage("src/main/ressources/briquee.png");
         }
@@ -117,4 +119,25 @@ public class BricksGraphics extends StackPane {
             }
         }
     }
+
+    public Entity getEntity() {
+        return brick;
+    }
+
+    public boolean isWaitingAdded() {
+        return waitingAdded;
+    }
+
+    public void setWaitingAdded(boolean waitingAdded) {
+        this.waitingAdded = waitingAdded;
+    }
+
+    public boolean isWaitingRemoved() {
+        return waitingRemoved;
+    }
+
+    public void setWaitingRemoved(boolean waitingRemoved) {
+        this.waitingRemoved = waitingRemoved;
+    }
+
 }
