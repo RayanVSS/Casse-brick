@@ -105,6 +105,7 @@ public class Sauvegarde {
         options.put("RIGHT", RIGHT);
         options.put("SPACE", SPACE);
         options.put("CSS", CSS);
+        options.put("TEXTURE", TEXTURE);
 
         return options;
     }
@@ -136,13 +137,8 @@ public class Sauvegarde {
             LEFT = Sauvegarde.getKeyCode((String) options.getOrDefault("LEFT", "LEFT"));
             RIGHT = Sauvegarde.getKeyCode((String) options.getOrDefault("RIGHT", "RIGHT"));
             SPACE = Sauvegarde.getKeyCode((String) options.getOrDefault("SPACE", "SPACE"));
-            //CSS =  /*(Theme) options.getOrDefault("CSS", Theme.DARK);*/ Theme.valueOf((String) options.getOrDefault("CSS", "DARK"));
-            String cssOption = (String) options.getOrDefault("CSS", "DARK");
-        try {
-            CSS = Theme.valueOf(cssOption.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            CSS = Theme.DARK; // valeur par défaut si l'option CSS n'est pas une constante de l'énumération Theme
-        }
+            CSS =  /*options.getOrDefault("CSS", Theme.DARK);*/ Theme.valueOf((String) options.getOrDefault("CSS", "DARK"));
+            TEXTURE = (String) options.getOrDefault("TEXTURE", "Null");
         }
     }
 
