@@ -1,9 +1,9 @@
 package config;
 
-import entity.brick.Brick;
 import entity.brick.BrickClassic;
 import gui.App;
 import physics.entity.Ball;
+import physics.entity.Brick;
 import physics.geometry.Coordinates;
 import utils.GameConstants;
 
@@ -90,7 +90,7 @@ public class Map {
                         }
                         return;
                     }
-                    
+
                 }
             }
         }
@@ -117,25 +117,28 @@ public class Map {
     private void handleCollisionDirection(Ball ball, int i, int j) { // changement directionnel simple en attendant la
                                                                      // physique plus complexe
         if (i != 0)
-            ball.getDirection().setX(-ball.getDirection().getX()+(ball.getRotation().getEffect()/90)*ball.getDirection().getX());
-            ball.getRotation().Collision();    
+            ball.getDirection().setX(
+                    -ball.getDirection().getX() + (ball.getRotation().getEffect() / 90) * ball.getDirection().getX());
+        ball.getRotation().Collision();
         if (j != 0)
-            ball.getDirection().setY(-ball.getDirection().getY()+(ball.getRotation().getEffect()/90)*ball.getDirection().getY());
-            ball.getRotation().Collision();
+            ball.getDirection().setY(
+                    -ball.getDirection().getY() + (ball.getRotation().getEffect() / 90) * ball.getDirection().getY());
+        ball.getRotation().Collision();
 
     }
 
     public boolean updateBricksStatus() {
+        boolean destroyed = false;
         for (int i = 0; i < bricks.length; i++) {
             for (int j = 0; j < bricks[0].length; j++) {
                 if (bricks[i][j] != null && bricks[i][j].isDestroyed()) {
                     bricks[i][j] = null;
                     Game.score += 10;
-                    return true;
+                    destroyed = true;
                 }
             }
         }
-        return false;
+        return destroyed;
     }
 
     public int countBricks() {

@@ -128,8 +128,7 @@ public final class GraphicsToolkit {
             });
         }
 
-        public void action() {
-            toggleButton.setSelected(toggleButton.isSelected());
+        public void updateText() {
             toggleButton.setText(toggleButton.isSelected() ? "On" : "Off");
         }
 

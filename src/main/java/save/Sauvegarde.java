@@ -105,6 +105,7 @@ public class Sauvegarde {
         options.put("RIGHT", RIGHT);
         options.put("SPACE", SPACE);
         options.put("CSS", CSS);
+        options.put("TEXTURE", TEXTURE);
 
         return options;
     }
@@ -143,6 +144,7 @@ public class Sauvegarde {
         } catch (IllegalArgumentException e) {
             CSS = Theme.CLASSIC; // valeur par défaut si l'option CSS n'est pas une constante de l'énumération Theme
         }
+            TEXTURE = (String) options.getOrDefault("TEXTURE", "Null");
         }
     }
 
