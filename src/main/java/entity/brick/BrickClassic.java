@@ -1,6 +1,8 @@
 package entity.brick;
 
+import physics.entity.Brick;
 import physics.geometry.Coordinates;
+import physics.geometry.Vector;
 
 public class BrickClassic extends Brick {
 
@@ -8,5 +10,9 @@ public class BrickClassic extends Brick {
 
     public BrickClassic(Coordinates c) {
         super(c, BASE_DURABILITY);
+    }
+
+    public BrickClassic(Coordinates c, Vector vector) {
+        super(c, vector, BASE_DURABILITY);
     }
 }

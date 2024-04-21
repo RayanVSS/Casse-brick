@@ -2,6 +2,7 @@ package utils;
 
 import config.GameRules;
 import config.GameRules.BricksArrangement;
+import entity.ball.ClassicBall;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -10,6 +11,8 @@ import physics.geometry.Vector;
 import physics.entity.*;
 import entity.ball.*;
 import entity.racket.*;
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public final class GameConstants {
@@ -55,6 +58,11 @@ public final class GameConstants {
         public static final double DEFAULT_FLUCTUATION = 8;
         public static final int DEFAULT_PARTICLE = 10; // taille de la trainée
 
+        // racket
+        //DegradeRacket
+        public static final double DEGRADERACKET_TOLERANCE = -0.2;
+        public static final double DEGRADERACKET_CHANGE_DIRECTION= 0.3;
+
         // boost
         // temps des boosts
         public static final int BOOST_DURATION_VITESSEP = 5;
@@ -76,10 +84,8 @@ public final class GameConstants {
         public static final int HEIGHT = 20;
         public static final double BONUS_SPEED = 2;
         public static final double BONUS_CHANCE = 0.2;
-        // "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya",
-        // "intensityBall"
-        public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya",
-                        "intensityBall" };
+        // "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall"
+        public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall" };
         public static final Color COLOR_BONUS = Color.GREEN;
         public static final Color COLOR_MALUS = Color.RED;
 
@@ -93,7 +99,8 @@ public final class GameConstants {
         public static KeyCode RIGHT = KeyCode.RIGHT;
         public static KeyCode SPACE = KeyCode.SPACE;
         public static Theme CSS = Theme.CLASSIC;
-
+        public static String TEXTURE = "Null"; 
+        
         // derniere save
         public static String LAST_SAVE;
 

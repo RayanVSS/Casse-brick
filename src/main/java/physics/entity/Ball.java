@@ -1,7 +1,6 @@
 package physics.entity;
 
 import entity.EntityColor;
-import entity.brick.Brick;
 import physics.geometry.*;
 import physics.gui.Preview;
 import physics.config.PhysicSetting;
@@ -14,10 +13,8 @@ import utils.GameConstants;
  * 
  * @version 1.0
  */
-public abstract class Ball {
+public abstract class Ball extends Entity {
 
-    private Coordinates c;
-    private Vector direction;
     private int radius;
     private double speed;
     private double baseSpeed;
@@ -30,24 +27,25 @@ public abstract class Ball {
     public boolean CollisionR = false;
     public boolean CollisionR_Side = false;
 
+    // Collision avec les murs
+    private double zoneWidth = GameConstants.DEFAULT_GAME_ROOT_WIDTH;
+    private double zoneHeight = GameConstants.DEFAULT_WINDOW_HEIGHT;
+
     public Ball() {
-        c = new Coordinates(0, 0);
-        this.direction = new Vector(new Coordinates(0, 0));
+        super(new Coordinates(0, 0), new Vector(new Coordinates(0, 0)));
         this.speed = 0;
         this.radius = GameConstants.DEFAULT_BALL_RADIUS;
         this.baseSpeed = GameConstants.DEFAULT_BALL_SPEED;
     }
 
     public Ball(int r) {
-        c = new Coordinates(0, 0);
-        this.direction = new Vector(new Coordinates(0, 0));
+        super(new Coordinates(0, 0), new Vector(new Coordinates(0, 0)));
         this.speed = 0;
         this.radius = r;
     }
 
     public Ball(Coordinates c, Vector direction, int speed, int d) {
-        this.c = c;
-        this.direction = direction;
+        super(c, direction);
         this.speed = speed;
         this.radius = d;
         this.baseSpeed = GameConstants.DEFAULT_BALL_SPEED;
@@ -55,20 +53,8 @@ public abstract class Ball {
 
     // Setters/getters
 
-    public Coordinates getC() {
-        return c;
-    }
-
-    public void setC(Coordinates c) {
-        this.c = c;
-    }
-
     public int getRadius() {
         return this.radius;
-    }
-
-    public Vector getDirection() {
-        return this.direction;
     }
 
     public void setSpeed(double v) {
@@ -89,10 +75,6 @@ public abstract class Ball {
 
     public boolean getCollisionR() {
         return CollisionR;
-    }
-
-    public void setDirection(Vector d) {
-        this.direction = d;
     }
 
     public void setSpeed(int v) {
@@ -125,6 +107,22 @@ public abstract class Ball {
 
     public void setBaseSpeed(double baseSpeed) {
         this.baseSpeed = baseSpeed;
+    }
+
+    public double getZoneWidth() {
+        return zoneWidth;
+    }
+
+    public double getZoneHeight() {
+        return zoneHeight;
+    }
+
+    public void setZoneWidth(double zoneWidth) {
+        this.zoneWidth = zoneWidth;
+    }
+
+    public void setZoneHeight(double zoneHeight) {
+        this.zoneHeight = zoneHeight;
     }
 
     public void updatePreview() {

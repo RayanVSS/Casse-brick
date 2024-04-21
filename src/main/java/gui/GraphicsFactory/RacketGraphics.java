@@ -5,9 +5,16 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import physics.entity.*;
 import entity.racket.*;
 import physics.entity.Racket;
 import utils.GameConstants;
+import gui.ImageLoader;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import java.io.File;
+
+import config.Game;
 
 /**
  * Classe RacketGraphics qui encapsule un objet Shape pour représenter
@@ -19,12 +26,22 @@ public class RacketGraphics {
     private Shape shape;
     private Racket racket;
     private String shapeType;
+    //pour la texture
+    private Image image;
+    private ImagePattern texture;
     private Color color;
 
     public RacketGraphics(Racket racket, String shapeType) {
         this.racket = racket;
         this.shapeType = shapeType;
         setShape();
+        // Ajout de la texture
+        if(!GameConstants.TEXTURE.equals("Null")){
+            image = ImageLoader.loadImage("src/main/ressources/Texture/" + GameConstants.TEXTURE);
+            texture = new ImagePattern(image);
+            shape.setFill(texture);
+            shape.setStroke(texture);
+        }
         color();
         shape.setFill(color);
     }
@@ -67,7 +84,27 @@ public class RacketGraphics {
             default:
                 throw new IllegalArgumentException("Forme non reconnue: " + shapeType);
         }
+
+        if (GameConstants.TEXTURE.equals("Null")){
+            if (racket instanceof ClassicRacket){
+                shape.getStyleClass().add("racket");
+            }   
+            else if (racket instanceof YNotFixeRacket){
+                shape.getStyleClass().add("ynotfixeracket");
+            }
+            else if (racket instanceof MagnetRacket){
+                shape.getStyleClass().add("magnetracket");
+            } 
+        } else {
+            addTexture();
+        }
     }
+
+    private void addTexture() {
+        shape.setFill(texture);
+        shape.setStroke(texture);
+    }
+
 
     public Shape getShape() {
         return shape;

@@ -1,6 +1,7 @@
 package gui.GraphicsFactory;
 
 import physics.entity.Ball;
+import physics.entity.Entity;
 import utils.GameConstants;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
@@ -10,7 +11,7 @@ import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class BallGraphics extends ImageView { 
+public class BallGraphics extends ImageView implements EntityGraphics{ 
     private static String POSITIF_BALL;
     private static String NEGATIF_BALL;
     private static String RED_BALL = ("src/main/ressources/balle/red.png");
@@ -19,12 +20,14 @@ public class BallGraphics extends ImageView {
 
     private Ball ball;
     private Image currentImage;
+    private boolean waitingAdded, waitingRemoved;
 
     public BallGraphics(Ball ball) {
         this.ball = ball;
         setImageAndProperties();
-        setX(ball.getC().getX());
-        setY(ball.getC().getY());
+        setX(ball.getC().getX() - ball.getRadius());
+        setY(ball.getC().getY() - ball.getRadius());
+        waitingAdded = true;
     }
     public void update() {
         setX(ball.getC().getX()-ball.getRadius());
@@ -152,4 +155,25 @@ public class BallGraphics extends ImageView {
         setPreserveRatio(true);
         setSmooth(true);
     }
+
+    public Entity getEntity() {
+        return ball;
+    }
+
+    public boolean isWaitingAdded() {
+        return waitingAdded;
+    }
+
+    public void setWaitingAdded(boolean waitingAdded) {
+        this.waitingAdded = waitingAdded;
+    }
+
+    public boolean isWaitingRemoved() {
+        return waitingRemoved;
+    }
+
+    public void setWaitingRemoved(boolean waitingRemoved) {
+        this.waitingRemoved = waitingRemoved;
+    }
+
 }

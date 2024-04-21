@@ -59,8 +59,14 @@ public class OptionsController {
                     Theme();
                 });
         this.view.getButtonleft().getButton().setOnAction(e -> left());
-        this.view.getButtonpower().getButton().setOnAction(e -> power());
-        this.view.getButtonright().getButton().setOnAction(e -> right());
+        this.view.getButtonpower().setOnAction(e -> power());
+        this.view.getButtonright().setOnAction(e -> right());
+        this.view.getTextureComboBox().getSelectionModel().selectedItemProperty()
+        .addListener((obs, oldSelection, newSelection) -> {
+            textureImage();
+        });
+
+        
 
     }
 
@@ -125,11 +131,11 @@ public class OptionsController {
      * Méthode pour gérer l'activation de la touche d'alimentation.
      */
     private void power() {
-        view.getButtonpower().getButton().setText("Appuyez sur une touche...");
-        view.getButtonpower().getButton().setOnKeyPressed(event -> {
+        view.getButtonpower().setText("Appuyez sur une touche...");
+        view.getButtonpower().setOnKeyPressed(event -> {
             GameConstants.SPACE = event.getCode();
-            view.getButtonpower().getButton().setText(GameConstants.SPACE.getName());
-            view.getButtonpower().getButton().setOnKeyPressed(null); // Désactive la liaison après la configuration
+            view.getButtonpower().setText(GameConstants.SPACE.getName());
+            view.getButtonpower().setOnKeyPressed(null); // Désactive la liaison après la configuration
         });
     }
 
@@ -137,11 +143,11 @@ public class OptionsController {
      * Méthode pour gérer l'activation de la touche droite.
      */
     private void right() {
-        view.getButtonright().getButton().setText("Appuyez sur une touche...");
-        view.getButtonright().getButton().setOnKeyPressed(event -> {
+        view.getButtonright().setText("Appuyez sur une touche...");
+        view.getButtonright().setOnKeyPressed(event -> {
             GameConstants.RIGHT = event.getCode();
-            view.getButtonright().getButton().setText(GameConstants.RIGHT.getName());
-            view.getButtonright().getButton().setOnKeyPressed(null); // Désactive la liaison après la configuration
+            view.getButtonright().setText(GameConstants.RIGHT.getName());
+            view.getButtonright().setOnKeyPressed(null); // Désactive la liaison après la configuration
         });
         ;
     }
@@ -155,5 +161,10 @@ public class OptionsController {
                 App.sceneManager.addStylesheet(v);
             });
         }
+    }
+
+    public void textureImage() {
+        //la fonction a était mise dans OptionView car elle ne veut pas marcher ici
+        // ligne 137
     }
 }
