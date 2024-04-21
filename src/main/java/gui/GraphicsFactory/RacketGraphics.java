@@ -25,13 +25,20 @@ public class RacketGraphics {
     private Shape shape;
     private Racket racket;
     private String shapeType;
+    //pour la texture
+    private Image image;
+    private ImagePattern texture;
 
     public RacketGraphics(Racket racket, String shapeType) {
         this.racket = racket;
         this.shapeType = shapeType;
         setShape();
+        // Ajout de la texture
         if(!GameConstants.TEXTURE.equals("Null")){
-            addTexture();
+            image = ImageLoader.loadImage("src/main/ressources/Texture/" + GameConstants.TEXTURE);
+            texture = new ImagePattern(image);
+            shape.setFill(texture);
+            shape.setStroke(texture);
         }
     }
 
@@ -90,16 +97,6 @@ public class RacketGraphics {
     }
 
     private void addTexture() {
-        String texturePath = "src/main/ressources/Texture/" + GameConstants.TEXTURE; // Chemin vers votre texture
-        // Vérification si le fichier de texture existe
-        File textureFile = new File(texturePath);
-        if (!textureFile.exists()) {
-            throw new IllegalArgumentException("Fichier de texture introuvable: " + texturePath);
-        }
-
-        ImagePattern texture = new ImagePattern(new Image(textureFile.toURI().toString()));
-
-        // Remplissage de la forme de la raquette avec la texture
         shape.setFill(texture);
         shape.setStroke(texture);
     }
