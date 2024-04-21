@@ -1,11 +1,15 @@
 {
   "PATH": false,
-  "SPACE": "SPACE",
   "MUSIC": 50,
-  "CSS": "/styles/pink.css",
+  "CSS": "PINK",
+  "MONEY": 0,
   "PARTICLES": false,
   "LEFT": "LEFT",
   "FPS": true,
+  "PSEUDO": "",
+  "SPACE": "SPACE",
+  "TEXTURE": "arc en ciel.jpg",
+  "EXP_LEVEL": 1,
   "SOUND": 50,
   "RIGHT": "RIGHT"
 }
