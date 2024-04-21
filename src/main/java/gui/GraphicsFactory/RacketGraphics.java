@@ -5,16 +5,12 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import physics.entity.*;
 import entity.racket.*;
 import physics.entity.Racket;
 import utils.GameConstants;
 import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
-import java.io.File;
-
-import config.Game;
 
 /**
  * Classe RacketGraphics qui encapsule un objet Shape pour représenter
