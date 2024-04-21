@@ -1,10 +1,81 @@
 {
   "PATH": false,
-  "SPACE": "SPACE",
-  "MUSIC": 50,
+  "MUSIC": 0,
+  "CSS": "PINK",
+  "MONEY": 0,
   "PARTICLES": true,
   "LEFT": "LEFT",
-  "FPS": false,
-  "SOUND": 50,
+  "FPS": true,
+  "PSEUDO": "",
+  "SPACE": "SPACE",
+  "EXP_LEVEL": 9,
+  "PROGRESS": {
+    "stages": [
+      {
+        "difficulty": 0,
+        "unlockLevel": 1,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 1,
+        "unlockLevel": 2,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 2,
+        "unlockLevel": 3,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 3,
+        "unlockLevel": 4,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 4,
+        "unlockLevel": 5,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 5,
+        "unlockLevel": 6,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 6,
+        "unlockLevel": 7,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 7,
+        "unlockLevel": 8,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 8,
+        "unlockLevel": 9,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      }
+    ]
+  },
+  "SOUND": 52,
   "RIGHT": "RIGHT"
 }
