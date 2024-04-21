@@ -1,10 +1,15 @@
 {
   "PATH": false,
-  "SPACE": "SPACE",
   "MUSIC": 50,
+  "CSS": "DARK",
+  "MONEY": 0,
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": false,
+  "PSEUDO": "",
+  "SPACE": "SPACE",
+  "TEXTURE": "Null",
+  "EXP_LEVEL": 1,
   "SOUND": 50,
   "RIGHT": "RIGHT"
 }

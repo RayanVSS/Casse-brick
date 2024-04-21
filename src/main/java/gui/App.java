@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import save.PlayerData;
 import save.Sauvegarde;
+import utils.GameConstants;
 
 public class App extends Application {
 
@@ -35,11 +36,22 @@ public class App extends Application {
 
                 primaryStage.show();
                 primaryStage.setOnCloseRequest(event -> {
-                    System.exit(0);
+                    autoSave();
                 });
             }
         });
+    }
 
+    public void autoSave() {
+        String saveName;
+        if (GameConstants.LAST_SAVE.equals("")) {
+            saveName = "autoTempSave";
+        } else {
+            saveName = GameConstants.LAST_SAVE.replace(".json", "");
+        }
+        sauvegarde.sauvegarderToutesDonnees(saveName);
+        System.out.println("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès");
+        System.exit(0);
     }
 
     public static void main(String[] args) {
