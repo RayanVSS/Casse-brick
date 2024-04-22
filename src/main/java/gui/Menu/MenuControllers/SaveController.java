@@ -2,9 +2,6 @@ package gui.Menu.MenuControllers;
 
 import static utils.GameConstants.LAST_SAVE;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import gui.App;
 import gui.Menu.MenuViews.SaveView;
 import javafx.application.Platform;
@@ -15,7 +12,6 @@ import save.Sauvegarde;
 public class SaveController {
     private SaveView view;
     private Sauvegarde sauvegarde = new Sauvegarde();
-    private Map<String, Object> donnees = new HashMap<>();
 
     public SaveController(Stage p, SaveView view) {
         this.view = view;
