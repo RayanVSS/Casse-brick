@@ -98,6 +98,24 @@ public class RacketGraphics {
 		return shape;
 	}
 
+	public void updatePos(){
+		if (shape instanceof Rectangle) {
+			((Rectangle) shape).setX(racket.getC().getX());
+			((Rectangle) shape).setY(racket.getC().getY());
+		} else if (shape instanceof Polygon) {
+			((Polygon) shape).getPoints().set(0, racket.getC().getX());
+			((Polygon) shape).getPoints().set(1, racket.getC().getY() - racket.getLongueur() / 2);
+			((Polygon) shape).getPoints().set(2, racket.getC().getX() + racket.getLargeur() / 2);
+			((Polygon) shape).getPoints().set(3, racket.getC().getY());
+			((Polygon) shape).getPoints().set(4, racket.getC().getX());
+			((Polygon) shape).getPoints().set(5, racket.getC().getY() + racket.getLongueur() / 2);
+			((Polygon) shape).getPoints().set(6, racket.getC().getX() - racket.getLargeur() / 2);
+			((Polygon) shape).getPoints().set(7, racket.getC().getY());
+		} else if (shape instanceof Ellipse) {
+			((Ellipse) shape).setCenterX(racket.getC().getX());
+			((Ellipse) shape).setCenterY(racket.getC().getY());
+		}
+	}
 	public void update() {
 		setShape();
 		if (racket instanceof MagnetRacket) {

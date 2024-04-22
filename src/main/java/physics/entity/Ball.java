@@ -1,10 +1,14 @@
 package physics.entity;
 
+import java.util.ArrayList;
+
+import config.Map;
 import entity.EntityColor;
 import physics.geometry.*;
 import physics.gui.Preview;
 import physics.config.PhysicSetting;
 import utils.GameConstants;
+import java.util.Set;
 
 /**
  * Classe Balle
@@ -30,18 +34,24 @@ public abstract class Ball extends Entity {
     // Collision avec les murs
     private double zoneWidth = GameConstants.DEFAULT_GAME_ROOT_WIDTH;
     private double zoneHeight = GameConstants.DEFAULT_WINDOW_HEIGHT;
+    public boolean CollisionB =false;
 
     public Ball() {
         super(new Coordinates(0, 0), new Vector(new Coordinates(0, 0)));
         this.speed = 0;
         this.radius = GameConstants.DEFAULT_BALL_RADIUS;
         this.baseSpeed = GameConstants.DEFAULT_BALL_SPEED;
+        physicSetting.setSpeed_Ball(baseSpeed);
+        physicSetting.setRadius(radius);
     }
 
     public Ball(int r) {
         super(new Coordinates(0, 0), new Vector(new Coordinates(0, 0)));
-        this.speed = 0;
+        this.speed = 1;
         this.radius = r;
+        physicSetting.setSpeed_Ball(speed);
+        physicSetting.setRadius(radius);
+
     }
 
     public Ball(Coordinates c, Vector direction, int speed, int d) {
@@ -49,9 +59,19 @@ public abstract class Ball extends Entity {
         this.speed = speed;
         this.radius = d;
         this.baseSpeed = GameConstants.DEFAULT_BALL_SPEED;
+        physicSetting.setSpeed_Ball(baseSpeed);
+        physicSetting.setRadius(radius);
     }
 
     // Setters/getters
+
+    public double getX() {
+        return this.getC().getX();
+    }
+
+    public double getY() {
+        return this.getC().getY();
+    }
 
     public int getRadius() {
         return this.radius;
@@ -125,8 +145,11 @@ public abstract class Ball extends Entity {
         this.zoneHeight = zoneHeight;
     }
 
-    public void updatePreview() {
+    public void updatePreview(Set<Ball> balls) {
         if (this.preview != null) {
+            for(Ball b : balls){
+                preview.checkCollisionOtherBall(b);
+            }
             preview.trajectory();
             preview.add_circle();
             preview.check();
@@ -216,9 +239,76 @@ public abstract class Ball extends Entity {
         return false;
     }
 
-    public boolean checkCollisionOtherBall(Ball b) {
-        // TODO : implement this method
-        return false;
+    public void checkCollisionOtherBall(Ball b) {
+        if (!CollisionB) {
+            // gestion de la collision entre les balles en X
+            boolean collisionX1 = getX()+radius>=b.getC().getX()-b.getRadius() && getX()-radius<b.getC().getX()+b.getRadius();
+            boolean collisionX2 = b.getX()+b.getRadius()>=getX()-radius && b.getX()-b.getRadius()<getX()+radius;
+            boolean collisionXY = (getY()+radius>=b.getY()-b.getRadius() && getY()-radius<b.getY()+b.getRadius()) || (b.getY()+b.getRadius()>=getY()-radius && b.getY()-b.getRadius()<getY()+radius);
+            // gestion de la collision entre les balles en Y
+            boolean collisionY1 = getY()+radius>=b.getC().getY()-b.getRadius() && getY()-radius<b.getC().getY()+b.getRadius() ;
+            boolean collisionY2 = b.getY()+b.getRadius()>=getY()-radius && b.getY()-b.getRadius()<getY()+radius ;
+            boolean collisionYX = (getX()+radius>=b.getX()-b.getRadius() && getX()-radius<b.getX()+b.getRadius()) || (b.getX()+b.getRadius()>=getX()-radius && b.getX()-b.getRadius()<getX()+radius);
+            if((collisionX1||collisionX2) && collisionXY){
+                if(getDirection().getX() >= 0 && b.getDirection().getX() <= 0){
+                    getDirection().setX(b.getDirection().getX());
+                    b.getDirection().setX(getDirection().getX());
+                }
+                else if(getDirection().getX() >= 0 && b.getDirection().getX() >= 0){
+                    getDirection().setX(-getDirection().getX());
+                    b.getDirection().setX(Math.max(getDirection().getX(), b.getDirection().getX()));
+                }
+                else if(getDirection().getX() <= 0 && b.getDirection().getX() <= 0){
+                    getDirection().setX(Math.max(getDirection().getX(), b.getDirection().getX()));
+                    b.getDirection().setX(-b.getDirection().getX());
+                }
+                CollisionB = true;
+                b.CollisionB=true;
+            }
+            else if((collisionY1 || collisionY2) && collisionYX){
+                if(getDirection().getY() >= 0 && b.getDirection().getY() <= 0){
+                    getDirection().setY(b.getDirection().getY());
+                    b.getDirection().setY(getDirection().getY());
+                }
+                else if(getDirection().getY() >= 0 && b.getDirection().getY() >= 0){
+                    getDirection().setY(-getDirection().getY());
+                    b.getDirection().setY(Math.max(getDirection().getY(), b.getDirection().getY()));
+                }
+                else if(getDirection().getY() <= 0 && b.getDirection().getY() <= 0){
+                    getDirection().setY(Math.max(getDirection().getY(), b.getDirection().getY()));
+                    b.getDirection().setY(-b.getDirection().getY());
+                }
+                CollisionB = true;
+                b.CollisionB=true;
+            }
+        }
     }
-
+    
+    public void checkCollision(Segment s){
+        double x1 = s.getStart().getX();
+        double y1 = s.getStart().getY();
+        double x2 = s.getEnd().getX();
+        double y2 = s.getEnd().getY();
+        double x = getX();
+        double y = getY();
+        double dx = x2 - x1;
+        double dy = y2 - y1;
+        double a = dx * dx + dy * dy;
+        double b = 2 * (dx * (x1 - x) + dy * (y1 - y));
+        double c = x * x + y * y + x1 * x1 + y1 * y1 - 2 * (x * x1 + y * y1) - radius * radius;
+        double delta = b * b - 4 * a * c;
+        if (delta >= 0) {
+            double t = (-b - Math.sqrt(delta)) / (2 * a);
+            double xInt = x1 + t * dx;
+            double yInt = y1 + t * dy;
+            double nx = xInt - x;
+            double ny = yInt - y;
+            double n = Math.sqrt(nx * nx + ny * ny);
+            nx /= n;
+            ny /= n;
+            double d = 2 * (getDirection().getX() * nx + getDirection().getY() * ny);
+            getDirection().setX(getDirection().getX() - d * nx);
+            getDirection().setY(getDirection().getY() - d * ny);
+        }
+    }
 }

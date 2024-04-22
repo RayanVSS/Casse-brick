@@ -17,6 +17,11 @@ public class BallGraphics extends ImageView implements EntityGraphics{
     private static String RED_BALL = ("src/main/ressources/balle/red.png");
     private static String GREEN_BALL = ("src/main/ressources/balle/green.png");
     private static String BLUE_BALL = ("src/main/ressources/balle/blue.png");
+    private static String physicBall = ("/balle/ballePhysic.png");
+
+    //Partie pour le drag and drop
+    private boolean isMouseDraggingBall = false;
+    private double mouseX , mouseY = 0;
 
     private Ball ball;
     private Image currentImage;
@@ -25,13 +30,32 @@ public class BallGraphics extends ImageView implements EntityGraphics{
     public BallGraphics(Ball ball) {
         this.ball = ball;
         setImageAndProperties();
-        setX(ball.getC().getX() - ball.getRadius());
-        setY(ball.getC().getY() - ball.getRadius());
+        setX(ball.getC().getX());
+        setY(ball.getC().getY());
+        setScaleX(ball.getRadius());
+        setScaleY(ball.getRadius());
+    }
+
+    public BallGraphics(Image i,Ball ball) {
+        this.ball = ball;
+        setImage(i);
+        currentImage = i;
+        if(i==null){
+            setImage(physicBall,currentImage);
+        }
+        setFitWidth(ball.getRadius());
+        setFitHeight(ball.getRadius());
+        setPreserveRatio(true);
+        setCache(true);
+        setX(ball.getC().getX());
+        setY(ball.getC().getY());
+        setScaleX(ball.getRadius());
+        setScaleY(ball.getRadius());
         waitingAdded = true;
     }
     public void update() {
-        setX(ball.getC().getX()-ball.getRadius());
-        setY(ball.getC().getY()-ball.getRadius());
+        setX(ball.getC().getX() - ball.getRadius());
+        setY(ball.getC().getY() - ball.getRadius());
         updateImageAndProperties();
     }
 
@@ -151,9 +175,39 @@ public class BallGraphics extends ImageView implements EntityGraphics{
     private void setImage(String imagePath,Image image) {
         image = ImageLoader.loadImage(imagePath);
         setImage(image);
-        setFitWidth(ball.getRadius() * 2);
+    
+        setFitWidth(ball.getRadius()*2);
         setPreserveRatio(true);
         setSmooth(true);
+    }
+
+    public boolean IsMouseDraggingBall() {
+        return isMouseDraggingBall;
+    }
+
+    public void setMouseDraggingBall(boolean mouseDraggingBall) {
+        isMouseDraggingBall = mouseDraggingBall;
+    }
+
+    public double getMouseX() {
+        return mouseX;
+    }
+
+    public void setMouseX(double mouseX) {
+        this.mouseX = mouseX;
+    }
+
+    public double getMouseY() {
+        return mouseY;
+    }
+
+    public void setMouseY(double mouseY) {
+        this.mouseY = mouseY;
+    }
+
+    public void setMouseXY(double mouseX, double mouseY) {
+        this.mouseX = mouseX;
+        this.mouseY = mouseY;
     }
 
     public Entity getEntity() {
