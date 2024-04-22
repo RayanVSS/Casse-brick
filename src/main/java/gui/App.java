@@ -11,6 +11,7 @@ import utils.Sound.BallSound;
 import utils.Sound.ClickSound;
 import utils.Sound.GameOverSound;
 import utils.Sound.Music;
+import utils.GameConstants;
 
 public class App extends Application {
 
@@ -18,9 +19,10 @@ public class App extends Application {
     public static SceneManager sceneManager = new SceneManager();
     private Sauvegarde sauvegarde = new Sauvegarde();
     public static ClickSound clickSoundPlayer;
-    public  static GameOverSound gameOverS ;
-    public static Music music ;
+    public static GameOverSound gameOverS;
+    public static Music music;
     public static BallSound ballSound;
+
     @Override
     public void start(Stage p) throws Exception {
         Platform.runLater(new Runnable() {
@@ -48,11 +50,22 @@ public class App extends Application {
 
                 primaryStage.show();
                 primaryStage.setOnCloseRequest(event -> {
-                    System.exit(0);
+                    autoSave();
                 });
             }
         });
+    }
 
+    public void autoSave() {
+        String saveName;
+        if (GameConstants.LAST_SAVE.equals("")) {
+            saveName = "autoTempSave";
+        } else {
+            saveName = GameConstants.LAST_SAVE.replace(".json", "");
+        }
+        sauvegarde.sauvegarderToutesDonnees(saveName);
+        System.out.println("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès");
+        System.exit(0);
     }
 
     public static void main(String[] args) {

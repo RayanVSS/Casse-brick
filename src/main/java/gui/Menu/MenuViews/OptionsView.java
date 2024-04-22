@@ -48,7 +48,6 @@ public class OptionsView implements Menu {
 
     public final String TEXTURE_FOLDER = "src/main/ressources/Texture";
 
-
     private HBox actionButtons;
     private Button backButton;
 
@@ -60,19 +59,17 @@ public class OptionsView implements Menu {
         initOptions();
         initActionButtons();
 
-
         // a deplacer dans le controller
         texture.getComboBox().setOnAction(event -> {
             String selectedTexture = texture.getComboBox().getValue();
             if (selectedTexture != null) {
-                String texturePath = TEXTURE_FOLDER + "/" +selectedTexture;
+                String texturePath = TEXTURE_FOLDER + "/" + selectedTexture;
                 Image textureImage = new Image(new File(texturePath).toURI().toString());
                 textureImageView.setImage(textureImage);
                 GameConstants.TEXTURE = selectedTexture;
             }
             System.out.println(selectedTexture + " selected");
         });
-
 
         root.getChildren().addAll(options, actionButtons);
         new OptionsController(primaryStage, this);
@@ -111,12 +108,11 @@ public class OptionsView implements Menu {
         }
         textureImageView = new ImageView();
         if (!GameConstants.TEXTURE.equals("Null")) {
-            textureImageView.setImage(new Image(new File(TEXTURE_FOLDER + "/" + GameConstants.TEXTURE).toURI().toString()));
+            textureImageView
+                    .setImage(new Image(new File(TEXTURE_FOLDER + "/" + GameConstants.TEXTURE).toURI().toString()));
         }
-        textureImageView.setFitWidth(100); 
-        textureImageView.setPreserveRatio(true); 
-
-
+        textureImageView.setFitWidth(100);
+        textureImageView.setPreserveRatio(true);
 
         labelVBox.getChildren().addAll(volumeMusic, volumeSound, theme, texture, textureImageView);
         optionsLeft.getChildren().addAll(labelVBox);
@@ -150,7 +146,7 @@ public class OptionsView implements Menu {
         actionButtons = new HBox(50);
         actionButtons.setAlignment(Pos.CENTER);
 
-        backButton = createButton("Retour",0,0);
+        backButton = createButton("Retour", 0, 0);
 
         actionButtons.getChildren().add(backButton);
     }
@@ -171,7 +167,6 @@ public class OptionsView implements Menu {
         textureNames.add("Null");
         return textureNames;
     }
-
 
     public Scene getScene() {
         return scene;

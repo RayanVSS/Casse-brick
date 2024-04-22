@@ -1,23 +1,14 @@
 package physics.gui;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Random;
 
-import config.Game;
 import entity.ball.ClassicBall;
-import entity.brick.BrickClassic;
 import gui.GraphicsToolkit.LabelToggleButtonHBox;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import physics.config.GamePhysics;
 import physics.entity.Ball;
 import physics.geometry.Coordinates;

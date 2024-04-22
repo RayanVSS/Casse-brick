@@ -1,20 +1,14 @@
 package physics.gui;
 
-import java.util.Map.Entry;
 import java.util.Iterator;
+import java.util.Map.Entry;
 
-import config.Game;
-import gui.GameView;
 import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.BricksGraphics;
 import gui.GraphicsFactory.EntityGraphics;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import physics.config.GamePhysics;
 import physics.entity.Entity;
-import utils.GameConstants;
 
 /**
  * Composant de l'environnement de test des briques physiques.

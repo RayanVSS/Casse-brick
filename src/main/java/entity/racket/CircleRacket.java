@@ -1,10 +1,10 @@
 package entity.racket;
 
+import java.util.Set;
+
 import javafx.scene.input.KeyCode;
 import physics.entity.Racket;
 import utils.GameConstants;
-
-import java.util.Set;
 
 /**
  * Raquette en forme de rond

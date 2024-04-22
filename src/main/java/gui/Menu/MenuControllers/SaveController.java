@@ -1,14 +1,16 @@
 package gui.Menu.MenuControllers;
 
+import static utils.GameConstants.LAST_SAVE;
+
 import gui.App;
 import gui.Menu.MenuViews.SaveView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import java.util.*;
+import save.PlayerData;
 import save.Sauvegarde;
 import utils.Sound.ClickSound;
-
-import static utils.GameConstants.LAST_SAVE;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SaveController {
     private SaveView view;
@@ -18,7 +20,7 @@ public class SaveController {
 
     public SaveController(Stage p, SaveView view) {
         this.view = view;
-        this.view.getBtnBack().setOnAction(e ->{ 
+        this.view.getBtnBack().setOnAction(e -> {
             click.play();
             back();
         });
@@ -91,8 +93,9 @@ public class SaveController {
         }
     }
 
-    private void ok() {
+    private void ok() { //créer un nouveau profil
         String nomUtilisateur = view.getNameSave().getText(); // Récupérer le nom de l'utilisateur
+        PlayerData.initPlayerData();
         sauvegarde.sauvegarderToutesDonnees(nomUtilisateur); // Sauvegarder les options du jeu
         if (!view.getListSave().getItems().contains(nomUtilisateur + ".json")) // Si le nom de l'utilisateur n'est pas
                                                                                // déjà dans la ComboBox

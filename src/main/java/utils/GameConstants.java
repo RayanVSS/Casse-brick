@@ -1,16 +1,18 @@
 package utils;
 
+import java.util.Random;
+
 import config.GameRules;
 import config.GameRules.BricksArrangement;
 import entity.ball.ClassicBall;
+import entity.racket.ClassicRacket;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import physics.entity.Ball;
+import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
-import physics.entity.*;
-import entity.racket.*;
-import java.util.Random;
 
 public final class GameConstants {
 
@@ -58,7 +60,7 @@ public final class GameConstants {
         // racket
         //DegradeRacket
         public static final double DEGRADERACKET_TOLERANCE = -0.2;
-        public static final double DEGRADERACKET_CHANGE_DIRECTION= 0.3;
+        public static final double DEGRADERACKET_CHANGE_DIRECTION = 0.3;
 
         // boost
         // temps des boosts
@@ -82,7 +84,8 @@ public final class GameConstants {
         public static final double BONUS_SPEED = 2;
         public static final double BONUS_CHANCE = 0.2;
         // "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall"
-        public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall" };
+        public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya",
+                        "intensityBall" };
         public static final Color COLOR_BONUS = Color.GREEN;
         public static final Color COLOR_MALUS = Color.RED;
 
@@ -96,8 +99,8 @@ public final class GameConstants {
         public static KeyCode RIGHT = KeyCode.RIGHT;
         public static KeyCode SPACE = KeyCode.SPACE;
         public static Theme CSS = Theme.CLASSIC;
-        public static String TEXTURE = "Null"; 
-        
+        public static String TEXTURE = "Null";
+
         // derniere save
         public static String LAST_SAVE;
 

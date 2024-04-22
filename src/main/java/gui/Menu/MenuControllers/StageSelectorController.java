@@ -35,6 +35,9 @@ public class StageSelectorController {
     }
 
     private void loadGame(int i) {
+        if (PlayerData.stagesProgress == null) {
+            PlayerData.initPlayerData();
+        }
         if (PlayerData.stagesProgress.getStages()[i].canLoadGame()) {
             new GameView(stageSelectorView.getPrimaryStage(), PlayerData.stagesProgress.getStages()[i]);
         }

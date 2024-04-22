@@ -19,9 +19,8 @@ public class WinView extends VBox implements Menu {
     private Button btnQuit;
     private Button btnNext;
     private Label win;
-    
 
-    public WinView(Stage p,GameView game,StageLevel level) {
+    public WinView(Stage p, GameView game, StageLevel level) {
 
         this.primaryStage = p;
         this.game = game;
@@ -41,22 +40,22 @@ public class WinView extends VBox implements Menu {
         getStyleClass().add("root-game-over");
         getStylesheets().add(GameConstants.CSS.getPath());
 
-        if(level.getDifficulty() < GameConstants.STAGES_QTY-1){
+        if (level.getDifficulty() < GameConstants.STAGES_QTY - 1) {
             level.winAction();
             new WinController(this);
-        }else{
+        } else {
             finDuJeu();
         }
         new WinController(this);
-    }   
+    }
 
-    public void finDuJeu(){
+    public void finDuJeu() {
         this.getChildren().clear();
-        Label fiin=createLabel("Vous avez terminé le jeu.", 0, 0);
-        Label fiin2=createLabel("Merci d'avoir joué!", 0, 0);
+        Label fiin = createLabel("Vous avez terminé le jeu.", 0, 0);
+        Label fiin2 = createLabel("Merci d'avoir joué!", 0, 0);
         fiin.getStyleClass().add("fin-label");
         fiin2.getStyleClass().add("fin-label");
-        getChildren().addAll(fiin,fiin2,btnMenu,btnQuit);
+        getChildren().addAll(fiin, fiin2, btnMenu, btnQuit);
     }
 
     public Button getBtnMenu() {
@@ -87,5 +86,4 @@ public class WinView extends VBox implements Menu {
         return level;
     }
 
-    
 }

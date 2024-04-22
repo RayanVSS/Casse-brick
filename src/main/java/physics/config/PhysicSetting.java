@@ -2,11 +2,11 @@ package physics.config;
 
 import java.util.Random;
 
+import physics.entity.Ball;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
-import physics.entity.Ball;
 
 /***************************************************************************
  *                  Explication de classe PhysicSetting  :  
@@ -61,12 +61,12 @@ public class PhysicSetting {
     private final double friction_air = 0.01;
     private final double MAX_VELOCITY = 10;
 
-    public PhysicSetting(){
-        Radius = GameConstants.DEFAULT_BALL_RADIUS/2;
+    public PhysicSetting() {
+        Radius = GameConstants.DEFAULT_BALL_RADIUS / 2;
         this.Wind = vectorWind(Speed_Wind, Direction_Wind);
     }
 
-    public PhysicSetting(int R , double gravite , Vector Wind , double mass){
+    public PhysicSetting(int R, double gravite, Vector Wind, double mass) {
         this.Radius = R;
         Gravite = gravite;
         Mass = mass;
@@ -74,65 +74,64 @@ public class PhysicSetting {
         retention = 0.8;
     }
 
-    public static String CalculateAngle(Vector d){
+    public static String CalculateAngle(Vector d) {
         double angle = Math.atan2(d.getY(), d.getX());
-        if(angle < 0){
-            angle += 2*Math.PI;
+        if (angle < 0) {
+            angle += 2 * Math.PI;
         }
         angle = Math.toDegrees(angle);
-        return "Angle :"+String.valueOf(angle);
+        return "Angle :" + String.valueOf(angle);
     }
 
-    public static double CalculateSpeed(Vector d){
-        double speed = Math.sqrt(d.getX()*d.getX() + d.getY()*d.getY());
+    public static double CalculateSpeed(Vector d) {
+        double speed = Math.sqrt(d.getX() * d.getX() + d.getY() * d.getY());
         return speed;
     }
 
     public void checkGravity(Coordinates c, Vector d) {
-        if(!Gravity){
+        if (!Gravity) {
             return;
         }
         if (c.getY() < GameConstants.DEFAULT_GAME_ROOT_WIDTH - Radius) {
-            d.setY(d.getY() + Gravite*Mass);
+            d.setY(d.getY() + Gravite * Mass);
         } else {
             if (d.getY() > stop_bounce) {
-                d.setY(-d.getY()* retention);
+                d.setY(-d.getY() * retention);
             } else {
                 if (Math.abs(d.getY()) <= stop_bounce) {
                     d.setY(0);
                 }
             }
-            if ((c.getX() < Radius && d.getX() < 0) || (c.getX() > GameConstants.DEFAULT_WINDOW_WIDTH - Radius && d.getX() > 0)) {
-                d.setX(-d.getX()* retention);
+            if ((c.getX() < Radius && d.getX() < 0)
+                    || (c.getX() > GameConstants.DEFAULT_WINDOW_WIDTH - Radius && d.getX() > 0)) {
+                d.setX(-d.getX() * retention);
                 if (Math.abs(d.getX()) < stop_bounce) {
                     d.setX(0);
                 }
             }
             if (d.getY() == 0 && d.getX() != 0) {
                 if (d.getX() > 0) {
-                    d.setX(d.getX()-friction_sol);
+                    d.setX(d.getX() - friction_sol);
                 } else if (d.getX() < 0) {
-                    d.setX(d.getX()+friction_sol);
+                    d.setX(d.getX() + friction_sol);
                 }
             }
         }
     }
 
-
-
-    public Vector vectorWind(int Speed , int Direction){
-       switch (Direction) {
-        case 1:
-            return new Vector(new Coordinates(Speed, 0));
-        case 2:
-            return new Vector(new Coordinates(0, Speed));
-        case 3:
-            return new Vector(new Coordinates(-Speed, 0));
-        case 4:
-            return new Vector(new Coordinates(0, -Speed));
-        default:
-            return new Vector(new Coordinates(0, 0));
-       }
+    public Vector vectorWind(int Speed, int Direction) {
+        switch (Direction) {
+            case 1:
+                return new Vector(new Coordinates(Speed, 0));
+            case 2:
+                return new Vector(new Coordinates(0, Speed));
+            case 3:
+                return new Vector(new Coordinates(-Speed, 0));
+            case 4:
+                return new Vector(new Coordinates(0, -Speed));
+            default:
+                return new Vector(new Coordinates(0, 0));
+        }
     }
 
     public Vector randomDirection() {
@@ -142,24 +141,27 @@ public class PhysicSetting {
         return new Vector(new Coordinates(i, j));
     }
 
-    public boolean checkCollisionRacket(Racket r, Coordinates c, Vector d){
+    public boolean checkCollisionRacket(Racket r, Coordinates c, Vector d) {
         boolean verifX = c.getX() > r.getC().getX() && c.getX() < r.getC().getX() + r.largeur;
         boolean verifY = c.getY() > r.getC().getY() && c.getY() < r.getC().getY() + r.longueur;
-        boolean verifX1 = c.getX()<= r.getC().getX() && c.getX() > r.getC().getX() - Radius || c.getX() >= r.getC().getX() + r.largeur && c.getX() < r.getC().getX() + r.largeur + Radius;
-        boolean verifY1 =  c.getY() >= r.getC().getY() && c.getY() < r.getC().getY() + r.longueur;
-        if(verifX1 && verifY1){
+        boolean verifX1 = c.getX() <= r.getC().getX() && c.getX() > r.getC().getX() - Radius
+                || c.getX() >= r.getC().getX() + r.largeur && c.getX() < r.getC().getX() + r.largeur + Radius;
+        boolean verifY1 = c.getY() >= r.getC().getY() && c.getY() < r.getC().getY() + r.longueur;
+        if (verifX1 && verifY1) {
             d.setX(-d.getX());
             return true;
         }
         return verifX && verifY;
     }
 
-    public boolean checkCollisionRacket(Racket r,Ball b){
+    public boolean checkCollisionRacket(Racket r, Ball b) {
         boolean verifX = b.getC().getX() > r.getC().getX() && b.getC().getX() < r.getC().getX() + r.largeur;
         boolean verifY = b.getC().getY() > r.getC().getY() && b.getC().getY() < r.getC().getY() + r.longueur;
-        boolean verifX1 = b.getC().getX()<= r.getC().getX() && b.getC().getX() > r.getC().getX() - Radius || b.getC().getX() >= r.getC().getX() + r.largeur && b.getC().getX() < r.getC().getX() + r.largeur + Radius;
-        boolean verifY1 =  b.getC().getY() >= r.getC().getY() && b.getC().getY() < r.getC().getY() + r.longueur;
-        if(verifX1 && verifY1){
+        boolean verifX1 = b.getC().getX() <= r.getC().getX() && b.getC().getX() > r.getC().getX() - Radius
+                || b.getC().getX() >= r.getC().getX() + r.largeur
+                        && b.getC().getX() < r.getC().getX() + r.largeur + Radius;
+        boolean verifY1 = b.getC().getY() >= r.getC().getY() && b.getC().getY() < r.getC().getY() + r.longueur;
+        if (verifX1 && verifY1) {
             b.getDirection().setX(-b.getDirection().getX());
             b.CollisionR_Side = true;
             return true;
@@ -196,7 +198,7 @@ public class PhysicSetting {
     public double getRetention() {
         return retention;
     }
-    
+
     public void setRetention(double retention) {
         this.retention = retention;
     }
@@ -249,11 +251,11 @@ public class PhysicSetting {
         return stop_bounce;
     }
 
-    public void changeGravity(){
+    public void changeGravity() {
         Gravity = !Gravity;
     }
 
-    public boolean getGravity(){
+    public boolean getGravity() {
         return Gravity;
     }
 }
