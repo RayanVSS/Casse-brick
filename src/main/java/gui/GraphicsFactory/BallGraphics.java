@@ -1,7 +1,5 @@
 package gui.GraphicsFactory;
 
-import physics.entity.Ball;
-import physics.entity.Entity;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
@@ -9,6 +7,8 @@ import entity.ball.MagnetBall;
 import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import physics.entity.Ball;
+import physics.entity.Entity;
 
 public class BallGraphics extends ImageView implements EntityGraphics {
     private static final Image CLASSIC_BALL = ImageLoader.loadImage("src/main/ressources/balle/balle1.png");

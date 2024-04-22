@@ -1,11 +1,11 @@
 package utils;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.Scene;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 
 import config.Game;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 
 /***************************************************************************
  *                  Explication de classe pour lire les touches            *
@@ -51,41 +51,35 @@ import config.Game;
  * @author Belhassen rayan
  */
 
-
-
-
-public class Key  {
+public class Key {
     private final Set<KeyCode> keysPressed = new HashSet<>();
-
 
     public Key() {
     }
-    
+
     //code qui permet de lire les touches du clavier et qui l'ajoute dans une liste
-    public void touchesM(Scene scene, Game game){
-    scene.setOnKeyPressed(event -> {
+    public void touchesM(Scene scene, Game game) {
+        scene.setOnKeyPressed(event -> {
             keysPressed.add(event.getCode());
         });
     }
 
-    public void touchesR(Scene scene, Game game){
-                //quand la touche est relachée, on l'enlève de la liste
-                scene.setOnKeyReleased(event -> {
-                    keysPressed.remove(event.getCode());
-                });
-            }
+    public void touchesR(Scene scene, Game game) {
+        //quand la touche est relachée, on l'enlève de la liste
+        scene.setOnKeyReleased(event -> {
+            keysPressed.remove(event.getCode());
+        });
+    }
 
     //fonction qui rassemble toutes les fonctions qui agissent avec une touche
     public void handleInput(Game game) {
         game.getRacket().handleKeyPress(keysPressed);
     }
 
-
     //getters,setters et fonctions qui donne des informations sur la liste de touches
     public Set<KeyCode> getKeysPressed() {
         return keysPressed;
     }
-
 
     public void setKeysPressed(Set<KeyCode> keysPressed) {
         this.keysPressed.clear();
@@ -115,6 +109,5 @@ public class Key  {
     public int size() {
         return keysPressed.size();
     }
-
 
 }

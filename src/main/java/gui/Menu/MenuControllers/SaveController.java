@@ -1,15 +1,16 @@
 package gui.Menu.MenuControllers;
 
+import static utils.GameConstants.LAST_SAVE;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import gui.App;
 import gui.Menu.MenuViews.SaveView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import java.util.*;
-
 import save.PlayerData;
 import save.Sauvegarde;
-
-import static utils.GameConstants.LAST_SAVE;
 
 public class SaveController {
     private SaveView view;

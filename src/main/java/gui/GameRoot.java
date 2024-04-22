@@ -1,9 +1,13 @@
 package gui;
 
+import static physics.entity.Racket.AddIntensityBall;
+//pour les boosts
+import static physics.entity.Racket.StopBall;
+
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Iterator;
-import javafx.scene.input.KeyCode;
+import java.util.Set;
+
 import config.Game;
 import config.StageLevel;
 import entity.Boost;
@@ -15,14 +19,11 @@ import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.PauseView;
 import gui.Menu.MenuViews.WinView;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.GameConstants;
-import utils.Key;
-
-//pour les boosts
-import static physics.entity.Racket.StopBall;
-import static physics.entity.Racket.AddIntensityBall;;
+import utils.Key;;
 
 public class GameRoot {
     private Pane root = new Pane();
@@ -103,7 +104,8 @@ public class GameRoot {
         Iterator<Boost> iterator = game.getBoosts().iterator();
         while (iterator.hasNext()) {
             Boost boost = iterator.next();
-            if (boost.move(game.getRacket().CollisionRacket(boost.getC(),game.getRacket().getShapeType()), game.getRacket())) {
+            if (boost.move(game.getRacket().CollisionRacket(boost.getC(), game.getRacket().getShapeType()),
+                    game.getRacket())) {
                 root.getChildren().remove(boost);
                 iterator.remove();
             } else {

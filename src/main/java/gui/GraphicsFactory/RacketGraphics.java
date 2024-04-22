@@ -1,20 +1,18 @@
 package gui.GraphicsFactory;
 
+import entity.racket.ClassicRacket;
+import entity.racket.MagnetRacket;
+import entity.racket.YNotFixeRacket;
+import gui.ImageLoader;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import physics.entity.*;
-import entity.racket.*;
 import physics.entity.Racket;
 import utils.GameConstants;
-import gui.ImageLoader;
-import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
-import java.io.File;
-
-import config.Game;
 
 /**
  * Classe RacketGraphics qui encapsule un objet Shape pour représenter graphiquement une raquette.
@@ -34,7 +32,7 @@ public class RacketGraphics {
         this.shapeType = shapeType;
         setShape();
         // Ajout de la texture
-        if(!GameConstants.TEXTURE.equals("Null")){
+        if (!GameConstants.TEXTURE.equals("Null")) {
             image = ImageLoader.loadImage("src/main/ressources/Texture/" + GameConstants.TEXTURE);
             texture = new ImagePattern(image);
             shape.setFill(texture);
@@ -81,16 +79,14 @@ public class RacketGraphics {
                 throw new IllegalArgumentException("Forme non reconnue: " + shapeType);
         }
 
-        if (GameConstants.TEXTURE.equals("Null")){
-            if (racket instanceof ClassicRacket){
+        if (GameConstants.TEXTURE.equals("Null")) {
+            if (racket instanceof ClassicRacket) {
                 shape.getStyleClass().add("racket");
-            }   
-            else if (racket instanceof YNotFixeRacket){
+            } else if (racket instanceof YNotFixeRacket) {
                 shape.getStyleClass().add("ynotfixeracket");
-            }
-            else if (racket instanceof MagnetRacket){
+            } else if (racket instanceof MagnetRacket) {
                 shape.getStyleClass().add("magnetracket");
-            } 
+            }
         } else {
             addTexture();
         }
@@ -100,7 +96,6 @@ public class RacketGraphics {
         shape.setFill(texture);
         shape.setStroke(texture);
     }
-
 
     public Shape getShape() {
         return shape;

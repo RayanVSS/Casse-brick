@@ -1,7 +1,7 @@
 package gui.Menu.MenuViews;
 
-import gui.Menu.Menu;
 import config.StageLevel;
+import gui.Menu.Menu;
 import gui.Menu.MenuControllers.PauseController;
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
@@ -31,13 +31,13 @@ public class PauseView extends VBox implements Menu {
         this.stageLevel = stageLevel;
         this.getStylesheets().add(GameConstants.CSS.getPath());
         this.getStyleClass().add("pause-view");
-        pause=createLabel("Pause", 0, 0);
+        pause = createLabel("Pause", 0, 0);
         pause.getStyleClass().add("title-game-over-style");
         this.btnMenu = createButton("Menu", 0, 0);
         this.btnReplay = createButton("Rejouer", 0, 0);
         this.btnResume = createButton("Reprendre", 0, 0);
         this.btnQuit = createButton("Quitter", 0, 0);
-        this.getChildren().addAll(pause,btnResume,btnReplay,btnMenu, btnQuit);
+        this.getChildren().addAll(pause, btnResume, btnReplay, btnMenu, btnQuit);
         this.setLayoutX(game.getLayoutX());
         this.setLayoutY(game.getLayoutY());
         this.setPrefHeight(game.getHeight());
@@ -75,7 +75,7 @@ public class PauseView extends VBox implements Menu {
         return root;
     }
 
-    public Pane getGameRoot(){
+    public Pane getGameRoot() {
         return gameRoot;
     }
 

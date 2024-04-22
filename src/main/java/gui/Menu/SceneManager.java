@@ -1,8 +1,5 @@
 package gui.Menu;
 
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +9,8 @@ import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import utils.GameConstants;
 
 /**

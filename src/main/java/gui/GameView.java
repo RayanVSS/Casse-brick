@@ -1,14 +1,19 @@
 package gui;
 
-import javafx.animation.*;
+import config.Game;
+import config.StageLevel;
+import gui.GraphicsFactory.FPSGraphics;
+import gui.GraphicsFactory.ScoreLifeGraphics;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import config.*;
-import gui.GraphicsFactory.*;
-import utils.*;
+import utils.GameConstants;
+import utils.Key;
 
 public class GameView {
     private Stage primaryStage;
@@ -25,7 +30,7 @@ public class GameView {
     private ScoreLifeGraphics scoreLifeView;
     // animation
     private AnimationTimer animationTimer;
-    private ImageView separator ;
+    private ImageView separator;
 
     public GameView(Stage p, StageLevel stageLevel) {
         this.primaryStage = p;
@@ -86,20 +91,20 @@ public class GameView {
         animationTimer.start();
     }
 
-    private ImageView setSeparator(){
-        Image image=null;
-        switch(GameConstants.CSS){
+    private ImageView setSeparator() {
+        Image image = null;
+        switch (GameConstants.CSS) {
             case PINK:
-                image=ImageLoader.loadImage("src/main/ressources/lifeScore/pinkSep.png");
+                image = ImageLoader.loadImage("src/main/ressources/lifeScore/pinkSep.png");
             case DARK:
             case BLACK:
             case LIGHT:
-                image=ImageLoader.loadImage("src/main/ressources/lifeScore/blackSep.png");
+                image = ImageLoader.loadImage("src/main/ressources/lifeScore/blackSep.png");
             case ACHROMATOPSIE:
             case DEUTERANOPIE:
             case TRITANOPIE:
             case PROTANOPIE:
-            //TODO: ajouter les images pour les autres thèmes
+                //TODO: ajouter les images pour les autres thèmes
         }
         separator = new ImageView(image);
         double windowHeight = scene.getHeight();

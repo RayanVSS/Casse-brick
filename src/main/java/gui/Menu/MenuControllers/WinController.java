@@ -1,7 +1,6 @@
 package gui.Menu.MenuControllers;
 
 import config.Game;
-import config.StageLevel;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.WinView;
@@ -37,8 +36,9 @@ public class WinController {
     public void next() {
         Platform.runLater(() -> {
             Game.score = 0;
-            int nextStageIndex = view.getLevel().getDifficulty() ;
-            if (nextStageIndex < (PlayerData.stagesProgress.getStages().length-1) && PlayerData.stagesProgress.getStages()[nextStageIndex].canLoadGame()) {
+            int nextStageIndex = view.getLevel().getDifficulty();
+            if (nextStageIndex < (PlayerData.stagesProgress.getStages().length - 1)
+                    && PlayerData.stagesProgress.getStages()[nextStageIndex].canLoadGame()) {
                 new GameView(view.getPrimaryStage(), PlayerData.stagesProgress.getStages()[nextStageIndex]);
             }
         });

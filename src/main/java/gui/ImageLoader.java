@@ -1,10 +1,10 @@
 package gui;
 
-import javafx.scene.image.Image;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
+import javafx.scene.image.Image;
 
 public class ImageLoader {
 

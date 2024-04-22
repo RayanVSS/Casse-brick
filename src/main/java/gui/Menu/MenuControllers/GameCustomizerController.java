@@ -2,22 +2,21 @@ package gui.Menu.MenuControllers;
 
 import config.Game;
 import config.GameRules;
-import config.Map;
-import config.StageLevel;
 import config.GameRules.BricksArrangement;
-import physics.entity.Ball;
+import config.StageLevel;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
 import entity.ball.MagnetBall;
 import entity.racket.ClassicRacket;
 import entity.racket.MagnetRacket;
-import physics.entity.Racket;
 import entity.racket.YNotFixeRacket;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.GameCustomizerView;
 import javafx.application.Platform;
+import physics.entity.Ball;
+import physics.entity.Racket;
 
 public class GameCustomizerController {
 

@@ -1,25 +1,23 @@
 package gui.Menu.MenuViews;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.OptionsController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 import utils.GameConstants;
-import java.util.List;
-import java.util.ArrayList;
-import java.io.File;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.layout.BorderPane;
 
 /**
  * Classe OptionsView qui implémente l'interface Menu pour représenter la vue
@@ -47,8 +45,6 @@ public class OptionsView implements Menu {
     private ComboBox<String> textureComboBox;
     private ImageView textureImageView;
 
-
-
     public final String TEXTURE_FOLDER = "src/main/ressources/Texture";
 
     /**
@@ -64,24 +60,24 @@ public class OptionsView implements Menu {
         VBox v1 = new VBox();
         // Bouton pour afficher les FPS
         Label labelfps = createLabel("Afficher les FPS", 0, 0);
-        if(GameConstants.FPS){
+        if (GameConstants.FPS) {
             buttonfps = createToggleButton("ON", false);
-        }else{
+        } else {
             buttonfps = createToggleButton("OFF", false);
         }
         // Bouton pour afficher le chemin de la balle
         Label labelpath = createLabel("Afficher le chemin de la balle", 0, 0);
-        if(GameConstants.PATH){
+        if (GameConstants.PATH) {
             buttonpath = createToggleButton("ON", false);
-        }else{
+        } else {
             buttonpath = createToggleButton("OFF", false);
         }
 
         // Bouton pour afficher les trainées de particules
         Label labelparticles = createLabel("Afficher les particules", 0, 0);
-        if(GameConstants.PARTICLES){
+        if (GameConstants.PARTICLES) {
             buttonparticles = createToggleButton("ON", false);
-        }else{
+        } else {
             buttonparticles = createToggleButton("OFF", false);
         }
 
@@ -102,7 +98,8 @@ public class OptionsView implements Menu {
         listTheme = new ComboBox<String>();
         listTheme.setPromptText("Choisissez un theme");
 
-        listTheme.getItems().addAll("dark", "pink", "light", "protanopie", "deuteranopie", "tritanopie","achromatopsie","black");
+        listTheme.getItems().addAll("dark", "pink", "light", "protanopie", "deuteranopie", "tritanopie",
+                "achromatopsie", "black");
 
         v2.getChildren().addAll(labelmusic, volumemusic, labelsound, volumesound, labeltheme, listTheme);
 
@@ -123,7 +120,6 @@ public class OptionsView implements Menu {
 
         v3.getChildren().addAll(labelleft, buttonleft, labelright, buttonright, labelpower, buttonpower);
 
-
         VBox v4 = new VBox();
         textureComboBox = new ComboBox<>();
         textureComboBox.getItems().addAll(textureNames);
@@ -134,16 +130,17 @@ public class OptionsView implements Menu {
         }
         textureImageView = new ImageView();
         if (!GameConstants.TEXTURE.equals("Null")) {
-            textureImageView.setImage(new Image(new File(TEXTURE_FOLDER + "/" + GameConstants.TEXTURE).toURI().toString()));
+            textureImageView
+                    .setImage(new Image(new File(TEXTURE_FOLDER + "/" + GameConstants.TEXTURE).toURI().toString()));
         }
-        textureImageView.setFitWidth(100); 
-        textureImageView.setPreserveRatio(true); 
+        textureImageView.setFitWidth(100);
+        textureImageView.setPreserveRatio(true);
 
         // a deplacer dans le controller
         textureComboBox.setOnAction(event -> {
             String selectedTexture = textureComboBox.getValue();
             if (selectedTexture != null) {
-                String texturePath = TEXTURE_FOLDER + "/" +selectedTexture;
+                String texturePath = TEXTURE_FOLDER + "/" + selectedTexture;
                 Image textureImage = new Image(new File(texturePath).toURI().toString());
                 textureImageView.setImage(textureImage);
                 GameConstants.TEXTURE = selectedTexture;
@@ -152,8 +149,6 @@ public class OptionsView implements Menu {
         });
 
         v4.getChildren().addAll(textureComboBox, textureImageView);
-
-        
 
         v1.getStyleClass().add("vbox");
         v2.getStyleClass().add("vbox");
@@ -164,9 +159,7 @@ public class OptionsView implements Menu {
         new OptionsController(p, this);
     }
 
-
-
-     // Méthode pour charger les noms des textures 
+    // Méthode pour charger les noms des textures 
 
     public List<String> loadTextureNames() {
         List<String> textureNames = new ArrayList<>();
@@ -246,6 +239,5 @@ public class OptionsView implements Menu {
     public ImageView getTextureImageView() {
         return textureImageView;
     }
-
 
 }

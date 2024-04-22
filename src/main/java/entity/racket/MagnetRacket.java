@@ -1,12 +1,12 @@
 package entity.racket;
 
-import javafx.scene.input.KeyCode;
-import physics.entity.Racket;
-
 import java.util.Set;
-import utils.GameConstants;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javafx.scene.input.KeyCode;
+import physics.entity.Racket;
+import utils.GameConstants;
 
 public class MagnetRacket extends Racket {
     // etat de la raquette
