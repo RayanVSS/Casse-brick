@@ -1,8 +1,6 @@
 package gui.GraphicsFactory;
 
-import entity.racket.ClassicRacket;
 import entity.racket.MagnetRacket;
-import entity.racket.YNotFixeRacket;
 import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;

@@ -9,13 +9,10 @@ import javafx.stage.Stage;
 import save.PlayerData;
 import save.Sauvegarde;
 import utils.Sound.ClickSound;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SaveController {
     private SaveView view;
     private Sauvegarde sauvegarde = new Sauvegarde();
-    private Map<String, Object> donnees = new HashMap<>();
     private ClickSound click = App.clickSoundPlayer;
 
     public SaveController(Stage p, SaveView view) {
