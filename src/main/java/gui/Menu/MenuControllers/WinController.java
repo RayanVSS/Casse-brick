@@ -1,25 +1,29 @@
 package gui.Menu.MenuControllers;
 
 import config.Game;
-import config.StageLevel;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.WinView;
 import javafx.application.Platform;
 import save.PlayerData;
+import utils.Sound.ClickSound;
 
 public class WinController {
     private WinView view;
+    private ClickSound click = App.clickSoundPlayer;
 
     public WinController(WinView view) {
         this.view = view;
         view.getBtnMenu().setOnAction(e -> {
+            click.play();
             menu();
         });
         view.getBtnQuit().setOnAction(e -> {
+            click.play();
             quit();
         });
         view.getBtnNext().setOnAction(e -> {
+            click.play();
             next();
         });
     }

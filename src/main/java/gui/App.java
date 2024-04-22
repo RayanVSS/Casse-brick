@@ -7,13 +7,20 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import save.PlayerData;
 import save.Sauvegarde;
+import utils.Sound.BallSound;
+import utils.Sound.ClickSound;
+import utils.Sound.GameOverSound;
+import utils.Sound.Music;
 
 public class App extends Application {
 
     protected Stage primaryStage;
     public static SceneManager sceneManager = new SceneManager();
     private Sauvegarde sauvegarde = new Sauvegarde();
-
+    public static ClickSound clickSoundPlayer;
+    public  static GameOverSound gameOverS ;
+    public static Music music ;
+    public static BallSound ballSound;
     @Override
     public void start(Stage p) throws Exception {
         Platform.runLater(new Runnable() {
@@ -22,6 +29,12 @@ public class App extends Application {
                 PlayerData.initPlayerData();
                 // chargement de la derniere sauvegarde
                 sauvegarde.setupLastSave();
+
+                // initialisation des sons
+                clickSoundPlayer = new ClickSound();
+                gameOverS = new GameOverSound();
+                music = new Music();
+                ballSound = new BallSound();
 
                 primaryStage = p;
                 Image icon = new Image("icon.png");

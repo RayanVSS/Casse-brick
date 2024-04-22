@@ -90,30 +90,29 @@
     -fx-background-color: #E1E8ED;
 }
 
-.ball{
-    -fx-fill : #1DA1F2;
+.label-toggle-button-hbox,
+.label-slider-hbox,
+.label-combobox-hbox {
+    -fx-background-color: #E1E8ED;
+    -fx-border-color: BLACK;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 8px;
 }
 
-.hyperball, .ynotfixeracket {
-    -fx-fill: #00308F;
+.label-vbox {
+    -fx-background-color: #E1E8ED;
+    -fx-border-color: BLACK;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 5px;
 }
 
-.gravityball {
-    -fx-fill: #6699CC;
-}
-
-.magnetball {
-    -fx-fill: #5072A7;
-}
-
-.magnetracketpositif {
-    -fx-fill: YELLOW;
-}
-
-.racket {
-    -fx-fill: #1DA1F2;
-}
-
-.magnetracketnegatif {
-    -fx-fill: GREEN;
+.label-vbox-description {
+    -fx-font-size: 13px;
+    -fx-text-fill: Black;
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
 }

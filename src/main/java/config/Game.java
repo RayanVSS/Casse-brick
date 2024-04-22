@@ -6,9 +6,10 @@ import java.util.ArrayList;
 import entity.Boost;
 import physics.entity.Ball;
 import physics.entity.Racket;
-import physics.geometry.Coordinates;
 import utils.GameConstants;
 import entity.ball.MagnetBall;
+import gui.App;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -75,6 +76,8 @@ public class Game {
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
+            App.ballSound.update();
+            App.ballSound.play();
             rules.updateRemainingBounces();
             rules.updateBricksTransparency(map);
             rules.updateBricksUnbreakability(map);

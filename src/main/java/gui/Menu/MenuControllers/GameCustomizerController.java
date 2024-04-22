@@ -2,7 +2,6 @@ package gui.Menu.MenuControllers;
 
 import config.Game;
 import config.GameRules;
-import config.Map;
 import config.StageLevel;
 import config.GameRules.BricksArrangement;
 import physics.entity.Ball;
@@ -13,6 +12,7 @@ import entity.ball.MagnetBall;
 import entity.racket.ClassicRacket;
 import entity.racket.MagnetRacket;
 import physics.entity.Racket;
+import utils.Sound.ClickSound;
 import entity.racket.YNotFixeRacket;
 import gui.App;
 import gui.GameView;
@@ -22,6 +22,7 @@ import javafx.application.Platform;
 public class GameCustomizerController {
 
     private GameCustomizerView gameCustomizerView;
+    private ClickSound click = App.clickSoundPlayer;
 
     public GameCustomizerController(GameCustomizerView gameCustomizerView) {
 
@@ -32,28 +33,46 @@ public class GameCustomizerController {
 
     private void setOptionsBoxRight() {
         gameCustomizerView.getRuleLimitedTime().getToggleButton()
-                .setOnAction(e -> ruleLimitedTimeAction());
+            .setOnAction(e -> {
+                click.play();
+                ruleLimitedTimeAction();
+            });
 
         gameCustomizerView.getRuleLimitedBounces().getToggleButton()
-                .setOnAction(e -> ruleLimitedBouncesAction());
+            .setOnAction(e -> {
+                click.play();
+                ruleLimitedBouncesAction();
+            });
 
         gameCustomizerView.getRuleRandomSwitchBricks().getToggleButton()
-                .setOnAction(e -> gameCustomizerView.getRuleRandomSwitchBricks().updateText());
+            .setOnAction(e -> {
+                click.play();
+                gameCustomizerView.getRuleRandomSwitchBricks().updateText();
+            });
 
         gameCustomizerView.getRuleColorRestricted().getToggleButton()
-                .setOnAction(e -> gameCustomizerView.getRuleColorRestricted().updateText());
+            .setOnAction(e -> {
+                click.play();
+                gameCustomizerView.getRuleColorRestricted().updateText();
+            });
 
         gameCustomizerView.getRuleTransparent().getToggleButton()
-                .setOnAction(e -> gameCustomizerView.getRuleTransparent().updateText());
+            .setOnAction(e -> {
+                click.play();
+                gameCustomizerView.getRuleTransparent().updateText();
+            });
 
         gameCustomizerView.getRuleUnbreakable().getToggleButton()
-                .setOnAction(e -> gameCustomizerView.getRuleUnbreakable().updateText());
+            .setOnAction(e -> {
+                click.play();
+                gameCustomizerView.getRuleUnbreakable().updateText();
+            });
     }
 
     private void ruleLimitedTimeAction() {
         gameCustomizerView.getRuleLimitedTime().updateText();
         gameCustomizerView.getTimeLimit().getSlider()
-                .setDisable(!gameCustomizerView.getRuleLimitedTime().getToggleButton().isSelected());
+            .setDisable(!gameCustomizerView.getRuleLimitedTime().getToggleButton().isSelected());
     }
 
     private void ruleLimitedBouncesAction() {
@@ -63,8 +82,14 @@ public class GameCustomizerController {
     }
 
     private void setActionButtons() {
-        gameCustomizerView.getCreateGame().setOnAction(e -> createGame());
-        gameCustomizerView.getBackButton().setOnAction(e -> back());
+        gameCustomizerView.getCreateGame().setOnAction(e -> {
+            click.play();
+            createGame();
+        });
+        gameCustomizerView.getBackButton().setOnAction(e -> {
+            click.play();
+            back();
+        });
     }
 
     public void createGame() {

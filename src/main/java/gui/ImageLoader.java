@@ -5,19 +5,27 @@ import javafx.scene.image.Image;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class ImageLoader {
 
     private static final Map<String, Image> imageCache = new HashMap<>();
 
+   private static final ExecutorService executorService = Executors.newFixedThreadPool(10);
+
     public static Image loadImage(String imagePath) {
-        if (imageCache.containsKey(imagePath)) {
-            return imageCache.get(imagePath);
-        } else {
-            Image image = new Image(new File(imagePath).toURI().toString());
-            imageCache.put(imagePath, image);
-            return image;
-        }
+        return imageCache.computeIfAbsent(imagePath, key -> {
+            Future<Image> future = executorService.submit(() -> new Image(new File(key).toURI().toString()));
+            try {
+                return future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+            return null;
+        });
     }
 
     public static Image loadImage(String imagePath, int resizeWidth, int resizeHeight) {

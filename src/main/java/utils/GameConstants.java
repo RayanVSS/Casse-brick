@@ -9,10 +9,7 @@ import javafx.scene.paint.Color;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import physics.entity.*;
-import entity.ball.*;
 import entity.racket.*;
-
-import java.util.ArrayList;
 import java.util.Random;
 
 public final class GameConstants {
@@ -98,7 +95,7 @@ public final class GameConstants {
         public static KeyCode LEFT = KeyCode.LEFT;
         public static KeyCode RIGHT = KeyCode.RIGHT;
         public static KeyCode SPACE = KeyCode.SPACE;
-        public static Theme CSS = Theme.DARK;
+        public static Theme CSS = Theme.CLASSIC;
         public static String TEXTURE = "Null"; 
         
         // derniere save

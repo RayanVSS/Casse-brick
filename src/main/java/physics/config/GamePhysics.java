@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import config.Game;
 import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.BricksGraphics;
 import gui.GraphicsFactory.EntityGraphics;
@@ -40,6 +39,7 @@ public class GamePhysics {
         entities.put(ball, new BallGraphics(ball));
         ball.setZoneWidth(500);
         ball.setZoneHeight(500);
+
     }
 
     public void update() {

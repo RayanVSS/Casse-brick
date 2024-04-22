@@ -1,6 +1,7 @@
 package config;
 
 import entity.brick.BrickClassic;
+import gui.App;
 import physics.entity.Ball;
 import physics.entity.Brick;
 import physics.geometry.Coordinates;
@@ -78,8 +79,12 @@ public class Map {
                     targetBrick = bricks[ballBrickX + i][ballBrickY + j];
                     if (!targetBrick.isDestroyed() && ball.intersectBrick(targetBrick)) {
                         if (rules.haveBricksCollisionRules()) { // Application des règles du jeu aux collisions
+                            App.ballSound.update();
+                            App.ballSound.play();
                             handleBricksCollisionRules(targetBrick, ball, rules, i, j);
                         } else {
+                            App.ballSound.update();
+                            App.ballSound.play();
                             handleCollisionDirection(ball, i, j);
                             targetBrick.setDestroyed(true);
                         }

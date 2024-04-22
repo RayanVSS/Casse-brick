@@ -20,7 +20,7 @@ public interface Menu {
     public enum Theme {
         PINK("/styles/pink.css"), 
         LIGHT("/styles/light.css"), 
-        DARK("/styles/dark.css"),
+        CLASSIC("/styles/classic.css"),
         BLACK("/styles/black.css"),
         ACHROMATOPSIE("/styles/achromatopsie.css"),
         DEUTERANOPIE("/styles/deuteranopie.css"),
@@ -121,5 +121,11 @@ public interface Menu {
         slider.setMaxWidth(maxwidth);
         slider.setOrientation(Orientation.HORIZONTAL);
         return slider;
+    }
+
+    default Label createLabel(String text) {
+        Label l=new Label(text);
+        l.getStyleClass().add("scoreL-style");
+        return l;
     }
 }

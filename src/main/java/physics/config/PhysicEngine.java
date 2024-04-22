@@ -17,7 +17,6 @@ import javafx.scene.shape.Shape;
 import java.util.HashSet;
 import java.util.Set;
 
-import config.Game;
 
 import java.util.Map;
 import gui.GraphicsFactory.RacketGraphics;
