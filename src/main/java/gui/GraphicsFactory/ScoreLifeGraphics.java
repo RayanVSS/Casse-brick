@@ -55,31 +55,27 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         scoreText.getStyleClass().add("scoreL-style");
         scoreText.setX(20);
         scoreText.setY(80);
-        maxScore = createLabel("Meilleur score: " + stage.getMaxScore(), 0, 0);
-        maxScore.getStyleClass().add("scoreL-style");
+        maxScore = createLabel("Meilleur score: " + stage.getMaxScore());
         maxScore.setLayoutX(20);
         maxScore.setLayoutY(120);
 
         if (!stage.isCustomGame()) {
-            niveau = createLabel("Niveau: " + (stage.getDifficulty() + 1), 0, 0);
-            niveau.getStyleClass().add("scoreL-style");
+            niveau = createLabel("Niveau: " + (stage.getDifficulty() + 1));
             niveau.setLayoutX(20);
             niveau.setVisible(true);
             setMargin(niveau, new javafx.geometry.Insets(10, 10, 10, 10));
         }
 
         if (rules.isLimitedTime()) {
-            time = createLabel("Temps restant: " + rules.getRemainingTime(), 0, 0);
+            time = createLabel("Temps restant: " + rules.getRemainingTime());
             time.setVisible(true);
-            time.getStyleClass().add("scoreL-style");
             time.setLayoutX(20);
             setMargin(time, new javafx.geometry.Insets(10, 10, 10, 10));
         }
 
         if (rules.isLimitedBounces()) {
-            bounces = createLabel("Rebonds restants: " + rules.getRemainingBounces(), 0, 0);
+            bounces = createLabel("Rebonds restants: " + rules.getRemainingBounces());
             bounces.setVisible(true);
-            bounces.getStyleClass().add("scoreL-style");
             bounces.setLayoutX(20);
             setMargin(bounces, new javafx.geometry.Insets(10, 10, 10, 10));
         }
@@ -100,10 +96,8 @@ public class ScoreLifeGraphics extends VBox implements Menu {
             getChildren().add(time);
         }
         if (rules.isLimitedBounces()) {
-            bounces = createLabel("Bounces: ", 0, 0);
             getChildren().add(bounces);
         }
-
         getStylesheets().add(GameConstants.CSS.getPath());
 
     }

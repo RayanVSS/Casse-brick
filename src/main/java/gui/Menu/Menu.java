@@ -122,4 +122,10 @@ public interface Menu {
         slider.setOrientation(Orientation.HORIZONTAL);
         return slider;
     }
+
+    default Label createLabel(String text) {
+        Label l=new Label(text);
+        l.getStyleClass().add("scoreL-style");
+        return l;
+    }
 }

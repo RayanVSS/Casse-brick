@@ -37,7 +37,6 @@ public class Sound {
     }
 
     public void stop() {
-        System.out.println("MUSIC is stopping.");
         this.getClip().stop();
     }
 
@@ -94,6 +93,7 @@ public class Sound {
             super("src/main/ressources/sound/music.wav");
             this.getClip().loop(Clip.LOOP_CONTINUOUSLY);
             this.update();
+            this.play();
         }
 
         @Override
@@ -113,7 +113,9 @@ public class Sound {
             volumeControl.setValue((float) (Math.log(volumeM) / Math.log(10.0) * 20.0));
             if(volumeM == 0) {
                 this.stop();
-            } 
+            }else if(this.isMute()) {
+                this.play();
+            }
         }
     }
 
