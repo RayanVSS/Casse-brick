@@ -654,3 +654,16 @@ affichage de la racket
 - Améliorer la structure de la partie physique #49
 - Implémenter le fonctionnement et la gestion de plusieurs balles dans le jeu (seulement présent dans la simulation) #54
 
+
+### GUAN Olivier :
+<span style="color:green">**Fait:**</span>
+
+- Résolution de bugs
+- Sauvegarde auto & création de profil temporaire
+- Refactoring & Clean
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finir l'app de démo (en attente du fix sur un prob d'affichage des briques)
+- Recherche de bugs
+
