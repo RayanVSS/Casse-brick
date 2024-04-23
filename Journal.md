@@ -638,3 +638,19 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 - Trouver les sons pour le reste 
 
+### Bencheikh Ilias :
+<span style="color:green">**Fait:**</span>
+- test des différents cas de collisions entre deux balles #55
+- collision entre les balles fini #55
+- Problème de décalage de la balle et de son image réglé
+- amélioration de la simulation
+- amélioration de la structure du code (redeveloppement de la maniere des collision entre entité) #64
+
+<span style="color:purple">**A Faire:**</span>
+
+- Régler le problème de FPS #43
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+- Implémenter le fonctionnement et la gestion de plusieurs balles dans le jeu (seulement présent dans la simulation) #54
+
