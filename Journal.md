@@ -661,6 +661,7 @@ affichage de la racket
 - Résolution de bugs
 - Sauvegarde auto & création de profil temporaire
 - Refactoring & Clean
+- Restructuration des classes des entites, classe interface pour regrouper les entités à affichage graphique 
 
 <span style="color:purple">**A Faire:**</span>
 
