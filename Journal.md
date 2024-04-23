@@ -611,3 +611,30 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 - Bug sur le mode infini a reglé 
 - Modification de l'affichage des briques 
+
+
+## Semaine 8 (23/4):
+
+### Mushtaq Amenah
+<span style="color:green">**Fait:**</span>
+-absente 
+
+<span style="color:purple">**A Faire:**</span>
+- Bug sur le mode infini a reglé 
+- Modification de l'affichage des briques 
+
+### Benmalek Majda
+<span style="color:green">**Fait:**</span>
+- Changement de l'affiche des options
+- Couleur de la raquette adapté au thème
+- Affichage des règles du jeu : temps et rebonds #57
+- Indication des boost/malus sur la raquette
+- Ajout du son #21 :
+    - Ajout du son de : bouton , la balle (collision raquette et brique), gameOver
+    - Ajout d'une musique
+    - Contrôle du niveau sonore adéquat
+    - Ajout de bouton mute pour le son et la musique dans l'écran de pause
+
+<span style="color:purple">**A Faire:**</span>
+- Trouver les sons pour le reste 
+
