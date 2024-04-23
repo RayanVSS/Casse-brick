@@ -40,7 +40,7 @@ public final class GameConstants {
 
         public static final double DEFAULT_WINDOW_WIDTH = 1100.0;
         public static final double DEFAULT_WINDOW_HEIGHT = 800.0;
-        public static final double DEFAULT_GAME_ROOT_WIDTH = DEFAULT_WINDOW_WIDTH - 200.0;
+        public static final double DEFAULT_GAME_ROOT_WIDTH = DEFAULT_WINDOW_WIDTH - 230.0;
 
         // public static final double DEFAULT_WINDOW_WIDTH =
         // Screen.getPrimary().getVisualBounds().getWidth();
