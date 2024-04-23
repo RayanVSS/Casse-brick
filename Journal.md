@@ -667,3 +667,14 @@ affichage de la racket
 - Finir l'app de démo (en attente du fix sur un prob d'affichage des briques)
 - Recherche de bugs
 
+
+### Belhassen rayan
+<span style="color:green">**Fait:**</span>
+- améliorer les colisions des raquettes  
+- application des textures sur les raquettes  
+
+<span style="color:purple">**A Faire:**</span>
+- setup le gradle pour les sauvegardes
+
+
+
