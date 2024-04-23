@@ -576,6 +576,7 @@ affichage de la racket
 
 ### Belhassen Rayan :
 <span style="color:red">**Absent**</span>
+-> Justifié
 
 ### Bencheikh Ilias :
 <span style="color:green">**Fait:**</span>
@@ -677,5 +678,11 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 - setup le gradle pour les sauvegardes
 
+### À faire
 
+Ajouts :
 
+- polir les collisions (la balle slenfonce un peu dans le mur de droite)
+- réfléchir à soutenance (explication modélisation physique et conception objet)
+- préparer belle démo du produit quasi-fini
+- ajouter "tests" pour la soutenance : la balle est directement dans la configuration mettant en évidence le phénomène à démontrer
