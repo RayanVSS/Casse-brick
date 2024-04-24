@@ -1,6 +1,8 @@
 package gui.GraphicsFactory;
 
+
 import config.Game;
+import config.GameRules;
 import config.StageLevel;
 import gui.ImageLoader;
 import gui.Menu.Menu;
@@ -21,17 +23,13 @@ import utils.GameConstants;
  */
 public class ScoreLifeGraphics extends VBox implements Menu {
     private Text scoreText;
-    private int score;
-    private int life;
+    private int score, life;
     private GridPane lifeGrid;
-    private Image lifeOK;
-    private Image lifeKO;
+    private Image lifeOK, lifeKO;
     private ImageView[] lifeImages;
-    private Label niveau;
     private Game game;
-    private Label maxScore;
-    private Label time;
-    private Label bounces;
+    private Label maxScore, time, bounces, niveau;
+    private GameRules rules;
 
     /**
      * Constructeur de ScoreLifeView.
@@ -43,62 +41,63 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         this.game = game;
         score = game.getScore();
         life = game.getLife();
+        rules = game.getRules();
         lifeGrid = new GridPane();
         lifeGrid.setHgap(10);
         lifeGrid.setVgap(10);
         lifeImages = new ImageView[life];
-        System.out.println("life: " + life);
 
         lifeOK = ImageLoader.loadImage(getLifeOkImagePath());
         lifeKO = ImageLoader.loadImage(getLifeKoImagePath());
 
         initializeLifeImages();
         scoreText = new Text("Score: " + score);
+        scoreText.getStyleClass().add("scoreL-style");
         scoreText.setX(20);
         scoreText.setY(80);
-        scoreText.getStyleClass().add("scoreL-style");
-        
-        niveau = createLabel("Niveau: " + (stage.getDifficulty() + 1), 0, 0);
-        niveau.getStyleClass().add("scoreL-style");
-        niveau.setLayoutX(20);
-        niveau.setLayoutY(100);
-
-        maxScore = createLabel("Meilleur score: " + stage.getMaxScore(), 0, 0);
-        maxScore.getStyleClass().add("scoreL-style");
+        maxScore = createLabel("Meilleur score: " + stage.getMaxScore());
         maxScore.setLayoutX(20);
         maxScore.setLayoutY(120);
 
-        if (game.getRules().isLimitedTime()) {
-            time = createLabel("Temps restant: " + game.getRules().getRemainingTime(), 0, 0);
-            time.setVisible(true);
-            time.getStyleClass().add("scoreL-style");
-            time.setLayoutX(20);
-            time.setLayoutY(140);
-            setMargin(time, new javafx.geometry.Insets(10, 10, 10, 10));
-            getChildren().add(time);
+        if (!stage.isCustomGame()) {
+            niveau = createLabel("Niveau: " + (stage.getDifficulty() + 1));
+            niveau.setLayoutX(20);
+            niveau.setVisible(true);
+            setMargin(niveau, new javafx.geometry.Insets(10, 10, 10, 10));
         }
 
-        if (game.getRules().isLimitedBounces()) {
-            bounces = createLabel("Rebonds restants: " + game.getRules().getRemainingBounces(), 0, 0);
+        if (rules.isLimitedTime()) {
+            time = createLabel("Temps restant: " + rules.getRemainingTime());
+            time.setVisible(true);
+            time.setLayoutX(20);
+            setMargin(time, new javafx.geometry.Insets(10, 10, 10, 10));
+        }
+
+        if (rules.isLimitedBounces()) {
+            bounces = createLabel("Rebonds restants: " + rules.getRemainingBounces());
             bounces.setVisible(true);
-            bounces.getStyleClass().add("scoreL-style");
             bounces.setLayoutX(20);
-            bounces.setLayoutY(160);
             setMargin(bounces, new javafx.geometry.Insets(10, 10, 10, 10));
-            getChildren().add(bounces);
         }
 
         setMargin(lifeGrid, new javafx.geometry.Insets(10, 10, 10, 10));
         setMargin(scoreText, new javafx.geometry.Insets(10, 10, 10, 10));
-        setMargin(niveau, new javafx.geometry.Insets(10, 10, 10, 10));
         setMargin(maxScore, new javafx.geometry.Insets(10, 10, 10, 10));
 
         setLayoutX(10);
         setLayoutY(10);
         getChildren().add(lifeGrid);
         getChildren().add(scoreText);
-        getChildren().add(niveau);
         getChildren().add(maxScore);
+        if (!stage.isCustomGame()) {
+            getChildren().add(niveau);
+        }
+        if (rules.isLimitedTime()) {
+            getChildren().add(time);
+        }
+        if (rules.isLimitedBounces()) {
+            getChildren().add(bounces);
+        }
         getStylesheets().add(GameConstants.CSS.getPath());
 
     }
@@ -107,18 +106,15 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         switch (GameConstants.CSS) {
             case PINK:
                 return "src/main/ressources/lifeScore/lifeOKp.png";
-            case DARK:
             case BLACK:
+                return "src/main/ressources/lifeScore/lifeOKw.png";
+            case CLASSIC:
             case LIGHT:
-                return "src/main/ressources/lifeScore/lifeOKb.png";
             case ACHROMATOPSIE:
-                return "src/main/ressources/lifeScore/lifeAchromatopsie+.png";
             case DEUTERANOPIE:
-                return "src/main/ressources/lifeScore/lifeDeuteranopie+.png";
             case TRITANOPIE:
-                return "/src/main/ressourceslifeScore/lifeTritanopie+.png";
             case PROTANOPIE:
-                return "src/main/ressources/lifeScore/lifeProtanopie+.png";
+                return "src/main/ressources/lifeScore/lifeOKb.png";
             default:
                 return null;
         }
@@ -128,18 +124,15 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         switch (GameConstants.CSS) {
             case PINK:
                 return "src/main/ressources/lifeScore/lifeKOp.png";
-            case DARK:
             case BLACK:
+                return "src/main/ressources/lifeScore/lifeKOw.png";
+            case CLASSIC:
             case LIGHT:
-                return "src/main/ressources/lifeScore/lifeKOb.png";
             case ACHROMATOPSIE:
-                return "src/main/ressources/lifeScore/lifeAchromatopsie-.png";
             case DEUTERANOPIE:
-                return "src/main/ressources/lifeScore/lifeDeuteranopie-.png";
             case TRITANOPIE:
-                return "src/main/ressources/lifeScore/lifeTritanopie-.png";
             case PROTANOPIE:
-                return "src/main/ressources/lifeScore/lifeProtanopie-.png";
+                return "src/main/ressources/lifeScore/lifeKOb.png";
             default:
                 return null;
         }
@@ -168,12 +161,12 @@ public class ScoreLifeGraphics extends VBox implements Menu {
     public void update() {
         score = game.getScore();
         life = game.getLife();
-        scoreText.setText("Score: " + score);
-        if (game.getRules().isLimitedTime()) {
-            time.setText("Temps restant: " + game.getRules().getRemainingTime());
+        scoreText.setText(new StringBuilder("Score: ").append(score).toString());
+        if (rules.isLimitedTime()) {
+            time.setText("Temps restant: " + rules.getRemainingTime());
         }
-        if (game.getRules().isLimitedBounces()) {
-            bounces.setText("Rebonds restants: " + game.getRules().getRemainingBounces());
+        if (rules.isLimitedBounces()) {
+            bounces.setText("Rebonds restants: " + rules.getRemainingBounces());
         }
         for (int i = 0; i < lifeImages.length; i++) {
             Image newImage = i < life ? lifeOK : lifeKO;

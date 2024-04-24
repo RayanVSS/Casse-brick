@@ -1,18 +1,18 @@
 package utils;
 
+import java.util.Random;
+
 import config.GameRules;
 import config.GameRules.BricksArrangement;
+import entity.ball.ClassicBall;
+import entity.racket.ClassicRacket;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import physics.entity.Ball;
+import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
-import physics.entity.*;
-import entity.ball.*;
-import entity.racket.*;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public final class GameConstants {
 
@@ -83,8 +83,7 @@ public final class GameConstants {
         public static final int HEIGHT = 20;
         public static final double BONUS_SPEED = 2;
         public static final double BONUS_CHANCE = 0.2;
-        // "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze",
-        // "zhonya","intensityBall"
+        // "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall"
         public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya",
                         "intensityBall" };
         public static final Color COLOR_BONUS = Color.GREEN;
@@ -99,7 +98,7 @@ public final class GameConstants {
         public static KeyCode LEFT = KeyCode.LEFT;
         public static KeyCode RIGHT = KeyCode.RIGHT;
         public static KeyCode SPACE = KeyCode.SPACE;
-        public static Theme CSS = Theme.DARK;
+        public static Theme CSS = Theme.CLASSIC;
         public static String TEXTURE = "Null";
 
         // derniere save

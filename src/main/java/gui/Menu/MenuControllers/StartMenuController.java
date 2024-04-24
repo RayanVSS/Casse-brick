@@ -5,6 +5,7 @@ import gui.App;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import utils.Sound.ClickSound;
 
 /**
  * Classe contrôleur pour le menu de démarrage.
@@ -16,7 +17,7 @@ import javafx.stage.Stage;
  */
 public class StartMenuController {
     private StartMenuView view;
-
+    private ClickSound click=App.clickSoundPlayer;
     /**
      * Constructeur de StartMenuController.
      * 
@@ -25,15 +26,19 @@ public class StartMenuController {
     public StartMenuController(Stage p, StartMenuView view) {
         this.view = view;
         this.view.getBtnPlay().setOnAction(e -> {
+            click.play();
             play();
         });
         this.view.getBtnOptions().setOnAction(e -> {
+            click.play();
             options();
         });
         this.view.getBtnQuit().setOnAction(e -> {
+            click.play();
             quit();
         });
         this.view.getBtnSave().setOnAction(e -> {
+            click.play();
             sauvegarde();
         });
     }

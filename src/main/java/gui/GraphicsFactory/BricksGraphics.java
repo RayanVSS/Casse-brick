@@ -1,5 +1,8 @@
 package gui.GraphicsFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import entity.EntityColor;
 import gui.ImageLoader;
 import javafx.scene.image.Image;
@@ -7,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import physics.entity.Brick;
 import physics.entity.Entity;
-import utils.*;
+import utils.GameConstants;
 
 public class BricksGraphics extends StackPane implements EntityGraphics {
     public ImageView imageView;
@@ -17,6 +20,15 @@ public class BricksGraphics extends StackPane implements EntityGraphics {
     public boolean isUnbreakable;
     public boolean isTransparent;
     private boolean waitingAdded, waitingRemoved;
+
+    private static final Map<EntityColor, String> colorToImageMap;
+
+    static {
+        colorToImageMap = new HashMap<>();
+        colorToImageMap.put(EntityColor.RED, "src/main/ressources/brique.png");
+        colorToImageMap.put(EntityColor.GREEN, "src/main/ressources/briquev.png");
+        colorToImageMap.put(EntityColor.BLUE, "src/main/ressources/briqueb.png");
+    }
 
     public BricksGraphics(Brick brick, int i, int j) {
         Image image;
@@ -38,19 +50,7 @@ public class BricksGraphics extends StackPane implements EntityGraphics {
         if (brick.isUnbreakable()) {
             image = ImageLoader.loadImage("src/main/ressources/briqueii.png");
         } else {
-            switch (c) {
-                case RED:
-                    image = ImageLoader.loadImage("src/main/ressources/brique.png");
-                    break;
-                case GREEN:
-                    image = ImageLoader.loadImage("src/main/ressources/briquev.png");
-                    break;
-                case BLUE:
-                    image = ImageLoader.loadImage("src/main/ressources/briqueb.png");
-                    break;
-                default:
-                    break;
-            }
+            image = ImageLoader.loadImage(colorToImageMap.get(c));
         }
         this.brick = brick;
         this.i = i;
@@ -91,19 +91,7 @@ public class BricksGraphics extends StackPane implements EntityGraphics {
                     getChildren().remove(imageView);
                     Image image = null;
                     if (brick.getColor() != null) {
-                        switch (brick.getColor()) {
-                            case RED:
-                                image = ImageLoader.loadImage("src/main/ressources/brique.png");
-                                break;
-                            case GREEN:
-                                image = ImageLoader.loadImage("src/main/ressources/briquev.png");
-                                break;
-                            case BLUE:
-                                image = ImageLoader.loadImage("src/main/ressources/briqueb.png");
-                                break;
-                            default:
-                                break;
-                        }
+                        image = ImageLoader.loadImage(colorToImageMap.get(brick.getColor()));
                     } else {
                         image = ImageLoader.loadImage("src/main/ressources/briquee.png");
                     }

@@ -1,6 +1,7 @@
 /* LES ROOTS */
-.root, .root-options {
-    -fx-background-color: #ffd7e9;
+.root,
+.root-options {
+    -fx-background-color: #FEE5F2;
     -fx-alignment: center;
     -fx-spacing: 20;
 }
@@ -10,14 +11,15 @@
 }
 
 .game-backgorund {
-    -fx-background-color: #ffd7e9;
+    -fx-background-color: #FEE5F2;
 }
 
-.root-game-over, .pause-view {
+.root-game-over,
+.pause-view {
     -fx-opacity: 0.7;
     -fx-alignment: center;
     -fx-spacing: 20;
-    -fx-background-color: #ffd7e9;
+    -fx-background-color: #FEE5F2;
 }
 
 .vbox {
@@ -33,7 +35,9 @@
 }
 
 /* LES BOUTONS */
-.button-style, .button-hover, .label-style {
+.button-style,
+.button-hover,
+.label-style {
     -fx-font-size: 20px;
 }
 
@@ -41,7 +45,8 @@
     -fx-background-color: #FFB6C1;
 }
 
-.button-style, .label-style {
+.button-style,
+.label-style {
     -fx-text-fill: #C71585;
 }
 
@@ -51,17 +56,21 @@
 }
 
 /* LES TEXTES + LABELS */
-.fin-label{
+.fin-label {
     -fx-font-size: 35px;
     -fx-text-fill: #C71585;
     -fx-font-weight: bold;
 }
-.text-style, .title-style, .title-game-over-style {
+
+.text-style,
+.title-style,
+.title-game-over-style {
     -fx-font-size: 20px;
     -fx-fill: #C71585;
 }
 
-.title-style, .title-game-over-style {
+.title-style,
+.title-game-over-style {
     -fx-font-size: 50;
     -fx-text-fill: #C71585;
     -fx-font-weight: bold;
@@ -79,40 +88,39 @@
 }
 
 .slider-style {
-    -fx-background-color: #ffd7e9;
+    -fx-background-color: #FEE5F2;
 }
 
-.pause-view{
+.pause-view {
     -fx-opacity: 0.7;
     -fx-alignment: center;
     -fx-spacing: 10;
-    -fx-background-color: #ffd7e9;
+    -fx-background-color: #FEE5F2;
 }
 
-.ball{
-    -fx-fill : #FE6E87;
+.label-toggle-button-hbox,
+.label-slider-hbox,
+.label-combobox-hbox {
+    -fx-background-color: #FEE5F2;
+    -fx-border-color: #C71585;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 8px;
 }
 
-.hyperball, .ynotfixeracket {
-    -fx-fill: #E5194C;
+.label-vbox {
+    -fx-background-color: #FEE5F2;
+    -fx-border-color: #C71585;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 5px;
 }
 
-.gravityball {
-    -fx-fill: #8B1039;
-}
-
-.magnetball {
-    -fx-fill: #4E031A;
-}
-
-.magnetracketpositif {
-    -fx-fill: YELLOW;
-}
-
-.racket {
-    -fx-fill: #FE6E87;
-}
-
-.magnetracketnegatif {
-    -fx-fill: GREEN;
+.label-vbox-description {
+    -fx-font-size: 13px;
+    -fx-text-fill: #C71585;
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
 }

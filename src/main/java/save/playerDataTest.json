@@ -1,11 +1,11 @@
 {
   "PATH": false,
-  "MUSIC": 50,
-  "CSS": "DARK",
+  "MUSIC": 0,
+  "CSS": "PINK",
   "MONEY": 0,
   "PARTICLES": true,
   "LEFT": "LEFT",
-  "FPS": false,
+  "FPS": true,
   "PSEUDO": "",
   "SPACE": "SPACE",
   "TEXTURE": "bleu.jpg",
@@ -203,6 +203,6 @@
       }
     ]
   },
-  "SOUND": 50,
+  "SOUND": 52,
   "RIGHT": "RIGHT"
 }

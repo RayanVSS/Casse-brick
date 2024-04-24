@@ -1,8 +1,5 @@
 package gui.Menu;
 
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +10,8 @@ import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
 import gui.Menu.MenuViews.Chapterview;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import utils.GameConstants;
 
 /**
@@ -146,24 +145,5 @@ public class SceneManager {
     public void changeScene(Stage primaryStage, String name) {
         Scene newScene = getScene(name);
         primaryStage.setScene(newScene);
-        // Platform.runLater(() -> {
-        //     if (primaryStage.getScene() != null) {
-        //         // Créer une transition de translation pour la scène actuelle
-        //         TranslateTransition tt = new TranslateTransition(Duration.millis(200), primaryStage.getScene().getRoot());
-        //         tt.setFromX(0);
-        //         tt.setToX(primaryStage.getWidth());
-        //         tt.setOnFinished(event -> {
-        //             primaryStage.setScene(newScene);
-        //             // Créer une transition de translation pour la nouvelle scène
-        //             TranslateTransition tt2 = new TranslateTransition(Duration.millis(200), newScene.getRoot());
-        //             tt2.setFromX(primaryStage.getWidth());
-        //             tt2.setToX(0);
-        //             tt2.play();
-        //         });
-        //         tt.play();
-        //     } else {
-        //         primaryStage.setScene(newScene);
-        //     }
-        // });
     }
 }

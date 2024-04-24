@@ -1,15 +1,15 @@
 package physics.entity;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
-import physics.geometry.Coordinates;
-import physics.geometry.Vector;
-import utils.GameConstants;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import gui.GraphicsFactory.RacketGraphics;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
+import physics.geometry.Coordinates;
+import physics.geometry.Vector;
+import utils.GameConstants;
 
 /***************************************************************************
  * Explication de classe pour la raquette *
@@ -68,6 +68,7 @@ public abstract class Racket {
     public String shape;
     public boolean fixeY;
     public boolean jump;
+    
 
     // boost
     Boolean vitesseP = false;
@@ -77,7 +78,7 @@ public abstract class Racket {
     boolean freeze = false;
     boolean zhonya = false;
     boolean intensityBall = false;
-
+    private long startTimer;
     // varible pour les boosts
     public static boolean StopBall = false;
     public static boolean AddIntensityBall = false;
@@ -95,7 +96,7 @@ public abstract class Racket {
     }
 
     // Collision
-    public boolean CollisionRacket(Coordinates c,String shape) {
+    public boolean CollisionRacket(Coordinates c, String shape) {
         if (shape.equals("rectangle")) {
             return CollisionRectangle(c);
         } else if (shape.equals("triangle")) {
@@ -165,37 +166,43 @@ public abstract class Racket {
         double b2 = 1 - a - b1;
 
         // balle touche triangle
-        if (a > GameConstants.DEGRADERACKET_TOLERANCE && b1 > GameConstants.DEGRADERACKET_TOLERANCE && b2 > GameConstants.DEGRADERACKET_TOLERANCE && b.getDirection().getY()>0) {
+        if (a > GameConstants.DEGRADERACKET_TOLERANCE && b1 > GameConstants.DEGRADERACKET_TOLERANCE
+                && b2 > GameConstants.DEGRADERACKET_TOLERANCE && b.getDirection().getY() > 0) {
             System.out.println(b.getC().getX() + "  " + this.getC().getX() + " " + b.getDirection().getX());
 
-            double changeDirectionN = 1-GameConstants.DEGRADERACKET_CHANGE_DIRECTION;
-            double changeDirectionP = 1+GameConstants.DEGRADERACKET_CHANGE_DIRECTION;
-            
+            double changeDirectionN = 1 - GameConstants.DEGRADERACKET_CHANGE_DIRECTION;
+            double changeDirectionP = 1 + GameConstants.DEGRADERACKET_CHANGE_DIRECTION;
+
             // balle touche le haut du triangle
             if (b.getC().getX() > this.getC().getX() - 10 && b.getC().getX() < this.getC().getX() + 10) {
                 b.getC().setY(b.getC().getY() - b.getRadius());
 
-            // balle touche le cote gauche du triangle
+                // balle touche le cote gauche du triangle
             } else if (b.getC().getX() < this.getC().getX()) {
                 // balle qui va vers la droite
                 if (b.getDirection().getX() > 0) {
-                    b.setDirection(new Vector(0.1+b.getDirection().getX() * changeDirectionN,-0.1+b.getDirection().getY() * changeDirectionP));
-                // balle qui va vers la gauche
+                    b.setDirection(new Vector(0.1 + b.getDirection().getX() * changeDirectionN,
+                            -0.1 + b.getDirection().getY() * changeDirectionP));
+                    // balle qui va vers la gauche
                 } else {
-                    b.setDirection(new Vector(-0.1+b.getDirection().getX() * changeDirectionP,0.1+b.getDirection().getY() * changeDirectionN));
+                    b.setDirection(new Vector(-0.1 + b.getDirection().getX() * changeDirectionP,
+                            0.1 + b.getDirection().getY() * changeDirectionN));
                 }
 
-            // balle touche le cote droit du triangle
+                // balle touche le cote droit du triangle
             } else {
                 // balle qui va vers la droite
                 if (b.getDirection().getX() > 0) {
-                    b.setDirection(new Vector(-0.1+b.getDirection().getX() * changeDirectionP, 0.1+b.getDirection().getY() * changeDirectionN));
-                // balle qui va vers la gauche
+                    b.setDirection(new Vector(-0.1 + b.getDirection().getX() * changeDirectionP,
+                            0.1 + b.getDirection().getY() * changeDirectionN));
+                    // balle qui va vers la gauche
                 } else {
-                    b.setDirection(new Vector(0.1+b.getDirection().getX() * changeDirectionN, -0.1+ b.getDirection().getY() * changeDirectionP));
+                    b.setDirection(new Vector(0.1 + b.getDirection().getX() * changeDirectionN,
+                            -0.1 + b.getDirection().getY() * changeDirectionP));
                 }
             }
-            b.setSpeed(b.getSpeed()*1.1);;
+            b.setSpeed(b.getSpeed() * 1.1);
+            ;
             return true;
         }
         return false;
@@ -223,7 +230,6 @@ public abstract class Racket {
         return false;
     }
 
-
     public boolean CollisionRond(Ball b) {
         double rx = this.getC().getX(); // centre x
         double ry = this.getC().getY(); // centre y
@@ -236,24 +242,23 @@ public abstract class Racket {
         double nx = dx / radiusX;
         double ny = dy / radiusY;
         double distance = Math.sqrt(nx * nx + ny * ny);
-        if (distance < b.getRadius()-0.2) {
+        if (distance < b.getRadius() - 0.2) {
             // Calculer l'angle d'incidence de la balle par rapport à la raquette
             double incidentAngle = Math.atan2(dy, dx);
-    
+
             // Calculer le nouvel angle de rebond en fonction de l'angle d'incidence
             double newAngle = Math.PI + (Math.PI - incidentAngle);
-    
+
             // Mettre à jour la direction de la balle pour refléter le nouvel angle de rebond
-            double newDirectionX = Math.cos(newAngle)*1.1;
-            double newDirectionY = Math.sin(newAngle)*1.1;
+            double newDirectionX = Math.cos(newAngle) * 1.1;
+            double newDirectionY = Math.sin(newAngle) * 1.1;
             b.setDirection(new Vector(newDirectionX, newDirectionY));
-    
+
             return true;
         }
         return false;
     }
-    
-    
+
     public boolean CollisionRond(Coordinates c) {
         double rx = this.getC().getX(); // centre x
         double ry = this.getC().getY(); // centre y
@@ -286,11 +291,12 @@ public abstract class Racket {
         int j = points.length - 2;
         for (int i = 0; i < points.length; i += 2) {
             double px1 = points[i];
-            double py1 = points[i+1];
+            double py1 = points[i + 1];
             double px2 = points[j];
-            double py2 = points[j+1];
+            double py2 = points[j + 1];
 
-            if (((py1 <= cy && cy < py2) || (py2 <= cy && cy < py1)) && (cx < (px2 - px1) * (cy - py1) / (py2 - py1) + px1)) {
+            if (((py1 <= cy && cy < py2) || (py2 <= cy && cy < py1))
+                    && (cx < (px2 - px1) * (cy - py1) / (py2 - py1) + px1)) {
                 return true;
             }
             j = i;
@@ -316,8 +322,8 @@ public abstract class Racket {
             double px2 = points[j];
             double py2 = points[j + 1];
 
-            if (((py1 <= cy && cy < py2) || (py2 <= cy && cy < py1)) && (cx < (px2 - px1) * (cy - py1) / (py2 - py1) + px1)) {
-
+            if (((py1 <= cy && cy < py2) || (py2 <= cy && cy < py1))
+                    && (cx < (px2 - px1) * (cy - py1) / (py2 - py1) + px1)) {
 
                 return true;
             }
@@ -335,6 +341,7 @@ public abstract class Racket {
     // boost VitesseP
     public void startVitesseP(int duration) {
         Timer BoostTimer = new Timer();
+        startTimer = System.currentTimeMillis();
         BoostTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -359,6 +366,7 @@ public abstract class Racket {
     // boost VitesseM
     public void startVitesseM(int duration) {
         Timer BoostTimer = new Timer();
+        startTimer = System.currentTimeMillis();
         BoostTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -382,6 +390,7 @@ public abstract class Racket {
     // boost largeurP
     public void startlargeurP(int duration) {
         Timer BoostTimer = new Timer();
+        startTimer = System.currentTimeMillis();
         BoostTimer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -404,6 +413,7 @@ public abstract class Racket {
 
     // boost longueurM
     public void startLargeurM(int duration) {
+        startTimer = System.currentTimeMillis();
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
             @Override
@@ -427,6 +437,7 @@ public abstract class Racket {
 
     // boost Freeze
     public void startFreeze(int duration, double tmp) {
+        startTimer = System.currentTimeMillis();
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
             @Override
@@ -451,6 +462,7 @@ public abstract class Racket {
 
     // boost Zhonya
     public void startZhonya(int duration) {
+        startTimer = System.currentTimeMillis();
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
             @Override
@@ -474,6 +486,7 @@ public abstract class Racket {
 
     // boost IntensityBall
     public void startIntensityBall(int duration) {
+        startTimer = System.currentTimeMillis();
         Timer BoostTimer = new Timer();
         BoostTimer.schedule(new TimerTask() {
             @Override
@@ -616,4 +629,8 @@ public abstract class Racket {
         return shape;
     }
 
+
+    public long getBoostDuration() {
+        return System.currentTimeMillis() - startTimer;
+    }
 }

@@ -5,11 +5,13 @@ import gui.GameView;
 import gui.Menu.MenuViews.StageSelectorView;
 import javafx.application.Platform;
 import save.PlayerData;
+import utils.Sound.ClickSound;
 
 public class StageSelectorController {
 
     StageSelectorView stageSelectorView;
     private static int chapter;
+    private ClickSound click = App.clickSoundPlayer;
 
     public StageSelectorController(StageSelectorView stageSelectorView) {
         this.stageSelectorView = stageSelectorView;
@@ -17,7 +19,10 @@ public class StageSelectorController {
     }
 
     private void setButtonsAction() {
-        stageSelectorView.getBackButton().setOnAction(e -> back());
+        stageSelectorView.getBackButton().setOnAction(e -> {
+            click.play();
+            back();
+        });
         for (int i = 0; i < stageSelectorView.getButtons().size(); i++) {
             int index = i; // Déclarer une variable locale finale pour stocker la valeur de i
             stageSelectorView.getButtons().get(i).setOnAction(e -> loadGame(index));
@@ -31,9 +36,17 @@ public class StageSelectorController {
     }
 
     private void loadGame(int i) {
+<<<<<<< src/main/java/gui/Menu/MenuControllers/StageSelectorController.java
         System.err.println(i + (chapter * 9));
         if (PlayerData.stagesProgress.getStages()[i + (chapter * 9)].canLoadGame()) {
             new GameView(stageSelectorView.getPrimaryStage(), PlayerData.stagesProgress.getStages()[i + (chapter * 9)]);
+=======
+        if (PlayerData.stagesProgress == null) {
+            PlayerData.initPlayerData();
+        }
+        if (PlayerData.stagesProgress.getStages()[i].canLoadGame()) {
+            new GameView(stageSelectorView.getPrimaryStage(), PlayerData.stagesProgress.getStages()[i]);
+>>>>>>> src/main/java/gui/Menu/MenuControllers/StageSelectorController.java
         }
     }
 

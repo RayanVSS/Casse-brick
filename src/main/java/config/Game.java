@@ -1,16 +1,16 @@
 package config;
 
-import java.util.List;
 import java.util.ArrayList;
-
-import entity.Boost;
-import physics.entity.Ball;
-import physics.entity.Racket;
-import physics.geometry.Coordinates;
-import utils.GameConstants;
-import entity.ball.MagnetBall;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import entity.Boost;
+import entity.ball.MagnetBall;
+import physics.entity.Ball;
+import physics.entity.Racket;
+import utils.GameConstants;
+import gui.App;
 
 public class Game {
 
@@ -75,23 +75,15 @@ public class Game {
         // Si la balle touche la raquette
         if (racket.CollisionRacket(ball)) {
             ball.setCollisionR(true);
-            rules.updateRemainingBounces();
-            rules.updateBricksTransparency(map);
-            rules.updateBricksUnbreakability(map);
-            rules.shuffleBricks(map.getBricks());
+            App.ballSound.update();
+            App.ballSound.play();
+            updateRulesRacket();
         }
         // Gere les conditions de perte
         if (!ball.movement()) {
             life--;
             ball.reset();
             racket.reset();
-        }
-        if (life == 0 || !rules.check()) {
-            lost = true;
-            inGameTimer.cancel();
-        }
-        if (verifyWin()) {
-            win = true;
         }
 
         if (ball instanceof MagnetBall) {
@@ -103,6 +95,24 @@ public class Game {
             } else {
                 ((MagnetBall) ball).setFront(false);
             }
+        }
+        updateGameStatus();
+    }
+
+    private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette
+        rules.updateRemainingBounces();
+        rules.updateBricksTransparency(map);
+        rules.updateBricksUnbreakability(map);
+        rules.shuffleBricks(map.getBricks());
+    }
+
+    private void updateGameStatus() { // Vérifie & MAJ le statut de la Game, gagnée/perdue
+        if (life == 0 || !rules.check()) {
+            lost = true;
+            inGameTimer.cancel();
+        }
+        if (verifyWin()) {
+            win = true;
         }
     }
 

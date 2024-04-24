@@ -1,16 +1,13 @@
+
+//ouvrir le navigateur par défaut
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-
-
-
-//ouvrir le navigateur par défaut
-import java.awt.Desktop;
-import java.net.URI;
-
 
 public class repair_software {
     public static String directoryPath = "src/main/java/save/";
@@ -19,22 +16,20 @@ public class repair_software {
     public static int nombre_corrompu = 0;
     public static Boolean fini = false;
 
-
     // Méthode pour effacer l'écran du terminal
     public static void clearScreen() {
         System.out.print("\033\143");
-        for (int i = 0; i < 50; ++i) System.out.println();
+        for (int i = 0; i < 50; ++i)
+            System.out.println();
     }
 
-
-    public static int nombre_sauvegardes(){
-        return files.length-1;
+    public static int nombre_sauvegardes() {
+        return files.length - 1;
     }
 
-
-    public static void liste_sauvegarde(){
+    public static void liste_sauvegarde() {
         nombre_corrompu = 0;
-        System.out.println("            Liste des sauvegardes ("+ nombre_sauvegardes() + ")");
+        System.out.println("            Liste des sauvegardes (" + nombre_sauvegardes() + ")");
         if (files != null) {
             for (File file : files) {
                 if (file.getName().endsWith(".json")) {
@@ -61,32 +56,32 @@ public class repair_software {
         }
 
     }
-        public static void attendre(int millisecondes){
-            try {
-                for (int i = 0; i < 20; i++) {
-                    System.out.print("[");
-                    for (int j = 0; j < i; j++) {
-                        System.out.print("=");
-                    }
-                    for (int k = i; k < 20; k++) {
-                        System.out.print(" ");
-                    }
-                    System.out.print("] " + ((i + 1) * 5) + "%\r");
-                    TimeUnit.MILLISECONDS.sleep(150); // Attendez 150 millisecondes
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    
 
-    public static void affichage(){
+    public static void attendre(int millisecondes) {
+        try {
+            for (int i = 0; i < 20; i++) {
+                System.out.print("[");
+                for (int j = 0; j < i; j++) {
+                    System.out.print("=");
+                }
+                for (int k = i; k < 20; k++) {
+                    System.out.print(" ");
+                }
+                System.out.print("] " + ((i + 1) * 5) + "%\r");
+                TimeUnit.MILLISECONDS.sleep(150); // Attendez 150 millisecondes
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void affichage() {
         System.out.println("***********************************************");
         System.out.println("***********  REPARATION  LOGICIEL *************");
         System.out.println("***********************************************");
     }
 
-    public static void gestion_corrompu(){
+    public static void gestion_corrompu() {
         System.out.println("voulais-vous supprimer les sauvegardes corrompues ? (oui/non) ");
         Scanner sc = new Scanner(System.in);
         String reponse = sc.nextLine();
@@ -99,11 +94,11 @@ public class repair_software {
                 }
             }
             System.out.println("Suppression en cours...");
-            attendre(150);     
+            attendre(150);
         }
     }
 
-    public static void gestion_sauvegarde(){
+    public static void gestion_sauvegarde() {
         System.out.println("voulais-vous supprimer toutes les sauvegardes ? (oui/non) ");
         Scanner sc = new Scanner(System.in);
         String reponse = sc.nextLine();
@@ -118,15 +113,16 @@ public class repair_software {
         }
     }
 
-    public static void reparation_automatique(){
+    public static void reparation_automatique() {
         //reparation automatique
     }
 
-    public static void reparation_manuelle(){
+    public static void reparation_manuelle() {
         try {
             // URI avec l'URL de Google
-            URI uri = new URI("https://docs.google.com/document/d/1IMw7YGUrqvP2gnF9YBgn0GafSwBWSItgeerTP6hS_WI/edit?usp=sharing");
-            
+            URI uri = new URI(
+                    "https://docs.google.com/document/d/1IMw7YGUrqvP2gnF9YBgn0GafSwBWSItgeerTP6hS_WI/edit?usp=sharing");
+
             //pris en charge et navigateur par défaut est disponible
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 // Ouvrez l'URL 
@@ -140,8 +136,8 @@ public class repair_software {
             e.printStackTrace();
         }
     }
-            
-    public static void action(){
+
+    public static void action() {
         System.out.println("            que voulez-vous faire ? ");
         System.out.println("#1# suprimer toutes les sauvegardes");
         System.out.println("#2# supprimer les sauvegardes corrompues");
@@ -157,7 +153,7 @@ public class repair_software {
                 gestion_sauvegarde();
                 break;
             case "2":
-                gestion_corrompu();  
+                gestion_corrompu();
                 break;
             case "3":
                 reparation_automatique();

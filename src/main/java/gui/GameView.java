@@ -1,14 +1,19 @@
 package gui;
 
-import javafx.animation.*;
+import config.Game;
+import config.StageLevel;
+import gui.GraphicsFactory.FPSGraphics;
+import gui.GraphicsFactory.ScoreLifeGraphics;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import config.*;
-import gui.GraphicsFactory.*;
-import utils.*;
+import utils.GameConstants;
+import utils.Key;
 
 public class GameView {
     private Stage primaryStage;
@@ -25,7 +30,7 @@ public class GameView {
     private ScoreLifeGraphics scoreLifeView;
     // animation
     private AnimationTimer animationTimer;
-    private ImageView separator ;
+    private ImageView separator;
 
     public GameView(Stage p, StageLevel stageLevel) {
         this.primaryStage = p;
@@ -74,6 +79,7 @@ public class GameView {
                     gameRoot.update(deltaT);
                     scoreLifeView.update();
                     scene.getStylesheets().add(GameConstants.CSS.getPath());
+
                 }
                 last = now;
             }
@@ -81,25 +87,23 @@ public class GameView {
         animationTimer.start();
     }
 
-    public void animationStart() {
-        System.out.println("GameView.animationStart()");
-        animationTimer.start();
-    }
-
-    private ImageView setSeparator(){
-        Image image=null;
-        switch(GameConstants.CSS){
+    private ImageView setSeparator() {
+        Image image = null;
+        switch (GameConstants.CSS) {
             case PINK:
-                image=ImageLoader.loadImage("src/main/ressources/lifeScore/pinkSep.png");
-            case DARK:
+                image = ImageLoader.loadImage("src/main/ressources/lifeScore/pinkSep.png");
+                break;
             case BLACK:
+                image = ImageLoader.loadImage("src/main/ressources/lifeScore/whiteSep.png");
+                break;
             case LIGHT:
-                image=ImageLoader.loadImage("src/main/ressources/lifeScore/blackSep.png");
+            case CLASSIC:
             case ACHROMATOPSIE:
             case DEUTERANOPIE:
             case TRITANOPIE:
             case PROTANOPIE:
-            //TODO: ajouter les images pour les autres thèmes
+                image = ImageLoader.loadImage("src/main/ressources/lifeScore/blackSep.png");
+                break;
         }
         separator = new ImageView(image);
         double windowHeight = scene.getHeight();

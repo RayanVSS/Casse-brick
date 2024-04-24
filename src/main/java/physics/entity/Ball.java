@@ -1,9 +1,11 @@
 package physics.entity;
 
 import entity.EntityColor;
-import physics.geometry.*;
-import physics.gui.Preview;
 import physics.config.PhysicSetting;
+import physics.geometry.Coordinates;
+import physics.geometry.Rotation;
+import physics.geometry.Vector;
+import physics.gui.Preview;
 import utils.GameConstants;
 
 /**
