@@ -36,17 +36,13 @@ public class StageSelectorController {
     }
 
     private void loadGame(int i) {
-<<<<<<< src/main/java/gui/Menu/MenuControllers/StageSelectorController.java
-        System.err.println(i + (chapter * 9));
-        if (PlayerData.stagesProgress.getStages()[i + (chapter * 9)].canLoadGame()) {
-            new GameView(stageSelectorView.getPrimaryStage(), PlayerData.stagesProgress.getStages()[i + (chapter * 9)]);
-=======
         if (PlayerData.stagesProgress == null) {
             PlayerData.initPlayerData();
         }
-        if (PlayerData.stagesProgress.getStages()[i].canLoadGame()) {
-            new GameView(stageSelectorView.getPrimaryStage(), PlayerData.stagesProgress.getStages()[i]);
->>>>>>> src/main/java/gui/Menu/MenuControllers/StageSelectorController.java
+        System.err.println(i + (chapter * 9));
+        if (PlayerData.stagesProgress.getStages()[i + (chapter * 9)].canLoadGame()) {
+            new GameView(stageSelectorView.getPrimaryStage(), PlayerData.stagesProgress.getStages()[i + (chapter * 9)]);
+
         }
     }
 
