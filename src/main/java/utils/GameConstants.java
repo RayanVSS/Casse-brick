@@ -2,7 +2,6 @@ package utils;
 
 import config.GameRules;
 import config.GameRules.BricksArrangement;
-import entity.ball.ClassicBall;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -59,9 +58,9 @@ public final class GameConstants {
         public static final int DEFAULT_PARTICLE = 10; // taille de la trainée
 
         // racket
-        //DegradeRacket
+        // DegradeRacket
         public static final double DEGRADERACKET_TOLERANCE = -0.2;
-        public static final double DEGRADERACKET_CHANGE_DIRECTION= 0.3;
+        public static final double DEGRADERACKET_CHANGE_DIRECTION = 0.3;
 
         // boost
         // temps des boosts
@@ -84,8 +83,10 @@ public final class GameConstants {
         public static final int HEIGHT = 20;
         public static final double BONUS_SPEED = 2;
         public static final double BONUS_CHANCE = 0.2;
-        // "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall"
-        public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall" };
+        // "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze",
+        // "zhonya","intensityBall"
+        public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya",
+                        "intensityBall" };
         public static final Color COLOR_BONUS = Color.GREEN;
         public static final Color COLOR_MALUS = Color.RED;
 
@@ -99,8 +100,8 @@ public final class GameConstants {
         public static KeyCode RIGHT = KeyCode.RIGHT;
         public static KeyCode SPACE = KeyCode.SPACE;
         public static Theme CSS = Theme.DARK;
-        public static String TEXTURE = "Null"; 
-        
+        public static String TEXTURE = "Null";
+
         // derniere save
         public static String LAST_SAVE;
 
@@ -111,10 +112,32 @@ public final class GameConstants {
                                                           // (temporairement)
         public static int GR_DEFAULT_QTY_UNBREAKABLE = 5; // quantité par défaut de briques qui deviennent incassables
                                                           // (temporairement)
-        public static final int STAGES_QTY = 9;
+        public static final int CHAPTERS_QTY = 3;
+        public static final int STAGES_QTY = 9 * CHAPTERS_QTY;
 
         // preConfig des parties
         public static GameRules[] PRECONFIG_GAME_RULES = {
+                        // chapter 1
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, true, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true),
+                        new GameRules(BricksArrangement.DEFAULT, true, true, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true),
+                        // chapter 2
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true),
+                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false),
+                        new GameRules(BricksArrangement.DEFAULT, true, false, true, true, true, true),
+                        // chapter 3
                         new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false),
                         new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false),
                         new GameRules(BricksArrangement.DEFAULT, false, true, false, false, false, false),
@@ -126,13 +149,37 @@ public final class GameConstants {
                         new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true) };
 
         // à changer plus tard
-        public static Ball[] PRECONFIG_GAME_BALL = { new ClassicBall(), new ClassicBall(), new ClassicBall(),
-                        new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
-                        new ClassicBall() };
+        public static Ball[] PRECONFIG_GAME_BALL = {
+                        // chapter 1
+                        new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
+                        new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
+                        new ClassicBall(), 
+                        // chapter 2
+                        new MagnetBall(), new MagnetBall(), new MagnetBall(), new MagnetBall(),
+                        new MagnetBall(), new MagnetBall(), new MagnetBall(), new MagnetBall(),
+                        new MagnetBall(), 
+                        // chapter 3
+                        new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
+                        new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
+                        new ClassicBall()
+        };
 
         // à changer plus tard
-        public static Racket[] PRECONFIG_GAME_RACKET = { new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
+        public static Racket[] PRECONFIG_GAME_RACKET = { 
+                        // chapter 1
                         new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
-                        new ClassicRacket(), new ClassicRacket(), };
+                        new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
+                        new ClassicRacket(),
+                        // chapter 2 
+                        new MagnetRacket(), new MagnetRacket(), new MagnetRacket(), new MagnetRacket(),
+                        new MagnetRacket(), new MagnetRacket(), new MagnetRacket(), new MagnetRacket(),
+                        new MagnetRacket(),
+                        // chapter 3
+                        new DegradeRacket(), new DegradeRacket(), new DegradeRacket(), new DegradeRacket(),
+                        new DegradeRacket(), new DegradeRacket(), new DegradeRacket(), new DegradeRacket(),
+                        new DegradeRacket(),
+        
+        
+                };
 
 }
