@@ -27,6 +27,7 @@ public class StageLevel {
 
     public boolean canLoadGame() {
         if (PlayerData.expLevel >= unlockLevel) {
+            System.out.println("Chargement du jeu...");
             if (game == null) {
                 this.game = new Game(
                         GameConstants.PRECONFIG_GAME_BALL[difficulty],

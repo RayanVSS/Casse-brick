@@ -9,6 +9,7 @@ import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
+import gui.Menu.MenuViews.Chapterview;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.GameConstants;
@@ -87,6 +88,7 @@ public class SceneManager {
         createGameModeViewScene(primaryStage);
         createStageSelectorViewScene(primaryStage);
         createGameCustomizerViewScene(primaryStage);
+        createChapterViewScene(primaryStage);
     }
 
     // Les méthodes suivantes créent des scènes spécifiques et les ajoutent à la
@@ -125,6 +127,12 @@ public class SceneManager {
         GameCustomizerView gameCustomizerView = new GameCustomizerView(primaryStage);
         addStylesheet(gameCustomizerView.getScene());
         addScene("GameCustomizerView", gameCustomizerView.getScene());
+    }
+
+    public void createChapterViewScene(Stage primaryStage) {
+        Chapterview chapterView = new Chapterview(primaryStage);
+        addStylesheet(chapterView.getScene());
+        addScene("Chapterview", chapterView.getScene());
     }
 
     /**

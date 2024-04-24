@@ -32,7 +32,7 @@ public class GameModeController {
 
     private void showStages() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(gameModeView.getPrimaryStage(), "StageSelectorView");
+            App.sceneManager.changeScene(gameModeView.getPrimaryStage(), "Chapterview");
         });
     }
 

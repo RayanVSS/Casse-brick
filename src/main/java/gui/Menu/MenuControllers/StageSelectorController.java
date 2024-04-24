@@ -10,6 +10,7 @@ import utils.Sound.ClickSound;
 public class StageSelectorController {
 
     StageSelectorView stageSelectorView;
+    private static int chapter;
     private ClickSound click = App.clickSoundPlayer;
 
     public StageSelectorController(StageSelectorView stageSelectorView) {
@@ -30,7 +31,7 @@ public class StageSelectorController {
 
     private void back() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(stageSelectorView.getPrimaryStage(), "GameModeView");
+            App.sceneManager.changeScene(stageSelectorView.getPrimaryStage(), "Chapterview");
         });
     }
 
@@ -38,8 +39,19 @@ public class StageSelectorController {
         if (PlayerData.stagesProgress == null) {
             PlayerData.initPlayerData();
         }
-        if (PlayerData.stagesProgress.getStages()[i].canLoadGame()) {
-            new GameView(stageSelectorView.getPrimaryStage(), PlayerData.stagesProgress.getStages()[i]);
+        System.err.println(i + (chapter * 9));
+        if (PlayerData.stagesProgress.getStages()[i + (chapter * 9)].canLoadGame()) {
+            new GameView(stageSelectorView.getPrimaryStage(), PlayerData.stagesProgress.getStages()[i + (chapter * 9)]);
+
         }
+    }
+
+    // Getters et Setters
+    public static void setChapter(int chapter) {
+        StageSelectorController.chapter = chapter;
+    }
+
+    public static int getChapter() {
+        return chapter;
     }
 }
