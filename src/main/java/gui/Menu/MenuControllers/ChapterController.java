@@ -3,7 +3,6 @@ package gui.Menu.MenuControllers;
 import gui.Menu.MenuViews.Chapterview;
 import gui.App;
 import javafx.application.Platform;
-import gui.Menu.MenuControllers.StageSelectorController;
 
 public class ChapterController {
 
