@@ -40,7 +40,6 @@ public class WinController {
 
     public void next() {
         Platform.runLater(() -> {
-            Game.score = 0;
             int nextStageIndex = view.getLevel().getDifficulty();
             if (nextStageIndex < (PlayerData.stagesProgress.getStages().length - 1)
                     && PlayerData.stagesProgress.getStages()[nextStageIndex].canLoadGame()) {

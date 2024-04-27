@@ -19,7 +19,7 @@ public class Game {
     private Map map;
     private boolean lost;
     private boolean win;
-    public static int score = 0;
+    private int score = 0;
     private int life = 3;
     private boolean collide;
     private GameRules rules;
@@ -65,7 +65,7 @@ public class Game {
         start();
         //Vérifie si la balle touche une brique
         map.handleCollisionBricks(ball, rules); //gérer la collision des briques
-        if (map.updateBricksStatus()) {
+        if (map.updateBricksStatus(this)) {
             //si la briques est cassée, chance d'avoir un boost
             Boost boost = Boost.createBoost(ball.getC());
             if (boost != null) {
@@ -181,4 +181,9 @@ public class Game {
     public List<Boost> getBoosts() {
         return boosts;
     }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
 }
