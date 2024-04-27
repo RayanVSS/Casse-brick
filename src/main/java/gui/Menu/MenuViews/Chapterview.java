@@ -29,6 +29,7 @@ public class ChapterView implements Menu {
     private Button backButton;
 
     public ChapterView(Stage primaryStage) {
+        
         this.primaryStage = primaryStage;
         root = new VBox(45);
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);// 1100, 800
