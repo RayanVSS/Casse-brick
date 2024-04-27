@@ -85,22 +85,24 @@ public class Boost extends Rectangle {
             case PINK:
             case LIGHT:
             case BLACK:
-                COLOR_BONUS = Color.rgb(57, 255, 20);
-                COLOR_MALUS = Color.rgb(255, 87, 51);
+                COLOR_BONUS = Color.rgb(0, 255, 0);
+                COLOR_MALUS = Color.rgb(255, 0, 0);
                 break;
             case ACHROMATOPSIE:
-                COLOR_BONUS = Color.GREY;
-                COLOR_MALUS = Color.BLACK;
+                COLOR_BONUS = Color.rgb(150, 150, 150);
+                COLOR_MALUS = Color.rgb(10, 10, 10);
                 break;
             case DEUTERANOPIE:
-                COLOR_BONUS = Color.rgb(254,1,154);
-                COLOR_MALUS = Color.rgb(31, 81, 255);
+                COLOR_BONUS = Color.rgb(255, 211, 143);
+                COLOR_MALUS = Color.rgb(162, 122, 0);
                 break;
             case PROTANOPIE:
-                //TODO: eviter le rouge et le vert
+                COLOR_BONUS = Color.rgb(246, 218, 1);
+                COLOR_MALUS = Color.rgb(145, 128, 38);
                 break;
             case TRITANOPIE:
-                //TODO: eviter le vert et le violet 
+                COLOR_BONUS = Color.rgb(112, 236, 255);
+                COLOR_MALUS = Color.rgb(253, 23, 1);
             default:
                 break;
         }

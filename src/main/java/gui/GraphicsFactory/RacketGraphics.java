@@ -26,13 +26,10 @@ public class RacketGraphics {
 	private Image image;
 	private ImagePattern texture;
 	private Color color;
-	private Color FREEZE;
-	private Color LARGEURP;
-	private Color LARGEURM;
-	private Color VITESSEP;
-	private Color VITESSEM;
-	private Color INTENSITYBALL;
-	private Color ZHONYA;
+	private Color BOOST;
+	private Color MALUS;
+	private Color MAGNET_POS;
+	private Color MAGNET_NEG;
 
 	public RacketGraphics(Racket racket, String shapeType) {
 		this.racket = racket;
@@ -117,19 +114,19 @@ public class RacketGraphics {
 		}
 		shape.setStrokeWidth(5);
 		if (racket.getFreeze()) {
-			shape.setStroke(FREEZE);
+			shape.setStroke(MALUS);
 		} else if (racket.getLargeurM()) {
-			shape.setStroke(LARGEURM);
+			shape.setStroke(MALUS);
 		} else if (racket.getLargeurP()) {
-			shape.setStroke(LARGEURP);
+			shape.setStroke(BOOST);
 		} else if (racket.getVitesseP()) {
-			shape.setStroke(VITESSEP);
+			shape.setStroke(BOOST);
 		} else if (racket.getVitesseM()) {
-			shape.setStroke(VITESSEM);
+			shape.setStroke(MALUS);
 		} else if (racket.getIntensityBall()) {
-			shape.setStroke(INTENSITYBALL);
+			shape.setStroke(MALUS);
 		} else if (racket.getZhonya()) {
-			shape.setStroke(ZHONYA);
+			shape.setStroke(BOOST);
 		}
 	}
 
@@ -165,38 +162,45 @@ public class RacketGraphics {
 			case CLASSIC:
 			case LIGHT:
 			case BLACK:
-				FREEZE = Color.rgb(18, 184, 255);
-				LARGEURM = Color.rgb(255, 58, 6);
-				LARGEURP = Color.rgb(127, 255, 212); 
-				VITESSEP = Color.rgb(141, 255, 10);
-				VITESSEM = Color.rgb(252, 94, 49);
-				INTENSITYBALL = Color.rgb(255, 239, 6);
-				ZHONYA = Color.rgb(1, 227, 46);
+				BOOST = Color.rgb(0, 255, 0);
+				MALUS = Color.rgb(255, 0, 0);
+				MAGNET_POS = Color.rgb(255, 255, 0);
+				MAGNET_NEG = Color.rgb(0, 128, 0);
 				break;
 			case ACHROMATOPSIE:
-				//TODO: NUANCE DE GRIS 
-				FREEZE = Color.rgb(165,165,165);
-				LARGEURM = Color.rgb(108,108,108);
-				LARGEURP = Color.rgb(165,165,165);
-				VITESSEP = Color.rgb(221,221,221);
-				VITESSEM = Color.rgb(129,129,129);
-				INTENSITYBALL = Color.rgb(231,231,231);
-				ZHONYA = Color.rgb(187, 187, 187);
-			case DEUTERANOPIE:	
+				BOOST = Color.rgb(150, 150, 150);
+				MALUS = Color.rgb(10, 10, 10);
+				MAGNET_POS = Color.rgb(130, 130, 130);
+				MAGNET_NEG = Color.rgb(40, 40, 40);
+				break;
+			case DEUTERANOPIE:
+				BOOST = Color.rgb(255, 211, 143);
+				MALUS = Color.rgb(162, 122, 0);
+				MAGNET_POS = Color.rgb(255, 246, 233);
+				MAGNET_NEG = Color.rgb(137, 104, 29);
+				break;
 			case PROTANOPIE:
-				//TODO: TOUT SAUF Nuance de : ROUGE ET VERT
-				//TODO: TOUT SAUF Nuance de : ROUGE et VERT
+				BOOST = Color.rgb(246, 218, 1);
+				MALUS = Color.rgb(145, 128, 38);
+				MAGNET_POS = Color.rgb(255, 247, 216);
+				MAGNET_NEG = Color.rgb(123, 110, 0);
+				break;
 			case TRITANOPIE:
-				//TODO: TOUT SAUF Nuance de : VERT ET VIOLET
+				BOOST = Color.rgb(112, 236, 255);
+				MALUS = Color.rgb(253, 23, 1);
+				MAGNET_POS = Color.rgb(255, 244, 249);
+				MAGNET_NEG = Color.rgb(54, 118, 129);
+				break;
 			default:
+				break;
 		}
 	}
 
 	public void magnetPosColor() {
-		shape.setFill(Color.YELLOW);
+		shape.setFill(MAGNET_POS);
 	}
 
 	public void magnetNegColor() {
-		shape.setFill(Color.GREEN);
+		shape.setFill(MAGNET_NEG);
 	}
 }
