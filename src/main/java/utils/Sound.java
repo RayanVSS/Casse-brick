@@ -128,4 +128,29 @@ public class Sound {
             this.update();
         }
     }
+
+    public static class BonusSound extends Sound {
+        public BonusSound() {
+            super("src/main/ressources/sound/bonus.wav");
+            this.update();
+        }
+    }
+
+    public static class MalusSound extends Sound {
+        public MalusSound() {
+            super("src/main/ressources/sound/malus.wav");
+            this.update();
+        }
+    }
+
+    public static class LevelUpSound extends Sound {
+        public LevelUpSound() {
+            super("src/main/ressources/sound/levelUp.wav");
+            this.update();
+        }
+    }
+
+
+
+
 }

@@ -107,6 +107,21 @@ public class GameRoot {
             Boost boost = iterator.next();
             if (boost.move(game.getRacket().CollisionRacket(boost.getC(), game.getRacket().getShapeType()),
                     game.getRacket())) {
+                switch (boost.getType()) {
+                    case "vitesseP":
+                    case "largeurP":
+                    case "zhonya":
+                        App.bonusSound.play();
+                        break;
+                    case "intensityBall":
+                    case "freeze":
+                    case "vitesseM":
+                    case "largeurM":
+                        App.malusSound.play();
+                        break;
+                    default:
+                        break;
+                }
                 root.getChildren().remove(boost);
                 iterator.remove();
             } else {
