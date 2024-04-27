@@ -44,6 +44,7 @@ public class StageLevel {
     public void resetGame() {
         game.getBall().reset();
         game.getRacket().reset();
+        game.getRules().reset();
         game = new Game(
                 GameConstants.PRECONFIG_GAME_BALL[difficulty],
                 GameConstants.PRECONFIG_GAME_RACKET[difficulty],

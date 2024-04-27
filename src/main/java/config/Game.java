@@ -44,7 +44,7 @@ public class Game {
         rules.initRules(this);
     }
 
-    public void start() {
+    private void start() {
         if (inGameTimer == null) {
             inGameTimer = new Timer();
             inGameTimer.scheduleAtFixedRate(new TimerTask() {
@@ -58,6 +58,7 @@ public class Game {
     }
 
     public void stop() {
+        inGameTimer.cancel();
         inGameTimer = null;
     }
 
