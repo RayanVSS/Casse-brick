@@ -95,7 +95,7 @@ public class OptionsView implements Menu {
         LabelVBox labelVBox = new LabelVBox("Musique & Themes", 12);
         volumeMusic = new LabelSliderHBox("Musique", 0, 100, 50, false, 1);
         volumeSound = new LabelSliderHBox("Sons", 0, 100, 50, false, 1);
-        String[] themes = { "Classic", "Black", "Light", "Pink" };
+        String[] themes = { "Classic", "Black", "Light", "Pink", "Achromatopsie", "Deuteranopie", "Protanopie", "Tritanopie" };
         String name = GameConstants.CSS.name();
         String capitalizedPath = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
         theme = new LabelComboBoxHBox(capitalizedPath, themes, capitalizedPath);

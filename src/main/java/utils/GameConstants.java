@@ -5,7 +5,6 @@ import config.GameRules.BricksArrangement;
 import entity.ball.ClassicBall;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import physics.entity.*;
@@ -40,7 +39,7 @@ public final class GameConstants {
 
         public static final double DEFAULT_WINDOW_WIDTH = 1100.0;
         public static final double DEFAULT_WINDOW_HEIGHT = 800.0;
-        public static final double DEFAULT_GAME_ROOT_WIDTH = DEFAULT_WINDOW_WIDTH - 230.0;
+        public static final double DEFAULT_GAME_ROOT_WIDTH = DEFAULT_WINDOW_WIDTH - 235.0;
 
         // public static final double DEFAULT_WINDOW_WIDTH =
         // Screen.getPrimary().getVisualBounds().getWidth();
@@ -83,8 +82,6 @@ public final class GameConstants {
         public static final double BONUS_CHANCE = 0.2;
         // "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall"
         public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall" };
-        public static final Color COLOR_BONUS = Color.GREEN;
-        public static final Color COLOR_MALUS = Color.RED;
 
         // Options du jeu
         public static boolean FPS = false;

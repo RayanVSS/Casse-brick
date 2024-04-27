@@ -1,5 +1,6 @@
 package entity;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
@@ -9,16 +10,19 @@ public class Boost extends Rectangle {
     private String[] typesList = GameConstants.BONUS_LIST;
     private String type;
     private Coordinates c;
+    private Color COLOR_BONUS;
+    private Color COLOR_MALUS;
 
     public Boost(Coordinates c) {
         super(c.getX(), c.getY(), GameConstants.WIDTH, GameConstants.HEIGHT);
         type = getRandomType();
         this.c = new Coordinates(c.getX() + (GameConstants.HEIGHT / 2), c.getY() + GameConstants.HEIGHT);
         // couleur du boost
+        color();
         if (type.equals("vitesseP") || type.equals("largeurP") || type.equals("zhonya")) {
-            setFill(GameConstants.COLOR_BONUS);
+            setFill(COLOR_BONUS);
         } else {
-            setFill(GameConstants.COLOR_MALUS);
+            setFill(COLOR_MALUS);
         }
     }
 
@@ -72,6 +76,34 @@ public class Boost extends Rectangle {
         }
         return null;
 
+    }
+
+    // Couleur du boost
+    private void color() {
+        switch (GameConstants.CSS) {
+            case CLASSIC:
+            case PINK:
+            case LIGHT:
+            case BLACK:
+                COLOR_BONUS = Color.rgb(57, 255, 20);
+                COLOR_MALUS = Color.rgb(255, 87, 51);
+                break;
+            case ACHROMATOPSIE:
+                COLOR_BONUS = Color.GREY;
+                COLOR_MALUS = Color.BLACK;
+                break;
+            case DEUTERANOPIE:
+                COLOR_BONUS = Color.rgb(254,1,154);
+                COLOR_MALUS = Color.rgb(31, 81, 255);
+                break;
+            case PROTANOPIE:
+                //TODO: eviter le rouge et le vert
+                break;
+            case TRITANOPIE:
+                //TODO: eviter le vert et le violet 
+            default:
+                break;
+        }
     }
 
     private String getRandomType() {

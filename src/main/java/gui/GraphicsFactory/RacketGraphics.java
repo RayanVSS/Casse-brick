@@ -26,18 +26,26 @@ public class RacketGraphics {
 	private Image image;
 	private ImagePattern texture;
 	private Color color;
+	private Color FREEZE;
+	private Color LARGEURP;
+	private Color LARGEURM;
+	private Color VITESSEP;
+	private Color VITESSEM;
+	private Color INTENSITYBALL;
+	private Color ZHONYA;
 
 	public RacketGraphics(Racket racket, String shapeType) {
 		this.racket = racket;
 		this.shapeType = shapeType;
 		setShape();
+		getStrokeColor();
 		// Ajout de la texture
 		if (!GameConstants.TEXTURE.equals("Null")) {
 			image = ImageLoader.loadImage("src/main/ressources/Texture/" + GameConstants.TEXTURE);
 			texture = new ImagePattern(image);
 			shape.setFill(texture);
-			//shape.setStroke(texture);
-		}else{
+			// shape.setStroke(texture);
+		} else {
 			color();
 			shape.setFill(color);
 		}
@@ -108,25 +116,21 @@ public class RacketGraphics {
 			}
 		}
 		shape.setStrokeWidth(5);
-		// TODO: changer les couleurs
 		if (racket.getFreeze()) {
-			shape.setStroke(Color.rgb(165, 197, 217));
+			shape.setStroke(FREEZE);
 		} else if (racket.getLargeurM()) {
-			shape.setStroke(Color.rgb(255, 0, 0));
+			shape.setStroke(LARGEURM);
 		} else if (racket.getLargeurP()) {
-			shape.setStroke(Color.rgb(76, 187, 23) );
+			shape.setStroke(LARGEURP);
 		} else if (racket.getVitesseP()) {
-			shape.setStroke(Color.rgb(64, 130, 109) );
+			shape.setStroke(VITESSEP);
 		} else if (racket.getVitesseM()) {
-			shape.setStroke(Color.rgb(255, 0, 0));
+			shape.setStroke(VITESSEM);
 		} else if (racket.getIntensityBall()) {
-			shape.setStroke(Color.rgb(102, 66, 77) );
+			shape.setStroke(INTENSITYBALL);
 		} else if (racket.getZhonya()) {
-			shape.setStroke(Color.rgb(144, 238, 144) );
+			shape.setStroke(ZHONYA);
 		}
-		// if(color != null){
-		// 	shape.setFill(color);
-		// }
 	}
 
 	public Color color() {
@@ -153,6 +157,39 @@ public class RacketGraphics {
 				break;
 		}
 		return color;
+	}
+
+	private void getStrokeColor() {
+		switch (GameConstants.CSS) {
+			case PINK:
+			case CLASSIC:
+			case LIGHT:
+			case BLACK:
+				FREEZE = Color.rgb(18, 184, 255);
+				LARGEURM = Color.rgb(255, 58, 6);
+				LARGEURP = Color.rgb(127, 255, 212); 
+				VITESSEP = Color.rgb(141, 255, 10);
+				VITESSEM = Color.rgb(252, 94, 49);
+				INTENSITYBALL = Color.rgb(255, 239, 6);
+				ZHONYA = Color.rgb(1, 227, 46);
+				break;
+			case ACHROMATOPSIE:
+				//TODO: NUANCE DE GRIS 
+				FREEZE = Color.rgb(165,165,165);
+				LARGEURM = Color.rgb(108,108,108);
+				LARGEURP = Color.rgb(165,165,165);
+				VITESSEP = Color.rgb(221,221,221);
+				VITESSEM = Color.rgb(129,129,129);
+				INTENSITYBALL = Color.rgb(231,231,231);
+				ZHONYA = Color.rgb(187, 187, 187);
+			case DEUTERANOPIE:	
+			case PROTANOPIE:
+				//TODO: TOUT SAUF Nuance de : ROUGE ET VERT
+				//TODO: TOUT SAUF Nuance de : ROUGE et VERT
+			case TRITANOPIE:
+				//TODO: TOUT SAUF Nuance de : VERT ET VIOLET
+			default:
+		}
 	}
 
 	public void magnetPosColor() {
