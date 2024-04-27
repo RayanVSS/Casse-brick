@@ -576,6 +576,7 @@ affichage de la racket
 
 ### Belhassen Rayan :
 <span style="color:red">**Absent**</span>
+-> Justifié
 
 ### Bencheikh Ilias :
 <span style="color:green">**Fait:**</span>
@@ -611,3 +612,77 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 - Bug sur le mode infini a reglé 
 - Modification de l'affichage des briques 
+
+
+## Semaine 8 (23/4):
+
+### Mushtaq Amenah
+<span style="color:green">**Fait:**</span>
+-absente 
+
+<span style="color:purple">**A Faire:**</span>
+- Bug sur le mode infini a reglé 
+- Modification de l'affichage des briques 
+
+### Benmalek Majda
+<span style="color:green">**Fait:**</span>
+- Changement de l'affiche des options
+- Couleur de la raquette adapté au thème
+- Affichage des règles du jeu : temps et rebonds #57
+- Indication des boost/malus sur la raquette
+- Ajout du son #21 :
+    - Ajout du son de : bouton , la balle (collision raquette et brique), gameOver
+    - Ajout d'une musique
+    - Contrôle du niveau sonore adéquat
+    - Ajout de bouton mute pour le son et la musique dans l'écran de pause
+
+<span style="color:purple">**A Faire:**</span>
+- Trouver les sons pour le reste 
+
+### Bencheikh Ilias :
+<span style="color:green">**Fait:**</span>
+- test des différents cas de collisions entre deux balles #55
+- collision entre les balles fini #55
+- Problème de décalage de la balle et de son image réglé
+- amélioration de la simulation
+- amélioration de la structure du code (redeveloppement de la maniere des collision entre entité) #64
+
+<span style="color:purple">**A Faire:**</span>
+
+- Régler le problème de FPS #43
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+- Implémenter le fonctionnement et la gestion de plusieurs balles dans le jeu (seulement présent dans la simulation) #54
+
+
+### GUAN Olivier :
+<span style="color:green">**Fait:**</span>
+
+- Résolution de bugs
+- Sauvegarde auto & création de profil temporaire
+- Refactoring & Clean
+- Restructuration des classes des entites, classe interface pour regrouper les entités à affichage graphique 
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finir l'app de démo (en attente du fix sur un prob d'affichage des briques)
+- Recherche de bugs
+
+
+### Belhassen rayan
+<span style="color:green">**Fait:**</span>
+- améliorer les colisions des raquettes  
+- application des textures sur les raquettes  
+
+<span style="color:purple">**A Faire:**</span>
+- setup le gradle pour les sauvegardes
+
+### À faire
+
+Ajouts :
+
+- polir les collisions (la balle slenfonce un peu dans le mur de droite)
+- réfléchir à soutenance (explication modélisation physique et conception objet)
+- préparer belle démo du produit quasi-fini
+- ajouter "tests" pour la soutenance : la balle est directement dans la configuration mettant en évidence le phénomène à démontrer

@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import physics.entity.Brick;
 import physics.entity.Entity;
-import utils.*;
+import utils.GameConstants;
 
 public class BricksGraphics extends StackPane implements EntityGraphics {
     public ImageView imageView;
