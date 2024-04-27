@@ -12,7 +12,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import physics.config.PhysicEngine;
 import physics.config.PhysicSetting;
-import utils.GameConstants;
 
 public class AppPhysic extends Application {
     
@@ -25,7 +24,7 @@ public class AppPhysic extends Application {
     public void start(Stage p) throws Exception {
         this.primaryStage = p;
         root = new StackPane();
-        scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
+        scene = new Scene(root, PhysicSetting.DEFAULT_WINDOW_WIDTH, PhysicSetting.DEFAULT_WINDOW_HEIGHT);
         root.setStyle("-fx-background-color: #273654;");
         primaryStage.setTitle("Physic Engine");
         primaryStage.setScene(scene);

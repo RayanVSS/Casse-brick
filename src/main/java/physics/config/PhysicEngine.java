@@ -40,9 +40,6 @@ import utils.Key;
 public class PhysicEngine {
 
     //Initialisation des objets
-    
-    public static double f_WIDTH = PhysicSetting.DEFAULT_WINDOW_WIDTH;
-    public static double d_WIDTH = 0;
     public static boolean PATH=true; 
     public static boolean RACKET=true;
     
@@ -65,7 +62,6 @@ public class PhysicEngine {
     public static boolean Pause = false;
 
     public PhysicEngine(Stage pStage, AppPhysic appPhysic) {
-
         clear();
 
         // Initialisation de la fenetre
@@ -185,7 +181,7 @@ public class PhysicEngine {
             @Override
             public boolean movement() {
                 double h = PhysicSetting.DEFAULT_WINDOW_HEIGHT;
-                double w = f_WIDTH;
+                double w = PhysicSetting.DEFAULT_WINDOW_WIDTH;
                 double newX = this.getX() + this.getDirection().getX() * this.getSpeed() ;
                 double newY = this.getY() + this.getDirection().getY() * this.getSpeed() ;
                 if (CollisionR) {
@@ -224,20 +220,21 @@ public class PhysicEngine {
                         }
                     }
                 }   
-                if (newX < d_WIDTH || newX > w - this.getRadius()) {
+                else if (newX < 0 || newX > w - this.getRadius()) {
                     this.getDirection().setX(-this.getDirection().getX());
                     this.getDirection().setY(this.getDirection().getY()+(this.getRotation().getAngle())/90*this.getDirection().getY());
                     this.getRotation().Collision();
                     newX = this.getX() + this.getDirection().getX() * this.getSpeed();
                     this.getDirection().setX(this.getDirection().getX() * physics.getRetention());
                 }
-                if (newY < 0 || newY > h - this.getRadius()) {
+                else if (newY < 0 || newY > h - this.getRadius()) {
                     this.getDirection().setY(-this.getDirection().getY()
                             + (this.getRotation().getAngle()) / 90 * this.getDirection().getY());
                     this.getRotation().Collision();
                     newY = this.getY() + this.getDirection().getY() * this.getSpeed();
                     this.getDirection().setY(this.getDirection().getY() * physics.getRetention());
                 }
+                
                 this.setC(new Coordinates(newX, newY));
                 this.getDirection().add(physics.getWind());
                 physics.checkGravity(this.getC(), this.getDirection());
@@ -270,11 +267,11 @@ public class PhysicEngine {
             public void handleKeyPress(Set<KeyCode> keysPressed) {
                 for (KeyCode key : keysPressed) {
                     if(key==KeyCode.LEFT){
-                        if (this.mX() > -largeur / 2 + d_WIDTH)
+                        if (this.mX() > -largeur / 2 )
                             this.mX(this.mX() - speed);
                     }
                     if(key==KeyCode.RIGHT){
-                        if (this.mX() < f_WIDTH - longueur - 70)
+                        if (this.mX() < PhysicSetting.DEFAULT_WINDOW_WIDTH - longueur - 70)
                             this.mX(this.mX() + speed);
                     }
                 }
@@ -325,7 +322,7 @@ public class PhysicEngine {
 
         g.setOnMouseDragged(event -> {
             if (g.IsMouseDraggingBall() && !optionBar.isBar()) {
-                if(event.getSceneX() > d_WIDTH+b.getRadius() && event.getSceneX() < f_WIDTH-b.getRadius() && event.getSceneY() > b.getRadius() && event.getSceneY() < PhysicSetting.DEFAULT_WINDOW_HEIGHT-b.getRadius()){
+                if(event.getSceneX() > b.getRadius() && event.getSceneX() < PhysicSetting.DEFAULT_WINDOW_WIDTH-b.getRadius() && event.getSceneY() > b.getRadius() && event.getSceneY() < PhysicSetting.DEFAULT_WINDOW_HEIGHT-b.getRadius()){
                     b.getC().setX(event.getSceneX());
                     b.getC().setY(event.getSceneY());
                 }
@@ -353,8 +350,6 @@ public class PhysicEngine {
     }
 
     public void clear(){
-        f_WIDTH = PhysicSetting.DEFAULT_WINDOW_WIDTH;
-        d_WIDTH = 0;
         direction.clear();
         Pause = false;
         BougePColision = false;

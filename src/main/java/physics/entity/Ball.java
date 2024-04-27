@@ -10,6 +10,8 @@ import physics.config.PhysicSetting;
 import utils.GameConstants;
 import java.util.Set;
 
+import org.checkerframework.checker.units.qual.g;
+
 /**
  * Classe Balle
  * 
@@ -238,9 +240,9 @@ public abstract class Ball extends Entity {
         }
         return false;
     }
-
     public void checkCollisionOtherBall(Ball b) {
         if (!CollisionB) {
+            double temp=0;
             // gestion de la collision entre les balles en X
             boolean collisionX1 = getX()+radius>=b.getC().getX()-b.getRadius() && getX()-radius<b.getC().getX()+b.getRadius();
             boolean collisionX2 = b.getX()+b.getRadius()>=getX()-radius && b.getX()-b.getRadius()<getX()+radius;
@@ -250,40 +252,61 @@ public abstract class Ball extends Entity {
             boolean collisionY2 = b.getY()+b.getRadius()>=getY()-radius && b.getY()-b.getRadius()<getY()+radius ;
             boolean collisionYX = (getX()+radius>=b.getX()-b.getRadius() && getX()-radius<b.getX()+b.getRadius()) || (b.getX()+b.getRadius()>=getX()-radius && b.getX()-b.getRadius()<getX()+radius);
             if((collisionX1||collisionX2) && collisionXY){
-                if(getDirection().getX() >= 0 && b.getDirection().getX() <= 0){
-                    getDirection().setX(b.getDirection().getX());
-                    b.getDirection().setX(getDirection().getX());
+                /*if(getDirection().getX() >= 0 && b.getDirection().getX() <= 0 || getDirection().getX() <= 0 && b.getDirection().getX() >= 0){
+                    temp=(b.getMass()*-b.getDirection().getX()+getMass()*getDirection().getX())/2;
+                    getDirection().setX(-temp);
+                    b.getDirection().setX(-temp);
                 }
                 else if(getDirection().getX() >= 0 && b.getDirection().getX() >= 0){
-                    getDirection().setX(-getDirection().getX());
-                    b.getDirection().setX(Math.max(getDirection().getX(), b.getDirection().getX()));
+                    temp=getDirection().getX()*getMass();
+                    getDirection().setX(temp-b.getDirection().getX()*b.getMass());
+                    b.getDirection().setX(b.getDirection().getX()+temp);
                 }
                 else if(getDirection().getX() <= 0 && b.getDirection().getX() <= 0){
-                    getDirection().setX(Math.max(getDirection().getX(), b.getDirection().getX()));
-                    b.getDirection().setX(-b.getDirection().getX());
+                    temp=b.getDirection().getX()*b.getMass();
+                    b.getDirection().setX(temp-getDirection().getX());
+                    getDirection().setX(temp+getDirection().getX());
                 }
+                else if(getDirection().getX()==0 || b.getDirection().getX()==0){
+                    getDirection().setX(-b.getDirection().getX());
+                    b.getDirection().setX(-getDirection().getX());
+                }*/
+                temp=b.getDirection().getX()*b.getMass();
+                b.getDirection().setX(getDirection().getX()*getMass());
+                getDirection().setX(temp);
                 CollisionB = true;
                 b.CollisionB=true;
             }
-            else if((collisionY1 || collisionY2) && collisionYX){
-                if(getDirection().getY() >= 0 && b.getDirection().getY() <= 0){
-                    getDirection().setY(b.getDirection().getY());
-                    b.getDirection().setY(getDirection().getY());
+            if((collisionY1 || collisionY2) && collisionYX){
+                /*
+                if(getDirection().getY() >= 0 && b.getDirection().getY() <= 0 || getDirection().getY() <= 0 && b.getDirection().getY() >= 0){
+                    temp=(b.getMass()*-b.getDirection().getY()+getMass()*getDirection().getY())/2;
+                    getDirection().setY(-temp);
+                    b.getDirection().setY(-temp);
                 }
                 else if(getDirection().getY() >= 0 && b.getDirection().getY() >= 0){
-                    getDirection().setY(-getDirection().getY());
-                    b.getDirection().setY(Math.max(getDirection().getY(), b.getDirection().getY()));
+                    temp=getDirection().getY()*getMass();
+                    getDirection().setY(temp-b.getDirection().getY()*b.getMass());
+                    b.getDirection().setY(temp+b.getDirection().getY());
                 }
                 else if(getDirection().getY() <= 0 && b.getDirection().getY() <= 0){
-                    getDirection().setY(Math.max(getDirection().getY(), b.getDirection().getY()));
-                    b.getDirection().setY(-b.getDirection().getY());
+                    temp=b.getDirection().getY()*b.getMass();
+                    b.getDirection().setY(temp-getDirection().getY());
+                    getDirection().setY(temp+getDirection().getY());
                 }
+                else if(getDirection().getY()==0 || b.getDirection().getY()==0){
+                    getDirection().setY(-b.getDirection().getY());
+                    b.getDirection().setY(-getDirection().getY());
+                }*/
+                temp=b.getDirection().getY()*b.getMass();
+                b.getDirection().setY(getDirection().getY()*getMass());
+                getDirection().setY(temp);
                 CollisionB = true;
                 b.CollisionB=true;
             }
         }
     }
-    
+
     public void checkCollision(Segment s){
         double x1 = s.getStart().getX();
         double y1 = s.getStart().getY();
@@ -310,5 +333,9 @@ public abstract class Ball extends Entity {
             getDirection().setX(getDirection().getX() - d * nx);
             getDirection().setY(getDirection().getY() - d * ny);
         }
+    }
+
+    public double getMass(){
+        return physicSetting.getMass();
     }
 }

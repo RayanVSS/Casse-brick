@@ -105,7 +105,7 @@ public class OptionBar {
         button2.setLayoutY(190);
 
         button2.setOnAction(e->{
-            if(map.size()<5){
+            if(map.size()<10){
                 Ball b2 = PhysicEngine.init_ball();
                 Integer nb = random.nextInt(list_image.size());
                 BallGraphics ballg = new BallGraphics(list_image.get(nb),b2);

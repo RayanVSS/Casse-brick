@@ -13,10 +13,6 @@ import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
-import java.util.Map;
-import java.util.Set;
-
-import gui.GraphicsFactory.BallGraphics;
 
 /***************************************************************************
  *                  Explication de classe Preview  :  
@@ -59,7 +55,7 @@ public class Preview {
 
     public void trajectory(){
         double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
-        double w = PhysicEngine.f_WIDTH;
+        double w = PhysicSetting.DEFAULT_WINDOW_WIDTH;
         double newX = c_trajectory.getX() + d_trajectory.getX() * ball.getSpeed() ;
         double newY = c_trajectory.getY() + d_trajectory.getY() * ball.getSpeed() ;
         if (CollisionR) {
@@ -67,7 +63,7 @@ public class Preview {
             newY = c_trajectory.getY() + d_trajectory.getY()*ball.getSpeed();
             CollisionR = false;
         }
-        if (newX < PhysicEngine.d_WIDTH || newX > w - ball.getRadius()) {
+        if (newX < 0 || newX > w - ball.getRadius()) {
             d_trajectory.setX(-d_trajectory.getX());
             d_trajectory.setY(d_trajectory.getY()+(ball.getRotation().getEffect()/90)*d_trajectory.getY());
             newX = c_trajectory.getX() + d_trajectory.getX()*ball.getSpeed();
@@ -185,11 +181,11 @@ public class Preview {
             compt = b.getPreview().getdt()-1;
         }
         for(int i = compt; i<50; i++){
-            double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
-            double w = PhysicEngine.f_WIDTH;
+            double h = PhysicSetting.DEFAULT_WINDOW_HEIGHT;
+            double w = PhysicSetting.DEFAULT_WINDOW_WIDTH;
             double newX = c.getX() + d.getX() * b.getSpeed() ;
             double newY = c.getY() + d.getY() * b.getSpeed() ;
-            if (newX < PhysicEngine.d_WIDTH || newX > w - b.getRadius()) {
+            if (newX < 0 || newX > w - b.getRadius()) {
                 d.setX(-d.getX());
                 newX = c.getX() + d.getX()*b.getSpeed();
             }

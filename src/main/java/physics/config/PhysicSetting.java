@@ -59,7 +59,7 @@ public class PhysicSetting {
     private boolean Gravity = false;
     private double Gravite = 0.1;
     private double Mass = 1;
-    private final double stop_bounce = 0.3;
+    private final double stop_bounce = 0.02;
     private double retention = 1;
     private final double friction_sol = 0.1;
     private final double friction_air = 0.01;
@@ -71,7 +71,7 @@ public class PhysicSetting {
     };
 
     public PhysicSetting(){
-        Radius = GameConstants.DEFAULT_BALL_RADIUS/2;
+        Radius = GameConstants.DEFAULT_BALL_RADIUS;
         this.Wind = vectorWind(Speed_Wind, Direction_Wind);
         DEFAULT_WINDOW_HEIGHT = 800.0;
         DEFAULT_WINDOW_WIDTH = 1100.0;
@@ -82,7 +82,6 @@ public class PhysicSetting {
         this.Radius = R;
         DEFAULT_WINDOW_HEIGHT = HEIGHT;
         DEFAULT_WINDOW_WIDTH = WIDTH;
-        DEFAULT_WINDOW_WIDTH = 1100.0;
         DEFAULT_BALL_START_COORDINATES=new Coordinates(DEFAULT_WINDOW_WIDTH/ 2, DEFAULT_WINDOW_HEIGHT / 2);
     }
 
@@ -112,26 +111,15 @@ public class PhysicSetting {
         }
         if (c.getY() < DEFAULT_WINDOW_WIDTH - Radius) {
             d.setY(d.getY() + Gravite*Mass);
-        } else {
-            if (d.getY() > stop_bounce) {
-                d.setY(-d.getY()* retention);
-            } else {
-                if (Math.abs(d.getY()) <= stop_bounce) {
-                    d.setY(0);
-                }
-            }
-            if ((c.getX() < Radius && d.getX() < 0) || (c.getX() > GameConstants.DEFAULT_WINDOW_WIDTH - Radius && d.getX() > 0)) {
-                d.setX(-d.getX()* retention);
-                if (Math.abs(d.getX()) < stop_bounce) {
-                    d.setX(0);
-                }
-            }
-            if (d.getY() == 0 && d.getX() != 0) {
-                if (d.getX() > 0) {
-                    d.setX(d.getX()-friction_sol);
-                } else if (d.getX() < 0) {
-                    d.setX(d.getX()+friction_sol);
-                }
+        }
+        if(DEFAULT_WINDOW_HEIGHT-c.getY()-Radius<stop_bounce){
+            d.setY(0);
+        }
+        if (d.getY() == 0 && d.getX() != 0) {
+            if (d.getX() > 0) {
+                d.setX(d.getX()-friction_sol);
+            } else if (d.getX() < 0) {
+                d.setX(d.getX()+friction_sol);
             }
         }
     }
@@ -284,5 +272,18 @@ public class PhysicSetting {
     public void setWindow(double width, double height){
         DEFAULT_WINDOW_WIDTH = width;
         DEFAULT_WINDOW_HEIGHT = height;
+    }
+
+    public static void quantiteMouvement(Ball b1,Ball b2){
+        double v1 = Math.sqrt(b1.getDirection().getX()*b1.getDirection().getX() + b1.getDirection().getY()*b1.getDirection().getY());
+        double v2 = Math.sqrt(b2.getDirection().getX()*b2.getDirection().getX() + b2.getDirection().getY()*b2.getDirection().getY());
+        double m1 = b1.getMass();
+        double m2 = b2.getMass();
+        double v1f = (m1*v1 + m2*v2 - m2*(v1-v2))/(m1+m2);
+        double v2f = (m1*v1 + m2*v2 - m1*(v1-v2))/(m1+m2);
+        b1.getDirection().setX(v1f*b1.getDirection().getX()/v1);
+        b1.getDirection().setY(v1f*b1.getDirection().getY()/v1);
+        b2.getDirection().setX(v2f*b2.getDirection().getX()/v2);
+        b2.getDirection().setY(v2f*b2.getDirection().getY()/v2);
     }
 }

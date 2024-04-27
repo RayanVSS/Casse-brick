@@ -79,4 +79,39 @@ public class Vector {
         x = other.x;
         y = other.y;
     }
+
+    public Vector multiply2(double scalar) {
+        return new Vector(x * scalar, y * scalar);
+    }
+
+    public double magnitude() {
+        return Math.sqrt(x * x + y * y);
+    }
+
+    public Vector normalize2(){
+        double length = Math.sqrt(x * x + y * y); // Calcul de la longueur du vecteur
+        if (length != 0) {
+            return new Vector(x/length, y/length);
+        }
+        return new Vector(0,0);
+    }
+
+    public Vector add2(Vector other) {
+        return new Vector(x + other.x, y + other.y);
+    }
+
+    public Vector substract2(Vector other) {
+        return new Vector(x - other.x, y - other.y);
+    }
+
+    public double dot(Vector other) {
+        return x * other.x + y * other.y;
+    }
+
+    public Vector divide2(double scalar) {
+        if (scalar != 0) {
+            return new Vector(x / scalar, y / scalar);
+        }
+        return new Vector(0,0);
+    }
 }

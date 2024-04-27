@@ -32,8 +32,8 @@ public class BallGraphics extends ImageView implements EntityGraphics{
         setImageAndProperties();
         setX(ball.getC().getX());
         setY(ball.getC().getY());
-        setScaleX(ball.getRadius());
-        setScaleY(ball.getRadius());
+        setScaleX(ball.getRadius()/5);
+        setScaleY(ball.getRadius()/5);
     }
 
     public BallGraphics(Image i,Ball ball) {
@@ -41,22 +41,25 @@ public class BallGraphics extends ImageView implements EntityGraphics{
         setImage(i);
         currentImage = i;
         if(i==null){
-            setImage(physicBall,currentImage);
+            currentImage=new Image(physicBall);
+            setImage(currentImage);
         }
-        setFitWidth(ball.getRadius());
-        setFitHeight(ball.getRadius());
-        setPreserveRatio(true);
-        setCache(true);
+        setFitWidth(ball.getRadius()/3);
+        setFitHeight(ball.getRadius()/3);
         setX(ball.getC().getX());
         setY(ball.getC().getY());
-        setScaleX(ball.getRadius());
-        setScaleY(ball.getRadius());
+        setScaleX(ball.getRadius()/2);
+        setScaleY(ball.getRadius()/2);
         waitingAdded = true;
     }
+
     public void update() {
-        setX(ball.getC().getX() - ball.getRadius());
-        setY(ball.getC().getY() - ball.getRadius());
+        setX(ball.getC().getX());
+        setY(ball.getC().getY());
+        setScaleX(ball.getRadius()/2);
+        setScaleY(ball.getRadius()/2);
         updateImageAndProperties();
+        setRotate(getRotate()+ball.getRotation().getAngle()/10);
     }
 
     private void setImageAndProperties() {
@@ -175,8 +178,7 @@ public class BallGraphics extends ImageView implements EntityGraphics{
     private void setImage(String imagePath,Image image) {
         image = ImageLoader.loadImage(imagePath);
         setImage(image);
-    
-        setFitWidth(ball.getRadius()*2);
+        setFitWidth(ball.getRadius());
         setPreserveRatio(true);
         setSmooth(true);
     }
