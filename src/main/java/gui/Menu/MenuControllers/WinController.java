@@ -40,10 +40,12 @@ public class WinController {
 
     public void next() {
         Platform.runLater(() -> {
-            int nextStageIndex = view.getLevel().getDifficulty();
+            int nextStageIndex = view.getLevel().getDifficulty() + 1;
             if (nextStageIndex < (PlayerData.stagesProgress.getStages().length - 1)
                     && PlayerData.stagesProgress.getStages()[nextStageIndex].canLoadGame()) {
                 new GameView(view.getPrimaryStage(), PlayerData.stagesProgress.getStages()[nextStageIndex]);
+            } else {
+                // Boite erreur, tous les lvl finis
             }
         });
     }
