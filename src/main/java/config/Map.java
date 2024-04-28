@@ -13,9 +13,11 @@ public class Map {
 
     private Brick[][] bricks;
     private GameRules rules;
+    private Game game;
 
-    public Map(GameRules rules, int columnsBricks, int rowsBricks) {
+    public Map(GameRules rules, int columnsBricks, int rowsBricks,Game game ) {
         this.rules = rules;
+        this.game = game;
         initBricks(columnsBricks, rowsBricks);
     }
 
@@ -133,7 +135,7 @@ public class Map {
             for (int j = 0; j < bricks[0].length; j++) {
                 if (bricks[i][j] != null && bricks[i][j].isDestroyed()) {
                     bricks[i][j] = null;
-                    Game.score += 10;
+                    game.setScore(game.getScore()+10); 
                     destroyed = true;
                 }
             }

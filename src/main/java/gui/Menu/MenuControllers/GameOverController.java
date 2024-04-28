@@ -20,10 +20,10 @@ public class GameOverController {
     /**
      * Constructeur de GameOverController.
      * @param p Le stage principal sur lequel la vue de fin de partie est affichée.
-     * @param gameView La vue de fin de partie.
+     * @param view La vue de fin de partie.
      */
-    public GameOverController(GameOverView gameView) {
-        this.view = gameView;
+    public GameOverController(GameOverView view) {
+        this.view = view;
         this.view.getBtnReplay().setOnAction(e -> {
             click.play();
             replay();
@@ -43,7 +43,6 @@ public class GameOverController {
      */
     private void replay() {
         Platform.runLater(() -> {
-            Game.score = 0;
             if (view.getGame().getStageLevel().isCustomGame()) {
                 view.getGame().getStageLevel().getGameReinitializer().createGame();
             } else {

@@ -19,7 +19,7 @@ public class Game {
     private Map map;
     private boolean lost;
     private boolean win;
-    public static int score = 0;
+    private int score = 0;
     private int life = 3;
     private boolean collide;
     private GameRules rules;
@@ -31,7 +31,7 @@ public class Game {
         this.ball = ball;
         this.racket = racket;
         this.rules = rules;
-        this.map = new Map(rules, GameConstants.COLUMNS_OF_BRICKS, GameConstants.ROWS_OF_BRICKS);
+        this.map = new Map(rules, GameConstants.COLUMNS_OF_BRICKS, GameConstants.ROWS_OF_BRICKS,this);
         rules.initRules(this);
     }
 
@@ -40,7 +40,7 @@ public class Game {
         this.racket = racket;
         this.life = life;
         this.rules = rules;
-        this.map = new Map(rules, columnsBricks, rowsBricks);
+        this.map = new Map(rules, columnsBricks, rowsBricks,this);
         rules.initRules(this);
     }
 
@@ -154,6 +154,9 @@ public class Game {
         return score;
     }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
     public int getLife() {
         return life;
     }

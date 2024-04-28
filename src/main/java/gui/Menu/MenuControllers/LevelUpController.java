@@ -3,16 +3,16 @@ package gui.Menu.MenuControllers;
 import config.Game;
 import gui.App;
 import gui.GameView;
-import gui.Menu.MenuViews.WinView;
+import gui.Menu.MenuViews.LevelUpView;
 import javafx.application.Platform;
 import save.PlayerData;
 import utils.Sound.ClickSound;
 
-public class WinController {
-    private WinView view;
+public class LevelUpController {
+    private LevelUpView view;
     private ClickSound click = App.clickSoundPlayer;
 
-    public WinController(WinView view) {
+    public LevelUpController(LevelUpView view) {
         this.view = view;
         view.getBtnMenu().setOnAction(e -> {
             click.play();
@@ -40,7 +40,6 @@ public class WinController {
 
     public void next() {
         Platform.runLater(() -> {
-            Game.score = 0;
             int nextStageIndex = view.getLevel().getDifficulty();
             if (nextStageIndex < (PlayerData.stagesProgress.getStages().length - 1)
                     && PlayerData.stagesProgress.getStages()[nextStageIndex].canLoadGame()) {

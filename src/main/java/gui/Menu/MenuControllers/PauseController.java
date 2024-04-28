@@ -54,7 +54,6 @@ public class PauseController {
         view.getStageLevel().resetGame();
         view.getChildren().clear();
         this.timer.cancel();
-        Game.score = 0;
         new GameView(view.getPrimaryStage(), view.getStageLevel());
     }
 

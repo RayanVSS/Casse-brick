@@ -48,7 +48,6 @@ public class StartMenuController {
      */
     private void play() {
         Platform.runLater(() -> {
-            Game.score = 0;
             App.sceneManager.changeScene(view.getPrimaryStage(), "GameModeView");
         });
 

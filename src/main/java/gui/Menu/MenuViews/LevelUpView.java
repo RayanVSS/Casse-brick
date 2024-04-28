@@ -3,14 +3,14 @@ package gui.Menu.MenuViews;
 import config.StageLevel;
 import gui.GameView;
 import gui.Menu.Menu;
-import gui.Menu.MenuControllers.WinController;
+import gui.Menu.MenuControllers.LevelUpController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
-public class WinView extends VBox implements Menu {
+public class LevelUpView extends VBox implements Menu {
 
     private Stage primaryStage;
     private GameView game;
@@ -20,7 +20,7 @@ public class WinView extends VBox implements Menu {
     private Button btnNext;
     private Label win;
 
-    public WinView(Stage p, GameView game, StageLevel level) {
+    public LevelUpView(Stage p, GameView game, StageLevel level) {
 
         this.primaryStage = p;
         this.game = game;
@@ -42,11 +42,11 @@ public class WinView extends VBox implements Menu {
 
         if (level.getDifficulty() < GameConstants.STAGES_QTY - 1) {
             level.winAction();
-            new WinController(this);
+            new LevelUpController(this);
         } else {
             finDuJeu();
         }
-        new WinController(this);
+        new LevelUpController(this);
     }
 
     public void finDuJeu() {
