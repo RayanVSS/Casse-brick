@@ -1,7 +1,9 @@
 /* LES ROOTS */
-.root, .root-options {
-    -fx-background-color: #000000;
+.root,
+.root-options {
+    -fx-background-color: #808080;
     -fx-alignment: center;
+    -fx-spacing: 20;
 }
 
 .root-options {
@@ -9,14 +11,15 @@
 }
 
 .game-backgorund {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #FFFFFF;
 }
 
-.root-game-over, .pause-view {
+.root-game-over,
+.pause-view {
     -fx-opacity: 0.7;
     -fx-alignment: center;
-    -fx-spacing: 10;
-    -fx-background-color: #5a5a5a;
+    -fx-spacing: 20;
+    -fx-background-color: #808080;
 }
 
 .vbox {
@@ -32,66 +35,92 @@
 }
 
 /* LES BOUTONS */
-.button-style, .button-hover, .label-style, .slider-style {
+.button-style,
+.button-hover,
+.label-style {
     -fx-font-size: 20px;
 }
 
-.button-style, .slider-style {
-    -fx-background-color: #ffffff;
+.button-style {
+    -fx-background-color: #B3B3B3;
 }
 
-.button-style, .label-style {
+.button-style,
+.label-style{
     -fx-text-fill: #000000;
 }
 
 .button-hover {
-    -fx-background-color: #666666;
-    -fx-text-fill: #1b263b;
+    -fx-background-color: #D9D9D9;
+    -fx-text-fill: #000000;
 }
 
 /* LES TEXTES + LABELS */
-.text-style, .title-style, .title-game-over-style {
-    -fx-font-size: 20px;
-    -fx-fill: #6e6e6e;
+.fin-label{
+    -fx-font-size: 35px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
 }
 
-.title-style, .title-game-over-style {
+.text-style,
+.title-style,
+.title-game-over-style {
+    -fx-font-size: 20px;
+    -fx-fill: #000000;
+}
+
+.title-style,
+.title-game-over-style {
     -fx-font-size: 50;
-    -fx-text-fill: #b3b3b3;
+    -fx-text-fill: #000000;
     -fx-font-weight: bold;
 }
 
 .scoreL-style {
-    -fx-font-size: 25px;
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000;
+}
+
+.title-game-over-style {
+    -fx-font-size: 50px;
+    -fx-text-fill: #000000;
     -fx-font-weight: bold;
-    -fx-fill: #1b263b;
 }
 
-/* ELEMENTS DU JEU */
-.ball {
-    -fx-fill: black;
+.slider-style {
+    -fx-background-color: #808080;
 }
 
-.hyperball, .ynotfixeracket {
-    -fx-fill: #000000;
+.pause-view {
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-background-color: #808080;
 }
 
-.gravityball {
-    -fx-fill: #000000;
+.label-toggle-button-hbox,
+.label-slider-hbox,
+.label-combobox-hbox {
+    -fx-background-color: #808080;
+    -fx-border-color: #B3B3B3;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 8px;
 }
 
-.magnetball {
-    -fx-fill: #000000;
+.label-vbox {
+    -fx-background-color: #B3B3B3;
+    -fx-border-color: #D9D9D9;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 5px;
 }
 
-.magnetracketpositif {
-    -fx-fill: rgb(0, 0, 0);
-}
-
-.racket {
-    -fx-fill: #000000;
-}
-
-.magnetracketnegatif {
-    -fx-fill: rgb(113, 113, 113);
+.label-vbox-description {
+    -fx-font-size: 13px;
+    -fx-text-fill: #000000;
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
 }

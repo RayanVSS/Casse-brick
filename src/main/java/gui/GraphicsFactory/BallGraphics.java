@@ -1,159 +1,88 @@
 package gui.GraphicsFactory;
 
 import utils.GameConstants;
-import entity.ball.ClassicBall;
-import entity.ball.GravityBall;
-import entity.ball.HyperBall;
-import entity.ball.MagnetBall;
+import entity.ball.*;
 import gui.ImageLoader;
+import gui.Menu.Menu.Theme;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import physics.entity.Ball;
 import physics.entity.Entity;
 
-public class BallGraphics extends ImageView implements EntityGraphics {
-    private static String POSITIF_BALL;
-    private static String NEGATIF_BALL;
-    private static String RED_BALL = ("src/main/ressources/balle/red.png");
-    private static String GREEN_BALL = ("src/main/ressources/balle/green.png");
-    private static String BLUE_BALL = ("src/main/ressources/balle/blue.png");
+public class BallGraphics extends Circle implements EntityGraphics {
+    private static final String IMAGE_PATH = "src/main/ressources/balle/";
+    private static final String POSITIF_BALL = "positif.png";
+    private static final String NEGATIF_BALL = "negatif.png";
+    private static final String RED_BALL = IMAGE_PATH + "red.png";
+    private static final String GREEN_BALL = IMAGE_PATH + "green.png";
+    private static final String BLUE_BALL = IMAGE_PATH + "blue.png";
 
     private Ball ball;
     private Image currentImage;
     private boolean waitingAdded, waitingRemoved;
 
     public BallGraphics(Ball ball) {
+        super(ball.getRadius());
         this.ball = ball;
         setImageAndProperties();
-        setX(ball.getC().getX() - ball.getRadius());
-        setY(ball.getC().getY() - ball.getRadius());
+        setCenterX(ball.getC().getX());
+        setCenterY(ball.getC().getY());
         waitingAdded = true;
     }
 
     public void update() {
-        setX(ball.getC().getX() - ball.getRadius());
-        setY(ball.getC().getY() - ball.getRadius());
+        setCenterX(ball.getC().getX());
+        setCenterY(ball.getC().getY());
         updateImageAndProperties();
     }
 
     private void setImageAndProperties() {
-        switch (GameConstants.CSS) {
-            case PINK:
-                setPinkImage();
-                break;
-            case CLASSIC:
-                setClassicImage();
-                break;
-            case LIGHT:
-                setLightImage();
-                break;
-            case BLACK:
-                setBlackImage();
-                break;
-            case ACHROMATOPSIE:
-            case DEUTERANOPIE:
-            case PROTANOPIE:
-                setLightImage();
-                break;
-            default:
-                setClassicImage();
-                break;
+        setImageBasedOnCSS(GameConstants.CSS);
+    }
+
+    private void setImageBasedOnCSS(Theme css) {
+        String imagePath = IMAGE_PATH + css.getName().toLowerCase() + "/";
+        if (ball instanceof ClassicBall) {
+            setImage(imagePath + "classic.png");
+        } else if (ball instanceof HyperBall) {
+            setImage(imagePath + "hyper.png");
+        } else if (ball instanceof GravityBall) {
+            setImage(imagePath + "gravity.png");
+        } else if (ball instanceof MagnetBall) {
+            setImage(imagePath + ((MagnetBall) ball).getEtat().equals("positif") != null ? POSITIF_BALL : NEGATIF_BALL);
         }
     }
 
     private void updateImageAndProperties() {
         if (ball instanceof MagnetBall) {
-            Image newImage = null;
-            setImage((((MagnetBall) ball).getEtat().equals("positif") ? POSITIF_BALL : NEGATIF_BALL), newImage);
-            if (newImage != currentImage) {
-                currentImage = newImage;
-                setImage(currentImage);
-            }
+            String newImagePath = ((MagnetBall) ball).getEtat().equals("positif") ? POSITIF_BALL : NEGATIF_BALL;
+            setImage(newImagePath);
         }
         if (ball.getColor() != null) {
-            Image newImage = null;
             switch (ball.getColor()) {
                 case RED:
-                    setImage(RED_BALL, newImage);
+                    setImage(RED_BALL);
                     break;
                 case GREEN:
-                    setImage(GREEN_BALL, newImage);
+                    setImage(GREEN_BALL);
                     break;
                 case BLUE:
-                    setImage(BLUE_BALL, newImage);
+                    setImage(BLUE_BALL);
                     break;
                 default:
-                    newImage = currentImage;
-            }
-            if (newImage != currentImage) {
-                currentImage = newImage;
-                setImage(currentImage);
+                    break;
             }
         }
     }
 
-    private void setPinkImage() {
-        if (ball instanceof ClassicBall) {
-            setImage("src/main/ressources/balle/pink/classic.png", currentImage);
-        } else if (ball instanceof HyperBall) {
-            setImage("src/main/ressources/balle/pink/hyper.png", currentImage);
-        } else if (ball instanceof GravityBall) {
-            setImage("src/main/ressources/balle/pink/gravity.png", currentImage);
-        } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ("src/main/ressources/balle/pink/positif.png");
-            NEGATIF_BALL = ("src/main/ressources/balle/pink/negatif.png");
-            setImage(POSITIF_BALL, currentImage);
+    private void setImage(String imagePath) {
+        Image newImage = ImageLoader.loadImage(imagePath);
+        if (newImage != currentImage) {
+            currentImage = newImage;
+            ImagePattern imagePattern = new ImagePattern(currentImage);
+            this.setFill(imagePattern);
         }
-    }
-
-    private void setClassicImage() {
-        if (ball instanceof ClassicBall) {
-            setImage("src/main/ressources/balle/classic/classic.png", currentImage);
-        } else if (ball instanceof HyperBall) {
-            setImage("src/main/ressources/balle/classic/hyper.png", currentImage);
-        } else if (ball instanceof GravityBall) {
-            setImage("src/main/ressources/balle/classic/gravity.png", currentImage);
-        } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ("src/main/ressources/balle/classic/positif.png");
-            NEGATIF_BALL = ("src/main/ressources/balle/classic/negatif.png");
-            setImage(POSITIF_BALL, currentImage);
-        }
-    }
-
-    private void setLightImage() {
-        if (ball instanceof ClassicBall) {
-            setImage("src/main/ressources/balle/light/classic.png", currentImage);
-        } else if (ball instanceof HyperBall) {
-            setImage("src/main/ressources/balle/light/hyper.png", currentImage);
-        } else if (ball instanceof GravityBall) {
-            setImage("src/main/ressources/balle/light/gravity.png", currentImage);
-        } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ("src/main/ressources/balle/light/positif.png");
-            NEGATIF_BALL = ("src/main/ressources/balle/light/negatif.png");
-            setImage(POSITIF_BALL, currentImage);
-        }
-    }
-
-    private void setBlackImage() {
-        if (ball instanceof ClassicBall) {
-            setImage("src/main/ressources/balle/black/classic.png", currentImage);
-        } else if (ball instanceof HyperBall) {
-            setImage("src/main/ressources/balle/black/hyper.png", currentImage);
-        } else if (ball instanceof GravityBall) {
-            setImage("src/main/ressources/balle/black/gravity.png", currentImage);
-        } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ("src/main/ressources/balle/black/positif.png");
-            NEGATIF_BALL = ("src/main/ressources/balle/black/negatif.png");
-            setImage(POSITIF_BALL, currentImage);
-        }
-    }
-
-    private void setImage(String imagePath, Image image) {
-        image = ImageLoader.loadImage(imagePath);
-        setImage(image);
-        setFitWidth(ball.getRadius() * 2);
-        setPreserveRatio(true);
-        setSmooth(true);
     }
 
     public Entity getEntity() {
@@ -175,5 +104,4 @@ public class BallGraphics extends ImageView implements EntityGraphics {
     public void setWaitingRemoved(boolean waitingRemoved) {
         this.waitingRemoved = waitingRemoved;
     }
-
 }

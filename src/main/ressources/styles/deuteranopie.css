@@ -1,98 +1,128 @@
-/* LES RACINES */
-.root, .root-options {
-    -fx-background-color: #F8F9FA;
+/* LES ROOTS */
+.root,
+.root-options {
+    -fx-background-color: #282C35; 
     -fx-alignment: center;
-    
-  }
-  
-  .root-options {
+    -fx-spacing: 20;
+}
+
+.root-options {
     -fx-spacing: 50;
-  }
-  
-  .game-backgorund {
-    -fx-background-color: #B9D9EB;
-  }
-  
-  .root-game-over, .pause-view {
+}
+
+.game-backgorund {
+    -fx-background-color: #282C35; 
+}
+
+.root-game-over,
+.pause-view {
     -fx-opacity: 0.7;
     -fx-alignment: center;
-    -fx-spacing: 10;
-    -fx-background-color: #78859f; 
-  }
-  
-  .vbox {
+    -fx-spacing: 20;
+    -fx-background-color: #282C35;
+}
+
+.vbox {
     -fx-spacing: 20;
     -fx-alignment: center;
-  }
-  
-  .grid-style {
+}
+
+.grid-style {
     -fx-hgap: 10;
     -fx-vgap: 10;
     -fx-padding: 25;
     -fx-alignment: center;
-  }
-  
-  /* LES BOUTONS */
-  .button-style, .button-hover, .label-style, .slider-style {
+}
+
+/* LES BOUTONS */
+.scoreL-style {
     -fx-font-size: 20px;
-  }
-  
-  .button-style, .slider-style {
-    -fx-background-color: #E9E4D9; 
-  }
-  
-  .button-style, .label-style {
-    -fx-text-fill: #273654; 
-  }
-  
-  .button-hover {
-    -fx-background-color: #8D7B6B; 
-    -fx-text-fill: #273654;
-  }
-  
-  /* LES TEXTES + LABELS */
-  .text-style, .title-style, .title-game-over-style {
+    -fx-text-fill: #ffffff;
+}
+
+
+.button-style,
+.button-hover,
+.label-style {
     -fx-font-size: 20px;
-    -fx-fill: #273654;
-  }
-  
-  .title-style, .title-game-over-style {
+}
+
+.button-style {
+    -fx-background-color: #6A6A6A;
+}
+
+.button-style,
+.label-style{
+    -fx-text-fill: #C0C0C0;
+}
+
+.button-hover {
+    -fx-background-color: #657786;
+    -fx-text-fill: #C0C0C0;
+}
+
+/* LES TEXTES + LABELS */
+.fin-label{
+    -fx-font-size: 35px;
+    -fx-text-fill: #C0C0C0;
+    -fx-font-weight: bold;
+}
+
+.text-style,
+.title-style,
+.title-game-over-style {
+    -fx-font-size: 20px;
+    -fx-fill: #C0C0C0;
+}
+
+.title-style,
+.title-game-over-style {
     -fx-font-size: 50;
-    -fx-text-fill: #273654;
+    -fx-text-fill: #C0C0C0;
     -fx-font-weight: bold;
-  }
-  
-  .scoreL-style {
-    -fx-font-size: 25px;
+}
+
+
+.title-game-over-style {
+    -fx-font-size: 50px;
+    -fx-text-fill: #C0C0C0;
     -fx-font-weight: bold;
-    -fx-fill: #273654; 
-  }
-  
-  /* ÉLÉMENTS DU JEU */
-  .ball {
-    -fx-fill: #FFE187; 
-  }
-  
-  .hyperball, .ynotfixeracket {
-    -fx-fill: #FFE187; 
-  }
-  
-  .gravityball {
-    -fx-fill: #FFE187; 
-  }
-  
-  .magnetball {
-    -fx-fill: #FFE187; 
-  }
-  
-  .magnetracketpositif {
-    -fx-fill: #FFE187; 
-  }
-  
-  .racket {
-    -fx-fill: #2828b2;
-  }
-  
-  .magnetracketnegatif {
-    -fx-fill: #A0C4
-  }  
+}
+
+.slider-style {
+    -fx-background-color: #282C35;
+}
+
+.pause-view {
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-background-color: #282C35;
+}
+
+.label-toggle-button-hbox,
+.label-slider-hbox,
+.label-combobox-hbox {
+    -fx-background-color: #282C35;
+    -fx-border-color: #657786;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 8px;
+}
+
+.label-vbox {
+    -fx-background-color: #282C35;
+    -fx-border-color: #657786;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 5px;
+}
+
+.label-vbox-description {
+    -fx-font-size: 13px;
+    -fx-text-fill: #657786;
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
+}

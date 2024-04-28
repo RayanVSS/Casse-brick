@@ -78,7 +78,7 @@
 
 .scoreL-style {
     -fx-font-size: 20px;
-    -fx-fill: #C71585;
+    -fx-text-fill: #C71585;
 }
 
 .title-game-over-style {
