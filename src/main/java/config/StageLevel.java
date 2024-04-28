@@ -60,7 +60,7 @@ public class StageLevel {
     public void winAction() {
 
         if (!customGame) {
-            PlayerData.rewardStageWin(game);
+            PlayerData.rewardStageWin(this);
             if (!completed) {
                 completed = true;
                 PlayerData.expLevel++;
@@ -69,7 +69,7 @@ public class StageLevel {
                 maxScore = game.getScore();
             }
         } else {
-            PlayerData.rewardCustomWin(game);
+            PlayerData.rewardCustomWin(this);
         }
         resetGame();
     }
