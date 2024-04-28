@@ -17,7 +17,7 @@ import gui.GraphicsFactory.ParticleGroup;
 import gui.GraphicsFactory.RacketGraphics;
 import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.PauseView;
-import gui.Menu.MenuViews.LevelUpView;
+import gui.Menu.MenuViews.WinView;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -95,7 +95,7 @@ public class GameRoot {
         }
         if (level.getGame().isWin()) {
             level.resetGame();
-            gameView.getRoot().getChildren().add(new LevelUpView(primaryStage, gameView, level));
+            gameView.getRoot().getChildren().add(new WinView(primaryStage, gameView, level));
             gameView.animationStop();
         }
     }

@@ -1,18 +1,17 @@
 package gui.Menu.MenuControllers;
 
-import config.Game;
 import gui.App;
 import gui.GameView;
-import gui.Menu.MenuViews.LevelUpView;
+import gui.Menu.MenuViews.WinView;
 import javafx.application.Platform;
 import save.PlayerData;
 import utils.Sound.ClickSound;
 
-public class LevelUpController {
-    private LevelUpView view;
+public class WinController {
+    private WinView view;
     private ClickSound click = App.clickSoundPlayer;
 
-    public LevelUpController(LevelUpView view) {
+    public WinController(WinView view) {
         this.view = view;
         view.getBtnMenu().setOnAction(e -> {
             click.play();
