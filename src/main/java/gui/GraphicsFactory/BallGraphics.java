@@ -56,8 +56,6 @@ public class BallGraphics extends ImageView implements EntityGraphics{
     public void update() {
         setX(ball.getC().getX());
         setY(ball.getC().getY());
-        setScaleX(ball.getRadius()/2);
-        setScaleY(ball.getRadius()/2);
         updateImageAndProperties();
         setRotate(getRotate()+ball.getRotation().getAngle()/10);
     }

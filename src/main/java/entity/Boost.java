@@ -1,19 +1,17 @@
 package entity;
 
-import javafx.scene.shape.Rectangle;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import utils.GameConstants;
 
-public class Boost extends Rectangle {
+public class Boost extends Bonus {
     private String[] typesList = GameConstants.BONUS_LIST;
     private String type;
-    private Coordinates c;
 
     public Boost(Coordinates c) {
         super(c.getX(), c.getY(), GameConstants.WIDTH, GameConstants.HEIGHT);
         type = getRandomType();
-        this.c = new Coordinates(c.getX() + (GameConstants.HEIGHT / 2), c.getY() + GameConstants.HEIGHT);
+        super.setC(new Coordinates(c.getX() + (GameConstants.HEIGHT / 2), c.getY() + GameConstants.HEIGHT));
         // couleur du boost
         if (type.equals("vitesseP") || type.equals("largeurP") || type.equals("zhonya")) {
             setFill(GameConstants.COLOR_BONUS);
@@ -53,7 +51,7 @@ public class Boost extends Rectangle {
                 case "intensityBall":
                     System.out.println("intensityBall");
                     racket.setIntensityBall(true);
-                    break;
+                    break;        
                 default:
                     break;
             }
@@ -61,7 +59,7 @@ public class Boost extends Rectangle {
         }
         // deplacement du boost
         setY(getY() + GameConstants.BONUS_SPEED);
-        this.c.setY(getY());
+        super.getC().setY(getY());
         return false;
     }
 
@@ -80,10 +78,6 @@ public class Boost extends Rectangle {
 
     public String getType() {
         return type;
-    }
-
-    public Coordinates getC() {
-        return c;
     }
 
     public int getWIDTH() {

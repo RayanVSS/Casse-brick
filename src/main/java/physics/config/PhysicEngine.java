@@ -145,11 +145,7 @@ public class PhysicEngine {
         // Mise à jour de la position de la balle et de la trajectoire
         for(Ball b : listball.keySet()){
             if(!listball.get(b).IsMouseDraggingBall()){
-                for(Ball b2 : listball.keySet()){
-                    if(b!=b2){
-                        b.checkCollisionOtherBall(b2);
-                    }
-                }
+                b.checkCollisionOtherBall(listball.keySet());
                 b.movement();
                 if(b.getPreview()!=null){
                     b.updatePreview(listball.keySet());
@@ -179,7 +175,7 @@ public class PhysicEngine {
         return new Ball(PhysicSetting.DEFAULT_BALL_START_COORDINATES.clone(),
         PhysicSetting.NEW_BALL_DIRECTION(),1, physics.getRadius()){
             @Override
-            public boolean movement() {
+            public void movement() {
                 double h = PhysicSetting.DEFAULT_WINDOW_HEIGHT;
                 double w = PhysicSetting.DEFAULT_WINDOW_WIDTH;
                 double newX = this.getX() + this.getDirection().getX() * this.getSpeed() ;
@@ -238,7 +234,6 @@ public class PhysicEngine {
                 this.setC(new Coordinates(newX, newY));
                 this.getDirection().add(physics.getWind());
                 physics.checkGravity(this.getC(), this.getDirection());
-                return true;
             }
         };
     }

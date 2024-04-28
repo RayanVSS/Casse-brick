@@ -82,7 +82,7 @@ public final class GameConstants {
         public static final double BONUS_SPEED = 2;
         public static final double BONUS_CHANCE = 0.2;
         // "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall"
-        public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall" };
+        public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya","intensityBall","newBall" };
         public static final Color COLOR_BONUS = Color.GREEN;
         public static final Color COLOR_MALUS = Color.RED;
 

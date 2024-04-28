@@ -5,6 +5,7 @@ import java.util.List;
 
 import config.Game;
 import javafx.scene.layout.Pane;
+import physics.entity.Ball;
 import utils.GameConstants;
 
 public class ParticleGroup{
@@ -38,9 +39,13 @@ public class ParticleGroup{
                 currentParticle.applyRandomFluctuation(); // fluctuation des particules
             }
             Particle firstParticle = trail.get(0);
-            firstParticle.setCenterX(game.getBall().getC().getX());
-            firstParticle.setCenterY(game.getBall().getC().getY());
-            firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
+            for(Ball b:game.getBalls()){
+                firstParticle.setCenterX(b.getC().getX());
+                firstParticle.setCenterY(b.getC().getY());
+                firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
+                // Si il y a des balles (au moins une balle)
+                return;
+            }
         }
     }
 }
