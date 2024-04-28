@@ -38,21 +38,26 @@ public class PlayerData {
     }
 
     private static int calculateStageWinMoney(StageLevel level) {
+
         int winMoney = level.getGame().getScore(); // Base
-        winMoney += applyBonus(level.getGame());
+        winMoney += applyBonus(level);
         winMoney *= applyMultipliers(level);
+        System.out.println("Vous avez gagné : " + winMoney);
         return winMoney;
     }
 
-    private static int applyBonus(Game game) {
+    private static int applyBonus(StageLevel level) {
+
         int bonus = 0;
-        if (game.getRules().isLimitedTime()) {
-            bonus += game.getRules().getRemainingTime() / 5;
+        GameRules rules = level.getGame().getRules();
+        if (rules.isLimitedTime()) {
+            bonus += rules.getRemainingTime() / 5;
         }
-        if (game.getRules().isLimitedBounces()) {
-            bonus += game.getRules().getRemainingBounces();
+        if (rules.isLimitedBounces()) {
+            bonus += rules.getRemainingBounces();
         }
-        bonus += game.getLife() * 15;
+        bonus += level.getGame().getLife() * 15;
+        bonus += (level.getDifficulty() + 1) * 5;
         return bonus;
     }
 
