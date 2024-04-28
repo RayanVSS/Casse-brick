@@ -2,24 +2,22 @@ package gui.Menu.MenuControllers;
 
 import config.Game;
 import gui.App;
-import gui.GameView;
-import gui.Menu.MenuViews.GameModeView;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import utils.Sound.ClickSound;
 
 /**
  * Classe contrôleur pour le menu de démarrage.
  * Elle gère les interactions de l'utilisateur avec la vue StartMenuView.
- * Elle permet de démarrer le jeu, afficher les options, quitter le jeu et
- * afficher le tutoriel.
+ * Elle permet de démarrer le jeu, afficher les options, quitter le jeu.
  * 
  * @see StartMenuView
  * @author Benmalek Majda
  */
 public class StartMenuController {
     private StartMenuView view;
-
+    private ClickSound click=App.clickSoundPlayer;
     /**
      * Constructeur de StartMenuController.
      * 
@@ -28,18 +26,19 @@ public class StartMenuController {
     public StartMenuController(Stage p, StartMenuView view) {
         this.view = view;
         this.view.getBtnPlay().setOnAction(e -> {
+            click.play();
             play();
         });
         this.view.getBtnOptions().setOnAction(e -> {
+            click.play();
             options();
         });
         this.view.getBtnQuit().setOnAction(e -> {
+            click.play();
             quit();
         });
-        this.view.getBtnTuto().setOnAction(e -> {
-            tuto();
-        });
         this.view.getBtnSave().setOnAction(e -> {
+            click.play();
             sauvegarde();
         });
     }
@@ -71,15 +70,6 @@ public class StartMenuController {
         view.getPrimaryStage().close();
         Platform.exit();
         System.exit(0);
-    }
-
-    /**
-     * Méthode pour afficher le tutoriel.
-     */
-    private void tuto() {
-        Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "TutoView");
-        });
     }
 
     /**

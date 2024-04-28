@@ -5,7 +5,6 @@ import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameOverController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
@@ -47,7 +46,7 @@ public class GameOverView extends VBox implements Menu {
         setLayoutY(game.getRoot().getLayoutY());
         setPrefWidth(game.getRoot().getWidth());
         setPrefHeight(game.getRoot().getHeight());
-        getStylesheets().add(GameConstants.CSS);
+        getStylesheets().add(GameConstants.CSS.getPath());
         new GameOverController(this);
     }
 

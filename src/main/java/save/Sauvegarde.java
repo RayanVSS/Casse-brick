@@ -1,11 +1,16 @@
 package save;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import config.StagesProgress;
-import javafx.scene.input.KeyCode;
+import static utils.GameConstants.CSS;
+import static utils.GameConstants.FPS;
+import static utils.GameConstants.LAST_SAVE;
+import static utils.GameConstants.LEFT;
+import static utils.GameConstants.MUSIC;
+import static utils.GameConstants.PARTICLES;
+import static utils.GameConstants.PATH;
+import static utils.GameConstants.RIGHT;
+import static utils.GameConstants.SOUND;
+import static utils.GameConstants.SPACE;
+import static utils.GameConstants.TEXTURE;
 
 import java.io.File;
 import java.io.FileReader;
@@ -17,7 +22,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static utils.GameConstants.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import config.StagesProgress;
+import gui.Menu.Menu.Theme;
+import javafx.scene.input.KeyCode;
 
 /**
  * sauvegarder les données du jeu:
@@ -104,6 +115,7 @@ public class Sauvegarde {
         options.put("RIGHT", RIGHT);
         options.put("SPACE", SPACE);
         options.put("CSS", CSS);
+        options.put("TEXTURE", TEXTURE);
 
         return options;
     }
@@ -135,7 +147,14 @@ public class Sauvegarde {
             LEFT = Sauvegarde.getKeyCode((String) options.getOrDefault("LEFT", "LEFT"));
             RIGHT = Sauvegarde.getKeyCode((String) options.getOrDefault("RIGHT", "RIGHT"));
             SPACE = Sauvegarde.getKeyCode((String) options.getOrDefault("SPACE", "SPACE"));
-            CSS = (String) options.getOrDefault("CSS", "/styles/dark.css");
+            //CSS =  /*(Theme) options.getOrDefault("CSS", Theme.DARK);*/ Theme.valueOf((String) options.getOrDefault("CSS", "DARK"));
+            String cssOption = (String) options.getOrDefault("CSS", "DARK");
+            try {
+                CSS = Theme.valueOf(cssOption.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                CSS = Theme.CLASSIC; // valeur par défaut si l'option CSS n'est pas une constante de l'énumération Theme
+            }
+            TEXTURE = (String) options.getOrDefault("TEXTURE", "Null");
         }
     }
 

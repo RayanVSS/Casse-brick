@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import entity.EntityColor;
-import entity.ball.Ball;
-import entity.brick.Brick;
-import geometry.Coordinates;
+import physics.entity.Ball;
+import physics.entity.Brick;
+import physics.geometry.Coordinates;
 import utils.GameConstants;
 
 public class GameRules {
 
     private BricksArrangement arrangement;
 
-    // options de jeu à activer et à implémenter...
+    // Options de jeu : true pour "activé", règles qui s'apliquent lors de la partie
     private boolean limitedTime;
     private boolean limitedBounces;
     private boolean randomSwitchBricks;
@@ -21,6 +21,7 @@ public class GameRules {
     private boolean transparent;
     private boolean unbreakable;
 
+    // Variables servant au bon fonctionnement des règles activées
     private int remainingTime = GameConstants.GR_REMAINING_TIME;
     private int remainingBounces = GameConstants.GR_REMAINING_BOUNCES;
     private int[][] initialBricksZone;
@@ -39,6 +40,9 @@ public class GameRules {
         this.unbreakable = unbreakable;
     }
 
+    /**
+     * Classe définissant les différentes dispositions initiales des briques
+     */
     public enum BricksArrangement {
         DEFAULT, RANDOM, INFINITE;
     }
@@ -242,6 +246,22 @@ public class GameRules {
 
     public boolean isUnbreakable() {
         return unbreakable;
+    }
+
+    public void setRemainingTime(int remainingTime) {
+        this.remainingTime = remainingTime;
+    }
+
+    public int getRemainingTime() {
+        return remainingTime;
+    }
+
+    public int getRemainingBounces() {
+        return remainingBounces;
+    }
+
+    public void setRemainingBounces(int remainingBounces) {
+        this.remainingBounces = remainingBounces;
     }
 
 }

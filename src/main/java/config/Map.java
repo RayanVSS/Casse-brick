@@ -1,56 +1,37 @@
 package config;
 
-import config.GameRules.BricksArrangement;
-import entity.EntityColor;
-import entity.ball.Ball;
-import entity.brick.Brick;
 import entity.brick.BrickClassic;
-import geometry.Coordinates;
+import gui.App;
+import physics.entity.Ball;
+import physics.entity.Brick;
+import physics.geometry.Coordinates;
 import utils.GameConstants;
 
 import java.util.ArrayList;
-import java.util.Random;
-
-import org.checkerframework.checker.units.qual.A;
 
 public class Map {
 
     private Brick[][] bricks;
     private GameRules rules;
 
-    public Map(GameRules rules) {
+    public Map(GameRules rules, int columnsBricks, int rowsBricks) {
         this.rules = rules;
-        initBricks();
+        initBricks(columnsBricks, rowsBricks);
     }
 
-    private void initBricks() {
-        switch (rules.getArrangement()) {
-            case DEFAULT:
-                initDefaultBricksArrangement();
-                break;
+    private void initBricks(int columnsBricks, int rowsBricks) {
+        if (checkDefaultParameters(columnsBricks, rowsBricks)) {
+            switch (rules.getArrangement()) {
+                case DEFAULT:
+                    initDefaultBricksArrangement(columnsBricks, rowsBricks);
+                    break;
 
             case INFINITE:
                 initInfiniteBricksArrangement();
                 break;
             case RANDOM:
 
-                break;
-        }
-    }
-
-    private void initDefaultBricksArrangement() {
-
-        if (checkDefaultParameters()) {
-
-            bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT]; // [colonne][ligne]
-            int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;
-
-            for (int i = indexFirstColumn; i < indexFirstColumn + GameConstants.COLUMNS_OF_BRICKS; i++) { // espace côté
-                                                                                                          // gauche/droit
-                for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) { // 1 espace en haut
-                    bricks[i][j] = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
-                            j * GameConstants.BRICK_HEIGHT));
-                }
+                    break;
             }
         } else {
             throw new IllegalArgumentException("Erreur sur la config de la map.");
@@ -59,7 +40,7 @@ public class Map {
 
     // TODO A FACTORISER
     private void initInfiniteBricksArrangement() {
-        if (checkDefaultParameters()) {
+        if (checkDefaultParameters(GameConstants.COLUMNS_OF_BRICKS, GameConstants.ROWS_OF_BRICKS)) {
             bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT];
             for (int i = 0; i < GameConstants.MAP_WIDTH; i++) {
                 for (int j = 0; j < GameConstants.ROWS_OF_BRICKS; j++) {
@@ -72,11 +53,26 @@ public class Map {
         }
     }
 
-    private boolean checkDefaultParameters() {
-        return GameConstants.MAP_HEIGHT >= GameConstants.ROWS_OF_BRICKS + 2
-                && GameConstants.MAP_WIDTH >= GameConstants.COLUMNS_OF_BRICKS
+    private void initDefaultBricksArrangement(int columnsBricks, int rowsBricks) {
+
+        bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT]; // [colonne][ligne]
+        int indexFirstColumn = (GameConstants.MAP_WIDTH - columnsBricks) / 2;
+
+        for (int i = indexFirstColumn; i < indexFirstColumn + columnsBricks; i++) { // espace côté
+                                                                                    // gauche/droit
+            for (int j = 1; j < rowsBricks + 1; j++) { // 1 espace en haut
+                bricks[i][j] = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
+                        j * GameConstants.BRICK_HEIGHT));
+            }
+        }
+
+    }
+
+    private boolean checkDefaultParameters(int columnsBricks, int rowsBricks) {
+        return GameConstants.MAP_HEIGHT >= rowsBricks + 2
+                && GameConstants.MAP_WIDTH >= columnsBricks
                 && GameConstants.MAP_HEIGHT
-                        - GameConstants.ROWS_OF_BRICKS - 2 >= GameConstants.MIN_SPACE_BETWEEN_RACKET_BRICKS;
+                        - rowsBricks - 2 >= GameConstants.MIN_SPACE_BETWEEN_RACKET_BRICKS;
     }
 
     public Brick[][] getBricks() {
@@ -100,15 +96,19 @@ public class Map {
                 if (inMap(ballBrickX + i, ballBrickY + j) && bricks[ballBrickX + i][ballBrickY + j] != null) {
                     targetBrick = bricks[ballBrickX + i][ballBrickY + j];
                     if (!targetBrick.isDestroyed() && ball.intersectBrick(targetBrick)) {
-
                         if (rules.haveBricksCollisionRules()) { // Application des règles du jeu aux collisions
+                            App.ballSound.update();
+                            App.ballSound.play();
                             handleBricksCollisionRules(targetBrick, ball, rules, i, j);
                         } else {
+                            App.ballSound.update();
+                            App.ballSound.play();
                             handleCollisionDirection(ball, i, j);
                             targetBrick.setDestroyed(true);
                         }
                         return;
                     }
+
                 }
             }
         }
@@ -135,22 +135,28 @@ public class Map {
     private void handleCollisionDirection(Ball ball, int i, int j) { // changement directionnel simple en attendant la
                                                                      // physique plus complexe
         if (i != 0)
-            ball.getDirection().setX(-ball.getDirection().getX());
+            ball.getDirection().setX(
+                    -ball.getDirection().getX() + (ball.getRotation().getEffect() / 90) * ball.getDirection().getX());
+        ball.getRotation().Collision();
         if (j != 0)
-            ball.getDirection().setY(-ball.getDirection().getY());
+            ball.getDirection().setY(
+                    -ball.getDirection().getY() + (ball.getRotation().getEffect() / 90) * ball.getDirection().getY());
+        ball.getRotation().Collision();
+
     }
 
     public boolean updateBricksStatus() {
+        boolean destroyed = false;
         for (int i = 0; i < bricks.length; i++) {
             for (int j = 0; j < bricks[0].length; j++) {
                 if (bricks[i][j] != null && bricks[i][j].isDestroyed()) {
                     bricks[i][j] = null;
                     Game.score += 10;
-                    return true;
+                    destroyed = true;
                 }
             }
         }
-        return false;
+        return destroyed;
     }
 
     public int countBricks() {

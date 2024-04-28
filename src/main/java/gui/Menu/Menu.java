@@ -19,6 +19,29 @@ import javafx.scene.paint.Color;
  */
 public interface Menu {
 
+    public enum Theme {
+        PINK("/styles/pink.css"), 
+        LIGHT("/styles/light.css"), 
+        CLASSIC("/styles/classic.css"),
+        BLACK("/styles/black.css"),
+        ACHROMATOPSIE("/styles/achromatopsie.css"),
+        DEUTERANOPIE("/styles/deuteranopie.css"),
+        TRITANOPIE("/styles/tritanopie.css"),
+        PROTANOPIE("/styles/protanopie.css")
+        ;
+
+        private String path;
+
+        public String getPath() {
+            return path;
+        }
+
+        Theme(String path) {
+            this.path = path;
+        }
+    }
+
+
     /**
      * Crée un bouton avec le texte, la marge droite et la marge inférieure
      * spécifiés.
@@ -102,11 +125,9 @@ public interface Menu {
         return slider;
     }
 
-    default CheckBox createCheckBox(String text) {
-        CheckBox checkBox = new CheckBox(text);
-        checkBox.setTextFill(Color.WHITE);
-        checkBox.setVisible(true);
-        checkBox.getStyleClass().add("checkbox-style");
-        return checkBox;
+    default Label createLabel(String text) {
+        Label l=new Label(text);
+        l.getStyleClass().add("scoreL-style");
+        return l;
     }
 }

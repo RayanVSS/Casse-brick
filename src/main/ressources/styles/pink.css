@@ -1,91 +1,126 @@
-/* Styles généraux */
+/* LES ROOTS */
 .root,
-.root-option,
-.game-backgorund,
-.root-game-over,
-.pause-view {
-    -fx-background-color: #ffd7e9;
-    -fx-alignment: center;
-}
-
-.vbox,
-.grid-style {
+.root-options {
+    -fx-background-color: #FEE5F2;
     -fx-alignment: center;
     -fx-spacing: 20;
+}
+
+.root-options {
+    -fx-spacing: 50;
+}
+
+.game-backgorund {
+    -fx-background-color: #FEE5F2;
+}
+
+.root-game-over,
+.pause-view {
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 20;
+    -fx-background-color: #FEE5F2;
+}
+
+.vbox {
+    -fx-spacing: 20;
+    -fx-alignment: center;
 }
 
 .grid-style {
     -fx-hgap: 10;
     -fx-vgap: 10;
     -fx-padding: 25;
+    -fx-alignment: center;
 }
 
-.root-game-over,
-.pause-view {
-    -fx-opacity: 0.7;
-    -fx-spacing: 20;
-}
-
-/* Styles de texte */
-.text-style,
+/* LES BOUTONS */
 .button-style,
+.button-hover,
 .label-style {
     -fx-font-size: 20px;
-    -fx-text-fill: #C71585;
 }
 
-.title-style {
-    -fx-font-size: 40px;
-}
-
-.scoreL-style {
-    -fx-font-size: 25px;
-}
-
-.title-game-over-style {
-    -fx-font-size: 50px;
-    -fx-font-weight: bold;
-}
-
-/* Styles de boutons */
 .button-style {
     -fx-background-color: #FFB6C1;
 }
 
+.button-style,
+.label-style {
+    -fx-text-fill: #C71585;
+}
+
 .button-hover {
-    -fx-font-size: 20px;
     -fx-background-color: #C71585;
     -fx-text-fill: #FFB6C1;
 }
 
-/* Styles de curseur */
+/* LES TEXTES + LABELS */
+.fin-label {
+    -fx-font-size: 35px;
+    -fx-text-fill: #C71585;
+    -fx-font-weight: bold;
+}
+
+.text-style,
+.title-style,
+.title-game-over-style {
+    -fx-font-size: 20px;
+    -fx-fill: #C71585;
+}
+
+.title-style,
+.title-game-over-style {
+    -fx-font-size: 50;
+    -fx-text-fill: #C71585;
+    -fx-font-weight: bold;
+}
+
+.scoreL-style {
+    -fx-font-size: 20px;
+    -fx-fill: #C71585;
+}
+
+.title-game-over-style {
+    -fx-font-size: 50px;
+    -fx-text-fill: #C71585;
+    -fx-font-weight: bold;
+}
+
 .slider-style {
-    -fx-background-color: #ffd7e9;
+    -fx-background-color: #FEE5F2;
 }
 
-/* Styles de jeu */
-.ball,
-.racket {
-    -fx-fill: #FE6E87;
+.pause-view {
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-background-color: #FEE5F2;
 }
 
-.hyperball,
-.ynotfixeracket {
-    -fx-fill: #E5194C;
+.label-toggle-button-hbox,
+.label-slider-hbox,
+.label-combobox-hbox {
+    -fx-background-color: #FEE5F2;
+    -fx-border-color: #C71585;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 8px;
 }
 
-.gravityball {
-    -fx-fill: #8B1039;
+.label-vbox {
+    -fx-background-color: #FEE5F2;
+    -fx-border-color: #C71585;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 5px;
 }
 
-.magnetball {
-    -fx-fill: #4E031A;
-}
-
-.magnetracketpositif {
-    -fx-fill: YELLOW;
-}
-
-.magnetracketnegatif {
-    -fx-fill: GREEN;
+.label-vbox-description {
+    -fx-font-size: 13px;
+    -fx-text-fill: #C71585;
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
 }

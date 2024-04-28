@@ -5,6 +5,7 @@ import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.GameOverView;
 import javafx.application.Platform;
+import utils.Sound.ClickSound;
 
 /**
  * Classe GameOverController qui gère les interactions de l'utilisateur avec la vue GameOverView.
@@ -14,6 +15,7 @@ import javafx.application.Platform;
  */
 public class GameOverController {
     private GameOverView view;
+    private ClickSound click = App.clickSoundPlayer;
 
     /**
      * Constructeur de GameOverController.
@@ -22,9 +24,18 @@ public class GameOverController {
      */
     public GameOverController(GameOverView gameView) {
         this.view = gameView;
-        this.view.getBtnReplay().setOnAction(e -> replay());
-        this.view.getBtnQuit().setOnAction(e -> quit());
-        this.view.getBtnMenu().setOnAction(e -> menu());
+        this.view.getBtnReplay().setOnAction(e -> {
+            click.play();
+            replay();
+        });
+        this.view.getBtnQuit().setOnAction(e -> {
+            click.play();
+            quit();
+        });
+        this.view.getBtnMenu().setOnAction(e -> {
+            click.play();
+            menu();
+        });
     }
 
     /**
@@ -32,8 +43,13 @@ public class GameOverController {
      */
     private void replay() {
         Platform.runLater(() -> {
-            Game.score  = 0;
-            new GameView(view.getPrimaryStage(), view.getGame().getStageLevel());
+            Game.score = 0;
+            if (view.getGame().getStageLevel().isCustomGame()) {
+                view.getGame().getStageLevel().getGameReinitializer().createGame();
+            } else {
+                new GameView(view.getPrimaryStage(), view.getGame().getStageLevel());
+            }
+
         });
     }
 

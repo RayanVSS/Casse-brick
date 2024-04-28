@@ -5,10 +5,12 @@ import org.checkerframework.checker.units.qual.g;
 import gui.App;
 import gui.Menu.MenuViews.GameModeView;
 import javafx.application.Platform;
+import utils.Sound.ClickSound;
 
 public class GameModeController {
 
     private GameModeView gameModeView;
+    private ClickSound click = App.clickSoundPlayer;
 
     public GameModeController(GameModeView gameModeView) {
         this.gameModeView = gameModeView;
@@ -16,15 +18,24 @@ public class GameModeController {
     }
 
     private void setButtonsAction() {
-        gameModeView.getStagesButton().setOnAction(e -> showStages());
-        gameModeView.getCustomGameButton().setOnAction(e -> showCustomizer());
+        gameModeView.getStagesButton().setOnAction(e -> {
+            click.play();
+            showStages();
+        });
+        gameModeView.getCustomGameButton().setOnAction(e -> {
+            click.play();
+            showCustomizer();
+        });
+        gameModeView.getBackButton().setOnAction(e -> {
+            click.play();
+            back();
+        });
         gameModeView.getInfinityButton().setOnAction(e -> showInfinityMode());
-        gameModeView.getBackButton().setOnAction(e -> back());
     }
 
     private void showStages() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(gameModeView.getPrimaryStage(), "StageSelectorView");
+            App.sceneManager.changeScene(gameModeView.getPrimaryStage(), "Chapterview");
         });
     }
 

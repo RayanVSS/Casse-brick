@@ -1,110 +1,126 @@
-/* Styles généraux */
+/* LES ROOTS */
 .root,
-.root-option,
-.game-backgorund,
-.root-game-over,
-.pause-view {
-    -fx-background-color: #261e3d; /*change cette couleur si tu veux plus foncé" */
-    -fx-alignment: center;
-}
-
-.root-option,
-.vbox,
-.root-game-over,
-.pause-view,
-.grid-style {
+.root-options {
+    -fx-background-color: #282C35;
     -fx-alignment: center;
     -fx-spacing: 20;
 }
 
-.vbox,
+.root-options {
+    -fx-spacing: 50;
+}
+
+.game-backgorund {
+    -fx-background-color: #282C35;
+}
+
 .root-game-over,
 .pause-view {
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
     -fx-spacing: 20;
+    -fx-background-color: #282C35;
+}
+
+.vbox {
+    -fx-spacing: 20;
+    -fx-alignment: center;
 }
 
 .grid-style {
     -fx-hgap: 10;
     -fx-vgap: 10;
     -fx-padding: 25;
+    -fx-alignment: center;
 }
 
-/*Styles de fond*/
-.game-backgorund {
-    -fx-background-color: #261e3d; /*change cette couleur si tu veux plus foncé" */
-}
-
-.root-game-over,
-.pause-view {
-    -fx-opacity: 0.7;
-}
-
-/* Styles de texte */
+/* LES BOUTONS */
 .button-style,
-.button-hover {
+.button-hover,
+.label-style {
     -fx-font-size: 20px;
-    -fx-text-fill: #000000;
+}
+
+.button-style {
+    -fx-background-color: #6A6A6A;
+}
+
+.button-style,
+.label-style{
+    -fx-text-fill: #C0C0C0;
+}
+
+.button-hover {
+    -fx-background-color: #657786;
+    -fx-text-fill: #C0C0C0;
+}
+
+/* LES TEXTES + LABELS */
+.fin-label{
+    -fx-font-size: 35px;
+    -fx-text-fill: #C0C0C0;
+    -fx-font-weight: bold;
 }
 
 .text-style,
-.label-style {
+.title-style,
+.title-game-over-style {
     -fx-font-size: 20px;
-    -fx-text-fill: #ffffff;
+    -fx-fill: #C0C0C0;
 }
 
 .title-style,
 .title-game-over-style {
-    -fx-font-size: 40px;
-    -fx-text-fill: #7a70a8;
-}
-
-.title-game-over-style {
+    -fx-font-size: 50;
+    -fx-text-fill: #C0C0C0;
     -fx-font-weight: bold;
 }
 
 .scoreL-style {
-    -fx-font-size: 25px;
-    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-fill: #C0C0C0;
 }
 
-/* Styles de boutons */
-.button-style,
-.button-hover {
-    -fx-background-color: #f4f6f8;
+.title-game-over-style {
+    -fx-font-size: 50px;
+    -fx-text-fill: #C0C0C0;
+    -fx-font-weight: bold;
 }
 
-.button-hover {
-    -fx-background-color: #67747f;
-}
-
-/* Styles de curseur */
 .slider-style {
-    -fx-background-color: #3b3636;
+    -fx-background-color: #282C35;
 }
 
-/* Styles de jeu */
-.ball,
-.racket {
-    -fx-fill: #1DA1F2;
+.pause-view {
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-background-color: #282C35;
 }
 
-.hyperball,
-.ynotfixeracket {
-    -fx-fill: #00308F;
+.label-toggle-button-hbox,
+.label-slider-hbox,
+.label-combobox-hbox {
+    -fx-background-color: #282C35;
+    -fx-border-color: #657786;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 8px;
 }
 
-.gravityball {
-    -fx-fill: #6699CC;
+.label-vbox {
+    -fx-background-color: #2f3d57;
+    -fx-border-color: #657786;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 5px;
 }
 
-.magnetball {
-    -fx-fill: #5072A7;
-}
-
-.magnetracketpositif {
-    -fx-fill: YELLOW;
-}
-
-.magnetracketnegatif {
-    -fx-fill: GREEN;
+.label-vbox-description {
+    -fx-font-size: 13px;
+    -fx-text-fill: #657786;
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
 }

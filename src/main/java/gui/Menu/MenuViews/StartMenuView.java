@@ -24,7 +24,6 @@ public class StartMenuView implements Menu {
     private Button btnPlay;
     private Button btnOptions;
     private Button btnQuit;
-    private Button btnTuto;
     private Button btnSave;
     private Label title;
 
@@ -40,11 +39,10 @@ public class StartMenuView implements Menu {
         title.getStyleClass().add("title-style");
         btnPlay = createButton("Jouer", 0, 0);
         btnOptions = createButton("Options", 0, 0);
-        btnTuto = createButton("Tutoriel", 0, 0);
         btnSave = createButton("Sauvegarder", 0, 0);
         btnQuit = createButton("Quitter", 0, 0);
 
-        root.getChildren().addAll(title, btnPlay, btnOptions, btnSave, btnTuto, btnQuit);
+        root.getChildren().addAll(title, btnPlay, btnOptions, btnSave, btnQuit);
         root.setSpacing(10);
         root.setAlignment(javafx.geometry.Pos.CENTER);
         new StartMenuController(p,this);
@@ -95,15 +93,6 @@ public class StartMenuView implements Menu {
      */
     public Button getBtnQuit() {
         return btnQuit;
-    }
-
-    /**
-     * Méthode pour obtenir le bouton Tutoriel.
-     * 
-     * @return Le bouton Tutoriel.
-     */
-    public Button getBtnTuto() {
-        return btnTuto;
     }
 
     /**

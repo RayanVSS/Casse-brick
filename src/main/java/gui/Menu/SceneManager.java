@@ -1,10 +1,5 @@
 package gui.Menu;
 
-import javafx.animation.FadeTransition;
-import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,8 +10,9 @@ import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
-import gui.Menu.MenuViews.TutoView;
-import javafx.util.Duration;
+import gui.Menu.MenuViews.Chapterview;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import utils.GameConstants;
 
 /**
@@ -82,7 +78,7 @@ public class SceneManager {
      */
     public void addStylesheet(Scene scene) {
         scene.getStylesheets().clear();
-        scene.getStylesheets().add(getClass().getResource(GameConstants.CSS).toExternalForm());
+        scene.getStylesheets().add(getClass().getResource(GameConstants.CSS.getPath()).toExternalForm());
     }
 
     // Charge toutes les scènes du jeu
@@ -90,10 +86,10 @@ public class SceneManager {
         createStartMenuViewScene(primaryStage);
         createOptionsViewScene(primaryStage);
         createSaveViewScene(primaryStage);
-        createTutoViewScene(primaryStage);
         createGameModeViewScene(primaryStage);
         createStageSelectorViewScene(primaryStage);
         createGameCustomizerViewScene(primaryStage);
+        createChapterViewScene(primaryStage);
         createInfinityModeViewScene(primaryStage);
     }
 
@@ -117,12 +113,6 @@ public class SceneManager {
         addScene("SaveView", saveView.getScene());
     }
 
-    public void createTutoViewScene(Stage primaryStage) {
-        TutoView tutoView = new TutoView(primaryStage);
-        addStylesheet(tutoView.getScene());
-        addScene("TutoView", tutoView.getScene());
-    }
-
     public void createGameModeViewScene(Stage primaryStage) {
         GameModeView gameModeView = new GameModeView(primaryStage);
         addStylesheet(gameModeView.getScene());
@@ -141,6 +131,12 @@ public class SceneManager {
         addScene("GameCustomizerView", gameCustomizerView.getScene());
     }
 
+    public void createChapterViewScene(Stage primaryStage) {
+        Chapterview chapterView = new Chapterview(primaryStage);
+        addStylesheet(chapterView.getScene());
+        addScene("Chapterview", chapterView.getScene());
+    }
+
     public void createInfinityModeViewScene(Stage primaryStage) {
         InfinityModeView infinityModeView = new InfinityModeView(primaryStage);
         addStylesheet(infinityModeView.getScene());
@@ -156,25 +152,6 @@ public class SceneManager {
      */
     public void changeScene(Stage primaryStage, String name) {
         Scene newScene = getScene(name);
-        Platform.runLater(() -> {
-            // TODO: ajouter une transition jolie
-            if (primaryStage.getScene() != null) { // Si une scène est déjà présente
-                // Créer une transition de fondu pour la scène actuelle
-                FadeTransition ft = new FadeTransition(Duration.millis(200), primaryStage.getScene().getRoot());
-                ft.setFromValue(1.0);
-                ft.setToValue(0.0);
-                ft.setOnFinished(event -> { // Quand la transition est terminée
-                    primaryStage.setScene(newScene); // Changer la scène
-                    // Créer une transition de fondu pour la nouvelle scène
-                    FadeTransition ft2 = new FadeTransition(Duration.millis(200), newScene.getRoot());
-                    ft2.setFromValue(0.0);
-                    ft2.setToValue(1.0);
-                    ft2.play(); // Jouer la transition
-                });
-                ft.play(); // Jouer la transition
-            } else {
-                primaryStage.setScene(newScene); // Si aucune scène n'est présente, simplement changer la scène
-            }
-        });
+        primaryStage.setScene(newScene);
     }
 }

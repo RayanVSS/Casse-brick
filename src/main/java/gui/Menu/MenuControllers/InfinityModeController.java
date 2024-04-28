@@ -3,10 +3,8 @@ package gui.Menu.MenuControllers;
 import config.Game;
 import config.GameRules;
 import config.StageLevel;
-import entity.ball.Ball;
 import entity.ball.ClassicBall;
 import entity.racket.ClassicRacket;
-import entity.racket.Racket;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.InfinityModeView;
@@ -29,8 +27,8 @@ public class InfinityModeController {
     }
 
     public void play() {
-        Ball ball = new ClassicBall();
-        Racket racket = new ClassicRacket();
+        ClassicBall ball = new ClassicBall();
+        ClassicRacket racket = new ClassicRacket();
         GameRules rules = GameConstants.INFINITE_MODE;
         Game game = new Game(ball, racket, rules, true);
         StageLevel level = new StageLevel(game);

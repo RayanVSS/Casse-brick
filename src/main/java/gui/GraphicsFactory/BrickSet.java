@@ -2,12 +2,11 @@ package gui.GraphicsFactory;
 
 import config.Map;
 import entity.EntityColor;
-import entity.brick.Brick;
-// import gui.ImageLoader;
+import gui.ImageLoader;
 import javafx.scene.Group;
-// import javafx.scene.image.Image;
+import javafx.scene.image.Image;
+import physics.entity.Brick;
 import utils.GameConstants;
-// import entity.EntityColor;
 
 public class BrickSet extends Group {
     // Image image = ImageLoader.loadImage("src/main/ressources/briquee.png");
@@ -57,14 +56,16 @@ public class BrickSet extends Group {
     //POUR LES TESTS
     public BrickSet(Brick[][] tab) {
         BricksGraphics brick = null;
-        for (int i = 0; i < tab.length; i++) {
-            for (int j = 0; j < tab[0].length; j++) {
+        int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;
+        for (int i = indexFirstColumn; i < indexFirstColumn +
+                GameConstants.COLUMNS_OF_BRICKS; i++) {
+            for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) {
                 if (tab[i][j] != null) {
-                    if ((i+j)%2==0){
-                        brick = new BricksGraphics(tab[i][j], i, j,EntityColor.BLUE);
-                    }
-                    else{
-                        brick= new BricksGraphics(tab[i][j], i, j,EntityColor.RED);
+                    EntityColor c = tab[i][j].getColor();
+                    if (c != null) {
+                        brick = new BricksGraphics(tab[i][j], i, j, c);
+                    } else {
+                        brick = new BricksGraphics(tab[i][j], i, j);
                     }
                     brick.setLayoutX(i * GameConstants.BRICK_WIDTH);
                     brick.setLayoutY(j * GameConstants.BRICK_HEIGHT);
@@ -74,7 +75,6 @@ public class BrickSet extends Group {
             }
         }
     }
-
 
     public void update() {
         for (int i = 0; i < this.getChildren().size(); i++) {
