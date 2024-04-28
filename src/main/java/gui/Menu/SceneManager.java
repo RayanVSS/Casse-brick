@@ -9,6 +9,7 @@ import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
+import gui.Menu.MenuViews.BoutiqueView;
 import gui.Menu.MenuViews.Chapterview;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -133,6 +134,12 @@ public class SceneManager {
         Chapterview chapterView = new Chapterview(primaryStage);
         addStylesheet(chapterView.getScene());
         addScene("Chapterview", chapterView.getScene());
+    }
+
+    public void createBoutiqueViewScene(Stage primaryStage) {
+        // BoutiqueView boutiqueView = new BoutiqueView(primaryStage);
+        // addStylesheet(boutiqueView.getScene());
+        // addScene("BoutiqueView", boutiqueView.getScene());
     }
 
     /**
