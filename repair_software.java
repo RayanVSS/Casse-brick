@@ -9,12 +9,16 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+import org.checkerframework.checker.units.qual.s;
+
 public class repair_software {
     public static String directoryPath = "src/main/java/save/";
     public static File directory = new File(directoryPath);
     public static File[] files = directory.listFiles();
     public static int nombre_corrompu = 0;
     public static Boolean fini = false;
+
+    public static Scanner sc = new Scanner(System.in);
 
     // Méthode pour effacer l'écran du terminal
     public static void clearScreen() {
@@ -35,10 +39,10 @@ public class repair_software {
                 if (file.getName().endsWith(".json")) {
                     // Validez le fichier de sauvegarde
                     if (isValidSave(file)) {
-                        System.out.println("    -" + file.getName() + " ; état: VALIDE");
+                        System.out.println("    -" + file.getName() + " ; etat: VALIDE");
                     } else {
                         // Supprimez les sauvegardes corrompues
-                        System.out.println("    -" + file.getName() + " ; état: CORROMPU");
+                        System.out.println("    -" + file.getName() + " ; etat: CORROMPU");
                         nombre_corrompu++;
                     }
                 }
@@ -146,7 +150,6 @@ public class repair_software {
         System.out.println("#5# quitter");
         System.out.println("***********************************************");
         System.out.print("votre choix : ");
-        Scanner sc = new Scanner(System.in);
         String reponse = sc.nextLine();
         switch (reponse) {
             case "1":
