@@ -3,7 +3,6 @@ package gui.Menu.MenuControllers;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import config.Game;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.PauseView;

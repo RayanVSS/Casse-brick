@@ -2,7 +2,6 @@ package gui.GraphicsFactory;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import utils.FPS;
 import utils.GameConstants;
 

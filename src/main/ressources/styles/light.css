@@ -108,6 +108,7 @@
     -fx-border-radius: 5px;
     -fx-background-radius: 7px;
     -fx-padding: 5px;
+    -fx-alignment: center;
 }
 
 .label-vbox-description {

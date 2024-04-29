@@ -276,6 +276,10 @@ public final class GraphicsToolkit {
             getChildren().addAll(summaryLabel);
         }
 
+        public LabelVBox(String summary) {
+            this(summary, 0);
+        }
+
         private void initComponents(String summary) {
             summaryLabel = new Label(summary);
         }
