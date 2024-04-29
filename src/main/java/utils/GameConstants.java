@@ -42,7 +42,7 @@ public final class GameConstants {
         // public static final double DEFAULT_WINDOW_WIDTH = MAP_WIDTH * BRICK_WIDTH;
         // public static final double DEFAULT_WINDOW_HEIGHT = MAP_HEIGHT * BRICK_HEIGHT;
 
-        public static final double DEFAULT_WINDOW_WIDTH = 1100.0;
+        public static final double DEFAULT_WINDOW_WIDTH = 1200.0;
         public static final double DEFAULT_WINDOW_HEIGHT = 800.0;
         public static final double DEFAULT_GAME_ROOT_WIDTH = DEFAULT_WINDOW_WIDTH - 235.0;
 
@@ -151,11 +151,11 @@ public final class GameConstants {
                         // chapter 1
                         new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
                         new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
-                        new ClassicBall(), 
+                        new ClassicBall(),
                         // chapter 2
                         new MagnetBall(), new MagnetBall(), new MagnetBall(), new MagnetBall(),
                         new MagnetBall(), new MagnetBall(), new MagnetBall(), new MagnetBall(),
-                        new MagnetBall(), 
+                        new MagnetBall(),
                         // chapter 3
                         new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
                         new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
@@ -163,7 +163,7 @@ public final class GameConstants {
         };
 
         // à changer plus tard
-        public static Racket[] PRECONFIG_GAME_RACKET = { 
+        public static Racket[] PRECONFIG_GAME_RACKET = {
                         // chapter 1
                         new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
                         new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
@@ -176,8 +176,7 @@ public final class GameConstants {
                         new DegradeRacket(), new DegradeRacket(), new DegradeRacket(), new DegradeRacket(),
                         new DegradeRacket(), new DegradeRacket(), new DegradeRacket(), new DegradeRacket(),
                         new DegradeRacket(),
-        
-        
-                };
+
+        };
 
 }

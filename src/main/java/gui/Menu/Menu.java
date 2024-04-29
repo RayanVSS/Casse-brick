@@ -27,13 +27,13 @@ public interface Menu {
         TRITANOPIE("/styles/tritanopie.css"),
         PROTANOPIE("/styles/protanopie.css")
         ;
-
         private String path;
-
         public String getPath() {
             return path;
         }
-
+        public String getName() {
+            return path.replace("/styles/", "").replace(".css", "");
+        }
         Theme(String path) {
             this.path = path;
         }

@@ -3,7 +3,7 @@
   "MUSIC": 0,
   "CSS": "PINK",
   "MONEY": 0,
-  "PARTICLES": true,
+  "PARTICLES": false,
   "LEFT": "LEFT",
   "FPS": true,
   "PSEUDO": "",
