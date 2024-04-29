@@ -5,6 +5,7 @@ import gui.App;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import save.Sauvegarde;
 import utils.Sound.ClickSound;
 
 /**
@@ -67,6 +68,8 @@ public class StartMenuController {
      * Méthode pour quitter le jeu.
      */
     private void quit() {
+        Sauvegarde sauvegarde = new Sauvegarde();
+        sauvegarde.autoSave();
         view.getPrimaryStage().close();
         Platform.exit();
         System.exit(0);
