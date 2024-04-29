@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -329,4 +330,46 @@ public final class GraphicsToolkit {
         }
     }
 
+    /**
+     * Une classe englobant un TextFiel et un Label dans une HBox
+     */
+
+    public static class LabelTextFieldHBox extends HBox {
+
+        private Label label;
+        private TextField textField;
+
+        /**
+         * Constructeur de la classe LabelTextFieldHBox.
+         *
+         * @param text Le texte à afficher à côté du TextField.
+         */
+        public LabelTextFieldHBox(String text) {
+            super(20);
+            setAlignment(Pos.CENTER);
+
+            initComponents(text);
+
+            setStyle();
+            Region spacer = new Region();
+            HBox.setHgrow(spacer, Priority.ALWAYS);
+
+            getChildren().addAll(label, spacer, textField);
+        }
+
+        private void initComponents(String text) {
+            label = new Label(text);
+            textField = new TextField();
+        }
+
+        private void setStyle() {
+            getStyleClass().add("label-textfield-hbox");
+            label.getStyleClass().add("label-style");
+            textField.getStyleClass().add("textfield-style");
+        }
+
+        public TextField getTextField() {
+            return textField;
+        }
+    }
 }

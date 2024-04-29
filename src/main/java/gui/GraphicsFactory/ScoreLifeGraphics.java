@@ -44,7 +44,7 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         lifeGrid.setVgap(10);
         lifeImages = new ImageView[life];
 
-        lifeOK = ImageLoader.loadImage(getLifeOkImagePath());
+        lifeOK = ImageLoader.loadImage(GameConstants.BALL_PATH);
         lifeKO = ImageLoader.loadImage(getLifeKoImagePath());
 
         initializeLifeImages();
@@ -85,24 +85,6 @@ public class ScoreLifeGraphics extends VBox implements Menu {
 
         getStylesheets().add(GameConstants.CSS.getPath());
 
-    }
-
-    private String getLifeOkImagePath() {
-        switch (GameConstants.CSS) {
-            case PINK:
-                return "src/main/ressources/lifeScore/lifeOKp.png";
-            case BLACK:
-                return "src/main/ressources/lifeScore/lifeOKw.png";
-            case CLASSIC:
-            case LIGHT:
-            case ACHROMATOPSIE:
-            case DEUTERANOPIE:
-            case TRITANOPIE:
-            case PROTANOPIE:
-                return "src/main/ressources/lifeScore/lifeOKb.png";
-            default:
-                return null;
-        }
     }
 
     private String getLifeKoImagePath() {

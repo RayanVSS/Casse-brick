@@ -43,12 +43,18 @@ public class BallGraphics extends Circle implements EntityGraphics {
 
     private void setImageBasedOnCSS(Theme css) {
         String imagePath = IMAGE_PATH + css.getName().toLowerCase() + "/";
+        if(css.equals(Theme.ACHROMATOPSIE)||css.equals(Theme.DEUTERANOPIE)||css.equals(Theme.PROTANOPIE)||css.equals(Theme.TRITANOPIE)){
+            imagePath = IMAGE_PATH + "light/";
+        }
         if (ball instanceof ClassicBall) {
-            setImage(imagePath + "classic.png");
+            GameConstants.BALL_PATH = imagePath + "classic.png";
+            setImage(GameConstants.BALL_PATH);
         } else if (ball instanceof HyperBall) {
-            setImage(imagePath + "hyper.png");
+            GameConstants.BALL_PATH = imagePath + "hyper.png";
+            setImage(GameConstants.BALL_PATH);
         } else if (ball instanceof GravityBall) {
-            setImage(imagePath + "gravity.png");
+            GameConstants.BALL_PATH = imagePath + "gravity.png";
+            setImage(GameConstants.BALL_PATH);
         } else if (ball instanceof MagnetBall) {
             setImage(imagePath + ((MagnetBall) ball).getEtat().equals("positif") != null ? POSITIF_BALL : NEGATIF_BALL);
         }

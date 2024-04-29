@@ -37,6 +37,7 @@ public final class GameConstants {
         public static final Coordinates DEFAULT_BALL_START_COORDINATES = new Coordinates(
                         GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2, GameConstants.DEFAULT_WINDOW_HEIGHT / 2);
         public static final double POWER_MAGNET = 0.5; // puissance de l'attraction des aimants
+        public static String BALL_PATH = "src/main/ressources/balle/classic/classic.png";
 
         // fenetre
         // public static final double DEFAULT_WINDOW_WIDTH = MAP_WIDTH * BRICK_WIDTH;

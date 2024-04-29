@@ -29,6 +29,7 @@ public class SaveView implements Menu {
     private Button btndelete;
     private Button btnOK;
     private Button resetSave;
+    
 
     //grid, text, label, textfield, combobox
     private GridPane grid = new GridPane();
@@ -36,6 +37,8 @@ public class SaveView implements Menu {
     private Label userName;
     private TextField NameSave;
     private ComboBox<String> listSave;
+
+    
 
     //c'est pour avoir les fonctions de sauvegarde
     private Sauvegarde sauvegarde = new Sauvegarde();
