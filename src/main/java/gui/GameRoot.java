@@ -60,7 +60,6 @@ public class GameRoot {
         this.root.getChildren().add(graphRacket.getShape());
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         root.getStyleClass().add("game-backgorund");
-        game.start();
     }
 
     public void update(long deltaT) {
@@ -92,6 +91,7 @@ public class GameRoot {
             gameView.animationStop();
             gameView.getRoot().getChildren().add(new PauseView(primaryStage, gameView.getRoot(), gameRoot.getRoot(),
                     gameView.getAnimationTimer(), level));
+            game.stop();
         }
         if (level.getGame().isWin()) {
             level.resetGame();

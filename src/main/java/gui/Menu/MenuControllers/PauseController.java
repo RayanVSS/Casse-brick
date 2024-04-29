@@ -81,7 +81,7 @@ public class PauseController {
     }
 
     public void muteMusic() {
-        if(GameConstants.MUSIC == 0) {
+        if (GameConstants.MUSIC == 0) {
             this.view.getBtnMuteMusic().setGraphic(view.getMuteImageView());
             return;
         }

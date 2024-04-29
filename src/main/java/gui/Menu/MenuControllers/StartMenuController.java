@@ -17,7 +17,8 @@ import utils.Sound.ClickSound;
  */
 public class StartMenuController {
     private StartMenuView view;
-    private ClickSound click=App.clickSoundPlayer;
+    private ClickSound click = App.clickSoundPlayer;
+
     /**
      * Constructeur de StartMenuController.
      * 

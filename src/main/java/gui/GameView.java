@@ -55,7 +55,6 @@ public class GameView {
         this.animation();
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
-        game.start();
     }
 
     public void animation() {

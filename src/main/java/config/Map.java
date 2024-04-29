@@ -129,13 +129,13 @@ public class Map {
 
     }
 
-    public boolean updateBricksStatus() {
+    public boolean updateBricksStatus(Game game) {
         boolean destroyed = false;
         for (int i = 0; i < bricks.length; i++) {
             for (int j = 0; j < bricks[0].length; j++) {
                 if (bricks[i][j] != null && bricks[i][j].isDestroyed()) {
                     bricks[i][j] = null;
-                    game.setScore(game.getScore()+10); 
+                    game.setScore(game.getScore() + 10);
                     destroyed = true;
                 }
             }
