@@ -702,3 +702,19 @@ Ajouts :
 
 <span style="color:purple">**A Faire:**</span>
 - travailler sur le rapport 
+
+
+### GUAN Olivier :
+<span style="color:green">**Fait:**</span>
+
+- Résolution de bugs (Collision Balle-Mur invisible, màj du score, reset correct des rules lors du replay, Sauvegarde auto à la fermeture et le bouton quitter)
+- Refactoring de certaines classes
+- Système gain + affichage de monnaie ([Détails : #69](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/69))
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finir l'app de démo (en attente du fix sur un prob d'affichage des briques)
+- Page Profil
+- Afficheur d'erreurs (afficher comme dans un chat)
+- Derniers bugs
+- Ajouter les nouveaux contenus (balle, raquette, ...) dans les anciens
