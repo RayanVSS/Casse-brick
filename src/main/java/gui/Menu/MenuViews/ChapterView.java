@@ -11,8 +11,7 @@ import javafx.stage.Stage;
 import utils.GameConstants;
 import gui.ImageLoader;
 
-
-public class Chapterview implements Menu {
+public class ChapterView implements Menu {
     private Stage primaryStage;
     private VBox root;
     private Scene scene;
@@ -28,7 +27,8 @@ public class Chapterview implements Menu {
 
     private Button backButton;
 
-    public Chapterview(Stage primaryStage) {
+    public ChapterView(Stage primaryStage) {
+
         this.primaryStage = primaryStage;
         root = new VBox(45);
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);// 1100, 800
@@ -38,8 +38,6 @@ public class Chapterview implements Menu {
         Image image2 = ImageLoader.loadImage("src/main/ressources/chapitre/chapitre2.png");
         Image image3 = ImageLoader.loadImage("src/main/ressources/chapitre/chapitre3.png");
 
-
-
         backButton = createButton("Retour", 0, 0);
 
         // Initialiser les boutons et les images
@@ -48,19 +46,16 @@ public class Chapterview implements Menu {
         chapter1Image.setFitWidth(900);
         chapter1Image.setFitHeight(150);
         chapter1.setGraphic(chapter1Image);
-        chapter1.setStyle("-fx-background-color: transparent;"); 
+        chapter1.setStyle("-fx-background-color: transparent;");
         chapter1.setPrefWidth(900);
         chapter1.setPrefHeight(150);
-
-
-
 
         chapter2 = new Button();
         chapter2Image = new ImageView(image2);
         chapter2Image.setFitWidth(900);
         chapter2Image.setFitHeight(150);
         chapter2.setGraphic(chapter2Image);
-        chapter2.setStyle("-fx-background-color: transparent;"); 
+        chapter2.setStyle("-fx-background-color: transparent;");
         chapter2.setPrefWidth(900);
         chapter2.setPrefHeight(150);
 
@@ -69,7 +64,7 @@ public class Chapterview implements Menu {
         chapter3Image.setFitWidth(900);
         chapter3Image.setFitHeight(150);
         chapter3.setGraphic(chapter3Image);
-        chapter3.setStyle("-fx-background-color: transparent;"); 
+        chapter3.setStyle("-fx-background-color: transparent;");
         chapter3.setPrefWidth(900);
         chapter3.setPrefHeight(150);
 
@@ -87,7 +82,6 @@ public class Chapterview implements Menu {
         root.getChildren().addAll(chapter1, chapter2, chapter3, backButton);
         new ChapterController(this);
     }
-
 
     // Getters
     public Scene getScene() {
@@ -113,6 +107,5 @@ public class Chapterview implements Menu {
     public Button getBackButton() {
         return backButton;
     }
-
 
 }
