@@ -715,6 +715,6 @@ Ajouts :
 
 - Finir l'app de démo (en attente du fix sur un prob d'affichage des briques)
 - Page Profil
-- Afficheur d'erreurs (afficher comme dans un chat)
+- Terminal intégré / Afficheur d'erreurs (afficher comme dans un chat) ([#78](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/78) [#66](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/66))
 - Derniers bugs
 - Ajouter les nouveaux contenus (balle, raquette, ...) dans les anciens
