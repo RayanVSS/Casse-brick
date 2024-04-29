@@ -1,6 +1,5 @@
 package gui.Menu.MenuControllers;
 
-import config.Game;
 import gui.App;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Platform;
@@ -89,9 +88,9 @@ public class StartMenuController {
      * Méthode pour accéder à la boutique.
      */
     private void boutique() {
-        Platform.runLater(() -> {
+        //Platform.runLater(() -> {
             App.sceneManager.changeScene(view.getPrimaryStage(), "BoutiqueView");
-        });
+        //});
     }
 
 }

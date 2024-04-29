@@ -285,6 +285,14 @@ public final class GraphicsToolkit {
 
             summaryLabel.getStyleClass().add("label-vbox-description");
         }
+
+        public Label getSummaryLabel() {
+            return summaryLabel;
+        }
+
+        public VBox getVBox() {
+            return this;
+        }
     }
 
     /**

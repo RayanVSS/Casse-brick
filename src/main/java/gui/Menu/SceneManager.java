@@ -9,6 +9,7 @@ import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
+import gui.Menu.MenuViews.BoutiqueView;
 import gui.Menu.MenuViews.ChapterView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -89,6 +90,7 @@ public class SceneManager {
         createStageSelectorViewScene(primaryStage);
         createGameCustomizerViewScene(primaryStage);
         createChapterViewScene(primaryStage);
+        createBoutiqueViewScene(primaryStage);
     }
 
     // Les méthodes suivantes créent des scènes spécifiques et les ajoutent à la
@@ -136,9 +138,9 @@ public class SceneManager {
     }
 
     public void createBoutiqueViewScene(Stage primaryStage) {
-        // BoutiqueView boutiqueView = new BoutiqueView(primaryStage);
-        // addStylesheet(boutiqueView.getScene());
-        // addScene("BoutiqueView", boutiqueView.getScene());
+        BoutiqueView boutiqueView = new BoutiqueView(primaryStage);
+        addStylesheet(boutiqueView.getScene());
+        addScene("BoutiqueView", boutiqueView.getScene());
     }
 
     /**
