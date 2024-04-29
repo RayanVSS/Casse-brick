@@ -19,19 +19,22 @@ public class WinView extends VBox implements Menu {
     private Button btnQuit;
     private Button btnNext;
     private Label win;
+    private Label gain;
 
     public WinView(Stage p, GameView game, StageLevel level) {
 
         this.primaryStage = p;
         this.game = game;
         this.level = level;
+
         btnMenu = createButton("Menu", 0, 0);
         btnQuit = createButton("Quitter", 0, 0);
         btnNext = createButton("Niveau suivant", 0, 0);
-        win = createLabel("Gagné!!", 0, 0);
+        win = createLabel("Gagné !!", 0, 0);
+        gain = createLabel("", 0, 0);
 
         win.getStyleClass().add("title-game-over-style");
-        getChildren().addAll(win, btnNext, btnMenu, btnQuit);
+        getChildren().addAll(win, gain, btnNext, btnMenu, btnQuit);
 
         setLayoutX(game.getRoot().getLayoutX());
         setLayoutY(game.getRoot().getLayoutY());
@@ -42,20 +45,21 @@ public class WinView extends VBox implements Menu {
 
         if (level.getDifficulty() < GameConstants.STAGES_QTY - 1) {
             level.winAction();
-            new WinController(this);
         } else {
             finDuJeu();
         }
+        gain.setText("Gain : " + GameConstants.LAST_WIN_MONEY);
         new WinController(this);
     }
 
     public void finDuJeu() {
         this.getChildren().clear();
         Label fiin = createLabel("Vous avez terminé le jeu.", 0, 0);
-        Label fiin2 = createLabel("Merci d'avoir joué!", 0, 0);
+        Label fiin2 = createLabel("Merci d'avoir joué !", 0, 0);
         fiin.getStyleClass().add("fin-label");
         fiin2.getStyleClass().add("fin-label");
-        getChildren().addAll(fiin, fiin2, btnMenu, btnQuit);
+        gain = createLabel("Gain : " + GameConstants.LAST_WIN_MONEY, 0, 0);
+        getChildren().addAll(fiin, fiin2, gain, btnMenu, btnQuit);
     }
 
     public Button getBtnMenu() {

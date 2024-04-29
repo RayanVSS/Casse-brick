@@ -183,4 +183,7 @@ public final class GameConstants {
 
         };
 
+        // DISPLAY VALUES (valeurs servant de stockeur ici pour un accès direct/facile par les afficheurs)
+        public static int LAST_WIN_MONEY;
+
 }
