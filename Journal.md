@@ -686,3 +686,19 @@ Ajouts :
 - réfléchir à soutenance (explication modélisation physique et conception objet)
 - préparer belle démo du produit quasi-fini
 - ajouter "tests" pour la soutenance : la balle est directement dans la configuration mettant en évidence le phénomène à démontrer
+
+## Semaine 9 (30/4):
+
+### Belhassen rayan
+<span style="color:green">**Fait:**</span>
+- ajout de niveaux supplémentaires 
+- ajout de nouveaux chapitres 
+- repair_softwair:
+    - adaptation du code pour pouvoir être lancé avec gradle 
+    - ajout du gradle (./gradlew repair --console=plain)
+    - détection de sauvegarde non fonctionnelle 
+    - ouverture de l'emplacement des sauvegardes 
+    - enlever la sauvegarde par défaut
+
+<span style="color:purple">**A Faire:**</span>
+- travailler sur le rapport 
