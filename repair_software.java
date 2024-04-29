@@ -1,4 +1,3 @@
-//ouvrir le navigateur par défaut
 import static utils.GameConstants.FPS;
 
 import java.awt.Desktop;
@@ -23,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.lang.reflect.Type;
 
 public class repair_software {
@@ -187,6 +187,22 @@ public class repair_software {
         return donnees;
     }
 
+    public static void enlever_lastSave(){
+        Map<String, Object> options = getDonnees(new File("src/main/java/save/lastSave.json"));
+        options.put("SAVE", "");
+        sauvegarderDonnees("lastSave", options);
+    }
+
+    public static void sauvegarderDonnees(String nomUtilisateur, Map<String, Object> donnees) {
+        String cheminFichierSauvegarde = directoryPath + nomUtilisateur + ".json";
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try (FileWriter writer = new FileWriter(cheminFichierSauvegarde)) {
+            gson.toJson(donnees, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 
@@ -197,7 +213,8 @@ public class repair_software {
         System.out.println("#3# reparation automatique de la sauvegarde");
         System.out.println("#4# reparation manuelle de la sauvegarde");
         System.out.println("#5# ouvrir le fichier de sauvegarde");
-        System.out.println("#6# quitter");
+        System.out.println("#6# enlever la sauvegarde par defaut");
+        System.out.println("#7# quitter");
         System.out.println("***********************************************");
         System.out.print("votre choix : ");
         String reponse = sc.nextLine();
@@ -218,6 +235,9 @@ public class repair_software {
                 ouvrire_fichier();
                 break;
             case "6":
+                enlever_lastSave();
+                break;
+            case "7":
                 System.out.println("Fin du programme");
                 fini = true;
                 break;
@@ -301,6 +321,8 @@ public class repair_software {
 
         return true;
     }
+
+    
 
     public static void main(String[] args) {
         while (!fini) {
