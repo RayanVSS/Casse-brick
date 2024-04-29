@@ -19,7 +19,7 @@ public class Game {
     private Map map;
     private boolean lost;
     private boolean win;
-    public static int score = 0;
+    private int score = 0;
     private int life = 3;
     private boolean collide;
     private GameRules rules;
@@ -44,7 +44,7 @@ public class Game {
         rules.initRules(this);
     }
 
-    public void start() {
+    private void start() {
         if (inGameTimer == null) {
             inGameTimer = new Timer();
             inGameTimer.scheduleAtFixedRate(new TimerTask() {
@@ -58,6 +58,7 @@ public class Game {
     }
 
     public void stop() {
+        inGameTimer.cancel();
         inGameTimer = null;
     }
 
@@ -65,7 +66,7 @@ public class Game {
         start();
         //Vérifie si la balle touche une brique
         map.handleCollisionBricks(ball, rules); //gérer la collision des briques
-        if (map.updateBricksStatus()) {
+        if (map.updateBricksStatus(this)) {
             //si la briques est cassée, chance d'avoir un boost
             Boost boost = Boost.createBoost(ball.getC());
             if (boost != null) {
@@ -126,6 +127,7 @@ public class Game {
     }
 
     private boolean verifyWin() {
+        // return true; // décommenter ici pour tester les wins
         return map.countBricks() == 0;
     }
 
@@ -181,4 +183,9 @@ public class Game {
     public List<Boost> getBoosts() {
         return boosts;
     }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
 }

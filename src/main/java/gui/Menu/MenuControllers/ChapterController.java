@@ -1,16 +1,14 @@
 package gui.Menu.MenuControllers;
 
-import gui.Menu.MenuViews.Chapterview;
+import gui.Menu.MenuViews.ChapterView;
 import gui.App;
 import javafx.application.Platform;
-import gui.Menu.MenuControllers.StageSelectorController;
 
 public class ChapterController {
 
-    
-    private Chapterview Chapterview;
+    private ChapterView Chapterview;
 
-    public ChapterController(Chapterview Chapterview) {
+    public ChapterController(ChapterView Chapterview) {
         this.Chapterview = Chapterview;
         setButtonsAction();
     }

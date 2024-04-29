@@ -9,7 +9,7 @@ import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
-import gui.Menu.MenuViews.Chapterview;
+import gui.Menu.MenuViews.ChapterView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.GameConstants;
@@ -130,7 +130,7 @@ public class SceneManager {
     }
 
     public void createChapterViewScene(Stage primaryStage) {
-        Chapterview chapterView = new Chapterview(primaryStage);
+        ChapterView chapterView = new ChapterView(primaryStage);
         addStylesheet(chapterView.getScene());
         addScene("Chapterview", chapterView.getScene());
     }
