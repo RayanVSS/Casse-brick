@@ -79,10 +79,13 @@ public class SceneManager {
     public void addStylesheet(Scene scene) {
         scene.getStylesheets().clear();
         scene.getStylesheets().add(getClass().getResource(GameConstants.CSS.getPath()).toExternalForm());
-        System.out.println("Added stylesheet to scene: " + getSceneName(scene));
-        System.out.println("Stylesheets: " + scene.getStylesheets()+" css: "+GameConstants.CSS.name());
     }
 
+    public void updateStylesheets() {
+        for (Scene scene : scenes.values()) {
+            addStylesheet(scene);
+        }
+    }
     // Charge toutes les scènes du jeu
     public void preCreateAllView(Stage primaryStage) {
         createStartMenuViewScene(primaryStage);

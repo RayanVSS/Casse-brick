@@ -14,7 +14,6 @@ import utils.Sound.GameOverSound;
 import utils.Sound.LevelUpSound;
 import utils.Sound.MalusSound;
 import utils.Sound.Music;
-import utils.GameConstants;
 
 public class App extends Application {
 

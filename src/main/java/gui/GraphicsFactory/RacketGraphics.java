@@ -58,6 +58,7 @@ public class RacketGraphics {
 			addTexture();
 		} else {
 			shape.setFill(color);
+			shape.setStroke(color);
 		}
 	}
 
@@ -131,7 +132,7 @@ public class RacketGraphics {
 	}
 
 	private void strokeColor() {
-		shape.setStrokeWidth(5);
+		shape.setStrokeWidth(3.5);
 		if (racket.getFreeze()) {
 			shape.setStroke(MALUS);
 		} else if (racket.getLargeurM()) {
@@ -146,6 +147,13 @@ public class RacketGraphics {
 			shape.setStroke(MALUS);
 		} else if (racket.getZhonya()) {
 			shape.setStroke(BOOST);
+		}else{
+			if (!GameConstants.TEXTURE.equals("Null")) {
+				addTexture();
+			} else {
+				shape.setStroke(color);
+				shape.setFill(color);
+			}
 		}
 	}
 

@@ -78,7 +78,6 @@ public class GameView {
                     gameRoot.update(deltaT);
                     scoreLifeView.update();
                     scene.getStylesheets().add(GameConstants.CSS.getPath());
-
                 }
                 last = now;
             }

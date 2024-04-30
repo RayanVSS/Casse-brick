@@ -72,6 +72,7 @@ public class SaveController {
             sauvegarde.chargerToutesDonnees(selectedSauvegarde); // Charger la sauvegarde sélectionnée dans le fichier
             view.afficherMessage("Sauvegarde '" + selectedSauvegarde + "' chargée avec succès"); // Afficher un message
                                                                                                  // de confirmation
+            App.sceneManager.updateStylesheets();
         } else {
             view.afficherMessage("Veuillez sélectionner une sauvegarde à charger"); // Afficher un message d'erreur
         }
