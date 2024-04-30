@@ -31,7 +31,6 @@ public class MagnetBall extends Ball {
 
     @Override
     public void movement() {
-        boolean lost = true;
         double w = getZoneWidth();
         double h = getZoneHeight();
         double newX = this.getC().getX() + this.getDirection().getX();
@@ -84,7 +83,8 @@ public class MagnetBall extends Ball {
                     this.getDirection().setX(0);
                     this.getDirection().setY(1);
                     CollisionR = true;
-                    super.setDelete(false);
+                    super.setDelete(true);
+                    return;
                 }
             }
             //si l'etat de la raquette est different de la balle

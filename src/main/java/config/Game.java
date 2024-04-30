@@ -71,6 +71,7 @@ public class Game {
         start();
         //Vérifie si la balle touche une brique
         for (Ball ball : balls) {
+            ball.CollisionB=false;
             if(!ball.delete()){
                 balls.remove(ball);
                 break;

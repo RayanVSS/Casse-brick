@@ -27,24 +27,24 @@ public class ParticleGroup{
     }
 
     public void update() {
-        for (int i = 0; i < trailLength; i++) {
-            List<Particle> trail = particles.get(i);
-
-            for (int j = trail.size() - 1; j > 0; j--) {
-                Particle currentParticle = trail.get(j);
-                Particle previousParticle = trail.get(j - 1);
-
-                currentParticle.setCenterX(previousParticle.getCenterX());
-                currentParticle.setCenterY(previousParticle.getCenterY());
-                currentParticle.applyRandomFluctuation(); // fluctuation des particules
-            }
-            Particle firstParticle = trail.get(0);
-            for(Ball b:game.getBalls()){
-                firstParticle.setCenterX(b.getC().getX());
-                firstParticle.setCenterY(b.getC().getY());
+        if(game.getBalls().size()>0){
+            for (int i = 0; i < trailLength; i++) {
+                List<Particle> trail = particles.get(i);
+    
+                for (int j = trail.size() - 1; j > 0; j--) {
+                    Particle currentParticle = trail.get(j);
+                    Particle previousParticle = trail.get(j - 1);
+    
+                    currentParticle.setCenterX(previousParticle.getCenterX());
+                    currentParticle.setCenterY(previousParticle.getCenterY());
+                    currentParticle.applyRandomFluctuation(); // fluctuation des particules
+                }
+                Particle firstParticle = trail.get(0);
+                firstParticle.setCenterX(game.getBalls().get(0).getC().getX());
+                firstParticle.setCenterY(game.getBalls().get(0).getC().getY());
                 firstParticle.applyRandomFluctuation(); // Appliquer la fluctuation
                 // Si il y a des balles (au moins une balle)
-                return;
+    
             }
         }
     }
