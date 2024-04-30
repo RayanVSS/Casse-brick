@@ -199,10 +199,11 @@
         "unlockLevel": 27,
         "completed": true,
         "maxScore": 0,
-        "customGame":false
+        "customGame": false
       }
     ]
   },
   "SOUND": 52,
-  "RIGHT": "RIGHT"
+  "RIGHT": "RIGHT",
+  "ADMIN": false
 }

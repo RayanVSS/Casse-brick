@@ -164,7 +164,7 @@ public class Sauvegarde {
     public void chargerPlayerData(String name) {
         Map<String, Object> playerData = getDonnees(name);
         if (playerData != null) {
-            PlayerData.pseudo = (String) playerData.getOrDefault("PSEUDO", "");
+            PlayerData.pseudo = (String) playerData.getOrDefault("PSEUDO", "Sans nom");
             PlayerData.expLevel = ((Number) playerData.getOrDefault("EXP_LEVEL", 1)).intValue();
             PlayerData.money = ((Number) playerData.getOrDefault("MONEY", 0)).intValue();
             PlayerData.isAdmin = (boolean) playerData.getOrDefault("ADMIN", false);
@@ -272,11 +272,14 @@ public class Sauvegarde {
         String saveName;
         if (GameConstants.LAST_SAVE.equals("")) {
             saveName = "autoTempSave";
-            GameConstants.LAST_SAVE = saveName;
+            Map<String, Object> lastSave = new HashMap<>();
+            lastSave.put("SAVE", saveName);
+            sauvegarderDonnees("lastSave", lastSave);
         } else {
             saveName = GameConstants.LAST_SAVE.replace(".json", "");
         }
         sauvegarderToutesDonnees(saveName);
+        GameConstants.LAST_SAVE = saveName + ".json";
         System.out.println("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès.");
     }
 }

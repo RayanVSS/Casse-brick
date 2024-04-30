@@ -1,5 +1,6 @@
 package gui.Menu.MenuViews;
 
+import gui.GraphicsFactory.ProfileView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.StartMenuController;
 import javafx.scene.Scene;
@@ -42,10 +43,10 @@ public class StartMenuView implements Menu {
         btnSave = createButton("Sauvegarder", 0, 0);
         btnQuit = createButton("Quitter", 0, 0);
 
-        root.getChildren().addAll(title, btnPlay, btnOptions, btnSave, btnQuit);
+        root.getChildren().addAll(title, btnPlay, btnOptions, btnSave, btnQuit, new ProfileView());
         root.setSpacing(10);
         root.setAlignment(javafx.geometry.Pos.CENTER);
-        new StartMenuController(p,this);
+        new StartMenuController(p, this);
     }
 
     // getters pour les boutons et autres éléments de la vue

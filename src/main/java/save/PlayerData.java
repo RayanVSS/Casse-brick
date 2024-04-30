@@ -15,7 +15,7 @@ public class PlayerData {
     public static StagesProgress stagesProgress;
 
     public static void initPlayerData() {
-        pseudo = "";
+        pseudo = "Sans nom";
         expLevel = 1;
         money = 0;
         isAdmin = false;
