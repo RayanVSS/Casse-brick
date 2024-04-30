@@ -2,13 +2,13 @@
   "PATH": false,
   "MUSIC": 0,
   "CSS": "PINK",
-  "MONEY": 0,
-  "PARTICLES": true,
+  "MONEY": 50,
+  "PARTICLES": false,
   "LEFT": "LEFT",
   "FPS": true,
   "PSEUDO": "",
   "SPACE": "SPACE",
-  "TEXTURE": "Null",
+  "TEXTURE": "rose.jpg",
   "EXP_LEVEL": 27,
   "PROGRESS": {
     "stages": [
@@ -203,6 +203,6 @@
       }
     ]
   },
-  "SOUND": 52,
+  "SOUND": 0,
   "RIGHT": "RIGHT"
 }

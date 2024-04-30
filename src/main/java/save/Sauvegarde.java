@@ -148,7 +148,6 @@ public class Sauvegarde {
             LEFT = Sauvegarde.getKeyCode((String) options.getOrDefault("LEFT", "LEFT"));
             RIGHT = Sauvegarde.getKeyCode((String) options.getOrDefault("RIGHT", "RIGHT"));
             SPACE = Sauvegarde.getKeyCode((String) options.getOrDefault("SPACE", "SPACE"));
-            //CSS =  /*(Theme) options.getOrDefault("CSS", Theme.DARK);*/ Theme.valueOf((String) options.getOrDefault("CSS", "DARK"));
             String cssOption = (String) options.getOrDefault("CSS", "DARK");
             try {
                 CSS = Theme.valueOf(cssOption.toUpperCase());
@@ -276,4 +275,5 @@ public class Sauvegarde {
         sauvegarderToutesDonnees(saveName);
         System.out.println("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès.");
     }
+
 }

@@ -92,19 +92,17 @@ public class OptionsView implements Menu {
         LabelVBox labelVBox = new LabelVBox("Musique & Themes", 12);
         volumeMusic = new LabelSliderHBox("Musique", 0, 100, 50, false, 1);
         volumeSound = new LabelSliderHBox("Sons", 0, 100, 50, false, 1);
-        String[] themes = { "Classic", "Black", "Light", "Pink" };
+        String[] themes = { "Classic", "Black", "Light", "Pink", "Achromatopsie", "Deuteranopie", "Protanopie", "Tritanopie" };
         String name = GameConstants.CSS.name();
         String capitalizedPath = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-        theme = new LabelComboBoxHBox(capitalizedPath, themes, capitalizedPath);
+        theme = new LabelComboBoxHBox("Theme", themes, capitalizedPath);
 
         texture = new LabelComboBoxHBox("Texture", textureNames.toArray(new String[0]), GameConstants.TEXTURE);
 
-        ComboBox<String> textureComboBox = texture.getComboBox();
-        textureComboBox.getItems().addAll(textureNames);
         if (GameConstants.TEXTURE.equals("Null")) {
-            textureComboBox.setPromptText("Choisir une texture");
+            texture.getComboBox().setPromptText("Choisir une texture");
         } else {
-            textureComboBox.setValue(GameConstants.TEXTURE);
+            texture.getComboBox().setValue(GameConstants.TEXTURE);
         }
         textureImageView = new ImageView();
         if (!GameConstants.TEXTURE.equals("Null")) {

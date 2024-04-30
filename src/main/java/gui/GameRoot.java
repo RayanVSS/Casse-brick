@@ -79,9 +79,9 @@ public class GameRoot {
     public void update(long deltaT) {
         BoostAction();
         updateGraphics();
-        root.getChildren().remove(graphRacket.getShape());
+        //root.getChildren().remove(graphRacket.getShape());
         graphRacket.update();
-        root.getChildren().add(graphRacket.getShape()); // Ajoute la forme de la raquette mise à jour
+        //root.getChildren().add(graphRacket.getShape()); // Ajoute la forme de la raquette mise à jour
         if (GameConstants.PARTICLES) {
             particleGroup.update();
         }

@@ -8,10 +8,12 @@ import javafx.stage.Stage;
 import save.PlayerData;
 import save.Sauvegarde;
 import utils.Sound.BallSound;
+import utils.Sound.BonusSound;
 import utils.Sound.ClickSound;
 import utils.Sound.GameOverSound;
+import utils.Sound.LevelUpSound;
+import utils.Sound.MalusSound;
 import utils.Sound.Music;
-import utils.GameConstants;
 
 public class App extends Application {
 
@@ -22,6 +24,9 @@ public class App extends Application {
     public static GameOverSound gameOverS;
     public static Music music;
     public static BallSound ballSound;
+    public static BonusSound bonusSound;
+    public static MalusSound malusSound;
+    public static LevelUpSound levelUp;
 
     @Override
     public void start(Stage p) throws Exception {
@@ -37,6 +42,9 @@ public class App extends Application {
                 gameOverS = new GameOverSound();
                 music = new Music();
                 ballSound = new BallSound();
+                bonusSound = new BonusSound();
+                malusSound = new MalusSound();
+                levelUp = new LevelUpSound();
 
                 primaryStage = p;
                 Image icon = new Image("icon.png");

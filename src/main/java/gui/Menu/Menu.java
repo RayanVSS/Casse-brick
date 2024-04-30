@@ -27,13 +27,13 @@ public interface Menu {
         TRITANOPIE("/styles/tritanopie.css"),
         PROTANOPIE("/styles/protanopie.css")
         ;
-
         private String path;
-
         public String getPath() {
             return path;
         }
-
+        public String getName() {
+            return path.replace("/styles/", "").replace(".css", "");
+        }
         Theme(String path) {
             this.path = path;
         }
@@ -62,6 +62,10 @@ public interface Menu {
             button.getStyleClass().add("button-style");
         });
         return button;
+    }
+
+    default Button createButton(String text) {
+        return createButton(text, 0, 0);
     }
 
     /**
@@ -121,11 +125,5 @@ public interface Menu {
         slider.setMaxWidth(maxwidth);
         slider.setOrientation(Orientation.HORIZONTAL);
         return slider;
-    }
-
-    default Label createLabel(String text) {
-        Label l=new Label(text);
-        l.getStyleClass().add("scoreL-style");
-        return l;
     }
 }

@@ -24,6 +24,7 @@ public class StartMenuView implements Menu {
     private Button btnPlay;
     private Button btnOptions;
     private Button btnQuit;
+    private Button btnBoutique;
     private Button btnSave;
     private Label title;
 
@@ -39,13 +40,14 @@ public class StartMenuView implements Menu {
         title.getStyleClass().add("title-style");
         btnPlay = createButton("Jouer", 0, 0);
         btnOptions = createButton("Options", 0, 0);
+        btnBoutique = createButton("Boutique", 0, 0);
         btnSave = createButton("Sauvegarder", 0, 0);
         btnQuit = createButton("Quitter", 0, 0);
 
-        root.getChildren().addAll(title, btnPlay, btnOptions, btnSave, btnQuit);
+        root.getChildren().addAll(title, btnPlay, btnOptions, btnBoutique, btnSave, btnQuit);
         root.setSpacing(10);
         root.setAlignment(javafx.geometry.Pos.CENTER);
-        new StartMenuController(p,this);
+        new StartMenuController(p, this);
     }
 
     // getters pour les boutons et autres éléments de la vue
@@ -102,6 +104,15 @@ public class StartMenuView implements Menu {
      */
     public Button getBtnSave() {
         return btnSave;
+    }
+
+    /**
+     * Méthode pour obtenir le bouton Boutique.
+     * 
+     * @return Le bouton Boutique.
+     */
+    public Button getBtnBoutique() {
+        return btnBoutique;
     }
 
     public Scene getScene() {

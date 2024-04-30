@@ -9,6 +9,7 @@ import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
+import gui.Menu.MenuViews.BoutiqueView;
 import gui.Menu.MenuViews.ChapterView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -80,6 +81,11 @@ public class SceneManager {
         scene.getStylesheets().add(getClass().getResource(GameConstants.CSS.getPath()).toExternalForm());
     }
 
+    public void updateStylesheets() {
+        for (Scene scene : scenes.values()) {
+            addStylesheet(scene);
+        }
+    }
     // Charge toutes les scènes du jeu
     public void preCreateAllView(Stage primaryStage) {
         createStartMenuViewScene(primaryStage);
@@ -89,6 +95,7 @@ public class SceneManager {
         createStageSelectorViewScene(primaryStage);
         createGameCustomizerViewScene(primaryStage);
         createChapterViewScene(primaryStage);
+        createBoutiqueViewScene(primaryStage);
     }
 
     // Les méthodes suivantes créent des scènes spécifiques et les ajoutent à la
@@ -133,6 +140,12 @@ public class SceneManager {
         ChapterView chapterView = new ChapterView(primaryStage);
         addStylesheet(chapterView.getScene());
         addScene("Chapterview", chapterView.getScene());
+    }
+
+    public void createBoutiqueViewScene(Stage primaryStage) {
+        BoutiqueView boutiqueView = new BoutiqueView(primaryStage);
+        addStylesheet(boutiqueView.getScene());
+        addScene("BoutiqueView", boutiqueView.getScene());
     }
 
     /**
