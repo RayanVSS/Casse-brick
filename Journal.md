@@ -619,6 +619,7 @@ affichage de la racket
 ### Mushtaq Amenah
 <span style="color:green">**Fait:**</span>
 -absente 
+(Remarque : était malade pendant les vacances)
 
 <span style="color:purple">**A Faire:**</span>
 - Bug sur le mode infini a reglé 
