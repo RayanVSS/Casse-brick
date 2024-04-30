@@ -127,7 +127,7 @@ public class Game {
     }
 
     private boolean verifyWin() {
-        return true; // décommenter ici pour tester les wins
+        return false; // décommenter ici pour tester les wins
         // return map.countBricks() == 0;
     }
 
