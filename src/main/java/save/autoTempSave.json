@@ -204,5 +204,6 @@
     ]
   },
   "SOUND": 50,
-  "RIGHT": "RIGHT"
+  "RIGHT": "RIGHT",
+  "ADMIN": false
 }

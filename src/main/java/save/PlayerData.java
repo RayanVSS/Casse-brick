@@ -11,12 +11,14 @@ public class PlayerData {
     public static String pseudo;
     public static int expLevel;
     public static int money;
+    public static boolean isAdmin;
     public static StagesProgress stagesProgress;
 
     public static void initPlayerData() {
         pseudo = "";
         expLevel = 1;
         money = 0;
+        isAdmin = false;
         stagesProgress = new StagesProgress(GameConstants.STAGES_QTY);
         stagesProgress.createStages();
     }

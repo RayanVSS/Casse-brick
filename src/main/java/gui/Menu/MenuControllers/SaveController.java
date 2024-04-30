@@ -52,14 +52,14 @@ public class SaveController {
 
     private void save() {
         if (LAST_SAVE.equals("")) {
-            view.afficherMessage("vous n'etes pas connecté a une sauvegarde");
+            view.afficherMessage("vous n'êtes pas connecté à une sauvegarde.");
             return;
         } else {
             // sa marche pas
             String saveName = LAST_SAVE.replace(".json", "");
             System.out.println(saveName);
             sauvegarde.sauvegarderToutesDonnees(saveName);
-            view.afficherMessage("Sauvegarde '" + LAST_SAVE + "' effectuée avec succès");
+            view.afficherMessage("Sauvegarde '" + LAST_SAVE + "' effectuée avec succès.");
         }
 
     }
@@ -70,10 +70,10 @@ public class SaveController {
 
         if (selectedSauvegarde != null) { // si une sauvegarde est sélectionnée
             sauvegarde.chargerToutesDonnees(selectedSauvegarde); // Charger la sauvegarde sélectionnée dans le fichier
-            view.afficherMessage("Sauvegarde '" + selectedSauvegarde + "' chargée avec succès"); // Afficher un message
-                                                                                                 // de confirmation
+            view.afficherMessage("Sauvegarde '" + selectedSauvegarde + "' chargée avec succès."); // Afficher un message
+                                                                                                  // de confirmation
         } else {
-            view.afficherMessage("Veuillez sélectionner une sauvegarde à charger"); // Afficher un message d'erreur
+            view.afficherMessage("Veuillez sélectionner une sauvegarde à charger."); // Afficher un message d'erreur
         }
     }
 
@@ -83,10 +83,10 @@ public class SaveController {
             sauvegarde.supprimerSauvegarde(selectedSauvegarde);// Supprimer la sauvegarde sélectionnée dans le fichier
             view.getListSave().getItems().remove(selectedSauvegarde); // Supprimer la sauvegarde sélectionnée dans la
                                                                       // ComboBox
-            view.afficherMessage("Sauvegarde " + selectedSauvegarde + " supprimée avec succès"); // Afficher un message
-                                                                                                 // de confirmation
+            view.afficherMessage("Sauvegarde " + selectedSauvegarde + " supprimée avec succès."); // Afficher un message
+                                                                                                  // de confirmation
         } else {
-            view.afficherMessage("Veuillez sélectionner une sauvegarde à supprimer"); // Afficher un message d'erreur
+            view.afficherMessage("Veuillez sélectionner une sauvegarde à supprimer."); // Afficher un message d'erreur
         }
     }
 
@@ -98,11 +98,11 @@ public class SaveController {
                                                                                // déjà dans la ComboBox
             view.getListSave().getItems().add(nomUtilisateur + ".json"); // Ajouter le nom de l'utilisateur à la
                                                                          // ComboBox
-        view.afficherMessage("c'est bon"); // Afficher un message de confirmation
+        view.afficherMessage("Sauvegarde créée."); // Afficher un message de confirmation
     }
 
     private void resetSave() {
-        view.afficherMessage("il n'y a plus de sauvegarde par defaut"); // Afficher un message de confirmation
+        view.afficherMessage("Il n'y a plus de sauvegarde par defaut."); // Afficher un message de confirmation
         sauvegarde.resetLastSave(); // Réinitialiser la dernière sauvegarde
     }
 
