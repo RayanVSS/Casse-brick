@@ -728,6 +728,8 @@ Ajouts :
 <span style="color:purple">**A Faire:**</span>
 - Fin de la boutique 
 - Recherche des derniers sons
+- Rapport
+- Factorisation du code
 
 ### Bencheikh Ilias :
 <span style="color:green">**Fait:**</span>
@@ -744,3 +746,15 @@ Ajouts :
 - Implémenter la friction de l'air et de la balle #20
 - Améliorer la collision de la balle et des briques (avec Olivier) #52
 - Améliorer la structure de la partie physique #49
+
+
+### Mushtaq Amenah :
+
+<span style="color:green">**Fait:**</span>
+- Modifications de l'affichage des briques pour corriger des bugs 
+
+<span style="color:purple">**A Faire:**</span>
+- finir l'affichage des briques
+- Finir le mode infini (ajouter un bonus pour stopper les briques)
+- Factoriser/ commenter les codes
+- Rapport
