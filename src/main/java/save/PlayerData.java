@@ -27,6 +27,7 @@ public class PlayerData {
     public static void rewardStageWin(StageLevel level) {
         int addMoney = calculateStageWinMoney(level);
         PlayerData.money += addMoney;
+        GameConstants.LAST_WIN_MONEY = addMoney;
     }
 
     /**
@@ -35,6 +36,7 @@ public class PlayerData {
     public static void rewardCustomWin(StageLevel level) {
         int addMoney = calculateStageWinMoney(level);
         PlayerData.money += addMoney / 2;
+        GameConstants.LAST_WIN_MONEY = addMoney;
     }
 
     private static int calculateStageWinMoney(StageLevel level) {

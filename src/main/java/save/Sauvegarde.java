@@ -29,6 +29,7 @@ import com.google.gson.reflect.TypeToken;
 import config.StagesProgress;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
+import utils.GameConstants;
 
 /**
  * sauvegarder les données du jeu:
@@ -253,13 +254,26 @@ public class Sauvegarde {
     }
 
     public void setupLastSave() {
-        System.out.println("Chargement de la derniere sauvegarde");
+        System.out.println("Chargement de la derniere sauvegarde...");
         chargerLastSave();
         if (!LAST_SAVE.equals("")) {
             chargerOptionsDuJeu(LAST_SAVE);
             chargerPlayerData(LAST_SAVE);
+            System.out.println("Sauvegarde de : '" + LAST_SAVE + "'.");
         } else {
-            System.err.println("Impossible de charger la derniere sauvegarde");
+            System.err.println("Impossible de charger la derniere sauvegarde.");
         }
+    }
+
+    public void autoSave() {
+        String saveName;
+        if (GameConstants.LAST_SAVE.equals("")) {
+            saveName = "autoTempSave";
+            GameConstants.LAST_SAVE = saveName;
+        } else {
+            saveName = GameConstants.LAST_SAVE.replace(".json", "");
+        }
+        sauvegarderToutesDonnees(saveName);
+        System.out.println("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès.");
     }
 }

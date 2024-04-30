@@ -35,15 +35,28 @@ public class RacketGraphics {
 	public RacketGraphics(Racket racket, String shapeType) {
 		this.racket = racket;
 		this.shapeType = shapeType;
+		switch (shapeType.toLowerCase()) {
+			case "rectangle":
+				shape = new Rectangle();
+				break;
+			case "losange":
+				shape = new Polygon();
+				break;
+			case "rond":
+				shape = new Ellipse();
+				break;
+			case "triangle":
+				shape = new Polygon();
+				break;
+		}
 		setShape();
 		getStrokeColor();
-		// Ajout de la texture
-		if(!GameConstants.TEXTURE.equals("Null")) {
+		color();
+		if (!GameConstants.TEXTURE.equals("Null")) {
 			image = ImageLoader.loadImage("src/main/ressources/Texture/" + GameConstants.TEXTURE);
 			texture = new ImagePattern(image);
-			shape.setFill(texture);
-		}else{
-			color();
+			addTexture();
+		} else {
 			shape.setFill(color);
 		}
 	}
@@ -52,11 +65,6 @@ public class RacketGraphics {
 		setShape();
 		magnetColor();
 		strokeColor();
-		if(!GameConstants.TEXTURE.equals("Null")) {
-			shape.setFill(texture);
-		}else{
-			shape.setFill(color);
-		}
 	}
 
 	private void setShape() {
@@ -79,7 +87,6 @@ public class RacketGraphics {
 	}
 
 	private void setRectangleShape() {
-		shape = new Rectangle();
 		((Rectangle) shape).setX(racket.getC().getX());
 		((Rectangle) shape).setY(racket.getC().getY());
 		((Rectangle) shape).setWidth(racket.getLargeur());
@@ -89,7 +96,6 @@ public class RacketGraphics {
 	}
 
 	private void setLosangeShape() {
-		shape = new Polygon();
 		((Polygon) shape).getPoints().addAll(new Double[] {
 				racket.getC().getX(), racket.getC().getY() - racket.getLongueur() / 2,
 				racket.getC().getX() + racket.getLargeur() / 2, racket.getC().getY(),
@@ -99,7 +105,6 @@ public class RacketGraphics {
 	}
 
 	private void setRondShape() {
-		shape = new Ellipse();
 		((Ellipse) shape).setCenterX(racket.getC().getX());
 		((Ellipse) shape).setCenterY(racket.getC().getY());
 		((Ellipse) shape).setRadiusX(racket.getLargeur() / 2);
@@ -107,12 +112,12 @@ public class RacketGraphics {
 	}
 
 	private void setTriangleShape() {
-		shape = new Polygon();
 		((Polygon) shape).getPoints().addAll(new Double[] {
 				racket.getC().getX(), racket.getC().getY() - racket.getLongueur() / 2,
 				racket.getC().getX() + racket.getLargeur() / 2, racket.getC().getY() + racket.getLongueur() / 2,
 				racket.getC().getX() - racket.getLargeur() / 2, racket.getC().getY() + racket.getLongueur() / 2
 		});
+
 	}
 
 	private void magnetColor() {
@@ -209,6 +214,13 @@ public class RacketGraphics {
 				break;
 		}
 	}
+
+	private void addTexture() {
+		shape.setFill(texture);
+		shape.setStroke(texture);
+	}
+
+
 
 	public Shape getShape() {
 		return shape;

@@ -59,21 +59,16 @@ public class App extends Application {
 
                 primaryStage.show();
                 primaryStage.setOnCloseRequest(event -> {
-                    autoSave();
+                    autoSaveAndQuit();
                 });
             }
         });
     }
 
-    public void autoSave() {
-        String saveName;
-        if (GameConstants.LAST_SAVE.equals("")) {
-            saveName = "autoTempSave";
-        } else {
-            saveName = GameConstants.LAST_SAVE.replace(".json", "");
-        }
-        sauvegarde.sauvegarderToutesDonnees(saveName);
-        System.out.println("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès");
+    public void autoSaveAndQuit() {
+        sauvegarde.autoSave();
+        primaryStage.close();
+        Platform.exit();
         System.exit(0);
     }
 
