@@ -11,6 +11,7 @@ import utils.Sound.BallSound;
 import utils.Sound.ClickSound;
 import utils.Sound.GameOverSound;
 import utils.Sound.Music;
+import utils.GameConstants;
 
 public class App extends Application {
 
@@ -18,9 +19,10 @@ public class App extends Application {
     public static SceneManager sceneManager = new SceneManager();
     private Sauvegarde sauvegarde = new Sauvegarde();
     public static ClickSound clickSoundPlayer;
-    public  static GameOverSound gameOverS ;
-    public static Music music ;
+    public static GameOverSound gameOverS;
+    public static Music music;
     public static BallSound ballSound;
+
     @Override
     public void start(Stage p) throws Exception {
         Platform.runLater(new Runnable() {
@@ -48,11 +50,17 @@ public class App extends Application {
 
                 primaryStage.show();
                 primaryStage.setOnCloseRequest(event -> {
-                    System.exit(0);
+                    autoSaveAndQuit();
                 });
             }
         });
+    }
 
+    public void autoSaveAndQuit() {
+        sauvegarde.autoSave();
+        primaryStage.close();
+        Platform.exit();
+        System.exit(0);
     }
 
     public static void main(String[] args) {

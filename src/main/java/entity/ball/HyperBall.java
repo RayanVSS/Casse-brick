@@ -1,9 +1,9 @@
 package entity.ball;
 
-import physics.geometry.Coordinates;
 import gui.GameRoot;
 import javafx.scene.input.KeyCode;
 import physics.entity.Ball;
+import physics.geometry.Coordinates;
 import utils.GameConstants;
 
 public class HyperBall extends Ball {

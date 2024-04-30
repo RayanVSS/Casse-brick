@@ -129,7 +129,7 @@ public class OptionBar {
         button3.setLayoutX(30);
         button3.setLayoutY(250);
 
-        button3.setOnAction(e->{
+        button3.setOnAction(e -> {
             removeBall();
         });
 
@@ -151,7 +151,7 @@ public class OptionBar {
         
     }
 
-    public void reset(){
+    public void reset() {
         clearCircles();
         root.getChildren().removeIf(e -> e instanceof Button || e instanceof CheckBox || e instanceof Label || e instanceof ComboBox);
     }
@@ -166,8 +166,8 @@ public class OptionBar {
         }
     }
 
-    public void clearCircles(){
-        for(Circle p : circles){
+    public void clearCircles() {
+        for (Circle p : circles) {
             root.getChildren().remove(p);
         }
     }
@@ -182,9 +182,9 @@ public class OptionBar {
         reset();
     }
 
-    public void update(Ball b){
-        if(Bar){
-            Bar=false;
+    public void update(Ball b) {
+        if (Bar) {
+            Bar = false;
             close();
         }
         else{

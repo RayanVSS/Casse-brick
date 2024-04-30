@@ -1,6 +1,7 @@
 package physics.entity;
 
-import physics.geometry.*;
+import physics.geometry.Coordinates;
+import physics.geometry.Vector;
 
 public abstract class Entity {
 

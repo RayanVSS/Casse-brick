@@ -54,7 +54,6 @@ public class PauseController {
         view.getStageLevel().resetGame();
         view.getChildren().clear();
         this.timer.cancel();
-        Game.score = 0;
         new GameView(view.getPrimaryStage(), view.getStageLevel());
     }
 
@@ -82,7 +81,7 @@ public class PauseController {
     }
 
     public void muteMusic() {
-        if(GameConstants.MUSIC == 0) {
+        if (GameConstants.MUSIC == 0) {
             this.view.getBtnMuteMusic().setGraphic(view.getMuteImageView());
             return;
         }

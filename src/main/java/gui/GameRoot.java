@@ -1,9 +1,13 @@
 package gui;
 
+import static physics.entity.Racket.AddIntensityBall;
+//pour les boosts
+import static physics.entity.Racket.StopBall;
+
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Iterator;
-import javafx.scene.input.KeyCode;
+import java.util.Set;
+
 import config.Game;
 import config.StageLevel;
 import entity.Boost;
@@ -15,6 +19,7 @@ import gui.Menu.MenuViews.GameOverView;
 import gui.Menu.MenuViews.PauseView;
 import gui.Menu.MenuViews.WinView;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.GameConstants;
@@ -69,7 +74,6 @@ public class GameRoot {
         this.root.getChildren().add(graphRacket.getShape());
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         root.getStyleClass().add("game-backgorund");
-        game.start();
     }
 
     public void update(long deltaT) {
@@ -102,6 +106,7 @@ public class GameRoot {
             gameView.animationStop();
             gameView.getRoot().getChildren().add(new PauseView(primaryStage, gameView.getRoot(), gameRoot.getRoot(),
                     gameView.getAnimationTimer(), level));
+            game.stop();
         }
         if (level.getGame().isWin()) {
             level.resetGame();

@@ -5,7 +5,6 @@ import java.util.List;
 
 import config.Game;
 import javafx.scene.layout.Pane;
-import physics.entity.Ball;
 import utils.GameConstants;
 
 public class ParticleGroup{

@@ -1,14 +1,19 @@
 package gui;
 
-import javafx.animation.*;
+import config.Game;
+import config.StageLevel;
+import gui.GraphicsFactory.FPSGraphics;
+import gui.GraphicsFactory.ScoreLifeGraphics;
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import config.*;
-import gui.GraphicsFactory.*;
-import utils.*;
+import utils.GameConstants;
+import utils.Key;
 
 public class GameView {
     private Stage primaryStage;
@@ -50,7 +55,6 @@ public class GameView {
         this.animation();
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
-        game.start();
     }
 
     public void animation() {

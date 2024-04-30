@@ -1,5 +1,12 @@
 package physics.config;
 
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import gui.GraphicsFactory.RacketGraphics;
+import javafx.animation.AnimationTimer;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import physics.AppPhysic;
@@ -16,7 +23,6 @@ import java.util.Set;
 import java.util.Map;
 
 import gui.GraphicsFactory.BallGraphics;
-import gui.GraphicsFactory.RacketGraphics;
 import physics.gui.OptionBar;
 import physics.gui.Preview;
 import utils.Key;
@@ -127,8 +133,7 @@ public class PhysicEngine {
                     stop();
                     primaryStage.setScene(appPhysic.getScene());
                     appPhysic.menu();
-                }
-                else if(key.getKeysPressed().contains(KeyCode.M)){
+                } else if (key.getKeysPressed().contains(KeyCode.M)) {
                     optionBar.update(ball);
                     key.getKeysPressed().remove(KeyCode.M);
                 }
@@ -188,8 +193,7 @@ public class PhysicEngine {
                         newY = this.getY() + this.getDirection().getY() * this.getSpeed();
                         CollisionR = false;
                         CollisionR_Side = false;
-                    }
-                    else {
+                    } else {
                         for (KeyCode key : direction) {
                             switch (key) {
                                 case RIGHT:
@@ -285,11 +289,11 @@ public class PhysicEngine {
         });
         BougePColision = key.isEmpty();
         direction = key.getKeysPressed();
-        for(Ball ball : listball.keySet()){
+        for (Ball ball : listball.keySet()) {
             if (physics.checkCollisionRacket(racket, ball)) {
                 ball.setCollisionR(true);
             }
-            if(ball.getPreview()!=null){
+            if (ball.getPreview() != null) {
                 ball.getPreview().update(racket);
             }
         }

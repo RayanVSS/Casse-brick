@@ -1,16 +1,16 @@
 package gui.GraphicsFactory;
 
+import entity.racket.MagnetRacket;
+import gui.ImageLoader;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import entity.racket.*;
 import physics.entity.Racket;
 import utils.GameConstants;
-import gui.ImageLoader;
-import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
 
 /**
  * Classe RacketGraphics qui encapsule un objet Shape pour représenter
@@ -37,7 +37,7 @@ public class RacketGraphics {
 			texture = new ImagePattern(image);
 			shape.setFill(texture);
 			//shape.setStroke(texture);
-		}else{
+		} else {
 			color();
 			shape.setFill(color);
 		}
@@ -117,7 +117,7 @@ public class RacketGraphics {
 		}
 	}
 	public void update() {
-		setShape();
+		updatePos();
 		if (racket instanceof MagnetRacket) {
 			if (MagnetRacket.getEtat().equals("positif")) {
 				magnetPosColor();
@@ -132,15 +132,15 @@ public class RacketGraphics {
 		} else if (racket.getLargeurM()) {
 			shape.setStroke(Color.rgb(255, 0, 0));
 		} else if (racket.getLargeurP()) {
-			shape.setStroke(Color.rgb(76, 187, 23) );
+			shape.setStroke(Color.rgb(76, 187, 23));
 		} else if (racket.getVitesseP()) {
-			shape.setStroke(Color.rgb(64, 130, 109) );
+			shape.setStroke(Color.rgb(64, 130, 109));
 		} else if (racket.getVitesseM()) {
 			shape.setStroke(Color.rgb(255, 0, 0));
 		} else if (racket.getIntensityBall()) {
-			shape.setStroke(Color.rgb(102, 66, 77) );
+			shape.setStroke(Color.rgb(102, 66, 77));
 		} else if (racket.getZhonya()) {
-			shape.setStroke(Color.rgb(144, 238, 144) );
+			shape.setStroke(Color.rgb(144, 238, 144));
 		}
 		// if(color != null){
 		// 	shape.setFill(color);

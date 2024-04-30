@@ -1,12 +1,16 @@
 package save;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import config.StagesProgress;
-import gui.Menu.Menu.Theme;
-import javafx.scene.input.KeyCode;
+import static utils.GameConstants.CSS;
+import static utils.GameConstants.FPS;
+import static utils.GameConstants.LAST_SAVE;
+import static utils.GameConstants.LEFT;
+import static utils.GameConstants.MUSIC;
+import static utils.GameConstants.PARTICLES;
+import static utils.GameConstants.PATH;
+import static utils.GameConstants.RIGHT;
+import static utils.GameConstants.SOUND;
+import static utils.GameConstants.SPACE;
+import static utils.GameConstants.TEXTURE;
 
 import java.io.File;
 import java.io.FileReader;
@@ -18,7 +22,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static utils.GameConstants.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import config.StagesProgress;
+import gui.Menu.Menu.Theme;
+import javafx.scene.input.KeyCode;
+import utils.GameConstants;
 
 /**
  * sauvegarder les données du jeu:
@@ -139,11 +150,11 @@ public class Sauvegarde {
             SPACE = Sauvegarde.getKeyCode((String) options.getOrDefault("SPACE", "SPACE"));
             //CSS =  /*(Theme) options.getOrDefault("CSS", Theme.DARK);*/ Theme.valueOf((String) options.getOrDefault("CSS", "DARK"));
             String cssOption = (String) options.getOrDefault("CSS", "DARK");
-        try {
-            CSS = Theme.valueOf(cssOption.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            CSS = Theme.CLASSIC; // valeur par défaut si l'option CSS n'est pas une constante de l'énumération Theme
-        }
+            try {
+                CSS = Theme.valueOf(cssOption.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                CSS = Theme.CLASSIC; // valeur par défaut si l'option CSS n'est pas une constante de l'énumération Theme
+            }
             TEXTURE = (String) options.getOrDefault("TEXTURE", "Null");
         }
     }
@@ -243,13 +254,26 @@ public class Sauvegarde {
     }
 
     public void setupLastSave() {
-        System.out.println("Chargement de la derniere sauvegarde");
+        System.out.println("Chargement de la derniere sauvegarde...");
         chargerLastSave();
         if (!LAST_SAVE.equals("")) {
             chargerOptionsDuJeu(LAST_SAVE);
             chargerPlayerData(LAST_SAVE);
+            System.out.println("Sauvegarde de : '" + LAST_SAVE + "'.");
         } else {
-            System.err.println("Impossible de charger la derniere sauvegarde");
+            System.err.println("Impossible de charger la derniere sauvegarde.");
         }
+    }
+
+    public void autoSave() {
+        String saveName;
+        if (GameConstants.LAST_SAVE.equals("")) {
+            saveName = "autoTempSave";
+            GameConstants.LAST_SAVE = saveName;
+        } else {
+            saveName = GameConstants.LAST_SAVE.replace(".json", "");
+        }
+        sauvegarderToutesDonnees(saveName);
+        System.out.println("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès.");
     }
 }

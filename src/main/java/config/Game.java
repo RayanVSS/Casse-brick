@@ -1,19 +1,17 @@
 package config;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import entity.Boost;
+import entity.ball.MagnetBall;
 import entity.Bonus;
 import physics.entity.Ball;
 import physics.entity.Racket;
 import utils.GameConstants;
-import entity.ball.MagnetBall;
 import gui.App;
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Set;
 
 public class Game {
 
@@ -22,7 +20,7 @@ public class Game {
     private Map map;
     private boolean lost;
     private boolean win;
-    public static int score = 0;
+    private int score = 0;
     private int life = 3;
     private boolean collide;
     private GameRules rules;
@@ -50,7 +48,7 @@ public class Game {
         rules.initRules(this);
     }
 
-    public void start() {
+    private void start() {
         if (inGameTimer == null) {
             inGameTimer = new Timer();
             inGameTimer.scheduleAtFixedRate(new TimerTask() {
@@ -64,6 +62,7 @@ public class Game {
     }
 
     public void stop() {
+        inGameTimer.cancel();
         inGameTimer = null;
     }
 
@@ -77,7 +76,7 @@ public class Game {
                 break;
             }
             map.handleCollisionBricks(ball, rules); //gérer la collision des briques
-            if (map.updateBricksStatus()) {
+            if (map.updateBricksStatus(this)) {
                 //si la briques est cassée, chance d'avoir un boost
                 Bonus bonus = Bonus.createBonus(ball.getC(), balls);
                 if (bonus != null) {
@@ -89,10 +88,7 @@ public class Game {
                 ball.setCollisionR(true);
                 App.ballSound.update();
                 App.ballSound.play();
-                rules.updateRemainingBounces();
-                rules.updateBricksTransparency(map);
-                rules.updateBricksUnbreakability(map);
-                rules.shuffleBricks(map.getBricks());
+                updateRulesRacket();
             }
             ball.checkCollisionOtherBall(balls);
             ball.movement();
@@ -115,6 +111,17 @@ public class Game {
             balls.add(Ball.clone(originalball));
             racket.reset();
         }
+        updateGameStatus();
+    }
+
+    private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette
+        rules.updateRemainingBounces();
+        rules.updateBricksTransparency(map);
+        rules.updateBricksUnbreakability(map);
+        rules.shuffleBricks(map.getBricks());
+    }
+
+    private void updateGameStatus() { // Vérifie & MAJ le statut de la Game, gagnée/perdue
         if (life == 0 || !rules.check()) {
             lost = true;
             inGameTimer.cancel();
@@ -143,6 +150,7 @@ public class Game {
     }
 
     private boolean verifyWin() {
+        //return true; // décommenter ici pour tester les wins
         return map.countBricks() == 0;
     }
 
@@ -205,4 +213,9 @@ public class Game {
     public List<Bonus> getBoosts() {
         return bonuslist;
     }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
 }

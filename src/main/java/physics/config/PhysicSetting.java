@@ -2,11 +2,11 @@ package physics.config;
 
 import java.util.Random;
 
+import physics.entity.Ball;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
-import physics.entity.Ball;
 
 /***************************************************************************
  *                  Explication de classe PhysicSetting  :  
@@ -106,7 +106,7 @@ public class PhysicSetting {
     }
 
     public void checkGravity(Coordinates c, Vector d) {
-        if(!Gravity){
+        if (!Gravity) {
             return;
         }
         if (c.getY() < DEFAULT_WINDOW_WIDTH - Radius) {
@@ -124,21 +124,19 @@ public class PhysicSetting {
         }
     }
 
-
-
-    public Vector vectorWind(int Speed , int Direction){
-       switch (Direction) {
-        case 1:
-            return new Vector(new Coordinates(Speed, 0));
-        case 2:
-            return new Vector(new Coordinates(0, Speed));
-        case 3:
-            return new Vector(new Coordinates(-Speed, 0));
-        case 4:
-            return new Vector(new Coordinates(0, -Speed));
-        default:
-            return new Vector(new Coordinates(0, 0));
-       }
+    public Vector vectorWind(int Speed, int Direction) {
+        switch (Direction) {
+            case 1:
+                return new Vector(new Coordinates(Speed, 0));
+            case 2:
+                return new Vector(new Coordinates(0, Speed));
+            case 3:
+                return new Vector(new Coordinates(-Speed, 0));
+            case 4:
+                return new Vector(new Coordinates(0, -Speed));
+            default:
+                return new Vector(new Coordinates(0, 0));
+        }
     }
 
     public Vector randomDirection() {
@@ -148,24 +146,27 @@ public class PhysicSetting {
         return new Vector(new Coordinates(i, j));
     }
 
-    public boolean checkCollisionRacket(Racket r, Coordinates c, Vector d){
+    public boolean checkCollisionRacket(Racket r, Coordinates c, Vector d) {
         boolean verifX = c.getX() > r.getC().getX() && c.getX() < r.getC().getX() + r.largeur;
         boolean verifY = c.getY() > r.getC().getY() && c.getY() < r.getC().getY() + r.longueur;
-        boolean verifX1 = c.getX()<= r.getC().getX() && c.getX() > r.getC().getX() - Radius || c.getX() >= r.getC().getX() + r.largeur && c.getX() < r.getC().getX() + r.largeur + Radius;
-        boolean verifY1 =  c.getY() >= r.getC().getY() && c.getY() < r.getC().getY() + r.longueur;
-        if(verifX1 && verifY1){
+        boolean verifX1 = c.getX() <= r.getC().getX() && c.getX() > r.getC().getX() - Radius
+                || c.getX() >= r.getC().getX() + r.largeur && c.getX() < r.getC().getX() + r.largeur + Radius;
+        boolean verifY1 = c.getY() >= r.getC().getY() && c.getY() < r.getC().getY() + r.longueur;
+        if (verifX1 && verifY1) {
             d.setX(-d.getX());
             return true;
         }
         return verifX && verifY;
     }
 
-    public boolean checkCollisionRacket(Racket r,Ball b){
+    public boolean checkCollisionRacket(Racket r, Ball b) {
         boolean verifX = b.getC().getX() > r.getC().getX() && b.getC().getX() < r.getC().getX() + r.largeur;
         boolean verifY = b.getC().getY() > r.getC().getY() && b.getC().getY() < r.getC().getY() + r.longueur;
-        boolean verifX1 = b.getC().getX()<= r.getC().getX() && b.getC().getX() > r.getC().getX() - Radius || b.getC().getX() >= r.getC().getX() + r.largeur && b.getC().getX() < r.getC().getX() + r.largeur + Radius;
-        boolean verifY1 =  b.getC().getY() >= r.getC().getY() && b.getC().getY() < r.getC().getY() + r.longueur;
-        if(verifX1 && verifY1){
+        boolean verifX1 = b.getC().getX() <= r.getC().getX() && b.getC().getX() > r.getC().getX() - Radius
+                || b.getC().getX() >= r.getC().getX() + r.largeur
+                        && b.getC().getX() < r.getC().getX() + r.largeur + Radius;
+        boolean verifY1 = b.getC().getY() >= r.getC().getY() && b.getC().getY() < r.getC().getY() + r.longueur;
+        if (verifX1 && verifY1) {
             b.getDirection().setX(-b.getDirection().getX());
             b.CollisionR_Side = true;
             return true;
@@ -202,7 +203,7 @@ public class PhysicSetting {
     public double getRetention() {
         return retention;
     }
-    
+
     public void setRetention(double retention) {
         this.retention = retention;
     }
@@ -255,7 +256,7 @@ public class PhysicSetting {
         return stop_bounce;
     }
 
-    public void changeGravity(){
+    public void changeGravity() {
         Gravity = !Gravity;
         if(Gravity){
             retention = 0.8;
@@ -265,7 +266,7 @@ public class PhysicSetting {
         }   
     }
 
-    public boolean getGravity(){
+    public boolean getGravity() {
         return Gravity;
     }
 

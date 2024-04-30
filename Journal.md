@@ -448,7 +448,7 @@ affichage de la racket
 
 - lister quelques phénomènes physiques amusants à ajouter, écrire les issues, rechercher la physique, commencer à implémenter
 
-## Semaine 6 (19/3):
+## Semaine 7 (19/3):
 
 ### Belhassen Rayan  
 <span style="color:green">**Fait:**</span>
@@ -515,7 +515,7 @@ affichage de la racket
 - déboguer (nombreux chantiers en cours à finaliser, notamment rebonds en biais)
 - relire code et refactoriser
 
-## Semaine 6 (26/3):
+## Semaine 8 (26/3):
 
 ### Belhassen Rayan  
 <span style="color:green">**Fait:**</span>
@@ -562,7 +562,7 @@ affichage de la racket
 - affichage des vies amélioré
 - ameliorations de l'affichage des images
 
-## Semaine 7 (02/4):
+## Semaine 8 (02/4):
 
 ### Guan Olivier 
 
@@ -576,6 +576,7 @@ affichage de la racket
 
 ### Belhassen Rayan :
 <span style="color:red">**Absent**</span>
+-> Justifié
 
 ### Bencheikh Ilias :
 <span style="color:green">**Fait:**</span>
@@ -611,3 +612,149 @@ affichage de la racket
 <span style="color:purple">**A Faire:**</span>
 - Bug sur le mode infini a reglé 
 - Modification de l'affichage des briques 
+
+
+## Semaine 9 (23/4):
+
+### Mushtaq Amenah
+<span style="color:green">**Fait:**</span>
+-absente 
+
+<span style="color:purple">**A Faire:**</span>
+- Bug sur le mode infini a reglé 
+- Modification de l'affichage des briques 
+
+### Benmalek Majda
+<span style="color:green">**Fait:**</span>
+- Changement de l'affiche des options
+- Couleur de la raquette adapté au thème
+- Affichage des règles du jeu : temps et rebonds #57
+- Indication des boost/malus sur la raquette
+- Ajout du son #21 :
+    - Ajout du son de : bouton , la balle (collision raquette et brique), gameOver
+    - Ajout d'une musique
+    - Contrôle du niveau sonore adéquat
+    - Ajout de bouton mute pour le son et la musique dans l'écran de pause
+
+<span style="color:purple">**A Faire:**</span>
+- Trouver les sons pour le reste 
+
+### Bencheikh Ilias :
+<span style="color:green">**Fait:**</span>
+- test des différents cas de collisions entre deux balles #55
+- collision entre les balles fini #55
+- Problème de décalage de la balle et de son image réglé
+- amélioration de la simulation
+- amélioration de la structure du code (redeveloppement de la maniere des collision entre entité) #64
+
+<span style="color:purple">**A Faire:**</span>
+
+- Régler le problème de FPS #43
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+- Implémenter le fonctionnement et la gestion de plusieurs balles dans le jeu (seulement présent dans la simulation) #54
+
+
+### GUAN Olivier :
+<span style="color:green">**Fait:**</span>
+
+- Résolution de bugs
+- Sauvegarde auto & création de profil temporaire
+- Refactoring & Clean
+- Restructuration des classes des entites, classe interface pour regrouper les entités à affichage graphique 
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finir l'app de démo (en attente du fix sur un prob d'affichage des briques)
+- Recherche de bugs
+
+
+### Belhassen rayan
+<span style="color:green">**Fait:**</span>
+- améliorer les colisions des raquettes  
+- application des textures sur les raquettes  
+
+<span style="color:purple">**A Faire:**</span>
+- setup le gradle pour les sauvegardes
+
+### À faire
+
+Ajouts :
+
+- polir les collisions (la balle slenfonce un peu dans le mur de droite)
+- réfléchir à soutenance (explication modélisation physique et conception objet)
+- préparer belle démo du produit quasi-fini
+- ajouter "tests" pour la soutenance : la balle est directement dans la configuration mettant en évidence le phénomène à démontrer
+
+## Semaine 10 (30/4):
+
+### Belhassen rayan
+<span style="color:green">**Fait:**</span>
+- ajout de niveaux supplémentaires 
+- ajout de nouveaux chapitres 
+- repair_softwair:
+    - adaptation du code pour pouvoir être lancé avec gradle 
+    - ajout du gradle (./gradlew repair --console=plain)
+    - détection de sauvegarde non fonctionnelle 
+    - ouverture de l'emplacement des sauvegardes 
+    - enlever la sauvegarde par défaut
+
+<span style="color:purple">**A Faire:**</span>
+- travailler sur le rapport 
+
+
+### GUAN Olivier :
+<span style="color:green">**Fait:**</span>
+
+- Résolution de bugs (Collision Balle-Mur invisible, màj du score, reset correct des rules lors du replay, Sauvegarde auto à la fermeture et le bouton quitter)
+- Refactoring de certaines classes
+- Système gain + affichage de monnaie ([Détails : #69](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/69))
+
+<span style="color:purple">**A Faire:**</span>
+
+- Finir l'app de démo (en attente du fix sur un prob d'affichage des briques)
+- Page Profil
+- Terminal intégré / Afficheur d'erreurs (afficher comme dans un chat) ([#78](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/78) [#66](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/66))
+- Derniers bugs
+- Ajouter les nouveaux contenus (balle, raquette, ...) dans les anciens
+
+## Benmalek Majda 
+<span style="color:green">**Fait:**</span>
+- Debut de la boutique 
+- Modif de l'affichage de la balle
+
+
+<span style="color:purple">**A Faire:**</span>
+- Fin de la boutique 
+- Recherche des derniers sons
+- Rapport
+- Factorisation du code
+
+### Bencheikh Ilias :
+<span style="color:green">**Fait:**</span>
+- test des différents cas de collisions entre deux balles #55
+- amélioration des collisions des balles #55
+- amélioration de la simulation
+- amélioration de la structure du code (redeveloppement de la maniere des collision entre entité) #64
+- Implémenter le fonctionnement et la gestion de plusieurs balles dans le jeu #54
+
+<span style="color:purple">**A Faire:**</span>
+
+- Régler les problèmes de lagues dans le jeu du à la gestion de plusieurs balles dans le jeu #74
+- Régler le problème de FPS #43
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
+
+
+### Mushtaq Amenah :
+
+<span style="color:green">**Fait:**</span>
+- Modifications de l'affichage des briques pour corriger des bugs 
+
+<span style="color:purple">**A Faire:**</span>
+- finir l'affichage des briques
+- Finir le mode infini (ajouter un bonus pour stopper les briques)
+- Factoriser/ commenter les codes
+- Rapport

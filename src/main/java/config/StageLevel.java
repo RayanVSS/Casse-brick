@@ -27,6 +27,7 @@ public class StageLevel {
 
     public boolean canLoadGame() {
         if (PlayerData.expLevel >= unlockLevel) {
+            System.out.println("Chargement du jeu...");
             if (game == null) {
                 this.game = new Game(
                         GameConstants.PRECONFIG_GAME_BALL[difficulty],
@@ -43,6 +44,7 @@ public class StageLevel {
     public void resetGame() {
         game.resetBalls();
         game.getRacket().reset();
+        game.getRules().reset();
         game = new Game(
                 GameConstants.PRECONFIG_GAME_BALL[difficulty],
                 GameConstants.PRECONFIG_GAME_RACKET[difficulty],
@@ -56,15 +58,18 @@ public class StageLevel {
     }
 
     public void winAction() {
+
         if (!customGame) {
+            PlayerData.rewardStageWin(this);
             if (!completed) {
                 completed = true;
-                this.setDifficulty(difficulty + 1);
                 PlayerData.expLevel++;
             }
             if (game.getScore() > maxScore) {
                 maxScore = game.getScore();
             }
+        } else {
+            PlayerData.rewardCustomWin(this);
         }
         resetGame();
     }

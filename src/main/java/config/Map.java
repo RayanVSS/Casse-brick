@@ -23,7 +23,7 @@ public class Map {
         if (checkDefaultParameters(columnsBricks, rowsBricks)) {
             switch (rules.getArrangement()) {
                 case DEFAULT:
-                    initDefaultBricksArrangement();
+                    initDefaultBricksArrangement(columnsBricks, rowsBricks);
                     break;
 
                 case RANDOM:
@@ -35,14 +35,14 @@ public class Map {
         }
     }
 
-    private void initDefaultBricksArrangement() {
+    private void initDefaultBricksArrangement(int columnsBricks, int rowsBricks) {
 
         bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT]; // [colonne][ligne]
-        int indexFirstColumn = GameConstants.MAP_WIDTH / GameConstants.COLUMNS_OF_BRICKS;
+        int indexFirstColumn = (GameConstants.MAP_WIDTH - columnsBricks) / 2;
 
-        for (int i = indexFirstColumn; i < indexFirstColumn + GameConstants.COLUMNS_OF_BRICKS; i++) { // espace côté
-                                                                                                      // gauche/droit
-            for (int j = 1; j < GameConstants.ROWS_OF_BRICKS + 1; j++) { // 1 espace en haut
+        for (int i = indexFirstColumn; i < indexFirstColumn + columnsBricks; i++) { // espace côté
+                                                                                    // gauche/droit
+            for (int j = 1; j < rowsBricks + 1; j++) { // 1 espace en haut
                 bricks[i][j] = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
                         j * GameConstants.BRICK_HEIGHT));
             }
@@ -127,13 +127,13 @@ public class Map {
 
     }
 
-    public boolean updateBricksStatus() {
+    public boolean updateBricksStatus(Game game) {
         boolean destroyed = false;
         for (int i = 0; i < bricks.length; i++) {
             for (int j = 0; j < bricks[0].length; j++) {
                 if (bricks[i][j] != null && bricks[i][j].isDestroyed()) {
                     bricks[i][j] = null;
-                    Game.score += 10;
+                    game.setScore(game.getScore() + 10);
                     destroyed = true;
                 }
             }

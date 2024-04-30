@@ -1,13 +1,12 @@
 package entity.ball;
 
+import gui.GameRoot;
 import javafx.scene.input.KeyCode;
 import physics.entity.Ball;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
-
 import utils.Key;
-import gui.GameRoot;
 
 public class ClassicBall extends Ball {
 

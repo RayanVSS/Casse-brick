@@ -1,7 +1,5 @@
 package gui;
 
-import javafx.scene.image.Image;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +7,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
+import javafx.scene.image.Image;
 
 public class ImageLoader {
 
