@@ -32,7 +32,6 @@ public class RacketGraphics {
 		this.shapeType = shapeType;
 		switch (shapeType.toLowerCase()) {
 			case "rectangle":
-			System.err.println("aaaaaaaaaaaaaaaaaaaaaa");
 				shape = new Rectangle();
 				break;
 			case "losange":
