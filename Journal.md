@@ -448,7 +448,7 @@ affichage de la racket
 
 - lister quelques phénomènes physiques amusants à ajouter, écrire les issues, rechercher la physique, commencer à implémenter
 
-## Semaine 6 (19/3):
+## Semaine 7 (19/3):
 
 ### Belhassen Rayan  
 <span style="color:green">**Fait:**</span>
@@ -515,7 +515,7 @@ affichage de la racket
 - déboguer (nombreux chantiers en cours à finaliser, notamment rebonds en biais)
 - relire code et refactoriser
 
-## Semaine 6 (26/3):
+## Semaine 8 (26/3):
 
 ### Belhassen Rayan  
 <span style="color:green">**Fait:**</span>
@@ -562,7 +562,7 @@ affichage de la racket
 - affichage des vies amélioré
 - ameliorations de l'affichage des images
 
-## Semaine 7 (02/4):
+## Semaine 8 (02/4):
 
 ### Guan Olivier 
 
@@ -614,7 +614,7 @@ affichage de la racket
 - Modification de l'affichage des briques 
 
 
-## Semaine 8 (23/4):
+## Semaine 9 (23/4):
 
 ### Mushtaq Amenah
 <span style="color:green">**Fait:**</span>
@@ -687,7 +687,7 @@ Ajouts :
 - préparer belle démo du produit quasi-fini
 - ajouter "tests" pour la soutenance : la balle est directement dans la configuration mettant en évidence le phénomène à démontrer
 
-## Semaine 9 (30/4):
+## Semaine 10 (30/4):
 
 ### Belhassen rayan
 <span style="color:green">**Fait:**</span>
@@ -718,3 +718,13 @@ Ajouts :
 - Terminal intégré / Afficheur d'erreurs (afficher comme dans un chat) ([#78](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/78) [#66](https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c/issues/66))
 - Derniers bugs
 - Ajouter les nouveaux contenus (balle, raquette, ...) dans les anciens
+
+## Benmalek Majda 
+<span style="color:green">**Fait:**</span>
+- Debut de la boutique 
+- Modif de l'affichage de la balle
+
+
+<span style="color:purple">**A Faire:**</span>
+- Fin de la boutique 
+- Recherche des derniers sons
