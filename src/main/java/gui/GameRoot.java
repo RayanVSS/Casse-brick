@@ -12,7 +12,7 @@ import config.Game;
 import config.StageLevel;
 import entity.Boost;
 import gui.GraphicsFactory.BallGraphics;
-import gui.GraphicsFactory.BrickSet;
+// import gui.GraphicsFactory.BrickSet;
 import gui.GraphicsFactory.ParticleGroup;
 import gui.GraphicsFactory.RacketGraphics;
 import gui.Menu.MenuViews.GameOverView;
@@ -28,7 +28,7 @@ import utils.Key;;
 public class GameRoot {
     private Pane root = new Pane();
     private Game game;
-    private BrickSet graphBrickSet;
+    // private BrickSet graphBrickSet;
     private BallGraphics graphBall;
     private RacketGraphics graphRacket;
     public static boolean BougePColision;
@@ -48,14 +48,14 @@ public class GameRoot {
         this.gameRoot = this;
         this.gameView = gameView;
         this.primaryStage = primaryStage;
-        this.graphBrickSet = new BrickSet(game.getMap().getBricks());
+        // this.graphBrickSet = new BrickSet(game.getMap().getBricks());
         this.graphBall = new BallGraphics(game.getBall());
         // rectangle rond losange triangle
         this.graphRacket = new RacketGraphics(game.getRacket(), game.getRacket().getShapeType());
         if (GameConstants.PARTICLES) {
             this.particleGroup = new ParticleGroup(root, game);
         }
-        this.root.getChildren().add(graphBrickSet);
+        // this.root.getChildren().add(graphBrickSet);
         this.root.getChildren().add(graphBall);
         this.root.getChildren().add(graphRacket.getShape());
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
@@ -73,9 +73,9 @@ public class GameRoot {
             particleGroup.update();
         }
         if (game.isInfinite()) {
-            graphBrickSet.infiniteUpdate(game.getMap());
+            // graphBrickSet.infiniteUpdate(game.getMap());
         } else {
-            graphBrickSet.update();
+            // graphBrickSet.update();
         }
 
         BoostUpdate();

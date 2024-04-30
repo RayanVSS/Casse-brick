@@ -1,7 +1,7 @@
 {
   "PATH": false,
   "MUSIC": 0,
-  "CSS": "CLASSIC",
+  "CSS": "BLACK",
   "MONEY": 0,
   "PARTICLES": true,
   "LEFT": "LEFT",
@@ -203,6 +203,6 @@
       }
     ]
   },
-  "SOUND": 52,
+  "SOUND": 1,
   "RIGHT": "RIGHT"
 }

@@ -31,7 +31,8 @@ public class GamePhysics {
 
     public void addBrick(Brick brick) {
         bricks.add(brick);
-        entities.put(brick, new BricksGraphics(brick, 0, 0));
+        // entities.put(brick, new BricksGraphics(brick, 0, 0));
+        entities.put(brick, new BricksGraphics(brick));
     }
 
     public void addBall(Ball ball) {
