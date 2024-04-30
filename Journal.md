@@ -728,3 +728,19 @@ Ajouts :
 <span style="color:purple">**A Faire:**</span>
 - Fin de la boutique 
 - Recherche des derniers sons
+
+### Bencheikh Ilias :
+<span style="color:green">**Fait:**</span>
+- test des différents cas de collisions entre deux balles #55
+- amélioration des collisions des balles #55
+- amélioration de la simulation
+- amélioration de la structure du code (redeveloppement de la maniere des collision entre entité) #64
+- Implémenter le fonctionnement et la gestion de plusieurs balles dans le jeu #54
+
+<span style="color:purple">**A Faire:**</span>
+
+- Régler les problèmes de lagues dans le jeu du à la gestion de plusieurs balles dans le jeu #74
+- Régler le problème de FPS #43
+- Implémenter la friction de l'air et de la balle #20
+- Améliorer la collision de la balle et des briques (avec Olivier) #52
+- Améliorer la structure de la partie physique #49
