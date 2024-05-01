@@ -4,7 +4,7 @@ import utils.GameConstants;
 import entity.ball.*;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
+// import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import physics.entity.Ball;
 import physics.entity.Entity;
@@ -22,8 +22,8 @@ public class BallGraphics extends Circle implements EntityGraphics {
     // Partie pour le drag and drop
     private boolean isMouseDraggingBall = false;
     private double mouseX, mouseY = 0;
-    private Image image;
-    private ImagePattern ballImage;
+    // private Image image;
+    // private ImagePattern ballImage;
     
     public BallGraphics(Ball ball) {
         super(ball.getRadius());

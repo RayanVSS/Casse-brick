@@ -24,16 +24,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.GameConstants;
 import utils.Key;
-import java.util.Map;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import physics.entity.Ball;
-import entity.Bonus;
-
-//pour les boosts
-import static physics.entity.Racket.StopBall;
-import static physics.entity.Racket.AddIntensityBall;;
+import entity.Bonus;;
 
 public class GameRoot {
     private Pane root = new Pane();

@@ -3,19 +3,12 @@ package physics.entity;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import physics.geometry.Coordinates;
-import physics.geometry.Segment;
 import physics.geometry.Vector;
 import utils.GameConstants;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import gui.GraphicsFactory.RacketGraphics;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
-import physics.geometry.Coordinates;
-import physics.geometry.Segment;
-import physics.geometry.Vector;
-import utils.GameConstants;
 
 /***************************************************************************
  * Explication de classe pour la raquette *

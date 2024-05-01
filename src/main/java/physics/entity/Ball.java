@@ -1,6 +1,5 @@
 package physics.entity;
 
-import config.Map;
 import entity.EntityColor;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
@@ -12,7 +11,6 @@ import physics.config.PhysicSetting;
 import physics.geometry.Coordinates;
 import physics.geometry.Rotation;
 import physics.geometry.Vector;
-import physics.gui.Preview;
 import utils.GameConstants;
 import java.util.List;
 import java.util.Set;
