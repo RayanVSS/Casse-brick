@@ -3,17 +3,16 @@ package gui.Menu;
 import java.util.HashMap;
 import java.util.Map;
 
+import gui.Menu.MenuViews.ChapterView;
 import gui.Menu.MenuViews.GameCustomizerView;
 import gui.Menu.MenuViews.GameModeView;
 import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
-import gui.Menu.MenuViews.ChapterView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.GameConstants;
-import java.util.Iterator;
 
 /**
  * Classe de gestion des menus dans l'application.

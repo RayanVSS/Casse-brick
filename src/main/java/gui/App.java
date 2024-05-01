@@ -11,7 +11,6 @@ import utils.Sound.BallSound;
 import utils.Sound.ClickSound;
 import utils.Sound.GameOverSound;
 import utils.Sound.Music;
-import utils.GameConstants;
 
 public class App extends Application {
 

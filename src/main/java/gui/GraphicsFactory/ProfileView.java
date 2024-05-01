@@ -3,7 +3,6 @@ package gui.GraphicsFactory;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import save.PlayerData;
-import utils.GameConstants;
 
 /**
  * Afficheur des infos du joueur

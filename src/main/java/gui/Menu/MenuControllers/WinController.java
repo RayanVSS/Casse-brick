@@ -1,6 +1,5 @@
 package gui.Menu.MenuControllers;
 
-import config.Game;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.WinView;
