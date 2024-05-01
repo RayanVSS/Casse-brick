@@ -1,5 +1,6 @@
 package gui.Menu.MenuViews;
 
+import gui.GraphicsFactory.ConsoleView;
 import gui.GraphicsFactory.ProfileView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.StartMenuController;
@@ -27,6 +28,7 @@ public class StartMenuView implements Menu {
 
     private HBox topBox = new HBox();
     private VBox centerBox = new VBox();
+    private HBox bottomBox = new HBox();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,
             GameConstants.DEFAULT_WINDOW_HEIGHT);
 
@@ -36,6 +38,7 @@ public class StartMenuView implements Menu {
     private Button btnQuit;
     private Button btnSave;
     private Label title;
+    private ConsoleView consoleView;
 
     /**
      * Constructeur de StartMenuView.
@@ -52,6 +55,7 @@ public class StartMenuView implements Menu {
 
         root.setTop(topBox);
         root.setCenter(centerBox);
+        root.setBottom(bottomBox);
 
         new StartMenuController(p, this);
     }
@@ -80,7 +84,8 @@ public class StartMenuView implements Menu {
     }
 
     private void createBottom() {
-
+        consoleView = ConsoleView.getInstance();
+        bottomBox.getChildren().addAll(consoleView);
     }
 
     @Override

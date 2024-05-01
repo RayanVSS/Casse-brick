@@ -3,8 +3,10 @@ package gui;
 import java.util.ArrayList;
 
 /**
- * Console interactive avec le jeu pour exécuter les commandes.
- * Full static class.
+ * 
+ * Console interactive pour exécuter les commandes.
+ * Full static class & controller class.
+ * 
  * @author GUAN Olivier
  */
 

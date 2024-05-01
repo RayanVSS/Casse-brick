@@ -21,7 +21,7 @@ public class ProfileView extends VBox {
         moneyLabel = new Label("Argent : " + PlayerData.money);
         setStyle();
 
-        this.getChildren().addAll(pseudoLabel, expLevelLabel, moneyLabel);
+        getChildren().addAll(pseudoLabel, expLevelLabel, moneyLabel);
     }
 
     public void update() {
@@ -34,6 +34,6 @@ public class ProfileView extends VBox {
         pseudoLabel.getStyleClass().add("label-style");
         expLevelLabel.getStyleClass().add("label-style");
         moneyLabel.getStyleClass().add("label-style");
-        this.getStyleClass().add("label-vbox");
+        getStyleClass().add("label-vbox");
     }
 }
