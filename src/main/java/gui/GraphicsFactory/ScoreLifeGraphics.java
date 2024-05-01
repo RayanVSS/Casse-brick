@@ -83,6 +83,7 @@ public class ScoreLifeGraphics extends VBox implements Menu {
             getChildren().add(bounces);
         }
 
+       // getChildren().add(setSeparator());
         getStylesheets().add(GameConstants.CSS.getPath());
 
     }

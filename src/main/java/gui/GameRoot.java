@@ -60,6 +60,8 @@ public class GameRoot {
         this.gameView = gameView;
         this.primaryStage = primaryStage;
         this.graphBrickSet = new BrickSet(game.getMap().getBricks());
+        root.setPrefHeight(GameConstants.DEFAULT_WINDOW_HEIGHT);
+        root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         balls = new ArrayList<>();
         this.graphBall = init_GraphicsBall(game.getBalls(),balls);
         // rectangle rond losange triangle
