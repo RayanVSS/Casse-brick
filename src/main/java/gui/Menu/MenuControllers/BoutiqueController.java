@@ -18,6 +18,6 @@ public class BoutiqueController {
     }
 
     private void back() {
-        App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+        App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
     }
 }

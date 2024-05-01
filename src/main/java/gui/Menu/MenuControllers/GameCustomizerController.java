@@ -111,7 +111,7 @@ public class GameCustomizerController {
 
     private void back() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(gameCustomizerView.getPrimaryStage(), "GameModeView");
+            App.menuManager.changeScene(gameCustomizerView.getPrimaryStage(), "GameModeView");
         });
     }
 

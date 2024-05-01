@@ -34,7 +34,7 @@ public class WinController {
     }
 
     public void menu() {
-        App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+        App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
     }
 
     public void next() {

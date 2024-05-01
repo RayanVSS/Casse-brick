@@ -66,7 +66,7 @@ public class PauseController {
     private void menu() {
         view.getChildren().clear();
         this.timer.cancel();
-        App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+        App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
     }
 
     private void resume() {

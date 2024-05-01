@@ -2,6 +2,7 @@ package gui.Menu;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -18,15 +19,15 @@ import javafx.scene.layout.StackPane;
 public interface Menu {
 
     public enum Theme {
-        PINK("/styles/pink.css"), 
-        LIGHT("/styles/light.css"), 
+        PINK("/styles/pink.css"),
+        LIGHT("/styles/light.css"),
         CLASSIC("/styles/classic.css"),
         BLACK("/styles/black.css"),
         ACHROMATOPSIE("/styles/achromatopsie.css"),
         DEUTERANOPIE("/styles/deuteranopie.css"),
         TRITANOPIE("/styles/tritanopie.css"),
-        PROTANOPIE("/styles/protanopie.css")
-        ;
+        PROTANOPIE("/styles/protanopie.css");
+
         private String path;
         public String getPath() {
             return path;
@@ -38,7 +39,6 @@ public interface Menu {
             this.path = path;
         }
     }
-
 
     /**
      * Crée un bouton avec le texte, la marge droite et la marge inférieure
@@ -126,4 +126,18 @@ public interface Menu {
         slider.setOrientation(Orientation.HORIZONTAL);
         return slider;
     }
+
+
+    /**
+     * Rien par défaut
+     * @Override update spécifique selon la vue.
+     */
+    default void update() {
+
+    }
+
+    /**
+     * @return scène interne
+     */
+    Scene getScene();
 }

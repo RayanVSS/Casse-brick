@@ -53,7 +53,7 @@ public class StartMenuController {
      */
     private void play() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "GameModeView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "GameModeView");
         });
 
     }
@@ -63,7 +63,7 @@ public class StartMenuController {
      */
     private void options() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "OptionsView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "OptionsView");
         });
     }
 
@@ -83,7 +83,7 @@ public class StartMenuController {
      */
     private void sauvegarde() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "SaveView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "SaveView");
         });
     }
 
@@ -92,7 +92,7 @@ public class StartMenuController {
      */
     private void boutique() {
         //Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "BoutiqueView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "BoutiqueView");
         //});
     }
 
