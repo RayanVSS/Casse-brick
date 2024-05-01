@@ -122,10 +122,12 @@ public class Sauvegarde {
     }
 
     public Map<String, Object> sauvegarderPlayerData(String name) {
+
         Map<String, Object> playerData = new HashMap<>();
         playerData.put("PSEUDO", PlayerData.pseudo);
         playerData.put("EXP_LEVEL", PlayerData.expLevel);
         playerData.put("MONEY", PlayerData.money);
+        playerData.put("ADMIN", PlayerData.isAdmin);
         playerData.put("PROGRESS", PlayerData.stagesProgress);
 
         return playerData;
@@ -162,9 +164,10 @@ public class Sauvegarde {
     public void chargerPlayerData(String name) {
         Map<String, Object> playerData = getDonnees(name);
         if (playerData != null) {
-            PlayerData.pseudo = (String) playerData.getOrDefault("PSEUDO", "");
+            PlayerData.pseudo = (String) playerData.getOrDefault("PSEUDO", "Sans nom");
             PlayerData.expLevel = ((Number) playerData.getOrDefault("EXP_LEVEL", 1)).intValue();
             PlayerData.money = ((Number) playerData.getOrDefault("MONEY", 0)).intValue();
+            PlayerData.isAdmin = (boolean) playerData.getOrDefault("ADMIN", false);
             PlayerData.stagesProgress = new Gson().fromJson("" + playerData.get("PROGRESS"),
                     StagesProgress.class);
         }
@@ -229,12 +232,12 @@ public class Sauvegarde {
         if (fichierSauvegarde.exists() && fichierSauvegarde.isFile() && fichierSauvegarde.getName().endsWith(".json")
                 && !fichierSauvegarde.getName().equals("lastSave.json")) {
             if (fichierSauvegarde.delete()) {
-                System.out.println("La sauvegarde '" + nomSauvegarde + "' a ete supprimée.");
+                System.out.println("La sauvegarde '" + nomSauvegarde + "' a été supprimée.");
             } else {
-                System.out.println("Impossible de supprimer la sauvegarde '" + nomSauvegarde);
+                System.out.println("Impossible de supprimer la sauvegarde '" + nomSauvegarde + "'.");
             }
         } else {
-            System.out.println("La sauvegarde '" + nomSauvegarde + "' n'existe pas");
+            System.out.println("La sauvegarde '" + nomSauvegarde + "' n'existe pas.");
         }
     }
 
@@ -254,14 +257,14 @@ public class Sauvegarde {
     }
 
     public void setupLastSave() {
-        System.out.println("Chargement de la derniere sauvegarde...");
+        System.out.println("Chargement de la dernière sauvegarde...");
         chargerLastSave();
         if (!LAST_SAVE.equals("")) {
             chargerOptionsDuJeu(LAST_SAVE);
             chargerPlayerData(LAST_SAVE);
             System.out.println("Sauvegarde de : '" + LAST_SAVE + "'.");
         } else {
-            System.err.println("Impossible de charger la derniere sauvegarde.");
+            System.err.println("Impossible de charger la dernière sauvegarde.");
         }
     }
 
@@ -269,11 +272,14 @@ public class Sauvegarde {
         String saveName;
         if (GameConstants.LAST_SAVE.equals("")) {
             saveName = "autoTempSave";
-            GameConstants.LAST_SAVE = saveName;
+            Map<String, Object> lastSave = new HashMap<>();
+            lastSave.put("SAVE", saveName);
+            sauvegarderDonnees("lastSave", lastSave);
         } else {
             saveName = GameConstants.LAST_SAVE.replace(".json", "");
         }
         sauvegarderToutesDonnees(saveName);
+        GameConstants.LAST_SAVE = saveName + ".json";
         System.out.println("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès.");
     }
 }

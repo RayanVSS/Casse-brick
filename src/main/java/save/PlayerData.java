@@ -1,6 +1,5 @@
 package save;
 
-import config.Game;
 import config.GameRules;
 import config.StageLevel;
 import config.StagesProgress;
@@ -11,12 +10,14 @@ public class PlayerData {
     public static String pseudo;
     public static int expLevel;
     public static int money;
+    public static boolean isAdmin;
     public static StagesProgress stagesProgress;
 
     public static void initPlayerData() {
-        pseudo = "";
+        pseudo = "Sans nom";
         expLevel = 1;
         money = 0;
+        isAdmin = false;
         stagesProgress = new StagesProgress(GameConstants.STAGES_QTY);
         stagesProgress.createStages();
     }
