@@ -6,7 +6,7 @@
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": true,
-  "PSEUDO": "",
+  "PSEUDO": "PDT",
   "SPACE": "SPACE",
   "TEXTURE": "bleu.jpg",
   "EXP_LEVEL": 27,

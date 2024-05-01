@@ -46,7 +46,7 @@ public class SaveController {
     private void back() {
         // new StartMenuView(view.getPrimaryStage());
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
         });
     }
 

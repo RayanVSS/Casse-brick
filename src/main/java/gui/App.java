@@ -1,6 +1,6 @@
 package gui;
 
-import gui.Menu.SceneManager;
+import gui.Menu.MenuManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
@@ -16,7 +16,7 @@ import utils.GameConstants;
 public class App extends Application {
 
     protected Stage primaryStage;
-    public static SceneManager sceneManager = new SceneManager();
+    public static MenuManager menuManager = new MenuManager();
     private Sauvegarde sauvegarde = new Sauvegarde();
     public static ClickSound clickSoundPlayer;
     public static GameOverSound gameOverS;
@@ -44,9 +44,9 @@ public class App extends Application {
                 primaryStage.setResizable(false);
                 primaryStage.setTitle("Casse Brique");
 
-                sceneManager.preCreateAllView(primaryStage);
+                menuManager.preCreateAllView(primaryStage);
 
-                primaryStage.setScene(sceneManager.getScene("StartMenuView"));
+                primaryStage.setScene(menuManager.getScene("StartMenuView"));
 
                 primaryStage.show();
                 primaryStage.setOnCloseRequest(event -> {

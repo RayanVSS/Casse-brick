@@ -67,7 +67,7 @@ public class GameOverController {
      */
     private void menu() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
         });
     }
 }

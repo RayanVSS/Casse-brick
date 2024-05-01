@@ -73,7 +73,7 @@ public class OptionsController {
      */
     private void back() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
         });
     }
 
@@ -154,9 +154,9 @@ public class OptionsController {
         String selectedTheme = view.getTheme().getComboBox().getValue();
         if (selectedTheme != null) {
             GameConstants.CSS = Theme.valueOf(selectedTheme.toUpperCase());
-            // change le css de chaque scene dans SceneManager
-            App.sceneManager.getScenes().forEach((k, v) -> {
-                App.sceneManager.addStylesheet(v);
+            // change le css de chaque scene dans menuManager
+            App.menuManager.getMenus().forEach((k, v) -> {
+                App.menuManager.addStylesheet(v);
             });
         }
     }

@@ -32,19 +32,19 @@ public class GameModeController {
 
     private void showStages() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(gameModeView.getPrimaryStage(), "Chapterview");
+            App.menuManager.changeScene(gameModeView.getPrimaryStage(), "Chapterview");
         });
     }
 
     private void showCustomizer() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(gameModeView.getPrimaryStage(), "GameCustomizerView");
+            App.menuManager.changeScene(gameModeView.getPrimaryStage(), "GameCustomizerView");
         });
     }
 
     private void back() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(gameModeView.getPrimaryStage(), "StartMenuView");
+            App.menuManager.changeScene(gameModeView.getPrimaryStage(), "StartMenuView");
         });
     }
 }
