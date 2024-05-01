@@ -17,7 +17,6 @@ import utils.GameConstants;
 import java.util.List;
 import java.util.Set;
 
-import org.checkerframework.checker.units.qual.g;
 
 /**
  * Classe Balle

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import entity.Boost;
 import entity.ball.MagnetBall;
 import entity.Bonus;
 import physics.entity.Ball;

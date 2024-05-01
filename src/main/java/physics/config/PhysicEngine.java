@@ -14,14 +14,7 @@ import physics.entity.Ball;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
-import javafx.animation.AnimationTimer;
 import javafx.scene.paint.Color;
-import javafx.scene.input.KeyCode;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Map;
-
 import gui.GraphicsFactory.BallGraphics;
 import physics.gui.OptionBar;
 import physics.gui.Preview;
