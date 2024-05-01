@@ -29,7 +29,7 @@ public class BoutiqueView implements Menu {
     // Achat de raquette
     private LabelVBox raquette;
     private String[] labelsR = { "Arc-en-ciel", "Bleu", "Dark Matter", "Or", "Rose", "Rouge", "Violet", "Vert",
-            "Etoile", "Noir&Blanc", "Gris","Purple silk"};
+            "Etoile", "Noir&Blanc", "Gris", "Purple silk" };
     private String[] pathsR = {
             "src/main/ressources/Texture/arc_en_ciel.jpg",
             "src/main/ressources/Texture/bleu.jpg",
@@ -73,7 +73,8 @@ public class BoutiqueView implements Menu {
     private LabelVBox moneyVBox;
 
     private Button back;
-    private int price = 5;
+    private int priceBall = 5;
+    private int priceRaquette = 5;
 
     public BoutiqueView(Stage p) {
         this.primaryStage = p;
@@ -108,12 +109,17 @@ public class BoutiqueView implements Menu {
         raquetteGrid.setVgap(10);
         for (int i = 0; i < labelsR.length; i++) {
             // raquetteImage[i] = initImage(pathsR[i]);
-            raquetteRect[i] = initRectangle(pathsR[i]);
-            raquetteButton[i] = createButton("Acheter : " + price, 0, 0);
-            LabelVBox raquetteV = new LabelVBox(labelsR[i], 10);
-            raquetteV.getChildren().addAll(raquetteRect[i], raquetteButton[i]);
-            raquetteGrid.add(raquetteV, i % 3, i / 3); // Ajoutez cette ligne
-            price += 5;
+            if (PlayerData.inventaire.getInventaire()[0][i] == true) {
+                raquetteButton[i] = createButton("Acheté", 0, 0);
+                raquetteButton[i].setDisable(true);
+            } else {
+                raquetteRect[i] = initRectangle(pathsR[i]);
+                raquetteButton[i] = createButton("Acheter : " + priceRaquette, 0, 0);
+                LabelVBox raquetteV = new LabelVBox(labelsR[i], 10);
+                raquetteV.getChildren().addAll(raquetteRect[i], raquetteButton[i]);
+                raquetteGrid.add(raquetteV, i % 3, i / 3); // Ajoutez cette ligne
+                priceRaquette += 5;
+            }
         }
         raquette.getChildren().add(raquetteGrid);
     }
@@ -124,12 +130,17 @@ public class BoutiqueView implements Menu {
         balleGrid.setHgap(10);
         balleGrid.setVgap(10);
         for (int i = 0; i < labels.length; i++) {
-            balleImage[i] = initImage(paths[i]);
-            balleButton[i] = createButton("Acheter : " + price, 0, 0);
-            LabelVBox ballV = new LabelVBox(labels[i], 10);
-            ballV.getChildren().addAll(balleImage[i], balleButton[i]);
-            balleGrid.add(ballV, i % 3, i / 3); // Ajoutez cette ligne
-            price += 5;
+            if (PlayerData.inventaire.getInventaire()[0][i] == true) {
+                balleButton[i] = createButton("Acheté", 0, 0);
+                balleButton[i].setDisable(true);
+            } else {
+                balleImage[i] = initImage(paths[i]);
+                balleButton[i] = createButton("Acheter : " + priceBall, 0, 0);
+                LabelVBox ballV = new LabelVBox(labels[i], 10);
+                ballV.getChildren().addAll(balleImage[i], balleButton[i]);
+                balleGrid.add(ballV, i % 3, i / 3); // Ajoutez cette ligne
+                priceBall += 5;
+            }
         }
         balle.getChildren().add(balleGrid);
     }
@@ -175,4 +186,41 @@ public class BoutiqueView implements Menu {
     public Button getBtnBack() {
         return back;
     }
+
+    public Button[] getBalleButton() {
+        return balleButton;
+    }
+
+    public Button[] getRaquetteButton() {
+        return raquetteButton;
+    }
+
+    public LabelVBox getMoneyVBox() {
+        return moneyVBox;
+    }
+
+    public int getPriceRaquette() {
+        return priceRaquette;
+    }
+
+    public void setMoneyValue(int moneyValue) {
+        this.moneyValue = moneyValue;
+    }
+
+    public String[] getLabelsR() {
+        return labelsR;
+    }
+
+    public String[] getPathsR() {
+        return pathsR;
+    }
+
+    public String[] getLabels() {
+        return labels;
+    }
+
+    public String[] getPaths() {
+        return paths;
+    }
+
 }

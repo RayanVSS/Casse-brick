@@ -2,13 +2,13 @@
   "PATH": false,
   "MUSIC": 0,
   "CSS": "PINK",
-  "MONEY": 50,
+  "MONEY": 100,
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": true,
   "PSEUDO": "Majda",
   "SPACE": "SPACE",
-  "TEXTURE": "rose.jpg",
+  "TEXTURE": "src/main/ressources/Texture/rouge.jpg",
   "EXP_LEVEL": 27,
   "PROGRESS": {
     "stages": [

@@ -53,7 +53,7 @@ public class RacketGraphics {
 		getStrokeColor();
 		color();
 		if (!GameConstants.TEXTURE.equals("Null")) {
-			image = ImageLoader.loadImage("src/main/ressources/Texture/" + GameConstants.TEXTURE);
+			image = ImageLoader.loadImage(GameConstants.TEXTURE);
 			texture = new ImagePattern(image);
 			addTexture();
 		} else {
@@ -173,6 +173,7 @@ public class RacketGraphics {
 		// 	addTexture();
 		// }
 	}
+
 
 	public void updatePos() {
 		if (shape instanceof Rectangle) {
