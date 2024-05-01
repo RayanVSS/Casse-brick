@@ -38,46 +38,48 @@ public class BoutiqueController {
         App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
     }
 
+    //TODO: porté 
+
     private void acheterRaquette(int i) {
-        System.out.println("argent :"+PlayerData.money);
-        System.out.println("prix raquette :"+((5*i)+5));
-        int prix = (5*i)+5;
-        System.out.println("i: "+i);
-        if(PlayerData.inventaire.getInventaire()[0][i]==true){
+        System.out.println("argent :" + PlayerData.money);
+        System.out.println("prix raquette :" + ((5 * i) + 5));
+        int prix = (5 * i) + 5;
+        System.out.println("i: " + i);
+        if (PlayerData.inventaire.getRaquettes()[i] != null) {
             view.getRaquetteButton()[i].setText("Acheté");
             return;
-        }else if(PlayerData.money >= prix) {
+        } else if (PlayerData.money >= prix) {
             PlayerData.money -= prix;
             view.setMoneyValue(PlayerData.money);
             view.getMoneyVBox().getSummaryLabel().setText("Argent : " + PlayerData.money);
             view.getRaquetteButton()[i].setText("Acheté");
-            PlayerData.inventaire.addRaquette(view.getLabelsR()[i],i);
-            GameConstants.TEXTURE=view.getPathsR()[i];
+            PlayerData.inventaire.addRaquette(view.getLabelsR()[i], i);
+            GameConstants.TEXTURE = view.getPathsR()[i];
             view.getRaquetteButton()[i].setDisable(true);
             PlayerData.inventaire.afficheInventaire();
-        }else{
-            System.out.println("Pas assez d'argent");
         }
+        System.out.println("Pas assez d'argent");
     }
 
     private void acheterBalle(int i) {
-        int prix = (5*i)+5;
-        if(PlayerData.inventaire.getInventaire()[1][i]==true){
+        int prix = (5 * i) + 5;
+        if (PlayerData.inventaire.getBalles()[i]!=null) {
             view.getBalleButton()[i].setText("Acheté");
             return;
-        }else if(PlayerData.money >= prix) {
+        } else if (PlayerData.money >= prix) {
             PlayerData.money -= prix;
             view.setMoneyValue(PlayerData.money);
             view.getMoneyVBox().getSummaryLabel().setText("Argent : " + PlayerData.money);
             view.getBalleButton()[i].setText("Acheté");
-            PlayerData.inventaire.addBalle(view.getLabels()[i],i);
+            if (PlayerData.inventaire != null) {
+                PlayerData.inventaire.addBalle(view.getLabels()[i], i);
 
-            view.getBalleButton()[i].setDisable(true);
-            PlayerData.inventaire.afficheInventaire();
-        }else{
+                view.getBalleButton()[i].setDisable(true);
+                PlayerData.inventaire.afficheInventaire();
+            }
+        } else {
             System.out.println("Pas assez d'argent");
         }
     }
-
 
 }

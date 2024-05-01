@@ -28,7 +28,7 @@ public class BoutiqueView implements Menu {
     private HBox boutique;
     // Achat de raquette
     private LabelVBox raquette;
-    private String[] labelsR = { "Arc-en-ciel", "Bleu", "Dark Matter", "Or", "Rose", "Rouge", "Violet", "Vert",
+    private String[] labelsR = { "Arc-en-ciel", "Bleu", "Dark Matter", "Or", "Rose", "Rouge", "Violet", "Vert","Classic",
             "Etoile", "Noir&Blanc", "Gris", "Purple silk" };
     private String[] pathsR = {
             "src/main/ressources/Texture/arc_en_ciel.jpg",
@@ -39,6 +39,7 @@ public class BoutiqueView implements Menu {
             "src/main/ressources/Texture/rouge.jpg",
             "src/main/ressources/Texture/violet.png",
             "src/main/ressources/Texture/vert.jpg",
+            "src/main/ressources/balle/classic/classic.png",
             "src/main/ressources/Texture/stars.jpg",
             "src/main/ressources/Texture/black_white.jpg",
             "src/main/ressources/Texture/grey.jpg",
@@ -103,25 +104,23 @@ public class BoutiqueView implements Menu {
     }
 
     private void initRaquette() {
-        raquette = new LabelVBox("Texture Raquette:", 10);
+        raquette = new LabelVBox("Texture Raquette:", 30);
         GridPane raquetteGrid = new GridPane();
         raquetteGrid.setHgap(10);
         raquetteGrid.setVgap(10);
         for (int i = 0; i < labelsR.length; i++) {
             // raquetteImage[i] = initImage(pathsR[i]);
-            if (PlayerData.inventaire.getInventaire()[0][i] == true) {
-                raquetteButton[i] = createButton("Acheté", 0, 0);
-                raquetteButton[i].setDisable(true);
-            } else {
-                raquetteRect[i] = initRectangle(pathsR[i]);
-                raquetteButton[i] = createButton("Acheter : " + priceRaquette, 0, 0);
-                LabelVBox raquetteV = new LabelVBox(labelsR[i], 10);
-                raquetteV.getChildren().addAll(raquetteRect[i], raquetteButton[i]);
-                raquetteGrid.add(raquetteV, i % 3, i / 3); // Ajoutez cette ligne
-                priceRaquette += 5;
-            }
+            raquetteRect[i] = initRectangle(pathsR[i]);
+            raquetteButton[i] = createButton("Acheter : " + priceRaquette, 0, 0);
+            LabelVBox raquetteV = new LabelVBox(labelsR[i], 10);
+            raquetteV.getChildren().addAll(raquetteRect[i], raquetteButton[i]);
+            raquetteGrid.add(raquetteV, i % 3, i / 3); // Ajoutez cette ligne
+            priceRaquette += 5;
+            if(PlayerData.inventaire.getRaquettes()[i] != null) 
+                raquetteButton[i].setText("Acheté");
         }
         raquette.getChildren().add(raquetteGrid);
+
     }
 
     private void initBalle() {
@@ -130,7 +129,7 @@ public class BoutiqueView implements Menu {
         balleGrid.setHgap(10);
         balleGrid.setVgap(10);
         for (int i = 0; i < labels.length; i++) {
-            if (PlayerData.inventaire.getInventaire()[0][i] == true) {
+            if (PlayerData.inventaire.getBalles()[i] != null) {
                 balleButton[i] = createButton("Acheté", 0, 0);
                 balleButton[i].setDisable(true);
             } else {
@@ -143,6 +142,7 @@ public class BoutiqueView implements Menu {
             }
         }
         balle.getChildren().add(balleGrid);
+
     }
 
     private void initBoutique() {

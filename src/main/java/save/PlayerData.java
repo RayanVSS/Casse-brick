@@ -23,6 +23,7 @@ public class PlayerData {
         stagesProgress = new StagesProgress(GameConstants.STAGES_QTY);
         stagesProgress.createStages();
         inventaire = new Inventaire();
+        inventaire.afficheInventaire();
     }
 
     /**

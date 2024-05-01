@@ -114,7 +114,7 @@ public final class GameConstants {
         public static final int STAGES_QTY = 9 * CHAPTERS_QTY;
 
         //SKins
-        public static final int RAQUETTES_QTY = 12;
+        public static final int RAQUETTES_QTY = 13;
         public static final int BALLES_QTY = 12;
         // preConfig des parties
         public static GameRules[] PRECONFIG_GAME_RULES = {

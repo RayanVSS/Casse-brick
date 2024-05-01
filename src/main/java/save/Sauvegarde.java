@@ -27,6 +27,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import config.StagesProgress;
+import gui.Inventaire;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
 import utils.GameConstants;
@@ -129,6 +130,7 @@ public class Sauvegarde {
         playerData.put("MONEY", PlayerData.money);
         playerData.put("ADMIN", PlayerData.isAdmin);
         playerData.put("PROGRESS", PlayerData.stagesProgress);
+        playerData.put("INVENTAIRE", PlayerData.inventaire);
         return playerData;
     }
 
@@ -169,6 +171,7 @@ public class Sauvegarde {
             PlayerData.isAdmin = (boolean) playerData.getOrDefault("ADMIN", false);
             PlayerData.stagesProgress = new Gson().fromJson("" + playerData.get("PROGRESS"),
                     StagesProgress.class);
+            PlayerData.inventaire = new Gson().fromJson("" + playerData.get("INVENTAIRE"),Inventaire.class);       
         }
     }
 

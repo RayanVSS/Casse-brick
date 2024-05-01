@@ -2,18 +2,18 @@
   "PATH": false,
   "MUSIC": 0,
   "CSS": "PINK",
-  "MONEY": 0,
+  "MONEY": 40,
   "INVENTAIRE": {
     "raquettes": [
+      "Arc-en-ciel",
+      "Bleu",
       null,
       null,
       null,
       null,
       null,
       null,
-      null,
-      null,
-      null,
+      "Classic",
       null,
       null,
       null,
@@ -32,38 +32,6 @@
       null,
       null,
       null
-    ],
-    "inventaire": [
-      [
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false
-      ],
-      [
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false
-      ]
     ]
   },
   "PARTICLES": true,
