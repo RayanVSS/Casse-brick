@@ -16,6 +16,8 @@ import javafx.scene.layout.VBox;
 
 /**
 * Créé l'objet qui sert d'afficheur pour la console, à chaque création il rétablit toute l'historique en cours.
+
+* @category
 * Objet Singleton, s'auto-update indépendamment
 */
 public class ConsoleView extends VBox {

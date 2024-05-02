@@ -27,10 +27,10 @@ public class App extends Application {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                Console.init();
                 PlayerData.initPlayerData();
                 // chargement de la derniere sauvegarde
                 sauvegarde.setupLastSave();
-                Console.init();
 
                 // initialisation des sons
                 clickSoundPlayer = new ClickSound();

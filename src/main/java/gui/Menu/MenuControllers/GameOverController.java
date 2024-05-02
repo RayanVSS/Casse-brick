@@ -1,6 +1,7 @@
 package gui.Menu.MenuControllers;
 
 import gui.App;
+import gui.Console;
 import gui.GameView;
 import gui.Menu.MenuViews.GameOverView;
 import javafx.application.Platform;
@@ -56,6 +57,7 @@ public class GameOverController {
      * Méthode pour quitter le jeu. Elle ferme le stage principal.
      */
     private void quit() {
+        Console.systemDisplay("Fermeture du jeu...");
         view.getPrimaryStage().close();
         Platform.exit();
         System.exit(0);

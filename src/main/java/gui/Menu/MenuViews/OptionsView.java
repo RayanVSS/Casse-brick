@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.Console;
 import gui.GraphicsToolkit.LabelButton;
 import gui.GraphicsToolkit.LabelComboBoxHBox;
 import gui.GraphicsToolkit.LabelSliderHBox;
@@ -68,7 +69,7 @@ public class OptionsView implements Menu {
                 textureImageView.setImage(textureImage);
                 GameConstants.TEXTURE = selectedTexture;
             }
-            System.out.println(selectedTexture + " selected");
+            Console.systemDisplay("Texture : " + selectedTexture + " sélectionnée.");
         });
 
         root.getChildren().addAll(options, actionButtons);
