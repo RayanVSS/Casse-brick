@@ -19,7 +19,7 @@ public abstract class Brick extends Entity {
         this.color = color;
     }
 
-    protected Brick(Coordinates c, int durability) {
+    public Brick(Coordinates c, int durability) {
         this(c, durability, null);
     }
 

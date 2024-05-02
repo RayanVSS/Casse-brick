@@ -153,7 +153,7 @@ public class AppPhysic extends Application {
         labelGravity.setStyle("-fx-text-fill: #d5bbb1;");
         labelGravity.setTranslateY(0);
         labelGravity.setTranslateX(-350);
-        Button buttonGravity = new Button("OFF");
+        Button buttonGravity = new Button((physics.getGravity()) ? "ON" : "OFF");
         buttonGravity.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
         buttonGravity.setOnAction(e -> {
             physics.changeGravity();
@@ -173,12 +173,12 @@ public class AppPhysic extends Application {
         labelMass.setStyle("-fx-text-fill: #d5bbb1;");
         labelMass.setTranslateY(100);
         labelMass.setTranslateX(-350);
-        Slider mass = new Slider(1, 1000, physics.getMass());
+        Slider mass = new Slider(1, 10, physics.getMass());
         mass.setOrientation(Orientation.HORIZONTAL);
         mass.setMaxWidth(200);
         mass.valueProperty().addListener((observable, oldvalue, newvalue) -> {
-            physics.setMass(newvalue.intValue() / 10);
-            labelMass.setText("Masse de la balle : " + newvalue.intValue() + " kg");
+            physics.setMass(newvalue.intValue());
+            labelMass.setText("Masse de la balle : " + newvalue.intValue() + " g");
         });
         mass.setTranslateX(labelMass.getTranslateX());
         mass.setTranslateY(labelMass.getTranslateY() + 30);
@@ -188,7 +188,7 @@ public class AppPhysic extends Application {
 
     public void Racket() {
         Label labelracket = new Label("Racket");
-        Button buttonracket = new Button("OFF");
+        Button buttonracket = new Button((PhysicEngine.RACKET)?"ON":"OFF");
         buttonracket.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
         buttonracket.setOnAction(e -> {
             PhysicEngine.RACKET = !PhysicEngine.RACKET;

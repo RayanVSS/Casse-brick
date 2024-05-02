@@ -23,7 +23,7 @@ public class ClassicRacket extends Racket {
     public void handleKeyPress(Set<KeyCode> keysPressed) {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {
-                if (this.mX() > -largeur / 2)
+                if (this.mX() > -longueur / 2)
                     this.mX(this.mX() - speed);
             }
             if (key == GameConstants.RIGHT) {

@@ -34,7 +34,7 @@ public class ClassicBall extends Ball {
      * @return un booléen indiquant si la balle est perdue ou non.
      *         Retourne `true` si la balle est toujours en jeu, `false` sinon.
      */
-    public void movement() {
+    public void movement(long deltaT) {
         double w = getZoneWidth();
         double h = getZoneHeight();
         double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
@@ -80,16 +80,16 @@ public class ClassicBall extends Ball {
                     this.getDirection().getY() + (this.getRotation().getEffect() / 90) * this.getDirection().getY());
             this.getRotation().Collision();
             newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
-            this.getDirection().setX(this.getDirection().getX() * super.getPhysicSetting().getRetention());
+            this.getDirection().setX(this.getDirection().getX());
         } else if (newY < 0) {
             this.getDirection().setY(
                     -this.getDirection().getY() + (this.getRotation().getEffect() / 90) * this.getDirection().getY());
             this.getRotation().Collision();
             newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
-            this.getDirection().setY(this.getDirection().getY() * super.getPhysicSetting().getRetention());
+            this.getDirection().setY(this.getDirection().getY());
         }
         if (newY > h - this.getRadius()) {
-            super.setDelete(false);
+            super.setDelete(true);
         }
         this.setC(new Coordinates(newX, newY));
         this.getDirection().add(super.getPhysicSetting().getWind());

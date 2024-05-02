@@ -63,7 +63,7 @@ public class Preview {
             newY = c_trajectory.getY() + d_trajectory.getY()*ball.getSpeed();
             CollisionR = false;
         }
-        if (newX < 0 || newX > w - ball.getRadius()) {
+        if (newX <PhysicEngine.start_border || newX > w - ball.getRadius()) {
             d_trajectory.setX(-d_trajectory.getX());
             d_trajectory.setY(d_trajectory.getY()+(ball.getRotation().getEffect()/90)*d_trajectory.getY());
             newX = c_trajectory.getX() + d_trajectory.getX()*ball.getSpeed();
@@ -140,6 +140,9 @@ public class Preview {
     }
 
     public void checkCollisionOtherBall(Ball b){
+        if(ball.equals(b)){
+            return;
+        }
         // gestion de la collision entre les balles en X
         boolean collisionX1 = c_trajectory.getX()+ball.getRadius()>=b.getC().getX()-b.getRadius() && c_trajectory.getX()-ball.getRadius()<b.getC().getX()+b.getRadius();
         boolean collisionX2 = b.getX()+b.getRadius()>=c_trajectory.getX()-ball.getRadius() && b.getX()-b.getRadius()<c_trajectory.getX()+ball.getRadius();

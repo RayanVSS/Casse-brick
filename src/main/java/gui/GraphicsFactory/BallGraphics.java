@@ -17,46 +17,35 @@ public class BallGraphics extends ImageView implements EntityGraphics {
     private static String RED_BALL = ("src/main/ressources/balle/red.png");
     private static String GREEN_BALL = ("src/main/ressources/balle/green.png");
     private static String BLUE_BALL = ("src/main/ressources/balle/blue.png");
-    private static String physicBall = ("/balle/ballePhysic.png");
+
+    private Ball ball;
 
     //Partie pour le drag and drop
     private boolean isMouseDraggingBall = false;
     private double mouseX , mouseY = 0;
-
-    private Ball ball;
+ 
     private Image currentImage;
     private boolean waitingAdded, waitingRemoved;
 
     public BallGraphics(Ball ball) {
         this.ball = ball;
         setImageAndProperties();
-        setX(ball.getC().getX());
-        setY(ball.getC().getY());
-        setScaleX(ball.getRadius()/5);
-        setScaleY(ball.getRadius()/5);
-    }
-
-    public BallGraphics(Image i,Ball ball) {
-        this.ball = ball;
-        setImage(i);
-        currentImage = i;
-        if(i==null){
-            currentImage=new Image(physicBall);
-            setImage(currentImage);
-        }
-        setFitWidth(ball.getRadius()/3);
-        setFitHeight(ball.getRadius()/3);
-        setX(ball.getC().getX());
-        setY(ball.getC().getY());
-        setScaleX(ball.getRadius()/2);
-        setScaleY(ball.getRadius()/2);
+        setX(ball.getC().getX() - ball.getRadius());
+        setY(ball.getC().getY() - ball.getRadius());
         waitingAdded = true;
     }
 
+    public BallGraphics(String imagePath, Ball ball) {
+        this.ball = ball;
+        setImage(imagePath, currentImage);
+        setX(ball.getC().getX() - ball.getRadius());
+        setY(ball.getC().getY() - ball.getRadius());
+        waitingAdded = true;
+    }
 
     public void update() {
-        setX(ball.getC().getX());
-        setY(ball.getC().getY());
+        setX(ball.getC().getX() - ball.getRadius());
+        setY(ball.getC().getY() - ball.getRadius());
         updateImageAndProperties();
         setRotate(getRotate()+ball.getRotation().getAngle()/10);
     }
@@ -176,12 +165,12 @@ public class BallGraphics extends ImageView implements EntityGraphics {
     private void setImage(String imagePath, Image image) {
         image = ImageLoader.loadImage(imagePath);
         setImage(image);
-        setFitWidth(ball.getRadius());
+        setFitWidth(ball.getRadius() * 2);
         setPreserveRatio(true);
         setSmooth(true);
     }
 
-    public boolean IsMouseDraggingBall() {
+   public boolean IsMouseDraggingBall() {
         return isMouseDraggingBall;
     }
 

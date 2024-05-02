@@ -198,7 +198,7 @@ public class GameRoot {
                 balls.add(ball);
                 root.getChildren().add(ballg);
             }
-            if(!ball.delete()){
+            if(ball.delete()){
                 root.getChildren().remove(graphBall.get(i));
                 graphBall.remove(i);
                 balls.remove(i);

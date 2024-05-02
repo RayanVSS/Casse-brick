@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import entity.Boost;
 import entity.ball.MagnetBall;
 import entity.Bonus;
 import physics.entity.Ball;
@@ -71,7 +70,7 @@ public class Game {
         //Vérifie si la balle touche une brique
         for (Ball ball : balls) {
             ball.CollisionB=false;
-            if(!ball.delete()){
+            if(ball.delete()){
                 balls.remove(ball);
                 break;
             }
@@ -91,7 +90,7 @@ public class Game {
                 updateRulesRacket();
             }
             ball.checkCollisionOtherBall(balls);
-            ball.movement();
+            ball.movement(deltaT);
 
             if (ball instanceof MagnetBall) {
                 // donne les coordonnées de la raquette a la MagnetBall

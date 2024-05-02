@@ -9,9 +9,6 @@ import entity.ball.MagnetBall;
 import physics.geometry.*;
 import physics.gui.Preview;
 import physics.config.PhysicSetting;
-import physics.geometry.Coordinates;
-import physics.geometry.Rotation;
-import physics.geometry.Vector;
 import physics.gui.Preview;
 import utils.GameConstants;
 import java.util.List;
@@ -44,7 +41,7 @@ public abstract class Ball extends Entity {
     private double zoneWidth = GameConstants.DEFAULT_GAME_ROOT_WIDTH;
     private double zoneHeight = GameConstants.DEFAULT_WINDOW_HEIGHT;
     public boolean CollisionB =false;
-    private boolean delete = true;
+    private boolean delete = false;
 
     public Ball() {
         super(new Coordinates(0, 0), new Vector(new Coordinates(0, 0)));
@@ -201,7 +198,7 @@ public abstract class Ball extends Entity {
         return (cornerDistance_sq <= (radius * radius));
     }
 
-    public abstract void movement();
+    public abstract void movement(long dt);
 
     public boolean isOverlap(Racket r) {
         // Trouver le point le plus proche du cercle dans le rectangle
@@ -240,7 +237,7 @@ public abstract class Ball extends Entity {
         this.setSpeed(baseSpeed);
     }
 
-    public boolean checkCollision(Brick b) {
+    public void checkCollision(Brick b) {
         if (this.intersectBrick(b)) {
             if (this.getC().getX() + this.getRadius() > b.getC().getX()
                     && this.getC().getX() - this.getRadius() < b.getC().getX() + GameConstants.BRICK_WIDTH) {
@@ -252,10 +249,16 @@ public abstract class Ball extends Entity {
                 this.setDirection(
                         new Vector(new Coordinates(-this.getDirection().getX(), -this.getDirection().getY())));
             }
-            return true;
+            b.setDestroyed(true);
         }
-        return false;
     }
+
+    public void checkCollision(Set<Brick> bricks) {
+        for (Brick b : bricks) {
+            this.checkCollision(b);
+        }
+    }
+    
     public void checkCollisionOtherBall(List<Ball> balls) {
         if (!CollisionB) {
             for(Ball b : balls){
@@ -328,74 +331,56 @@ public abstract class Ball extends Entity {
     }
 
     public void checkCollisionOtherBall(Set<Ball> balls) {
-        if (!CollisionB) {
+        if(!CollisionB){
             for(Ball b : balls){
-                if(b!=this){
-                    double temp=0;
-                    // gestion de la collision entre les balles en X
-                    boolean collisionX1 = getX()+radius>=b.getC().getX()-b.getRadius() && getX()-radius<b.getC().getX()+b.getRadius();
-                    boolean collisionX2 = b.getX()+b.getRadius()>=getX()-radius && b.getX()-b.getRadius()<getX()+radius;
-                    boolean collisionXY = (getY()+radius>=b.getY()-b.getRadius() && getY()-radius<b.getY()+b.getRadius()) || (b.getY()+b.getRadius()>=getY()-radius && b.getY()-b.getRadius()<getY()+radius);
-                    // gestion de la collision entre les balles en Y
-                    boolean collisionY1 = getY()+radius>=b.getC().getY()-b.getRadius() && getY()-radius<b.getC().getY()+b.getRadius() ;
-                    boolean collisionY2 = b.getY()+b.getRadius()>=getY()-radius && b.getY()-b.getRadius()<getY()+radius ;
-                    boolean collisionYX = (getX()+radius>=b.getX()-b.getRadius() && getX()-radius<b.getX()+b.getRadius()) || (b.getX()+b.getRadius()>=getX()-radius && b.getX()-b.getRadius()<getX()+radius);
-                    if((collisionX1||collisionX2) && collisionXY){
-                        /*if(getDirection().getX() >= 0 && b.getDirection().getX() <= 0 || getDirection().getX() <= 0 && b.getDirection().getX() >= 0){
-                            temp=(b.getMass()*-b.getDirection().getX()+getMass()*getDirection().getX())/2;
-                            getDirection().setX(-temp);
-                            b.getDirection().setX(-temp);
-                        }
-                        else if(getDirection().getX() >= 0 && b.getDirection().getX() >= 0){
-                            temp=getDirection().getX()*getMass();
-                            getDirection().setX(temp-b.getDirection().getX()*b.getMass());
-                            b.getDirection().setX(b.getDirection().getX()+temp);
-                        }
-                        else if(getDirection().getX() <= 0 && b.getDirection().getX() <= 0){
-                            temp=b.getDirection().getX()*b.getMass();
-                            b.getDirection().setX(temp-getDirection().getX());
-                            getDirection().setX(temp+getDirection().getX());
-                        }
-                        else if(getDirection().getX()==0 || b.getDirection().getX()==0){
-                            getDirection().setX(-b.getDirection().getX());
-                            b.getDirection().setX(-getDirection().getX());
-                        }*/
-                        temp=b.getDirection().getX()*b.getMass();
-                        b.getDirection().setX(getDirection().getX()*getMass());
-                        getDirection().setX(temp);
-                        CollisionB = true;
-                        b.CollisionB=true;
-                    }
-                    if((collisionY1 || collisionY2) && collisionYX){
-                        /*
-                        if(getDirection().getY() >= 0 && b.getDirection().getY() <= 0 || getDirection().getY() <= 0 && b.getDirection().getY() >= 0){
-                            temp=(b.getMass()*-b.getDirection().getY()+getMass()*getDirection().getY())/2;
-                            getDirection().setY(-temp);
-                            b.getDirection().setY(-temp);
-                        }
-                        else if(getDirection().getY() >= 0 && b.getDirection().getY() >= 0){
-                            temp=getDirection().getY()*getMass();
-                            getDirection().setY(temp-b.getDirection().getY()*b.getMass());
-                            b.getDirection().setY(temp+b.getDirection().getY());
-                        }
-                        else if(getDirection().getY() <= 0 && b.getDirection().getY() <= 0){
-                            temp=b.getDirection().getY()*b.getMass();
-                            b.getDirection().setY(temp-getDirection().getY());
-                            getDirection().setY(temp+getDirection().getY());
-                        }
-                        else if(getDirection().getY()==0 || b.getDirection().getY()==0){
-                            getDirection().setY(-b.getDirection().getY());
-                            b.getDirection().setY(-getDirection().getY());
-                        }*/
-                        temp=b.getDirection().getY()*b.getMass();
-                        b.getDirection().setY(getDirection().getY()*getMass());
-                        getDirection().setY(temp);
-                        CollisionB = true;
-                        b.CollisionB=true;
-                    }
+                double deltaX = Math.abs(getX() - b.getX());
+                double deltaY = Math.abs(getY() - b.getY());
+                double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                
+                if (distance <= (getRadius() + b.getRadius())) {
+
+                    double newxSpeed1 = (getDirection().getX() * (4 - 7) + (2 * 7 * b.getDirection().getX())) / 11;
+
+                    double newxSpeed2 = (b.getDirection().getX() * (7 - 4) + (2 * 4 * getDirection().getX())) / 11;
+
+                    double newySpeed1 = (getDirection().getY() * (4 - 7) + (2 * 7 * b.getDirection().getY())) / 11;
+
+                    double newySpeed2 = (b.getDirection().getY() * (7 - 4) + (2 * 4 * getDirection().getY())) / 11;
+                    
+                    b.getDirection().setX(newxSpeed2);
+                    b.getDirection().setY(newySpeed2);
+                    getDirection().setX(newxSpeed1);
+                    getDirection().setY(newySpeed1);
+                    CollisionB=true;
+                    b.CollisionB=true;
+
                 }
             }
+        }
+    }
+
+    public void checkCollision(Ball b) {
+        if(!CollisionB){
+            double deltaX = Math.abs(getX() - b.getX());
+            double deltaY = Math.abs(getY() - b.getY());
+            double distance = deltaX * deltaX + deltaY * deltaY;
             
+            if (distance < (getRadius() + b.getRadius()) * (getRadius() + b.getRadius())) {
+
+                double newxSpeed1 = (getDirection().getX() * (4 - 7) + (2 * 7 * b.getDirection().getX())) / 11;
+
+                double newxSpeed2 = (b.getDirection().getX() * (7 - 4) + (2 * 4 * getDirection().getX())) / 11;
+
+                double newySpeed1 = (getDirection().getY() * (4 - 7) + (2 * 7 * b.getDirection().getY())) / 11;
+
+                double newySpeed2 = (b.getDirection().getY() * (7 - 4) + (2 * 4 * getDirection().getY())) / 11;
+
+                b.getDirection().setX(newxSpeed2);
+                b.getDirection().setY(newySpeed2);
+                getDirection().setX(newxSpeed1);
+                getDirection().setY(newySpeed1);
+
+            }
         }
     }
 

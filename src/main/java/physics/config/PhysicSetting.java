@@ -73,8 +73,8 @@ public class PhysicSetting {
     public PhysicSetting(){
         Radius = GameConstants.DEFAULT_BALL_RADIUS;
         this.Wind = vectorWind(Speed_Wind, Direction_Wind);
-        DEFAULT_WINDOW_HEIGHT = 800.0;
-        DEFAULT_WINDOW_WIDTH = 1100.0;
+        DEFAULT_WINDOW_HEIGHT = GameConstants.DEFAULT_WINDOW_HEIGHT;
+        DEFAULT_WINDOW_WIDTH = GameConstants.DEFAULT_WINDOW_WIDTH;
         DEFAULT_BALL_START_COORDINATES=new Coordinates(DEFAULT_WINDOW_WIDTH/ 2, DEFAULT_WINDOW_HEIGHT / 2);
     }
 
