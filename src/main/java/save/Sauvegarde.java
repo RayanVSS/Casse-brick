@@ -282,5 +282,6 @@ public class Sauvegarde {
         sauvegarderToutesDonnees(saveName);
         GameConstants.LAST_SAVE = saveName + ".json";
         Console.systemDisplay("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès.");
+        Console.systemDisplay("Fermeture du jeu...");
     }
 }

@@ -5,6 +5,7 @@ import gui.Console;
 import gui.GameView;
 import gui.Menu.MenuViews.GameOverView;
 import javafx.application.Platform;
+import save.Sauvegarde;
 import utils.Sound.ClickSound;
 
 /**
@@ -57,7 +58,8 @@ public class GameOverController {
      * Méthode pour quitter le jeu. Elle ferme le stage principal.
      */
     private void quit() {
-        Console.systemDisplay("Fermeture du jeu...");
+        Sauvegarde sauvegarde = new Sauvegarde();
+        sauvegarde.autoSave();
         view.getPrimaryStage().close();
         Platform.exit();
         System.exit(0);
