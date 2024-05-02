@@ -263,7 +263,7 @@ public class Sauvegarde {
         if (!LAST_SAVE.equals("")) {
             chargerOptionsDuJeu(LAST_SAVE);
             chargerPlayerData(LAST_SAVE);
-            Console.systemDisplay("Sauvegarde de : '" + LAST_SAVE + "'");
+            Console.systemDisplay("Sauvegarde chargée : '" + LAST_SAVE + "'");
         } else {
             Console.systemDisplay("Impossible de charger la dernière sauvegarde.");
         }

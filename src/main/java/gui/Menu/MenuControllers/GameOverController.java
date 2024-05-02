@@ -1,7 +1,6 @@
 package gui.Menu.MenuControllers;
 
 import gui.App;
-import gui.Console;
 import gui.GameView;
 import gui.Menu.MenuViews.GameOverView;
 import javafx.application.Platform;
