@@ -91,7 +91,6 @@ public class StartMenuView implements Menu {
     @Override
     public void update() {
         profileView.update();
-        // displayer.update();
     }
 
     // getters pour les boutons et autres éléments de la vue

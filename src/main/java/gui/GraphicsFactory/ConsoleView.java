@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -47,9 +48,9 @@ public class ConsoleView extends VBox {
         return consoleView;
     }
 
-    private void initComponents() {
-        initScrollPane();
+    private void initComponents() { // l'ordre compte, influe sur la taille déf
         initSendBox();
+        initScrollPane();
     }
 
     private void initScrollPane() {
@@ -59,6 +60,12 @@ public class ConsoleView extends VBox {
         scrollPane.setFitToWidth(true);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setPrefHeight(200);
+        scrollPane.setPrefWidth(scrollPane.getWidth());
+        scrollPane.needsLayoutProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                scrollPane.setVvalue(1.0);
+            }
+        });
     }
 
     private void initSendBox() {
@@ -67,9 +74,17 @@ public class ConsoleView extends VBox {
         inputField = new TextField();
         inputField.setPromptText("Entrez un message ou une commande (/) ...");
         inputField.setPrefWidth(300);
+        inputField.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                sendMessage();
+            }
+        });
 
         sendButton = new Button("Envoyer");
-        sendButton.setOnAction(e -> sendMessage());
+        sendButton.setOnAction(e -> {
+            sendMessage();
+            inputField.requestFocus();
+        });
 
         sendBox.getChildren().addAll(inputField, sendButton);
     }
@@ -78,14 +93,18 @@ public class ConsoleView extends VBox {
         String message = inputField.getText();
         if (!message.isEmpty()) {
             inputField.clear();
-            Platform.runLater(() -> Console.process(message));
+            Platform.runLater(() -> {
+                Console.process(message);
+            });
         }
     }
 
     public void updateConsoleView() {
         String message = Console.getQueueMessage();
         if (message != null) {
-            consoleTextArea.getChildren().add(new Label(message));
+            Label label = new Label(message);
+            label.setWrapText(true);
+            consoleTextArea.getChildren().add(label);
         }
     }
 
