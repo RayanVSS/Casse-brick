@@ -1,5 +1,6 @@
 package gui.Menu.MenuViews;
 
+import gui.ViewPosition;
 import gui.GraphicsFactory.ConsoleView;
 import gui.GraphicsFactory.ProfileView;
 import gui.Menu.Menu;
@@ -21,7 +22,7 @@ import utils.GameConstants;
  * 
  * @author Benmalek Majda
  */
-public class StartMenuView implements Menu {
+public class StartMenuView implements Menu, ViewPosition {
 
     private Stage primaryStage;
     private BorderPane root = new BorderPane();

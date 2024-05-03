@@ -10,8 +10,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
 import gui.ImageLoader;
+import gui.ViewPosition;
 
-public class ChapterView implements Menu {
+public class ChapterView implements Menu, ViewPosition {
     private Stage primaryStage;
     private VBox root;
     private Scene scene;

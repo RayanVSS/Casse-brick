@@ -1,5 +1,6 @@
 package gui.Menu.MenuViews;
 
+import gui.ViewPosition;
 import gui.Menu.Menu;
 import gui.Menu.MenuManager;
 import gui.Menu.MenuControllers.SaveController;
@@ -16,7 +17,7 @@ import javafx.stage.Stage;
 import save.Sauvegarde;
 import utils.GameConstants;
 
-public class SaveView implements Menu {
+public class SaveView implements Menu, ViewPosition {
     private Stage primaryStage;
     private static StackPane root = new StackPane();
     private static Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,

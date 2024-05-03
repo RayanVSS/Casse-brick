@@ -10,6 +10,7 @@ import gui.GraphicsToolkit.LabelComboBoxHBox;
 import gui.GraphicsToolkit.LabelSliderHBox;
 import gui.GraphicsToolkit.LabelToggleButtonHBox;
 import gui.GraphicsToolkit.LabelVBox;
+import gui.ViewPosition;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.OptionsController;
 import javafx.geometry.Pos;
@@ -30,7 +31,7 @@ import utils.GameConstants;
  * @author Benmalek Majda
  * @author Bencheikh Ilias
  */
-public class OptionsView implements Menu {
+public class OptionsView implements Menu, ViewPosition {
     private Stage primaryStage;
     private VBox root;
     private Scene scene;

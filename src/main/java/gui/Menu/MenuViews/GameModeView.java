@@ -1,5 +1,6 @@
 package gui.Menu.MenuViews;
 
+import gui.ViewPosition;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameModeController;
 import javafx.scene.Scene;
@@ -8,7 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
-public class GameModeView implements Menu {
+public class GameModeView implements Menu, ViewPosition {
 
     private Stage primaryStage;
     private VBox root;

@@ -2,6 +2,7 @@ package gui.Menu.MenuViews;
 
 import gui.App;
 import gui.ImageLoader;
+import gui.ViewPosition;
 import gui.GraphicsToolkit.LabelButton;
 import config.StageLevel;
 import gui.Menu.Menu;
@@ -16,7 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
-public class PauseView extends Pane implements Menu {
+public class PauseView extends Pane implements Menu, ViewPosition {
     private Stage primaryStage;
     private Button btnReplay, btnMenu, btnQuit, btnResume;
     private AnimationTimer animationTimer;
@@ -58,6 +59,7 @@ public class PauseView extends Pane implements Menu {
         // Pour centrer la VBox
         vBox.setLayoutX((this.getPrefWidth() - vBox.getPrefWidth()) / 2);
         vBox.setLayoutY((this.getPrefHeight() - vBox.getPrefHeight()) / 2.5);
+        saveViewPosition();
         new PauseController(p, this);
     }
 

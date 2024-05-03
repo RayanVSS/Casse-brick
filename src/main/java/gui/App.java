@@ -45,8 +45,7 @@ public class App extends Application {
                 primaryStage.setTitle("Casse Brique");
 
                 menuManager.preCreateAllView(primaryStage);
-
-                primaryStage.setScene(menuManager.getScene("StartMenuView"));
+                menuManager.changeScene(p, "StartMenuView");
 
                 primaryStage.show();
                 primaryStage.setOnCloseRequest(event -> {

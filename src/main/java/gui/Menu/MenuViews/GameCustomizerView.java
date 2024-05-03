@@ -4,6 +4,7 @@ import gui.GraphicsToolkit.LabelComboBoxHBox;
 import gui.GraphicsToolkit.LabelSliderHBox;
 import gui.GraphicsToolkit.LabelToggleButtonHBox;
 import gui.GraphicsToolkit.LabelVBox;
+import gui.ViewPosition;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameCustomizerController;
 import javafx.geometry.Pos;
@@ -14,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
-public class GameCustomizerView implements Menu {
+public class GameCustomizerView implements Menu, ViewPosition {
 
     private Stage primaryStage;
     private VBox root;

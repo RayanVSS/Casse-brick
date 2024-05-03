@@ -2,6 +2,7 @@ package gui.Menu.MenuViews;
 
 import java.util.ArrayList;
 
+import gui.ViewPosition;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.StageSelectorController;
 import javafx.geometry.Pos;
@@ -12,7 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
-public class StageSelectorView implements Menu {
+public class StageSelectorView implements Menu, ViewPosition {
 
     private Stage primaryStage;
     private VBox root;

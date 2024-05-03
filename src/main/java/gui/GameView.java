@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import utils.GameConstants;
 import utils.Key;
 
-public class GameView {
+public class GameView implements ViewPosition {
     private Stage primaryStage;
     private Pane root = new Pane();
     private VBox SLFPS = new VBox();
@@ -55,6 +55,7 @@ public class GameView {
         this.animation();
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
+        saveViewPosition();
     }
 
     public void animation() {
@@ -81,6 +82,7 @@ public class GameView {
 
                 }
                 last = now;
+                saveViewPosition();
             }
         };
         animationTimer.start();
