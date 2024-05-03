@@ -5,11 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gui.Console;
-import gui.GraphicsToolkit.LabelButton;
-import gui.GraphicsToolkit.LabelComboBoxHBox;
-import gui.GraphicsToolkit.LabelSliderHBox;
-import gui.GraphicsToolkit.LabelToggleButtonHBox;
-import gui.GraphicsToolkit.LabelVBox;
 import gui.ViewPosition;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.OptionsController;
@@ -23,6 +18,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
+import utils.GraphicsToolkit.LabelButton;
+import utils.GraphicsToolkit.LabelComboBoxHBox;
+import utils.GraphicsToolkit.LabelSliderHBox;
+import utils.GraphicsToolkit.LabelToggleButtonHBox;
+import utils.GraphicsToolkit.LabelVBox;
 
 /**
  * Classe OptionsView qui implémente l'interface Menu pour représenter la vue

@@ -3,7 +3,6 @@ package physics.gui;
 import java.util.Random;
 
 import entity.ball.ClassicBall;
-import gui.GraphicsToolkit.LabelToggleButtonHBox;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -13,6 +12,7 @@ import physics.config.GamePhysics;
 import physics.entity.Ball;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
+import utils.GraphicsToolkit.LabelToggleButtonHBox;
 
 /**
  * Composant de l'environnement de test des briques physiques.

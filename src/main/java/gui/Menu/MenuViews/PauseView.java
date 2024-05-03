@@ -1,9 +1,7 @@
 package gui.Menu.MenuViews;
 
 import gui.App;
-import gui.ImageLoader;
 import gui.ViewPosition;
-import gui.GraphicsToolkit.LabelButton;
 import config.StageLevel;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.PauseController;
@@ -16,6 +14,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
+import utils.ImageLoader;
+import utils.GraphicsToolkit.LabelButton;
 
 public class PauseView extends Pane implements Menu, ViewPosition {
     private Stage primaryStage;

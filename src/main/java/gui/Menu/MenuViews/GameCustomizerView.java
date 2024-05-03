@@ -1,9 +1,5 @@
 package gui.Menu.MenuViews;
 
-import gui.GraphicsToolkit.LabelComboBoxHBox;
-import gui.GraphicsToolkit.LabelSliderHBox;
-import gui.GraphicsToolkit.LabelToggleButtonHBox;
-import gui.GraphicsToolkit.LabelVBox;
 import gui.ViewPosition;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameCustomizerController;
@@ -14,6 +10,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
+import utils.GraphicsToolkit.LabelComboBoxHBox;
+import utils.GraphicsToolkit.LabelSliderHBox;
+import utils.GraphicsToolkit.LabelToggleButtonHBox;
+import utils.GraphicsToolkit.LabelVBox;
 
 public class GameCustomizerView implements Menu, ViewPosition {
 

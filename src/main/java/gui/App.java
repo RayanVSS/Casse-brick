@@ -1,5 +1,6 @@
 package gui;
 
+import gui.GraphicsFactory.ConsoleView;
 import gui.Menu.MenuManager;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -28,6 +29,7 @@ public class App extends Application {
             @Override
             public void run() {
                 Console.init();
+                ConsoleView.getInstance().registerFocusStage(p);
                 PlayerData.initPlayerData();
                 // chargement de la derniere sauvegarde
                 sauvegarde.setupLastSave();

@@ -5,23 +5,27 @@ import java.util.TimerTask;
 
 import gui.Console;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
 * Créé l'objet qui sert d'afficheur pour la console, à chaque création il rétablit toute l'historique en cours.
-
+*
 * @category
 * Objet Singleton, s'auto-update indépendamment
 */
 public class ConsoleView extends VBox {
 
     private static ConsoleView consoleView;
+    private static Stage stage;
 
     private ScrollPane scrollPane;
     private VBox consoleTextArea;
@@ -36,6 +40,18 @@ public class ConsoleView extends VBox {
         initComponents();
         getChildren().addAll(scrollPane, sendBox);
         startAutoUpdate();
+
+    }
+
+    public void registerFocusStage(Stage stage) { // EN TEST
+        ConsoleView.stage = stage;
+        ConsoleView.stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                inputField.requestFocus();
+                System.out.println("Touche Entrée pressée sur le Stage");
+            }
+        });
+        setStyle();
     }
 
     /**
@@ -104,6 +120,7 @@ public class ConsoleView extends VBox {
         if (message != null) {
             Label label = new Label(message);
             label.setWrapText(true);
+            label.getStyleClass().add("console-scroll-pane-label");
             consoleTextArea.getChildren().add(label);
         }
     }
@@ -120,4 +137,18 @@ public class ConsoleView extends VBox {
             }
         }, 0, 100);
     }
+
+    private void setStyle() {
+
+        scrollPane.getStyleClass().addAll("console-components", "console-background", "console-scroll-pane");
+
+        consoleTextArea.getStyleClass().addAll("console-components", "console-background");
+
+        sendBox.getStyleClass().addAll("console-components", "console-background");
+
+        inputField.getStyleClass().addAll("console-components", "console-background");
+
+        sendButton.getStyleClass().addAll("console-components", "console-background");
+    }
+
 }

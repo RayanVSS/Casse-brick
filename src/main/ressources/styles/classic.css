@@ -126,3 +126,19 @@
     -fx-font-style: italic;
     -fx-font-weight: bold;
 }
+
+.console-components {
+    -fx-focus-color: transparent;
+}
+
+.console-background {
+    -fx-background-color: transparent;
+}
+
+.console-scroll-pane>.viewport {
+    -fx-background-color: transparent;
+}
+
+.console-scroll-pane-label{
+    -fx-background-color: transparent;
+}

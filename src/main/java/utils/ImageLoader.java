@@ -1,4 +1,4 @@
-package gui;
+package utils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ public class ImageLoader {
 
     private static final Map<String, Image> imageCache = new HashMap<>();
 
-   private static final ExecutorService executorService = Executors.newFixedThreadPool(10);
+    private static final ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     public static Image loadImage(String imagePath) {
         return imageCache.computeIfAbsent(imagePath, key -> {

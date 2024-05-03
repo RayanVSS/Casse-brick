@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
-import gui.ImageLoader;
+import utils.ImageLoader;
 import gui.ViewPosition;
 
 public class ChapterView implements Menu, ViewPosition {

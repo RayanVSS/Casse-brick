@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
+import utils.ImageLoader;
 import utils.Key;
 
 public class GameView implements ViewPosition {
