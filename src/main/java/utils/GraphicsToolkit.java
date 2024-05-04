@@ -4,8 +4,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javafx.animation.FadeTransition;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -20,11 +22,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
+import javafx.util.Duration;
 
 public final class GraphicsToolkit {
 
-    private static Font originalGameFont = initGameFont();
-    private static Font boldDerivedFont = Font.font(originalGameFont.getFamily(), FontWeight.BOLD, 14);
+    // private static Font originalGameFont = initGameFont();
+    // private static Font boldDerivedFont = Font.font(originalGameFont.getFamily(), FontWeight.BOLD, 14);
 
     // Fonction qui garde les proportions de l'image
     public static Image resizeImage(Image originalImage, double targetWidth, double targetHeight) {
@@ -64,13 +67,13 @@ public final class GraphicsToolkit {
         return new Dimension2D(Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());
     }
 
-    public static Font getGameFont() {
-        return originalGameFont;
-    }
+    // public static Font getGameFont() {
+    //     return originalGameFont;
+    // }
 
-    public static Font getBoldDerivedGameFont() {
-        return boldDerivedFont;
-    }
+    // public static Font getBoldDerivedGameFont() {
+    //     return boldDerivedFont;
+    // }
 
     /**
      * Classe englobant un Label et un ToggleButton dans une HBox
@@ -327,6 +330,39 @@ public final class GraphicsToolkit {
         public Button getButton() {
             return button;
         }
+    }
+
+    public static void playFadeTransition(Node node, double fromValue, double toValue, int durationMillis) {
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(durationMillis), node);
+        fadeTransition.setFromValue(fromValue);
+        fadeTransition.setToValue(toValue);
+        fadeTransition.setOnFinished(event -> fadeTransition.stop());
+        fadeTransition.play();
+    }
+
+    /**
+     * @implNote Doit être appliqué sur un Node (désactivable)
+     * @param node L'élément recevant la transition
+     * @param fromVal Opacité départ
+     * @param toVal Opacité finale
+     * @param delay Délai avant le début de la transition
+     * @param duration Temps fromVal -> toVal
+     */
+    public static void applyFadeOnDisable(Node node, double fromVal, double toVal, int delay, int duration) {
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(duration), node);
+        fadeTransition.setFromValue(fromVal);
+        fadeTransition.setToValue(toVal);
+
+        fadeTransition.setDelay(Duration.millis(delay));
+
+        node.disableProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                fadeTransition.play();
+            } else {
+                fadeTransition.stop(); // Arrêter la transition si le node est cliqué
+                node.setOpacity(1.0); // Rétablir l'opacité normale
+            }
+        });
     }
 
 }

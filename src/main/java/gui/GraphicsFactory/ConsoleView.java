@@ -5,7 +5,7 @@ import java.util.TimerTask;
 
 import gui.Console;
 import javafx.application.Platform;
-import javafx.scene.Node;
+import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +19,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import utils.GraphicsToolkit;
 
 /**
 * Créé l'objet qui sert d'afficheur pour la console, à chaque création il rétablit toute l'historique en cours.
@@ -39,6 +40,7 @@ public class ConsoleView extends VBox {
     private TextField inputField;
     private Button sendButton;
     private Region expandingRegion;
+    private boolean focus;
 
     private Timer updateTimer;
 
@@ -71,7 +73,7 @@ public class ConsoleView extends VBox {
     }
 
     private void initComponents() { // l'ordre compte, influe sur la taille déf
-        setPrefSize(350, 200);
+        setPrefSize(360, 200);
         initSendBox();
         initScrollPane();
         expandingRegion = new Region();
@@ -86,30 +88,27 @@ public class ConsoleView extends VBox {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setMaxHeight(200);
         scrollPane.setPrefWidth(scrollPane.getWidth());
-        scrollPane.needsLayoutProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                scrollPane.setVvalue(1.0);
-            }
-        });
     }
 
     private void initSendBox() {
         sendBox = new HBox();
 
         inputField = new TextField();
-        inputField.setPromptText("Entrez un message ou une commande (/) ...");
+        inputField.setPromptText("⬆ Entrez un message ou une commande (/) ⬆");
         inputField.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 sendMessage();
             }
         });
+        inputField.setDisable(true);
 
         sendButton = new Button("Envoyer");
         sendButton.setOnAction(e -> {
             sendMessage();
             inputField.requestFocus();
         });
-        sendButton.setPrefWidth(66);
+        sendButton.setPrefWidth(60);
+        sendButton.setDisable(true);
 
         HBox.setHgrow(inputField, Priority.ALWAYS);
         sendBox.getChildren().addAll(inputField, sendButton);
@@ -157,38 +156,66 @@ public class ConsoleView extends VBox {
         inputField.getStyleClass().add("console-input-field");
         sendButton.getStyleClass().add("console-send-button");
 
+        inputField.setOnMouseClicked(event -> {
+            focusAction();
+        });
+        sendButton.setOnMouseClicked(event -> {
+            focusAction();
+        });
+        scrollPane.setOnMouseClicked(event -> {
+            focusAction();
+        });
+        GraphicsToolkit.applyFadeOnDisable(inputField, 1.0, 0.3, 500, 750);
     }
 
-    public void setDynamicStyle(Scene registeredScene) {
+    public void setDynamicFocus(Scene registeredScene) {
         this.scene = registeredScene;
-        scrollPane.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                scrollPane.getStyleClass().add("console-scroll-pane-focus");
-                scrollPane.getStyleClass().remove("console-scroll-pane-unfocus");
-            } else {
-                scrollPane.getStyleClass().add("console-scroll-pane-unfocus");
-                scrollPane.getStyleClass().remove("console-scroll-pane-focus");
-            }
-        });
-
-        inputField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                scrollPane.getStyleClass().add("console-scroll-pane-focus");
-                scrollPane.getStyleClass().remove("console-scroll-pane-unfocus");
-            } else {
-                scrollPane.getStyleClass().add("console-scroll-pane-unfocus");
-                scrollPane.getStyleClass().remove("console-scroll-pane-focus");
-            }
-        });
 
         scene.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            Node clickedNode = event.getPickResult().getIntersectedNode();
-            // Vérifie si le clic a été effectué à l'extérieur du champ de texte
-            if (!scrollPane.isFocused() && (clickedNode == null || !clickedNode.equals(inputField))) {
-                scrollPane.getStyleClass().add("console-scroll-pane-unfocus");
-                scrollPane.getStyleClass().remove("console-scroll-pane-focus");
+
+            Bounds scrollPaneBounds = scrollPane.localToScene(scrollPane.getBoundsInLocal());
+            if (!scrollPaneBounds.contains(event.getSceneX(), event.getSceneY())) {
+                if (focus = true) {
+                    unfocusAction();
+                }
+                focus = false;
+            } else {
+                if (focus = false) {
+                    focusAction();
+                }
+                focus = true;
             }
         });
+    }
+
+    private void focusAction() {
+
+        inputField.requestFocus();
+
+        // Remove au préalable pour éviter le sur-ajout / clear sans clear les autres
+        scrollPane.getStyleClass().remove("console-scroll-pane-focus");
+
+        scrollPane.getStyleClass().add("console-scroll-pane-focus");
+        scrollPane.getStyleClass().remove("console-scroll-pane-unfocus");
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        sendButton.setDisable(false);
+        inputField.setDisable(false);
+        // GraphicsToolkit.playFadeTransition(consoleTextArea, 0.0, 1.0, 2);
+    }
+
+    public void unfocusAction() {
+
+        requestFocus();
+
+        // Remove au préalable pour éviter le sur-ajout / clear sans clear les autres
+        scrollPane.getStyleClass().remove("console-scroll-pane-unfocus");
+
+        scrollPane.getStyleClass().add("console-scroll-pane-unfocus");
+        scrollPane.getStyleClass().remove("console-scroll-pane-focus");
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        sendButton.setDisable(true);
+        inputField.setDisable(true);
+        // GraphicsToolkit.playFadeTransition(consoleTextArea, 1.0, 0.0, 2);
     }
 
 }

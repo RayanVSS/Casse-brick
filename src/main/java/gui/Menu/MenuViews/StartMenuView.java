@@ -86,6 +86,7 @@ public class StartMenuView implements Menu, ViewPosition {
 
     private void createBottom() {
         consoleView = ConsoleView.getInstance();
+        consoleView.setDynamicFocus(scene);
     }
 
     @Override
@@ -96,6 +97,11 @@ public class StartMenuView implements Menu, ViewPosition {
     @Override
     public void moveConsoleView() {
         bottomBox.getChildren().add(consoleView);
+    }
+
+    @Override
+    public void handleDynamicAction() {
+        consoleView.setDynamicFocus(scene);
     }
 
     // getters pour les boutons et autres éléments de la vue

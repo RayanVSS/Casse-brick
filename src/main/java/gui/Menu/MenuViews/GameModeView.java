@@ -54,6 +54,11 @@ public class GameModeView implements Menu, ViewPosition {
         bottomBox.getChildren().add(consoleView);
     }
 
+    @Override
+    public void handleDynamicAction() {
+        consoleView.setDynamicFocus(scene);
+    }
+
     public Stage getPrimaryStage() {
         return primaryStage;
     }

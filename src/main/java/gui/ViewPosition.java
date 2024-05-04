@@ -16,4 +16,8 @@ public interface ViewPosition {
     default void moveConsoleView() {
         // à @Override, sinon pas de transfert de ConsoleView
     }
+
+    default void handleDynamicAction() {
+        // à @Override, sinon disfonctionnement visuel possible
+    }
 }

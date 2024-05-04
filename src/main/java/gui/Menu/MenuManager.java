@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import gui.ViewPosition;
+import gui.GraphicsFactory.ConsoleView;
 import gui.Menu.MenuViews.ChapterView;
 import gui.Menu.MenuViews.GameCustomizerView;
 import gui.Menu.MenuViews.GameModeView;
@@ -154,6 +155,8 @@ public class MenuManager {
         if (menu instanceof ViewPosition) {
             ((ViewPosition) menu).saveViewPosition();
             ((ViewPosition) menu).moveConsoleView();
+            ((ViewPosition) menu).handleDynamicAction();
+            ConsoleView.getInstance().unfocusAction();
         }
         primaryStage.setScene(menu.getScene());
     }
