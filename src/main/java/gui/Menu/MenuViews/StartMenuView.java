@@ -85,8 +85,7 @@ public class StartMenuView implements Menu, ViewPosition {
     }
 
     private void createBottom() {
-        consoleView = new ConsoleView();
-        consoleView.setDynamicStyle(scene);
+        consoleView = ConsoleView.getInstance();
         bottomBox.getChildren().addAll(consoleView);
     }
 

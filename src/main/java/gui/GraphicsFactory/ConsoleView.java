@@ -24,9 +24,11 @@ import javafx.stage.Stage;
 * Créé l'objet qui sert d'afficheur pour la console, à chaque création il rétablit toute l'historique en cours.
 *
 * @info
-* s'auto-update indépendamment
+* Objet Singleton, s'auto-update indépendamment
 */
 public class ConsoleView extends VBox {
+
+    private static ConsoleView consoleView;
 
     private Stage stage;
     private Scene scene;
@@ -39,16 +41,26 @@ public class ConsoleView extends VBox {
 
     private Timer updateTimer;
 
-    public ConsoleView() {
-        registerFocusStage();
+    // Constructeur privé pour empêcher l'instanciation directe
+    private ConsoleView() {
         initComponents();
         getChildren().addAll(scrollPane, sendBox);
         startAutoUpdate();
         setStaticStyle();
     }
 
-    public void registerFocusStage() { // EN TEST
-        this.stage = App.primaryStage;
+    /**
+    * @return l'instance unique de ConsoleView
+    */
+    public static ConsoleView getInstance() {
+        if (consoleView == null) {
+            consoleView = new ConsoleView();
+        }
+        return consoleView;
+    }
+
+    public void registerFocusStage(Stage registeredStage) { // EN TEST
+        this.stage = registeredStage;
         this.stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.B) {
                 inputField.requestFocus();
@@ -142,8 +154,8 @@ public class ConsoleView extends VBox {
 
     }
 
-    public void setDynamicStyle(Scene registerScene) {
-        this.scene = registerScene;
+    public void setDynamicStyle(Scene registeredScene) {
+        this.scene = registeredScene;
         scrollPane.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 scrollPane.getStyleClass().add("console-scroll-pane-focus");
