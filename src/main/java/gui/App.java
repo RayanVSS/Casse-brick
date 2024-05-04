@@ -36,6 +36,7 @@ public class App extends Application {
                 PlayerData.initPlayerData();
                 // chargement de la derniere sauvegarde
                 sauvegarde.setupLastSave();
+                Console.init();
 
                 // initialisation des sons
                 clickSoundPlayer = new ClickSound();
