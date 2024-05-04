@@ -42,6 +42,10 @@ public class StartMenuController {
             click.play();
             sauvegarde();
         });
+        this.view.getBtnTuto().setOnAction(e -> {
+            click.play();
+            tuto();
+        });
     }
 
     /**
@@ -80,6 +84,16 @@ public class StartMenuController {
     private void sauvegarde() {
         Platform.runLater(() -> {
             App.menuManager.changeScene(view.getPrimaryStage(), "SaveView");
+        });
+    }
+
+    /**
+     * Méthode pour afficher le tutoriel.
+     */
+    private void tuto() {
+        Platform.runLater(() -> {
+            view.getPrimaryStage().resizableProperty().set(true);
+            App.menuManager.changeScene(view.getPrimaryStage(), "TutoView");
         });
     }
 
