@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import java.util.Iterator;
+
 import config.Game;
 import entity.brick.BrickClassic;
 import entity.racket.CircleRacket;
@@ -186,8 +188,13 @@ public class PhysicEngine {
         }
 
         // Mise à jour de la position des briques
-        for(Brick b : listbrick.keySet()){
+        Iterator<Brick> it = listbrick.keySet().iterator();
+        while(it.hasNext()){
+            Brick b = (Brick) it.next();
             listbrick.get(b).update();
+            if(b.isDestroyed()){
+                it.remove();
+            }
         }
 
         // Mise à jour de la position de la raquette
@@ -318,21 +325,24 @@ public class PhysicEngine {
             }
         };
         */
+        Racket r;
         if(type.equals("YnotFixe")){
-            return new YNotFixeRacket();
+            r=new YNotFixeRacket();
         }
         else if(type.equals("losange")){
-            return new DiamondRacket();
+            r=new DiamondRacket();
         }
         else if(type.equals("rond")){
-            return new CircleRacket();
+            r= new CircleRacket();
         }
         else if(type.equals("triangle")){
-            return new DegradeRacket();
+            r= new DegradeRacket();
         }
         else{
-            return new ClassicRacket();
+            r= new ClassicRacket();
         }
+        r.setWindowWidth(PhysicSetting.DEFAULT_WINDOW_WIDTH);
+        return r;
     }
 
     public void update_racket() {
@@ -358,7 +368,7 @@ public class PhysicEngine {
         graphRacket.updatePos();
     }
 
-    public static void setTakeBall(BallGraphics g,Ball b,ToolBox toolBox,Pane root){
+    public void setTakeBall(BallGraphics g,Ball b,ToolBox toolBox,Pane root){
         g.setOnMousePressed(event -> {
             if(!toolBox.isBar() || Pause){
                 g.setMouseXY(event.getSceneX(),event.getSceneY());
@@ -376,7 +386,15 @@ public class PhysicEngine {
 
         g.setOnMouseDragged(event -> {
             if (g.IsMouseDraggingBall() && (!toolBox.isBar()|| Pause)) {
-                if(event.getSceneX() > start_border+b.getRadius() && event.getSceneX() < PhysicSetting.DEFAULT_WINDOW_WIDTH-b.getRadius() && event.getSceneY() > b.getRadius() && event.getSceneY() < PhysicSetting.DEFAULT_WINDOW_HEIGHT-b.getRadius()){
+                //Condition
+                boolean nochevauchement = true;
+                for(Brick brick : listbrick.keySet()){
+                    if(brick.contains(event.getSceneX(),event.getSceneY())){
+                        nochevauchement = false;
+                        break;
+                    }
+                }
+                if(nochevauchement &&event.getSceneX() > start_border+b.getRadius() && event.getSceneX() < PhysicSetting.DEFAULT_WINDOW_WIDTH-b.getRadius() && event.getSceneY() > b.getRadius() && event.getSceneY() < PhysicSetting.DEFAULT_WINDOW_HEIGHT-b.getRadius()){
                     b.getC().setX(event.getSceneX());
                     b.getC().setY(event.getSceneY());
                 }
@@ -403,7 +421,7 @@ public class PhysicEngine {
         });
     }
 
-    public static void setTakeBrick(BricksGraphics g,Brick b,ToolBox toolBox,Pane root){
+    public void setTakeBrick(BricksGraphics g,Brick b,ToolBox toolBox,Pane root){
         g.setOnMousePressed(event -> {
             if(!toolBox.isBar() || Pause){
                 g.setMouseXY(event.getSceneX(),event.getSceneY());
@@ -418,7 +436,14 @@ public class PhysicEngine {
 
         g.setOnMouseDragged(event -> {
             if (g.IsMouseDraggingBall() && (!toolBox.isBar()|| Pause)) {
-                if(event.getSceneX() > start_border+GameConstants.BRICK_WIDTH && event.getSceneX() < PhysicSetting.DEFAULT_WINDOW_WIDTH-GameConstants.BRICK_WIDTH && event.getSceneY() > GameConstants.BRICK_HEIGHT && event.getSceneY() < PhysicSetting.DEFAULT_WINDOW_HEIGHT-GameConstants.BRICK_HEIGHT){
+                boolean nochevauchement = true;
+                for(Brick brick : listbrick.keySet()){
+                    if((brick.contains(event.getSceneX(),event.getSceneY()) || brick.contains(event.getSceneX()+GameConstants.BRICK_WIDTH,event.getSceneY()) || brick.contains(event.getSceneX(),event.getSceneY()+GameConstants.BRICK_HEIGHT) || brick.contains(event.getSceneX()+GameConstants.BRICK_WIDTH,event.getSceneY()+GameConstants.BRICK_HEIGHT))){
+                        nochevauchement = false;
+                        break;
+                    }
+                }
+                if(nochevauchement && event.getSceneX() > start_border+GameConstants.BRICK_WIDTH && event.getSceneX() < PhysicSetting.DEFAULT_WINDOW_WIDTH-GameConstants.BRICK_WIDTH && event.getSceneY() > GameConstants.BRICK_HEIGHT && event.getSceneY() < PhysicSetting.DEFAULT_WINDOW_HEIGHT-GameConstants.BRICK_HEIGHT){
                     b.getC().setX(event.getSceneX());
                     b.getC().setY(event.getSceneY());
                 }
@@ -439,6 +464,7 @@ public class PhysicEngine {
     }
 
     public void clear(){
+        PhysicEngine.start_border=0;
         direction.clear();
         Pause = false;
         BougePColision = false;

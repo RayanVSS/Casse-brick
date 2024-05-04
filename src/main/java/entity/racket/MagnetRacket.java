@@ -26,7 +26,7 @@ public class MagnetRacket extends Racket {
                     this.mX(this.mX() - speed);
             }
             if (key == GameConstants.RIGHT) {
-                if (this.mX() < GameConstants.DEFAULT_GAME_ROOT_WIDTH - longueur - 70)
+                if (this.mX() < super.getWidth() - longueur - 70)
                     this.mX(this.mX() + speed);
             }
             if (key == GameConstants.SPACE) {

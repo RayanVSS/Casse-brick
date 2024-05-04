@@ -50,7 +50,7 @@ public class ToolBox extends Pane {
     private ArrayList<String> list_image=new ArrayList<>(Arrays.asList(
         ("src/main/ressources/balle/classic/classic.png"),
         ("src/main/ressources/balle/black/classic.png"),
-        ("src/main/ressources/balle/light/classic.png"),
+        ("src/main/ressources/balle/pink/gravity.png"),
         ("src/main/ressources/balle/pink/classic.png"),
         ("src/main/ressources/balle/black/gravity.png"),
         ("src/main/ressources/balle/classic/gravity.png")
@@ -321,21 +321,30 @@ public class ToolBox extends Pane {
             // Vérifier si la souris est dans la zone de jeu
             double mouseX = event.getX();
             double mouseY = event.getY();
+            boolean nochevauchement = true;
             
             if (mouseX>PhysicEngine.start_border+GameConstants.BRICK_WIDTH && mouseX<PhysicSetting.DEFAULT_WINDOW_WIDTH-GameConstants.BRICK_WIDTH && mouseY>GameConstants.BRICK_HEIGHT && mouseY<PhysicSetting.DEFAULT_WINDOW_HEIGHT-GameConstants.BRICK_HEIGHT) {
                 if (addBrickButton.getToggleButton().isSelected()) {
-                    Brick b = PhysicEngine.init_brick(new Coordinates(mouseX, mouseY));
-                    BricksGraphics brickg = new BricksGraphics(b,b.getC().getIntX(),b.getC().getIntY());
-                    PhysicEngine.setTakeBrick(brickg, b, this, root);
-                    map2.put(b,brickg);
-                    root.getChildren().add(brickg);
-                    addBrickButton.getToggleButton().setSelected(false);
-                    addBrickButton.updateText();
+                    for(Brick brick : map2.keySet()){
+                        if((brick.contains(mouseX,mouseY) || brick.contains(mouseX+GameConstants.BRICK_WIDTH,mouseY) || brick.contains(mouseX,mouseY+GameConstants.BRICK_HEIGHT) || brick.contains(mouseX+GameConstants.BRICK_WIDTH,mouseY+GameConstants.BRICK_HEIGHT))){
+                            nochevauchement = false;
+                            break;
+                        }
+                    }
+                    if(nochevauchement){
+                        Brick b = PhysicEngine.init_brick(new Coordinates(mouseX, mouseY));
+                        BricksGraphics brickg = new BricksGraphics(b,b.getC().getIntX(),b.getC().getIntY());
+                        game.setTakeBrick(brickg, b, this, root);
+                        map2.put(b,brickg);
+                        root.getChildren().add(brickg);
+                        addBrickButton.getToggleButton().setSelected(false);
+                        addBrickButton.updateText();
+                    }
                 } else if (addBallButton.getToggleButton().isSelected()) {
                     Ball b2 = PhysicEngine.init_ball(new Coordinates(mouseX, mouseY),null);
                     Integer nb = random.nextInt(list_image.size());
                     BallGraphics ballg = new BallGraphics(list_image.get(nb),b2);
-                    PhysicEngine.setTakeBall(ballg, b2, this, root);
+                    game.setTakeBall(ballg, b2, this, root);
                     map.put(b2,ballg);
                     root.getChildren().add(ballg);
                     addBallButton.getToggleButton().setSelected(false);

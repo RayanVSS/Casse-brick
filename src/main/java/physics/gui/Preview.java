@@ -9,6 +9,7 @@ import physics.AppPhysic;
 import physics.config.PhysicEngine;
 import physics.config.PhysicSetting;
 import physics.entity.Ball;
+import physics.entity.Brick;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
@@ -173,6 +174,10 @@ public class Preview {
                 d_trajectory.setY(Math.max(d_trajectory.getY(), b.getDirection().getY()));
             }
         }
+    }
+
+    public void checkCollisionBrick(Brick b){
+        
     }
 
     public static ArrayList<Circle> preview_no_effect(Ball b , Pane root){

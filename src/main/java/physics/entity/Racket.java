@@ -65,6 +65,7 @@ import utils.GameConstants;
 public abstract class Racket {
 
     // base
+    public double DEFAULT_WINDOW_WIDTH=GameConstants.DEFAULT_GAME_ROOT_WIDTH;
     Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5,
             GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
     public Vector direction = new Vector(c);
@@ -342,6 +343,14 @@ public abstract class Racket {
     public abstract void handleKeyPress(Set<KeyCode> keysPressed);
 
     public abstract void handleKeyRelease(KeyCode event);
+
+    public double getWidth() {
+        return DEFAULT_WINDOW_WIDTH;
+    }
+
+    public void setWindowWidth(double width) {
+        DEFAULT_WINDOW_WIDTH = width;
+    }
 
     // boost
     // boost VitesseP

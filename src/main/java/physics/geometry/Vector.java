@@ -114,4 +114,9 @@ public class Vector {
         }
         return new Vector(0,0);
     }
+
+    public void setXY(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
 }

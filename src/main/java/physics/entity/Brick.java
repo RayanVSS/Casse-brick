@@ -3,6 +3,7 @@ package physics.entity;
 import entity.EntityColor;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
+import utils.GameConstants;
 
 public abstract class Brick extends Entity {
 
@@ -76,4 +77,8 @@ public abstract class Brick extends Entity {
         this.color = color;
     }
 
+    public boolean contains(double x, double y) {
+        return x >= getC().getX() && x <= getC().getX() + GameConstants.BRICK_WIDTH &&
+                y >= getC().getY() && y <= getC().getY() + GameConstants.BRICK_HEIGHT;
+    }
 }

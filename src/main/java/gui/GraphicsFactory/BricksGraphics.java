@@ -45,6 +45,8 @@ public class BricksGraphics extends StackPane implements EntityGraphics {
         this.i = i;
         this.j = j;
         this.setImageView(image);
+        setLayoutX(brick.getC().getX());
+        setLayoutY(brick.getC().getY());
         this.isUnbreakable = brick.isUnbreakable();
         this.isTransparent = brick.isTransparent();
     }
