@@ -1,7 +1,7 @@
 package gui.Menu.MenuViews;
 
 import gui.Menu.Menu;
-import gui.Menu.SceneManager;
+import gui.Menu.MenuManager;
 import gui.Menu.MenuControllers.SaveController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,7 +21,7 @@ public class SaveView implements Menu {
     private static StackPane root = new StackPane();
     private static Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,
             GameConstants.DEFAULT_WINDOW_HEIGHT);
-    private SceneManager sceneManager;
+    private MenuManager sceneManager;
     //button
     private Button btnBack;
     private Button btnload;
@@ -154,7 +154,7 @@ public class SaveView implements Menu {
         stage.show();
     }
 
-    public SceneManager getSceneManager() {
+    public MenuManager getSceneManager() {
         return sceneManager;
     }
 }

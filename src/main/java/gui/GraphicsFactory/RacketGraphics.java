@@ -83,6 +83,7 @@ public class RacketGraphics {
 				((Ellipse) shape).setRadiusY(racket.getLongueur() / 2);
 				break;
 			case "triangle":
+				((Polygon) shape).getPoints().remove(0, ((Polygon) shape).getPoints().size());
 				((Polygon) shape).getPoints().addAll(new Double[] {
 						racket.getC().getX(), racket.getC().getY() - racket.getLongueur() / 2,
 						racket.getC().getX() + racket.getLargeur() / 2, racket.getC().getY() + racket.getLongueur() / 2,

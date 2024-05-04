@@ -31,7 +31,7 @@ public class StageSelectorController {
 
     private void back() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(stageSelectorView.getPrimaryStage(), "Chapterview");
+            App.menuManager.changeScene(stageSelectorView.getPrimaryStage(), "Chapterview");
         });
     }
 

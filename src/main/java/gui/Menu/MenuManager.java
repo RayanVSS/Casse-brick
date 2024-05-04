@@ -3,55 +3,59 @@ package gui.Menu;
 import java.util.HashMap;
 import java.util.Map;
 
+import gui.Menu.MenuViews.ChapterView;
 import gui.Menu.MenuViews.GameCustomizerView;
 import gui.Menu.MenuViews.GameModeView;
 import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
-import gui.Menu.MenuViews.ChapterView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
 /**
- * Classe de gestion des scènes dans l'application.
+ * Classe de gestion des menus dans l'application.
  */
-public class SceneManager {
-    private Map<String, Scene> scenes = new HashMap<>();
+public class MenuManager {
+    private Map<String, Menu> menus = new HashMap<>();
 
     /**
-     * Ajoute une scène à la collection.
+     * Ajoute un menu à la collection.
      *
      * @param name  le nom de la scène
-     * @param scene la scène à ajouter
+     * @param menu l'objet implémentant Menu qui contient la scène à ajouter
      */
-    public void addScene(String name, Scene scene) {
-        scenes.put(name, scene);
+    public void addMenu(String name, Menu menu) {
+        menus.put(name, menu);
+    }
+
+    /**
+     * Supprime un menu de la collection par son nom.
+     *
+     * @param name le nom du menu à supprimer
+     */
+    public void removeMenu(String name) {
+        menus.remove(name);
+    }
+
+    public Menu getMenu(String name) {
+        return menus.get(name);
     }
 
     public Scene getScene(String name) {
-        return scenes.get(name);
-    }
-
-    /**
-     * Supprime une scène de la collection par son nom.
-     *
-     * @param name le nom de la scène à supprimer
-     */
-    public void removeScene(String name) {
-        scenes.remove(name);
+        return getMenu(name).getScene();
     }
 
     /**
      * Vide la collection de scènes.
      */
-    public void clearScenes() {
-        scenes.clear();
+    public void clearMenus() {
+        menus.clear();
     }
 
-    public Map<String, Scene> getScenes() {
-        return scenes;
+    public Map<String, Menu> getMenus() {
+        return menus;
     }
 
     /**
@@ -62,8 +66,8 @@ public class SceneManager {
      * @return le nom de la scène, ou null si la scène n'est pas dans la collection
      */
     public String getSceneName(Scene scene) {
-        for (Map.Entry<String, Scene> entry : scenes.entrySet()) {
-            if (entry.getValue().equals(scene)) {
+        for (Map.Entry<String, Menu> entry : menus.entrySet()) {
+            if (entry.getValue().getScene().equals(scene)) {
                 return entry.getKey();
             }
         }
@@ -73,11 +77,11 @@ public class SceneManager {
     /**
      * Ajoute une feuille de style à une scène.
      *
-     * @param scene la scène à laquelle ajouter la feuille de style
+     * @param menu le menu contenant la scène à laquelle ajouter la feuille de style
      */
-    public void addStylesheet(Scene scene) {
-        scene.getStylesheets().clear();
-        scene.getStylesheets().add(getClass().getResource(GameConstants.CSS.getPath()).toExternalForm());
+    public void addStylesheet(Menu menu) {
+        menu.getScene().getStylesheets().clear();
+        menu.getScene().getStylesheets().add(getClass().getResource(GameConstants.CSS.getPath()).toExternalForm());
     }
 
     // Charge toutes les scènes du jeu
@@ -95,55 +99,57 @@ public class SceneManager {
     // collection
     public void createOptionsViewScene(Stage primaryStage) {
         OptionsView optionsView = new OptionsView(primaryStage);
-        addStylesheet(optionsView.getScene());
-        addScene("OptionsView", optionsView.getScene());
+        addStylesheet(optionsView);
+        addMenu("OptionsView", optionsView);
     }
 
     public void createStartMenuViewScene(Stage primaryStage) {
         StartMenuView startMenuView = new StartMenuView(primaryStage);
-        addStylesheet(startMenuView.getScene());
-        addScene("StartMenuView", startMenuView.getScene());
+        addStylesheet(startMenuView);
+        addMenu("StartMenuView", startMenuView);
     }
 
     public void createSaveViewScene(Stage primaryStage) {
         SaveView saveView = new SaveView(primaryStage);
-        addStylesheet(saveView.getScene());
-        addScene("SaveView", saveView.getScene());
+        addStylesheet(saveView);
+        addMenu("SaveView", saveView);
     }
 
     public void createGameModeViewScene(Stage primaryStage) {
         GameModeView gameModeView = new GameModeView(primaryStage);
-        addStylesheet(gameModeView.getScene());
-        addScene("GameModeView", gameModeView.getScene());
+        addStylesheet(gameModeView);
+        addMenu("GameModeView", gameModeView);
     }
 
     public void createStageSelectorViewScene(Stage primaryStage) {
         StageSelectorView stageSelectorView = new StageSelectorView(primaryStage);
-        addStylesheet(stageSelectorView.getScene());
-        addScene("StageSelectorView", stageSelectorView.getScene());
+        addStylesheet(stageSelectorView);
+        addMenu("StageSelectorView", stageSelectorView);
     }
 
     public void createGameCustomizerViewScene(Stage primaryStage) {
         GameCustomizerView gameCustomizerView = new GameCustomizerView(primaryStage);
-        addStylesheet(gameCustomizerView.getScene());
-        addScene("GameCustomizerView", gameCustomizerView.getScene());
+        addStylesheet(gameCustomizerView);
+        addMenu("GameCustomizerView", gameCustomizerView);
     }
 
     public void createChapterViewScene(Stage primaryStage) {
         ChapterView chapterView = new ChapterView(primaryStage);
-        addStylesheet(chapterView.getScene());
-        addScene("Chapterview", chapterView.getScene());
+        addStylesheet(chapterView);
+        addMenu("Chapterview", chapterView);
     }
 
     /**
      * Change la scène actuelle du primaryStage par une autre scène de la
      * collection.
+     * Et actualise la scène avec les nouvelles infos
      *
      * @param primaryStage le primaryStage dont on veut changer la scène
      * @param name         le nom de la nouvelle scène
      */
     public void changeScene(Stage primaryStage, String name) {
-        Scene newScene = getScene(name);
-        primaryStage.setScene(newScene);
+        Menu menu = getMenu(name);
+        menu.update();
+        primaryStage.setScene(menu.getScene());
     }
 }

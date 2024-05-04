@@ -1,6 +1,5 @@
 package gui.Menu.MenuControllers;
 
-import config.Game;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.WinView;
@@ -35,7 +34,7 @@ public class WinController {
     }
 
     public void menu() {
-        App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+        App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
     }
 
     public void next() {

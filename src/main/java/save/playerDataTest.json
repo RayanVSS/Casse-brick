@@ -6,7 +6,7 @@
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": true,
-  "PSEUDO": "",
+  "PSEUDO": "PDT",
   "SPACE": "SPACE",
   "TEXTURE": "bleu.jpg",
   "EXP_LEVEL": 27,
@@ -199,10 +199,11 @@
         "unlockLevel": 27,
         "completed": true,
         "maxScore": 0,
-        "customGame":false
+        "customGame": false
       }
     ]
   },
   "SOUND": 52,
-  "RIGHT": "RIGHT"
+  "RIGHT": "RIGHT",
+  "ADMIN": false
 }
