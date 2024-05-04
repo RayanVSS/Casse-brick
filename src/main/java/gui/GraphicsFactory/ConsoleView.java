@@ -3,15 +3,19 @@ package gui.GraphicsFactory;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import gui.App;
 import gui.Console;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,13 +23,13 @@ import javafx.stage.Stage;
 /**
 * Créé l'objet qui sert d'afficheur pour la console, à chaque création il rétablit toute l'historique en cours.
 *
-* @category
-* Objet Singleton, s'auto-update indépendamment
+* @info
+* s'auto-update indépendamment
 */
 public class ConsoleView extends VBox {
 
-    private static ConsoleView consoleView;
-    private static Stage stage;
+    private Stage stage;
+    private Scene scene;
 
     private ScrollPane scrollPane;
     private VBox consoleTextArea;
@@ -35,33 +39,22 @@ public class ConsoleView extends VBox {
 
     private Timer updateTimer;
 
-    // Constructeur privé pour empêcher l'instanciation directe
-    private ConsoleView() {
+    public ConsoleView() {
+        registerFocusStage();
         initComponents();
         getChildren().addAll(scrollPane, sendBox);
         startAutoUpdate();
-
+        setStaticStyle();
     }
 
-    public void registerFocusStage(Stage stage) { // EN TEST
-        ConsoleView.stage = stage;
-        ConsoleView.stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ENTER) {
+    public void registerFocusStage() { // EN TEST
+        this.stage = App.primaryStage;
+        this.stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.B) {
                 inputField.requestFocus();
                 System.out.println("Touche Entrée pressée sur le Stage");
             }
         });
-        setStyle();
-    }
-
-    /**
-     * @return l'instance unique de ConsoleView
-     */
-    public static ConsoleView getInstance() {
-        if (consoleView == null) {
-            consoleView = new ConsoleView();
-        }
-        return consoleView;
     }
 
     private void initComponents() { // l'ordre compte, influe sur la taille déf
@@ -75,7 +68,7 @@ public class ConsoleView extends VBox {
         scrollPane.setContent(consoleTextArea);
         scrollPane.setFitToWidth(true);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setPrefHeight(200);
+        scrollPane.setMaxHeight(200);
         scrollPane.setPrefWidth(scrollPane.getWidth());
         scrollPane.needsLayoutProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
@@ -138,17 +131,47 @@ public class ConsoleView extends VBox {
         }, 0, 100);
     }
 
-    private void setStyle() {
+    private void setStaticStyle() {
 
-        scrollPane.getStyleClass().addAll("console-components", "console-background", "console-scroll-pane");
+        this.getStyleClass().add("console");
+        scrollPane.getStyleClass().addAll("console-scroll-pane", "console-scroll-pane-unfocus");
+        consoleTextArea.getStyleClass().add("console-text-area");
+        sendBox.getStyleClass().add("console-send-box");
+        inputField.getStyleClass().add("console-input-field");
+        sendButton.getStyleClass().add("console-send-button");
 
-        consoleTextArea.getStyleClass().addAll("console-components", "console-background");
+    }
 
-        sendBox.getStyleClass().addAll("console-components", "console-background");
+    public void setDynamicStyle(Scene registerScene) {
+        this.scene = registerScene;
+        scrollPane.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                scrollPane.getStyleClass().add("console-scroll-pane-focus");
+                scrollPane.getStyleClass().remove("console-scroll-pane-unfocus");
+            } else {
+                scrollPane.getStyleClass().add("console-scroll-pane-unfocus");
+                scrollPane.getStyleClass().remove("console-scroll-pane-focus");
+            }
+        });
 
-        inputField.getStyleClass().addAll("console-components", "console-background");
+        inputField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                scrollPane.getStyleClass().add("console-scroll-pane-focus");
+                scrollPane.getStyleClass().remove("console-scroll-pane-unfocus");
+            } else {
+                scrollPane.getStyleClass().add("console-scroll-pane-unfocus");
+                scrollPane.getStyleClass().remove("console-scroll-pane-focus");
+            }
+        });
 
-        sendButton.getStyleClass().addAll("console-components", "console-background");
+        scene.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            Node clickedNode = event.getPickResult().getIntersectedNode();
+            // Vérifie si le clic a été effectué à l'extérieur du champ de texte
+            if (!scrollPane.isFocused() && (clickedNode == null || !clickedNode.equals(inputField))) {
+                scrollPane.getStyleClass().add("console-scroll-pane-unfocus");
+                scrollPane.getStyleClass().remove("console-scroll-pane-focus");
+            }
+        });
     }
 
 }

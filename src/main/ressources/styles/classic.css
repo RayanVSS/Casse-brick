@@ -127,18 +127,43 @@
     -fx-font-weight: bold;
 }
 
-.console-components {
+.console {}
+
+.console-scroll-pane {
+    -fx-padding: 4;
+}
+
+.console-scroll-pane .viewport {
+    -fx-background-color: transparent;
     -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
-.console-background {
-    -fx-background-color: transparent;
+.console-scroll-pane-unfocus {
+    -fx-background-color: rgba(0, 0, 0, 0.0);
 }
 
-.console-scroll-pane>.viewport {
-    -fx-background-color: transparent;
+.console-scroll-pane-focus {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
 }
 
-.console-scroll-pane-label{
+
+
+.console-text-area {}
+
+.console-send-box {}
+
+.console-input-field {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.console-send-button {}
+
+.console-scroll-pane-label {
     -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-padding: 2;
+    -fx-background-radius: 5;
+    -fx-font-size: 12px;
 }

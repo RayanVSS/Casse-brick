@@ -102,34 +102,39 @@ public class Console {
      */
     private static void commandProcessing(String command) {
         String[] parts = command.split(" ");
-        switch (parts[0].toLowerCase()) {
-            case "exit":
-                commandExit();
-                break;
+        if (parts.length < 1) {
+            systemDisplay("Commande vide : /?");
+        } else {
 
-            case "run":
-                commandProcessingRun(parts);
-                break;
+            switch (parts[0].toLowerCase()) {
+                case "exit":
+                    commandExit();
+                    break;
 
-            case "get":
-                commandProcessingGet(parts);
-                break;
+                case "run":
+                    commandProcessingRun(parts);
+                    break;
 
-            case "set":
-                commandProcessingSet(parts);
-                break;
+                case "get":
+                    commandProcessingGet(parts);
+                    break;
 
-            case "reset":
-                commandProcessingReset(parts);
-                break;
+                case "set":
+                    commandProcessingSet(parts);
+                    break;
 
-            case "game":
-                commandProcessingGame(parts);
-                break;
+                case "reset":
+                    commandProcessingReset(parts);
+                    break;
 
-            default:
-                systemDisplay("Commande inconnue : '/" + parts[0] + "' n'existe pas.");
-                break;
+                case "game":
+                    commandProcessingGame(parts);
+                    break;
+
+                default:
+                    systemDisplay("Commande inconnue : '/" + parts[0] + "' n'existe pas.");
+                    break;
+            }
         }
     }
 

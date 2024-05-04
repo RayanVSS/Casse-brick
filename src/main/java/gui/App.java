@@ -15,7 +15,7 @@ import utils.Sound.Music;
 
 public class App extends Application {
 
-    protected Stage primaryStage;
+    public static Stage primaryStage;
     public static MenuManager menuManager = new MenuManager();
     private Sauvegarde sauvegarde = new Sauvegarde();
     public static ClickSound clickSoundPlayer;
@@ -29,7 +29,6 @@ public class App extends Application {
             @Override
             public void run() {
                 Console.init();
-                ConsoleView.getInstance().registerFocusStage(p);
                 PlayerData.initPlayerData();
                 // chargement de la derniere sauvegarde
                 sauvegarde.setupLastSave();
