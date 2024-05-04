@@ -153,6 +153,7 @@ public class MenuManager {
         menu.update();
         if (menu instanceof ViewPosition) {
             ((ViewPosition) menu).saveViewPosition();
+            ((ViewPosition) menu).moveConsoleView();
         }
         primaryStage.setScene(menu.getScene());
     }

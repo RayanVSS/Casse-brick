@@ -3,10 +3,8 @@ package gui.GraphicsFactory;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import gui.App;
 import gui.Console;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,6 +15,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -38,13 +38,14 @@ public class ConsoleView extends VBox {
     private HBox sendBox;
     private TextField inputField;
     private Button sendButton;
+    private Region expandingRegion;
 
     private Timer updateTimer;
 
     // Constructeur privé pour empêcher l'instanciation directe
     private ConsoleView() {
         initComponents();
-        getChildren().addAll(scrollPane, sendBox);
+        getChildren().addAll(expandingRegion, scrollPane, sendBox);
         startAutoUpdate();
         setStaticStyle();
     }
@@ -70,8 +71,11 @@ public class ConsoleView extends VBox {
     }
 
     private void initComponents() { // l'ordre compte, influe sur la taille déf
+        setPrefSize(350, 200);
         initSendBox();
         initScrollPane();
+        expandingRegion = new Region();
+        setVgrow(expandingRegion, Priority.ALWAYS);
     }
 
     private void initScrollPane() {
@@ -94,7 +98,6 @@ public class ConsoleView extends VBox {
 
         inputField = new TextField();
         inputField.setPromptText("Entrez un message ou une commande (/) ...");
-        inputField.setPrefWidth(300);
         inputField.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 sendMessage();
@@ -106,7 +109,9 @@ public class ConsoleView extends VBox {
             sendMessage();
             inputField.requestFocus();
         });
+        sendButton.setPrefWidth(66);
 
+        HBox.setHgrow(inputField, Priority.ALWAYS);
         sendBox.getChildren().addAll(inputField, sendButton);
     }
 

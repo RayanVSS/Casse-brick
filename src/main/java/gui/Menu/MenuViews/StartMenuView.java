@@ -86,12 +86,16 @@ public class StartMenuView implements Menu, ViewPosition {
 
     private void createBottom() {
         consoleView = ConsoleView.getInstance();
-        bottomBox.getChildren().addAll(consoleView);
     }
 
     @Override
     public void update() {
         profileView.update();
+    }
+
+    @Override
+    public void moveConsoleView() {
+        bottomBox.getChildren().add(consoleView);
     }
 
     // getters pour les boutons et autres éléments de la vue
