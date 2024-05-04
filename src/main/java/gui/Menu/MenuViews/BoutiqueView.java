@@ -4,6 +4,7 @@ import gui.ImageLoader;
 import gui.GraphicsToolkit.LabelVBox;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.BoutiqueController;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,8 +29,8 @@ public class BoutiqueView implements Menu {
     private HBox boutique;
     // Achat de raquette
     private LabelVBox raquette;
-    private String[] labelsR = { "Arc-en-ciel", "Bleu", "Dark Matter", "Or", "Rose", "Rouge", "Violet", "Vert","Classic",
-            "Etoile", "Noir&Blanc", "Gris", "Purple silk" };
+    private String[] labelsR = { "Arc-en-ciel", "Bleu", "DarkMatter", "Or", "Rose", "Rouge", "Violet", "Vert",
+            "Etoile", "Noir&Blanc", "Gris", "PurpleSilk" };
     private String[] pathsR = {
             "src/main/ressources/Texture/arc_en_ciel.jpg",
             "src/main/ressources/Texture/bleu.jpg",
@@ -39,19 +40,18 @@ public class BoutiqueView implements Menu {
             "src/main/ressources/Texture/rouge.jpg",
             "src/main/ressources/Texture/violet.png",
             "src/main/ressources/Texture/vert.jpg",
-            "src/main/ressources/balle/classic/classic.png",
             "src/main/ressources/Texture/stars.jpg",
             "src/main/ressources/Texture/black_white.jpg",
             "src/main/ressources/Texture/grey.jpg",
             "src/main/ressources/Texture/purple.jpg"
     };
     private Button[] raquetteButton = new Button[labelsR.length];
-    private Rectangle[] raquetteRect = new Rectangle[labelsR.length];
+    private GridPane raquetteGrid;
     // Achat de balle
     private LabelVBox balle;
-    private String[] labels = { "Classic Classic", "Classic Pink", "Classic Black", "Classic light",
-            "Gravity Classic", "Gravity Pink", "Gravity Black", "Gravity light",
-            "Hyper Classic", "Hyper Pink", "Hyper Black", "Hyper light",
+    private String[] labels = { "ClassicClassic", "ClassicPink", "ClassicBlack", "ClassicLight",
+            "GravityClassic", "GravityPink", "GravityBlack", "GravityLight",
+            "HyperClassic", "HyperPink", "HyperBlack", "Hyperlight",
     };
     private String[] paths = { "src/main/ressources/balle/classic/classic.png",
             "src/main/ressources/balle/pink/classic.png",
@@ -66,7 +66,6 @@ public class BoutiqueView implements Menu {
             "src/main/ressources/balle/black/hyper.png",
             "src/main/ressources/balle/light/hyper.png", };
     private GridPane balleGrid;
-    private ImageView[] balleImage = new ImageView[labels.length];
     private Button[] balleButton = new Button[labels.length];
 
     // L'argent
@@ -103,24 +102,45 @@ public class BoutiqueView implements Menu {
         moneyVBox.getVBox().setPrefWidth(50);
     }
 
+    private void initItem(String[] labels, String[] paths, Button[] buttons, GridPane grid, int price, String type) {
+        for (int i = 0; i < labels.length; i++) {
+            Node item;
+            LabelVBox itemV;
+            if (type.equals("raquette")) {
+                item = initRectangle(paths[i]);
+                itemV = new LabelVBox(labels[i], 20);
+            } else {
+                item = initImage(paths[i]);
+                itemV = new LabelVBox(labels[i], 10);
+            }
+            buttons[i] = createButton("Acheter : " + price, 0, 0);
+            itemV.getChildren().addAll(item, buttons[i]);
+            grid.add(itemV, i % 3, i / 3);
+            price += 5;
+            if (PlayerData.inventaire.isBought(labels[i])) {
+                Button button = buttons[i];
+                button.setText("Acheté");
+                button.getStyleClass().clear();
+                button.getStyleClass().add("bought-style");
+                button.setOnMouseEntered(e -> {
+                    button.getStyleClass().remove("bought-style");
+                    button.getStyleClass().add("bought-hover");
+                });
+                button.setOnMouseExited(e -> {
+                    button.getStyleClass().remove("bought-hover");
+                    button.getStyleClass().add("bought-style");
+                });
+            }
+        }
+    }
+
     private void initRaquette() {
-        raquette = new LabelVBox("Texture Raquette:", 30);
-        GridPane raquetteGrid = new GridPane();
+        raquette = new LabelVBox("Texture Raquette:", 10);
+        raquetteGrid = new GridPane();
         raquetteGrid.setHgap(10);
         raquetteGrid.setVgap(10);
-        for (int i = 0; i < labelsR.length; i++) {
-            // raquetteImage[i] = initImage(pathsR[i]);
-            raquetteRect[i] = initRectangle(pathsR[i]);
-            raquetteButton[i] = createButton("Acheter : " + priceRaquette, 0, 0);
-            LabelVBox raquetteV = new LabelVBox(labelsR[i], 10);
-            raquetteV.getChildren().addAll(raquetteRect[i], raquetteButton[i]);
-            raquetteGrid.add(raquetteV, i % 3, i / 3); // Ajoutez cette ligne
-            priceRaquette += 5;
-            if(PlayerData.inventaire.getRaquettes()[i] != null) 
-                raquetteButton[i].setText("Acheté");
-        }
+        initItem(labelsR, pathsR, raquetteButton, raquetteGrid, priceRaquette, "raquette");
         raquette.getChildren().add(raquetteGrid);
-
     }
 
     private void initBalle() {
@@ -128,21 +148,8 @@ public class BoutiqueView implements Menu {
         balleGrid = new GridPane();
         balleGrid.setHgap(10);
         balleGrid.setVgap(10);
-        for (int i = 0; i < labels.length; i++) {
-            if (PlayerData.inventaire.getBalles()[i] != null) {
-                balleButton[i] = createButton("Acheté", 0, 0);
-                balleButton[i].setDisable(true);
-            } else {
-                balleImage[i] = initImage(paths[i]);
-                balleButton[i] = createButton("Acheter : " + priceBall, 0, 0);
-                LabelVBox ballV = new LabelVBox(labels[i], 10);
-                ballV.getChildren().addAll(balleImage[i], balleButton[i]);
-                balleGrid.add(ballV, i % 3, i / 3); // Ajoutez cette ligne
-                priceBall += 5;
-            }
-        }
+        initItem(labels, paths, balleButton, balleGrid, priceBall, "balle");
         balle.getChildren().add(balleGrid);
-
     }
 
     private void initBoutique() {

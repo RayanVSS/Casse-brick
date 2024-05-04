@@ -2,44 +2,20 @@
   "PATH": false,
   "MUSIC": 0,
   "CSS": "PINK",
-  "MONEY": 0,
-  "INVENTAIRE": {
-    "raquettes": [
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null
-    ],
-    "balles": [
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null
-    ]
-  },
+  "MONEY": 795,
+  "INVENTAIRE": [
+    "Rouge",
+    "Bleu",
+    "Vert",
+    "ClassicClassic",
+    "Classic"
+  ],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": true,
   "PSEUDO": "Sans nom",
   "SPACE": "SPACE",
-  "TEXTURE": "src/main/ressources/balle/classic/classic.png",
+  "TEXTURE": "src/main/ressources/balle/pink/classic.png",
   "EXP_LEVEL": 1,
   "PROGRESS": {
     "stages": [

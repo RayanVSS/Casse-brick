@@ -1,7 +1,6 @@
 package entity;
 
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import utils.GameConstants;

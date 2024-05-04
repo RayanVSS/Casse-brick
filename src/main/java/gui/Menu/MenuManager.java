@@ -3,7 +3,6 @@ package gui.Menu;
 import java.util.HashMap;
 import java.util.Map;
 
-import gui.Menu.MenuControllers.BoutiqueController;
 import gui.Menu.MenuViews.BoutiqueView;
 import gui.Menu.MenuViews.ChapterView;
 import gui.Menu.MenuViews.GameCustomizerView;

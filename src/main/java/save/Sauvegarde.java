@@ -131,6 +131,7 @@ public class Sauvegarde {
         playerData.put("ADMIN", PlayerData.isAdmin);
         playerData.put("PROGRESS", PlayerData.stagesProgress);
         playerData.put("INVENTAIRE", PlayerData.inventaire);
+        System.out.println("SauvegarderPlayerData: " + playerData.get("INVENTAIRE"));
         return playerData;
     }
 
@@ -171,7 +172,8 @@ public class Sauvegarde {
             PlayerData.isAdmin = (boolean) playerData.getOrDefault("ADMIN", false);
             PlayerData.stagesProgress = new Gson().fromJson("" + playerData.get("PROGRESS"),
                     StagesProgress.class);
-            PlayerData.inventaire = new Gson().fromJson("" + playerData.get("INVENTAIRE"),Inventaire.class);       
+            PlayerData.inventaire = new Gson().fromJson("" + playerData.get("INVENTAIRE"),
+                    Inventaire.class);
         }
     }
 

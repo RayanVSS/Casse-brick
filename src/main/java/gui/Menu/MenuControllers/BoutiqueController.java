@@ -38,14 +38,13 @@ public class BoutiqueController {
         App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
     }
 
-    //TODO: porté 
-
     private void acheterRaquette(int i) {
         System.out.println("argent :" + PlayerData.money);
         System.out.println("prix raquette :" + ((5 * i) + 5));
         int prix = (5 * i) + 5;
         System.out.println("i: " + i);
-        if (PlayerData.inventaire.getRaquettes()[i] != null) {
+
+        if (PlayerData.inventaire.isBought(view.getLabelsR()[i])) {
             view.getRaquetteButton()[i].setText("Acheté");
             return;
         } else if (PlayerData.money >= prix) {
@@ -53,7 +52,7 @@ public class BoutiqueController {
             view.setMoneyValue(PlayerData.money);
             view.getMoneyVBox().getSummaryLabel().setText("Argent : " + PlayerData.money);
             view.getRaquetteButton()[i].setText("Acheté");
-            PlayerData.inventaire.addRaquette(view.getLabelsR()[i], i);
+            PlayerData.inventaire.addItem(view.getLabelsR()[i]);
             GameConstants.TEXTURE = view.getPathsR()[i];
             view.getRaquetteButton()[i].setDisable(true);
             PlayerData.inventaire.afficheInventaire();
@@ -63,7 +62,8 @@ public class BoutiqueController {
 
     private void acheterBalle(int i) {
         int prix = (5 * i) + 5;
-        if (PlayerData.inventaire.getBalles()[i]!=null) {
+
+        if (PlayerData.inventaire.isBought(view.getLabels()[i])) {
             view.getBalleButton()[i].setText("Acheté");
             return;
         } else if (PlayerData.money >= prix) {
@@ -72,7 +72,7 @@ public class BoutiqueController {
             view.getMoneyVBox().getSummaryLabel().setText("Argent : " + PlayerData.money);
             view.getBalleButton()[i].setText("Acheté");
             if (PlayerData.inventaire != null) {
-                PlayerData.inventaire.addBalle(view.getLabels()[i], i);
+                PlayerData.inventaire.addItem(view.getLabels()[i]);
 
                 view.getBalleButton()[i].setDisable(true);
                 PlayerData.inventaire.afficheInventaire();

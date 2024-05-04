@@ -64,9 +64,7 @@ public interface Menu {
         return button;
     }
 
-    default Button createButton(String text) {
-        return createButton(text, 0, 0);
-    }
+
 
     /**
      * Crée un label avec le texte, la marge droite, la marge inférieure et la
