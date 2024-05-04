@@ -65,6 +65,19 @@ public interface Menu {
     }
 
 
+    default Button createButton(String text) {
+        Button button = new Button(text);
+        button.getStyleClass().add("button-style");
+        button.setOnMouseEntered(e -> {
+            button.getStyleClass().remove("button-style");
+            button.getStyleClass().add("button-hover");
+        });
+        button.setOnMouseExited(e -> {
+            button.getStyleClass().remove("button-hover");
+            button.getStyleClass().add("button-style");
+        });
+        return button;
+    }
 
     /**
      * Crée un label avec le texte, la marge droite, la marge inférieure et la

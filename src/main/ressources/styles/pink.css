@@ -37,7 +37,9 @@
 /* LES BOUTONS */
 .button-style,
 .button-hover,
-.label-style {
+.label-style,
+.bought-style,
+.bought-hover {
     -fx-font-size: 20px;
 }
 
@@ -55,15 +57,14 @@
     -fx-text-fill: #FFB6C1;
 }
 
-.bought-style{
+.bought-style {
     -fx-background-color: #f40025;
     -fx-text-fill: #000000;
-    -fx-font-size: 20px;
 }
+
 .bought-hover {
     -fx-background-color: #000000;
     -fx-text-fill: #f40025;
-    -fx-font-size: 20px;
 }
 
 /* LES TEXTES + LABELS */

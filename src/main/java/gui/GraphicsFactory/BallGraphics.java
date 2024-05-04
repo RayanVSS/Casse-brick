@@ -2,8 +2,10 @@ package gui.GraphicsFactory;
 
 import utils.GameConstants;
 import entity.ball.*;
+import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 // import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import physics.entity.Ball;
@@ -22,9 +24,9 @@ public class BallGraphics extends Circle implements EntityGraphics {
     // Partie pour le drag and drop
     private boolean isMouseDraggingBall = false;
     private double mouseX, mouseY = 0;
-    // private Image image;
-    // private ImagePattern ballImage;
-    
+    private Image image;
+    private ImagePattern ballImage;
+
     public BallGraphics(Ball ball) {
         super(ball.getRadius());
         this.ball = ball;
@@ -58,14 +60,21 @@ public class BallGraphics extends Circle implements EntityGraphics {
     }
 
     private void setBall() {
-        color();
-        this.setFill(color);
-        if (ball instanceof GravityBall) {
-            this.setStrokeWidth(3.5);
-            this.setStroke(GRAVITY);
-        } else if (ball instanceof HyperBall) {
-            this.setStrokeWidth(3.5);
-            this.setStroke(HYPER);
+        if(GameConstants.SKIN_BALL != null){
+            System.out.println("Skin ball : "+GameConstants.SKIN_BALL);
+            image = ImageLoader.loadImage(GameConstants.SKIN_BALL);
+            ballImage = new ImagePattern(image);
+            setFill(ballImage);
+        }else{
+            color();
+            this.setFill(color);
+            if (ball instanceof GravityBall) {
+                this.setStrokeWidth(3.5);
+                this.setStroke(GRAVITY);
+            } else if (ball instanceof HyperBall) {
+                this.setStrokeWidth(3.5);
+                this.setStroke(HYPER);
+            }
         }
     }
 
@@ -229,12 +238,12 @@ public class BallGraphics extends Circle implements EntityGraphics {
     // }
 
     // private void setImage(String imagePath) {
-    // Image newImage = ImageLoader.loadImage(imagePath);
-    // if (newImage != currentImage) {
-    // currentImage = newImage;
-    // ImagePattern imagePattern = new ImagePattern(currentImage);
-    // this.setFill(imagePattern);
-    // }
+    //     Image newImage = ImageLoader.loadImage(imagePath);
+    //     if (newImage != currentImage) {
+    //         currentImage = newImage;
+    //         ImagePattern imagePattern = new ImagePattern(currentImage);
+    //         this.setFill(imagePattern);
+    //     }
     // }
 
     // private static final String IMAGE_PATH = "src/main/ressources/balle/";

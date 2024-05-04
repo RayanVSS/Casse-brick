@@ -2,13 +2,19 @@
   "PATH": false,
   "MUSIC": 0,
   "CSS": "CLASSIC",
-  "MONEY": 100,
+  "MONEY": 0,
+  "INVENTAIRE": [
+    "Arc-en-ciel",
+    "ClassicPink",
+    "Etoile",
+    "GravityLight"
+  ],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": false,
   "PSEUDO": "Sans nom",
   "SPACE": "SPACE",
-  "TEXTURE": "Null",
+  "TEXTURE": "src/main/ressources/Texture/arc_en_ciel.jpg",
   "EXP_LEVEL": 2,
   "PROGRESS": {
     "stages": [

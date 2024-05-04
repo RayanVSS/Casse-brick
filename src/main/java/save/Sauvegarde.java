@@ -8,6 +8,7 @@ import static utils.GameConstants.MUSIC;
 import static utils.GameConstants.PARTICLES;
 import static utils.GameConstants.PATH;
 import static utils.GameConstants.RIGHT;
+import static utils.GameConstants.SKIN_BALL;
 import static utils.GameConstants.SOUND;
 import static utils.GameConstants.SPACE;
 import static utils.GameConstants.TEXTURE;
@@ -118,6 +119,7 @@ public class Sauvegarde {
         options.put("SPACE", SPACE);
         options.put("CSS", CSS);
         options.put("TEXTURE", TEXTURE);
+        options.put("SKIN_BALL",SKIN_BALL);
 
         return options;
     }
@@ -160,6 +162,7 @@ public class Sauvegarde {
                                      // Theme
             }
             TEXTURE = (String) options.getOrDefault("TEXTURE", "Null");
+            SKIN_BALL = (String) options.getOrDefault("SKIN_BALL", "Null");
         }
     }
 

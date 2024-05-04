@@ -3,6 +3,8 @@
   "MUSIC": 50,
   "CSS": "DARaaaK",
   "MONEY": 0,
+  "INVENTAIRE": [
+  ],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": true,

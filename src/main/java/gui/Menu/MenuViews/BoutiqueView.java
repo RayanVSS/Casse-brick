@@ -113,25 +113,33 @@ public class BoutiqueView implements Menu {
                 item = initImage(paths[i]);
                 itemV = new LabelVBox(labels[i], 10);
             }
-            buttons[i] = createButton("Acheter : " + price, 0, 0);
+            buttons[i] = createButton("Acheter : " + price);
             itemV.getChildren().addAll(item, buttons[i]);
             grid.add(itemV, i % 3, i / 3);
             price += 5;
             if (PlayerData.inventaire.isBought(labels[i])) {
-                Button button = buttons[i];
-                button.setText("Acheté");
-                button.getStyleClass().clear();
-                button.getStyleClass().add("bought-style");
-                button.setOnMouseEntered(e -> {
-                    button.getStyleClass().remove("bought-style");
-                    button.getStyleClass().add("bought-hover");
-                });
-                button.setOnMouseExited(e -> {
-                    button.getStyleClass().remove("bought-hover");
-                    button.getStyleClass().add("bought-style");
-                });
+                buttonModif(buttons[i], paths[i]);
             }
         }
+    }
+
+    public void buttonModif(Button button, String path) {
+        if (GameConstants.TEXTURE.equals(path) || GameConstants.SKIN_BALL.equals(path)) {
+            button.setText("Porté");
+        } else {
+            button.setText("Acheté");
+        }
+        button.getStyleClass().clear();
+        button.getStyleClass().add("bought-style");
+        button.setOnMouseEntered(e -> {
+            button.getStyleClass().remove("bought-style");
+            button.getStyleClass().add("bought-hover");
+        });
+        button.setOnMouseExited(e -> {
+            button.getStyleClass().remove("bought-hover");
+            button.getStyleClass().add("bought-style");
+        });
+
     }
 
     private void initRaquette() {
@@ -228,6 +236,20 @@ public class BoutiqueView implements Menu {
 
     public String[] getPaths() {
         return paths;
+    }
+
+    public Button getButtonFromPath(String path) {
+        for (int i = 0; i < paths.length; i++) {
+            if (paths[i].equals(path)) {
+                return balleButton[i];
+            }
+        }
+        for (int i = 0; i < pathsR.length; i++) {
+            if (pathsR[i].equals(path)) {
+                return raquetteButton[i];
+            }
+        }
+        return null;
     }
 
 }
