@@ -78,8 +78,8 @@ public class Map {
     public Brick[][] getBricks() {
         return bricks;
     }
-
-    private boolean inMap(int x, int y) {
+    //JLAI RENDUE PUBLIC
+    public boolean inMap(int x, int y) {
         return x >= 0 && x < bricks.length && y >= 0 && y < bricks[0].length;
     }
 
@@ -185,41 +185,6 @@ public class Map {
     // TODO méthode :
     // - pour savoir si une brique est arrivé en bas
     // - pour descendre les briques et créer de nouvelle briques FAIT
-
-    public boolean isLost() {
-        for (int i = 0; i < bricks.length; i++) {
-            if (bricks[i][bricks[0].length - 1] != null) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void infiniteUpdate() {
-        ArrayList<Brick> list = getListOfBricks();
-    
-        for (int i = list.size() - 1; i > -1; i--) {
-            Brick b = list.get(i);
-            Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY() + 0.60);
-            if (inMap(c.getIntX() / GameConstants.BRICK_WIDTH, c.getIntY() / GameConstants.BRICK_HEIGHT)) {
-                bricks[(int) b.getC().getX() / GameConstants.BRICK_WIDTH][(int) b.getC().getY()
-                        / GameConstants.BRICK_HEIGHT] = null;
-                b.setC(c);
-                bricks[(int) b.getC().getX() / GameConstants.BRICK_WIDTH][(int) b.getC().getY()
-                        / GameConstants.BRICK_HEIGHT] = b;
-            }
-        }
-        for (int ii = 0; ii < bricks.length; ii++) {
-            for (int jj = 0; jj < bricks[0].length; jj++) {
-                if (bricks[ii][jj] == null) {
-                    bricks[ii][jj] = new BrickClassic(
-                            new Coordinates(ii * GameConstants.BRICK_WIDTH, jj * GameConstants.BRICK_HEIGHT));
-                } else {
-                    break;
-                }
-            }
-        }
-    }
 
     public void displayBricksInTerminal() { // pour les tests
 

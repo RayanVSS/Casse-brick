@@ -26,7 +26,7 @@ public class Game {
     private Timer inGameTimer;
     private int timeElapsed = 0; // en secondes
     private List<Boost> boosts = new ArrayList<>();
-    private boolean isInfinite;
+    // private boolean isInfinite;
 
     public Game(Ball ball, Racket racket, GameRules rules) {
         this.ball = ball;
@@ -34,7 +34,7 @@ public class Game {
         this.rules = rules;
         this.map = new Map(rules, GameConstants.COLUMNS_OF_BRICKS, GameConstants.ROWS_OF_BRICKS);
         rules.initRules(this);
-        this.isInfinite = false;
+        // this.isInfinite = false;
     }
 
     public Game(Ball ball, Racket racket, int life, GameRules rules, int columnsBricks, int rowsBricks) {
@@ -43,7 +43,7 @@ public class Game {
         this.life = life;
         this.rules = rules;
         this.map = new Map(rules, columnsBricks, rowsBricks);
-        this.isInfinite = false;
+        // this.isInfinite = false;
         rules.initRules(this);
     }
 
@@ -52,7 +52,7 @@ public class Game {
         this.racket = racket;
         this.rules = rules;
         this.map = new Map(rules, GameConstants.COLUMNS_OF_BRICKS,GameConstants.ROWS_OF_BRICKS);
-        this.isInfinite = isInfinite;
+        // this.isInfinite = isInfinite;
         rules.initRules(this);
     }
 
@@ -109,12 +109,12 @@ public class Game {
                 ((MagnetBall) ball).setFront(false);
             }
         }
-        if (isInfinite) {
-            map.infiniteUpdate();
-            if (map.isLost()) {
-                lost = true;
-            }
-        }
+        // if (isInfinite) {
+        //     // map.infiniteUpdate();
+        //     if (map.isLost()) {
+        //         lost = true;
+        //     }
+        // }
 
         updateGameStatus();
     }
@@ -127,7 +127,7 @@ public class Game {
     }
 
     private void updateGameStatus() { // Vérifie & MAJ le statut de la Game, gagnée/perdue
-        if (life == 0 || !rules.check()) {
+        if (life == 0 || !rules.check(map.getBricks())) {
             lost = true;
             inGameTimer.cancel();
         }
@@ -208,7 +208,7 @@ public class Game {
     }
 
 
-    public boolean isInfinite() {
-        return isInfinite;
-    }
+    // public boolean isInfinite() {
+    //     return isInfinite;
+    // }
 }

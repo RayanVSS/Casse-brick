@@ -95,14 +95,18 @@ public class GameRoot {
 
     public void addBrick(Brick brick) {
         bricks.add(brick);
-        entities.put(brick, new BricksGraphics(brick));
+        if (game.getRules().isColorRestricted()){
+            entities.put(brick,new BricksGraphics(brick,brick.getColor()));
+        }else{
+            entities.put(brick, new BricksGraphics(brick));
+        }
     }
 
     public void addBall(Ball ball) {
         balls.add(ball);
         entities.put(ball, new BallGraphics(ball));
-        ball.setZoneWidth(500);
-        ball.setZoneHeight(500);
+        ball.setZoneWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
+        ball.setZoneHeight(GameConstants.DEFAULT_WINDOW_HEIGHT);
     }
 
 
@@ -142,7 +146,7 @@ public class GameRoot {
             particleGroup.update();
         }
         // if (game.isInfinite()) {
-        //     // graphBrickSet.infiniteUpdate(game.getMap());
+            // graphBrickSet.infiniteUpdate(game.getMap());
         // } else {
         //     // graphBrickSet.update();
         // }
