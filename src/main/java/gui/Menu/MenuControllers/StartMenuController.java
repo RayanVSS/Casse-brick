@@ -1,10 +1,10 @@
 package gui.Menu.MenuControllers;
 
-import config.Game;
 import gui.App;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import save.Sauvegarde;
 import utils.Sound.ClickSound;
 
 /**
@@ -17,7 +17,8 @@ import utils.Sound.ClickSound;
  */
 public class StartMenuController {
     private StartMenuView view;
-    private ClickSound click=App.clickSoundPlayer;
+    private ClickSound click = App.clickSoundPlayer;
+
     /**
      * Constructeur de StartMenuController.
      * 
@@ -48,8 +49,7 @@ public class StartMenuController {
      */
     private void play() {
         Platform.runLater(() -> {
-            Game.score = 0;
-            App.sceneManager.changeScene(view.getPrimaryStage(), "GameModeView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "GameModeView");
         });
 
     }
@@ -59,7 +59,7 @@ public class StartMenuController {
      */
     private void options() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "OptionsView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "OptionsView");
         });
     }
 
@@ -67,6 +67,8 @@ public class StartMenuController {
      * Méthode pour quitter le jeu.
      */
     private void quit() {
+        Sauvegarde sauvegarde = new Sauvegarde();
+        sauvegarde.autoSave();
         view.getPrimaryStage().close();
         Platform.exit();
         System.exit(0);
@@ -77,7 +79,7 @@ public class StartMenuController {
      */
     private void sauvegarde() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "SaveView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "SaveView");
         });
     }
 

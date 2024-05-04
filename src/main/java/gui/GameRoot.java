@@ -91,7 +91,6 @@ public class GameRoot {
         this.updateEntitiesGraphics();
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         root.getStyleClass().add("game-backgorund");
-        game.start();
     }
 
     public void addBrick(Brick brick) {
@@ -168,6 +167,7 @@ public class GameRoot {
             gameView.animationStop();
             gameView.getRoot().getChildren().add(new PauseView(primaryStage, gameView.getRoot(), gameRoot.getRoot(),
                     gameView.getAnimationTimer(), level));
+            game.stop();
         }
         if (level.getGame().isWin()) {
             level.resetGame();

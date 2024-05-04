@@ -28,6 +28,10 @@ public class GameRules {
     private int qty_transparent = GameConstants.GR_DEFAULT_QTY_TRANSPARENT;
     private int qty_unbreakable = GameConstants.GR_DEFAULT_QTY_UNBREAKABLE;
 
+    // Variables initiales servant au reset
+    private int initalRemainingTime = remainingTime;
+    private int initalRemainingBounces = remainingBounces;
+
     public GameRules(BricksArrangement arrangement, boolean limitedTime, boolean limitedBounces,
             boolean randomSwitchBricks, boolean colorRestricted, boolean transparent, boolean unbreakable) {
 
@@ -216,6 +220,26 @@ public class GameRules {
                 }
             }
         }
+    }
+
+    // Redéfinie les valeurs à appliquer lors du reset
+    public void redefInitialResetTime(int resetRemainingTime) {
+        if (limitedTime) {
+            initalRemainingTime = resetRemainingTime;
+            remainingTime = initalRemainingTime;
+        }
+    }
+
+    public void redefInitialResetBounces(int resetRemainingBounces) {
+        if (limitedBounces) {
+            initalRemainingBounces = resetRemainingBounces;
+            remainingBounces = initalRemainingBounces;
+        }
+    }
+
+    public void reset() {
+        remainingTime = initalRemainingTime;
+        remainingBounces = initalRemainingBounces;
     }
 
     // GETTERS/SETTERS

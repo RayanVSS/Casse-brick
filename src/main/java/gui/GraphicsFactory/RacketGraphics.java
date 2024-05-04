@@ -30,6 +30,20 @@ public class RacketGraphics {
 	public RacketGraphics(Racket racket, String shapeType) {
 		this.racket = racket;
 		this.shapeType = shapeType;
+		switch (shapeType.toLowerCase()) {
+			case "rectangle":
+				shape = new Rectangle();
+				break;
+			case "losange":
+				shape = new Polygon();
+				break;
+			case "rond":
+				shape = new Ellipse();
+				break;
+			case "triangle":
+				shape = new Polygon();
+				break;
+		}
 		setShape();
 		// Ajout de la texture
 		if (!GameConstants.TEXTURE.equals("Null")) {
@@ -41,12 +55,12 @@ public class RacketGraphics {
 			color();
 			shape.setFill(color);
 		}
+
 	}
 
 	private void setShape() {
 		switch (shapeType.toLowerCase()) {
 			case "rectangle":
-				shape = new Rectangle();
 				((Rectangle) shape).setX(racket.getC().getX());
 				((Rectangle) shape).setY(racket.getC().getY());
 				((Rectangle) shape).setWidth(racket.getLargeur());
@@ -55,7 +69,6 @@ public class RacketGraphics {
 				((Rectangle) shape).setArcHeight(20);
 				break;
 			case "losange":
-				shape = new Polygon();
 				((Polygon) shape).getPoints().addAll(new Double[] {
 						racket.getC().getX(), racket.getC().getY() - racket.getLongueur() / 2,
 						racket.getC().getX() + racket.getLargeur() / 2, racket.getC().getY(),
@@ -64,14 +77,13 @@ public class RacketGraphics {
 				});
 				break;
 			case "rond":
-				shape = new Ellipse();
 				((Ellipse) shape).setCenterX(racket.getC().getX());
 				((Ellipse) shape).setCenterY(racket.getC().getY());
 				((Ellipse) shape).setRadiusX(racket.getLargeur() / 2);
 				((Ellipse) shape).setRadiusY(racket.getLongueur() / 2);
 				break;
 			case "triangle":
-				shape = new Polygon();
+				((Polygon) shape).getPoints().remove(0, ((Polygon) shape).getPoints().size());
 				((Polygon) shape).getPoints().addAll(new Double[] {
 						racket.getC().getX(), racket.getC().getY() - racket.getLongueur() / 2,
 						racket.getC().getX() + racket.getLargeur() / 2, racket.getC().getY() + racket.getLongueur() / 2,

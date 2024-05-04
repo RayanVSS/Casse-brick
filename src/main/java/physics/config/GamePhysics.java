@@ -59,6 +59,8 @@ public class GamePhysics {
             if (!ball.movement()) {
                 // ball.getC().setX(-ball.getC().getX());
                 // ball.getC().setY(-ball.getC().getY());
+                ball.getDirection().setX(-ball.getC().getX());
+                ball.getDirection().setY(-ball.getC().getY());
             }
         }
     }

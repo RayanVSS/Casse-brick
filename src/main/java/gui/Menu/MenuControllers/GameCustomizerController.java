@@ -111,7 +111,7 @@ public class GameCustomizerController {
 
     private void back() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(gameCustomizerView.getPrimaryStage(), "GameModeView");
+            App.menuManager.changeScene(gameCustomizerView.getPrimaryStage(), "GameModeView");
         });
     }
 
@@ -170,10 +170,10 @@ public class GameCustomizerController {
                 gameCustomizerView.getRuleTransparent().getToggleButton().isSelected(),
                 gameCustomizerView.getRuleUnbreakable().getToggleButton().isSelected());
         if (gameCustomizerView.getRuleLimitedTime().getToggleButton().isSelected()) {
-            rules.setRemainingTime((int) gameCustomizerView.getTimeLimit().getSlider().getValue());
+            rules.redefInitialResetTime((int) gameCustomizerView.getTimeLimit().getSlider().getValue());
         }
         if (gameCustomizerView.getRuleLimitedBounces().getToggleButton().isSelected()) {
-            rules.setRemainingBounces((int) gameCustomizerView.getBouncesLimit().getSlider().getValue());
+            rules.redefInitialResetBounces((int) gameCustomizerView.getBouncesLimit().getSlider().getValue());
         }
         return rules;
     }

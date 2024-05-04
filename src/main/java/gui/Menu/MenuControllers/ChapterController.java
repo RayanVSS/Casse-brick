@@ -1,16 +1,14 @@
 package gui.Menu.MenuControllers;
 
-import gui.Menu.MenuViews.Chapterview;
+import gui.Menu.MenuViews.ChapterView;
 import gui.App;
 import javafx.application.Platform;
-import gui.Menu.MenuControllers.StageSelectorController;
 
 public class ChapterController {
 
-    
-    private Chapterview Chapterview;
+    private ChapterView Chapterview;
 
-    public ChapterController(Chapterview Chapterview) {
+    public ChapterController(ChapterView Chapterview) {
         this.Chapterview = Chapterview;
         setButtonsAction();
     }
@@ -25,27 +23,27 @@ public class ChapterController {
     private void showChapter1() {
         Platform.runLater(() -> {
             StageSelectorController.setChapter(0);
-            App.sceneManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
+            App.menuManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
         });
     }
 
     private void showChapter2() {
         Platform.runLater(() -> {
             StageSelectorController.setChapter(1);
-            App.sceneManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
+            App.menuManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
         });
     }
 
     private void showChapter3() {
         Platform.runLater(() -> {
             StageSelectorController.setChapter(2);
-            App.sceneManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
+            App.menuManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
         });
     }
 
     private void back() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(Chapterview.getPrimaryStage(), "GameModeView");
+            App.menuManager.changeScene(Chapterview.getPrimaryStage(), "GameModeView");
         });
     }
 

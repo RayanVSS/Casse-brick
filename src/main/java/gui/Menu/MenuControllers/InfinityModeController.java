@@ -22,7 +22,7 @@ public class InfinityModeController {
 
     private void back() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(infinityModeView.getPrimaryStage(), "GameModeView");
+            App.menuManager.changeScene(infinityModeView.getPrimaryStage(), "GameModeView");
         });
     }
 

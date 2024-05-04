@@ -60,6 +60,12 @@ sourceSets {
     }
 }
 
+tasks {
+    run {
+        standardInput = System.in
+    }
+}
+
 task physic(type: JavaExec) {
     description = "Exécute l'application PhysicsApp"
     group = "custom"
@@ -87,5 +93,18 @@ task demoEnv(type: JavaExec) {
         ]
     }
 }
+task Repair(type: JavaExec) {
+    description = "Exécute Repair_software"
+    group = "custom"
+    main = 'repair_software.java'
+    standardInput = System.in
+    classpath = sourceSets.main.runtimeClasspath
 
+    doFirst {
+        jvmArgs = [
+            '--module-path', classpath.asPath,
+            '--add-modules', 'javafx.controls,javafx.media,javafx.base,javafx.graphics'
+        ]
+    }
+}
 

@@ -2,11 +2,11 @@
   "PATH": false,
   "MUSIC": 0,
   "CSS": "BLACK",
-  "MONEY": 0,
+  "MONEY": 50,
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": true,
-  "PSEUDO": "",
+  "PSEUDO": "Majda",
   "SPACE": "SPACE",
   "TEXTURE": "Null",
   "EXP_LEVEL": 27,
@@ -203,6 +203,7 @@
       }
     ]
   },
-  "SOUND": 1,
-  "RIGHT": "RIGHT"
+  "SOUND": 52,
+  "RIGHT": "RIGHT",
+  "ADMIN": false
 }

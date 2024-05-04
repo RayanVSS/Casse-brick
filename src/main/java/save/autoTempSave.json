@@ -1,21 +1,21 @@
 {
   "PATH": false,
   "MUSIC": 50,
-  "CSS": "DARaaaK",
-  "MONEY": 0,
+  "CSS": "CLASSIC",
+  "MONEY": 100,
   "PARTICLES": true,
   "LEFT": "LEFT",
-  "FPS": true,
-  "PSEUDO": "",
+  "FPS": false,
+  "PSEUDO": "Sans nom",
   "SPACE": "SPACE",
   "TEXTURE": "Null",
-  "EXP_LEVEL": 1,
+  "EXP_LEVEL": 2,
   "PROGRESS": {
     "stages": [
       {
         "difficulty": 0,
         "unlockLevel": 1,
-        "completed": false,
+        "completed": true,
         "maxScore": 0,
         "customGame": false
       },
@@ -204,5 +204,6 @@
     ]
   },
   "SOUND": 50,
-  "RIGHT": "RIGHT"
+  "RIGHT": "RIGHT",
+  "ADMIN": false
 }

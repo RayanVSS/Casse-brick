@@ -2,6 +2,7 @@ package gui.Menu;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -20,15 +21,14 @@ import javafx.scene.paint.Color;
 public interface Menu {
 
     public enum Theme {
-        PINK("/styles/pink.css"), 
-        LIGHT("/styles/light.css"), 
+        PINK("/styles/pink.css"),
+        LIGHT("/styles/light.css"),
         CLASSIC("/styles/classic.css"),
         BLACK("/styles/black.css"),
         ACHROMATOPSIE("/styles/achromatopsie.css"),
         DEUTERANOPIE("/styles/deuteranopie.css"),
         TRITANOPIE("/styles/tritanopie.css"),
-        PROTANOPIE("/styles/protanopie.css")
-        ;
+        PROTANOPIE("/styles/protanopie.css");
 
         private String path;
 
@@ -40,7 +40,6 @@ public interface Menu {
             this.path = path;
         }
     }
-
 
     /**
      * Crée un bouton avec le texte, la marge droite et la marge inférieure
@@ -126,8 +125,21 @@ public interface Menu {
     }
 
     default Label createLabel(String text) {
-        Label l=new Label(text);
+        Label l = new Label(text);
         l.getStyleClass().add("scoreL-style");
         return l;
     }
+
+    /**
+     * Rien par défaut
+     * @Override update spécifique selon la vue.
+     */
+    default void update() {
+
+    }
+
+    /**
+     * @return scène interne
+     */
+    Scene getScene();
 }

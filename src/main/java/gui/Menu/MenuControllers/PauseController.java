@@ -3,7 +3,6 @@ package gui.Menu.MenuControllers;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import config.Game;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.PauseView;
@@ -54,7 +53,6 @@ public class PauseController {
         view.getStageLevel().resetGame();
         view.getChildren().clear();
         this.timer.cancel();
-        Game.score = 0;
         new GameView(view.getPrimaryStage(), view.getStageLevel());
     }
 
@@ -68,7 +66,7 @@ public class PauseController {
     private void menu() {
         view.getChildren().clear();
         this.timer.cancel();
-        App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+        App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
     }
 
     private void resume() {
@@ -82,7 +80,7 @@ public class PauseController {
     }
 
     public void muteMusic() {
-        if(GameConstants.MUSIC == 0) {
+        if (GameConstants.MUSIC == 0) {
             this.view.getBtnMuteMusic().setGraphic(view.getMuteImageView());
             return;
         }

@@ -1,6 +1,5 @@
 package gui.Menu.MenuControllers;
 
-import config.Game;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.WinView;
@@ -35,16 +34,17 @@ public class WinController {
     }
 
     public void menu() {
-        App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+        App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
     }
 
     public void next() {
         Platform.runLater(() -> {
-            Game.score = 0;
-            int nextStageIndex = view.getLevel().getDifficulty();
+            int nextStageIndex = view.getLevel().getDifficulty() + 1;
             if (nextStageIndex < (PlayerData.stagesProgress.getStages().length - 1)
                     && PlayerData.stagesProgress.getStages()[nextStageIndex].canLoadGame()) {
                 new GameView(view.getPrimaryStage(), PlayerData.stagesProgress.getStages()[nextStageIndex]);
+            } else {
+                // Boite erreur, tous les lvl finis
             }
         });
     }

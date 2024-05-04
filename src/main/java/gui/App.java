@@ -1,6 +1,6 @@
 package gui;
 
-import gui.Menu.SceneManager;
+import gui.Menu.MenuManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
@@ -11,12 +11,11 @@ import utils.Sound.BallSound;
 import utils.Sound.ClickSound;
 import utils.Sound.GameOverSound;
 import utils.Sound.Music;
-import utils.GameConstants;
 
 public class App extends Application {
 
     protected Stage primaryStage;
-    public static SceneManager sceneManager = new SceneManager();
+    public static MenuManager menuManager = new MenuManager();
     private Sauvegarde sauvegarde = new Sauvegarde();
     public static ClickSound clickSoundPlayer;
     public static GameOverSound gameOverS;
@@ -31,6 +30,7 @@ public class App extends Application {
                 PlayerData.initPlayerData();
                 // chargement de la derniere sauvegarde
                 sauvegarde.setupLastSave();
+                Console.init();
 
                 // initialisation des sons
                 clickSoundPlayer = new ClickSound();
@@ -44,27 +44,22 @@ public class App extends Application {
                 primaryStage.setResizable(false);
                 primaryStage.setTitle("Casse Brique");
 
-                sceneManager.preCreateAllView(primaryStage);
+                menuManager.preCreateAllView(primaryStage);
 
-                primaryStage.setScene(sceneManager.getScene("StartMenuView"));
+                primaryStage.setScene(menuManager.getScene("StartMenuView"));
 
                 primaryStage.show();
                 primaryStage.setOnCloseRequest(event -> {
-                    autoSave();
+                    autoSaveAndQuit();
                 });
             }
         });
     }
 
-    public void autoSave() {
-        String saveName;
-        if (GameConstants.LAST_SAVE.equals("")) {
-            saveName = "autoTempSave";
-        } else {
-            saveName = GameConstants.LAST_SAVE.replace(".json", "");
-        }
-        sauvegarde.sauvegarderToutesDonnees(saveName);
-        System.out.println("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès");
+    public void autoSaveAndQuit() {
+        sauvegarde.autoSave();
+        primaryStage.close();
+        Platform.exit();
         System.exit(0);
     }
 

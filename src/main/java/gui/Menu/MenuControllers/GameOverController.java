@@ -1,6 +1,5 @@
 package gui.Menu.MenuControllers;
 
-import config.Game;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.GameOverView;
@@ -43,7 +42,7 @@ public class GameOverController {
      */
     private void replay() {
         Platform.runLater(() -> {
-            Game.score = 0;
+
             if (view.getGame().getStageLevel().isCustomGame()) {
                 view.getGame().getStageLevel().getGameReinitializer().createGame();
             } else {
@@ -67,7 +66,7 @@ public class GameOverController {
      */
     private void menu() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
         });
     }
 }
