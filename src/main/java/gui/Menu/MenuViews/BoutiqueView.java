@@ -75,12 +75,14 @@ public class BoutiqueView implements Menu {
         for (int i = 0; i < GameConstants.LABELS_RAQUETTE.length; i++) {
             raquetteItem[i] = new Item(GameConstants.LABELS_RAQUETTE[i], GameConstants.PATHS_RAQUETTE[i],
                     startPrice * i + 5, "raquette");
+            if (PlayerData.inventaire.contains(raquetteItem[i].getName())) {
+                raquetteItem[i].updateButtonBuy();
+            }
             if (raquetteItem[i].getPath().equals(GameConstants.TEXTURE)) {
+                System.out.println("raquette: " + GameConstants.TEXTURE);
+                System.out.println("raquette path: " + raquetteItem[i].getPath());
                 GameConstants.RACKET_PORTE = raquetteItem[i];
                 raquetteItem[i].updateChange();
-            }
-            if(PlayerData.inventaire.contains(raquetteItem[i].getName())) {
-                raquetteItem[i].updateButtonBuy();
             }
             LabelVBox labelVBox = new LabelVBox(raquetteItem[i].getName(), 20);
             labelVBox.getChildren().addAll(initRectangle(raquetteItem[i].getPath()), raquetteItem[i].getButton());
@@ -89,12 +91,14 @@ public class BoutiqueView implements Menu {
         for (int i = 0; i < GameConstants.LABELS_BALLE.length; i++) {
             balleItem[i] = new Item(GameConstants.LABELS_BALLE[i], GameConstants.PATHS_BALLE[i], startPrice * i + 5,
                     "balle");
+            if (PlayerData.inventaire.contains(balleItem[i].getName())) {
+                balleItem[i].updateButtonBuy();
+            }
             if (balleItem[i].getPath().equals(GameConstants.SKIN_BALL)) {
+                System.out.println("balle: " + GameConstants.SKIN_BALL);
+                System.out.println("balle path: " + balleItem[i].getPath());
                 GameConstants.BALL_PORTE = balleItem[i];
                 balleItem[i].updateChange();
-            }
-            if(PlayerData.inventaire.contains(balleItem[i].getName())) {
-                balleItem[i].updateButtonBuy();
             }
             LabelVBox labelVBox = new LabelVBox(balleItem[i].getName(), 10);
             labelVBox.getChildren().addAll(initImage(balleItem[i].getPath()), balleItem[i].getButton());
