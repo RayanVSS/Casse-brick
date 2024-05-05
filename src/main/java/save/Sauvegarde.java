@@ -1,5 +1,4 @@
 package save;
-
 import static utils.GameConstants.CSS;
 import static utils.GameConstants.FPS;
 import static utils.GameConstants.LAST_SAVE;
@@ -132,8 +131,7 @@ public class Sauvegarde {
         playerData.put("MONEY", PlayerData.money);
         playerData.put("ADMIN", PlayerData.isAdmin);
         playerData.put("PROGRESS", PlayerData.stagesProgress);
-        playerData.put("INVENTAIRE", PlayerData.inventaire);
-        System.out.println("SauvegarderPlayerData: " + playerData.get("INVENTAIRE"));
+        playerData.put("INVENTAIRE",PlayerData.inventaire);
         return playerData;
     }
 

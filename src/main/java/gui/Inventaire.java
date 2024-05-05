@@ -2,6 +2,7 @@ package gui;
 
 import java.util.HashSet;
 
+
 public class Inventaire extends HashSet<String>{
 
     public Inventaire() {
@@ -12,8 +13,8 @@ public class Inventaire extends HashSet<String>{
         return this.contains(ele);
     }
 
-    public void addItem(String item) {
-        this.add(item);
+    public void addItem(String String) {
+        this.add(String);
     }
 
     public void afficheInventaire() {

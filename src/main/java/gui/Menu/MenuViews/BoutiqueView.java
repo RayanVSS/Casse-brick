@@ -1,10 +1,9 @@
 package gui.Menu.MenuViews;
 
-import gui.ImageLoader;
-import gui.GraphicsToolkit.LabelVBox;
-import gui.Menu.Menu;
+import gui.Item;
 import gui.Menu.MenuControllers.BoutiqueController;
-import javafx.scene.Node;
+import gui.GraphicsToolkit.LabelVBox;
+import gui.ImageLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,6 +17,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import save.PlayerData;
 import utils.GameConstants;
+import gui.Menu.Menu;
 
 public class BoutiqueView implements Menu {
 
@@ -29,52 +29,19 @@ public class BoutiqueView implements Menu {
     private HBox boutique;
     // Achat de raquette
     private LabelVBox raquette;
-    private String[] labelsR = { "Arc-en-ciel", "Bleu", "DarkMatter", "Or", "Rose", "Rouge", "Violet", "Vert",
-            "Etoile", "Noir&Blanc", "Gris", "PurpleSilk" };
-    private String[] pathsR = {
-            "src/main/ressources/Texture/arc_en_ciel.jpg",
-            "src/main/ressources/Texture/bleu.jpg",
-            "src/main/ressources/Texture/Dark_Matter.jpg",
-            "src/main/ressources/Texture/or.jpg",
-            "src/main/ressources/Texture/rose.jpg",
-            "src/main/ressources/Texture/rouge.jpg",
-            "src/main/ressources/Texture/violet.png",
-            "src/main/ressources/Texture/vert.jpg",
-            "src/main/ressources/Texture/stars.jpg",
-            "src/main/ressources/Texture/black_white.jpg",
-            "src/main/ressources/Texture/grey.jpg",
-            "src/main/ressources/Texture/purple.jpg"
-    };
-    private Button[] raquetteButton = new Button[labelsR.length];
-    private GridPane raquetteGrid;
+    private Item[] raquetteItem = new Item[GameConstants.LABELS_RAQUETTE.length];
+    private GridPane raquetteGrid = new GridPane();
+
     // Achat de balle
     private LabelVBox balle;
-    private String[] labels = { "ClassicClassic", "ClassicPink", "ClassicBlack", "ClassicLight",
-            "GravityClassic", "GravityPink", "GravityBlack", "GravityLight",
-            "HyperClassic", "HyperPink", "HyperBlack", "Hyperlight",
-    };
-    private String[] paths = { "src/main/ressources/balle/classic/classic.png",
-            "src/main/ressources/balle/pink/classic.png",
-            "src/main/ressources/balle/black/classic.png",
-            "src/main/ressources/balle/light/classic.png",
-            "src/main/ressources/balle/classic/gravity.png",
-            "src/main/ressources/balle/pink/gravity.png",
-            "src/main/ressources/balle/black/gravity.png",
-            "src/main/ressources/balle/light/gravity.png",
-            "src/main/ressources/balle/classic/hyper.png",
-            "src/main/ressources/balle/pink/hyper.png",
-            "src/main/ressources/balle/black/hyper.png",
-            "src/main/ressources/balle/light/hyper.png", };
-    private GridPane balleGrid;
-    private Button[] balleButton = new Button[labels.length];
+    private Item[] balleItem = new Item[GameConstants.LABELS_BALLE.length];
+    private GridPane balleGrid = new GridPane();
 
-    // L'argent
     private int moneyValue = PlayerData.money;
     private LabelVBox moneyVBox;
 
     private Button back;
-    private int priceBall = 5;
-    private int priceRaquette = 5;
+    private final int startPrice = 5;
 
     public BoutiqueView(Stage p) {
         this.primaryStage = p;
@@ -94,78 +61,57 @@ public class BoutiqueView implements Menu {
         root.getChildren().add(moneyVBox);
         root.getChildren().add(boutique);
         root.getChildren().add(back);
+
+        System.out.println("SKIN BALL: " + GameConstants.SKIN_BALL);
         new BoutiqueController(this);
     }
 
     private void initArgent() {
         moneyVBox = new LabelVBox("Argent : " + moneyValue, 10);
-        moneyVBox.getVBox().setPrefWidth(50);
+        moneyVBox.setPrefWidth(10);
     }
 
-    private void initItem(String[] labels, String[] paths, Button[] buttons, GridPane grid, int price, String type) {
-        for (int i = 0; i < labels.length; i++) {
-            Node item;
-            LabelVBox itemV;
-            if (type.equals("raquette")) {
-                item = initRectangle(paths[i]);
-                itemV = new LabelVBox(labels[i], 20);
-            } else {
-                item = initImage(paths[i]);
-                itemV = new LabelVBox(labels[i], 10);
+    private void initItems() {
+        for (int i = 0; i < GameConstants.LABELS_RAQUETTE.length; i++) {
+            raquetteItem[i] = new Item(GameConstants.LABELS_RAQUETTE[i], GameConstants.PATHS_RAQUETTE[i],
+                    startPrice * i + 5, "raquette");
+            if (raquetteItem[i].getPath().equals(GameConstants.TEXTURE)) {
+                GameConstants.RACKET_PORTE = raquetteItem[i];
+                raquetteItem[i].updateChange();
             }
-            buttons[i] = createButton("Acheter : " + price);
-            itemV.getChildren().addAll(item, buttons[i]);
-            grid.add(itemV, i % 3, i / 3);
-            price += 5;
-            if (PlayerData.inventaire.isBought(labels[i])) {
-                buttonModif(buttons[i], paths[i]);
+            LabelVBox labelVBox = new LabelVBox(raquetteItem[i].getName(), 20);
+            labelVBox.getChildren().addAll(initRectangle(raquetteItem[i].getPath()), raquetteItem[i].getButton());
+            raquetteGrid.add(labelVBox, i % 3, i / 3);
+        }
+        for (int i = 0; i < GameConstants.LABELS_BALLE.length; i++) {
+            balleItem[i] = new Item(GameConstants.LABELS_BALLE[i], GameConstants.PATHS_BALLE[i], startPrice * i + 5,
+                    "balle");
+            if (balleItem[i].getPath().equals(GameConstants.SKIN_BALL)) {
+                GameConstants.BALL_PORTE = balleItem[i];
+                balleItem[i].updateChange();
             }
+            LabelVBox labelVBox = new LabelVBox(balleItem[i].getName(), 10);
+            labelVBox.getChildren().addAll(initImage(balleItem[i].getPath()), balleItem[i].getButton());
+            balleGrid.add(labelVBox, i % 3, i / 3);
         }
-    }
-
-    public void buttonModif(Button button, String path) {
-        if (GameConstants.TEXTURE.equals(path) || GameConstants.SKIN_BALL.equals(path)) {
-            button.setText("Porté");
-        } else {
-            button.setText("Acheté");
-        }
-        button.getStyleClass().clear();
-        button.getStyleClass().add("bought-style");
-        button.setOnMouseEntered(e -> {
-            button.getStyleClass().remove("bought-style");
-            button.getStyleClass().add("bought-hover");
-        });
-        button.setOnMouseExited(e -> {
-            button.getStyleClass().remove("bought-hover");
-            button.getStyleClass().add("bought-style");
-        });
-
-    }
-
-    private void initRaquette() {
-        raquette = new LabelVBox("Texture Raquette:", 10);
-        raquetteGrid = new GridPane();
-        raquetteGrid.setHgap(10);
-        raquetteGrid.setVgap(10);
-        initItem(labelsR, pathsR, raquetteButton, raquetteGrid, priceRaquette, "raquette");
-        raquette.getChildren().add(raquetteGrid);
-    }
-
-    private void initBalle() {
-        balle = new LabelVBox("Skin Balle:", 10);
-        balleGrid = new GridPane();
-        balleGrid.setHgap(10);
-        balleGrid.setVgap(10);
-        initItem(labels, paths, balleButton, balleGrid, priceBall, "balle");
-        balle.getChildren().add(balleGrid);
     }
 
     private void initBoutique() {
+        initItems();
+        raquette = new LabelVBox("Texture Raquette:", 10);
+        raquetteGrid.setHgap(10);
+        raquetteGrid.setVgap(10);
+        raquette.getChildren().add(raquetteGrid);
+
+        balle = new LabelVBox("Skin Balle:", 10);
+        balleGrid.setHgap(10);
+        balleGrid.setVgap(10);
+        balle.getChildren().add(balleGrid);
+
+        initArgent();
+
         boutique = new HBox(10);
         boutique.setAlignment(javafx.geometry.Pos.CENTER);
-        initArgent();
-        initRaquette();
-        initBalle();
         boutique.getChildren().addAll(raquette, balle);
     }
 
@@ -189,64 +135,53 @@ public class BoutiqueView implements Menu {
         return rect;
     }
 
-    // GETTERS
+    @Override
     public Scene getScene() {
         return scene;
     }
 
+    // GETTERS
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public VBox getRoot() {
+        return root;
     }
 
     public Button getBtnBack() {
         return back;
     }
 
-    public Button[] getBalleButton() {
-        return balleButton;
+    public Item[] getRaquetteItem() {
+        return raquetteItem;
     }
 
-    public Button[] getRaquetteButton() {
-        return raquetteButton;
+    public Item[] getBalleItem() {
+        return balleItem;
     }
 
-    public LabelVBox getMoneyVBox() {
-        return moneyVBox;
-    }
-
-    public int getPriceRaquette() {
-        return priceRaquette;
+    public int getMoneyValue() {
+        return moneyValue;
     }
 
     public void setMoneyValue(int moneyValue) {
         this.moneyValue = moneyValue;
     }
 
-    public String[] getLabelsR() {
-        return labelsR;
-    }
-
-    public String[] getPathsR() {
-        return pathsR;
-    }
-
-    public String[] getLabels() {
-        return labels;
-    }
-
-    public String[] getPaths() {
-        return paths;
+    public LabelVBox getMoneyVBox() {
+        return moneyVBox;
     }
 
     public Button getButtonFromPath(String path) {
-        for (int i = 0; i < paths.length; i++) {
-            if (paths[i].equals(path)) {
-                return balleButton[i];
+        for (Item item : raquetteItem) {
+            if (item.getPath().equals(path)) {
+                return item.getButton();
             }
         }
-        for (int i = 0; i < pathsR.length; i++) {
-            if (pathsR[i].equals(path)) {
-                return raquetteButton[i];
+        for (Item item : balleItem) {
+            if (item.getPath().equals(path)) {
+                return item.getButton();
             }
         }
         return null;
