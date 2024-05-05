@@ -182,6 +182,32 @@ public class Map {
         }
         return list;
     }
+
+    public int lastBrick(){
+        int res=0;
+        for (int i =bricks.length-1;i>-1;i--){
+            for (int j=bricks[0].length-1;j>-1;j--){
+                if (bricks[i][j]!=null){
+                    res=i;
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+
+    public Brick lastBricks(){
+        Brick res=null;
+        for (int i =bricks.length-1;i>-1;i--){
+            for (int j=bricks[0].length-1;j>-1;j--){
+                if (bricks[i][j]!=null){
+                    res=bricks[i][j];
+                    break;
+                }
+            }
+        }
+        return res;
+    }
     // TODO méthode :
     // - pour savoir si une brique est arrivé en bas
     // - pour descendre les briques et créer de nouvelle briques FAIT

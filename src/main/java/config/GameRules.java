@@ -3,6 +3,8 @@ package config;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.checkerframework.checker.units.qual.C;
+
 import entity.EntityColor;
 import entity.brick.BrickClassic;
 import physics.entity.Ball;
@@ -54,8 +56,12 @@ public class GameRules {
         DEFAULT, RANDOM, INFINITE;
     }
 
-    public boolean check(Brick [][] b) {
-        return verifyLimitedTime() && verifyLimitedBounces() && verifyInfinite(b);
+    // public boolean check(Brick [][] b) {
+    //     return verifyLimitedTime() && verifyLimitedBounces() && verifyInfinite(b);
+    // }
+
+    public boolean check(Map m,Coordinates cr) {//TODO A tâtonner
+        return verifyLimitedTime() && verifyLimitedBounces() && verifyInfinitee(m.getBricks());
     }
 
     public void initRules(Game game) {
@@ -228,9 +234,18 @@ public class GameRules {
     }
 
     //update infinite et is lost
-    private boolean verifyInfinite(Brick [][] bricks) {
+    
+    public boolean verifyInfinite(Map m,Coordinates raquetCoordinates) {//TODO A tâtonner
+        Coordinates c=m.lastBricks().getC();
+        if(c.getY()>=raquetCoordinates.getY()){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean verifyInfinitee(Brick [][] bricks) {
         for (int i = 0; i < bricks.length; i++) {
-            if (bricks[i][bricks[0].length - 1] != null) {
+            if (bricks[i][bricks[0].length - 2] != null) {
                 return false;
             }
         }

@@ -9,6 +9,7 @@ import entity.Boost;
 import entity.ball.MagnetBall;
 import physics.entity.Ball;
 import physics.entity.Racket;
+import physics.geometry.Coordinates;
 import utils.GameConstants;
 import gui.App;
 
@@ -95,7 +96,11 @@ public class Game {
         // Gere les conditions de perte
         if (!ball.movement()) {
             life--;
-            ball.reset();
+            if (rules.isInfinite()){
+                ball.reset(resetBallInfinite());
+            }else{
+                ball.reset(GameConstants.DEFAULT_BALL_START_COORDINATES);
+            }
             racket.reset();
         }
 
@@ -126,7 +131,7 @@ public class Game {
     }
 
     private void updateGameStatus() { // Vérifie & MAJ le statut de la Game, gagnée/perdue
-        if (life == 0 || !rules.check(map.getBricks())) {
+        if (life == 0 || !rules.check(map,racket.getC())) {
             lost = true;
             inGameTimer.cancel();
         }
@@ -147,6 +152,11 @@ public class Game {
     private boolean verifyWin() {
         return false; // décommenter ici pour tester les wins
         // return map.countBricks() == 0;
+    }
+
+    public Coordinates resetBallInfinite(){
+        Coordinates c=new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH/2, map.lastBrick()+900/2);//TODO A tâtonner SINON LE METTRE PROCHE DE LA RAQUETTE
+        return c;
     }
 
     // Setters/getters
