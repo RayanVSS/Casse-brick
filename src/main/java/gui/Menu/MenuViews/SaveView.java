@@ -53,16 +53,16 @@ public class SaveView implements Menu, ViewPosition {
         this.primaryStage = p;
         centerBox.getStyleClass().add("root");
         //button
-        this.btnBack = createButton("Retour", 300, -500);
-        this.btnsave = createButton("Sauvegarder", 150, -500);
-        this.btndelete = createButton("Supprimer", 200, 590);
-        this.btnOK = createButton("OK", 0, -150);
-        this.btnload = createButton("Charger", -200, 590);
-        this.resetSave = createButton("Réinitialiser", 0, 300);
+        this.btnBack = createButton("Retour", -170, -350);
+        this.btnsave = createButton("Sauvegarder", 140, -350);
+        this.btndelete = createButton("Supprimer", 150, 350);
+        this.btnOK = createButton("Créer", 0, -150);
+        this.btnload = createButton("Charger", -150, 350);
+        this.resetSave = createButton("Réinitialiser", 0, 200);
         //grid
         this.grid.getStyleClass().add("grid-style");
         //text
-        this.title = createLabel("Creer une nouvelle sauvegarde", 0, 0);
+        this.title = createLabel("Créer une nouvelle sauvegarde :", 0, 0);
         this.title.getStyleClass().add("label-style");
         this.grid.add(title, 0, 0, 2, 1);
         //label
@@ -78,7 +78,7 @@ public class SaveView implements Menu, ViewPosition {
         StackPane.setMargin(this.listSave, new javafx.geometry.Insets(-500, 0, 0, 0));
         //add to root
         centerBox.getChildren().addAll(grid, btnBack, btnsave, btndelete, btnOK, btnload, listSave, resetSave);
-
+        centerBox.setPadding(new Insets(70, 0, 0, 0));
         consoleView = ConsoleView.getInstance();
         bottomBox.getChildren().add(consoleView);
         root.setCenter(centerBox);
