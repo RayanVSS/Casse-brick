@@ -274,7 +274,7 @@ public class Sauvegarde {
         if (GameConstants.LAST_SAVE.equals("")) {
             saveName = "autoTempSave";
             Map<String, Object> lastSave = new HashMap<>();
-            lastSave.put("SAVE", saveName);
+            lastSave.put("SAVE", saveName + ".json");
             sauvegarderDonnees("lastSave", lastSave);
         } else {
             saveName = GameConstants.LAST_SAVE.replace(".json", "");

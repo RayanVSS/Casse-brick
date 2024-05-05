@@ -40,9 +40,8 @@ public class ConsoleView extends VBox {
     private TextField inputField;
     private Button sendButton;
     private Region expandingRegion;
-    private boolean focus;
-
     private Timer updateTimer;
+    private Timer labelPreviewTimer;
 
     // Constructeur privé pour empêcher l'instanciation directe
     private ConsoleView() {
@@ -50,6 +49,17 @@ public class ConsoleView extends VBox {
         getChildren().addAll(expandingRegion, scrollPane, sendBox);
         startAutoUpdate();
         setStaticStyle();
+        labelPreviewTimer = new Timer();
+        // Décommenter ci-dessous pour tester
+        // Timer testTimer = new Timer();
+        // testTimer.scheduleAtFixedRate(new TimerTask() {
+        //     @Override
+        //     public void run() {
+        //         Platform.runLater(() -> {
+        //             Console.systemDisplay("OK");
+        //         });
+        //     }
+        // }, 0, 5000);
     }
 
     /**
@@ -62,10 +72,10 @@ public class ConsoleView extends VBox {
         return consoleView;
     }
 
-    public void registerFocusStage(Stage registeredStage) { // EN TEST
+    public void registerFocusStage(Stage registeredStage) { // EN TEST, CORRIGER OUVERTURE CHATTTTTTTTTTTT
         this.stage = registeredStage;
         this.stage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.B) {
+            if (event.getCode() == KeyCode.ENTER) {
                 inputField.requestFocus();
                 System.out.println("Touche Entrée pressée sur le Stage");
             }
@@ -86,7 +96,7 @@ public class ConsoleView extends VBox {
         scrollPane.setContent(consoleTextArea);
         scrollPane.setFitToWidth(true);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setMaxHeight(200);
+        scrollPane.setMaxHeight(180);
         scrollPane.setPrefWidth(scrollPane.getWidth());
 
         // VBar au plus bas aux nouveaux messages
@@ -137,8 +147,31 @@ public class ConsoleView extends VBox {
             Label label = new Label(message);
             label.setWrapText(true);
             label.getStyleClass().add("console-scroll-pane-label");
+
+            scrollPane.setDisable(false);
+
+            if (labelPreviewTimer != null) {
+                labelPreviewTimer.cancel();
+            }
+
+            labelPreviewTimer = new Timer();
+            startPreviewTimer();
+
             consoleTextArea.getChildren().add(label);
         }
+    }
+
+    private void startPreviewTimer() {
+        labelPreviewTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    if (!scrollPane.isFocused() && !inputField.isFocused() && !sendButton.isFocused()) {
+                        unfocusAction();
+                    }
+                });
+            }
+        }, 1000);
     }
 
     private void startAutoUpdate() { // Vitesse de 10 messages / sec
@@ -172,8 +205,8 @@ public class ConsoleView extends VBox {
         scrollPane.setOnMouseClicked(event -> {
             focusAction();
         });
-        GraphicsToolkit.applyFadeOnDisable(inputField, 1.0, 0.3, 325, 650);
-        GraphicsToolkit.applyFadeOnDisable(scrollPane, 1.0, 0.0, 1000, 500);
+        GraphicsToolkit.applyFadeOnDisable(inputField, 1.0, 0.3, 300, 650);
+        GraphicsToolkit.applyFadeOnDisable(scrollPane, 1.0, 0.0, 1000, 750);
     }
 
     public void setDynamicFocus(Scene registeredScene) {
@@ -183,20 +216,14 @@ public class ConsoleView extends VBox {
 
             Bounds scrollPaneBounds = scrollPane.localToScene(scrollPane.getBoundsInLocal());
             if (!scrollPaneBounds.contains(event.getSceneX(), event.getSceneY())) {
-                if (focus = true) {
-                    unfocusAction();
-                }
-                focus = false;
+                unfocusAction();
             } else {
                 focusAction();
-                focus = true;
             }
         });
     }
 
-    private void focusAction() {
-
-        inputField.requestFocus();
+    public void focusAction() {
 
         // Remove au préalable pour éviter le sur-ajout / clear sans clear les autres
         scrollPane.getStyleClass().remove("console-scroll-pane-focus");
@@ -204,15 +231,14 @@ public class ConsoleView extends VBox {
         scrollPane.getStyleClass().add("console-scroll-pane-focus");
         scrollPane.getStyleClass().remove("console-scroll-pane-unfocus");
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setDisable(false);
         sendButton.setDisable(false);
         inputField.setDisable(false);
-        scrollPane.setDisable(false);
-        // GraphicsToolkit.playFadeTransition(consoleTextArea, 0.0, 1.0, 2);
+
+        inputField.requestFocus();
     }
 
     public void unfocusAction() {
-
-        requestFocus();
 
         // Remove au préalable pour éviter le sur-ajout / clear sans clear les autres
         scrollPane.getStyleClass().remove("console-scroll-pane-unfocus");
@@ -220,10 +246,10 @@ public class ConsoleView extends VBox {
         scrollPane.getStyleClass().add("console-scroll-pane-unfocus");
         scrollPane.getStyleClass().remove("console-scroll-pane-focus");
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setDisable(true);
         sendButton.setDisable(true);
         inputField.setDisable(true);
-        scrollPane.setDisable(true);
-        // GraphicsToolkit.playFadeTransition(consoleTextArea, 1.0, 0.0, 2);
-    }
 
+        requestFocus();
+    }
 }

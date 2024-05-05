@@ -2,20 +2,20 @@
   "PATH": false,
   "MUSIC": 50,
   "CSS": "CLASSIC",
-  "MONEY": 100,
+  "MONEY": 0,
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": false,
   "PSEUDO": "Sans nom",
   "SPACE": "SPACE",
   "TEXTURE": "Null",
-  "EXP_LEVEL": 2,
+  "EXP_LEVEL": 1,
   "PROGRESS": {
     "stages": [
       {
         "difficulty": 0,
         "unlockLevel": 1,
-        "completed": true,
+        "completed": false,
         "maxScore": 0,
         "customGame": false
       },

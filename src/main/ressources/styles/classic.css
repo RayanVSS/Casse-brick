@@ -129,7 +129,7 @@
 
 .console {
     /* Ajouter si besoin */
-    /* -fx-background-color: green; */
+    -fx-background-color: green;
 }
 
 .console-scroll-pane {
@@ -199,4 +199,8 @@
     -fx-padding: 2;
     -fx-background-radius: 5;
     -fx-font-size: 13px;
+}
+
+.console-scroll-pane *:disabled {
+    -fx-opacity: 1;
 }
