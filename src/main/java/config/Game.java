@@ -115,12 +115,24 @@ public class Game {
             }
         }
         if (rules.isInfinite()) {
-            rules.infiniteUpdate(map);
+            if (!isInfiniteBonus()){
+                rules.infiniteUpdate(map,0.60);
+            }
+            else{
+                rules.infiniteUpdate(map,0);
+            }   
         }
-
         updateGameStatus();
     }
 
+    public boolean isInfiniteBonus(){
+        for (Boost b : boosts){
+            if (b.getType().equals("infiniteStop")){
+                return true;
+            }
+        }
+        return false;
+    }
 
     //TODO METTRE DANS GAMESRULES
     private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette

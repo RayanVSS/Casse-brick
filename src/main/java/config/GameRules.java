@@ -252,12 +252,13 @@ public class GameRules {
         return true;
     }
 
-    public void infiniteUpdate(Map m) {
+    public void infiniteUpdate(Map m,double vitesse) {
         ArrayList<Brick> list = m.getListOfBricks();
         Brick[][] bricks = m.getBricks();
         for (int i = list.size() - 1; i > -1; i--) {
             Brick b = list.get(i);
-            Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY() + 0.60);
+            // Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY() + 0.60);
+            Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY() + vitesse);
             if (m.inMap(c.getIntX() / GameConstants.BRICK_WIDTH, c.getIntY() / GameConstants.BRICK_HEIGHT)) {
                 bricks[(int) b.getC().getX() / GameConstants.BRICK_WIDTH][(int) b.getC().getY()
                         / GameConstants.BRICK_HEIGHT] = null;

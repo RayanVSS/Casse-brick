@@ -1,5 +1,6 @@
 package entity;
 
+import config.Game;
 import javafx.scene.shape.Rectangle;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
@@ -12,18 +13,23 @@ public class Boost extends Rectangle {
 
     public Boost(Coordinates c) {
         super(c.getX(), c.getY(), GameConstants.WIDTH, GameConstants.HEIGHT);
-        type = getRandomType();
+        // type = getRandomType();
+        type="infiniteStop";
         this.c = new Coordinates(c.getX() + (GameConstants.HEIGHT / 2), c.getY() + GameConstants.HEIGHT);
         // couleur du boost
         if (type.equals("vitesseP") || type.equals("largeurP") || type.equals("zhonya")) {
             setFill(GameConstants.COLOR_BONUS);
-        } else {
+        } 
+        else if(type.equals("infiniteStop")){
+            setFill(GameConstants.COLOR_INFINITE_STOP);
+        }
+        else {
             setFill(GameConstants.COLOR_MALUS);
         }
     }
 
     // Déplacement du boost et activation du boost
-    public boolean move(Boolean CollisionRacket, Racket racket) {
+    public boolean move(Boolean CollisionRacket, Racket racket,Game game) {
         if (CollisionRacket) {
             switch (type) {
                 case "vitesseP":
@@ -53,6 +59,10 @@ public class Boost extends Rectangle {
                 case "intensityBall":
                     System.out.println("intensityBall");
                     racket.setIntensityBall(true);
+                    break;
+                case "infiniteStop":
+                    System.out.println("infiniteStop");
+                    game.getRules().infiniteUpdate(game.getMap(), 0);
                     break;
                 default:
                     break;

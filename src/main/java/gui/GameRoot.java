@@ -154,6 +154,7 @@ public class GameRoot {
         if (GameConstants.PARTICLES) {
             particleGroup.update();
         }
+        //TODO A ENLEVER
         // if (game.isInfinite()) {
             // graphBrickSet.infiniteUpdate(game.getMap());
         // } else {
@@ -194,7 +195,7 @@ public class GameRoot {
         while (iterator.hasNext()) {
             Boost boost = iterator.next();
             if (boost.move(game.getRacket().CollisionRacket(boost.getC(), game.getRacket().getShapeType()),
-                    game.getRacket())) {
+                    game.getRacket(), game)) {
                 root.getChildren().remove(boost);
                 iterator.remove();
             } else {
