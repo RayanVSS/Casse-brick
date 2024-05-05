@@ -66,7 +66,10 @@ public class BoutiqueController {
         } else {
             return;
         }
-        aux.updateButtonBuy();
+        if(aux != null) {
+            aux.setWorn(false);
+            aux.updateButtonBuy();
+        }
         item.updateChange();
         item.setBought(true);
         item.setWorn(true);

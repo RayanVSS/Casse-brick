@@ -1,10 +1,10 @@
 {
   "PATH": false,
-  "MUSIC": 50,
-  "CSS": "DARaaaK",
+  "MUSIC": 0,
+  "CSS": "CLASSIC",
   "MONEY": 0,
-  "INVENTAIRE": [
-  ],
+  "SKIN_BALL": "Null",
+  "INVENTAIRE": [],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": true,
@@ -206,5 +206,6 @@
     ]
   },
   "SOUND": 50,
-  "RIGHT": "RIGHT"
+  "RIGHT": "RIGHT",
+  "ADMIN": false
 }

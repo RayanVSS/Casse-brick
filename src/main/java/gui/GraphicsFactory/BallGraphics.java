@@ -37,19 +37,16 @@ public class BallGraphics extends Circle implements EntityGraphics {
     }
 
     public BallGraphics(Image i, Ball ball) {
+        super(ball.getRadius());
         this.ball = ball;
-        // setImage(i);
-        // currentImage = i;
-        // if (i == null) {
-        //     currentImage = new Image(physicBall);
-        //     setImage(currentImage);
-        // }
-        // (ball.getRadius() / 3);
-        // setFitHeight(ball.getRadius() / 3);
-        // setX(ball.getC().getX());
-        // setY(ball.getC().getY());
-        setScaleX(ball.getRadius() / 2);
-        setScaleY(ball.getRadius() / 2);
+        if (i != null) {
+            ballImage = new ImagePattern(i);
+            setFill(ballImage);
+        }else{
+            this.setFill(Color.BLACK);
+        }
+        setCenterX(ball.getC().getX());
+        setCenterY(ball.getC().getY());
         waitingAdded = true;
     }
 
@@ -60,12 +57,12 @@ public class BallGraphics extends Circle implements EntityGraphics {
     }
 
     private void setBall() {
-        if(GameConstants.SKIN_BALL != null){
-            System.out.println("Skin ball : "+GameConstants.SKIN_BALL);
+        if (GameConstants.SKIN_BALL != null) {
+            System.out.println("Skin ball : " + GameConstants.SKIN_BALL);
             image = ImageLoader.loadImage(GameConstants.SKIN_BALL);
             ballImage = new ImagePattern(image);
             setFill(ballImage);
-        }else{
+        } else {
             color();
             this.setFill(color);
             if (ball instanceof GravityBall) {
@@ -137,21 +134,21 @@ public class BallGraphics extends Circle implements EntityGraphics {
                 this.setFill(MAGNET_NEG);
             }
         }
-        if (ball.getColor() != null) {
-            switch (ball.getColor()) {
-                case RED:
-                    this.setFill(Color.RED);
-                    break;
-                case GREEN:
-                    this.setFill(Color.GREEN);
-                    break;
-                case BLUE:
-                    this.setFill(Color.BLUE);
-                    break;
-                default:
-                    break;
-            }
-        }
+        // if (ball.getColor() != null) {
+        //     switch (ball.getColor()) {
+        //         case RED:
+        //             this.setFill(Color.RED);
+        //             break;
+        //         case GREEN:
+        //             this.setFill(Color.GREEN);
+        //             break;
+        //         case BLUE:
+        //             this.setFill(Color.BLUE);
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        // }
     }
 
     public boolean IsMouseDraggingBall() {
@@ -238,12 +235,12 @@ public class BallGraphics extends Circle implements EntityGraphics {
     // }
 
     // private void setImage(String imagePath) {
-    //     Image newImage = ImageLoader.loadImage(imagePath);
-    //     if (newImage != currentImage) {
-    //         currentImage = newImage;
-    //         ImagePattern imagePattern = new ImagePattern(currentImage);
-    //         this.setFill(imagePattern);
-    //     }
+    // Image newImage = ImageLoader.loadImage(imagePath);
+    // if (newImage != currentImage) {
+    // currentImage = newImage;
+    // ImagePattern imagePattern = new ImagePattern(currentImage);
+    // this.setFill(imagePattern);
+    // }
     // }
 
     // private static final String IMAGE_PATH = "src/main/ressources/balle/";

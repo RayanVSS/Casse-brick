@@ -57,16 +57,6 @@
     -fx-text-fill: #FFB6C1;
 }
 
-.bought-style {
-    -fx-background-color: #f40025;
-    -fx-text-fill: #000000;
-}
-
-.bought-hover {
-    -fx-background-color: #000000;
-    -fx-text-fill: #f40025;
-}
-
 /* LES TEXTES + LABELS */
 .fin-label {
     -fx-font-size: 35px;

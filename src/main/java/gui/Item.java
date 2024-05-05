@@ -3,6 +3,7 @@ package gui;
 import gui.Menu.Menu;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import save.PlayerData;
 import utils.GameConstants;
 
@@ -35,9 +36,22 @@ public class Item implements Menu{
 
     public void updateButtonBuy(){
         button.setText("Acheté");
+        DropShadow glow = new DropShadow();
+        glow.setOffsetX(0);
+        glow.setOffsetY(0);
+        glow.setColor(javafx.scene.paint.Color.BLUE);
+        glow.setRadius(10);
+        button.setEffect(glow);
+
     }
     public void updateChange(){
         button.setText("Porté");
+        DropShadow glow = new DropShadow();
+        glow.setOffsetX(0);
+        glow.setOffsetY(0);
+        glow.setColor(javafx.scene.paint.Color.CRIMSON);
+        glow.setRadius(10);
+        button.setEffect(glow);
     }
     // GETTERS
 

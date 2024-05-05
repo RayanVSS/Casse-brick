@@ -79,6 +79,9 @@ public class BoutiqueView implements Menu {
                 GameConstants.RACKET_PORTE = raquetteItem[i];
                 raquetteItem[i].updateChange();
             }
+            if(PlayerData.inventaire.contains(raquetteItem[i].getName())) {
+                raquetteItem[i].updateButtonBuy();
+            }
             LabelVBox labelVBox = new LabelVBox(raquetteItem[i].getName(), 20);
             labelVBox.getChildren().addAll(initRectangle(raquetteItem[i].getPath()), raquetteItem[i].getButton());
             raquetteGrid.add(labelVBox, i % 3, i / 3);
@@ -89,6 +92,9 @@ public class BoutiqueView implements Menu {
             if (balleItem[i].getPath().equals(GameConstants.SKIN_BALL)) {
                 GameConstants.BALL_PORTE = balleItem[i];
                 balleItem[i].updateChange();
+            }
+            if(PlayerData.inventaire.contains(balleItem[i].getName())) {
+                balleItem[i].updateButtonBuy();
             }
             LabelVBox labelVBox = new LabelVBox(balleItem[i].getName(), 10);
             labelVBox.getChildren().addAll(initImage(balleItem[i].getPath()), balleItem[i].getButton());
