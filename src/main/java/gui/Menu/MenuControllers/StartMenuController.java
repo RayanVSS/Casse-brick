@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import save.Sauvegarde;
 import utils.Sound.ClickSound;
+import gui.Menu.MenuControllers.TutoController;
 
 /**
  * Classe contrôleur pour le menu de démarrage.
@@ -93,6 +94,7 @@ public class StartMenuController {
     private void tuto() {
         Platform.runLater(() -> {
             view.getPrimaryStage().resizableProperty().set(true);
+            TutoController.setLoaded(true);
             App.menuManager.changeScene(view.getPrimaryStage(), "TutoView");
         });
     }
