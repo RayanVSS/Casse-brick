@@ -147,8 +147,12 @@
     -fx-background-color: rgba(0, 0, 0, 0.0);
 }
 
-.console-scroll-pane-focus {
+.console-scroll-pane-unfocus:hover {
     -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+.console-scroll-pane-focus {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
 }
 
 
@@ -162,7 +166,7 @@
 
 .console-input-field {
     -fx-border-radius: 0;
-    -fx-background-color: rgba(0, 0, 0, 0.3);
+    -fx-background-color: rgba(61, 85, 109, 0.3);
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-font-size: 13px;
@@ -175,7 +179,7 @@
 }
 
 .console-send-button {
-    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-background-color: rgba(97, 224, 165, 0.2);
     -fx-text-fill: white;
     -fx-font-weight: 600;
 }
@@ -186,7 +190,7 @@
 }
 
 .console-send-button:hover {
-    -fx-background-color: rgba(0, 0, 0, 0.4);
+    -fx-background-color: rgba(53, 116, 167, 0.4);
 }
 
 .console-scroll-pane-label {

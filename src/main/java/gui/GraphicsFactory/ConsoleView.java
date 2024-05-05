@@ -88,6 +88,13 @@ public class ConsoleView extends VBox {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setMaxHeight(200);
         scrollPane.setPrefWidth(scrollPane.getWidth());
+
+        // VBar au plus bas aux nouveaux messages
+        scrollPane.needsLayoutProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                scrollPane.setVvalue(1.0);
+            }
+        });
     }
 
     private void initSendBox() {
@@ -165,7 +172,8 @@ public class ConsoleView extends VBox {
         scrollPane.setOnMouseClicked(event -> {
             focusAction();
         });
-        GraphicsToolkit.applyFadeOnDisable(inputField, 1.0, 0.3, 500, 750);
+        GraphicsToolkit.applyFadeOnDisable(inputField, 1.0, 0.3, 325, 650);
+        GraphicsToolkit.applyFadeOnDisable(scrollPane, 1.0, 0.0, 1000, 500);
     }
 
     public void setDynamicFocus(Scene registeredScene) {
@@ -180,9 +188,7 @@ public class ConsoleView extends VBox {
                 }
                 focus = false;
             } else {
-                if (focus = false) {
-                    focusAction();
-                }
+                focusAction();
                 focus = true;
             }
         });
@@ -200,6 +206,7 @@ public class ConsoleView extends VBox {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         sendButton.setDisable(false);
         inputField.setDisable(false);
+        scrollPane.setDisable(false);
         // GraphicsToolkit.playFadeTransition(consoleTextArea, 0.0, 1.0, 2);
     }
 
@@ -215,6 +222,7 @@ public class ConsoleView extends VBox {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         sendButton.setDisable(true);
         inputField.setDisable(true);
+        scrollPane.setDisable(true);
         // GraphicsToolkit.playFadeTransition(consoleTextArea, 1.0, 0.0, 2);
     }
 

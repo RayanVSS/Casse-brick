@@ -1,9 +1,5 @@
 package utils;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import javafx.animation.FadeTransition;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Pos;
@@ -19,8 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 import javafx.util.Duration;
 
@@ -54,14 +48,14 @@ public final class GraphicsToolkit {
         return (totalHeight - imageHeight) / 2;
     }
 
-    private static Font initGameFont() {
-        try (InputStream inputStream = new FileInputStream("src/main/ressources/Font.ttf")) {
-            return Font.loadFont(inputStream, 12); // Utilisez la taille de police souhaitée
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    // private static Font initGameFont() {
+    //     try (InputStream inputStream = new FileInputStream("src/main/ressources/Font.ttf")) {
+    //         return Font.loadFont(inputStream, 12); // Utilisez la taille de police souhaitée
+    //     } catch (IOException e) {
+    //         e.printStackTrace();
+    //     }
+    //     return null;
+    // }
 
     public static Dimension2D getScreenDimension() {
         return new Dimension2D(Screen.getPrimary().getBounds().getWidth(), Screen.getPrimary().getBounds().getHeight());

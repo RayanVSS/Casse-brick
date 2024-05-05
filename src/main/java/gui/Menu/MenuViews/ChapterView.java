@@ -2,19 +2,26 @@ package gui.Menu.MenuViews;
 
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.ChapterController;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
 import utils.ImageLoader;
 import gui.ViewPosition;
+import gui.GraphicsFactory.ConsoleView;
 
 public class ChapterView implements Menu, ViewPosition {
     private Stage primaryStage;
-    private VBox root;
+    private BorderPane root;
+    private VBox centerBox;
+    private HBox bottomBox;
     private Scene scene;
 
     private Button chapter1;
@@ -28,10 +35,13 @@ public class ChapterView implements Menu, ViewPosition {
 
     private Button backButton;
 
+    private ConsoleView consoleView;
+
     public ChapterView(Stage primaryStage) {
 
         this.primaryStage = primaryStage;
-        root = new VBox(45);
+        root = new BorderPane();
+        centerBox = new VBox(30);
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);// 1100, 800
 
         // Charger les images
@@ -44,30 +54,30 @@ public class ChapterView implements Menu, ViewPosition {
         // Initialiser les boutons et les images
         chapter1 = new Button();
         chapter1Image = new ImageView(image1);
-        chapter1Image.setFitWidth(900);
-        chapter1Image.setFitHeight(150);
+        chapter1Image.setFitWidth(800);
+        chapter1Image.setFitHeight(120);
         chapter1.setGraphic(chapter1Image);
         chapter1.setStyle("-fx-background-color: transparent;");
-        chapter1.setPrefWidth(900);
-        chapter1.setPrefHeight(150);
+        chapter1.setPrefWidth(800);
+        chapter1.setPrefHeight(120);
 
         chapter2 = new Button();
         chapter2Image = new ImageView(image2);
-        chapter2Image.setFitWidth(900);
-        chapter2Image.setFitHeight(150);
+        chapter2Image.setFitWidth(800);
+        chapter2Image.setFitHeight(120);
         chapter2.setGraphic(chapter2Image);
         chapter2.setStyle("-fx-background-color: transparent;");
-        chapter2.setPrefWidth(900);
-        chapter2.setPrefHeight(150);
+        chapter2.setPrefWidth(800);
+        chapter2.setPrefHeight(120);
 
         chapter3 = new Button();
         chapter3Image = new ImageView(image3);
-        chapter3Image.setFitWidth(900);
-        chapter3Image.setFitHeight(150);
+        chapter3Image.setFitWidth(800);
+        chapter3Image.setFitHeight(120);
         chapter3.setGraphic(chapter3Image);
         chapter3.setStyle("-fx-background-color: transparent;");
-        chapter3.setPrefWidth(900);
-        chapter3.setPrefHeight(150);
+        chapter3.setPrefWidth(800);
+        chapter3.setPrefHeight(120);
 
         String hoverStyle = "-fx-background-color: #FFFFFF; -fx-opacity: 0.5;";
         chapter1.setOnMouseEntered(e -> chapter1.setStyle(hoverStyle));
@@ -77,11 +87,28 @@ public class ChapterView implements Menu, ViewPosition {
         chapter3.setOnMouseEntered(e -> chapter3.setStyle(hoverStyle));
         chapter3.setOnMouseExited(e -> chapter3.setStyle("-fx-background-color: transparent;"));
 
-        // Ajouter les boutons à la racine
+        // Ajouter les boutons à la box centrale
+        centerBox.getChildren().addAll(chapter1, chapter2, chapter3, backButton);
+        centerBox.setAlignment(Pos.CENTER);
+        centerBox.setPadding(new Insets(50, 0, 0, 0));
 
-        // Ajouter les boutons à la racine
-        root.getChildren().addAll(chapter1, chapter2, chapter3, backButton);
+        bottomBox = new HBox();
+        consoleView = ConsoleView.getInstance();
+        bottomBox.getChildren().add(consoleView);
+
+        root.setCenter(centerBox);
+        root.setBottom(bottomBox);
         new ChapterController(this);
+    }
+
+    @Override
+    public void moveConsoleView() {
+        bottomBox.getChildren().add(consoleView);
+    }
+
+    @Override
+    public void handleDynamicAction() {
+        consoleView.setDynamicFocus(scene);
     }
 
     // Getters

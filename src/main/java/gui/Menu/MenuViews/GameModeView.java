@@ -4,6 +4,7 @@ import gui.ViewPosition;
 import gui.GraphicsFactory.ConsoleView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameModeController;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -39,6 +40,7 @@ public class GameModeView implements Menu, ViewPosition {
         backButton = createButton("Retour", 0, 0);
         centerBox.getChildren().addAll(stagesButton, customGameButton, backButton);
         centerBox.setAlignment(Pos.CENTER);
+        centerBox.setPadding(new Insets(200, 0, 0, 0));
 
         bottomBox = new HBox();
         consoleView = ConsoleView.getInstance();
