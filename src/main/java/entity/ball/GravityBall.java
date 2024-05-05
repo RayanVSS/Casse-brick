@@ -76,5 +76,6 @@ public class GravityBall extends Ball {
         this.setC(new Coordinates(newX, newY));
         this.getDirection().add(super.getPhysicSetting().getWind());
         super.getPhysicSetting().checkGravity(getC(), getDirection());
+        this.normalizeDirection();
     }
 }

@@ -112,6 +112,7 @@ public class PhysicSetting {
         if (c.getY() < DEFAULT_WINDOW_WIDTH - Radius) {
             d.setY(d.getY() + Gravite*Mass);
         }
+        else
         if(DEFAULT_WINDOW_HEIGHT-c.getY()-Radius<stop_bounce){
             d.setY(0);
         }
@@ -282,6 +283,7 @@ public class PhysicSetting {
         double m2 = b2.getMass();
         double v1f = (m1*v1 + m2*v2 - m2*(v1-v2))/(m1+m2);
         double v2f = (m1*v1 + m2*v2 - m1*(v1-v2))/(m1+m2);
+        System.err.println("v1f : "+v1f+" v2f : "+v2f);
         b1.getDirection().setX(v1f*b1.getDirection().getX()/v1);
         b1.getDirection().setY(v1f*b1.getDirection().getY()/v1);
         b2.getDirection().setX(v2f*b2.getDirection().getX()/v2);

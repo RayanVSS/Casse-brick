@@ -67,7 +67,12 @@ public class Game {
 
     public void update(long deltaT) {
         start();
-        //Vérifie si la balle touche une brique
+        
+        //Vérifie si la balle est en collision avec une autre balle avant de les déplacer
+        for (Ball ball : balls) {
+            ball.checkCollisionOtherBall(balls);
+        }
+        
         for (Ball ball : balls) {
             ball.CollisionB=false;
             if(ball.delete()){
@@ -89,7 +94,6 @@ public class Game {
                 App.ballSound.play();
                 updateRulesRacket();
             }
-            ball.checkCollisionOtherBall(balls);
             ball.movement(deltaT);
 
             if (ball instanceof MagnetBall) {

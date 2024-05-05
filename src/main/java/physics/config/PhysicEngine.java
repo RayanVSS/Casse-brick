@@ -169,10 +169,14 @@ public class PhysicEngine {
                 ball.getPreview().init_path();
             }
         }
-        // Mise à jour de la position de la balle et de la trajectoire
         for(Ball b : listball.keySet()){
             if(!listball.get(b).IsMouseDraggingBall()){
                 b.checkCollisionOtherBall(listball.keySet());
+            }
+        }
+        // Mise à jour de la position de la balle et de la trajectoire
+        for(Ball b : listball.keySet()){
+            if(!listball.get(b).IsMouseDraggingBall()){
                 b.checkCollision(listbrick.keySet());
                 b.movement(deltaT);
                 if(b.getPreview()!=null){
@@ -276,7 +280,6 @@ public class PhysicEngine {
                     newY = this.getY() + this.getDirection().getY() * this.getSpeed();
                     this.getDirection().setY(this.getDirection().getY());
                 }
-                
                 this.setC(new Coordinates(newX, newY));
                 this.getDirection().add(physics.getWind());
                 physics.checkGravity(this.getC(), this.getDirection());

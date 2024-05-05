@@ -172,6 +172,15 @@ public abstract class Ball extends Entity {
         }
     }
 
+    public void normalizeDirection(){
+        if(getDirection().getX() == 0){
+            getDirection().setX(1*rotation.getAngle()/90);
+        }
+        if(getDirection().getY() == 0){
+            getDirection().setY(1*rotation.getAngle()/90);
+        }
+    }
+
     public boolean intersectBrick(Brick b) {
 
         double circleDistance_x = Math.abs(getC().getX() - b.getC().getX() - GameConstants.BRICK_WIDTH / 2);
@@ -308,31 +317,56 @@ public abstract class Ball extends Entity {
         }
     }
 
-    public void checkCollision(Ball b) {
-        if(!CollisionB){
-            double deltaX = Math.abs(getX() - b.getX());
-            double deltaY = Math.abs(getY() - b.getY());
-            double distance = deltaX * deltaX + deltaY * deltaY;
-            
-            if (distance < (getRadius() + b.getRadius()) * (getRadius() + b.getRadius())) {
+    public void checkCollision(Ball ball) {
+        if (CollisionB) {
+            return;
+        }
 
-                double newxSpeed1 = (getDirection().getX() * (4 - 7) + (2 * 7 * b.getDirection().getX())) / 11;
-
-                double newxSpeed2 = (b.getDirection().getX() * (7 - 4) + (2 * 4 * getDirection().getX())) / 11;
-
-                double newySpeed1 = (getDirection().getY() * (4 - 7) + (2 * 7 * b.getDirection().getY())) / 11;
-
-                double newySpeed2 = (b.getDirection().getY() * (7 - 4) + (2 * 4 * getDirection().getY())) / 11;
-
-                b.getDirection().setX(newxSpeed2);
-                b.getDirection().setY(newySpeed2);
-                getDirection().setX(newxSpeed1);
-                getDirection().setY(newySpeed1);
-
+        double distance = this.radius + ball.radius;
+    
+        if (Math.abs(this.getX() - ball.getX()) < distance &&
+            Math.abs(this.getY() - ball.getY()) < distance) {
+    
+            double dx = this.getX() - ball.getX();
+            double dy = this.getY() - ball.getY();
+            distance = Math.sqrt(dx * dx + dy * dy);
+    
+            if (distance < this.radius + ball.radius) {
+                double overlap = this.radius + ball.radius - distance;
+    
+                double nx = dx / distance; 
+                double ny = dy / distance;
+    
+                this.getC().setX(this.getX() + nx * overlap / 2);
+                this.getC().setY(this.getY() + ny * overlap / 2);
+                ball.getC().setX(ball.getX() - nx * overlap / 2);
+                ball.getC().setY(ball.getY() - ny * overlap / 2);
+    
             }
+            
+            double angle = Math.atan2(dy, dx);
+            double sin = Math.sin(angle);
+            double cos = Math.cos(angle);
+    
+            double tempX, tempY;
+            tempX = this.getDirection().getX() * cos + this.getDirection().getY() * sin;
+            tempY = this.getDirection().getY() * cos - this.getDirection().getX() * sin;
+    
+            double vx2 = ball.getDirection().getX() * cos + ball.getDirection().getY() * sin;
+            double vy2 = ball.getDirection().getY() * cos - ball.getDirection().getX() * sin;
+    
+            this.getDirection().setX(vx2 * cos - tempY * sin);
+            this.getDirection().setY(tempY * cos + vx2 * sin);
+    
+            ball.getDirection().setX(tempX * cos - vy2 * sin);
+            ball.getDirection().setY(vy2 * cos + tempX * sin);
+
+            CollisionB = true;
+            ball.CollisionB = true;
         }
     }
     
+
 
     public void checkCollision(Segment s){
         double x1 = s.getStart().getX();
