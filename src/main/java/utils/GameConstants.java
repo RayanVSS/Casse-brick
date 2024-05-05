@@ -120,40 +120,40 @@ public final class GameConstants {
         // preConfig des parties
         public static GameRules[] PRECONFIG_GAME_RULES = {
                         // chapter 1
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, true, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true),
-                        new GameRules(BricksArrangement.DEFAULT, true, true, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, true, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true,false),
+                        new GameRules(BricksArrangement.DEFAULT, true, true, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true,false),
                         // chapter 2
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true),
-                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, true, false, true, true, true, true),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true,false),
+                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, true, false, true, true, true, true,false),
                         // chapter 3
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, true, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false),
-                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true),
-                        new GameRules(BricksArrangement.DEFAULT, true, true, false, false, false, false),
-                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true)
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, true, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true,false),
+                        new GameRules(BricksArrangement.DEFAULT, true, true, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true,false)
         };
 
         public static GameRules INFINITE_MODE = new GameRules(BricksArrangement.INFINITE, false, false, false, false,
                         false,
-                        false);
+                        false,true);
 
         // à changer plus tard
         public static Ball[] PRECONFIG_GAME_BALL = {

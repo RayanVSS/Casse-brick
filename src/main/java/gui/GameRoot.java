@@ -135,9 +135,18 @@ public class GameRoot {
         }
     }
 
+    public void infiniteUp(ArrayList<Brick> bricks) {
+        for (Brick brick : bricks) {
+            addBrick(brick);
+        }
+    }
+
     public void update(long deltaT) {
         BoostAction();
         updateEntitiesGraphics();
+        if (game.getRules().isInfinite()){
+            infiniteUp(game.getRules().createBrickInfinite(game.getMap().getBricks()));
+        }
         // graphBall.update();
         root.getChildren().remove(graphRacket.getShape());
         graphRacket.update();

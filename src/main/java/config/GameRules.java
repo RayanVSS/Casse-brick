@@ -251,16 +251,33 @@ public class GameRules {
                         / GameConstants.BRICK_HEIGHT] = b;
             }
         }
-        for (int ii = 0; ii < bricks.length; ii++) {
-            for (int jj = 0; jj < bricks[0].length; jj++) {
-                if (bricks[ii][jj] == null) {
-                    bricks[ii][jj] = new BrickClassic(
-                            new Coordinates(ii * GameConstants.BRICK_WIDTH, jj * GameConstants.BRICK_HEIGHT));
+        // for (int i = 0; i < bricks.length; i++) {
+        //     for (int j = 0; j < bricks[0].length; j++) {
+        //         if (bricks[i][j] == null) {
+        //             bricks[i][j] = new BrickClassic(
+        //                     new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
+        //         } else {
+        //             break;
+        //         }
+        //     }
+        // }
+        // m.displayBricksInTerminal();
+    }
+
+    public ArrayList<Brick> createBrickInfinite(Brick[][] bricks){
+        ArrayList<Brick> b=new ArrayList<>();
+        for (int i = 0; i < bricks.length; i++) {
+            for (int j = 0; j < bricks[0].length; j++) {
+                if (bricks[i][j] == null) {
+                    bricks[i][j] = new BrickClassic(
+                            new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
+                    b.add(bricks[i][j]);
                 } else {
                     break;
                 }
             }
         }
+        return b;
     }
 
     // Redéfinie les valeurs à appliquer lors du reset
@@ -327,6 +344,10 @@ public class GameRules {
 
     public void setRemainingBounces(int remainingBounces) {
         this.remainingBounces = remainingBounces;
+    }
+
+    public boolean isInfinite(){
+        return this.infinite;
     }
 
 }

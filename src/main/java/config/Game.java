@@ -46,15 +46,15 @@ public class Game {
         // this.isInfinite = false;
         rules.initRules(this);
     }
-
-    public Game(Ball ball, Racket racket, GameRules rules, boolean isInfinite) {
-        this.ball = ball;
-        this.racket = racket;
-        this.rules = rules;
-        this.map = new Map(rules, GameConstants.COLUMNS_OF_BRICKS,GameConstants.ROWS_OF_BRICKS);
-        // this.isInfinite = isInfinite;
-        rules.initRules(this);
-    }
+    //TODO SERT A RIEN
+    // public Game(Ball ball, Racket racket, GameRules rules, boolean isInfinite) {
+    //     this.ball = ball;
+    //     this.racket = racket;
+    //     this.rules = rules;
+    //     this.map = new Map(rules, GameConstants.COLUMNS_OF_BRICKS,GameConstants.ROWS_OF_BRICKS);
+    //     // this.isInfinite = isInfinite;
+    //     rules.initRules(this);
+    // }
 
     private void start() {
         if (inGameTimer == null) {
@@ -109,16 +109,15 @@ public class Game {
                 ((MagnetBall) ball).setFront(false);
             }
         }
-        // if (isInfinite) {
-        //     // map.infiniteUpdate();
-        //     if (map.isLost()) {
-        //         lost = true;
-        //     }
-        // }
+        if (rules.isInfinite()) {
+            rules.infiniteUpdate(map);
+        }
 
         updateGameStatus();
     }
 
+
+    //TODO METTRE DANS GAMESRULES
     private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette
         rules.updateRemainingBounces();
         rules.updateBricksTransparency(map);
