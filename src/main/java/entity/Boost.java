@@ -1,5 +1,7 @@
 package entity;
 
+import config.Game;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
@@ -14,19 +16,24 @@ public class Boost extends Bonus {
 
     public Boost(Coordinates c) {
         super(c.getX(), c.getY(), GameConstants.WIDTH, GameConstants.HEIGHT);
-        type = getRandomType();
+        // type = getRandomType();
+        type="infiniteStop";
         super.setC(new Coordinates(c.getX() + (GameConstants.HEIGHT / 2), c.getY() + GameConstants.HEIGHT));
         // couleur du boost
         color();
         if (type.equals("vitesseP") || type.equals("largeurP") || type.equals("zhonya")) {
             setFill(COLOR_BONUS);
-        } else {
             setFill(COLOR_MALUS);
+        }else if(type.equals("infiniteStop")){
+            setFill(GameConstants.COLOR_INFINITE_STOP);
+        }
+        else {
+            setFill(GameConstants.COLOR_MALUS);
         }
     }
 
     // Déplacement du boost et activation du boost
-    public boolean move(Boolean CollisionRacket, Racket racket) {
+    public boolean move(Boolean CollisionRacket, Racket racket,Game game) {
         if (CollisionRacket) {
             switch (type) {
                 case "vitesseP":
@@ -56,7 +63,11 @@ public class Boost extends Bonus {
                 case "intensityBall":
                     System.out.println("intensityBall");
                     racket.setIntensityBall(true);
-                    break;        
+                    break;
+                case "infiniteStop":
+                    System.out.println("infiniteStop");
+                    game.getRules().infiniteUpdate(game.getMap(), 0);
+                    break;
                 default:
                     break;
             }

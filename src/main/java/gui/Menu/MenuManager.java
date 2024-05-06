@@ -9,6 +9,7 @@ import gui.Menu.MenuViews.BoutiqueView;
 import gui.Menu.MenuViews.ChapterView;
 import gui.Menu.MenuViews.GameCustomizerView;
 import gui.Menu.MenuViews.GameModeView;
+import gui.Menu.MenuViews.InfinityModeView;
 import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
@@ -103,6 +104,7 @@ public class MenuManager {
         createGameCustomizerViewScene(primaryStage);
         createChapterViewScene(primaryStage);
         createBoutiqueView(primaryStage);
+        createInfinityModeViewScene(primaryStage);
     }
 
     // Les méthodes suivantes créent des scènes spécifiques et les ajoutent à la
@@ -147,6 +149,12 @@ public class MenuManager {
         ChapterView chapterView = new ChapterView(primaryStage);
         addStylesheet(chapterView);
         addMenu("Chapterview", chapterView);
+    }
+
+    public void createInfinityModeViewScene(Stage primaryStage) {
+        InfinityModeView infinityModeView = new InfinityModeView(primaryStage);
+        addStylesheet(infinityModeView);
+        addMenu("InfinityModeView", infinityModeView);
     }
 
     public void createBoutiqueView(Stage primaryStage) {

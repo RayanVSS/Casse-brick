@@ -8,11 +8,20 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+// import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import config.Game;
+// import config.Map;
 import config.StageLevel;
 import entity.Boost;
 import gui.GraphicsFactory.BallGraphics;
-import gui.GraphicsFactory.BrickSet;
+import gui.GraphicsFactory.BricksGraphics;
+import gui.GraphicsFactory.EntityGraphics;
+// import gui.GraphicsFactory.BrickSet;
 import gui.GraphicsFactory.ParticleGroup;
 import gui.GraphicsFactory.RacketGraphics;
 import gui.Menu.MenuViews.GameOverView;
@@ -22,6 +31,9 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import physics.entity.Ball;
+import physics.entity.Brick;
+import physics.entity.Entity;
 import utils.GameConstants;
 import utils.Key;
 import java.util.ArrayList;
@@ -32,9 +44,14 @@ import entity.Bonus;;
 public class GameRoot {
     private Pane root = new Pane();
     private Game game;
-    private BrickSet graphBrickSet;
-    private List<BallGraphics> graphBall;
     private List<Ball> balls;
+    // private BrickSet graphBrickSet;
+
+    private ArrayList<Brick> bricks;
+   //private ArrayList<Ball> balls;
+    private Map<Entity, EntityGraphics> entities;
+    
+    // private BallGraphics graphBall;
     private RacketGraphics graphRacket;
     public static boolean BougePColision;
     public static Set<KeyCode> direction = new HashSet<>();
@@ -53,35 +70,105 @@ public class GameRoot {
         this.gameRoot = this;
         this.gameView = gameView;
         this.primaryStage = primaryStage;
-        this.graphBrickSet = new BrickSet(game.getMap().getBricks());
         root.setPrefHeight(GameConstants.DEFAULT_WINDOW_HEIGHT);
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         balls = new ArrayList<>();
-        this.graphBall = init_GraphicsBall(game.getBalls(),balls);
+
+        this.bricks = new ArrayList<>();
+        this.balls = new ArrayList<>();
+        this.entities = new HashMap<>();
+        for (int i=0;i<game.getMap().getBricks().length;i++){
+            for (int j=0;j<game.getMap().getBricks()[0].length;j++){
+                if (game.getMap().getBricks()[i][j]!=null){//TODO connaitre le nombres de briques tt ça la je parcours toute la map c pas bon je dois m'arreter à la dernière brique
+                    addBrick(game.getMap().getBricks()[i][j]);
+                }
+            }
+        }
+
+        // this.graphBrickSet = new BrickSet(game.getMap().getBricks());
+        // this.graphBall = new BallGraphics(game.getBall());
+        //this.graphBall = init_GraphicsBall(game.getBalls(),balls);
         // rectangle rond losange triangle
         this.graphRacket = new RacketGraphics(game.getRacket(), game.getRacket().getShapeType());
         if (GameConstants.PARTICLES) {
             this.particleGroup = new ParticleGroup(root, game);
         }
-        this.root.getChildren().add(graphBrickSet);
-        for (BallGraphics ball : graphBall) {
-            this.root.getChildren().add(ball);
-        }
+        // this.root.getChildren().add(graphBrickSet);
+        // this.root.getChildren().add(graphBall);
         this.root.getChildren().add(graphRacket.getShape());
+        this.updateEntitiesGraphics();
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         root.getStyleClass().add("game-backgorund");
     }
 
+    public void addBrick(Brick brick) {
+        bricks.add(brick);
+        if (game.getRules().isColorRestricted()){
+            entities.put(brick,new BricksGraphics(brick,brick.getColor()));
+        }else{
+            entities.put(brick, new BricksGraphics(brick));
+        }
+    }
+
+    public void addBall(Ball ball) {
+        balls.add(ball);
+        entities.put(ball, new BallGraphics(ball));
+        ball.setZoneWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
+        ball.setZoneHeight(GameConstants.DEFAULT_WINDOW_HEIGHT);
+    }
+
+
+    private void updateEntitiesGraphics() {
+        Iterator<Entry<Entity, EntityGraphics>> iterator = entities.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Entry<Entity, EntityGraphics> entry = iterator.next();
+            EntityGraphics eg = entry.getValue();
+            if (eg.isWaitingAdded()) {
+                if (eg instanceof BricksGraphics) {
+                    this.root.getChildren().add((BricksGraphics) eg);
+                } else if (eg instanceof BallGraphics) {
+                    this.root.getChildren().add((BallGraphics) eg);
+                }
+                eg.setWaitingAdded(false);
+            }
+            if (eg.isWaitingRemoved()) {
+                if (eg instanceof BricksGraphics) {
+                    this.root.getChildren().remove((BricksGraphics) eg);
+                } else if (eg instanceof BallGraphics) {
+                    this.root.getChildren().remove((BallGraphics) eg);
+                }
+                iterator.remove(); // à vérifier fonctionnement
+            }
+            eg.update();
+        }
+    }
+
+    public void infiniteUp(ArrayList<Brick> bricks) {
+        for (Brick brick : bricks) {
+            addBrick(brick);
+        }
+    }
+
     public void update(long deltaT) {
         BoostAction();
-        updateGraphics();
+        updateEntitiesGraphics();
+        if (game.getRules().isInfinite()){
+            infiniteUp(game.getRules().createBrickInfinite(game.getMap().getBricks()));
+        }
+        // graphBall.update();
         //root.getChildren().remove(graphRacket.getShape());
         graphRacket.update();
         //root.getChildren().add(graphRacket.getShape()); // Ajoute la forme de la raquette mise à jour
         if (GameConstants.PARTICLES) {
             particleGroup.update();
         }
-        graphBrickSet.update();
+        //TODO A ENLEVER
+        // if (game.isInfinite()) {
+            // graphBrickSet.infiniteUpdate(game.getMap());
+        // } else {
+        //     // graphBrickSet.update();
+        // }
+
         BonusUpdate();
         BougePColision = key.isEmpty();
         key.handleInput(game);
@@ -182,25 +269,25 @@ public class GameRoot {
         return graphBalls;
     }
 
-    public void updateGraphics() {
-        for (BallGraphics ball : graphBall) {
-            ball.update();
-        }
-        for (int i=0;i<game.getBalls().size();i++){
-            Ball ball = game.getBalls().get(i);
-            if (!balls.contains(ball)) { 
-                BallGraphics ballg = new BallGraphics(ball);
-                graphBall.add(ballg);
-                balls.add(ball);
-                root.getChildren().add(ballg);
-            }
-            if(!ball.delete()){
-                root.getChildren().remove(graphBall.get(i));
-                graphBall.remove(i);
-                balls.remove(i);
-            }
-        }
+    // public void updateGraphics() {
+    //     for (BallGraphics ball : graphBall) {
+    //         ball.update();
+    //     }
+    //     for (int i=0;i<game.getBalls().size();i++){
+    //         Ball ball = game.getBalls().get(i);
+    //         if (!balls.contains(ball)) { 
+    //             BallGraphics ballg = new BallGraphics(ball);
+    //             graphBall.add(ballg);
+    //             balls.add(ball);
+    //             root.getChildren().add(ballg);
+    //         }
+    //         if(!ball.delete()){
+    //             root.getChildren().remove(graphBall.get(i));
+    //             graphBall.remove(i);
+    //             balls.remove(i);
+    //         }
+    //     }
 
         
-    }
+    // }
 }
