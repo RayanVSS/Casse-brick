@@ -8,6 +8,7 @@ import static utils.GameConstants.MUSIC;
 import static utils.GameConstants.PARTICLES;
 import static utils.GameConstants.PATH;
 import static utils.GameConstants.RIGHT;
+import static utils.GameConstants.SKIN_BALL;
 import static utils.GameConstants.SOUND;
 import static utils.GameConstants.SPACE;
 import static utils.GameConstants.TEXTURE;
@@ -28,6 +29,7 @@ import com.google.gson.reflect.TypeToken;
 
 import config.StagesProgress;
 import gui.Console;
+import gui.Inventaire;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
 import utils.GameConstants;
@@ -118,6 +120,7 @@ public class Sauvegarde {
         options.put("SPACE", SPACE);
         options.put("CSS", CSS);
         options.put("TEXTURE", TEXTURE);
+        options.put("SKIN_BALL", SKIN_BALL);
 
         return options;
     }
@@ -130,7 +133,7 @@ public class Sauvegarde {
         playerData.put("MONEY", PlayerData.money);
         playerData.put("ADMIN", PlayerData.isAdmin);
         playerData.put("PROGRESS", PlayerData.stagesProgress);
-
+        playerData.put("INVENTAIRE", PlayerData.inventaire);
         return playerData;
     }
 
@@ -151,14 +154,15 @@ public class Sauvegarde {
             LEFT = Sauvegarde.getKeyCode((String) options.getOrDefault("LEFT", "LEFT"));
             RIGHT = Sauvegarde.getKeyCode((String) options.getOrDefault("RIGHT", "RIGHT"));
             SPACE = Sauvegarde.getKeyCode((String) options.getOrDefault("SPACE", "SPACE"));
-            //CSS =  /*(Theme) options.getOrDefault("CSS", Theme.DARK);*/ Theme.valueOf((String) options.getOrDefault("CSS", "DARK"));
             String cssOption = (String) options.getOrDefault("CSS", "DARK");
             try {
                 CSS = Theme.valueOf(cssOption.toUpperCase());
             } catch (IllegalArgumentException e) {
-                CSS = Theme.CLASSIC; // valeur par défaut si l'option CSS n'est pas une constante de l'énumération Theme
+                CSS = Theme.CLASSIC; // valeur par défaut si l'option CSS n'est pas une constante de l'énumération
+                                     // Theme
             }
             TEXTURE = (String) options.getOrDefault("TEXTURE", "Null");
+            SKIN_BALL = (String) options.getOrDefault("SKIN_BALL", "Null");
         }
     }
 
@@ -171,6 +175,8 @@ public class Sauvegarde {
             PlayerData.isAdmin = (boolean) playerData.getOrDefault("ADMIN", false);
             PlayerData.stagesProgress = new Gson().fromJson("" + playerData.get("PROGRESS"),
                     StagesProgress.class);
+            PlayerData.inventaire = new Gson().fromJson("" + playerData.get("INVENTAIRE"),
+                    Inventaire.class);
         }
     }
 
@@ -284,4 +290,5 @@ public class Sauvegarde {
         Console.systemDisplay("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès.");
         Console.systemDisplay("Fermeture du jeu...");
     }
+
 }

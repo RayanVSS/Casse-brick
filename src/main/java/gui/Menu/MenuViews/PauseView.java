@@ -96,9 +96,9 @@ public class PauseView extends Pane implements Menu, ViewPosition {
         } else {
             btnMuteSound.getButton().setGraphic(unmuteImageView2);
         }
-        btnMuteMusic.setLayoutX(850);
+        btnMuteMusic.setLayoutX(GameConstants.DEFAULT_WINDOW_WIDTH - 250);
         btnMuteMusic.setLayoutY(10);
-        btnMuteSound.setLayoutX(850);
+        btnMuteSound.setLayoutX(GameConstants.DEFAULT_WINDOW_WIDTH - 250);
         btnMuteSound.setLayoutY(100);
     }
 

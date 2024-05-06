@@ -43,7 +43,7 @@ public class StageLevel {
     }
 
     public void resetGame() {
-        game.getBall().reset();
+        game.resetBalls();
         game.getRacket().reset();
         game.getRules().reset();
         game = new Game(

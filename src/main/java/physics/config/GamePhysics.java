@@ -55,7 +55,7 @@ public class GamePhysics {
 
     private void updateBalls() {
         for (Ball ball : balls) {
-            if (!ball.movement()) {
+            if (!ball.delete()) {
                 // ball.getC().setX(-ball.getC().getX());
                 // ball.getC().setY(-ball.getC().getY());
                 ball.getDirection().setX(-ball.getC().getX());

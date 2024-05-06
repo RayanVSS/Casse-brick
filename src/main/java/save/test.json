@@ -3,6 +3,8 @@
   "MUSIC": 50,
   "CSS": "CLASSIC",
   "MONEY": 0,
+  "SKIN_BALL": "Null",
+  "INVENTAIRE": [],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": true,

@@ -80,7 +80,6 @@ public class GameView implements ViewPosition {
                     gameRoot.update(deltaT);
                     scoreLifeView.update();
                     scene.getStylesheets().add(GameConstants.CSS.getPath());
-
                 }
                 last = now;
                 saveViewPosition();

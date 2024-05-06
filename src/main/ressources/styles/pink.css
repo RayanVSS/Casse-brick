@@ -37,7 +37,9 @@
 /* LES BOUTONS */
 .button-style,
 .button-hover,
-.label-style {
+.label-style,
+.bought-style,
+.bought-hover {
     -fx-font-size: 20px;
 }
 
@@ -78,7 +80,7 @@
 
 .scoreL-style {
     -fx-font-size: 20px;
-    -fx-fill: #C71585;
+    -fx-text-fill: #C71585;
 }
 
 .title-game-over-style {
@@ -116,6 +118,7 @@
     -fx-border-radius: 5px;
     -fx-background-radius: 7px;
     -fx-padding: 5px;
+    -fx-alignment: center;
 }
 
 .label-vbox-description {

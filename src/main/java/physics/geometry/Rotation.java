@@ -17,6 +17,9 @@ public class Rotation {
     }
 
     public void addEffect(char d) {
+        if(Math.abs(this.angle) >= 180){
+            return;
+        }
         if(d=='d'){
             this.angle += 30;
         }
@@ -30,11 +33,11 @@ public class Rotation {
     }
 
     public void Collision() {
-        if(angle>0){
-            angle -= 5;
+        if(angle>3){
+            angle -= 3;
         }
-        else if(angle<0){
-            angle += 5;
+        else if(angle<3){
+            angle += 3;
         }
     }
 

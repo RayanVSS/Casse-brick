@@ -71,8 +71,9 @@ public class SaveController {
 
         if (selectedSauvegarde != null) { // si une sauvegarde est sélectionnée
             sauvegarde.chargerToutesDonnees(selectedSauvegarde); // Charger la sauvegarde sélectionnée dans le fichier
-            Console.systemDisplay("Sauvegarde '" + selectedSauvegarde + "' chargée avec succès."); // Afficher un message
-                                                                                                   // de confirmation
+            Console.systemDisplay("Sauvegarde '" + selectedSauvegarde + "' chargée avec succès"); // Afficher un message
+                                                                                                  // de confirmation
+            App.menuManager.updateStylesheets();
         } else {
             Console.systemDisplay("Veuillez sélectionner une sauvegarde à charger."); // Afficher un message d'erreur
         }

@@ -3,6 +3,8 @@
   "MUSIC": 0,
   "CSS": "PINK",
   "MONEY": 0,
+  "INVENTAIRE": [
+  ],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": true,
