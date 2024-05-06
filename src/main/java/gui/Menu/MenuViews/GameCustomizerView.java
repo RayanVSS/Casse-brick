@@ -143,7 +143,7 @@ public class GameCustomizerView implements Menu, ViewPosition {
         optionsBoxCenter.lookupAll("*").forEach(node -> node.setStyle("-fx-font-size: 15px;"));
         optionsBoxRight.lookupAll("*").forEach(node -> node.setStyle("-fx-font-size: 16px;"));
         actionButtons.lookupAll("*").forEach(node -> node.setStyle("-fx-font-size: 20px;"));
-        centerBox.setPadding(new Insets(40, 0, 0, 0));
+        centerBox.setPadding(new Insets(36, 0, 0, 0));
         actionButtons.setPadding(new Insets(0, 0, 0, 120));
     }
 
