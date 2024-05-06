@@ -3,6 +3,7 @@ package gui.Menu.MenuControllers;
 import static utils.GameConstants.LAST_SAVE;
 
 import gui.App;
+import gui.Console;
 import gui.Menu.MenuViews.SaveView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -52,29 +53,29 @@ public class SaveController {
 
     private void save() {
         if (LAST_SAVE.equals("")) {
-            view.afficherMessage("vous n'êtes pas connecté à une sauvegarde.");
+            Console.systemDisplay("vous n'êtes pas connecté à une sauvegarde.");
             return;
         } else {
             // sa marche pas
             String saveName = LAST_SAVE.replace(".json", "");
-            System.out.println(saveName);
+            // System.out.println(saveName);
             sauvegarde.sauvegarderToutesDonnees(saveName);
-            view.afficherMessage("Sauvegarde '" + LAST_SAVE + "' effectuée avec succès.");
+            Console.systemDisplay("Sauvegarde '" + LAST_SAVE + "' effectuée avec succès.");
         }
 
     }
 
     private void load() {
         String selectedSauvegarde = view.getListSave().getValue();
-        System.out.println(selectedSauvegarde);
+        // System.out.println(selectedSauvegarde);
 
         if (selectedSauvegarde != null) { // si une sauvegarde est sélectionnée
             sauvegarde.chargerToutesDonnees(selectedSauvegarde); // Charger la sauvegarde sélectionnée dans le fichier
-            view.afficherMessage("Sauvegarde '" + selectedSauvegarde + "' chargée avec succès"); // Afficher un message
-                                                                                                 // de confirmation
+            Console.systemDisplay("Sauvegarde '" + selectedSauvegarde + "' chargée avec succès"); // Afficher un message
+                                                                                                  // de confirmation
             App.menuManager.updateStylesheets();
         } else {
-            view.afficherMessage("Veuillez sélectionner une sauvegarde à charger."); // Afficher un message d'erreur
+            Console.systemDisplay("Veuillez sélectionner une sauvegarde à charger."); // Afficher un message d'erreur
         }
     }
 
@@ -84,10 +85,10 @@ public class SaveController {
             sauvegarde.supprimerSauvegarde(selectedSauvegarde);// Supprimer la sauvegarde sélectionnée dans le fichier
             view.getListSave().getItems().remove(selectedSauvegarde); // Supprimer la sauvegarde sélectionnée dans la
                                                                       // ComboBox
-            view.afficherMessage("Sauvegarde " + selectedSauvegarde + " supprimée avec succès."); // Afficher un message
-                                                                                                  // de confirmation
+            Console.systemDisplay("Sauvegarde " + selectedSauvegarde + " supprimée avec succès."); // Afficher un message
+            // de confirmation
         } else {
-            view.afficherMessage("Veuillez sélectionner une sauvegarde à supprimer."); // Afficher un message d'erreur
+            Console.systemDisplay("Veuillez sélectionner une sauvegarde à supprimer."); // Afficher un message d'erreur
         }
     }
 
@@ -99,11 +100,11 @@ public class SaveController {
                                                                                // déjà dans la ComboBox
             view.getListSave().getItems().add(nomUtilisateur + ".json"); // Ajouter le nom de l'utilisateur à la
                                                                          // ComboBox
-        view.afficherMessage("Sauvegarde créée."); // Afficher un message de confirmation
+        Console.systemDisplay("Sauvegarde créée."); // Afficher un message de confirmation
     }
 
     private void resetSave() {
-        view.afficherMessage("Il n'y a plus de sauvegarde par defaut."); // Afficher un message de confirmation
+        Console.systemDisplay("Il n'y a plus de sauvegarde par defaut."); // Afficher un message de confirmation
         sauvegarde.resetLastSave(); // Réinitialiser la dernière sauvegarde
     }
 

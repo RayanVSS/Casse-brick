@@ -1,5 +1,7 @@
 package gui.Menu.MenuViews;
 
+import gui.ViewPosition;
+import gui.GraphicsFactory.ConsoleView;
 import gui.Menu.Menu;
 import gui.Menu.MenuManager;
 import gui.Menu.MenuControllers.SaveController;
@@ -10,16 +12,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import save.Sauvegarde;
 import utils.GameConstants;
 
-public class SaveView implements Menu {
+public class SaveView implements Menu, ViewPosition {
     private Stage primaryStage;
-    private static StackPane root = new StackPane();
-    private static Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,
+    private BorderPane root = new BorderPane();
+    private StackPane centerBox = new StackPane();
+    private HBox bottomBox = new HBox();
+    private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,
             GameConstants.DEFAULT_WINDOW_HEIGHT);
     private MenuManager sceneManager;
     //button
@@ -37,24 +43,26 @@ public class SaveView implements Menu {
     private TextField NameSave;
     private ComboBox<String> listSave;
 
+    private ConsoleView consoleView;
+
     //c'est pour avoir les fonctions de sauvegarde
     private Sauvegarde sauvegarde = new Sauvegarde();
 
     public SaveView(Stage p) {
         //super(p, scene, sceneManager);
         this.primaryStage = p;
-        root.getStyleClass().add("root");
+        centerBox.getStyleClass().add("root");
         //button
-        this.btnBack = createButton("Retour", -870, -700);
-        this.btnsave = createButton("Sauvegarder", 0, -500);
-        this.btndelete = createButton("Supprimer", 200, 590);
-        this.btnOK = createButton("OK", 0, -150);
-        this.btnload = createButton("Charger", -200, 590);
-        this.resetSave = createButton("ResetSave", 0, 300);
+        this.btnBack = createButton("Retour", -170, -350);
+        this.btnsave = createButton("Sauvegarder", 140, -350);
+        this.btndelete = createButton("Supprimer", 150, 350);
+        this.btnOK = createButton("Créer", 0, -150);
+        this.btnload = createButton("Charger", -150, 350);
+        this.resetSave = createButton("Réinitialiser", 0, 200);
         //grid
         this.grid.getStyleClass().add("grid-style");
         //text
-        this.title = createLabel("Creer une nouvelle sauvegarde", 0, 0);
+        this.title = createLabel("Créer une nouvelle sauvegarde :", 0, 0);
         this.title.getStyleClass().add("label-style");
         this.grid.add(title, 0, 0, 2, 1);
         //label
@@ -69,8 +77,23 @@ public class SaveView implements Menu {
         this.listSave.getItems().addAll(sauvegarde.listerSauvegardes());
         StackPane.setMargin(this.listSave, new javafx.geometry.Insets(-500, 0, 0, 0));
         //add to root
-        root.getChildren().addAll(grid, btnBack, btnsave, btndelete, btnOK, btnload, listSave, resetSave);
+        centerBox.getChildren().addAll(grid, btnBack, btnsave, btndelete, btnOK, btnload, listSave, resetSave);
+        centerBox.setPadding(new Insets(70, 0, 0, 0));
+        consoleView = ConsoleView.getInstance();
+        bottomBox.getChildren().add(consoleView);
+        root.setCenter(centerBox);
+        root.setBottom(bottomBox);
         new SaveController(p, this);
+    }
+
+    @Override
+    public void moveConsoleView() {
+        bottomBox.getChildren().add(consoleView);
+    }
+
+    @Override
+    public void handleDynamicAction() {
+        consoleView.setDynamicFocus(scene);
     }
 
     //GETTERS
@@ -98,7 +121,7 @@ public class SaveView implements Menu {
         return primaryStage;
     }
 
-    public StackPane getRoot() {
+    public BorderPane getRoot() {
         return root;
     }
 

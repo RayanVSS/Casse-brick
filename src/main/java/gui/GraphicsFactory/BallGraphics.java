@@ -1,8 +1,8 @@
 package gui.GraphicsFactory;
 
 import utils.GameConstants;
+import utils.ImageLoader;
 import entity.ball.*;
-import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -42,7 +42,7 @@ public class BallGraphics extends Circle implements EntityGraphics {
         if (i != null) {
             ballImage = new ImagePattern(i);
             setFill(ballImage);
-        }else{
+        } else {
             this.setFill(Color.BLACK);
         }
         setCenterX(ball.getC().getX());

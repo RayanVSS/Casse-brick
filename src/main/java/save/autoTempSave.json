@@ -21,7 +21,7 @@
       {
         "difficulty": 0,
         "unlockLevel": 1,
-        "completed": true,
+        "completed": false,
         "maxScore": 0,
         "customGame": false
       },

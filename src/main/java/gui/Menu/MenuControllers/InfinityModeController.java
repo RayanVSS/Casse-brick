@@ -31,7 +31,7 @@ public class InfinityModeController {
         ClassicRacket racket = new ClassicRacket();
         GameRules rules = GameConstants.INFINITE_MODE;
         Game game = new Game(ball, racket, rules);
-        StageLevel level = new StageLevel(game);
+        StageLevel level = new StageLevel(game, false);
         new GameView(infinityModeView.getPrimaryStage(), level);
     }
 

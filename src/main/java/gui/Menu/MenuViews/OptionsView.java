@@ -1,21 +1,24 @@
 package gui.Menu.MenuViews;
 
-
-import gui.GraphicsToolkit.LabelButton;
-import gui.GraphicsToolkit.LabelComboBoxHBox;
-import gui.GraphicsToolkit.LabelSliderHBox;
-import gui.GraphicsToolkit.LabelToggleButtonHBox;
-import gui.GraphicsToolkit.LabelVBox;
+import gui.ViewPosition;
+import gui.GraphicsFactory.ConsoleView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.OptionsController;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
+import utils.GraphicsToolkit.LabelButton;
+import utils.GraphicsToolkit.LabelComboBoxHBox;
+import utils.GraphicsToolkit.LabelSliderHBox;
+import utils.GraphicsToolkit.LabelToggleButtonHBox;
+import utils.GraphicsToolkit.LabelVBox;
 
 /**
  * Classe OptionsView qui implémente l'interface Menu pour représenter la vue
@@ -24,9 +27,12 @@ import utils.GameConstants;
  * @author Benmalek Majda
  * @author Bencheikh Ilias
  */
-public class OptionsView implements Menu {
+public class OptionsView implements Menu, ViewPosition {
     private Stage primaryStage;
-    private VBox root;
+
+    private BorderPane root;
+    private VBox centerBox;
+    private HBox bottomBox;
     private Scene scene;
 
     private HBox options;
@@ -46,15 +52,27 @@ public class OptionsView implements Menu {
     private HBox actionButtons;
     private Button backButton;
 
+    private ConsoleView consoleView;
+
     public OptionsView(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        root = new VBox(50);
+        root = new BorderPane();
+        centerBox = new VBox(50);
+        bottomBox = new HBox();
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
 
         initOptions();
         initActionButtons();
 
-        root.getChildren().addAll(options, actionButtons);
+        centerBox.getChildren().addAll(options, actionButtons);
+        centerBox.setPadding(new Insets(90, 0, 0, 0));
+
+        consoleView = ConsoleView.getInstance();
+        bottomBox.getChildren().add(consoleView);
+
+        root.setCenter(centerBox);
+        root.setBottom(bottomBox);
+
         new OptionsController(primaryStage, this);
     }
 
@@ -118,6 +136,16 @@ public class OptionsView implements Menu {
         actionButtons.getChildren().add(backButton);
     }
 
+    @Override
+    public void moveConsoleView() {
+        bottomBox.getChildren().add(consoleView);
+    }
+
+    @Override
+    public void handleDynamicAction() {
+        consoleView.setDynamicFocus(scene);
+    }
+
     public Scene getScene() {
         return scene;
     }
@@ -154,7 +182,7 @@ public class OptionsView implements Menu {
         return primaryStage;
     }
 
-    public VBox getRoot() {
+    public BorderPane getRoot() {
         return root;
     }
 

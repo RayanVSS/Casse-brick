@@ -124,7 +124,7 @@ public class Game {
     }
 
     private void updateGameStatus() { // Vérifie & MAJ le statut de la Game, gagnée/perdue
-        if (life == 0 || !rules.check()) {
+        if (life == 0 || !rules.check(map, racket.getC())) {
             lost = true;
             inGameTimer.cancel();
         }

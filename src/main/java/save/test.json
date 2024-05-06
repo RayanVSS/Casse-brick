@@ -1,6 +1,6 @@
 {
   "PATH": false,
-  "MUSIC": 0,
+  "MUSIC": 50,
   "CSS": "CLASSIC",
   "MONEY": 0,
   "SKIN_BALL": "Null",
@@ -10,7 +10,7 @@
   "FPS": true,
   "PSEUDO": "",
   "SPACE": "SPACE",
-  "TEXTURE": "Null",
+  "TEXTURE": "Dark_Matter.jpg",
   "EXP_LEVEL": 1,
   "PROGRESS": {
     "stages": [

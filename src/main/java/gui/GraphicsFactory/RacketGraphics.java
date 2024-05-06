@@ -1,7 +1,6 @@
 package gui.GraphicsFactory;
 
 import entity.racket.MagnetRacket;
-import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -11,6 +10,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import physics.entity.Racket;
 import utils.GameConstants;
+import utils.ImageLoader;
 
 /**
  * Classe RacketGraphics qui encapsule un objet Shape pour représenter

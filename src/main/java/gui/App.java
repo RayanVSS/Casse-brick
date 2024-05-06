@@ -1,10 +1,13 @@
 package gui;
 
+import gui.GraphicsFactory.ConsoleView;
 import gui.Menu.MenuManager;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import save.PlayerData;
 import save.Sauvegarde;
 import utils.Sound.BallSound;
@@ -17,9 +20,9 @@ import utils.Sound.Music;
 
 public class App extends Application {
 
-    protected Stage primaryStage;
+    protected static Stage primaryStage;
     public static MenuManager menuManager = new MenuManager();
-    private Sauvegarde sauvegarde = new Sauvegarde();
+    public static Sauvegarde sauvegarde = new Sauvegarde();
     public static ClickSound clickSoundPlayer;
     public static GameOverSound gameOverS;
     public static Music music;
@@ -33,10 +36,11 @@ public class App extends Application {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                Console.init();
+                ConsoleView.getInstance().registerFocusStage(p);
                 PlayerData.initPlayerData();
                 // chargement de la derniere sauvegarde
                 sauvegarde.setupLastSave();
-                Console.init();
 
                 // initialisation des sons
                 clickSoundPlayer = new ClickSound();
@@ -54,22 +58,33 @@ public class App extends Application {
                 primaryStage.setTitle("Casse Brique");
 
                 menuManager.preCreateAllView(primaryStage);
-
-                primaryStage.setScene(menuManager.getScene("StartMenuView"));
+                menuManager.changeScene(p, "StartMenuView");
 
                 primaryStage.show();
                 primaryStage.setOnCloseRequest(event -> {
-                    autoSaveAndQuit();
+                    event.consume();
+                    autoSaveAndQuit1();
                 });
             }
         });
     }
 
-    public void autoSaveAndQuit() {
+    public static void autoSaveAndQuit1() { // Rapide, ne pas voir l'exécution 
         sauvegarde.autoSave();
         primaryStage.close();
         Platform.exit();
         System.exit(0);
+    }
+
+    public static void autoSaveAndQuit2() { // Lent, voir l'exécution 
+        sauvegarde.autoSave();
+        PauseTransition pause = new PauseTransition(Duration.seconds(1.0));
+        pause.setOnFinished(event -> {
+            primaryStage.close();
+            Platform.exit();
+            System.exit(0);
+        });
+        pause.play();
     }
 
     public static void main(String[] args) {

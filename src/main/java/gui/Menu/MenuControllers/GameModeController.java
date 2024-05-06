@@ -30,7 +30,7 @@ public class GameModeController {
             click.play();
             back();
         });
-        gameModeView.getInfinityButton().setOnAction(e -> showInfinityMode());
+        //gameModeView.getInfinityButton().setOnAction(e -> showInfinityMode());
     }
 
     private void showStages() {

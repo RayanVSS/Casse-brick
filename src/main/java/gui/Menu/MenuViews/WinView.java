@@ -3,6 +3,7 @@ package gui.Menu.MenuViews;
 import config.StageLevel;
 import gui.App;
 import gui.GameView;
+import gui.ViewPosition;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.WinController;
 import javafx.scene.control.Button;
@@ -11,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
-public class WinView extends VBox implements Menu {
+public class WinView extends VBox implements Menu, ViewPosition {
 
     private Stage primaryStage;
     private GameView game;
@@ -50,6 +51,7 @@ public class WinView extends VBox implements Menu {
             finDuJeu();
         }
         gain.setText("Gain : " + GameConstants.LAST_WIN_MONEY);
+        saveViewPosition();
         new WinController(this);
     }
 

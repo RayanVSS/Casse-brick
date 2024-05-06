@@ -9,6 +9,7 @@ import entity.racket.ClassicRacket;
 import entity.racket.DegradeRacket;
 import entity.racket.MagnetRacket;
 import entity.ball.MagnetBall;
+import gui.ViewPosition;
 import gui.Item;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
@@ -101,11 +102,10 @@ public final class GameConstants {
         public static KeyCode RIGHT = KeyCode.RIGHT;
         public static KeyCode SPACE = KeyCode.SPACE;
         public static Theme CSS = Theme.CLASSIC;
-        public static Item BALL_PORTE=null;
+        public static Item BALL_PORTE = null;
         public static Item RACKET_PORTE = null;
         public static String TEXTURE = "Null";
         public static String SKIN_BALL = "Null";
-        
 
         // derniere save
         public static String LAST_SAVE;
@@ -197,6 +197,9 @@ public final class GameConstants {
         // DISPLAY VALUES (valeurs servant de stockeur ici pour un accès direct/facile
         // par les afficheurs)
         public static int LAST_WIN_MONEY;
+
+        // Donne l'info sur la vue où l'on se trouve actuellement (à mettre à jour continuellement par remplacement de valeur)
+        public static ViewPosition ACTUAL_VIEW;
 
         // TEXTURE:
 

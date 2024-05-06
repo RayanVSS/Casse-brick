@@ -1,4 +1,5 @@
 package save;
+
 import static utils.GameConstants.CSS;
 import static utils.GameConstants.FPS;
 import static utils.GameConstants.LAST_SAVE;
@@ -27,6 +28,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import config.StagesProgress;
+import gui.Console;
 import gui.Inventaire;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
@@ -118,7 +120,7 @@ public class Sauvegarde {
         options.put("SPACE", SPACE);
         options.put("CSS", CSS);
         options.put("TEXTURE", TEXTURE);
-        options.put("SKIN_BALL",SKIN_BALL);
+        options.put("SKIN_BALL", SKIN_BALL);
 
         return options;
     }
@@ -131,7 +133,7 @@ public class Sauvegarde {
         playerData.put("MONEY", PlayerData.money);
         playerData.put("ADMIN", PlayerData.isAdmin);
         playerData.put("PROGRESS", PlayerData.stagesProgress);
-        playerData.put("INVENTAIRE",PlayerData.inventaire);
+        playerData.put("INVENTAIRE", PlayerData.inventaire);
         return playerData;
     }
 
@@ -237,12 +239,12 @@ public class Sauvegarde {
         if (fichierSauvegarde.exists() && fichierSauvegarde.isFile() && fichierSauvegarde.getName().endsWith(".json")
                 && !fichierSauvegarde.getName().equals("lastSave.json")) {
             if (fichierSauvegarde.delete()) {
-                System.out.println("La sauvegarde '" + nomSauvegarde + "' a été supprimée.");
+                Console.systemDisplay("La sauvegarde '" + nomSauvegarde + "' a été supprimée.");
             } else {
-                System.out.println("Impossible de supprimer la sauvegarde '" + nomSauvegarde + "'.");
+                Console.systemDisplay("Impossible de supprimer la sauvegarde : '" + nomSauvegarde + "'");
             }
         } else {
-            System.out.println("La sauvegarde '" + nomSauvegarde + "' n'existe pas.");
+            Console.systemDisplay("La sauvegarde '" + nomSauvegarde + "' n'existe pas.");
         }
     }
 
@@ -262,14 +264,14 @@ public class Sauvegarde {
     }
 
     public void setupLastSave() {
-        System.out.println("Chargement de la dernière sauvegarde...");
+        Console.systemDisplay("Chargement de la dernière sauvegarde...");
         chargerLastSave();
         if (!LAST_SAVE.equals("")) {
             chargerOptionsDuJeu(LAST_SAVE);
             chargerPlayerData(LAST_SAVE);
-            System.out.println("Sauvegarde de : '" + LAST_SAVE + "'.");
+            Console.systemDisplay("Sauvegarde chargée : '" + LAST_SAVE + "'");
         } else {
-            System.err.println("Impossible de charger la dernière sauvegarde.");
+            Console.systemDisplay("Impossible de charger la dernière sauvegarde.");
         }
     }
 
@@ -278,14 +280,15 @@ public class Sauvegarde {
         if (GameConstants.LAST_SAVE.equals("")) {
             saveName = "autoTempSave";
             Map<String, Object> lastSave = new HashMap<>();
-            lastSave.put("SAVE", saveName);
+            lastSave.put("SAVE", saveName + ".json");
             sauvegarderDonnees("lastSave", lastSave);
         } else {
             saveName = GameConstants.LAST_SAVE.replace(".json", "");
         }
         sauvegarderToutesDonnees(saveName);
         GameConstants.LAST_SAVE = saveName + ".json";
-        System.out.println("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès.");
+        Console.systemDisplay("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès.");
+        Console.systemDisplay("Fermeture du jeu...");
     }
 
 }
