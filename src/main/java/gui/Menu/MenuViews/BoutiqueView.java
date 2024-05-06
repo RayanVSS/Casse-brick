@@ -2,8 +2,8 @@ package gui.Menu.MenuViews;
 
 import gui.Item;
 import gui.Menu.MenuControllers.BoutiqueController;
-import gui.GraphicsToolkit.LabelVBox;
-import gui.ImageLoader;
+import utils.ImageLoader;
+import utils.GraphicsToolkit.LabelVBox;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -54,7 +54,7 @@ public class BoutiqueView implements Menu {
         title = createLabel("Boutique", 0, 0);
         title.getStyleClass().add("title-style");
 
-        back = createButton("retour", 0, 0);
+        back = createButton("Retour", 0, 0);
 
         root.getStyleClass().add("root");
         root.getChildren().add(title);
