@@ -1,6 +1,8 @@
 package gui.Menu.MenuViews;
 
 import gui.Item;
+import gui.ViewPosition;
+import gui.GraphicsFactory.ConsoleView;
 import gui.Menu.MenuControllers.BoutiqueController;
 import utils.ImageLoader;
 import utils.GraphicsToolkit.LabelVBox;
@@ -9,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,10 +22,12 @@ import save.PlayerData;
 import utils.GameConstants;
 import gui.Menu.Menu;
 
-public class BoutiqueView implements Menu {
+public class BoutiqueView implements Menu, ViewPosition {
 
     private Stage primaryStage;
-    private VBox root;
+    private BorderPane root;
+    private VBox contentBox;
+    private HBox consoleBox;
     private Scene scene;
 
     private Label title;
@@ -43,9 +48,13 @@ public class BoutiqueView implements Menu {
     private Button back;
     private final int startPrice = 5;
 
+    private ConsoleView consoleView;
+
     public BoutiqueView(Stage p) {
         this.primaryStage = p;
-        root = new VBox();
+        root = new BorderPane();
+        contentBox = new VBox();
+        consoleBox = new HBox();
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
         System.out.println("BoutiqueView created");
 
@@ -56,11 +65,14 @@ public class BoutiqueView implements Menu {
 
         back = createButton("Retour", 0, 0);
 
-        root.getStyleClass().add("root");
-        root.getChildren().add(title);
-        root.getChildren().add(moneyVBox);
-        root.getChildren().add(boutique);
-        root.getChildren().add(back);
+        contentBox.getStyleClass().add("root");
+        contentBox.getChildren().addAll(title, moneyVBox, boutique, back);
+
+        consoleView = ConsoleView.getInstance();
+        consoleBox.getChildren().add(consoleView);
+
+        root.setCenter(contentBox);
+        root.setBottom(consoleBox);
 
         System.out.println("SKIN BALL: " + GameConstants.SKIN_BALL);
         new BoutiqueController(this);
@@ -146,6 +158,16 @@ public class BoutiqueView implements Menu {
     }
 
     @Override
+    public void moveConsoleView() {
+        consoleBox.getChildren().add(consoleView);
+    }
+
+    @Override
+    public void handleDynamicAction() {
+        consoleView.setDynamicFocus(scene);
+    }
+
+    @Override
     public Scene getScene() {
         return scene;
     }
@@ -155,7 +177,7 @@ public class BoutiqueView implements Menu {
         return primaryStage;
     }
 
-    public VBox getRoot() {
+    public BorderPane getRoot() {
         return root;
     }
 

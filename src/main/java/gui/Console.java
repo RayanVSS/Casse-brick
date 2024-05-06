@@ -9,6 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import gui.Menu.Menu;
+import gui.Menu.MenuViews.BoutiqueView;
 import gui.Menu.MenuViews.ChapterView;
 import gui.Menu.MenuViews.GameCustomizerView;
 import gui.Menu.MenuViews.GameModeView;
@@ -255,6 +256,8 @@ public class Console {
 
             if (actualView instanceof GameView) {
                 result += "En Jeu";
+            } else if (actualView instanceof BoutiqueView) {
+                result += "Boutique";
             } else if (actualView instanceof ChapterView) {
                 result += "Sélection des chapitres";
             } else if (actualView instanceof GameCustomizerView) {
