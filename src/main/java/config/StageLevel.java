@@ -1,5 +1,7 @@
 package config;
 
+import entity.ball.ClassicBall;
+import entity.racket.ClassicRacket;
 import gui.Menu.MenuControllers.GameCustomizerController;
 import save.PlayerData;
 import utils.GameConstants;
@@ -25,6 +27,10 @@ public class StageLevel {
         this.customGame = customGame;
     }
 
+    public StageLevel(Game game) {
+        this.game = game;
+    }
+
     public boolean canLoadGame() {
         if (PlayerData.expLevel >= unlockLevel) {
             System.out.println("Chargement du jeu...");
@@ -42,13 +48,17 @@ public class StageLevel {
     }
 
     public void resetGame() {
-        game.resetBalls();
+        game.getBall().reset(GameConstants.DEFAULT_BALL_START_COORDINATES);
         game.getRacket().reset();
         game.getRules().reset();
-        game = new Game(
+        if (game.getRules().isInfinite()){
+            game=new Game(new ClassicBall(), new ClassicRacket(), GameConstants.INFINITE_MODE);
+        }else{
+            game = new Game(
                 GameConstants.PRECONFIG_GAME_BALL[difficulty],
                 GameConstants.PRECONFIG_GAME_RACKET[difficulty],
                 GameConstants.PRECONFIG_GAME_RULES[difficulty]);
+            }
     }
 
     public void lostAction() {

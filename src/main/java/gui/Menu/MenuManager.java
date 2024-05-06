@@ -7,6 +7,7 @@ import gui.Menu.MenuViews.BoutiqueView;
 import gui.Menu.MenuViews.ChapterView;
 import gui.Menu.MenuViews.GameCustomizerView;
 import gui.Menu.MenuViews.GameModeView;
+import gui.Menu.MenuViews.InfinityModeView;
 import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
@@ -101,6 +102,7 @@ public class MenuManager {
         createStageSelectorViewScene(primaryStage);
         createGameCustomizerViewScene(primaryStage);
         createChapterViewScene(primaryStage);
+        createInfinityModeViewScene(primaryStage);
         createBoutiqueView(primaryStage);
     }
 
@@ -152,6 +154,12 @@ public class MenuManager {
         BoutiqueView boutiqueView = new BoutiqueView(primaryStage);
         addStylesheet(boutiqueView);
         addMenu("BoutiqueView", boutiqueView);
+    }
+
+    public void createInfinityModeViewScene(Stage primaryStage) {
+        InfinityModeView infinityModeView = new InfinityModeView(primaryStage);
+        addStylesheet(infinityModeView);
+        addMenu("InfinityModeView", infinityModeView);
     }
 
     /**

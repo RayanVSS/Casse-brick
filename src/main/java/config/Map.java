@@ -26,9 +26,27 @@ public class Map {
                     initDefaultBricksArrangement(columnsBricks, rowsBricks);
                     break;
 
-                case RANDOM:
+            case INFINITE:
+                initInfiniteBricksArrangement();
+                break;
+            case RANDOM:
 
                     break;
+            }
+        } else {
+            throw new IllegalArgumentException("Erreur sur la config de la map.");
+        }
+    }
+
+    // TODO A FACTORISER
+    private void initInfiniteBricksArrangement() {
+        if (checkDefaultParameters(GameConstants.COLUMNS_OF_BRICKS, GameConstants.ROWS_OF_BRICKS)) {
+            bricks = new Brick[GameConstants.MAP_WIDTH][GameConstants.MAP_HEIGHT];
+            for (int i = 0; i < GameConstants.MAP_WIDTH; i++) {
+                for (int j = 0; j < GameConstants.ROWS_OF_BRICKS; j++) {
+                    bricks[i][j] = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
+                            j * GameConstants.BRICK_HEIGHT));
+                }
             }
         } else {
             throw new IllegalArgumentException("Erreur sur la config de la map.");
@@ -60,8 +78,8 @@ public class Map {
     public Brick[][] getBricks() {
         return bricks;
     }
-
-    private boolean inMap(int x, int y) {
+    //JLAI RENDUE PUBLIC
+    public boolean inMap(int x, int y) {
         return x >= 0 && x < bricks.length && y >= 0 && y < bricks[0].length;
     }
 
@@ -165,6 +183,35 @@ public class Map {
         return list;
     }
 
+    public int lastBrick(){
+        int res=0;
+        for (int i =bricks.length-1;i>-1;i--){
+            for (int j=bricks[0].length-1;j>-1;j--){
+                if (bricks[i][j]!=null){
+                    res=i;
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+
+    public Brick lastBricks(){
+        Brick res=null;
+        for (int i =bricks.length-1;i>-1;i--){
+            for (int j=bricks[0].length-1;j>-1;j--){
+                if (bricks[i][j]!=null){
+                    res=bricks[i][j];
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+    // TODO méthode :
+    // - pour savoir si une brique est arrivé en bas
+    // - pour descendre les briques et créer de nouvelle briques FAIT
+
     public void displayBricksInTerminal() { // pour les tests
 
         for (int i = 0; i < bricks[0].length; i++) {
@@ -229,3 +276,31 @@ public class Map {
     }
 
 }
+
+// int borneXJ = (int) list.get(0).getC().getIntX() / GameConstants.BRICK_WIDTH;
+// int borneYI = (int) list.get(0).getC().getIntY() /
+// GameConstants.BRICK_HEIGHT;
+// for (int i = 0; i < borneYI; i++) {
+// for (int j = 0; j < borneXJ; j++) {
+// // if (bricks[j][i] == null) {
+// bricks[i][j] = new BrickClassic(new Coordinates(i *
+// GameConstants.BRICK_WIDTH,
+// j * GameConstants.BRICK_HEIGHT));
+// // }
+// }
+// }
+
+// int ii = 0;
+// int jj = 0;
+// while (bricks[jj][ii] == null) {
+// bricks[jj][ii] = new BrickClassic(
+// new Coordinates(ii * GameConstants.BRICK_WIDTH, jj *
+// GameConstants.BRICK_HEIGHT));
+// if (ii == bricks[0].length - 1) {
+// jj = 0;
+// ii++;
+// } else {
+// jj++;
+// }
+// }
+// displayBricksInTerminal();

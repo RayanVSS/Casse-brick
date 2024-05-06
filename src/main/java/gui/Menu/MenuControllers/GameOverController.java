@@ -42,10 +42,10 @@ public class GameOverController {
      */
     private void replay() {
         Platform.runLater(() -> {
-
             if (view.getGame().getStageLevel().isCustomGame()) {
                 view.getGame().getStageLevel().getGameReinitializer().createGame();
-            } else {
+            }
+            else{
                 new GameView(view.getPrimaryStage(), view.getGame().getStageLevel());
             }
 

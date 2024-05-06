@@ -228,8 +228,9 @@ public abstract class Ball extends Entity {
         return Math.max(min, Math.min(max, val));
     }
 
-    public void reset() {
-        this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
+    public void reset(Coordinates c) {
+        this.setC(c);
+        // this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
         this.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION);
         this.setSpeed(GameConstants.DEFAULT_BALL_SPEED);
         this.setRadius(GameConstants.DEFAULT_BALL_RADIUS);

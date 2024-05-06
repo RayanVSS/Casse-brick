@@ -9,6 +9,7 @@ import entity.ball.MagnetBall;
 import entity.Bonus;
 import physics.entity.Ball;
 import physics.entity.Racket;
+import physics.geometry.Coordinates;
 import utils.GameConstants;
 import gui.App;
 
@@ -26,26 +27,38 @@ public class Game {
     private Timer inGameTimer;
     private int timeElapsed = 0; // en secondes
     private List<Bonus> bonuslist = new ArrayList<>();
-    private List<Ball> balls = new ArrayList<>();
+    //private List<Ball> balls = new ArrayList<>();
+    // private boolean isInfinite;
 
     public Game(Ball ball, Racket racket, GameRules rules) {
         originalball = ball;
-        balls.add(Ball.clone(ball));
+        //balls.add(Ball.clone(ball));
         this.racket = racket;
         this.rules = rules;
         this.map = new Map(rules, GameConstants.COLUMNS_OF_BRICKS, GameConstants.ROWS_OF_BRICKS);
         rules.initRules(this);
+        // this.isInfinite = false;
     }
 
     public Game(Ball ball, Racket racket, int life, GameRules rules, int columnsBricks, int rowsBricks) {
         originalball = ball;
-        balls.add(Ball.clone(ball));
+        //balls.add(Ball.clone(ball));
         this.racket = racket;
         this.life = life;
         this.rules = rules;
         this.map = new Map(rules, columnsBricks, rowsBricks);
+        // this.isInfinite = false;
         rules.initRules(this);
     }
+    //TODO SERT A RIEN
+    // public Game(Ball ball, Racket racket, GameRules rules, boolean isInfinite) {
+    //     this.ball = ball;
+    //     this.racket = racket;
+    //     this.rules = rules;
+    //     this.map = new Map(rules, GameConstants.COLUMNS_OF_BRICKS,GameConstants.ROWS_OF_BRICKS);
+    //     // this.isInfinite = isInfinite;
+    //     rules.initRules(this);
+    // }
 
     private void start() {
         if (inGameTimer == null) {
@@ -89,30 +102,32 @@ public class Game {
                 App.ballSound.play();
                 updateRulesRacket();
             }
-            ball.checkCollisionOtherBall(balls);
+            if (rules.isInfinite()){
+                ball.reset(resetBallInfinite());
+            }else{
+                ball.checkCollisionOtherBall(ballsGameConstants.DEFAULT_BALL_START_COORDINATES);
+            }
             ball.movement();
 
-            if (ball instanceof MagnetBall) {
-                // donne les coordonnées de la raquette a la MagnetBall
-                setRa();
-                // actualise l'etat de la raquette
-                if (BallFrontRacket(ball)) {
-                    ((MagnetBall) ball).setFront(true);
-                } else {
-                    ((MagnetBall) ball).setFront(false);
-                }
+        if (ball instanceof MagnetBall) {
+            // donne les coordonnées de la raquette a la MagnetBall
+            setRa();
+            // actualise l'etat de la raquette
+            if (BallFrontRacket()) {
+                ((MagnetBall) ball).setFront(true);
+            } else {
+                ((MagnetBall) ball).setFront(false);
             }
         }
-        
-        // Gere les conditions de perte
-        if (balls.isEmpty()) {
-            life--;
-            balls.add(Ball.clone(originalball));
-            racket.reset();
+        if (rules.isInfinite()) {
+            rules.infiniteUpdate(map);
         }
+
         updateGameStatus();
     }
 
+
+    //TODO METTRE DANS GAMESRULES
     private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette
         rules.updateRemainingBounces();
         rules.updateBricksTransparency(map);
@@ -121,7 +136,7 @@ public class Game {
     }
 
     private void updateGameStatus() { // Vérifie & MAJ le statut de la Game, gagnée/perdue
-        if (life == 0 || !rules.check()) {
+        if (life == 0 || !rules.check(map,racket.getC())) {
             lost = true;
             inGameTimer.cancel();
         }
@@ -149,8 +164,13 @@ public class Game {
     }
 
     private boolean verifyWin() {
-        //return true; // décommenter ici pour tester les wins
-        return map.countBricks() == 0;
+        return false; // décommenter ici pour tester les wins
+        // return map.countBricks() == 0;
+    }
+
+    public Coordinates resetBallInfinite(){
+        Coordinates c=new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH/2, map.lastBrick()+900/2);//TODO A tâtonner SINON LE METTRE PROCHE DE LA RAQUETTE
+        return c;
     }
 
     // Setters/getters
@@ -217,4 +237,8 @@ public class Game {
         this.score = score;
     }
 
+
+    // public boolean isInfinite() {
+    //     return isInfinite;
+    // }
 }
