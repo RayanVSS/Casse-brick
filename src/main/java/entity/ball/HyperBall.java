@@ -14,13 +14,13 @@ public class HyperBall extends Ball {
     }
 
     public HyperBall() {
-        super(GameConstants.DEFAULT_BALL_START_COORDINATES, GameConstants.DEFAULT_BALL_START_DIRECTION,
+        super(GameConstants.DEFAULT_BALL_START_COORDINATES.clone(), GameConstants.DEFAULT_BALL_START_DIRECTION.clone(),
                 GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS);
+        super.getPhysicSetting().setWindow(GameConstants.DEFAULT_GAME_ROOT_WIDTH,GameConstants.DEFAULT_WINDOW_HEIGHT);
     }
 
     @Override
-    public boolean movement() {
-        boolean lost = true;
+    public void movement() {
         double w = getZoneWidth();
         double h = getZoneHeight();
         double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
@@ -76,13 +76,12 @@ public class HyperBall extends Ball {
             this.getDirection().setY(this.getDirection().getY() * super.getPhysicSetting().getRetention());
         }
         if (newY > h - this.getRadius()) {
-            lost = false;
+            super.setDelete(false);
         }
         this.setC(new Coordinates(newX, newY));
         this.getDirection().add(super.getPhysicSetting().getWind());
         super.getPhysicSetting().checkGravity(getC(), getDirection());
         setBoost();
-        return lost;
     }
 
     public void setBoost() {

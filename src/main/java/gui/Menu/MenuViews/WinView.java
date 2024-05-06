@@ -1,6 +1,7 @@
 package gui.Menu.MenuViews;
 
 import config.StageLevel;
+import gui.App;
 import gui.GameView;
 import gui.ViewPosition;
 import gui.Menu.Menu;
@@ -23,7 +24,7 @@ public class WinView extends VBox implements Menu, ViewPosition {
     private Label gain;
 
     public WinView(Stage p, GameView game, StageLevel level) {
-
+        App.levelUp.play();
         this.primaryStage = p;
         this.game = game;
         this.level = level;

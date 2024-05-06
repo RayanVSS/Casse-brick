@@ -37,6 +37,7 @@ public class StartMenuView implements Menu, ViewPosition {
     private Button btnPlay;
     private Button btnOptions;
     private Button btnQuit;
+    private Button btnBoutique;
     private Button btnSave;
     private Label title;
     private ConsoleView consoleView;
@@ -71,10 +72,11 @@ public class StartMenuView implements Menu, ViewPosition {
         title = createLabel("Casse Brique", 0, 0);
         btnPlay = createButton("Jouer", 0, 0);
         btnOptions = createButton("Options", 0, 0);
+        btnBoutique = createButton("Boutique", 0, 0);
         btnSave = createButton("Sauvegarder", 0, 0);
         btnQuit = createButton("Quitter", 0, 0);
         setCenterBoxStyle();
-        centerBox.getChildren().addAll(title, btnPlay, btnOptions, btnSave, btnQuit);
+        centerBox.getChildren().addAll(title, btnPlay, btnOptions, btnBoutique, btnSave, btnQuit);
     }
 
     private void setCenterBoxStyle() {
@@ -158,6 +160,15 @@ public class StartMenuView implements Menu, ViewPosition {
      */
     public Button getBtnSave() {
         return btnSave;
+    }
+
+    /**
+     * Méthode pour obtenir le bouton Boutique.
+     * 
+     * @return Le bouton Boutique.
+     */
+    public Button getBtnBoutique() {
+        return btnBoutique;
     }
 
     public Scene getScene() {

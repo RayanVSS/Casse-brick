@@ -42,6 +42,10 @@ public class StartMenuController {
             click.play();
             sauvegarde();
         });
+        this.view.getBtnBoutique().setOnAction(e -> {
+            click.play();
+            boutique();
+        });
     }
 
     /**
@@ -81,6 +85,15 @@ public class StartMenuController {
         Platform.runLater(() -> {
             App.menuManager.changeScene(view.getPrimaryStage(), "SaveView");
         });
+    }
+
+    /**
+     * Méthode pour accéder à la boutique.
+     */
+    private void boutique() {
+        //Platform.runLater(() -> {
+            App.menuManager.changeScene(view.getPrimaryStage(), "BoutiqueView");
+        //});
     }
 
 }

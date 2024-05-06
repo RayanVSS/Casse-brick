@@ -1,7 +1,7 @@
 package gui.GraphicsFactory;
 
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import utils.FPS;
 import utils.GameConstants;
 
@@ -13,8 +13,8 @@ import utils.GameConstants;
  * @author Belhassen rayan
  */
 public class FPSGraphics extends Pane {
-    private Text fpsText = new Text(); // Texte pour afficher les FPS
-    private Text maxfpsText = new Text(); // Texte pour afficher les FPS maximum
+    private Label fpsText = new Label(); // Texte pour afficher les FPS
+    private Label maxfpsText = new Label(); // Texte pour afficher les FPS maximum
     private FPS fpsCalculator = new FPS(); // Calculateur de FPS
 
     /**
@@ -22,12 +22,14 @@ public class FPSGraphics extends Pane {
      * Initialise les éléments graphiques et les ajoute à la vue.
      */
     public FPSGraphics() {
-        fpsText.setX(10);
-        fpsText.setY(20);
-        maxfpsText.setX(10);
-        maxfpsText.setY(40);
+        fpsText.setLayoutX(10);
+        fpsText.setLayoutY(20);
+        maxfpsText.setLayoutX(10);
+        maxfpsText.setLayoutY(40);
         fpsText.getStyleClass().add("scoreL-style");
         maxfpsText.getStyleClass().add("scoreL-style");
+        fpsText.setText("FPS: 0.00");
+        maxfpsText.setText("Max FPS: 0.00");
         getChildren().add(fpsText);
         getChildren().add(maxfpsText);
         getStylesheets().add(GameConstants.CSS.getPath());

@@ -42,5 +42,9 @@ public class Coordinates {
     public int getIntY() {
         return (int) y;
     }
+
+    public Coordinates clone() {
+        return new Coordinates(x, y);
+    }
     
 }
