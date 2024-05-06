@@ -129,7 +129,7 @@
 
 .console {
     /* Ajouter si besoin */
-    -fx-background-color: green;
+    /* -fx-background-color: green; */
 }
 
 .console-scroll-pane {
@@ -179,7 +179,7 @@
 }
 
 .console-send-button {
-    -fx-background-color: rgba(97, 224, 165, 0.2);
+    -fx-background-color: rgba(96, 143, 155, 0.2);
     -fx-text-fill: white;
     -fx-font-weight: 600;
 }

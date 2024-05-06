@@ -3,6 +3,7 @@ package gui;
 import utils.GameConstants;
 
 /**
+ * À implémenter dans les classes accueillant une ConsoleView
  * Utilité principale : Pour la compatibilité avec ConsoleView / Connaître la vue sur laquelle on se trouve à l'instant actuel.
  * Méthode : étiquettage des classes relatives à la vue actuelle (connaître la position).
  */

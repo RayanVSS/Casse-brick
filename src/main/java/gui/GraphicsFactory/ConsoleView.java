@@ -43,6 +43,8 @@ public class ConsoleView extends VBox {
     private Timer updateTimer;
     private Timer labelPreviewTimer;
 
+    public static int TEST_INDEX;
+
     // Constructeur privé pour empêcher l'instanciation directe
     private ConsoleView() {
         initComponents();
@@ -51,15 +53,20 @@ public class ConsoleView extends VBox {
         setStaticStyle();
         labelPreviewTimer = new Timer();
         // Décommenter ci-dessous pour tester
-        // Timer testTimer = new Timer();
-        // testTimer.scheduleAtFixedRate(new TimerTask() {
-        //     @Override
-        //     public void run() {
-        //         Platform.runLater(() -> {
-        //             Console.systemDisplay("OK");
-        //         });
-        //     }
-        // }, 0, 5000);
+        Timer testTimer = new Timer();
+        testTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    Console.systemDisplay("Test" + TEST_INDEX);
+                    TEST_INDEX++;
+                    if (TEST_INDEX == 3) {
+                        testTimer.cancel();
+                        Console.systemDisplay("FinTEST" + TEST_INDEX);
+                    }
+                });
+            }
+        }, 0, 5000);
     }
 
     /**
