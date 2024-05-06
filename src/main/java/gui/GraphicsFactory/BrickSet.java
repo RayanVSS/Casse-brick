@@ -1,11 +1,11 @@
 package gui.GraphicsFactory;
 
 import entity.EntityColor;
-import gui.ImageLoader;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import physics.entity.Brick;
 import utils.GameConstants;
+import utils.ImageLoader;
 
 public class BrickSet extends Group {
     Image image = ImageLoader.loadImage("src/main/ressources/briquee.png");

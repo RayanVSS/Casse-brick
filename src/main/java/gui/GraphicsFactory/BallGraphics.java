@@ -1,11 +1,11 @@
 package gui.GraphicsFactory;
 
 import utils.GameConstants;
+import utils.ImageLoader;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
 import entity.ball.MagnetBall;
-import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import physics.entity.Ball;

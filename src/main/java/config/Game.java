@@ -11,6 +11,7 @@ import physics.entity.Ball;
 import physics.entity.Racket;
 import utils.GameConstants;
 import gui.App;
+import javafx.application.Platform;
 
 public class Game {
 
@@ -50,8 +51,10 @@ public class Game {
             inGameTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() { // chaque seconde
-                    timeElapsed++;
-                    rules.updateRemainingTime();
+                    Platform.runLater(() -> {
+                        timeElapsed++;
+                        rules.updateRemainingTime();
+                    });
                 }
             }, 0, 1000);
         }

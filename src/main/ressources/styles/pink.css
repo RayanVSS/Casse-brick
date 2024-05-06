@@ -124,3 +124,107 @@
     -fx-font-style: italic;
     -fx-font-weight: bold;
 }
+
+.console {
+    /* Ajouter si besoin */
+    /* -fx-background-color: green; */
+}
+
+.console-scroll-pane *:disabled {
+    -fx-opacity: 1;
+}
+
+.console-scroll-pane {
+    -fx-padding: 4;
+}
+
+.console-scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.console-scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.console-scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.console-scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #a74984;
+    -fx-background-radius: 10px;
+}
+
+.console-scroll-pane .scroll-bar .increment-button,
+.console-scroll-pane .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+}
+
+.console-scroll-pane .scroll-bar .increment-button:pressed,
+.console-scroll-pane .scroll-bar .decrement-button:pressed {
+    -fx-background-color: transparent;
+}
+
+.console-scroll-pane-unfocus {
+    -fx-background-color: rgba(255, 182, 193, 0.0);
+}
+
+.console-scroll-pane-unfocus:hover {
+    -fx-background-color: rgba(255, 182, 193, 0.1);
+}
+
+.console-scroll-pane-focus {
+    -fx-background-color: rgba(255, 182, 193, 0.3);
+}
+
+
+.console-text-area {
+    /* Ajouter si besoin */
+}
+
+.console-send-box {
+    /* Ajouter si besoin */
+}
+
+.console-input-field {
+    -fx-border-radius: 0;
+    -fx-background-color: rgba(167, 73, 132, 0.3);
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: #C71585;
+    -fx-font-weight: bold;
+    -fx-prompt-text-fill: rgba(199, 21, 133, 0.3);
+}
+
+.console-input-field:disabled {
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill: #C71585;
+}
+
+.console-send-button {
+    -fx-background-color: rgba(241, 123, 184, 0.2);
+    -fx-text-fill: #C71585;
+    -fx-font-weight: 600;
+}
+
+.console-send-button:disabled {
+    -fx-background-color: transparent;
+    -fx-text-fill: none;
+}
+
+.console-send-button:hover {
+    -fx-background-color: rgba(241, 123, 184, 0.4);
+}
+
+.console-scroll-pane-label {
+    -fx-background-color: transparent;
+    -fx-text-fill: #C71585;
+    -fx-padding: 2;
+    -fx-background-radius: 5;
+    -fx-font-size: 13px;
+}

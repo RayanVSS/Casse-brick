@@ -166,7 +166,6 @@ public class GameRules {
     }
 
     public boolean verifyColor(Brick brick, Ball ball) {
-        System.out.println("" + brick.getColor() + ball.getColor());
         return brick.getColor() == ball.getColor();
     }
 

@@ -1,10 +1,8 @@
 package gui.GraphicsFactory;
 
-
 import config.Game;
 import config.GameRules;
 import config.StageLevel;
-import gui.ImageLoader;
 import gui.Menu.Menu;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -13,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import utils.GameConstants;
+import utils.ImageLoader;
 
 /**
  * Classe ScoreLifeView qui étend Pane pour afficher le score et la vie dans le
