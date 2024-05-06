@@ -6,6 +6,7 @@ import gui.GraphicsFactory.ConsoleView;
 import gui.Menu.MenuControllers.BoutiqueController;
 import utils.ImageLoader;
 import utils.GraphicsToolkit.LabelVBox;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -73,6 +75,7 @@ public class BoutiqueView implements Menu, ViewPosition {
 
         root.setCenter(contentBox);
         root.setBottom(consoleBox);
+        localStyle();
 
         System.out.println("SKIN BALL: " + GameConstants.SKIN_BALL);
         new BoutiqueController(this);
@@ -155,6 +158,12 @@ public class BoutiqueView implements Menu, ViewPosition {
         rect.setArcWidth(10);
         rect.setArcHeight(10);
         return rect;
+    }
+
+    // Fonction de correction de style sur les tailles (par-dessus le CSS)
+    private void localStyle() {
+        // boutique.lookupAll("*").forEach(node -> node.setStyle("-fx-font-size: 16px;"));
+        // QUE mettre des changements de tailles etc 
     }
 
     @Override
