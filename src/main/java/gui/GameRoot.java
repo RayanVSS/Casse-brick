@@ -36,9 +36,7 @@ import physics.entity.Brick;
 import physics.entity.Entity;
 import utils.GameConstants;
 import utils.Key;
-import java.util.ArrayList;
 import java.util.List;
-import physics.entity.Ball;
 import entity.Bonus;;
 
 public class GameRoot {
