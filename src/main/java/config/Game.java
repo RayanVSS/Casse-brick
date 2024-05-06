@@ -27,7 +27,7 @@ public class Game {
     private Timer inGameTimer;
     private int timeElapsed = 0; // en secondes
     private List<Bonus> bonuslist = new ArrayList<>();
-    //private List<Ball> balls = new ArrayList<>();
+    private List<Ball> balls = new ArrayList<>();
     // private boolean isInfinite;
 
     public Game(Ball ball, Racket racket, GameRules rules) {
@@ -124,7 +124,7 @@ public class Game {
         }
 
         updateGameStatus();
-    }
+    }}
 
 
     //TODO METTRE DANS GAMESRULES

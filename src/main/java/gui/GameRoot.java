@@ -49,8 +49,8 @@ public class GameRoot {
     private ArrayList<Brick> bricks;
     private ArrayList<Ball> balls;
     private Map<Entity, EntityGraphics> entities;
-    
-    // private BallGraphics graphBall;
+    private ArrayList<BallGraphics> graphBall;
+    //private BallGraphics graphBall;
     private RacketGraphics graphRacket;
     public static boolean BougePColision;
     public static Set<KeyCode> direction = new HashSet<>();
