@@ -1,5 +1,7 @@
 package gui.Menu.MenuViews;
 
+import gui.ViewPosition;
+import gui.GraphicsFactory.ConsoleView;
 import gui.GraphicsFactory.ProfileView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.StartMenuController;
@@ -20,13 +22,14 @@ import utils.GameConstants;
  * 
  * @author Benmalek Majda
  */
-public class StartMenuView implements Menu {
+public class StartMenuView implements Menu, ViewPosition {
 
     private Stage primaryStage;
     private BorderPane root = new BorderPane();
 
     private HBox topBox = new HBox();
     private VBox centerBox = new VBox();
+    private HBox bottomBox = new HBox();
     private Scene scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH,
             GameConstants.DEFAULT_WINDOW_HEIGHT);
 
@@ -34,9 +37,11 @@ public class StartMenuView implements Menu {
     private Button btnPlay;
     private Button btnOptions;
     private Button btnQuit;
+    private Button btnBoutique;
     private Button btnSave;
     private Button btnTuto;
     private Label title;
+    private ConsoleView consoleView;
 
     /**
      * Constructeur de StartMenuView.
@@ -53,6 +58,7 @@ public class StartMenuView implements Menu {
 
         root.setTop(topBox);
         root.setCenter(centerBox);
+        root.setBottom(bottomBox);
 
         new StartMenuController(p, this);
     }
@@ -67,11 +73,12 @@ public class StartMenuView implements Menu {
         title = createLabel("Casse Brique", 0, 0);
         btnPlay = createButton("Jouer", 0, 0);
         btnOptions = createButton("Options", 0, 0);
+        btnBoutique = createButton("Boutique", 0, 0);
         btnSave = createButton("Sauvegarder", 0, 0);
         btnTuto = createButton("Tutoriel", 0, 0);
         btnQuit = createButton("Quitter", 0, 0);
         setCenterBoxStyle();
-        centerBox.getChildren().addAll(title, btnPlay, btnOptions, btnSave, btnTuto, btnQuit);
+        centerBox.getChildren().addAll(title, btnPlay, btnOptions, btnBoutique, btnSave,btnTuto, btnQuit);
     }
 
     private void setCenterBoxStyle() {
@@ -82,13 +89,23 @@ public class StartMenuView implements Menu {
     }
 
     private void createBottom() {
-
+        consoleView = ConsoleView.getInstance();
+        consoleView.setDynamicFocus(scene);
     }
 
     @Override
     public void update() {
         profileView.update();
-        // displayer.update();
+    }
+
+    @Override
+    public void moveConsoleView() {
+        bottomBox.getChildren().add(consoleView);
+    }
+
+    @Override
+    public void handleDynamicAction() {
+        consoleView.setDynamicFocus(scene);
     }
 
     // getters pour les boutons et autres éléments de la vue
@@ -148,6 +165,15 @@ public class StartMenuView implements Menu {
     }
 
     /**
+     * Méthode pour obtenir le bouton Boutique.
+     * 
+     * @return Le bouton Boutique.
+     */
+    public Button getBtnBoutique() {
+        return btnBoutique;
+    }
+
+     /**
      * Méthode pour obtenir le bouton Tutoriel.
      * 
      * @return Le bouton Tutoriel.

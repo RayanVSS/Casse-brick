@@ -1,40 +1,7 @@
 /* LES RACINES */
-.root, .root-options {
-    -fx-background-color: #F2F2F2;
-    -fx-alignment: center;
-  }
   
-  .root-options {
-    -fx-spacing: 50;
-  }
+
   
-  .game-backgorund {
-    -fx-background-color: #D0E3F4; 
-  }
-  
-  .root-game-over, .pause-view {
-    -fx-opacity: 0.7;
-    -fx-alignment: center;
-    -fx-spacing: 10;
-    -fx-background-color: #78859f; 
-  }
-  
-  .vbox {
-    -fx-spacing: 20;
-    -fx-alignment: center;
-  }
-  
-  .grid-style {
-    -fx-hgap: 10;
-    -fx-vgap: 10;
-    -fx-padding: 25;
-    -fx-alignment: center;
-  }
-  
-  /* LES BOUTONS */
-  .button-style, .button-hover, .label-style, .slider-style {
-    -fx-font-size: 20px;
-  }
   
   .button-style, .slider-style {
     -fx-background-color: #D9D9D9; 
@@ -67,31 +34,130 @@
     -fx-fill: #333333; 
   }
   
-  /* ÉLÉMENTS DU JEU */
-  .ball {
-    -fx-fill: #d53f9b; 
-  }
-  
-  .hyperball, .ynotfixeracket {
-    -fx-fill: #d53f9b; 
-  }
-  
-  .gravityball {
-    -fx-fill: #d53f9b;  
-  }
-  
-  .magnetball {
-    -fx-fill: #d53f9b; 
-  }
-  
-  .magnetracketpositif {
-    -fx-fill: #d53f9b; 
-  }
-  
-  .racket {
-    -fx-fill: #d53f9b; 
-  }
-  
-  .magnetracketnegatif {
-    -fx-fill: #A0C491; 
-  }  
+
+  /* LES ROOTS */
+.root,
+.root-options {
+    -fx-background-color: #F2F2F2;
+    -fx-alignment: center;
+    -fx-spacing: 20;
+}
+
+.root-options {
+    -fx-spacing: 50;
+}
+
+.game-backgorund {
+    -fx-background-color: #D0E3F4;
+}
+
+.root-game-over,
+.pause-view {
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 20;
+    -fx-background-color: #78859f;
+}
+
+.vbox {
+    -fx-spacing: 20;
+    -fx-alignment: center;
+}
+
+.grid-style {
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+    -fx-padding: 25;
+    -fx-alignment: center;
+}
+
+/* LES BOUTONS */
+.button-style,
+.button-hover,
+.label-style {
+    -fx-font-size: 20px;
+}
+
+.button-style {
+    -fx-background-color: #D9D9D9;
+}
+
+.button-style,
+.label-style{
+    -fx-text-fill: #333333;
+}
+
+.button-hover {
+    -fx-background-color: #333333;
+    -fx-text-fill: #D9D9D9;
+}
+
+/* LES TEXTES + LABELS */
+.fin-label{
+    -fx-font-size: 35px;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+}
+
+.text-style,
+.title-style,
+.title-game-over-style {
+    -fx-font-size: 20px;
+    -fx-text-fill: #333333;
+}
+
+.title-style,
+.title-game-over-style {
+    -fx-font-size: 50;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+}
+
+.scoreL-style {
+    -fx-font-size: 20px;
+    -fx-text-fill: #333333;
+}
+
+.title-game-over-style {
+    -fx-font-size: 50px;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+}
+
+.slider-style {
+    -fx-background-color: #F2F2F2;
+}
+
+.pause-view {
+    -fx-opacity: 0.7;
+    -fx-alignment: center;
+    -fx-spacing: 10;
+    -fx-background-color: #F2F2F2;
+}
+
+.label-toggle-button-hbox,
+.label-slider-hbox,
+.label-combobox-hbox {
+    -fx-background-color: #F2F2F2;
+    -fx-border-color: #D9D9D9;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 8px;
+}
+
+.label-vbox {
+    -fx-background-color: #2f3d57;
+    -fx-border-color: #D9D9D9;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 5px;
+}
+
+.label-vbox-description {
+    -fx-font-size: 13px;
+    -fx-text-fill: #657786;
+    -fx-font-style: italic;
+    -fx-font-weight: bold;
+}

@@ -1,5 +1,6 @@
 package config;
 
+import gui.Console;
 import gui.Menu.MenuControllers.GameCustomizerController;
 import save.PlayerData;
 import utils.GameConstants;
@@ -27,7 +28,7 @@ public class StageLevel {
 
     public boolean canLoadGame() {
         if (PlayerData.expLevel >= unlockLevel) {
-            System.out.println("Chargement du jeu...");
+            Console.systemDisplay("Chargement du jeu...");
             if (game == null) {
                 this.game = new Game(
                         GameConstants.PRECONFIG_GAME_BALL[difficulty],
@@ -36,13 +37,13 @@ public class StageLevel {
             }
             return true;
         } else {
-            System.out.println("Niveau requis non atteint.");
+            Console.systemDisplay("Niveau requis non atteint.");
             return false;
         }
     }
 
     public void resetGame() {
-        game.getBall().reset();
+        game.resetBalls();
         game.getRacket().reset();
         game.getRules().reset();
         game = new Game(

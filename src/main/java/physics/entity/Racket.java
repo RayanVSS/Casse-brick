@@ -1,15 +1,14 @@
 package physics.entity;
 
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import gui.GraphicsFactory.RacketGraphics;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+import gui.GraphicsFactory.RacketGraphics;
 
 /***************************************************************************
  * Explication de classe pour la raquette *

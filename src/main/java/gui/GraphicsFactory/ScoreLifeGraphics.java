@@ -1,18 +1,16 @@
 package gui.GraphicsFactory;
 
-
 import config.Game;
 import config.GameRules;
 import config.StageLevel;
-import gui.ImageLoader;
 import gui.Menu.Menu;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import utils.GameConstants;
+import utils.ImageLoader;
 
 /**
  * Classe ScoreLifeView qui étend Pane pour afficher le score et la vie dans le
@@ -22,13 +20,12 @@ import utils.GameConstants;
  * @author Benmalek Majda
  */
 public class ScoreLifeGraphics extends VBox implements Menu {
-    private Text scoreText;
     private int score, life;
     private GridPane lifeGrid;
     private Image lifeOK, lifeKO;
     private ImageView[] lifeImages;
     private Game game;
-    private Label maxScore, time, bounces, niveau;
+    private Label maxScore, time, bounces, niveau, scoreLabel;
     private GameRules rules;
 
     /**
@@ -51,43 +48,30 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         lifeKO = ImageLoader.loadImage(getLifeKoImagePath());
 
         initializeLifeImages();
-        scoreText = new Text("Score: " + score);
-        scoreText.getStyleClass().add("scoreL-style");
-        scoreText.setX(20);
-        scoreText.setY(80);
-        maxScore = createLabel("Meilleur score: " + stage.getMaxScore());
-        maxScore.setLayoutX(20);
-        maxScore.setLayoutY(120);
+        scoreLabel = createLabel("Score: " + score);
 
+        maxScore = createLabel("Meilleur score: " + stage.getMaxScore());
         if (!stage.isCustomGame()) {
             niveau = createLabel("Niveau: " + (stage.getDifficulty() + 1));
-            niveau.setLayoutX(20);
             niveau.setVisible(true);
-            setMargin(niveau, new javafx.geometry.Insets(10, 10, 10, 10));
         }
 
         if (rules.isLimitedTime()) {
             time = createLabel("Temps restant: " + rules.getRemainingTime());
             time.setVisible(true);
-            time.setLayoutX(20);
-            setMargin(time, new javafx.geometry.Insets(10, 10, 10, 10));
         }
 
         if (rules.isLimitedBounces()) {
             bounces = createLabel("Rebonds restants: " + rules.getRemainingBounces());
             bounces.setVisible(true);
-            bounces.setLayoutX(20);
-            setMargin(bounces, new javafx.geometry.Insets(10, 10, 10, 10));
         }
 
         setMargin(lifeGrid, new javafx.geometry.Insets(10, 10, 10, 10));
-        setMargin(scoreText, new javafx.geometry.Insets(10, 10, 10, 10));
-        setMargin(maxScore, new javafx.geometry.Insets(10, 10, 10, 10));
 
         setLayoutX(10);
         setLayoutY(10);
         getChildren().add(lifeGrid);
-        getChildren().add(scoreText);
+        getChildren().add(scoreLabel);
         getChildren().add(maxScore);
         if (!stage.isCustomGame()) {
             getChildren().add(niveau);
@@ -98,6 +82,8 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         if (rules.isLimitedBounces()) {
             getChildren().add(bounces);
         }
+
+       // getChildren().add(setSeparator());
         getStylesheets().add(GameConstants.CSS.getPath());
 
     }
@@ -161,7 +147,7 @@ public class ScoreLifeGraphics extends VBox implements Menu {
     public void update() {
         score = game.getScore();
         life = game.getLife();
-        scoreText.setText(new StringBuilder("Score: ").append(score).toString());
+        scoreLabel.setText("Score: " + score);
         if (rules.isLimitedTime()) {
             time.setText("Temps restant: " + rules.getRemainingTime());
         }
@@ -174,5 +160,13 @@ public class ScoreLifeGraphics extends VBox implements Menu {
                 lifeImages[i].setImage(newImage);
             }
         }
+    }
+
+    private Label createLabel(String text) {
+        Label label = new Label(text);
+        label.getStyleClass().add("scoreL-style");
+        setMargin(label, new javafx.geometry.Insets(10, 10, 10, 10));
+        label.setLayoutX(20);
+        return label;
     }
 }

@@ -1,21 +1,27 @@
 {
   "PATH": false,
-  "MUSIC": 50,
+  "MUSIC": 0,
   "CSS": "CLASSIC",
-  "MONEY": 100,
+  "MONEY": 0,
+  "INVENTAIRE": [
+    "Arc-en-ciel",
+    "ClassicPink",
+    "Etoile",
+    "GravityLight"
+  ],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": false,
   "PSEUDO": "Sans nom",
   "SPACE": "SPACE",
-  "TEXTURE": "Null",
+  "TEXTURE": "src/main/ressources/Texture/arc_en_ciel.jpg",
   "EXP_LEVEL": 2,
   "PROGRESS": {
     "stages": [
       {
         "difficulty": 0,
         "unlockLevel": 1,
-        "completed": true,
+        "completed": false,
         "maxScore": 0,
         "customGame": false
       },

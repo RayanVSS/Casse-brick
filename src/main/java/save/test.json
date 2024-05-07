@@ -1,14 +1,16 @@
 {
   "PATH": false,
   "MUSIC": 50,
-  "CSS": "DARaaaK",
+  "CSS": "CLASSIC",
   "MONEY": 0,
+  "SKIN_BALL": "Null",
+  "INVENTAIRE": [],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": true,
   "PSEUDO": "",
   "SPACE": "SPACE",
-  "TEXTURE": "Null",
+  "TEXTURE": "Dark_Matter.jpg",
   "EXP_LEVEL": 1,
   "PROGRESS": {
     "stages": [
@@ -204,5 +206,6 @@
     ]
   },
   "SOUND": 50,
-  "RIGHT": "RIGHT"
+  "RIGHT": "RIGHT",
+  "ADMIN": false
 }

@@ -3,6 +3,9 @@ package gui.Menu;
 import java.util.HashMap;
 import java.util.Map;
 
+import gui.ViewPosition;
+import gui.GraphicsFactory.ConsoleView;
+import gui.Menu.MenuViews.BoutiqueView;
 import gui.Menu.MenuViews.ChapterView;
 import gui.Menu.MenuViews.GameCustomizerView;
 import gui.Menu.MenuViews.GameModeView;
@@ -85,6 +88,12 @@ public class MenuManager {
         menu.getScene().getStylesheets().add(getClass().getResource(GameConstants.CSS.getPath()).toExternalForm());
     }
 
+    public void updateStylesheets() {
+        for (Menu menu : menus.values()) {
+            addStylesheet(menu);
+        }
+    }
+
     // Charge toutes les scènes du jeu
     public void preCreateAllView(Stage primaryStage) {
         createStartMenuViewScene(primaryStage);
@@ -94,6 +103,7 @@ public class MenuManager {
         createStageSelectorViewScene(primaryStage);
         createGameCustomizerViewScene(primaryStage);
         createChapterViewScene(primaryStage);
+        createBoutiqueView(primaryStage);
         createTutoViewScene(primaryStage);
     }
 
@@ -141,6 +151,13 @@ public class MenuManager {
         addMenu("Chapterview", chapterView);
     }
 
+
+    public void createBoutiqueView(Stage primaryStage) {
+        BoutiqueView boutiqueView = new BoutiqueView(primaryStage);
+        addStylesheet(boutiqueView);
+        addMenu("BoutiqueView", boutiqueView);
+    }
+    
     public void createTutoViewScene(Stage primaryStage) {
         TutoView TutoView = new TutoView(primaryStage);
         addStylesheet(TutoView);
@@ -158,6 +175,12 @@ public class MenuManager {
     public void changeScene(Stage primaryStage, String name) {
         Menu menu = getMenu(name);
         menu.update();
+        if (menu instanceof ViewPosition) {
+            ((ViewPosition) menu).saveViewPosition();
+            ((ViewPosition) menu).moveConsoleView();
+            ((ViewPosition) menu).handleDynamicAction();
+            ConsoleView.getInstance().unfocusAction();
+        }
         primaryStage.setScene(menu.getScene());
     }
 }

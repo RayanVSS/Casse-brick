@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import save.Sauvegarde;
 import utils.Sound.ClickSound;
-import gui.Menu.MenuControllers.TutoController;
 
 /**
  * Classe contrôleur pour le menu de démarrage.
@@ -42,6 +41,10 @@ public class StartMenuController {
         this.view.getBtnSave().setOnAction(e -> {
             click.play();
             sauvegarde();
+        });
+        this.view.getBtnBoutique().setOnAction(e -> {
+            click.play();
+            boutique();
         });
         this.view.getBtnTuto().setOnAction(e -> {
             click.play();
@@ -89,8 +92,17 @@ public class StartMenuController {
     }
 
     /**
-     * Méthode pour afficher le tutoriel.
+
+     * Méthode pour accéder à la boutique.
      */
+    private void boutique() {
+        //Platform.runLater(() -> {
+            App.menuManager.changeScene(view.getPrimaryStage(), "BoutiqueView");
+        //});
+    }
+
+
+
     private void tuto() {
         Platform.runLater(() -> {
             view.getPrimaryStage().resizableProperty().set(true);

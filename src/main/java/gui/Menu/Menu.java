@@ -29,11 +29,12 @@ public interface Menu {
         PROTANOPIE("/styles/protanopie.css");
 
         private String path;
-
         public String getPath() {
             return path;
         }
-
+        public String getName() {
+            return path.replace("/styles/", "").replace(".css", "");
+        }
         Theme(String path) {
             this.path = path;
         }
@@ -51,6 +52,21 @@ public interface Menu {
     default Button createButton(String text, double rightMargin, double bottomMargin) {
         Button button = new Button(text);
         StackPane.setMargin(button, new Insets(0, rightMargin, bottomMargin, 0));
+        button.getStyleClass().add("button-style");
+        button.setOnMouseEntered(e -> {
+            button.getStyleClass().remove("button-style");
+            button.getStyleClass().add("button-hover");
+        });
+        button.setOnMouseExited(e -> {
+            button.getStyleClass().remove("button-hover");
+            button.getStyleClass().add("button-style");
+        });
+        return button;
+    }
+
+
+    default Button createButton(String text) {
+        Button button = new Button(text);
         button.getStyleClass().add("button-style");
         button.setOnMouseEntered(e -> {
             button.getStyleClass().remove("button-style");
@@ -122,11 +138,6 @@ public interface Menu {
         return slider;
     }
 
-    default Label createLabel(String text) {
-        Label l = new Label(text);
-        l.getStyleClass().add("scoreL-style");
-        return l;
-    }
 
     /**
      * Rien par défaut

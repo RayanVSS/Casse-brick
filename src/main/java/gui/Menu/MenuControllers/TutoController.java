@@ -26,7 +26,7 @@ public class TutoController {
             scene.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ESCAPE) {
                 view.getPrimaryStage().resizableProperty().set(false);
-                App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+                App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");                
             }
             if (event.getCode() == KeyCode.F11) {
                 if (!isFullScreen) {

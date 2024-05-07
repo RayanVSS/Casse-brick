@@ -13,8 +13,9 @@ public class ClassicBall extends Ball {
     public Key key = new Key();
 
     public ClassicBall() {
-        super(GameConstants.DEFAULT_BALL_START_COORDINATES, GameConstants.DEFAULT_BALL_START_DIRECTION,
-                GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS);
+        super(GameConstants.DEFAULT_BALL_START_COORDINATES.clone(), GameConstants.DEFAULT_BALL_START_DIRECTION.clone(),
+        GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS);
+        super.getPhysicSetting().setWindow(GameConstants.DEFAULT_GAME_ROOT_WIDTH,GameConstants.DEFAULT_WINDOW_HEIGHT);
     }
 
     public ClassicBall(int d) {
@@ -33,8 +34,7 @@ public class ClassicBall extends Ball {
      * @return un booléen indiquant si la balle est perdue ou non.
      *         Retourne `true` si la balle est toujours en jeu, `false` sinon.
      */
-    public boolean movement() {
-        boolean lost = true;
+    public void movement() {
         double w = getZoneWidth();
         double h = getZoneHeight();
         double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
@@ -89,11 +89,10 @@ public class ClassicBall extends Ball {
             this.getDirection().setY(this.getDirection().getY() * super.getPhysicSetting().getRetention());
         }
         if (newY > h - this.getRadius()) {
-            lost = false;
+            super.setDelete(false);
         }
         this.setC(new Coordinates(newX, newY));
         this.getDirection().add(super.getPhysicSetting().getWind());
-        return lost;
     }
 
 }

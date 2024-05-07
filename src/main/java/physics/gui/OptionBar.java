@@ -1,107 +1,128 @@
 package physics.gui;
 
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Random;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import gui.GraphicsFactory.BallGraphics;
+import gui.GraphicsFactory.RacketGraphics;
+import physics.entity.Ball;
 import physics.config.PhysicEngine;
 import physics.config.PhysicSetting;
-import physics.entity.Ball;
-import utils.GameConstants;
+
 
 public class OptionBar {
-
-    private boolean Bar = false;
+    
+    private boolean Bar=false;
+    private Ball ball;
     private Pane root;
-    private Pane bar;
-    private ArrayList<Circle> circles = new ArrayList<>();
-    private char position = 'g';
-    private Map<Ball, Circle> map;
-    private ArrayList<Color> list_color = new ArrayList<>(Arrays.asList(Color.RED, Color.BLUE, Color.GREEN,
-            Color.YELLOW, Color.ORANGE, Color.PURPLE, Color.BROWN, Color.PINK, Color.CYAN, Color.MAGENTA));
-    private ArrayList<Ball> list_ball = new ArrayList<>();
 
-    public OptionBar(Pane root, Map<Ball, Circle> map) {
-        this.root = root;
+    private Map<Ball,BallGraphics> map;
+
+    private ArrayList<Circle> circles=new ArrayList<>();
+    private ArrayList<Image> list_image=new ArrayList<>(Arrays.asList(
+        new Image("/balle/physic/balle1.png"),
+        new Image("/balle/physic/balle2.png"),
+        new Image("/balle/physic/balle3.png"),
+        new Image("/balle/physic/balle4.png"),
+        new Image("/balle/physic/balle5.png")
+    ));
+
+    private Random random = new Random();
+    
+    private Label labelrotate;
+    private Label labelangle;
+    private Label labelspeed;
+
+    public OptionBar(Pane root, Map<Ball,BallGraphics> map,Ball b){
+        this.root= root;
         this.map = map;
-        bar = new Pane();
+        this.ball = b;
     }
 
-    public void affiche(Ball b) {
-        bar.setMaxSize(250, GameConstants.DEFAULT_WINDOW_HEIGHT);
-        bar.setMinSize(250, GameConstants.DEFAULT_WINDOW_HEIGHT);
-        bar.setStyle("-fx-background-color: #DCDCDC;");
-        root.getChildren().add(bar);
-        bar.setLayoutX(position == 'g' ? 0 : GameConstants.DEFAULT_WINDOW_WIDTH - 250);
-
+    public void affiche(){
         Label label = new Label("Informations sur la simulation :");
         label.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
         label.setLayoutX(10);
         label.setLayoutY(20);
 
-        Button button = new Button("Afficher la trajectoire sans effet");
-        button.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
-        button.setLayoutX(30);
-        button.setLayoutY(50);
+        root.getChildren().add(label);
+
+        label = new Label("Afficher la trajectoire sans effet :");
+        label.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
+        label.setLayoutX(10);
+        label.setLayoutY(50);
+        CheckBox button = new CheckBox();
         button.setOnAction(e -> {
             clearCircles();
-            circles = Preview.preview_no_effect(b, root);
+            if(button.isSelected()){
+                circles=Preview.preview_no_effect(ball, root);
+                PhysicEngine.Pause=true;
+            }
+            else{
+                PhysicEngine.Pause=false;
+            }
         });
-        bar.getChildren().addAll(button, label);
 
-        label = new Label("Effet de la rotation :"
-                + (b.getRotation().getAngle() == 0 ? "" : b.getRotation().getAngle() > 0 ? "Droite" : " Gauche") + " "
-                + Math.abs(b.getRotation().getAngle()) + " degre");
-        label.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
-        label.setLayoutX(10);
-        label.setLayoutY(100);
+        button.setLayoutX(200);
+        button.setLayoutY(52);
 
-        bar.getChildren().add(label);
+        root.getChildren().addAll(button,label);
 
-        label = new Label("Angle du vecteur de la balle : " + (90 - b.getRotation().getAngle()) + " degre");
-        label.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
-        label.setLayoutX(10);
-        label.setLayoutY(130);
+        labelrotate = new Label("Effet de la rotation :"+ PhysicSetting.CalculateRotation(ball)+" degre");
+        labelrotate.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
+        labelrotate.setLayoutX(10);
+        labelrotate.setLayoutY(100);
 
-        bar.getChildren().add(label);
+        root.getChildren().add(labelrotate);
 
-        label = new Label("Vitesse de la balle : " + PhysicSetting.CalculateSpeed(b.getDirection()) + " m/s");
-        label.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
-        label.setLayoutX(10);
-        label.setLayoutY(160);
+        labelangle = new Label("Angle du vecteur de la balle : "+PhysicSetting.CalculateAngle(ball)+" degre");
+        labelangle.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
+        labelangle.setLayoutX(10);
+        labelangle.setLayoutY(130);
 
-        bar.getChildren().add(label);
+        root.getChildren().add(labelangle);
+
+        labelspeed =new Label("Vitesse de la balle : "+PhysicSetting.CalculateSpeed(ball.getDirection())+" m/s");
+        labelspeed.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
+        labelspeed.setLayoutX(10);
+        labelspeed.setLayoutY(160);
+
+        root.getChildren().add(labelspeed);
 
         Button button2 = new Button("Ajouter une nouvelle balle ");
         button2.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
         button2.setLayoutX(30);
         button2.setLayoutY(190);
 
-        button2.setOnAction(e -> {
-            if (list_color.size() > 0) {
+        button2.setOnAction(e->{
+            if(map.size()<10){
                 Ball b2 = PhysicEngine.init_ball();
-                Circle c = new Circle(b2.getC().getX(), b2.getC().getY(), b.getRadius() * 2);
-                Color color = list_color.get((int) (Math.random() * list_color.size()));
-                c.setFill(color);
-                list_color.remove(color);
-                list_ball.add(b2);
-                map.put(b2, c);
-                root.getChildren().add(c);
-            } else {
-                Label l = new Label("Vous avez atteint le nombre maximal de balles");
+                Integer nb = random.nextInt(list_image.size());
+                BallGraphics ballg = new BallGraphics(list_image.get(nb),b2);
+                PhysicEngine.setTakeBall(ballg, b2, this, root);
+                map.put(b2,ballg);
+                root.getChildren().add(ballg);
+            }
+            else{
+                Label l= new Label("Vous avez atteint le nombre maximal de balles");
                 l.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
                 l.setLayoutX(10);
                 l.setLayoutY(220);
-                bar.getChildren().add(l);
+                root.getChildren().add(l);
             }
         });
 
-        bar.getChildren().add(button2);
+        root.getChildren().add(button2);
 
         Button button3 = new Button("Supprimer toutes les balles ajoutées");
         button3.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
@@ -112,23 +133,37 @@ public class OptionBar {
             removeBall();
         });
 
-        bar.getChildren().add(button3);
+        root.getChildren().add(button3);
 
+        ComboBox<String> listracket = new ComboBox<String>();
+        listracket.getItems().addAll("rectangle","rond","triangle","losange");
+        listracket.setValue("rectangle");
+        listracket.setLayoutX(30);
+        listracket.setLayoutY(280);
+        listracket.setOnAction(e -> {
+            root.getChildren().remove(PhysicEngine.graphRacket.getShape());
+            PhysicEngine.racket = PhysicEngine.init_racket(listracket.getValue());
+            PhysicEngine.graphRacket =new RacketGraphics(PhysicEngine.racket, PhysicEngine.racket.getShapeType());
+            root.getChildren().add(PhysicEngine.graphRacket.getShape());   
+        });
+
+        root.getChildren().add(listracket);
+        
     }
 
     public void reset() {
         clearCircles();
-        bar.getChildren().removeIf(e -> e instanceof Label);
+        root.getChildren().removeIf(e -> e instanceof Button || e instanceof CheckBox || e instanceof Label || e instanceof ComboBox);
     }
 
-    public void removeBall() {
-        for (Ball b : list_ball) {
+    public void removeBall(){
+        for(Ball b : map.keySet()){
+            if(b.equals(ball)){
+                continue;
+            }
             root.getChildren().remove(map.get(b));
             map.remove(b);
         }
-        list_ball.clear();
-        list_color = new ArrayList<>(Arrays.asList(Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.ORANGE,
-                Color.PURPLE, Color.BROWN, Color.PINK, Color.CYAN, Color.MAGENTA));
     }
 
     public void clearCircles() {
@@ -137,30 +172,24 @@ public class OptionBar {
         }
     }
 
-    public void close() {
+    public void updateData(){
+        labelrotate.setText("Effet de la rotation :"+ PhysicSetting.CalculateRotation(ball)+" degre");
+        labelangle.setText("Angle du vecteur de la balle : "+PhysicSetting.CalculateAngle(ball)+" degre");
+        labelspeed.setText("Vitesse de la balle : "+PhysicSetting.CalculateSpeed(ball.getDirection())+" m/s");
+    }
+
+    public void close(){
         reset();
-        root.getChildren().remove(bar);
     }
 
     public void update(Ball b) {
         if (Bar) {
             Bar = false;
             close();
-            if (position == 'd') {
-                PhysicEngine.f_WIDTH = GameConstants.DEFAULT_WINDOW_WIDTH;
-            } else {
-                PhysicEngine.d_WIDTH = 0;
-            }
-        } else {
-            Bar = true;
-            if (b.getC().getX() < 250) {
-                position = 'd';
-                PhysicEngine.f_WIDTH = GameConstants.DEFAULT_WINDOW_WIDTH - 250;
-            } else {
-                position = 'g';
-                PhysicEngine.d_WIDTH = 250;
-            }
-            affiche(b);
+        }
+        else{
+            Bar=true;
+            affiche();
         }
     }
 

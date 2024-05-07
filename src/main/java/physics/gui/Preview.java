@@ -55,7 +55,7 @@ public class Preview {
 
     public void trajectory(){
         double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
-        double w = PhysicEngine.f_WIDTH;
+        double w = PhysicSetting.DEFAULT_WINDOW_WIDTH;
         double newX = c_trajectory.getX() + d_trajectory.getX() * ball.getSpeed() ;
         double newY = c_trajectory.getY() + d_trajectory.getY() * ball.getSpeed() ;
         if (CollisionR) {
@@ -63,7 +63,7 @@ public class Preview {
             newY = c_trajectory.getY() + d_trajectory.getY()*ball.getSpeed();
             CollisionR = false;
         }
-        if (newX < PhysicEngine.d_WIDTH || newX > w - ball.getRadius()) {
+        if (newX < 0 || newX > w - ball.getRadius()) {
             d_trajectory.setX(-d_trajectory.getX());
             d_trajectory.setY(d_trajectory.getY()+(ball.getRotation().getEffect()/90)*d_trajectory.getY());
             newX = c_trajectory.getX() + d_trajectory.getX()*ball.getSpeed();
@@ -135,16 +135,57 @@ public class Preview {
         }
     }
 
+    public int getdt(){
+        return dt_circle;
+    }
+
+    public void checkCollisionOtherBall(Ball b){
+        // gestion de la collision entre les balles en X
+        boolean collisionX1 = c_trajectory.getX()+ball.getRadius()>=b.getC().getX()-b.getRadius() && c_trajectory.getX()-ball.getRadius()<b.getC().getX()+b.getRadius();
+        boolean collisionX2 = b.getX()+b.getRadius()>=c_trajectory.getX()-ball.getRadius() && b.getX()-b.getRadius()<c_trajectory.getX()+ball.getRadius();
+        boolean collisionXY = (c_trajectory.getY()+ball.getRadius()>=b.getY()-b.getRadius() && c_trajectory.getY()-ball.getRadius()<b.getY()+b.getRadius()) || (b.getY()+b.getRadius()>=c_trajectory.getY()-ball.getRadius() && b.getY()-b.getRadius()<c_trajectory.getY()+ball.getRadius());
+        // gestion de la collision entre les balles en Y
+        boolean collisionY1 = c_trajectory.getY()+ball.getRadius()>=b.getC().getY()-b.getRadius() && c_trajectory.getY()-ball.getRadius()<b.getC().getY()+b.getRadius() ;
+        boolean collisionY2 = b.getY()+b.getRadius()>=c_trajectory.getY()-ball.getRadius() && b.getY()-b.getRadius()<c_trajectory.getY()+ball.getRadius() ;
+        boolean collisionYX = (c_trajectory.getX()+ball.getRadius()>=b.getX()-b.getRadius() && c_trajectory.getX()-ball.getRadius()<b.getX()+b.getRadius()) || (b.getX()+b.getRadius()>=c_trajectory.getX()-ball.getRadius() && b.getX()-b.getRadius()<c_trajectory.getX()+ball.getRadius());
+        if((collisionX1||collisionX2) && collisionXY){
+            if(d_trajectory.getX() >= 0 && b.getDirection().getX() <= 0){
+                d_trajectory.setX(b.getDirection().getX());
+            }
+            else if(d_trajectory.getX() >= 0 && b.getDirection().getX() >= 0){
+                d_trajectory.setX(-d_trajectory.getX());
+            }
+            else if(d_trajectory.getX() <= 0 && b.getDirection().getX() <= 0){
+                d_trajectory.setX(Math.max(d_trajectory.getX(), b.getDirection().getX()));
+            }
+        }
+        else if((collisionY1 || collisionY2) && collisionYX){
+            if(d_trajectory.getY() >= 0 && b.getDirection().getY() <= 0){
+                d_trajectory.setY(b.getDirection().getY());
+            }
+            else if(d_trajectory.getY() >= 0 && b.getDirection().getY() >= 0){
+                d_trajectory.setY(-d_trajectory.getY());
+            }
+            else if(d_trajectory.getY() <= 0 && b.getDirection().getY() <= 0){
+                d_trajectory.setY(Math.max(d_trajectory.getY(), b.getDirection().getY()));
+            }
+        }
+    }
+
     public static ArrayList<Circle> preview_no_effect(Ball b , Pane root){
         ArrayList<Circle> circles = new ArrayList<Circle>();
+        int compt = 0;
         Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY());
         Vector d = new Vector(new Coordinates(b.getDirection().getX(), b.getDirection().getY()));
-        for(int i = 0; i<50; i++){
-            double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
-            double w = PhysicEngine.f_WIDTH;
+        if(b.getPreview()!=null){
+            compt = b.getPreview().getdt()-1;
+        }
+        for(int i = compt; i<50; i++){
+            double h = PhysicSetting.DEFAULT_WINDOW_HEIGHT;
+            double w = PhysicSetting.DEFAULT_WINDOW_WIDTH;
             double newX = c.getX() + d.getX() * b.getSpeed() ;
             double newY = c.getY() + d.getY() * b.getSpeed() ;
-            if (newX < PhysicEngine.d_WIDTH || newX > w - b.getRadius()) {
+            if (newX < 0 || newX > w - b.getRadius()) {
                 d.setX(-d.getX());
                 newX = c.getX() + d.getX()*b.getSpeed();
             }

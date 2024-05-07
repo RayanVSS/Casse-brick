@@ -61,10 +61,6 @@ public class OptionsController {
         this.view.getButtonleft().getButton().setOnAction(e -> left());
         this.view.getButtonpower().setOnAction(e -> power());
         this.view.getButtonright().setOnAction(e -> right());
-        this.view.getTextureComboBox().getSelectionModel().selectedItemProperty()
-                .addListener((obs, oldSelection, newSelection) -> {
-                    textureImage();
-                });
 
     }
 
@@ -159,10 +155,5 @@ public class OptionsController {
                 App.menuManager.addStylesheet(v);
             });
         }
-    }
-
-    public void textureImage() {
-        //la fonction a était mise dans OptionView car elle ne veut pas marcher ici
-        // ligne 137
     }
 }
