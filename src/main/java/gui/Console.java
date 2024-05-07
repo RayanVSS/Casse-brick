@@ -369,7 +369,7 @@ public class Console {
             if (matcher.matches()) {
                 systemDisplay("Commande détectée : /set money " + parts[2]);
                 int value = Integer.parseInt(matcher.group(1));
-                systemDisplay("Argent avant : " + PlayerData.money);
+                systemDisplay("Ancien solde : " + PlayerData.money);
                 switch (parts[2].charAt(0)) {
                     case '+':
                         PlayerData.money += value;
@@ -382,7 +382,7 @@ public class Console {
                         break;
                 }
                 refreshView();
-                systemDisplay("Argent après : " + PlayerData.money);
+                systemDisplay("Nouveau solde : " + PlayerData.money);
             } else {
                 systemDisplay("Commande /set money erronée : '" + parts[2] + "' est une valeur invalide.");
             }
@@ -395,6 +395,7 @@ public class Console {
         } else {
             String value = parts[2].toLowerCase();
             if (value.equals("false") || value.equals("0")) {
+                systemDisplay("Commande détectée : /set admin " + parts[2]);
                 if (PlayerData.isAdmin == false) {
                     systemDisplay("Vous étiez déjà : Joueur");
                 } else {
@@ -402,6 +403,7 @@ public class Console {
                 }
 
             } else if (value.equals("true") || value.equals("1")) {
+                systemDisplay("Commande détectée : /set admin " + parts[2]);
                 if (PlayerData.isAdmin == true) {
                     systemDisplay("Vous étiez déjà : Administrateur");
                 } else {
