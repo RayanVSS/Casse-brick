@@ -2,6 +2,8 @@ package utils;
 
 import java.util.Random;
 
+import org.checkerframework.checker.units.qual.A;
+
 import config.GameRules;
 import config.GameRules.BricksArrangement;
 import entity.ball.ClassicBall;
@@ -16,6 +18,8 @@ import physics.entity.Ball;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
+import physics.geometry.Segment;
+import java.util.ArrayList;
 
 public final class GameConstants {
 
@@ -46,6 +50,28 @@ public final class GameConstants {
         public static final double DEFAULT_WINDOW_WIDTH = 1200.0;
         public static final double DEFAULT_WINDOW_HEIGHT = 800.0;
         public static final double DEFAULT_GAME_ROOT_WIDTH = DEFAULT_WINDOW_WIDTH - 230.0;
+
+        public static final ArrayList<Segment> LIMIT_GAME_ROOT = new ArrayList<Segment>() {
+                {
+                        add(new Segment(new Coordinates(0, 0), new Coordinates(DEFAULT_GAME_ROOT_WIDTH, 0)));
+                        add(new Segment(new Coordinates(DEFAULT_GAME_ROOT_WIDTH, 0),
+                                        new Coordinates(DEFAULT_GAME_ROOT_WIDTH, DEFAULT_WINDOW_HEIGHT)));
+                        add(new Segment(new Coordinates(DEFAULT_GAME_ROOT_WIDTH, DEFAULT_WINDOW_HEIGHT),
+                                        new Coordinates(0, DEFAULT_WINDOW_HEIGHT)));
+                        add(new Segment(new Coordinates(0, DEFAULT_WINDOW_HEIGHT), new Coordinates(0, 0)));
+                }
+        };
+
+        public static final ArrayList<Segment> LIMIT_WINDOW = new ArrayList<Segment>() {
+                {
+                        add(new Segment(new Coordinates(0, 0), new Coordinates(DEFAULT_WINDOW_WIDTH, 0)));
+                        add(new Segment(new Coordinates(DEFAULT_WINDOW_WIDTH, 0),
+                                        new Coordinates(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT)));
+                        add(new Segment(new Coordinates(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT),
+                                        new Coordinates(0, DEFAULT_WINDOW_HEIGHT)));
+                        add(new Segment(new Coordinates(0, DEFAULT_WINDOW_HEIGHT), new Coordinates(0, 0)));
+                }
+        };
 
         // public static final double DEFAULT_WINDOW_WIDTH =
         // Screen.getPrimary().getVisualBounds().getWidth();

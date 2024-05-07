@@ -16,6 +16,8 @@ import physics.geometry.Coordinates;
 import physics.geometry.Segment;
 import physics.geometry.Vector;
 import utils.GameConstants;
+import java.util.ArrayList;
+import physics.geometry.Figure;
 
 /***************************************************************************
  * Explication de classe pour la raquette *
@@ -62,7 +64,7 @@ import utils.GameConstants;
  * @author Rayan Belhassen
  **************************************************************************/
 
-public abstract class Racket {
+public abstract class Racket extends Figure {
 
     // base
     public double DEFAULT_WINDOW_WIDTH=GameConstants.DEFAULT_GAME_ROOT_WIDTH;
@@ -100,6 +102,7 @@ public abstract class Racket {
         this.speed = speed;
         this.fixeY = fixeY;
         this.jump = jump;
+        createsegments();
     }
 
     // Collision
@@ -117,14 +120,12 @@ public abstract class Racket {
     }
 
     public boolean CollisionRacket(Ball b) {
-        if (shape.equals("rectangle")) {
-            return CollisionRectangle(b);
-        } else if (shape.equals("triangle")) {
-            return CollisionTriangle(b);
+        if (shape.equals("rectangle") || shape.equals("losange") || shape.equals("triangle")){
+            for (Segment s : segments) {
+                return b.checkCollision(s);
+            }
         } else if (shape.equals("rond")) {
             return CollisionRond(b);
-        } else if (shape.equals("losange")) {
-            return CollisionLosange(b);
         }
         return false;
     }
@@ -337,6 +338,40 @@ public abstract class Racket {
             j = i;
         }
         return false;
+    }
+
+    public void createsegments(){
+        if(shape.equals("rectangle")){
+            segments.add(new Segment(c.getX(), c.getY(), c.getX() + largeur, c.getY()));
+            segments.add(new Segment(c.getX() + largeur, c.getY(), c.getX() + largeur, c.getY() + longueur));
+            segments.add(new Segment(c.getX() + largeur, c.getY() + longueur, c.getX(), c.getY() + longueur));
+            segments.add(new Segment(c.getX(), c.getY() + longueur, c.getX(), c.getY()));
+        }else if(shape.equals("triangle")){
+            segments.add(new Segment(c.getX(), c.getY() - longueur / 2, c.getX() + largeur / 2, c.getY() + longueur / 2));
+            segments.add(new Segment(c.getX() + largeur / 2, c.getY() + longueur / 2, c.getX() - largeur / 2, c.getY() + longueur / 2));
+            segments.add(new Segment(c.getX() - largeur / 2, c.getY() + longueur / 2, c.getX(), c.getY() - longueur / 2));
+        }else if(shape.equals("losange")){
+            segments.add(new Segment(c.getX(), c.getY() - longueur / 2, c.getX() + largeur / 2, c.getY()));
+            segments.add(new Segment(c.getX() + largeur / 2, c.getY(), c.getX(), c.getY() + longueur / 2));
+            segments.add(new Segment(c.getX(), c.getY() + longueur / 2, c.getX() - largeur / 2, c.getY()));
+            segments.add(new Segment(c.getX() - largeur / 2, c.getY(), c.getX(), c.getY() - longueur / 2));
+        }
+    }
+
+    public void deplaceX(double v) {
+        Vector v1 = new Vector(v, 0);
+        for (Segment s : segments) {
+            s.deplace(v1);
+        }
+        c.add(v1);
+    }
+
+    public void deplaceY(double v) {
+        Vector v1 = new Vector(0, v);
+        for (Segment s : segments) {
+            s.deplace(v1);
+        }
+        c.add(v1);
     }
 
     // fonction obligatoire

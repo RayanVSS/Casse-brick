@@ -27,6 +27,8 @@ import gui.GraphicsFactory.RacketGraphics;
 import physics.entity.Ball;
 import physics.entity.Brick;
 import physics.geometry.Coordinates;
+import physics.geometry.Segment;
+import physics.geometry.Vector;
 import utils.GameConstants;
 import physics.config.PhysicEngine;
 import physics.config.PhysicSetting;
@@ -37,7 +39,7 @@ public class ToolBox extends Pane {
     private boolean Bar=false;
     private Ball ball;
     private Pane root;
-    private LabelToggleButtonHBox addBrickButton, addBallButton;
+    private LabelToggleButtonHBox addBrickButton, addBallButton ,BrickIncassableButton;
     private LabelToggleButtonHBox pauseButton;
     private boolean testpreset=false;
     private PhysicEngine game;
@@ -141,15 +143,6 @@ public class ToolBox extends Pane {
         button.setLayoutY(50);
 
         getChildren().addAll(labelspeed,labelangle,labelrotate,button,label);
-            
-        addBrickButton.setLayoutX(10);
-        addBrickButton.setLayoutY(170);
-
-        addBallButton.setLayoutX(10);
-        addBallButton.setLayoutY(200);
-
-        pauseButton.setLayoutX(10);
-        pauseButton.setLayoutY(360);
 
         getChildren().addAll(addBallButton,addBrickButton);
 
@@ -157,7 +150,7 @@ public class ToolBox extends Pane {
         Button button2 = new Button("Supprimer toutes les briques ajoutées");
         button2.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
         button2.setLayoutX(30);
-        button2.setLayoutY(230);
+        button2.setLayoutY(250);
         button2.setOnAction(e -> {
             removeBrick();
         });
@@ -166,7 +159,7 @@ public class ToolBox extends Pane {
         Button button3 = new Button("Supprimer toutes les balles ajoutées");
         button3.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
         button3.setLayoutX(30);
-        button3.setLayoutY(260);
+        button3.setLayoutY(270);
 
         button3.setOnAction(e -> {
             removeBall();
@@ -177,12 +170,12 @@ public class ToolBox extends Pane {
         label = new Label("Changer la forme de la raquette :");
         label.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
         label.setLayoutX(10);
-        label.setLayoutY(290);
+        label.setLayoutY(310);
         ComboBox<String> listracket = new ComboBox<String>();
         listracket.getItems().addAll("rectangle","rond","triangle","losange","YnotFixe");
         listracket.setValue(null);
         listracket.setLayoutX(40);
-        listracket.setLayoutY(310);
+        listracket.setLayoutY(330);
         listracket.setOnAction(e -> {
             root.getChildren().remove(PhysicEngine.graphRacket.getShape());
             PhysicEngine.racket = PhysicEngine.init_racket(listracket.getValue());
@@ -191,7 +184,7 @@ public class ToolBox extends Pane {
         });
 
         getChildren().addAll(label,listracket);
-            
+
     }
 
     public void reset() {
@@ -240,6 +233,11 @@ public class ToolBox extends Pane {
             labelangle.setText("Angle du vecteur de la balle : -");
             labelspeed.setText("Vitesse de la balle : -");
         }
+        if(map2.size()==0){
+            getChildren().remove(BrickIncassableButton);
+        }
+        pauseButton.getToggleButton().setSelected(PhysicEngine.Pause);
+        pauseButton.updateText();
     }
 
     public void setData(){
@@ -269,6 +267,8 @@ public class ToolBox extends Pane {
             Bar = false;
             root.setOnMouseClicked(null);
             PhysicEngine.start_border=0;
+            PhysicEngine.LIMIT_SIMULATION.get(1).addX(-300);
+
             close();
             root.getChildren().remove(this);
         }
@@ -276,6 +276,7 @@ public class ToolBox extends Pane {
             Bar=true;
             addControls();
             PhysicEngine.start_border=300;
+            PhysicEngine.LIMIT_SIMULATION.get(1).addX(300);
             root.getChildren().add(this);
             affiche();
             afficherTest();
@@ -303,7 +304,29 @@ public class ToolBox extends Pane {
     private void createUtilsButtons() {
         addBrickButton = new LabelToggleButtonHBox("Ajouter une brique", false);
         addBrickButton.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
-        addBrickButton.getToggleButton().setOnAction(e -> addBrickButton.updateText());
+        addBrickButton.getToggleButton().setOnAction(e ->{
+           if(addBrickButton.getToggleButton().isSelected()){
+                if(!getChildren().contains(BrickIncassableButton)){
+                    getChildren().add(BrickIncassableButton);
+                }
+           }
+            addBrickButton.updateText();
+        });
+
+        BrickIncassableButton = new LabelToggleButtonHBox("Incassable", false);
+        BrickIncassableButton.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
+        BrickIncassableButton.getToggleButton().setOnAction(e ->{
+            for(Brick brick : map2.keySet()){
+                if(BrickIncassableButton.getToggleButton().isSelected()){
+                    brick.setUnbreakable(true);
+                }
+                else{
+                    brick.setUnbreakable(false);
+                }
+            }
+            BrickIncassableButton.updateText();
+        });
+
 
         addBallButton = new LabelToggleButtonHBox("Ajouter une balle", false);
         addBallButton.getToggleButton().setOnAction(e -> addBallButton.updateText());
@@ -313,6 +336,18 @@ public class ToolBox extends Pane {
             PhysicEngine.Pause = !PhysicEngine.Pause ; 
             pauseButton.updateText();});
         pauseButton.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
+
+        BrickIncassableButton.setLayoutX(10);
+        BrickIncassableButton.setLayoutY(200);
+
+        addBrickButton.setLayoutX(10);
+        addBrickButton.setLayoutY(170);
+
+        addBallButton.setLayoutX(10);
+        addBallButton.setLayoutY(230);
+
+        pauseButton.setLayoutX(10);
+        pauseButton.setLayoutY(360);
 
     }
 
@@ -333,6 +368,9 @@ public class ToolBox extends Pane {
                     }
                     if(nochevauchement){
                         Brick b = PhysicEngine.init_brick(new Coordinates(mouseX, mouseY));
+                        if(BrickIncassableButton.getToggleButton().isSelected()){
+                            b.setUnbreakable(true);
+                        }
                         BricksGraphics brickg = new BricksGraphics(b,b.getC().getIntX(),b.getC().getIntY());
                         game.setTakeBrick(brickg, b, this, root);
                         map2.put(b,brickg);

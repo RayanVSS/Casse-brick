@@ -9,6 +9,10 @@ public class Segment {
         this.end = end;
     }
 
+    public Segment(double x1, double y1, double x2, double y2) {
+        this(new Coordinates(x1, y1), new Coordinates(x2, y2));
+    }
+
     public Coordinates getStart() {
         return this.start;
     }
@@ -25,5 +29,20 @@ public class Segment {
         return Math.atan2(this.end.getY() - this.start.getY(), this.end.getX() - this.start.getX());
     }
 
-    
+    public boolean intersect(Coordinates point) {
+        return point.getX() >= Math.min(this.start.getX(), this.end.getX())
+                && point.getX() <= Math.max(this.start.getX(), this.end.getX())
+                && point.getY() >= Math.min(this.start.getY(), this.end.getY())
+                && point.getY() <= Math.max(this.start.getY(), this.end.getY());
+    }
+
+    public void deplace(Vector v) {
+        this.start.add(v);
+        this.end.add(v);
+    }
+
+    public void addX(double x) {
+        this.start.addX(x);
+        this.end.addX(x);
+    }
 }

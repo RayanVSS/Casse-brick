@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javafx.scene.input.KeyCode;
 import physics.entity.Racket;
+import physics.geometry.Vector;
 import utils.GameConstants;
 
 /**
@@ -21,11 +22,11 @@ public class DegradeRacket extends Racket {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {
                 if (this.mX() > -largeur / 2)
-                    this.mX(this.mX() - speed);
+                    this.deplaceX(-speed);
             }
             if (key == GameConstants.RIGHT) {
                 if (this.mX() < super.getWidth() - longueur - 70)
-                    this.mX(this.mX() + speed);
+                    this.deplaceX(speed);
             }
             if (key == GameConstants.SPACE) {
                 setlargeurP(true);

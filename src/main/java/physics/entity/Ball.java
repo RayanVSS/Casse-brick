@@ -6,6 +6,7 @@ import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
 import entity.ball.MagnetBall;
+import javafx.scene.effect.Light.Point;
 import physics.geometry.*;
 import physics.gui.Preview;
 import physics.config.PhysicSetting;
@@ -161,11 +162,9 @@ public abstract class Ball extends Entity {
         this.zoneHeight = zoneHeight;
     }
 
-    public void updatePreview(Set<Ball> balls) {
+    public void updatePreview(Set<Brick> bricks) {
         if (this.preview != null) {
-            for(Ball b : balls){
-                preview.checkCollisionOtherBall(b);
-            }
+            preview.checkCollisionBrick(bricks);
             preview.trajectory();
             preview.add_circle();
             preview.check();
@@ -182,30 +181,7 @@ public abstract class Ball extends Entity {
     }
 
     public boolean intersectBrick(Brick b) {
-
-        double circleDistance_x = Math.abs(getC().getX() - b.getC().getX() - GameConstants.BRICK_WIDTH / 2);
-        double circleDistance_y = Math.abs(getC().getY() - b.getC().getY() - GameConstants.BRICK_HEIGHT / 2);
-
-        if (circleDistance_x > (GameConstants.BRICK_WIDTH / 2 + radius)) {
-            return false;
-        }
-        if (circleDistance_y > (GameConstants.BRICK_HEIGHT / 2 + radius)) {
-            return false;
-        }
-
-        if (circleDistance_x <= (GameConstants.BRICK_WIDTH / 2)) {
-            return true;
-        }
-        if (circleDistance_y <= (GameConstants.BRICK_HEIGHT / 2)) {
-            return true;
-        }
-
-        double cornerDistance_sq = (circleDistance_x - GameConstants.BRICK_WIDTH / 2)
-                * (circleDistance_x - GameConstants.BRICK_WIDTH / 2)
-                + (circleDistance_y - GameConstants.BRICK_HEIGHT / 2)
-                        * (circleDistance_y - GameConstants.BRICK_HEIGHT / 2);
-
-        return (cornerDistance_sq <= (radius * radius));
+        return intersectBrick(this.getC(), this.getRadius(), b);
     }
 
     public static boolean intersectBrick(Coordinates c, int radius, Brick b) {
@@ -276,19 +252,20 @@ public abstract class Ball extends Entity {
     }
 
     public void checkCollision(Brick b) {
-        if (this.intersectBrick(b)) {
-            if (this.getC().getX() + this.getRadius() > b.getC().getX()
-                    && this.getC().getX() - this.getRadius() < b.getC().getX() + GameConstants.BRICK_WIDTH) {
-                this.setDirection(new Vector(new Coordinates(this.getDirection().getX(), -this.getDirection().getY())));
-            } else if (this.getC().getY() + this.getRadius() > b.getC().getY()
-                    && this.getC().getY() - this.getRadius() < b.getC().getY() + GameConstants.BRICK_HEIGHT) {
-                this.setDirection(new Vector(new Coordinates(-this.getDirection().getX(), this.getDirection().getY())));
-            } else {
-                this.setDirection(
-                        new Vector(new Coordinates(-this.getDirection().getX(), -this.getDirection().getY())));
+       if(checkCollision(this.getC(), this.getDirection(), this.radius,b,rotation)){
+           b.absorb(100);
+       }
+    }
+
+    public static boolean checkCollision(Coordinates c ,Vector d, double radius ,Brick b,Rotation rotation){
+        if (intersectBrick(c, (int) radius, b)) {
+            for (Segment s : b.getSegments()) {
+                if(checkCollision(c,d,radius,s,rotation)){
+                    return true;
+                }
             }
-            b.setDestroyed(true);
         }
+        return false;
     }
 
     public void checkCollision(Set<Brick> bricks) {
@@ -343,7 +320,7 @@ public abstract class Ball extends Entity {
                 ball.getC().setY(ball.getY() - ny * overlap / 2);
     
             }
-            
+
             double angle = Math.atan2(dy, dx);
             double sin = Math.sin(angle);
             double cos = Math.cos(angle);
@@ -365,35 +342,57 @@ public abstract class Ball extends Entity {
             ball.CollisionB = true;
         }
     }
-    
 
+    public boolean checkCollision(Segment segment) {
+        return checkCollision(getC(), getDirection(), radius, segment, rotation);
+    }
 
-    public void checkCollision(Segment s){
-        double x1 = s.getStart().getX();
-        double y1 = s.getStart().getY();
-        double x2 = s.getEnd().getX();
-        double y2 = s.getEnd().getY();
-        double x = getX();
-        double y = getY();
+    public static boolean checkCollision(Coordinates c, Vector d, double radius, Segment segment ,Rotation rotation) {
+        double x1 = segment.getStart().getX();
+        double y1 = segment.getStart().getY();
+        double x2 = segment.getEnd().getX();
+        double y2 = segment.getEnd().getY();
         double dx = x2 - x1;
         double dy = y2 - y1;
-        double a = dx * dx + dy * dy;
-        double b = 2 * (dx * (x1 - x) + dy * (y1 - y));
-        double c = x * x + y * y + x1 * x1 + y1 * y1 - 2 * (x * x1 + y * y1) - radius * radius;
-        double delta = b * b - 4 * a * c;
-        if (delta >= 0) {
-            double t = (-b - Math.sqrt(delta)) / (2 * a);
-            double xInt = x1 + t * dx;
-            double yInt = y1 + t * dy;
-            double nx = xInt - x;
-            double ny = yInt - y;
-            double n = Math.sqrt(nx * nx + ny * ny);
-            nx /= n;
-            ny /= n;
-            double d = 2 * (getDirection().getX() * nx + getDirection().getY() * ny);
-            getDirection().setX(getDirection().getX() - d * nx);
-            getDirection().setY(getDirection().getY() - d * ny);
+        double len = Math.sqrt(dx * dx + dy * dy);
+        dx /= len;
+        dy /= len;
+
+        double t = dx * (c.getX() - x1) + dy * (c.getY() - y1);
+
+        //Si le point est proche des rebords du segment
+        double closestX, closestY;
+        if (t < 0) {
+            closestX = x1;
+            closestY = y1;
+        } else if (t > len) {
+            closestX = x2;
+            closestY = y2;
+        } else {
+            closestX = x1 + t * dx;
+            closestY = y1 + t * dy;
         }
+
+        double distance = Math.sqrt((c.getX() - closestX) * (c.getX() - closestX) +
+                (c.getY() - closestY) * (c.getY() - closestY));
+
+        if (distance <= radius) {
+            double normalX = c.getX() - closestX;
+            double normalY = c.getY() - closestY;
+            double lenNormal = Math.sqrt(normalX * normalX + normalY * normalY);
+            normalX /= lenNormal;
+            normalY /= lenNormal;
+
+            double d1 = d.getX() * normalX + d.getY() * normalY;
+            if(rotation != null){
+                //rotation.addEffect(d.getX()/-d.getX()*Math.abs(d.getX())*5);
+            }
+            d.setX(d.getX()-2 * d1 * normalX);
+            d.setY(d.getY()-2 * d1 * normalY);
+
+            return true;
+        }
+        return false;
     }
 
     public double getMass(){

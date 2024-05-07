@@ -24,11 +24,11 @@ public class ClassicRacket extends Racket {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {
                 if (this.mX() > -longueur / 2)
-                    this.mX(this.mX() - speed);
+                    this.deplaceX(-speed);
             }
             if (key == GameConstants.RIGHT) {
                 if (this.mX() < super.getWidth() - longueur - 70)
-                    this.mX(this.mX() + speed);
+                    this.deplaceX(speed);
             }
             if (key == GameConstants.SPACE) {
                 setlargeurP(true);

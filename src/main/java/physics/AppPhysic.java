@@ -30,6 +30,10 @@ public class AppPhysic extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.resizableProperty().setValue(false);
+        primaryStage.setOnCloseRequest(e->{
+            primaryStage.close();
+            System.exit(0);
+        });
         menu();
     }
 

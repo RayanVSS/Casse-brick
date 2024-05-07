@@ -46,5 +46,19 @@ public class Coordinates {
     public Coordinates clone() {
         return new Coordinates(x, y);
     }
+
+    public void add(Vector v) {
+        this.x += v.getX();
+        this.y += v.getY();
+    }
+
+    public void sub(Vector v) {
+        this.x -= v.getX();
+        this.y -= v.getY();
+    }
+
+    public void addX(double x) {
+        this.x += x;
+    }
     
 }

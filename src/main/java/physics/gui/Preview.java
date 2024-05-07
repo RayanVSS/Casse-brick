@@ -14,6 +14,10 @@ import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
+import java.util.Set;
+import physics.geometry.Segment;
+
+import config.Map;
 
 /***************************************************************************
  *                  Explication de classe Preview  :  
@@ -55,26 +59,13 @@ public class Preview {
     }
 
     public void trajectory(){
-        double h = GameConstants.DEFAULT_WINDOW_HEIGHT;
-        double w = PhysicSetting.DEFAULT_WINDOW_WIDTH;
+        for(Segment s:PhysicEngine.LIMIT_SIMULATION){
+            if(Ball.checkCollision(c_trajectory, d_trajectory, ball.getRadius(), s, null)){
+                break;
+            }
+        }
         double newX = c_trajectory.getX() + d_trajectory.getX() * ball.getSpeed() ;
         double newY = c_trajectory.getY() + d_trajectory.getY() * ball.getSpeed() ;
-        if (CollisionR) {
-            d_trajectory.setY(-d_trajectory.getY()+(ball.getRotation().getEffect()/90)*d_trajectory.getY());
-            newY = c_trajectory.getY() + d_trajectory.getY()*ball.getSpeed();
-            CollisionR = false;
-        }
-        if (newX <PhysicEngine.start_border || newX > w - ball.getRadius()) {
-            d_trajectory.setX(-d_trajectory.getX());
-            d_trajectory.setY(d_trajectory.getY()+(ball.getRotation().getEffect()/90)*d_trajectory.getY());
-            newX = c_trajectory.getX() + d_trajectory.getX()*ball.getSpeed();
-            d_trajectory.setX(d_trajectory.getX()*physics.getRetention());
-        }
-        if (newY < 0 || newY > h - ball.getRadius()) {
-            d_trajectory.setY(-d_trajectory.getY()+(ball.getRotation().getEffect()/90)*d_trajectory.getY());
-            newY = c_trajectory.getY() + d_trajectory.getY()*ball.getSpeed();
-            d_trajectory.setY(d_trajectory.getY()*physics.getRetention());
-        } 
         c_trajectory=new Coordinates(newX, newY);
         d_trajectory.add(physics.getWind());
         physics.checkGravity(c_trajectory, d_trajectory);
@@ -145,39 +136,32 @@ public class Preview {
             return;
         }
         // gestion de la collision entre les balles en X
-        boolean collisionX1 = c_trajectory.getX()+ball.getRadius()>=b.getC().getX()-b.getRadius() && c_trajectory.getX()-ball.getRadius()<b.getC().getX()+b.getRadius();
-        boolean collisionX2 = b.getX()+b.getRadius()>=c_trajectory.getX()-ball.getRadius() && b.getX()-b.getRadius()<c_trajectory.getX()+ball.getRadius();
-        boolean collisionXY = (c_trajectory.getY()+ball.getRadius()>=b.getY()-b.getRadius() && c_trajectory.getY()-ball.getRadius()<b.getY()+b.getRadius()) || (b.getY()+b.getRadius()>=c_trajectory.getY()-ball.getRadius() && b.getY()-b.getRadius()<c_trajectory.getY()+ball.getRadius());
-        // gestion de la collision entre les balles en Y
-        boolean collisionY1 = c_trajectory.getY()+ball.getRadius()>=b.getC().getY()-b.getRadius() && c_trajectory.getY()-ball.getRadius()<b.getC().getY()+b.getRadius() ;
-        boolean collisionY2 = b.getY()+b.getRadius()>=c_trajectory.getY()-ball.getRadius() && b.getY()-b.getRadius()<c_trajectory.getY()+ball.getRadius() ;
-        boolean collisionYX = (c_trajectory.getX()+ball.getRadius()>=b.getX()-b.getRadius() && c_trajectory.getX()-ball.getRadius()<b.getX()+b.getRadius()) || (b.getX()+b.getRadius()>=c_trajectory.getX()-ball.getRadius() && b.getX()-b.getRadius()<c_trajectory.getX()+ball.getRadius());
-        if((collisionX1||collisionX2) && collisionXY){
-            if(d_trajectory.getX() >= 0 && b.getDirection().getX() <= 0){
-                d_trajectory.setX(b.getDirection().getX());
-            }
-            else if(d_trajectory.getX() >= 0 && b.getDirection().getX() >= 0){
-                d_trajectory.setX(-d_trajectory.getX());
-            }
-            else if(d_trajectory.getX() <= 0 && b.getDirection().getX() <= 0){
-                d_trajectory.setX(Math.max(d_trajectory.getX(), b.getDirection().getX()));
-            }
-        }
-        else if((collisionY1 || collisionY2) && collisionYX){
-            if(d_trajectory.getY() >= 0 && b.getDirection().getY() <= 0){
-                d_trajectory.setY(b.getDirection().getY());
-            }
-            else if(d_trajectory.getY() >= 0 && b.getDirection().getY() >= 0){
-                d_trajectory.setY(-d_trajectory.getY());
-            }
-            else if(d_trajectory.getY() <= 0 && b.getDirection().getY() <= 0){
-                d_trajectory.setY(Math.max(d_trajectory.getY(), b.getDirection().getY()));
-            }
+        double distance = ball.getRadius() + b.getRadius();
+    
+        if (Math.abs(this.c_trajectory.getX() - ball.getX()) < distance &&
+            Math.abs(this.c_trajectory.getX() - ball.getY()) < distance) {
+    
+            double dx = this.c_trajectory.getX() - ball.getX();
+            double dy = this.c_trajectory.getY() - ball.getY();
+            distance = Math.sqrt(dx * dx + dy * dy);
+            
+            double angle = Math.atan2(dy, dx);
+            double sin = Math.sin(angle);
+            double cos = Math.cos(angle);
+    
+            double vy1 = this.d_trajectory.getY() * cos - this.d_trajectory.getX() * sin;
+            double vx2 = b.getDirection().getX() * cos + b.getDirection().getY() * sin;
+    
+            this.d_trajectory.setX(vx2 * cos - vy1 * sin);
+            this.d_trajectory.setY(vy1 * cos + vx2 * sin);
+
         }
     }
 
-    public void checkCollisionBrick(Brick b){
-        
+    public void checkCollisionBrick(Set<Brick> bricks){
+        for(Brick b: bricks){
+            Ball.checkCollision(c_trajectory, d_trajectory, ball.getRadius(), b,null);
+        }
     }
 
     public static ArrayList<Circle> preview_no_effect(Ball b , Pane root){
