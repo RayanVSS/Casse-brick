@@ -46,6 +46,10 @@ public class StartMenuController {
             click.play();
             boutique();
         });
+        this.view.getBtnTuto().setOnAction(e -> {
+            click.play();
+            tuto();
+        });
     }
 
     /**
@@ -88,12 +92,23 @@ public class StartMenuController {
     }
 
     /**
+
      * Méthode pour accéder à la boutique.
      */
     private void boutique() {
         //Platform.runLater(() -> {
             App.menuManager.changeScene(view.getPrimaryStage(), "BoutiqueView");
         //});
+    }
+
+
+
+    private void tuto() {
+        Platform.runLater(() -> {
+            view.getPrimaryStage().resizableProperty().set(true);
+            TutoController.setLoaded(true);
+            App.menuManager.changeScene(view.getPrimaryStage(), "TutoView");
+        });
     }
 
 }
