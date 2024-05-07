@@ -20,6 +20,7 @@ import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
 import gui.Menu.MenuViews.WinView;
+import gui.Menu.MenuControllers.TutoController;
 import javafx.application.Platform;
 import save.PlayerData;
 import save.Sauvegarde;
@@ -144,7 +145,6 @@ public class Console {
                 case "save":
                     commandSave();
                     break;
-
                 default:
                     systemDisplay("Commande inconnue : '/" + parts[0] + "' n'existe pas.");
                     break;
@@ -188,6 +188,10 @@ public class Console {
                 commandGetAdmin();
                 break;
 
+            case "loadtuto":
+                commandGetLoadTuto();
+                break;
+
             default:
                 systemDisplay("Commande /get erronée : '" + parts[1] + "' est un argument inconnu.");
                 break;
@@ -211,6 +215,10 @@ public class Console {
 
             case "admin":
                 commandSetAdmin(parts);
+                break;
+                
+            case "loadtuto":
+                commandSetLoadTuto(parts);
                 break;
 
             default:
@@ -312,6 +320,11 @@ public class Console {
     private static void commandGetAdmin() {
         systemDisplay("Commande détectée : /get admin");
         systemDisplay("Vous êtes : " + (PlayerData.isAdmin ? "Administrateur" : "Joueur"));
+    }
+
+    private static void commandGetLoadTuto() {
+        systemDisplay("Commande détectée : /get loadTuto");
+        systemDisplay("Le tutoriel est " + (TutoController.loadedProperty().get() ? "chargé" : "déchargé"));
     }
 
     private static void commandSetPseudo(String[] parts) {
@@ -418,5 +431,33 @@ public class Console {
         systemDisplay("Commande détectée : /save");
         App.autoSaveAndQuit2();
     }
+
+    private static void commandSetLoadTuto(String[] parts) {
+        if (parts.length < 3) {
+            systemDisplay("Argument manquant : /set loadtuto ??");
+        } else {
+            String value = parts[2].toLowerCase();
+            if (value.equals("false") || value.equals("0")) {
+                if (TutoController.loadedProperty().get() == false) {
+                    systemDisplay("Le tutoriel n'était pas chargé.");
+                } else {
+                    systemDisplay("Le tutoriel a été déchargé.");
+                    TutoController.setLoaded(false);
+                }
+
+            } else if (value.equals("true") || value.equals("1")) {
+                if (TutoController.loadedProperty().get() == true) {
+                    systemDisplay("Le tutoriel était déjà chargé.");
+                } else {
+                    systemDisplay("Le tutoriel a été chargé.");
+                    TutoController.setLoaded(true);
+                }
+            } else {
+                systemDisplay("Commande /set loadTuto erronée : '" + parts[2] + "' est une valeur invalide.aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            }
+        }
+    }
+
+    
 
 }

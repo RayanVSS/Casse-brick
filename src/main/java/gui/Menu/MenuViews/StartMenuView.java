@@ -78,7 +78,7 @@ public class StartMenuView implements Menu, ViewPosition {
         btnTuto = createButton("Tutoriel", 0, 0);
         btnQuit = createButton("Quitter", 0, 0);
         setCenterBoxStyle();
-        centerBox.getChildren().addAll(title, btnPlay, btnOptions, btnBoutique, btnSave,btnTuto, btnQuit);
+        centerBox.getChildren().addAll(title, btnPlay, btnOptions, btnBoutique, btnSave, btnTuto, btnQuit);
     }
 
     private void setCenterBoxStyle() {
@@ -100,7 +100,9 @@ public class StartMenuView implements Menu, ViewPosition {
 
     @Override
     public void moveConsoleView() {
-        bottomBox.getChildren().add(consoleView);
+        if(!bottomBox.getChildren().contains(consoleView)){
+            bottomBox.getChildren().add(consoleView);
+        }
     }
 
     @Override
