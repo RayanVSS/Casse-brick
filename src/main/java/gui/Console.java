@@ -178,6 +178,7 @@ public class Console {
                 break;
 
             case "inventory":
+                commandGetInventory();
                 break;
 
             case "save":
@@ -298,6 +299,10 @@ public class Console {
     private static void commandGetMoney() {
         systemDisplay("Commande détectée : /get money");
         systemDisplay("Vous possédez : " + PlayerData.money);
+    }
+
+    private static void commandGetInventory() {
+
     }
 
     private static void commandGetSave() {
