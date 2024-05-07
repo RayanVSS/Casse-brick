@@ -39,6 +39,7 @@ public class StartMenuView implements Menu, ViewPosition {
     private Button btnQuit;
     private Button btnBoutique;
     private Button btnSave;
+    private Button btnTuto;
     private Label title;
     private ConsoleView consoleView;
 
@@ -74,9 +75,10 @@ public class StartMenuView implements Menu, ViewPosition {
         btnOptions = createButton("Options", 0, 0);
         btnBoutique = createButton("Boutique", 0, 0);
         btnSave = createButton("Sauvegarder", 0, 0);
+        btnTuto = createButton("Tutoriel", 0, 0);
         btnQuit = createButton("Quitter", 0, 0);
         setCenterBoxStyle();
-        centerBox.getChildren().addAll(title, btnPlay, btnOptions, btnBoutique, btnSave, btnQuit);
+        centerBox.getChildren().addAll(title, btnPlay, btnOptions, btnBoutique, btnSave,btnTuto, btnQuit);
     }
 
     private void setCenterBoxStyle() {
@@ -169,6 +171,15 @@ public class StartMenuView implements Menu, ViewPosition {
      */
     public Button getBtnBoutique() {
         return btnBoutique;
+    }
+
+     /**
+     * Méthode pour obtenir le bouton Tutoriel.
+     * 
+     * @return Le bouton Tutoriel.
+     */
+    public Button getBtnTuto() {
+        return btnTuto;
     }
 
     public Scene getScene() {

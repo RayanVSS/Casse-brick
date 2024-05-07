@@ -13,6 +13,7 @@ import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
+import gui.Menu.MenuViews.TutoView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.GameConstants;
@@ -103,6 +104,7 @@ public class MenuManager {
         createGameCustomizerViewScene(primaryStage);
         createChapterViewScene(primaryStage);
         createBoutiqueView(primaryStage);
+        createTutoViewScene(primaryStage);
     }
 
     // Les méthodes suivantes créent des scènes spécifiques et les ajoutent à la
@@ -149,10 +151,17 @@ public class MenuManager {
         addMenu("Chapterview", chapterView);
     }
 
+
     public void createBoutiqueView(Stage primaryStage) {
         BoutiqueView boutiqueView = new BoutiqueView(primaryStage);
         addStylesheet(boutiqueView);
         addMenu("BoutiqueView", boutiqueView);
+    }
+    
+    public void createTutoViewScene(Stage primaryStage) {
+        TutoView TutoView = new TutoView(primaryStage);
+        addStylesheet(TutoView);
+        addMenu("TutoView", TutoView);
     }
 
     /**
