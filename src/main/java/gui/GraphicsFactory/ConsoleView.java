@@ -43,6 +43,7 @@ public class ConsoleView extends VBox {
     private Timer updateTimer;
     private Timer labelPreviewTimer;
     private int inputHistoryIndex;
+    private String saveInputField;
 
     public static int TEST_INDEX;
 
@@ -54,6 +55,7 @@ public class ConsoleView extends VBox {
         setStaticStyle();
         labelPreviewTimer = new Timer();
         inputHistoryIndex = -1;
+        saveInputField = "";
         // Décommenter ci-dessous pour tester
         Timer testTimer = new Timer();
         testTimer.scheduleAtFixedRate(new TimerTask() {
@@ -147,6 +149,9 @@ public class ConsoleView extends VBox {
 
     private void displayInputUp() {
         if (Console.getInputHistory().size() > inputHistoryIndex + 1) {
+            if (inputHistoryIndex == -1) {
+                saveInputField = inputField.getText();
+            }
             inputHistoryIndex++;
             inputField.setText(Console.getInputHistoryMessage(inputHistoryIndex));
             inputField.positionCaret(inputField.getText().length());
@@ -157,16 +162,17 @@ public class ConsoleView extends VBox {
         if (inputHistoryIndex > -1) {
             inputHistoryIndex--;
             if (inputHistoryIndex == -1) {
-                inputField.setText("");
+                inputField.setText(saveInputField);
             } else {
                 inputField.setText(Console.getInputHistoryMessage(inputHistoryIndex));
-                inputField.positionCaret(inputField.getText().length());
             }
+            inputField.positionCaret(inputField.getText().length());
         }
     }
 
     private void sendMessage() {
         inputHistoryIndex = -1;
+        saveInputField = "";
         String message = inputField.getText();
         if (!message.isEmpty()) {
             inputField.clear();
