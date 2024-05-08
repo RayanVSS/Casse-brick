@@ -3,10 +3,10 @@ package gui;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import gui.Menu.Menu;
 import gui.Menu.MenuViews.BoutiqueView;
@@ -46,17 +46,19 @@ public class Console {
 
     private static ArrayList<String> history;
     private static Queue<String> queue;
-    // input history à ajouter si le temps
+    private static ArrayList<String> inputHistory;
 
     public static void init() {
         history = new ArrayList<>();
         queue = new LinkedList<>();
+        inputHistory = new ArrayList<>();
         systemDisplay("Initialisation de la console...");
         systemDisplay("La console est initialisée.");
     }
 
     /**
-     * Traite le message 'pouvant' contenir une ligne de commande
+     * Traite le message 'pouvant' contenir une ligne de commande ;
+     * Réservée aux entrées utilisateurs.
      */
     public static void process(String message) {
         if (message.charAt(0) == '/') {
@@ -64,6 +66,8 @@ public class Console {
         } else {
             display("Moi : " + message);
         }
+        // Du plus récent (0) au plus ancien (length-1)
+        inputHistory.add(0, message);
     }
 
     /**
@@ -98,6 +102,14 @@ public class Console {
         if (GameConstants.ACTUAL_VIEW instanceof Menu) {
             ((Menu) GameConstants.ACTUAL_VIEW).update();
         }
+    }
+
+    public static ArrayList<String> getInputHistory() {
+        return inputHistory;
+    }
+
+    public static String getInputHistoryMessage(int index) {
+        return inputHistory.get(index);
     }
 
     ////////////////////////  PARTIE TRAITEMENT  ////////////////////////
@@ -358,21 +370,25 @@ public class Console {
 
             if (matcher.matches()) {
                 systemDisplay("Commande détectée : /set exp " + parts[2]);
-                int value = Integer.parseInt(matcher.group(1));
-                systemDisplay("Ancien niveau : " + PlayerData.expLevel);
-                switch (parts[2].charAt(0)) {
-                    case '+':
-                        PlayerData.expLevel += value;
-                        break;
-                    case '-':
-                        PlayerData.expLevel += value; // Meme que + car parseInt gère le -
-                        break;
-                    default:
-                        PlayerData.expLevel = value;
-                        break;
+                if (PlayerData.isAdmin) {
+                    int value = Integer.parseInt(matcher.group(1));
+                    systemDisplay("Ancien niveau : " + PlayerData.expLevel);
+                    switch (parts[2].charAt(0)) {
+                        case '+':
+                            PlayerData.expLevel += value;
+                            break;
+                        case '-':
+                            PlayerData.expLevel += value; // Meme que + car parseInt gère le -
+                            break;
+                        default:
+                            PlayerData.expLevel = value;
+                            break;
+                    }
+                    refreshView();
+                    systemDisplay("Nouveau niveau : " + PlayerData.expLevel);
+                } else {
+                    systemDisplay("Action impossible : Droit Admin requis.");
                 }
-                refreshView();
-                systemDisplay("Nouveau niveau : " + PlayerData.expLevel);
             } else {
                 systemDisplay("Commande /set exp erronée : '" + parts[2] + "' est une valeur invalide.");
             }
@@ -389,21 +405,25 @@ public class Console {
 
             if (matcher.matches()) {
                 systemDisplay("Commande détectée : /set money " + parts[2]);
-                int value = Integer.parseInt(matcher.group(1));
-                systemDisplay("Ancien solde : " + PlayerData.money);
-                switch (parts[2].charAt(0)) {
-                    case '+':
-                        PlayerData.money += value;
-                        break;
-                    case '-':
-                        PlayerData.money += value; // Meme que + car parseInt gère le -
-                        break;
-                    default:
-                        PlayerData.money = value;
-                        break;
+                if (PlayerData.isAdmin) {
+                    int value = Integer.parseInt(matcher.group(1));
+                    systemDisplay("Ancien solde : " + PlayerData.money);
+                    switch (parts[2].charAt(0)) {
+                        case '+':
+                            PlayerData.money += value;
+                            break;
+                        case '-':
+                            PlayerData.money += value; // Meme que + car parseInt gère le -
+                            break;
+                        default:
+                            PlayerData.money = value;
+                            break;
+                    }
+                    refreshView();
+                    systemDisplay("Nouveau solde : " + PlayerData.money);
+                } else {
+                    systemDisplay("Action impossible : Droit Admin requis.");
                 }
-                refreshView();
-                systemDisplay("Nouveau solde : " + PlayerData.money);
             } else {
                 systemDisplay("Commande /set money erronée : '" + parts[2] + "' est une valeur invalide.");
             }

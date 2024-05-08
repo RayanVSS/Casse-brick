@@ -42,6 +42,7 @@ public class ConsoleView extends VBox {
     private Region expandingRegion;
     private Timer updateTimer;
     private Timer labelPreviewTimer;
+    private int inputHistoryIndex;
 
     public static int TEST_INDEX;
 
@@ -52,6 +53,7 @@ public class ConsoleView extends VBox {
         startAutoUpdate();
         setStaticStyle();
         labelPreviewTimer = new Timer();
+        inputHistoryIndex = -1;
         // Décommenter ci-dessous pour tester
         Timer testTimer = new Timer();
         testTimer.scheduleAtFixedRate(new TimerTask() {
@@ -122,8 +124,13 @@ public class ConsoleView extends VBox {
         inputField.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
                 sendMessage();
+            } else if (event.getCode().equals(KeyCode.UP)) {
+                displayInputUp();
+            } else if (event.getCode().equals(KeyCode.DOWN)) {
+                displayInputDown();
             }
         });
+
         inputField.setDisable(true);
 
         sendButton = new Button("Envoyer");
@@ -138,7 +145,28 @@ public class ConsoleView extends VBox {
         sendBox.getChildren().addAll(inputField, sendButton);
     }
 
+    private void displayInputUp() {
+        if (Console.getInputHistory().size() > inputHistoryIndex + 1) {
+            inputHistoryIndex++;
+            inputField.setText(Console.getInputHistoryMessage(inputHistoryIndex));
+            inputField.positionCaret(inputField.getText().length());
+        }
+    }
+
+    private void displayInputDown() {
+        if (inputHistoryIndex > -1) {
+            inputHistoryIndex--;
+            if (inputHistoryIndex == -1) {
+                inputField.setText("");
+            } else {
+                inputField.setText(Console.getInputHistoryMessage(inputHistoryIndex));
+                inputField.positionCaret(inputField.getText().length());
+            }
+        }
+    }
+
     private void sendMessage() {
+        inputHistoryIndex = -1;
         String message = inputField.getText();
         if (!message.isEmpty()) {
             inputField.clear();

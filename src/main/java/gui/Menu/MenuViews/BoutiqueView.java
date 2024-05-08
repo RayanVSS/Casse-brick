@@ -3,10 +3,8 @@ package gui.Menu.MenuViews;
 import gui.Item;
 import gui.ViewPosition;
 import gui.GraphicsFactory.ConsoleView;
+import gui.Menu.Menu;
 import gui.Menu.MenuControllers.BoutiqueController;
-import utils.ImageLoader;
-import utils.GraphicsToolkit.LabelVBox;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,14 +13,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import save.PlayerData;
 import utils.GameConstants;
-import gui.Menu.Menu;
+import utils.GraphicsToolkit.LabelVBox;
+import utils.ImageLoader;
 
 public class BoutiqueView implements Menu, ViewPosition {
 
