@@ -16,16 +16,12 @@ public class Rotation {
         return angle;
     }
 
-    public void addEffect(char d) {
+
+    public void addEffect(double angle) {
         if(Math.abs(this.angle) >= 180){
             return;
         }
-        if(d=='d'){
-            this.angle += 30;
-        }
-        else{
-            this.angle -= 30;
-        }
+        this.angle += angle;
     }
 
     public double getEffect() {

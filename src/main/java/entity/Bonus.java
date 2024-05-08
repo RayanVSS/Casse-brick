@@ -28,7 +28,7 @@ public class Bonus extends Rectangle{
 
     public static Bonus createBonus(Coordinates c,List<Ball> ballList) {
         if (Math.random() < GameConstants.BONUS_CHANCE) {
-            if (Math.random() < 0.3) {
+            if (Math.random() > 0.2) {
                 return new Boost(c);
             }
             else{

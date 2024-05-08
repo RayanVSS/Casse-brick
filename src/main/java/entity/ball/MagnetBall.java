@@ -30,11 +30,11 @@ public class MagnetBall extends Ball {
     }
 
     @Override
-    public void movement() {
+    public void movement(long deltaT) {
         double w = getZoneWidth();
         double h = getZoneHeight();
-        double newX = this.getC().getX() + this.getDirection().getX();
-        double newY = this.getC().getY() + this.getDirection().getY();
+        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed()*deltaT;
+        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed()*deltaT;
         //verifie si la balle est devant la raquette avant n'importe action 
         if (Front) {
             //actualise l'etat de la raquette
@@ -83,7 +83,6 @@ public class MagnetBall extends Ball {
                     this.getDirection().setX(0);
                     this.getDirection().setY(1);
                     CollisionR = true;
-                    super.setDelete(true);
                     return;
                 }
             }
@@ -137,7 +136,7 @@ public class MagnetBall extends Ball {
             CollisionR = false;
         }
         if (newY > h - this.getRadius()) {
-            super.setDelete(false);
+            super.setDelete(true);
         }
 
         this.setC(new Coordinates(newX, newY));

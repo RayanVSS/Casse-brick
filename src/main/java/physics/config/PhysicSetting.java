@@ -73,8 +73,8 @@ public class PhysicSetting {
     public PhysicSetting(){
         Radius = GameConstants.DEFAULT_BALL_RADIUS;
         this.Wind = vectorWind(Speed_Wind, Direction_Wind);
-        DEFAULT_WINDOW_HEIGHT = 800.0;
-        DEFAULT_WINDOW_WIDTH = 1100.0;
+        DEFAULT_WINDOW_HEIGHT = GameConstants.DEFAULT_WINDOW_HEIGHT;
+        DEFAULT_WINDOW_WIDTH = GameConstants.DEFAULT_WINDOW_WIDTH;
         DEFAULT_BALL_START_COORDINATES=new Coordinates(DEFAULT_WINDOW_WIDTH/ 2, DEFAULT_WINDOW_HEIGHT / 2);
     }
 
@@ -112,6 +112,7 @@ public class PhysicSetting {
         if (c.getY() < DEFAULT_WINDOW_WIDTH - Radius) {
             d.setY(d.getY() + Gravite*Mass);
         }
+        else
         if(DEFAULT_WINDOW_HEIGHT-c.getY()-Radius<stop_bounce){
             d.setY(0);
         }
@@ -168,7 +169,6 @@ public class PhysicSetting {
         boolean verifY1 = b.getC().getY() >= r.getC().getY() && b.getC().getY() < r.getC().getY() + r.longueur;
         if (verifX1 && verifY1) {
             b.getDirection().setX(-b.getDirection().getX());
-            b.CollisionR_Side = true;
             return true;
         }
         return verifX && verifY;
@@ -282,6 +282,7 @@ public class PhysicSetting {
         double m2 = b2.getMass();
         double v1f = (m1*v1 + m2*v2 - m2*(v1-v2))/(m1+m2);
         double v2f = (m1*v1 + m2*v2 - m1*(v1-v2))/(m1+m2);
+        System.err.println("v1f : "+v1f+" v2f : "+v2f);
         b1.getDirection().setX(v1f*b1.getDirection().getX()/v1);
         b1.getDirection().setY(v1f*b1.getDirection().getY()/v1);
         b2.getDirection().setX(v2f*b2.getDirection().getX()/v2);

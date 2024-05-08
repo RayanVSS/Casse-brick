@@ -54,6 +54,7 @@ public class BallGraphics extends Circle implements EntityGraphics {
         updateBall();
         setCenterX(ball.getC().getX());
         setCenterY(ball.getC().getY());
+        setRotate(getRotate()+ball.getRotation().getAngle());
     }
 
     private void setBall() {
@@ -151,7 +152,7 @@ public class BallGraphics extends Circle implements EntityGraphics {
         // }
     }
 
-    public boolean IsMouseDraggingBall() {
+   public boolean IsMouseDraggingBall() {
         return isMouseDraggingBall;
     }
 

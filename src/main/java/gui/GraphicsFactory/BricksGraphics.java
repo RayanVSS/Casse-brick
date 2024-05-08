@@ -21,6 +21,10 @@ public class BricksGraphics extends StackPane implements EntityGraphics {
     public boolean isTransparent;
     private boolean waitingAdded, waitingRemoved;
 
+    //Partie pour le drag and drop
+    private boolean isMouseDraggingBall = false;
+    private double mouseX , mouseY = 0;
+
     private static final Map<EntityColor, String> colorToImageMap;
 
     static {
@@ -41,6 +45,8 @@ public class BricksGraphics extends StackPane implements EntityGraphics {
         this.i = i;
         this.j = j;
         this.setImageView(image);
+        setLayoutX(brick.getC().getX());
+        setLayoutY(brick.getC().getY());
         this.isUnbreakable = brick.isUnbreakable();
         this.isTransparent = brick.isTransparent();
     }
@@ -126,6 +132,27 @@ public class BricksGraphics extends StackPane implements EntityGraphics {
 
     public void setWaitingRemoved(boolean waitingRemoved) {
         this.waitingRemoved = waitingRemoved;
+    }
+
+    public boolean IsMouseDraggingBall() {
+        return isMouseDraggingBall;
+    }
+
+    public void setMouseDraggingBall(boolean mouseDraggingBall) {
+        isMouseDraggingBall = mouseDraggingBall;
+    }
+
+    public double getMouseX() {
+        return mouseX;
+    }
+
+    public double getMouseY() {
+        return mouseY;
+    }
+
+    public void setMouseXY(double mouseX, double mouseY) {
+        this.mouseX = mouseX;
+        this.mouseY = mouseY;
     }
 
 }
