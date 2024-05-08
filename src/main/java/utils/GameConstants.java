@@ -2,8 +2,6 @@ package utils;
 
 import java.util.Random;
 
-import org.checkerframework.checker.units.qual.A;
-
 import config.GameRules;
 import config.GameRules.BricksArrangement;
 import entity.ball.ClassicBall;

@@ -86,9 +86,6 @@ public class PhysicEngine {
     public static RacketGraphics graphRacket;
     Key key = new Key();
 
-    public static Set<KeyCode> direction = new HashSet<KeyCode>();
-    public static boolean BougePColision;
-
     public static boolean Pause = false;
 
     public PhysicEngine(Stage pStage, AppPhysic appPhysic) {
@@ -208,7 +205,6 @@ public class PhysicEngine {
 
         for(Ball b : listball.keySet()){
             listball.get(b).update();
-            b.CollisionB=false;
         }
 
         // Mise à jour de la position des briques
@@ -221,10 +217,11 @@ public class PhysicEngine {
             }
         }
 
-        // Mise à jour de la position de la raquette
         if(RACKET){
             update_racket();
         }
+
+        // Mise à jour de la position de la raquette
         
         if(toolBox.isBar()){
             toolBox.updateData();
@@ -329,16 +326,14 @@ public class PhysicEngine {
         primaryStage.getScene().setOnKeyReleased(eWind -> {
             key.getKeysPressed().remove(eWind.getCode());
         });
-        BougePColision = key.isEmpty();
-        direction = key.getKeysPressed();
+        Racket.d = key.getKeysPressed();
         for (Ball ball : listball.keySet()) {
-            if (racket.CollisionRacket(ball)) {
-                ball.setCollisionR(true);
-            }
+            ball.checkCollision(racket);
             if (ball.getPreview() != null) {
                 ball.getPreview().update(racket);
             }
         }
+        racket.getDirection().setX(0);
         primaryStage.getScene().setOnKeyPressed(eWind -> {
             key.getKeysPressed().add(eWind.getCode());
         });
@@ -447,8 +442,7 @@ public class PhysicEngine {
 
     public void clear(){
         PhysicEngine.start_border=0;
-        direction.clear();
+        Racket.d.clear();
         Pause = false;
-        BougePColision = false;
     }
 }

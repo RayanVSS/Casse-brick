@@ -11,6 +11,10 @@ public abstract class Figure {
         segments = new ArrayList<>();
     }
 
+    public Figure(ArrayList<Segment> s){
+        segments=s;
+    }
+
     public void addSegment(Segment s) {
         segments.add(s);
     }

@@ -169,7 +169,6 @@ public class PhysicSetting {
         boolean verifY1 = b.getC().getY() >= r.getC().getY() && b.getC().getY() < r.getC().getY() + r.longueur;
         if (verifX1 && verifY1) {
             b.getDirection().setX(-b.getDirection().getX());
-            b.CollisionR_Side = true;
             return true;
         }
         return verifX && verifY;

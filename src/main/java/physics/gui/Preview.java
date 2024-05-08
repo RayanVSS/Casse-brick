@@ -12,12 +12,11 @@ import physics.entity.Ball;
 import physics.entity.Brick;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
+import physics.geometry.PhysicTools;
 import physics.geometry.Vector;
-import utils.GameConstants;
 import java.util.Set;
 import physics.geometry.Segment;
 
-import config.Map;
 
 /***************************************************************************
  *                  Explication de classe Preview  :  
@@ -60,7 +59,7 @@ public class Preview {
 
     public void trajectory(){
         for(Segment s:PhysicEngine.LIMIT_SIMULATION){
-            if(Ball.checkCollision(c_trajectory, d_trajectory, ball.getRadius(), s, null)){
+            if(PhysicTools.checkCollision(c_trajectory, d_trajectory, ball.getRadius(), s, null)){
                 break;
             }
         }
@@ -122,8 +121,11 @@ public class Preview {
     }
 
     public void update(Racket r){
-        if (PhysicEngine.PATH && physics.checkCollisionRacket(r, c_trajectory, d_trajectory)) {
-            CollisionR = true;
+        for(Segment s:r.segments){
+            if(PhysicTools.checkCollision(c_trajectory, d_trajectory, physics.getRadius(), s, null)){
+                CollisionR=true;
+                return;
+            }
         }
     }
 
@@ -160,9 +162,10 @@ public class Preview {
 
     public void checkCollisionBrick(Set<Brick> bricks){
         for(Brick b: bricks){
-            Ball.checkCollision(c_trajectory, d_trajectory, ball.getRadius(), b,null);
+            PhysicTools.checkCollision(c_trajectory, d_trajectory, ball.getRadius(), b,null);
         }
     }
+
 
     public static ArrayList<Circle> preview_no_effect(Ball b , Pane root){
         ArrayList<Circle> circles = new ArrayList<Circle>();

@@ -9,15 +9,12 @@ import utils.GameConstants;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import gui.GameRoot;
 import gui.GraphicsFactory.RacketGraphics;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
-import physics.geometry.Coordinates;
-import physics.geometry.Segment;
-import physics.geometry.Vector;
-import utils.GameConstants;
-import java.util.ArrayList;
 import physics.geometry.Figure;
+import utils.Key;
+import java.util.HashSet;
 
 /***************************************************************************
  * Explication de classe pour la raquette *
@@ -70,7 +67,7 @@ public abstract class Racket extends Figure {
     public double DEFAULT_WINDOW_WIDTH=GameConstants.DEFAULT_GAME_ROOT_WIDTH;
     Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5,
             GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
-    public Vector direction = new Vector(c);
+    public Vector direction = new Vector(0,0);
     public double speed;
     public int longueur;
     public int largeur;
@@ -91,6 +88,8 @@ public abstract class Racket extends Figure {
     // varible pour les boosts
     public static boolean StopBall = false;
     public static boolean AddIntensityBall = false;
+    public static Key key = GameRoot.key; ;
+    public static Set<KeyCode> d = new HashSet<>();
 
     private long jumpStartTime;
 
@@ -561,7 +560,7 @@ public abstract class Racket extends Figure {
     public void reset() {
         Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5,
                 GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
-        Vector direction = new Vector(c);
+        Vector direction = new Vector(0,0);
         this.setC(c);
         this.setDirection(direction);
     }

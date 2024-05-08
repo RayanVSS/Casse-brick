@@ -27,21 +27,25 @@ public class YNotFixeRacket extends Racket {
                 case LEFT:
                     if (this.mX() > -longueur / 2)
                         this.deplaceX(-speed);
+                        this.getDirection().setX(-1);
                     break;
                 case D:
                 case RIGHT:
                     if (this.mX() < super.getWidth() - largeur - 70)
                         this.deplaceX(speed);
+                        this.getDirection().setX(1);
                     break;
                 case Z:
                 case UP:
                     if (this.mY() > 50)
                         this.deplaceY(-speed);
+                        this.getDirection().setY(-1);
                     break;
                 case S:
                 case DOWN:
                     if (this.mY() < GameConstants.DEFAULT_WINDOW_HEIGHT - 50)
                         this.deplaceY(speed);
+                        this.getDirection().setY(1);
                     break;
                 case SPACE:
                     if (jump) {

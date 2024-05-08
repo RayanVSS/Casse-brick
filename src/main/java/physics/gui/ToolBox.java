@@ -1,15 +1,11 @@
 package physics.gui;
 
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
@@ -17,7 +13,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Random;
 
-import org.checkerframework.checker.units.qual.g;
 
 import gui.GraphicsToolkit.LabelToggleButtonHBox;
 import gui.ImageLoader;
@@ -27,8 +22,6 @@ import gui.GraphicsFactory.RacketGraphics;
 import physics.entity.Ball;
 import physics.entity.Brick;
 import physics.geometry.Coordinates;
-import physics.geometry.Segment;
-import physics.geometry.Vector;
 import utils.GameConstants;
 import physics.config.PhysicEngine;
 import physics.config.PhysicSetting;
