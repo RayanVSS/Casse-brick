@@ -23,15 +23,11 @@ public class Item implements Menu{
         this.price = price;
         this.type = type;
         this.bought = PlayerData.inventaire.isBought(this.getName());
-        this.worn = GameConstants.BALL_PORTE==this || GameConstants.RACKET_PORTE==this;
+        this.worn = GameConstants.TEXTURE.equals(this.getPath()) || GameConstants.SKIN_BALL.equals(this.getPath());
+        // GameConstants.BALL_PORTE==this || GameConstants.RACKET_PORTE==this;
 
-        if (worn) {
-            this.button = createButton("Porté");
-        } else if(bought) {
-            this.button = createButton("Acheté");
-        }else{
-            this.button = createButton("Acheter : "+price);
-        }
+        button = createButton("");
+
     }
 
     public void updateButtonBuy(){
@@ -52,6 +48,12 @@ public class Item implements Menu{
         glow.setColor(javafx.scene.paint.Color.CRIMSON);
         glow.setRadius(10);
         button.setEffect(glow);
+    }
+
+    public void updateNone(){
+        this.getButton().setText("Acheter : " + this.getPrice());
+        this.getButton().setEffect(null);
+
     }
     // GETTERS
 

@@ -144,7 +144,7 @@ public interface Menu {
      * @Override update spécifique selon la vue.
      */
     default void update() {
-
+        
     }
 
     /**

@@ -38,7 +38,6 @@ public class BoutiqueController {
 
     private void acheterItem(Item item) {
         if (PlayerData.inventaire.isBought(item.getName())) {
-            System.out.println("Deja achete");
             updateItem(item);
             return;
         } else if (PlayerData.money >= item.getPrice()) {

@@ -135,21 +135,22 @@ public class BallGraphics extends Circle implements EntityGraphics {
                 this.setFill(MAGNET_NEG);
             }
         }
-        // if (ball.getColor() != null) {
-        //     switch (ball.getColor()) {
-        //         case RED:
-        //             this.setFill(Color.RED);
-        //             break;
-        //         case GREEN:
-        //             this.setFill(Color.GREEN);
-        //             break;
-        //         case BLUE:
-        //             this.setFill(Color.BLUE);
-        //             break;
-        //         default:
-        //             break;
-        //     }
-        // }
+        if (ball.getColor() != null) {
+            
+            switch (ball.getColor()) {
+                case RED:
+                    this.setFill(Color.RED);
+                    break;
+                case GREEN:
+                    this.setFill(Color.GREEN);
+                    break;
+                case BLUE:
+                    this.setFill(Color.BLUE);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
    public boolean IsMouseDraggingBall() {
