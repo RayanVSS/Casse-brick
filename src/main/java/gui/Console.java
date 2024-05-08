@@ -189,6 +189,10 @@ public class Console {
                 commandGetAdmin();
                 break;
 
+            case "theme":
+                commandGetTheme();
+                break;
+
             default:
                 systemDisplay("Commande /get erronée : '" + parts[1] + "' est un argument inconnu.");
                 break;
@@ -210,8 +214,16 @@ public class Console {
                 commandSetMoney(parts);
                 break;
 
+            case "inventory":
+                commandSetInventory(parts);
+                break;
+
             case "admin":
                 commandSetAdmin(parts);
+                break;
+
+            case "theme":
+                commandSetTheme(parts);
                 break;
 
             default:
@@ -319,6 +331,10 @@ public class Console {
         systemDisplay("Vous êtes : " + (PlayerData.isAdmin ? "Administrateur" : "Joueur"));
     }
 
+    private static void commandGetTheme() {
+
+    }
+
     private static void commandSetPseudo(String[] parts) {
         if (parts.length < 3) {
             systemDisplay("Argument manquant : /set pseudo ??");
@@ -394,6 +410,10 @@ public class Console {
         }
     }
 
+    private static void commandSetInventory(String[] parts) {
+
+    }
+
     private static void commandSetAdmin(String[] parts) {
         if (parts.length < 3) {
             systemDisplay("Argument manquant : /set admin ??");
@@ -419,6 +439,10 @@ public class Console {
                 systemDisplay("Commande /set admin erronée : '" + parts[2] + "' est une valeur invalide.");
             }
         }
+    }
+
+    private static void commandSetTheme(String[] parts) {
+
     }
 
     private static void commandSave() {
