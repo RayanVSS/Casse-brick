@@ -340,6 +340,7 @@ public abstract class Racket extends Figure {
     }
 
     public void createsegments(){
+        segments.clear();
         if(shape.equals("rectangle")){
             segments.add(new Segment(c.getX(), c.getY(), c.getX() + largeur, c.getY()));
             segments.add(new Segment(c.getX() + largeur, c.getY(), c.getX() + largeur, c.getY() + longueur));
@@ -563,6 +564,7 @@ public abstract class Racket extends Figure {
         Vector direction = new Vector(0,0);
         this.setC(c);
         this.setDirection(direction);
+        createsegments();
     }
 
     // GET et SET
