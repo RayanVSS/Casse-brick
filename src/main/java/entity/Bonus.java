@@ -1,6 +1,8 @@
 package entity;
 
 import java.util.List;
+
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import physics.geometry.Coordinates;
 import utils.GameConstants;
@@ -10,6 +12,8 @@ import physics.entity.Racket;
 public class Bonus extends Rectangle{
     private Coordinates c;
     private List<Ball> ballList;
+    private Color COLOR_BONUS = Color.rgb(233, 255, 0);;
+
 
     public Bonus(double x, double y, double width, double height) {
         super(x, y, width, height);
@@ -19,7 +23,7 @@ public class Bonus extends Rectangle{
         super(c.getX(), c.getY(), GameConstants.WIDTH, GameConstants.HEIGHT);
         this.c = c;
         this.ballList=ballList;
-        setFill(GameConstants.COLOR_BONUS);
+        setFill(COLOR_BONUS);
     }
 
     public static Bonus createBonus(Coordinates c,List<Ball> ballList) {

@@ -1,6 +1,5 @@
 package gui.Menu.MenuControllers;
 
-import config.Game;
 import gui.App;
 import gui.Menu.MenuViews.StartMenuView;
 import javafx.application.Platform;
@@ -43,6 +42,14 @@ public class StartMenuController {
             click.play();
             sauvegarde();
         });
+        this.view.getBtnBoutique().setOnAction(e -> {
+            click.play();
+            boutique();
+        });
+        this.view.getBtnTuto().setOnAction(e -> {
+            click.play();
+            tuto();
+        });
     }
 
     /**
@@ -50,7 +57,7 @@ public class StartMenuController {
      */
     private void play() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "GameModeView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "GameModeView");
         });
 
     }
@@ -60,7 +67,7 @@ public class StartMenuController {
      */
     private void options() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "OptionsView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "OptionsView");
         });
     }
 
@@ -80,7 +87,27 @@ public class StartMenuController {
      */
     private void sauvegarde() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "SaveView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "SaveView");
+        });
+    }
+
+    /**
+
+     * Méthode pour accéder à la boutique.
+     */
+    private void boutique() {
+        //Platform.runLater(() -> {
+            App.menuManager.changeScene(view.getPrimaryStage(), "BoutiqueView");
+        //});
+    }
+
+
+
+    private void tuto() {
+        Platform.runLater(() -> {
+            view.getPrimaryStage().resizableProperty().set(true);
+            TutoController.setLoaded(true);
+            App.menuManager.changeScene(view.getPrimaryStage(), "TutoView");
         });
     }
 

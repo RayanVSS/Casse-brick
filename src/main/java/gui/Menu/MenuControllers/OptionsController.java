@@ -61,10 +61,6 @@ public class OptionsController {
         this.view.getButtonleft().getButton().setOnAction(e -> left());
         this.view.getButtonpower().setOnAction(e -> power());
         this.view.getButtonright().setOnAction(e -> right());
-        this.view.getTextureComboBox().getSelectionModel().selectedItemProperty()
-                .addListener((obs, oldSelection, newSelection) -> {
-                    textureImage();
-                });
 
     }
 
@@ -73,7 +69,7 @@ public class OptionsController {
      */
     private void back() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
         });
     }
 
@@ -154,15 +150,10 @@ public class OptionsController {
         String selectedTheme = view.getTheme().getComboBox().getValue();
         if (selectedTheme != null) {
             GameConstants.CSS = Theme.valueOf(selectedTheme.toUpperCase());
-            // change le css de chaque scene dans SceneManager
-            App.sceneManager.getScenes().forEach((k, v) -> {
-                App.sceneManager.addStylesheet(v);
+            // change le css de chaque scene dans menuManager
+            App.menuManager.getMenus().forEach((k, v) -> {
+                App.menuManager.addStylesheet(v);
             });
         }
-    }
-
-    public void textureImage() {
-        //la fonction a était mise dans OptionView car elle ne veut pas marcher ici
-        // ligne 137
     }
 }

@@ -2,6 +2,7 @@ package gui.Menu;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -18,27 +19,26 @@ import javafx.scene.layout.StackPane;
 public interface Menu {
 
     public enum Theme {
-        PINK("/styles/pink.css"), 
-        LIGHT("/styles/light.css"), 
+        PINK("/styles/pink.css"),
+        LIGHT("/styles/light.css"),
         CLASSIC("/styles/classic.css"),
         BLACK("/styles/black.css"),
         ACHROMATOPSIE("/styles/achromatopsie.css"),
         DEUTERANOPIE("/styles/deuteranopie.css"),
         TRITANOPIE("/styles/tritanopie.css"),
-        PROTANOPIE("/styles/protanopie.css")
-        ;
+        PROTANOPIE("/styles/protanopie.css");
 
         private String path;
-
         public String getPath() {
             return path;
         }
-
+        public String getName() {
+            return path.replace("/styles/", "").replace(".css", "");
+        }
         Theme(String path) {
             this.path = path;
         }
     }
-
 
     /**
      * Crée un bouton avec le texte, la marge droite et la marge inférieure
@@ -52,6 +52,21 @@ public interface Menu {
     default Button createButton(String text, double rightMargin, double bottomMargin) {
         Button button = new Button(text);
         StackPane.setMargin(button, new Insets(0, rightMargin, bottomMargin, 0));
+        button.getStyleClass().add("button-style");
+        button.setOnMouseEntered(e -> {
+            button.getStyleClass().remove("button-style");
+            button.getStyleClass().add("button-hover");
+        });
+        button.setOnMouseExited(e -> {
+            button.getStyleClass().remove("button-hover");
+            button.getStyleClass().add("button-style");
+        });
+        return button;
+    }
+
+
+    default Button createButton(String text) {
+        Button button = new Button(text);
         button.getStyleClass().add("button-style");
         button.setOnMouseEntered(e -> {
             button.getStyleClass().remove("button-style");
@@ -123,9 +138,17 @@ public interface Menu {
         return slider;
     }
 
-    default Label createLabel(String text) {
-        Label l=new Label(text);
-        l.getStyleClass().add("scoreL-style");
-        return l;
+
+    /**
+     * Rien par défaut
+     * @Override update spécifique selon la vue.
+     */
+    default void update() {
+
     }
+
+    /**
+     * @return scène interne
+     */
+    Scene getScene();
 }

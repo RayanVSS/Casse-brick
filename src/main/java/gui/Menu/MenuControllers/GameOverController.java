@@ -1,10 +1,10 @@
 package gui.Menu.MenuControllers;
 
-import config.Game;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.GameOverView;
 import javafx.application.Platform;
+import save.Sauvegarde;
 import utils.Sound.ClickSound;
 
 /**
@@ -57,6 +57,8 @@ public class GameOverController {
      * Méthode pour quitter le jeu. Elle ferme le stage principal.
      */
     private void quit() {
+        Sauvegarde sauvegarde = new Sauvegarde();
+        sauvegarde.autoSave();
         view.getPrimaryStage().close();
         Platform.exit();
         System.exit(0);
@@ -67,7 +69,7 @@ public class GameOverController {
      */
     private void menu() {
         Platform.runLater(() -> {
-            App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+            App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
         });
     }
 }

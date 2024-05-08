@@ -3,12 +3,12 @@ package gui.Menu.MenuControllers;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import config.Game;
 import gui.App;
 import gui.GameView;
 import gui.Menu.MenuViews.PauseView;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import save.Sauvegarde;
 import utils.GameConstants;
 import utils.Sound.ClickSound;
 
@@ -58,6 +58,8 @@ public class PauseController {
     }
 
     private void quit() {
+        Sauvegarde sauvegarde = new Sauvegarde();
+        sauvegarde.autoSave();
         this.timer.cancel();
         view.getPrimaryStage().close();
         Platform.exit();
@@ -67,7 +69,7 @@ public class PauseController {
     private void menu() {
         view.getChildren().clear();
         this.timer.cancel();
-        App.sceneManager.changeScene(view.getPrimaryStage(), "StartMenuView");
+        App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
     }
 
     private void resume() {

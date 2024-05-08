@@ -8,6 +8,7 @@ import static utils.GameConstants.MUSIC;
 import static utils.GameConstants.PARTICLES;
 import static utils.GameConstants.PATH;
 import static utils.GameConstants.RIGHT;
+import static utils.GameConstants.SKIN_BALL;
 import static utils.GameConstants.SOUND;
 import static utils.GameConstants.SPACE;
 import static utils.GameConstants.TEXTURE;
@@ -27,6 +28,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import config.StagesProgress;
+import gui.Console;
+import gui.Inventaire;
 import gui.Menu.Menu.Theme;
 import javafx.scene.input.KeyCode;
 import utils.GameConstants;
@@ -117,17 +120,20 @@ public class Sauvegarde {
         options.put("SPACE", SPACE);
         options.put("CSS", CSS);
         options.put("TEXTURE", TEXTURE);
+        options.put("SKIN_BALL", SKIN_BALL);
 
         return options;
     }
 
     public Map<String, Object> sauvegarderPlayerData(String name) {
+
         Map<String, Object> playerData = new HashMap<>();
         playerData.put("PSEUDO", PlayerData.pseudo);
         playerData.put("EXP_LEVEL", PlayerData.expLevel);
         playerData.put("MONEY", PlayerData.money);
+        playerData.put("ADMIN", PlayerData.isAdmin);
         playerData.put("PROGRESS", PlayerData.stagesProgress);
-
+        playerData.put("INVENTAIRE", PlayerData.inventaire);
         return playerData;
     }
 
@@ -148,25 +154,29 @@ public class Sauvegarde {
             LEFT = Sauvegarde.getKeyCode((String) options.getOrDefault("LEFT", "LEFT"));
             RIGHT = Sauvegarde.getKeyCode((String) options.getOrDefault("RIGHT", "RIGHT"));
             SPACE = Sauvegarde.getKeyCode((String) options.getOrDefault("SPACE", "SPACE"));
-            //CSS =  /*(Theme) options.getOrDefault("CSS", Theme.DARK);*/ Theme.valueOf((String) options.getOrDefault("CSS", "DARK"));
             String cssOption = (String) options.getOrDefault("CSS", "DARK");
             try {
                 CSS = Theme.valueOf(cssOption.toUpperCase());
             } catch (IllegalArgumentException e) {
-                CSS = Theme.CLASSIC; // valeur par défaut si l'option CSS n'est pas une constante de l'énumération Theme
+                CSS = Theme.CLASSIC; // valeur par défaut si l'option CSS n'est pas une constante de l'énumération
+                                     // Theme
             }
             TEXTURE = (String) options.getOrDefault("TEXTURE", "Null");
+            SKIN_BALL = (String) options.getOrDefault("SKIN_BALL", "Null");
         }
     }
 
     public void chargerPlayerData(String name) {
         Map<String, Object> playerData = getDonnees(name);
         if (playerData != null) {
-            PlayerData.pseudo = (String) playerData.getOrDefault("PSEUDO", "");
+            PlayerData.pseudo = (String) playerData.getOrDefault("PSEUDO", "Sans nom");
             PlayerData.expLevel = ((Number) playerData.getOrDefault("EXP_LEVEL", 1)).intValue();
             PlayerData.money = ((Number) playerData.getOrDefault("MONEY", 0)).intValue();
+            PlayerData.isAdmin = (boolean) playerData.getOrDefault("ADMIN", false);
             PlayerData.stagesProgress = new Gson().fromJson("" + playerData.get("PROGRESS"),
                     StagesProgress.class);
+            PlayerData.inventaire = new Gson().fromJson("" + playerData.get("INVENTAIRE"),
+                    Inventaire.class);
         }
     }
 
@@ -229,12 +239,12 @@ public class Sauvegarde {
         if (fichierSauvegarde.exists() && fichierSauvegarde.isFile() && fichierSauvegarde.getName().endsWith(".json")
                 && !fichierSauvegarde.getName().equals("lastSave.json")) {
             if (fichierSauvegarde.delete()) {
-                System.out.println("La sauvegarde '" + nomSauvegarde + "' a ete supprimée.");
+                Console.systemDisplay("La sauvegarde '" + nomSauvegarde + "' a été supprimée.");
             } else {
-                System.out.println("Impossible de supprimer la sauvegarde '" + nomSauvegarde);
+                Console.systemDisplay("Impossible de supprimer la sauvegarde : '" + nomSauvegarde + "'");
             }
         } else {
-            System.out.println("La sauvegarde '" + nomSauvegarde + "' n'existe pas");
+            Console.systemDisplay("La sauvegarde '" + nomSauvegarde + "' n'existe pas.");
         }
     }
 
@@ -254,14 +264,14 @@ public class Sauvegarde {
     }
 
     public void setupLastSave() {
-        System.out.println("Chargement de la derniere sauvegarde...");
+        Console.systemDisplay("Chargement de la dernière sauvegarde...");
         chargerLastSave();
         if (!LAST_SAVE.equals("")) {
             chargerOptionsDuJeu(LAST_SAVE);
             chargerPlayerData(LAST_SAVE);
-            System.out.println("Sauvegarde de : '" + LAST_SAVE + "'.");
+            Console.systemDisplay("Sauvegarde chargée : '" + LAST_SAVE + "'");
         } else {
-            System.err.println("Impossible de charger la derniere sauvegarde.");
+            Console.systemDisplay("Impossible de charger la dernière sauvegarde.");
         }
     }
 
@@ -269,11 +279,16 @@ public class Sauvegarde {
         String saveName;
         if (GameConstants.LAST_SAVE.equals("")) {
             saveName = "autoTempSave";
-            GameConstants.LAST_SAVE = saveName;
+            Map<String, Object> lastSave = new HashMap<>();
+            lastSave.put("SAVE", saveName + ".json");
+            sauvegarderDonnees("lastSave", lastSave);
         } else {
             saveName = GameConstants.LAST_SAVE.replace(".json", "");
         }
         sauvegarderToutesDonnees(saveName);
-        System.out.println("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès.");
+        GameConstants.LAST_SAVE = saveName + ".json";
+        Console.systemDisplay("Sauvegarde automatique de '" + GameConstants.LAST_SAVE + "' effectuée avec succès.");
+        Console.systemDisplay("Fermeture du jeu...");
     }
+
 }

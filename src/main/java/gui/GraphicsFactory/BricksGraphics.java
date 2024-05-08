@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import entity.EntityColor;
-import gui.ImageLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import physics.entity.Brick;
 import physics.entity.Entity;
 import utils.GameConstants;
+import utils.ImageLoader;
 
 public class BricksGraphics extends StackPane implements EntityGraphics {
     public ImageView imageView;

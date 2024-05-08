@@ -15,6 +15,7 @@ import entity.racket.DiamondRacket;
 import entity.racket.YNotFixeRacket;
 import gui.GraphicsFactory.RacketGraphics;
 import javafx.animation.AnimationTimer;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -102,7 +103,7 @@ public class PhysicEngine {
         this.physics = AppPhysic.physics;
 
         Ball ball = init_ball(null,null);
-        graphBall = new BallGraphics("src/main/ressources/balle/classic/classic.png",ball);
+        graphBall = new BallGraphics(new Image("src/main/ressources/balle/classic/classic.png"),ball);
         root.getChildren().add(graphBall);
         listball.put(ball, graphBall);
 

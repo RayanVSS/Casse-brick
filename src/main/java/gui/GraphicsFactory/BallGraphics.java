@@ -1,173 +1,155 @@
 package gui.GraphicsFactory;
 
 import utils.GameConstants;
-import entity.ball.ClassicBall;
-import entity.ball.GravityBall;
-import entity.ball.HyperBall;
-import entity.ball.MagnetBall;
-import gui.ImageLoader;
+import utils.ImageLoader;
+import entity.ball.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+// import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import physics.entity.Ball;
 import physics.entity.Entity;
 
-public class BallGraphics extends ImageView implements EntityGraphics {
-    private static String POSITIF_BALL;
-    private static String NEGATIF_BALL;
-    private static String RED_BALL = ("src/main/ressources/balle/red.png");
-    private static String GREEN_BALL = ("src/main/ressources/balle/green.png");
-    private static String BLUE_BALL = ("src/main/ressources/balle/blue.png");
+public class BallGraphics extends Circle implements EntityGraphics {
+    private Color color;
+    private Color MAGNET_POS;
+    private Color MAGNET_NEG;
+    private Color GRAVITY;
+    private Color HYPER;
 
     private Ball ball;
 
-    //Partie pour le drag and drop
-    private boolean isMouseDraggingBall = false;
-    private double mouseX , mouseY = 0;
- 
-    private Image currentImage;
     private boolean waitingAdded, waitingRemoved;
+    // Partie pour le drag and drop
+    private boolean isMouseDraggingBall = false;
+    private double mouseX, mouseY = 0;
+    private Image image;
+    private ImagePattern ballImage;
 
     public BallGraphics(Ball ball) {
+        super(ball.getRadius());
         this.ball = ball;
-        setImageAndProperties();
-        setX(ball.getC().getX() - ball.getRadius());
-        setY(ball.getC().getY() - ball.getRadius());
+        setBall();
+        setCenterX(ball.getC().getX());
+        setCenterY(ball.getC().getY());
         waitingAdded = true;
     }
 
-    public BallGraphics(String imagePath, Ball ball) {
+    public BallGraphics(Image i, Ball ball) {
+        super(ball.getRadius());
         this.ball = ball;
-        setImage(imagePath, currentImage);
-        setX(ball.getC().getX() - ball.getRadius());
-        setY(ball.getC().getY() - ball.getRadius());
+        if (i != null) {
+            ballImage = new ImagePattern(i);
+            setFill(ballImage);
+        } else {
+            this.setFill(Color.BLACK);
+        }
+        setCenterX(ball.getC().getX());
+        setCenterY(ball.getC().getY());
         waitingAdded = true;
     }
 
     public void update() {
-        setX(ball.getC().getX() - ball.getRadius());
-        setY(ball.getC().getY() - ball.getRadius());
-        updateImageAndProperties();
-        setRotate(getRotate()+ball.getRotation().getAngle()/5);
+        updateBall();
+        setCenterX(ball.getC().getX());
+        setCenterY(ball.getC().getY());
+        setRotate(getRotate()+ball.getRotation().getAngle());
     }
 
-    private void setImageAndProperties() {
+    private void setBall() {
+        if (GameConstants.SKIN_BALL != null) {
+            System.out.println("Skin ball : " + GameConstants.SKIN_BALL);
+            image = ImageLoader.loadImage(GameConstants.SKIN_BALL);
+            ballImage = new ImagePattern(image);
+            setFill(ballImage);
+        } else {
+            color();
+            this.setFill(color);
+            if (ball instanceof GravityBall) {
+                this.setStrokeWidth(3.5);
+                this.setStroke(GRAVITY);
+            } else if (ball instanceof HyperBall) {
+                this.setStrokeWidth(3.5);
+                this.setStroke(HYPER);
+            }
+        }
+    }
+
+    private void color() {
         switch (GameConstants.CSS) {
+            // TODO: trouver les bonnes couleurs pour gravity et hyper
             case PINK:
-                setPinkImage();
+                color = Color.rgb(199, 21, 133);
+                MAGNET_POS = Color.rgb(255, 255, 0);
+                MAGNET_NEG = Color.rgb(0, 128, 0);
+
                 break;
             case CLASSIC:
-                setClassicImage();
+                color = Color.rgb(39, 54, 84);
+                MAGNET_POS = Color.rgb(255, 255, 0);
+                MAGNET_NEG = Color.rgb(0, 128, 0);
                 break;
             case LIGHT:
-                setLightImage();
+                color = Color.rgb(101, 119, 134);
+                MAGNET_POS = Color.rgb(255, 255, 0);
+                MAGNET_NEG = Color.rgb(0, 128, 0);
                 break;
             case BLACK:
-                setBlackImage();
+                color = Color.rgb(245, 245, 245);
+                MAGNET_POS = Color.rgb(255, 255, 0);
+                MAGNET_NEG = Color.rgb(0, 128, 0);
                 break;
             case ACHROMATOPSIE:
+                color = Color.rgb(101, 119, 134);
+                MAGNET_POS = Color.rgb(130, 130, 130);
+                MAGNET_NEG = Color.rgb(40, 40, 40);
+                break;
             case DEUTERANOPIE:
+                color = Color.rgb(101, 119, 134);
+                MAGNET_POS = Color.rgb(255, 246, 233);
+                MAGNET_NEG = Color.rgb(137, 104, 29);
+                break;
             case PROTANOPIE:
-                setLightImage();
+                color = Color.rgb(101, 119, 134);
+                MAGNET_POS = Color.rgb(255, 247, 216);
+                MAGNET_NEG = Color.rgb(123, 110, 0);
+                break;
+            case TRITANOPIE:
+                color = Color.rgb(101, 119, 134);
+                MAGNET_POS = Color.rgb(255, 244, 249);
+                MAGNET_NEG = Color.rgb(54, 118, 129);
                 break;
             default:
-                setClassicImage();
                 break;
         }
+        GRAVITY = Color.rgb(255, 16, 240);
+        HYPER = Color.rgb(0, 0, 255);
     }
 
-    private void updateImageAndProperties() {
+    private void updateBall() {
         if (ball instanceof MagnetBall) {
-            Image newImage = null;
-            setImage((((MagnetBall) ball).getEtat().equals("positif") ? POSITIF_BALL : NEGATIF_BALL), newImage);
-            if (newImage != currentImage) {
-                currentImage = newImage;
-                setImage(currentImage);
+            if (((MagnetBall) ball).getEtat().equals("positif")) {
+                this.setFill(MAGNET_POS);
+            } else {
+                this.setFill(MAGNET_NEG);
             }
         }
-        if (ball.getColor() != null) {
-            Image newImage = null;
-            switch (ball.getColor()) {
-                case RED:
-                    setImage(RED_BALL, newImage);
-                    break;
-                case GREEN:
-                    setImage(GREEN_BALL, newImage);
-                    break;
-                case BLUE:
-                    setImage(BLUE_BALL, newImage);
-                    break;
-                default:
-                    newImage = currentImage;
-            }
-            if (newImage != currentImage) {
-                currentImage = newImage;
-                setImage(currentImage);
-            }
-        }
-    }
-
-    private void setPinkImage() {
-        if (ball instanceof ClassicBall) {
-            setImage("src/main/ressources/balle/pink/classic.png", currentImage);
-        } else if (ball instanceof HyperBall) {
-            setImage("src/main/ressources/balle/pink/hyper.png", currentImage);
-        } else if (ball instanceof GravityBall) {
-            setImage("src/main/ressources/balle/pink/gravity.png", currentImage);
-        } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ("src/main/ressources/balle/pink/positif.png");
-            NEGATIF_BALL = ("src/main/ressources/balle/pink/negatif.png");
-            setImage(POSITIF_BALL, currentImage);
-        }
-    }
-
-    private void setClassicImage() {
-        if (ball instanceof ClassicBall) {
-            setImage("src/main/ressources/balle/classic/classic.png", currentImage);
-        } else if (ball instanceof HyperBall) {
-            setImage("src/main/ressources/balle/classic/hyper.png", currentImage);
-        } else if (ball instanceof GravityBall) {
-            setImage("src/main/ressources/balle/classic/gravity.png", currentImage);
-        } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ("src/main/ressources/balle/classic/positif.png");
-            NEGATIF_BALL = ("src/main/ressources/balle/classic/negatif.png");
-            setImage(POSITIF_BALL, currentImage);
-        }
-    }
-
-    private void setLightImage() {
-        if (ball instanceof ClassicBall) {
-            setImage("src/main/ressources/balle/light/classic.png", currentImage);
-        } else if (ball instanceof HyperBall) {
-            setImage("src/main/ressources/balle/light/hyper.png", currentImage);
-        } else if (ball instanceof GravityBall) {
-            setImage("src/main/ressources/balle/light/gravity.png", currentImage);
-        } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ("src/main/ressources/balle/light/positif.png");
-            NEGATIF_BALL = ("src/main/ressources/balle/light/negatif.png");
-            setImage(POSITIF_BALL, currentImage);
-        }
-    }
-
-    private void setBlackImage() {
-        if (ball instanceof ClassicBall) {
-            setImage("src/main/ressources/balle/black/classic.png", currentImage);
-        } else if (ball instanceof HyperBall) {
-            setImage("src/main/ressources/balle/black/hyper.png", currentImage);
-        } else if (ball instanceof GravityBall) {
-            setImage("src/main/ressources/balle/black/gravity.png", currentImage);
-        } else if (ball instanceof MagnetBall) {
-            POSITIF_BALL = ("src/main/ressources/balle/black/positif.png");
-            NEGATIF_BALL = ("src/main/ressources/balle/black/negatif.png");
-            setImage(POSITIF_BALL, currentImage);
-        }
-    }
-
-    private void setImage(String imagePath, Image image) {
-        image = ImageLoader.loadImage(imagePath);
-        setImage(image);
-        setFitWidth(ball.getRadius() * 2);
-        setPreserveRatio(true);
-        setSmooth(true);
+        // if (ball.getColor() != null) {
+        //     switch (ball.getColor()) {
+        //         case RED:
+        //             this.setFill(Color.RED);
+        //             break;
+        //         case GREEN:
+        //             this.setFill(Color.GREEN);
+        //             break;
+        //         case BLUE:
+        //             this.setFill(Color.BLUE);
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        // }
     }
 
    public boolean IsMouseDraggingBall() {
@@ -219,4 +201,54 @@ public class BallGraphics extends ImageView implements EntityGraphics {
         this.waitingRemoved = waitingRemoved;
     }
 
+    // private void setImageBasedOnCSS(Theme css) {
+    // String imagePath = IMAGE_PATH + css.getName().toLowerCase() + "/";
+    // if (ball instanceof ClassicBall) {
+    // setImage(imagePath + "classic.png");
+    // } else if (ball instanceof HyperBall) {
+    // setImage(imagePath + "hyper.png");
+    // } else if (ball instanceof GravityBall) {
+    // setImage(imagePath + "gravity.png");
+    // } else if (ball instanceof MagnetBall) {
+    // setImage(imagePath + ((MagnetBall) ball).getEtat().equals("positif") != null
+    // ? POSITIF_BALL : NEGATIF_BALL);
+    // }
+    // }
+    // if (ball instanceof MagnetBall) {
+    // String newImagePath = ((MagnetBall) ball).getEtat().equals("positif") ?
+    // POSITIF_BALL : NEGATIF_BALL;
+    // setImage(newImagePath);
+    // }
+    // if (ball.getColor() != null) {
+    // switch (ball.getColor()) {
+    // case RED:
+    // setImage(RED_BALL);
+    // break;
+    // case GREEN:
+    // setImage(GREEN_BALL);
+    // break;
+    // case BLUE:
+    // setImage(BLUE_BALL);
+    // break;
+    // default:
+    // break;
+    // }
+    // }
+
+    // private void setImage(String imagePath) {
+    // Image newImage = ImageLoader.loadImage(imagePath);
+    // if (newImage != currentImage) {
+    // currentImage = newImage;
+    // ImagePattern imagePattern = new ImagePattern(currentImage);
+    // this.setFill(imagePattern);
+    // }
+    // }
+
+    // private static final String IMAGE_PATH = "src/main/ressources/balle/";
+    // private static final String POSITIF_BALL = "positif.png";
+    // private static final String NEGATIF_BALL = "negatif.png";
+    // private static final String RED_BALL = IMAGE_PATH + "red.png";
+    // private static final String GREEN_BALL = IMAGE_PATH + "green.png";
+    // private static final String BLUE_BALL = IMAGE_PATH + "blue.png";
+    // private Image currentImage;
 }

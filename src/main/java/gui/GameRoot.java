@@ -24,9 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.GameConstants;
 import utils.Key;
-import java.util.Map;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import physics.entity.Ball;
 import physics.entity.Racket;
@@ -59,6 +57,8 @@ public class GameRoot {
         this.gameView = gameView;
         this.primaryStage = primaryStage;
         this.graphBrickSet = new BrickSet(game.getMap().getBricks());
+        root.setPrefHeight(GameConstants.DEFAULT_WINDOW_HEIGHT);
+        root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         balls = new ArrayList<>();
         this.graphBall = init_GraphicsBall(game.getBalls(),balls);
         // rectangle rond losange triangle
@@ -78,9 +78,9 @@ public class GameRoot {
     public void update(long deltaT) {
         BoostAction();
         updateGraphics();
-        root.getChildren().remove(graphRacket.getShape());
+        //root.getChildren().remove(graphRacket.getShape());
         graphRacket.update();
-        root.getChildren().add(graphRacket.getShape()); // Ajoute la forme de la raquette mise à jour
+        //root.getChildren().add(graphRacket.getShape()); // Ajoute la forme de la raquette mise à jour
         if (GameConstants.PARTICLES) {
             particleGroup.update();
         }

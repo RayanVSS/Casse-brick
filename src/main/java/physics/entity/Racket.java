@@ -3,7 +3,6 @@ package physics.entity;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import physics.geometry.Coordinates;
-import physics.geometry.Segment;
 import physics.geometry.Vector;
 import utils.GameConstants;
 import java.util.Set;
@@ -15,6 +14,7 @@ import gui.GraphicsFactory.RacketGraphics;
 import physics.geometry.Figure;
 import utils.Key;
 import java.util.HashSet;
+import physics.geometry.Segment;
 
 /***************************************************************************
  * Explication de classe pour la raquette *
@@ -195,17 +195,16 @@ public abstract class Racket extends Figure {
                     b.setDirection(new Vector(-0.1 + b.getDirection().getX() * changeDirectionP,
                             0.1 + b.getDirection().getY() * changeDirectionN));
                 }
-
                 // balle touche le cote droit du triangle
             } else {
                 // balle qui va vers la droite
                 if (b.getDirection().getX() > 0) {
-                    b.setDirection(new Vector(-0.1 + b.getDirection().getX() * changeDirectionP,
-                            0.1 + b.getDirection().getY() * changeDirectionN));
-                    // balle qui va vers la gauche
-                } else {
                     b.setDirection(new Vector(0.1 + b.getDirection().getX() * changeDirectionN,
                             -0.1 + b.getDirection().getY() * changeDirectionP));
+                    // balle qui va vers la gauche
+                } else {
+                    b.setDirection(new Vector(-0.1 + b.getDirection().getX() * changeDirectionP,
+                            0.1 + b.getDirection().getY() * changeDirectionN));   
                 }
             }
             b.setSpeed(b.getSpeed() * 1.1);

@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
@@ -14,8 +15,8 @@ import java.util.Map;
 import java.util.Random;
 
 
-import gui.GraphicsToolkit.LabelToggleButtonHBox;
-import gui.ImageLoader;
+import utils.GraphicsToolkit.LabelToggleButtonHBox;
+import utils.ImageLoader;
 import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.BricksGraphics;
 import gui.GraphicsFactory.RacketGraphics;
@@ -42,13 +43,13 @@ public class ToolBox extends Pane {
     private Map<Brick,BricksGraphics> map2;
 
     private ArrayList<Circle> circles=new ArrayList<>();
-    private ArrayList<String> list_image=new ArrayList<>(Arrays.asList(
-        ("src/main/ressources/balle/classic/classic.png"),
-        ("src/main/ressources/balle/black/classic.png"),
-        ("src/main/ressources/balle/pink/gravity.png"),
-        ("src/main/ressources/balle/pink/classic.png"),
-        ("src/main/ressources/balle/black/gravity.png"),
-        ("src/main/ressources/balle/classic/gravity.png")
+    private ArrayList<Image> list_image=new ArrayList<>(Arrays.asList(
+        new Image("src/main/ressources/balle/classic/classic.png"),
+        new Image("src/main/ressources/balle/black/classic.png"),
+        new Image("src/main/ressources/balle/pink/gravity.png"),
+        new Image("src/main/ressources/balle/pink/classic.png"),
+        new Image("src/main/ressources/balle/black/gravity.png"),
+        new Image("src/main/ressources/balle/classic/gravity.png")
     ));
 
     private Random random = new Random();

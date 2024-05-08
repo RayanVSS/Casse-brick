@@ -11,6 +11,7 @@ import physics.entity.Ball;
 import physics.entity.Racket;
 import utils.GameConstants;
 import gui.App;
+import javafx.application.Platform;
 
 public class Game {
 
@@ -53,8 +54,10 @@ public class Game {
             inGameTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() { // chaque seconde
-                    timeElapsed++;
-                    rules.updateRemainingTime();
+                    Platform.runLater(() -> {
+                        timeElapsed++;
+                        rules.updateRemainingTime();
+                    });
                 }
             }, 0, 1000);
         }
@@ -114,6 +117,7 @@ public class Game {
             racket.reset();
         }
         updateGameStatus();
+        racket.getDirection().setX(0);
     }
 
     private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette

@@ -1,6 +1,7 @@
 package gui.Menu.MenuViews;
 
 import gui.GameView;
+import gui.ViewPosition;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameOverController;
 import javafx.scene.control.Button;
@@ -17,7 +18,7 @@ import utils.GameConstants;
  * @see GameOverController
  * @author Benmalek Majda
  */
-public class GameOverView extends VBox implements Menu {
+public class GameOverView extends VBox implements Menu, ViewPosition {
     private Stage primaryStage;
     private Button btnReplay;
     private Button btnQuit;
@@ -32,13 +33,13 @@ public class GameOverView extends VBox implements Menu {
      * @param game Le pane du jeu.
      */
 
-    public GameOverView(Stage p,GameView game ) {
+    public GameOverView(Stage p, GameView game) {
         this.primaryStage = p;
         this.game = game;
         gameOver = createLabel("Game Over", 0, 0);
         gameOver.getStyleClass().add("title-game-over-style");
-        btnReplay=createButton("Rejouer",0,0);
-        btnQuit=createButton("Quitter", 0, 0);
+        btnReplay = createButton("Rejouer", 0, 0);
+        btnQuit = createButton("Quitter", 0, 0);
         btnMenu = createButton("Menu", 0, 0);
         getChildren().addAll(gameOver, btnReplay, btnMenu, btnQuit);
         getStyleClass().add("root-game-over");
@@ -47,9 +48,9 @@ public class GameOverView extends VBox implements Menu {
         setPrefWidth(game.getRoot().getWidth());
         setPrefHeight(game.getRoot().getHeight());
         getStylesheets().add(GameConstants.CSS.getPath());
+        saveViewPosition();
         new GameOverController(this);
     }
-
 
     /**
      * Getter pour le bouton de replay.
