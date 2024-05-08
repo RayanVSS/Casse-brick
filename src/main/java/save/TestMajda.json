@@ -1,22 +1,16 @@
 {
-  "PATH": true,
+  "PATH": false,
   "MUSIC": 0,
   "CSS": "PINK",
   "MONEY": 0,
-  "SKIN_BALL": "src/main/ressources/balle/light/gravity.png",
-  "INVENTAIRE": [
-    "Rouge",
-    "ClassicLight",
-    "Etoile",
-    "GravityBlack",
-    "GravityLight"
-  ],
+  "SKIN_BALL": "Null",
+  "INVENTAIRE": [],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": true,
-  "PSEUDO": "Majda",
+  "PSEUDO": "Sans nom",
   "SPACE": "SPACE",
-  "TEXTURE": "src/main/ressources/Texture/rouge.jpg",
+  "TEXTURE": "Null",
   "EXP_LEVEL": 1,
   "PROGRESS": {
     "stages": [
@@ -211,7 +205,7 @@
       }
     ]
   },
-  "SOUND": 50,
+  "SOUND": 0,
   "RIGHT": "RIGHT",
   "ADMIN": false
 }
