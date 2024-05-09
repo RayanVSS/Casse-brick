@@ -1,6 +1,6 @@
 {
   "PATH": false,
-  "MUSIC": 50.0,
+  "MUSIC": 0.0,
   "CSS": "CLASSIC",
   "MONEY": 0.0,
   "SKIN_BALL": "Null",
@@ -10,7 +10,7 @@
   "FPS": true,
   "PSEUDO": "",
   "SPACE": "SPACE",
-  "TEXTURE": "Dark_Matter.jpg",
+  "TEXTURE": "Null",
   "EXP_LEVEL": 1.0,
   "SOUND": 50.0,
   "RIGHT": "RIGHT",
