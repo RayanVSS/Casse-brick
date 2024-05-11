@@ -100,7 +100,7 @@ public class StartMenuView implements Menu, ViewPosition {
 
     @Override
     public void moveConsoleView() {
-        if(!bottomBox.getChildren().contains(consoleView)){
+        if (!bottomBox.getChildren().contains(consoleView)) {
             bottomBox.getChildren().add(consoleView);
         }
     }
@@ -175,7 +175,7 @@ public class StartMenuView implements Menu, ViewPosition {
         return btnBoutique;
     }
 
-     /**
+    /**
      * Méthode pour obtenir le bouton Tutoriel.
      * 
      * @return Le bouton Tutoriel.

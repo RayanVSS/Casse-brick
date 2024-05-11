@@ -1,9 +1,12 @@
 /* LES ROOTS */
 .root,
 .root-options {
-    -fx-background-color: #FEE5F2;
+    /*-fx-background-color: #FEE5F2;*/
     -fx-alignment: center;
     -fx-spacing: 20;
+    -fx-background: linear-gradient(#FEE5F2, #FFB6C1);
+    background: linear-gradient(#FEE5F2, #FFB6C1);
+    /*fx-background: linear-gradient(to right, blue, pink);*/
 }
 
 .root-options {
@@ -22,7 +25,7 @@
     -fx-background-color: #FEE5F2;
 }
 
-.vbox {
+.vbox { 
     -fx-spacing: 20;
     -fx-alignment: center;
 }

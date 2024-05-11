@@ -85,31 +85,16 @@ public class BoutiqueView implements Menu, ViewPosition {
         for (int i = 0; i < GameConstants.LABELS_RAQUETTE.length; i++) {
             raquetteItem[i] = new Item(GameConstants.LABELS_RAQUETTE[i], GameConstants.PATHS_RAQUETTE[i],
                     startPrice * i + 5, "raquette");
-            // if (PlayerData.inventaire.contains(raquetteItem[i].getName())) {
-            // raquetteItem[i].updateButtonBuy();
-            // }
-            // if (raquetteItem[i].getPath().equals(GameConstants.TEXTURE)) {
-            // GameConstants.RACKET_PORTE = raquetteItem[i];
-            // raquetteItem[i].updateChange();
-            // }
-
             LabelVBox labelVBox = new LabelVBox(raquetteItem[i].getName(), 20);
             labelVBox.getChildren().addAll(initRectangle(raquetteItem[i].getPath()), raquetteItem[i].getButton());
-            raquetteGrid.add(labelVBox, i % 3, i / 3);
+            raquetteGrid.add(labelVBox, i % 4, i / 4);
         }
         for (int i = 0; i < GameConstants.LABELS_BALLE.length; i++) {
             balleItem[i] = new Item(GameConstants.LABELS_BALLE[i], GameConstants.PATHS_BALLE[i], startPrice * i + 5,
                     "balle");
-            // if (PlayerData.inventaire.contains(balleItem[i].getName())) {
-            // balleItem[i].updateButtonBuy();
-            // }
-            // if (balleItem[i].getPath().equals(GameConstants.SKIN_BALL)) {
-            // GameConstants.BALL_PORTE = balleItem[i];
-            // balleItem[i].updateChange();
-            // }
             LabelVBox labelVBox = new LabelVBox(balleItem[i].getName(), 10);
             labelVBox.getChildren().addAll(initImage(balleItem[i].getPath()), balleItem[i].getButton());
-            balleGrid.add(labelVBox, i % 3, i / 3);
+            balleGrid.add(labelVBox, i % 4, i / 4);
         }
     }
 
@@ -118,33 +103,27 @@ public class BoutiqueView implements Menu, ViewPosition {
         i.setWorn(GameConstants.TEXTURE.equals(i.getPath()) || GameConstants.SKIN_BALL.equals(i.getPath()));
         if (i.isWorn() && i.getType().equals("balle")) {
             GameConstants.BALL_PORTE = i;
-            System.out.println("update balle: "+ i.getName());
             i.updateChange();
         } else if (i.isWorn() && i.getType().equals("raquette")) {
             GameConstants.RACKET_PORTE = i;
-            System.out.println("update raquette: "+ i.getName());
             i.updateChange();
         } else if (i.isBought()) {
             i.updateButtonBuy();
-            System.out.println("update bought: "+ i.getName());
         } else {
-            i.getButton().setText("Acheter : " + i.getPrice());
-            System.out.println("update not bought: "+ i.getName());
+            i.getButton().setText("Prix : " + i.getPrice());
         }
-
-//        PlayerData.inventaire.afficheInventaire();
     }
 
     private void initBoutique() {
         initItems();
-        raquette = new LabelVBox("Texture Raquette:", 10);
-        raquetteGrid.setHgap(10);
-        raquetteGrid.setVgap(10);
+        raquette = new LabelVBox("Texture Raquette:", 5);
+        raquetteGrid.setHgap(5);
+        raquetteGrid.setVgap(5);
         raquette.getChildren().add(raquetteGrid);
 
-        balle = new LabelVBox("Skin Balle:", 10);
-        balleGrid.setHgap(10);
-        balleGrid.setVgap(10);
+        balle = new LabelVBox("Skin Balle:", 5);
+        balleGrid.setHgap(5);
+        balleGrid.setVgap(5);
         balle.getChildren().add(balleGrid);
 
         initArgent();
@@ -191,14 +170,12 @@ public class BoutiqueView implements Menu, ViewPosition {
 
     @Override
     public void update() {
-        System.out.println("boutique update 1");
         for (Item i : raquetteItem) {
             updateButton(i);
         }
         for (Item i : balleItem) {
             updateButton(i);
         }
-        System.out.println("boutique update 2 ");
     }
 
     // GETTERS

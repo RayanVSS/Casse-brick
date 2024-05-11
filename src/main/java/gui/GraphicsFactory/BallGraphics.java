@@ -58,13 +58,14 @@ public class BallGraphics extends Circle implements EntityGraphics {
     }
 
     private void setBall() {
-        if (GameConstants.SKIN_BALL != null) {
+        if (!GameConstants.SKIN_BALL.equals("Null") ){
             System.out.println("Skin ball : " + GameConstants.SKIN_BALL);
             image = ImageLoader.loadImage(GameConstants.SKIN_BALL);
             ballImage = new ImagePattern(image);
             setFill(ballImage);
         } else {
             color();
+            System.out.println("Skin ball : " + GameConstants.SKIN_BALL);
             this.setFill(color);
             if (ball instanceof GravityBall) {
                 this.setStrokeWidth(3.5);
@@ -73,7 +74,7 @@ public class BallGraphics extends Circle implements EntityGraphics {
                 this.setStrokeWidth(3.5);
                 this.setStroke(HYPER);
             }
-        }
+        } 
     }
 
     private void color() {

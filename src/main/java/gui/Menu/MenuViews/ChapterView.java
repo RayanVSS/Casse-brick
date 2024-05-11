@@ -60,6 +60,7 @@ public class ChapterView implements Menu, ViewPosition {
         chapter1.setStyle("-fx-background-color: transparent;");
         chapter1.setPrefWidth(800);
         chapter1.setPrefHeight(120);
+        
 
         chapter2 = new Button();
         chapter2Image = new ImageView(image2);
