@@ -16,7 +16,7 @@
   "PSEUDO": "Sans nom",
   "SPACE": "SPACE",
   "TEXTURE": "src/main/ressources/Texture/arc_en_ciel.jpg",
-  "EXP_LEVEL": 2,
+  "EXP_LEVEL": 1,
   "PROGRESS": {
     "stages": [
       {
@@ -210,7 +210,7 @@
       }
     ]
   },
-  "SOUND": 50,
+  "SOUND": 10,
   "RIGHT": "RIGHT",
   "ADMIN": false
 }

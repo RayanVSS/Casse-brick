@@ -180,14 +180,12 @@ public class RacketGraphics {
 			((Rectangle) shape).setX(racket.getC().getX());
 			((Rectangle) shape).setY(racket.getC().getY());
 		} else if (shape instanceof Polygon) {
-			((Polygon) shape).getPoints().set(0, racket.getC().getX());
-			((Polygon) shape).getPoints().set(1, racket.getC().getY() - racket.getLongueur() / 2);
-			((Polygon) shape).getPoints().set(2, racket.getC().getX() + racket.getLargeur() / 2);
-			((Polygon) shape).getPoints().set(3, racket.getC().getY());
-			((Polygon) shape).getPoints().set(4, racket.getC().getX());
-			((Polygon) shape).getPoints().set(5, racket.getC().getY() + racket.getLongueur() / 2);
-			((Polygon) shape).getPoints().set(6, racket.getC().getX() - racket.getLargeur() / 2);
-			((Polygon) shape).getPoints().set(7, racket.getC().getY());
+			((Polygon) shape).getPoints().remove(0, ((Polygon) shape).getPoints().size());
+			((Polygon) shape).getPoints().addAll(new Double[] {
+					racket.getC().getX(), racket.getC().getY() - racket.getLongueur() / 2,
+					racket.getC().getX() + racket.getLargeur() / 2, racket.getC().getY() + racket.getLongueur() / 2,
+					racket.getC().getX() - racket.getLargeur() / 2, racket.getC().getY() + racket.getLongueur() / 2
+			});
 		} else if (shape instanceof Ellipse) {
 			((Ellipse) shape).setCenterX(racket.getC().getX());
 			((Ellipse) shape).setCenterY(racket.getC().getY());
