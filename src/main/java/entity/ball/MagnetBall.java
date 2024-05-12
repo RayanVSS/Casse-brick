@@ -1,5 +1,6 @@
 package entity.ball;
 
+
 import entity.racket.MagnetRacket;
 import physics.entity.Ball;
 import physics.geometry.Coordinates;
@@ -33,8 +34,8 @@ public class MagnetBall extends Ball {
     public void movement(long deltaT) {
         double w = getZoneWidth();
         double h = getZoneHeight();
-        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed()*deltaT;
-        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed()*deltaT;
+        double newX = this.getC().getX() + this.getDirection().getX() * (this.getSpeed())/4;
+        double newY = this.getC().getY() + this.getDirection().getY() * (this.getSpeed())/4;
         //verifie si la balle est devant la raquette avant n'importe action 
         if (Front) {
             //actualise l'etat de la raquette
@@ -79,7 +80,7 @@ public class MagnetBall extends Ball {
                     }
                 } else {
                     //si la balle est en collision avec la raquette alors la balle vas au millieu de la raquette et ne bouge plus 
-                    this.setC(new Coordinates(getRa.getX() + 99, getRa.getY() - 10));
+                    this.setC(new Coordinates(getRa.getX() + 99, getRa.getY() - this.getRadius()));
                     this.getDirection().setX(0);
                     this.getDirection().setY(1);
                     CollisionR = true;
@@ -88,6 +89,7 @@ public class MagnetBall extends Ball {
             }
             //si l'etat de la raquette est different de la balle
             if (etatRacket != etatBall) {
+                CollisionR = false;
                 //repulsion de la balle de la raquette qui est moin puissante si la balle est loin de la raquette     
                 if (getRa.getY() - this.getC().getY() < 10) {
                     this.getDirection().setY(this.getDirection().getY() - GameConstants.POWER_MAGNET);

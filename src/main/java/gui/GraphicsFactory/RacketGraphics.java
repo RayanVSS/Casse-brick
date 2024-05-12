@@ -64,8 +64,11 @@ public class RacketGraphics {
 
 	public void update() {
 		updatePos();
-		magnetColor();
 		strokeColor();
+		if (racket instanceof MagnetRacket) {
+			magnetColor();
+		}
+
 	}
 
 	// public void updatePos() {
@@ -193,13 +196,12 @@ public class RacketGraphics {
 	}
 
 	private void magnetColor() {
-		if (racket instanceof MagnetRacket) {
-			if (MagnetRacket.getEtat().equals("positif")) {
-				shape.setFill(MAGNET_POS);
-			} else {
-				shape.setFill(MAGNET_NEG);
-			}
+		if (MagnetRacket.getEtat().equals("positif")) {
+			shape.setFill(MAGNET_POS);
+		} else {
+			shape.setFill(MAGNET_NEG);
 		}
+		
 	}
 
 	private void strokeColor() {
@@ -209,7 +211,7 @@ public class RacketGraphics {
 		} else if (racket.getLargeurP() || racket.getVitesseP() || racket.getZhonya()) {
 			shape.setStroke(BOOST);
 		} else {
-			if (!GameConstants.TEXTURE.equals("Null")) {
+			if (!GameConstants.TEXTURE.equals("Null") && !(racket instanceof MagnetRacket)) {
 				addTexture();
 			} else {
 				shape.setStroke(color);

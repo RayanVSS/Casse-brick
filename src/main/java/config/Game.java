@@ -70,35 +70,30 @@ public class Game {
 
     public void update(long deltaT) {
         start();
-        
-        //Vérifie si la balle est en collision avec une autre balle avant de les déplacer
+
+        // Vérifie si la balle est en collision avec une autre balle avant de les
+        // déplacer
         for (Ball ball : balls) {
             ball.checkCollisionOtherBall(balls);
         }
-        
+
         for (Ball ball : balls) {
-            ball.CollisionB=false;
-            if(ball.delete()){
+            ball.CollisionB = false;
+            if (ball.delete()) {
                 balls.remove(ball);
                 break;
             }
-            map.handleCollisionBricks(ball, rules); //gérer la collision des briques
+            map.handleCollisionBricks(ball, rules); // gérer la collision des briques
             if (map.updateBricksStatus(this)) {
-                //si la briques est cassée, chance d'avoir un boost
+                // si la briques est cassée, chance d'avoir un boost
                 Bonus bonus = Bonus.createBonus(ball.getC(), balls);
                 if (bonus != null) {
                     bonuslist.add(bonus);
                 }
             }
-            // Si la balle touche la raquette
-            if (ball.checkCollision(racket)) {
-                App.ballSound.update();
-                App.ballSound.play();
-                updateRulesRacket();
-            }
-            ball.movement(deltaT);
-
+            // seulement si la balle est une MagnetBall
             if (ball instanceof MagnetBall) {
+                originalball.CollisionR = false;
                 // donne les coordonnées de la raquette a la MagnetBall
                 setRa();
                 // actualise l'etat de la raquette
@@ -107,9 +102,25 @@ public class Game {
                 } else {
                     ((MagnetBall) ball).setFront(false);
                 }
+                if (ball.checkCollision(racket)) {
+                    originalball.CollisionR = true;
+                    App.ballSound.update();
+                    App.ballSound.play();
+                    updateRulesRacket();
+                }
+            } else {
+                // Si la balle touche la raquette
+                if (ball.checkCollision(racket)) {
+                    originalball.CollisionR = true;
+                    App.ballSound.update();
+                    App.ballSound.play();
+                    updateRulesRacket();
+                }
             }
+            ball.movement(deltaT);
+
         }
-        
+
         // Gere les conditions de perte
         if (balls.isEmpty()) {
             life--;
@@ -146,9 +157,9 @@ public class Game {
         return false;
     }
 
-    public void deleteBalls(){
+    public void deleteBalls() {
         for (Ball b : balls) {
-            if(!b.delete()){
+            if (!b.delete()) {
                 balls.remove(b);
                 break;
             }
@@ -156,7 +167,7 @@ public class Game {
     }
 
     private boolean verifyWin() {
-        //return true; // décommenter ici pour tester les wins
+        // return true; // décommenter ici pour tester les wins
         return map.countBricks() == 0;
     }
 
@@ -165,7 +176,6 @@ public class Game {
     public List<Ball> getBalls() {
         return balls;
     }
-
 
     public void resetBalls() {
         balls.clear();
