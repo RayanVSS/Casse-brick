@@ -50,7 +50,7 @@ public class GameRoot {
     private Game game;
     // private List<Ball> balls;
     // private BrickSet graphBrickSet;
-
+    private List<BallGraphics> graphBall;
     private ArrayList<Brick> bricks;
     private ArrayList<Ball> balls;
     private Map<Entity, EntityGraphics> entities;
@@ -279,20 +279,20 @@ public class GameRoot {
         for (BallGraphics ball : graphBall) {
             ball.update();
         }
-        for (int i=0;i<game.getBalls().size();i++){
+        for (int i = 0; i < game.getBalls().size(); i++) {
             Ball ball = game.getBalls().get(i);
-            if (!balls.contains(ball)) { 
+            if (!balls.contains(ball)) {
                 BallGraphics ballg = new BallGraphics(ball);
                 graphBall.add(ballg);
                 balls.add(ball);
                 root.getChildren().add(ballg);
             }
-            if(ball.delete()){
+            if (ball.delete()) {
                 root.getChildren().remove(graphBall.get(i));
                 graphBall.remove(i);
                 balls.remove(i);
             }
         }
 
-    // }
+    }
 }
