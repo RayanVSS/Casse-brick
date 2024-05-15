@@ -42,7 +42,6 @@ public class StageSelectorController {
         // System.err.println(i + (chapter * 9));
         if (PlayerData.stagesProgress.getStages()[i + (chapter * 9)].canLoadGame()) {
             new GameView(stageSelectorView.getPrimaryStage(), PlayerData.stagesProgress.getStages()[i + (chapter * 9)]);
-
         }
     }
 

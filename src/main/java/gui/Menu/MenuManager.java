@@ -14,6 +14,7 @@ import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
+import gui.Menu.MenuViews.TutoView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.GameConstants;
@@ -105,6 +106,7 @@ public class MenuManager {
         createChapterViewScene(primaryStage);
         createBoutiqueView(primaryStage);
         createInfinityModeViewScene(primaryStage);
+        createTutoViewScene(primaryStage);
     }
 
     // Les méthodes suivantes créent des scènes spécifiques et les ajoutent à la
@@ -161,6 +163,12 @@ public class MenuManager {
         BoutiqueView boutiqueView = new BoutiqueView(primaryStage);
         addStylesheet(boutiqueView);
         addMenu("BoutiqueView", boutiqueView);
+    }
+
+    public void createTutoViewScene(Stage primaryStage) {
+        TutoView TutoView = new TutoView(primaryStage);
+        addStylesheet(TutoView);
+        addMenu("TutoView", TutoView);
     }
 
     /**

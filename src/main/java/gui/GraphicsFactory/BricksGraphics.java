@@ -19,6 +19,10 @@ public class BricksGraphics extends ImageView implements EntityGraphics {
     public boolean isUnbreakable, isTransparent;
     private boolean waitingAdded, waitingRemoved;
 
+    //Partie pour le drag and drop
+    private boolean isMouseDraggingBall = false;
+    private double mouseX, mouseY = 0;
+
     private static final Map<EntityColor, String> colorToImageMap;
 
     static {
@@ -41,7 +45,7 @@ public class BricksGraphics extends ImageView implements EntityGraphics {
         this.isUnbreakable = brick.isUnbreakable();
         this.isTransparent = brick.isTransparent();
         this.waitingAdded = true;
-        this.waitingRemoved=false;
+        this.waitingRemoved = false;
     }
 
     public BricksGraphics(Brick brick, EntityColor c) {
@@ -56,8 +60,8 @@ public class BricksGraphics extends ImageView implements EntityGraphics {
         this.setY(brick.getC().getY());
         this.isUnbreakable = brick.isUnbreakable();
         this.isTransparent = brick.isTransparent();
-        this.waitingAdded=true;
-        this.waitingRemoved=false;
+        this.waitingAdded = true;
+        this.waitingRemoved = false;
     }
 
     public void setImageSize(Image image) {
@@ -69,7 +73,7 @@ public class BricksGraphics extends ImageView implements EntityGraphics {
     public void update() {
         if (brick != null) {
             if (brick.isDestroyed()) {
-                this.waitingRemoved=true;
+                this.waitingRemoved = true;
                 if (this.getImage() != null) {
                     this.setImage(null);
                 }
@@ -126,10 +130,28 @@ public class BricksGraphics extends ImageView implements EntityGraphics {
         this.waitingRemoved = waitingRemoved;
     }
 
+    public boolean IsMouseDraggingBall() {
+        return isMouseDraggingBall;
+    }
+
+    public void setMouseDraggingBall(boolean mouseDraggingBall) {
+        isMouseDraggingBall = mouseDraggingBall;
+    }
+
+    public double getMouseX() {
+        return mouseX;
+    }
+
+    public double getMouseY() {
+        return mouseY;
+    }
+
+    public void setMouseXY(double mouseX, double mouseY) {
+        this.mouseX = mouseX;
+        this.mouseY = mouseY;
+    }
+
 }
-
-
-
 
 // public class BricksGraphics extends StackPane implements EntityGraphics {
 //     public ImageView imageView;

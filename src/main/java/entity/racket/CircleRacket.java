@@ -21,11 +21,13 @@ public class CircleRacket extends Racket {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {
                 if (this.mX() > -largeur / 2)
-                    this.mX(this.mX() - speed);
+                    this.deplaceX(-speed);
+                    this.getDirection().setX(-1);
             }
             if (key == GameConstants.RIGHT) {
-                if (this.mX() < GameConstants.DEFAULT_GAME_ROOT_WIDTH - longueur - 70)
-                    this.mX(this.mX() + speed);
+                if (this.mX() < super.getWidth() - longueur - 70)
+                    this.deplaceX(speed);
+                    this.getDirection().setX(1);
             }
             if (key == GameConstants.SPACE) {
                 setlargeurP(true);

@@ -37,7 +37,13 @@ import physics.entity.Entity;
 import utils.GameConstants;
 import utils.Key;
 import java.util.List;
-import entity.Bonus;;
+import physics.entity.Ball;
+import physics.entity.Racket;
+import entity.Bonus;
+
+//pour les boosts
+import static physics.entity.Racket.StopBall;
+import static physics.entity.Racket.AddIntensityBall;;
 
 public class GameRoot {
     private Pane root = new Pane();
@@ -51,15 +57,13 @@ public class GameRoot {
 
     // private BallGraphics graphBall;
     private RacketGraphics graphRacket;
-    public static boolean BougePColision;
-    public static Set<KeyCode> direction = new HashSet<>();
     private ParticleGroup particleGroup;
-    private Key key = new Key();
     private Scene scene;
     private Stage primaryStage;
     private GameRoot gameRoot;
     private GameView gameView;
     private StageLevel level;
+    public static Key key = new Key();
 
     public GameRoot(StageLevel level, GameView gameView, Scene scene, Stage primaryStage) {
         this.level = level;
@@ -173,12 +177,10 @@ public class GameRoot {
         // }
 
         BonusUpdate();
-        BougePColision = key.isEmpty();
         key.handleInput(game);
         key.touchesR(scene, game);
         // prend les informations de la racquette pour la ball
-        BougePColision = key.isEmpty();
-        direction = key.getKeysPressed();
+        Racket.d = key.getKeysPressed();
         game.update(deltaT);
         key.touchesM(scene, game);
         if (game.isLost()) {
@@ -273,24 +275,24 @@ public class GameRoot {
         return graphBalls;
     }
 
-    // public void updateGraphics() {
-    // for (BallGraphics ball : graphBall) {
-    // ball.update();
-    // }
-    // for (int i=0;i<game.getBalls().size();i++){
-    // Ball ball = game.getBalls().get(i);
-    // if (!balls.contains(ball)) {
-    // BallGraphics ballg = new BallGraphics(ball);
-    // graphBall.add(ballg);
-    // balls.add(ball);
-    // root.getChildren().add(ballg);
-    // }
-    // if(!ball.delete()){
-    // root.getChildren().remove(graphBall.get(i));
-    // graphBall.remove(i);
-    // balls.remove(i);
-    // }
-    // }
+    public void updateGraphics() {
+        for (BallGraphics ball : graphBall) {
+            ball.update();
+        }
+        for (int i=0;i<game.getBalls().size();i++){
+            Ball ball = game.getBalls().get(i);
+            if (!balls.contains(ball)) { 
+                BallGraphics ballg = new BallGraphics(ball);
+                graphBall.add(ballg);
+                balls.add(ball);
+                root.getChildren().add(ballg);
+            }
+            if(ball.delete()){
+                root.getChildren().remove(graphBall.get(i));
+                graphBall.remove(i);
+                balls.remove(i);
+            }
+        }
 
     // }
 }

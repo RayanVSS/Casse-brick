@@ -85,10 +85,15 @@ public class Game {
 
     public void update(long deltaT) {
         start();
-        // Vérifie si la balle touche une brique
+
+        //Vérifie si la balle est en collision avec une autre balle avant de les déplacer
+        for (Ball ball : balls) {
+            ball.checkCollisionOtherBall(balls);
+        }
+
         for (Ball ball : balls) {
             ball.CollisionB = false;
-            if (!ball.delete()) {
+            if (ball.delete()) {
                 balls.remove(ball);
                 break;
             }
@@ -101,18 +106,12 @@ public class Game {
                 }
             }
             // Si la balle touche la raquette
-            if (racket.CollisionRacket(ball)) {
-                ball.setCollisionR(true);
+            if (ball.checkCollision(racket)) {
                 App.ballSound.update();
                 App.ballSound.play();
                 updateRulesRacket();
             }
-            if (rules.isInfinite()) {
-                ball.reset(resetBallInfinite());
-            } else {
-                ball.reset(GameConstants.DEFAULT_BALL_START_COORDINATES);
-            }
-            ball.movement();
+            ball.movement(deltaT);
 
             if (ball instanceof MagnetBall) {
                 // donne les coordonnées de la raquette a la MagnetBall
@@ -140,6 +139,7 @@ public class Game {
             }
         }
         updateGameStatus();
+        racket.getDirection().setX(0);
     }
 
     public boolean isInfiniteBonus() {

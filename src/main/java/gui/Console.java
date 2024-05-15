@@ -3,10 +3,10 @@ package gui;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import gui.Menu.Menu;
 import gui.Menu.MenuViews.BoutiqueView;
@@ -20,6 +20,7 @@ import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
 import gui.Menu.MenuViews.WinView;
+import gui.Menu.MenuControllers.TutoController;
 import javafx.application.Platform;
 import save.PlayerData;
 import save.Sauvegarde;
@@ -46,17 +47,19 @@ public class Console {
 
     private static ArrayList<String> history;
     private static Queue<String> queue;
-    // input history à ajouter si le temps
+    private static ArrayList<String> inputHistory;
 
     public static void init() {
         history = new ArrayList<>();
         queue = new LinkedList<>();
+        inputHistory = new ArrayList<>();
         systemDisplay("Initialisation de la console...");
         systemDisplay("La console est initialisée.");
     }
 
     /**
-     * Traite le message 'pouvant' contenir une ligne de commande
+     * Traite le message 'pouvant' contenir une ligne de commande ;
+     * Réservée aux entrées utilisateurs.
      */
     public static void process(String message) {
         if (message.charAt(0) == '/') {
@@ -64,6 +67,8 @@ public class Console {
         } else {
             display("Moi : " + message);
         }
+        // Du plus récent (0) au plus ancien (length-1)
+        inputHistory.add(0, message);
     }
 
     /**
@@ -98,6 +103,14 @@ public class Console {
         if (GameConstants.ACTUAL_VIEW instanceof Menu) {
             ((Menu) GameConstants.ACTUAL_VIEW).update();
         }
+    }
+
+    public static ArrayList<String> getInputHistory() {
+        return inputHistory;
+    }
+
+    public static String getInputHistoryMessage(int index) {
+        return inputHistory.get(index);
     }
 
     ////////////////////////  PARTIE TRAITEMENT  ////////////////////////
@@ -144,7 +157,6 @@ public class Console {
                 case "save":
                     commandSave();
                     break;
-
                 default:
                     systemDisplay("Commande inconnue : '/" + parts[0] + "' n'existe pas.");
                     break;
@@ -178,6 +190,7 @@ public class Console {
                 break;
 
             case "inventory":
+                commandGetInventory();
                 break;
 
             case "save":
@@ -186,6 +199,14 @@ public class Console {
 
             case "admin":
                 commandGetAdmin();
+                break;
+
+            case "theme":
+                commandGetTheme();
+                break;
+
+            case "loadtuto":
+                commandGetLoadTuto();
                 break;
 
             default:
@@ -209,8 +230,20 @@ public class Console {
                 commandSetMoney(parts);
                 break;
 
+            case "inventory":
+                commandSetInventory(parts);
+                break;
+
             case "admin":
                 commandSetAdmin(parts);
+                break;
+
+            case "theme":
+                commandSetTheme(parts);
+                break;
+
+            case "loadtuto":
+                commandSetLoadTuto(parts);
                 break;
 
             default:
@@ -300,6 +333,10 @@ public class Console {
         systemDisplay("Vous possédez : " + PlayerData.money);
     }
 
+    private static void commandGetInventory() {
+
+    }
+
     private static void commandGetSave() {
         systemDisplay("Commande détectée : /get save");
         String name = GameConstants.LAST_SAVE.replace(".json", "");
@@ -312,6 +349,15 @@ public class Console {
     private static void commandGetAdmin() {
         systemDisplay("Commande détectée : /get admin");
         systemDisplay("Vous êtes : " + (PlayerData.isAdmin ? "Administrateur" : "Joueur"));
+    }
+
+    private static void commandGetTheme() {
+
+    }
+
+    private static void commandGetLoadTuto() {
+        systemDisplay("Commande détectée : /get loadTuto");
+        systemDisplay("Le tutoriel est " + (TutoController.loadedProperty().get() ? "chargé" : "déchargé"));
     }
 
     private static void commandSetPseudo(String[] parts) {
@@ -337,21 +383,25 @@ public class Console {
 
             if (matcher.matches()) {
                 systemDisplay("Commande détectée : /set exp " + parts[2]);
-                int value = Integer.parseInt(matcher.group(1));
-                systemDisplay("Ancien niveau : " + PlayerData.expLevel);
-                switch (parts[2].charAt(0)) {
-                    case '+':
-                        PlayerData.expLevel += value;
-                        break;
-                    case '-':
-                        PlayerData.expLevel += value; // Meme que + car parseInt gère le -
-                        break;
-                    default:
-                        PlayerData.expLevel = value;
-                        break;
+                if (PlayerData.isAdmin) {
+                    int value = Integer.parseInt(matcher.group(1));
+                    systemDisplay("Ancien niveau : " + PlayerData.expLevel);
+                    switch (parts[2].charAt(0)) {
+                        case '+':
+                            PlayerData.expLevel += value;
+                            break;
+                        case '-':
+                            PlayerData.expLevel += value; // Meme que + car parseInt gère le -
+                            break;
+                        default:
+                            PlayerData.expLevel = value;
+                            break;
+                    }
+                    refreshView();
+                    systemDisplay("Nouveau niveau : " + PlayerData.expLevel);
+                } else {
+                    systemDisplay("Action impossible : Droit Admin requis.");
                 }
-                refreshView();
-                systemDisplay("Nouveau niveau : " + PlayerData.expLevel);
             } else {
                 systemDisplay("Commande /set exp erronée : '" + parts[2] + "' est une valeur invalide.");
             }
@@ -368,25 +418,33 @@ public class Console {
 
             if (matcher.matches()) {
                 systemDisplay("Commande détectée : /set money " + parts[2]);
-                int value = Integer.parseInt(matcher.group(1));
-                systemDisplay("Argent avant : " + PlayerData.money);
-                switch (parts[2].charAt(0)) {
-                    case '+':
-                        PlayerData.money += value;
-                        break;
-                    case '-':
-                        PlayerData.money += value; // Meme que + car parseInt gère le -
-                        break;
-                    default:
-                        PlayerData.money = value;
-                        break;
+                if (PlayerData.isAdmin) {
+                    int value = Integer.parseInt(matcher.group(1));
+                    systemDisplay("Ancien solde : " + PlayerData.money);
+                    switch (parts[2].charAt(0)) {
+                        case '+':
+                            PlayerData.money += value;
+                            break;
+                        case '-':
+                            PlayerData.money += value; // Meme que + car parseInt gère le -
+                            break;
+                        default:
+                            PlayerData.money = value;
+                            break;
+                    }
+                    refreshView();
+                    systemDisplay("Nouveau solde : " + PlayerData.money);
+                } else {
+                    systemDisplay("Action impossible : Droit Admin requis.");
                 }
-                refreshView();
-                systemDisplay("Argent après : " + PlayerData.money);
             } else {
                 systemDisplay("Commande /set money erronée : '" + parts[2] + "' est une valeur invalide.");
             }
         }
+    }
+
+    private static void commandSetInventory(String[] parts) {
+
     }
 
     private static void commandSetAdmin(String[] parts) {
@@ -395,6 +453,7 @@ public class Console {
         } else {
             String value = parts[2].toLowerCase();
             if (value.equals("false") || value.equals("0")) {
+                systemDisplay("Commande détectée : /set admin " + parts[2]);
                 if (PlayerData.isAdmin == false) {
                     systemDisplay("Vous étiez déjà : Joueur");
                 } else {
@@ -402,6 +461,7 @@ public class Console {
                 }
 
             } else if (value.equals("true") || value.equals("1")) {
+                systemDisplay("Commande détectée : /set admin " + parts[2]);
                 if (PlayerData.isAdmin == true) {
                     systemDisplay("Vous étiez déjà : Administrateur");
                 } else {
@@ -410,6 +470,37 @@ public class Console {
 
             } else {
                 systemDisplay("Commande /set admin erronée : '" + parts[2] + "' est une valeur invalide.");
+            }
+        }
+    }
+
+    private static void commandSetTheme(String[] parts) {
+
+    }
+
+    private static void commandSetLoadTuto(String[] parts) {
+        if (parts.length < 3) {
+            systemDisplay("Argument manquant : /set loadtuto ??");
+        } else {
+            String value = parts[2].toLowerCase();
+            if (value.equals("false") || value.equals("0")) {
+                if (TutoController.loadedProperty().get() == false) {
+                    systemDisplay("Le tutoriel n'était pas chargé.");
+                } else {
+                    systemDisplay("Le tutoriel a été déchargé.");
+                    TutoController.setLoaded(false);
+                }
+
+            } else if (value.equals("true") || value.equals("1")) {
+                if (TutoController.loadedProperty().get() == true) {
+                    systemDisplay("Le tutoriel était déjà chargé.");
+                } else {
+                    systemDisplay("Le tutoriel a été chargé.");
+                    TutoController.setLoaded(true);
+                }
+            } else {
+                systemDisplay("Commande /set loadtuto erronée : '" + parts[2]
+                        + "' est une valeur invalide.");
             }
         }
     }

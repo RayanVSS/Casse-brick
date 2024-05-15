@@ -8,7 +8,13 @@ import utils.GameConstants;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import gui.GameRoot;
 import gui.GraphicsFactory.RacketGraphics;
+import physics.geometry.Figure;
+import utils.Key;
+import java.util.HashSet;
+import physics.geometry.Segment;
 
 /***************************************************************************
  * Explication de classe pour la raquette *
@@ -55,12 +61,13 @@ import gui.GraphicsFactory.RacketGraphics;
  * @author Rayan Belhassen
  **************************************************************************/
 
-public abstract class Racket {
+public abstract class Racket extends Figure {
 
     // base
+    public double DEFAULT_WINDOW_WIDTH=GameConstants.DEFAULT_GAME_ROOT_WIDTH;
     Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5,
             GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
-    public Vector direction = new Vector(c);
+    public Vector direction = new Vector(0,0);
     public double speed;
     public int longueur;
     public int largeur;
@@ -81,6 +88,8 @@ public abstract class Racket {
     // varible pour les boosts
     public static boolean StopBall = false;
     public static boolean AddIntensityBall = false;
+    public static Key key = GameRoot.key; ;
+    public static Set<KeyCode> d = new HashSet<>();
 
     private long jumpStartTime;
 
@@ -92,6 +101,7 @@ public abstract class Racket {
         this.speed = speed;
         this.fixeY = fixeY;
         this.jump = jump;
+        createsegments();
     }
 
     // Collision
@@ -109,14 +119,12 @@ public abstract class Racket {
     }
 
     public boolean CollisionRacket(Ball b) {
-        if (shape.equals("rectangle")) {
-            return CollisionRectangle(b);
-        } else if (shape.equals("triangle")) {
-            return CollisionTriangle(b);
+        if (shape.equals("rectangle") || shape.equals("losange") || shape.equals("triangle")){
+            for (Segment s : segments) {
+                return b.checkCollision(s);
+            }
         } else if (shape.equals("rond")) {
             return CollisionRond(b);
-        } else if (shape.equals("losange")) {
-            return CollisionLosange(b);
         }
         return false;
     }
@@ -187,17 +195,16 @@ public abstract class Racket {
                     b.setDirection(new Vector(-0.1 + b.getDirection().getX() * changeDirectionP,
                             0.1 + b.getDirection().getY() * changeDirectionN));
                 }
-
                 // balle touche le cote droit du triangle
             } else {
                 // balle qui va vers la droite
                 if (b.getDirection().getX() > 0) {
-                    b.setDirection(new Vector(-0.1 + b.getDirection().getX() * changeDirectionP,
-                            0.1 + b.getDirection().getY() * changeDirectionN));
-                    // balle qui va vers la gauche
-                } else {
                     b.setDirection(new Vector(0.1 + b.getDirection().getX() * changeDirectionN,
                             -0.1 + b.getDirection().getY() * changeDirectionP));
+                    // balle qui va vers la gauche
+                } else {
+                    b.setDirection(new Vector(-0.1 + b.getDirection().getX() * changeDirectionP,
+                            0.1 + b.getDirection().getY() * changeDirectionN));   
                 }
             }
             b.setSpeed(b.getSpeed() * 1.1);
@@ -331,10 +338,53 @@ public abstract class Racket {
         return false;
     }
 
+    public void createsegments(){
+        segments.clear();
+        if(shape.equals("rectangle")){
+            segments.add(new Segment(c.getX(), c.getY(), c.getX() + largeur, c.getY()));
+            segments.add(new Segment(c.getX() + largeur, c.getY(), c.getX() + largeur, c.getY() + longueur));
+            segments.add(new Segment(c.getX() + largeur, c.getY() + longueur, c.getX(), c.getY() + longueur));
+            segments.add(new Segment(c.getX(), c.getY() + longueur, c.getX(), c.getY()));
+        }else if(shape.equals("triangle")){
+            segments.add(new Segment(c.getX(), c.getY() - longueur / 2, c.getX() + largeur / 2, c.getY() + longueur / 2));
+            segments.add(new Segment(c.getX() + largeur / 2, c.getY() + longueur / 2, c.getX() - largeur / 2, c.getY() + longueur / 2));
+            segments.add(new Segment(c.getX() - largeur / 2, c.getY() + longueur / 2, c.getX(), c.getY() - longueur / 2));
+        }else if(shape.equals("losange")){
+            segments.add(new Segment(c.getX(), c.getY() - longueur / 2, c.getX() + largeur / 2, c.getY()));
+            segments.add(new Segment(c.getX() + largeur / 2, c.getY(), c.getX(), c.getY() + longueur / 2));
+            segments.add(new Segment(c.getX(), c.getY() + longueur / 2, c.getX() - largeur / 2, c.getY()));
+            segments.add(new Segment(c.getX() - largeur / 2, c.getY(), c.getX(), c.getY() - longueur / 2));
+        }
+    }
+
+    public void deplaceX(double v) {
+        Vector v1 = new Vector(v, 0);
+        for (Segment s : segments) {
+            s.deplace(v1);
+        }
+        c.add(v1);
+    }
+
+    public void deplaceY(double v) {
+        Vector v1 = new Vector(0, v);
+        for (Segment s : segments) {
+            s.deplace(v1);
+        }
+        c.add(v1);
+    }
+
     // fonction obligatoire
     public abstract void handleKeyPress(Set<KeyCode> keysPressed);
 
     public abstract void handleKeyRelease(KeyCode event);
+
+    public double getWidth() {
+        return DEFAULT_WINDOW_WIDTH;
+    }
+
+    public void setWindowWidth(double width) {
+        DEFAULT_WINDOW_WIDTH = width;
+    }
 
     // boost
     // boost VitesseP
@@ -510,9 +560,10 @@ public abstract class Racket {
     public void reset() {
         Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5,
                 GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
-        Vector direction = new Vector(c);
+        Vector direction = new Vector(0,0);
         this.setC(c);
         this.setDirection(direction);
+        createsegments();
     }
 
     // GET et SET

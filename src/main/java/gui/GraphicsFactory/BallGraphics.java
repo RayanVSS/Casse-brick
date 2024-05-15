@@ -54,10 +54,11 @@ public class BallGraphics extends Circle implements EntityGraphics {
         updateBall();
         setCenterX(ball.getC().getX());
         setCenterY(ball.getC().getY());
+        setRotate(getRotate()+ball.getRotation().getAngle());
     }
 
     private void setBall() {
-        if (GameConstants.SKIN_BALL != null) {
+        if (!GameConstants.SKIN_BALL.equals("Null")) {
             System.out.println("Skin ball : " + GameConstants.SKIN_BALL);
             image = ImageLoader.loadImage(GameConstants.SKIN_BALL);
             ballImage = new ImagePattern(image);
@@ -151,7 +152,7 @@ public class BallGraphics extends Circle implements EntityGraphics {
         }
     }
 
-    public boolean IsMouseDraggingBall() {
+   public boolean IsMouseDraggingBall() {
         return isMouseDraggingBall;
     }
 
