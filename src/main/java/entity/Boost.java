@@ -17,23 +17,22 @@ public class Boost extends Bonus {
     public Boost(Coordinates c) {
         super(c.getX(), c.getY(), GameConstants.WIDTH, GameConstants.HEIGHT);
         // type = getRandomType();
-        type="infiniteStop";
+        type = "infiniteStop";
         super.setC(new Coordinates(c.getX() + (GameConstants.HEIGHT / 2), c.getY() + GameConstants.HEIGHT));
         // couleur du boost
         color();
         if (type.equals("vitesseP") || type.equals("largeurP") || type.equals("zhonya")) {
             setFill(COLOR_BONUS);
             setFill(COLOR_MALUS);
-        }else if(type.equals("infiniteStop")){
+        } else if (type.equals("infiniteStop")) {
             setFill(GameConstants.COLOR_INFINITE_STOP);
-        }
-        else {
+        } else {
             setFill(GameConstants.COLOR_MALUS);
         }
     }
 
     // Déplacement du boost et activation du boost
-    public boolean move(Boolean CollisionRacket, Racket racket,Game game) {
+    public boolean move(Boolean CollisionRacket, Racket racket, Game game) {
         if (CollisionRacket) {
             switch (type) {
                 case "vitesseP":
@@ -66,7 +65,7 @@ public class Boost extends Bonus {
                     break;
                 case "infiniteStop":
                     System.out.println("infiniteStop");
-                    game.getRules().infiniteUpdate(game.getMap(), 0);
+                    // game.getRules().infiniteUpdate(game.getMap(), 0);
                     break;
                 default:
                     break;

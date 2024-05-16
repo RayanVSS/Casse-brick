@@ -9,6 +9,7 @@ import entity.ball.MagnetBall;
 import entity.Bonus;
 import entity.Boost;
 import physics.entity.Ball;
+import physics.entity.Brick;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import utils.GameConstants;
@@ -39,7 +40,6 @@ public class Game {
         this.rules = rules;
         this.map = new Map(rules, GameConstants.COLUMNS_OF_BRICKS, GameConstants.ROWS_OF_BRICKS);
         rules.initRules(this);
-        // this.isInfinite = false;
     }
 
     public Game(Ball ball, Racket racket, int life, GameRules rules, int columnsBricks, int rowsBricks) {
@@ -49,19 +49,8 @@ public class Game {
         this.life = life;
         this.rules = rules;
         this.map = new Map(rules, columnsBricks, rowsBricks);
-        // this.isInfinite = false;
         rules.initRules(this);
     }
-    // TODO SERT A RIEN
-    // public Game(Ball ball, Racket racket, GameRules rules, boolean isInfinite) {
-    // this.ball = ball;
-    // this.racket = racket;
-    // this.rules = rules;
-    // this.map = new Map(rules,
-    // GameConstants.COLUMNS_OF_BRICKS,GameConstants.ROWS_OF_BRICKS);
-    // // this.isInfinite = isInfinite;
-    // rules.initRules(this);
-    // }
 
     private void start() {
         if (inGameTimer == null) {
@@ -94,10 +83,11 @@ public class Game {
         for (Ball ball : balls) {
             ball.CollisionB = false;
             if (ball.delete()) {
+                ball.setDestroyed(true);
                 balls.remove(ball);
                 break;
             }
-            map.handleCollisionBricks(ball, rules); // gérer la collision des briques
+            // map.handleCollisionBricks(ball, rules); // gérer la collision des briques
             if (map.updateBricksStatus(this)) {
                 // si la briques est cassée, chance d'avoir un boost
                 Bonus bonus = Bonus.createBonus(ball.getC(), balls);
@@ -109,7 +99,7 @@ public class Game {
             if (ball.checkCollision(racket)) {
                 App.ballSound.update();
                 App.ballSound.play();
-                updateRulesRacket();
+                rules.updateRulesRacket(map);
             }
             ball.movement(deltaT);
 
@@ -123,6 +113,9 @@ public class Game {
                     ((MagnetBall) ball).setFront(false);
                 }
             }
+            for (Brick brick : map.getBricks()) {
+                ball.checkCollision(brick);
+            }
         }
 
         // Gere les conditions de perte
@@ -131,13 +124,13 @@ public class Game {
             balls.add(Ball.clone(originalball));
             racket.reset();
         }
-        if (rules.isInfinite()) {
-            if (!isInfiniteBonus()) {
-                rules.infiniteUpdate(map, 0.60);
-            } else {
-                rules.infiniteUpdate(map, 0);
-            }
-        }
+        // if (rules.isInfinite()) {
+        //     if (!isInfiniteBonus()) {
+        //         rules.infiniteUpdate(map, 0.60);
+        //     } else {
+        //         rules.infiniteUpdate(map, 0);
+        //     }
+        // }
         updateGameStatus();
         racket.getDirection().setX(0);
     }
@@ -149,14 +142,6 @@ public class Game {
             }
         }
         return false;
-    }
-
-    // TODO METTRE DANS GAMESRULES
-    private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette
-        rules.updateRemainingBounces();
-        rules.updateBricksTransparency(map);
-        rules.updateBricksUnbreakability(map);
-        rules.shuffleBricks(map.getBricks());
     }
 
     private void updateGameStatus() { // Vérifie & MAJ le statut de la Game, gagnée/perdue
@@ -192,16 +177,10 @@ public class Game {
         return map.countBricks() == 0;
     }
 
-    public Coordinates resetBallInfinite() {
-        Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2, map.lastBrick() + 900 / 2);// TODO A
-                                                                                                           // tâtonner
-                                                                                                           // SINON LE
-                                                                                                           // METTRE
-                                                                                                           // PROCHE DE
-                                                                                                           // LA
-                                                                                                           // RAQUETTE
-        return c;
-    }
+    // public Coordinates resetBallInfinite() {
+    //     Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2, map.lastBrick() + 900 / 2);
+    //     return c;
+    // }
 
     // Setters/getters
 
