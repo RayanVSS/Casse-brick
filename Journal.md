@@ -759,3 +759,26 @@ Ajouts :
 - Finir le mode infini (ajouter un bonus pour stopper les briques)
 - Factoriser/ commenter les codes
 - Rapport
+
+
+## Du 30/4 a 16/5:
+### Belhassen rayan
+- création du README
+- création du tutoriel :
+    - lance un docs qui sert à expliquer le jeu
+    - ouvrir le depot git
+    - lancer Google 
+- repair_softwair: 
+    - résolution d'un bug lier a la détection de sauvegarde
+    - réparation automatique des sauvegarde 
+    - finalisation du docs pour la réparation manuelle
+- résolution du bug des balles sans texture
+- résolution du bug qui empêchait de lancer le chapitre 3
+- résolution du bug avecle bonus "LargeurP" qui ne marcher pas  
+- chapitre 2 :
+    - rajout de limite de vitesse pour la balle 
+    - résolution de mauvaise collision de la balle avec les briques
+    - la raquette peut attirer plusieurs balles en même temps 
+    - résolution d'une mauvaise rotation de la balle
+    - la balle peut s'accrocher sur toute la raquette
+- ajout de commentaire dans le code 
