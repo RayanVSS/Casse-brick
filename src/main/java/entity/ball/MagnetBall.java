@@ -1,6 +1,5 @@
 package entity.ball;
 
-
 import entity.racket.MagnetRacket;
 import physics.entity.Ball;
 import physics.entity.Racket;
@@ -9,22 +8,40 @@ import physics.geometry.Vector;
 import utils.GameConstants;
 import utils.Key;
 
-/*
- * Alors si tu lis cette phrase c'est que tu dois modifier ou comprendre le code BONNE CHANCE!
+/**
+ * Alors si tu lis cette phrase c'est que tu dois modifier ou comprendre le code
+ * BONNE CHANCE!
+ * 
+ * @basse***********************************************
+ * @var etatRacket: Negatif ou Positif
+ * @var etatBall: Positif (par defaut mais peut etre negatif)
+ * @var Front: true si la balle est devant la raquette
+ * @var getRa: raquette dans le partie
+ * @var mouvement: pour savoir si la touche est appuyée
+ * @var basX hautX, basY, hautY: pour calculer la vitesse de la balle
+ * 
+ * @fonction*******************************************
+ * @movement: methode qui permet de deplacer la balle
+ * 
+ * @side_attraction_more: methode qui permet d'attirer la balle vers le centre
+ *                        de la raquette
+ * 
+ * @side_attraction_less: methode qui permet de repousser la balle sur les cotes
+ *                        de la raquette
+ * 
+ * @Affiche_vitesse: methode qui permet d'afficher la vitesse de la balle
+ * 
+ * @author Rayan Belhassen
  */
 
 public class MagnetBall extends Ball {
-    // etat de la Raquette
-    private static String etatRacket = MagnetRacket.getEtat();
-    // etat de la balle
-    private String etatBall = "positif";
-    // si la balle est devant la raquette
-    private boolean Front = false;
-    // coordonnées de la raquette
-    public static Racket getRa;
-    Key mouvement = new Key();
+    private static String etatRacket = MagnetRacket.getEtat();// etat de la Raquette
+    private String etatBall = "positif"; // etat de la balle
+    private boolean Front = false;// si la balle est devant la raquette
+    public static Racket getRa; // coordonnées de la raquette
+    private Key mouvement = new Key(); // pour savoir si la touche est appuyée
 
-    // pour calculer la vitesse de la balle
+    // variable pour calculer la vitesse de la balle
     private int basX = 9999;
     private int hautX = 0;
     private int basY = 9999;
@@ -47,7 +64,7 @@ public class MagnetBall extends Ball {
         double newX = this.getC().getX() + this.getDirection().getX() * (this.getSpeed()) / 4;
         double newY = this.getC().getY() + this.getDirection().getY() * (this.getSpeed()) / 4;
         this.getRotation().stopRotation();
-        // limite de vitess de la balle
+        // limite de vitesse de la balle
         if (GameConstants.LIMITE_SPEED_MAGNET) {
             double speedY = newY - this.getC().getY();
             double speedX = newX - this.getC().getX();
@@ -76,12 +93,9 @@ public class MagnetBall extends Ball {
                 newX += 0.2;
             }
         }
-        // verifie si la balle est devant la raquette avant n'importe action
-        if (Front) {
-            // actualise l'etat de la raquette
-            etatRacket = MagnetRacket.getEtat();
-            // si l'etat de la raquette est la meme que la balle
-            if (etatRacket == etatBall) {
+        if (Front) { // verifie si la balle est devant la raquette avant n'importe action
+            etatRacket = MagnetRacket.getEtat();// actualise l'etat de la raquette
+            if (etatRacket == etatBall) {// si l'etat de la raquette est la meme que la balle
                 if (!CollisionR) {
                     // attraction de la balle vers la raquette qui est moin puissante si la balle
                     // est loin de la raquette
@@ -120,13 +134,12 @@ public class MagnetBall extends Ball {
                         side_attraction_more(3.0);
                     }
                 } else {
-                    // si la balle est en collision avec la raquette alors la balle vas au millieu
-                    // de la raquette et ne bouge plus
-                    this.setC(new Coordinates(newX, newY));
-                    this.getDirection().setX(0);
+                    // si la balle est en collision avec la raquette alors la balle reste coller a
+                    // la raquette
+                    this.setC(new Coordinates(newX, newY)); // la balle reste coller a la raquette
+                    this.getDirection().setX(0); 
                     this.getDirection().setY(1);
-                    CollisionR = true;
-                    System.out.println(mouvement.getKeysPressed());
+                    CollisionR = true; //la balle est en collision avec la raquette
                     if (mouvement.contains(GameConstants.LEFT)) {
                         this.setC(new Coordinates(newX - getRa.getSpeed(), newY));
                     }
