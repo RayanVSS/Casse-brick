@@ -1,9 +1,13 @@
 package entity.ball;
 
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 import entity.racket.MagnetRacket;
 import physics.entity.Ball;
 import physics.geometry.Coordinates;
+import physics.geometry.Vector;
 import utils.GameConstants;
 
 /*
@@ -20,8 +24,15 @@ public class MagnetBall extends Ball {
     //coordonnées de la raquette
     public static Coordinates getRa = new Coordinates(0, 0);
 
+    //pour calculer la vitesse de la balle
+    private int basX = 9999;
+    private int hautX = 0;
+    private int basY = 9999;
+    private int hautY = 0;
+
+
     public MagnetBall() {
-        super(GameConstants.DEFAULT_BALL_START_COORDINATES.clone(), GameConstants.DEFAULT_BALL_START_DIRECTION.clone(),
+        super(GameConstants.DEFAULT_BALL_START_COORDINATES.clone(), new Vector(new Coordinates(0,1)).clone(),
         GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS);
         super.getPhysicSetting().setWindow(GameConstants.DEFAULT_GAME_ROOT_WIDTH,GameConstants.DEFAULT_WINDOW_HEIGHT);
     }
@@ -36,6 +47,36 @@ public class MagnetBall extends Ball {
         double h = getZoneHeight();
         double newX = this.getC().getX() + this.getDirection().getX() * (this.getSpeed())/4;
         double newY = this.getC().getY() + this.getDirection().getY() * (this.getSpeed())/4;
+        this.getRotation().stopRotation();
+        //limite de vitess de la balle
+        if(GameConstants.LIMITE_SPEED_MAGNET){
+            double speedY = newY - this.getC().getY();
+            double speedX = newX - this.getC().getX();
+            if(speedY > GameConstants.VITESSE_MAX_MAGNET){
+                newY = this.getC().getY() + GameConstants.VITESSE_MAX_MAGNET;
+            }
+            if(speedY < -GameConstants.VITESSE_MAX_MAGNET){
+                newY = this.getC().getY() - GameConstants.VITESSE_MAX_MAGNET;
+            }
+            if(speedY > -1.5 && speedY <= 0){
+                newY -= 0.2;
+            }
+            if(speedY < 1.5 && speedY >= 0){
+                newY += 0.2;
+            }
+            if(speedX > GameConstants.VITESSE_MAX_MAGNET){
+                newX = this.getC().getX() + GameConstants.VITESSE_MAX_MAGNET;
+            }
+            if(speedX < -GameConstants.VITESSE_MAX_MAGNET){
+                newX = this.getC().getX() - GameConstants.VITESSE_MAX_MAGNET;
+            }
+            if(speedX > -1.5 && speedX <= 0){
+                newX -= 0.2;
+            }
+            if(speedX < 1.5 && speedX >= 0){
+                newX += 0.2;
+            }
+        }
         //verifie si la balle est devant la raquette avant n'importe action 
         if (Front) {
             //actualise l'etat de la raquette
@@ -165,6 +206,28 @@ public class MagnetBall extends Ball {
             }
         }
     }
+
+
+    public void Affiche_vitesse(double newX , double newY) {
+        double testX = newX - this.getC().getX();
+        if (testX < basX) {
+            basX = (int) testX;
+        }
+        if (testX > hautX) {
+            hautX = (int) testX;
+        }
+        double testY = newY - this.getC().getY();
+        if (testY < basY) {
+            basY = (int) testY;
+        }
+        if (testY > hautY) {
+            hautY = (int) testY;
+        }
+        // System.out.println("basX : " + basX + " basY : " + basY);   
+        // System.out.println("hautX : " + hautX + " hautY : " + hautY);
+        System.out.println("speedX : " + testX + " speedY : " + testY);
+    }
+
 
     public void setEtat(String e) {
         this.etatBall = e;
