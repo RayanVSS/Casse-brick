@@ -33,9 +33,12 @@ public class ClassicRacket extends Racket {
                     this.getDirection().setX(1);
             }
             if (key == GameConstants.SPACE) {
-                setlargeurP(true);
-                setVitesseP(true);
-            }
+                setJump(jump);
+                System.out.println("jump " + jump);
+                System.out.println("jumpUP " + getJumpUP());
+                System.out.println("jumpDOWN " + getJumpDOWN());
+                
+            }          
         }
     }
 
@@ -46,4 +49,6 @@ public class ClassicRacket extends Racket {
          * }
          */
     }
+
+
 }

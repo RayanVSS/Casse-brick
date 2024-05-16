@@ -5,6 +5,7 @@ import java.util.Random;
 import config.GameRules;
 import config.GameRules.BricksArrangement;
 import entity.ball.ClassicBall;
+import entity.ball.GravityBall;
 import entity.racket.ClassicRacket;
 import entity.racket.DegradeRacket;
 import entity.racket.MagnetRacket;
@@ -94,6 +95,11 @@ public final class GameConstants {
         // DegradeRacket
         public static final double DEGRADERACKET_TOLERANCE = -0.2;
         public static final double DEGRADERACKET_CHANGE_DIRECTION = 0.3;
+        //jump
+        public static final double JUMP_SPEED = 10;
+        public static final double JUMP_HEIGHT = 100;
+        public static final double JUMP_DURATION = 0.5;
+
 
         // boost
         // temps des boosts
