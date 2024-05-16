@@ -182,6 +182,7 @@ public class RacketGraphics {
 		if (shape instanceof Rectangle) {
 			((Rectangle) shape).setX(racket.getC().getX());
 			((Rectangle) shape).setY(racket.getC().getY());
+			((Rectangle) shape).setWidth(racket.getLargeur());
 		} else if (shape instanceof Polygon) {
 			((Polygon) shape).getPoints().remove(0, ((Polygon) shape).getPoints().size());
 			((Polygon) shape).getPoints().addAll(new Double[] {
