@@ -33,6 +33,7 @@ public class Game {
         originalball = ball;
         balls.add(Ball.clone(ball));
         this.racket = racket;
+        setRa(); // donne les coordonnées de la raquette a la MagnetBall
         this.rules = rules;
         this.map = new Map(rules, GameConstants.COLUMNS_OF_BRICKS, GameConstants.ROWS_OF_BRICKS);
         rules.initRules(this);
@@ -42,6 +43,7 @@ public class Game {
         originalball = ball;
         balls.add(Ball.clone(ball));
         this.racket = racket;
+        setRa(); // donne les coordonnées de la raquette a la MagnetBall
         this.life = life;
         this.rules = rules;
         this.map = new Map(rules, columnsBricks, rowsBricks);
@@ -95,7 +97,6 @@ public class Game {
             if (ball instanceof MagnetBall) {
                 originalball.CollisionR = false;
                 // donne les coordonnées de la raquette a la MagnetBall
-                setRa();
                 // actualise l'etat de la raquette
                 if (BallFrontRacket(ball)) {
                     ((MagnetBall) ball).setFront(true);
@@ -219,7 +220,7 @@ public class Game {
     }
 
     public void setRa() {
-        MagnetBall.getRa = racket.getC();
+        MagnetBall.getRa = racket;
     }
 
     public GameRules getRules() {
