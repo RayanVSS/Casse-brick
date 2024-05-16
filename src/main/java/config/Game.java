@@ -9,6 +9,8 @@ import entity.ball.MagnetBall;
 import entity.Bonus;
 import physics.entity.Ball;
 import physics.entity.Racket;
+import physics.geometry.Coordinates;
+import physics.geometry.Vector;
 import utils.GameConstants;
 import gui.App;
 import javafx.application.Platform;
@@ -130,6 +132,23 @@ public class Game {
         }
         updateGameStatus();
         racket.getDirection().setX(0);
+
+        if(racket.getJumpUP()){
+            racket.deplaceY(-5);
+        }
+        if(racket.getJumpDOWN()){
+            racket.deplaceY(2.9);
+        }
+        if(racket.getCalibrage()){
+            Coordinates c = new Coordinates(racket.getC().getX(),GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
+            Vector direction = new Vector(0,0);
+            racket.setC(c);
+            racket.setDirection(direction);
+            racket.setCalibrage(false);
+            System.out.println(racket.getC().getY());
+            
+        }
+        
     }
 
     private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette
