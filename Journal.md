@@ -774,7 +774,7 @@ Ajouts :
     - finalisation du docs pour la réparation manuelle
 - résolution du bug des balles sans texture
 - résolution du bug qui empêchait de lancer le chapitre 3
-- résolution du bug avecle bonus "LargeurP" qui ne marcher pas  
+- résolution du bug avec le bonus "LargeurP" qui ne marcher pas  
 - chapitre 2 :
     - rajout de limite de vitesse pour la balle 
     - résolution de mauvaise collision de la balle avec les briques
