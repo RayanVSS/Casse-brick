@@ -1,12 +1,8 @@
 package physics.config;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
-
 import java.util.Iterator;
 
-import config.Game;
 import entity.brick.BrickClassic;
 import entity.racket.CircleRacket;
 import entity.racket.ClassicRacket;
@@ -32,12 +28,9 @@ import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.BricksGraphics;
 import physics.gui.ToolBox;
 import physics.gui.Preview;
-import physics.gui.ToolBox;
 import utils.GameConstants;
 import utils.Key;
-import java.util.Map;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /***************************************************************************

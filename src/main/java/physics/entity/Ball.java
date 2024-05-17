@@ -5,14 +5,10 @@ import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;
 import entity.ball.MagnetBall;
-import gui.GameRoot;
 import physics.geometry.*;
 import physics.gui.Preview;
 import physics.config.PhysicSetting;
 import utils.GameConstants;
-
-import static physics.entity.Racket.d;
-import javafx.scene.input.KeyCode;
 
 import java.util.List;
 import java.util.Set;

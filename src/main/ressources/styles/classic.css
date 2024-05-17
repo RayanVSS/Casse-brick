@@ -1,10 +1,10 @@
 /* LES ROOTS */
 .root,
 .root-options {
-    /* -fx-background-color: #273654; */
+    -fx-background-color: #273654;
     -fx-alignment: center;
     -fx-spacing: 20;
-    -fx-background: linear-gradient(#B9D9EB, #273654);
+    /* -fx-background: linear-gradient(#B9D9EB, #273654); */
 
 }
 

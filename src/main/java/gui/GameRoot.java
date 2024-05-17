@@ -4,10 +4,7 @@ import static physics.entity.Racket.AddIntensityBall;
 //pour les boosts
 import static physics.entity.Racket.StopBall;
 
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
-
 import config.Game;
 import config.StageLevel;
 import entity.Boost;
@@ -28,11 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import physics.entity.Ball;
 import physics.entity.Racket;
-import entity.Bonus;
-
-//pour les boosts
-import static physics.entity.Racket.StopBall;
-import static physics.entity.Racket.AddIntensityBall;;
+import entity.Bonus;;
 
 public class GameRoot {
     private Pane root = new Pane();
