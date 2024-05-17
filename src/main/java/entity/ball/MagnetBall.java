@@ -33,8 +33,8 @@ public class MagnetBall extends Ball {
     public void movement(long deltaT) {
         double w = getZoneWidth();
         double h = getZoneHeight();
-        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed()*deltaT;
-        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed()*deltaT;
+        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed();
+        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed();
         //verifie si la balle est devant la raquette avant n'importe action 
         if (Front) {
             //actualise l'etat de la raquette

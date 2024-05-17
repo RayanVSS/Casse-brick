@@ -32,10 +32,9 @@ public class ToolBox extends Pane {
     
     private boolean Bar=false;
     private Ball ball;
-    private Pane root;
     private LabelToggleButtonHBox addBrickButton, addBallButton ,BrickIncassableButton;
     private LabelToggleButtonHBox pauseButton;
-    private boolean testpreset=false;
+    public static boolean testpreset=false;
     private PhysicEngine game;
     private TestPreset test;
 
@@ -43,13 +42,13 @@ public class ToolBox extends Pane {
     private Map<Brick,BricksGraphics> map2;
 
     private ArrayList<Circle> circles=new ArrayList<>();
-    private ArrayList<Image> list_image=new ArrayList<>(Arrays.asList(
-        new Image("src/main/ressources/balle/classic/classic.png"),
-        new Image("src/main/ressources/balle/black/classic.png"),
-        new Image("src/main/ressources/balle/pink/gravity.png"),
-        new Image("src/main/ressources/balle/pink/classic.png"),
-        new Image("src/main/ressources/balle/black/gravity.png"),
-        new Image("src/main/ressources/balle/classic/gravity.png")
+    public static ArrayList<Image> list_image=new ArrayList<>(Arrays.asList(
+        ImageLoader.loadImage("src/main/ressources/balle/classic/classic.png"),
+        ImageLoader.loadImage("src/main/ressources/balle/black/classic.png"),
+        ImageLoader.loadImage("src/main/ressources/balle/pink/gravity.png"),
+        ImageLoader.loadImage("src/main/ressources/balle/pink/classic.png"),
+        ImageLoader.loadImage("src/main/ressources/balle/black/gravity.png"),
+        ImageLoader.loadImage("src/main/ressources/balle/classic/gravity.png")
     ));
 
     private Random random = new Random();
@@ -58,8 +57,7 @@ public class ToolBox extends Pane {
     private Label labelangle;
     private Label labelspeed;
 
-    public ToolBox(Pane primarystage, Map<Ball,BallGraphics> map,Map<Brick,BricksGraphics> map2,PhysicEngine game){
-        this.root=primarystage;
+    public ToolBox(Map<Ball,BallGraphics> map,Map<Brick,BricksGraphics> map2,PhysicEngine game){
         this.map = map;
         this.game=game;
         this.ball = map.keySet().iterator().next();
@@ -78,9 +76,9 @@ public class ToolBox extends Pane {
         button1.setOnAction(e1 -> {
             testpreset = !testpreset;
             if(testpreset){
-                removeBall();
-                removeBrick();
-                removeRacket();
+                game.removeBall();
+                game.removeBrick();
+                game.removeRacket();
                 Label label = new Label("Test unitaire activé");
                 label.setStyle("-fx-font-size: 13; -fx-text-fill: #1b263b;");
                 label.setLayoutX(10);
@@ -97,6 +95,7 @@ public class ToolBox extends Pane {
             }
             else{
                 getChildren().remove(test);
+                game.clear();
                 affiche();
                 updateData();
                 button1.setText("Activer les test unitaires");
@@ -122,7 +121,7 @@ public class ToolBox extends Pane {
             clearCircles();
             if(button.isSelected()){
                 if(map.size()>0){
-                    circles=Preview.preview_no_effect(ball, root);
+                    circles=Preview.preview_no_effect(ball, game);
                     PhysicEngine.Pause=true;
                 }
                 else{
@@ -146,7 +145,7 @@ public class ToolBox extends Pane {
         button2.setLayoutX(30);
         button2.setLayoutY(250);
         button2.setOnAction(e -> {
-            removeBrick();
+            game.removeBrick();
         });
         getChildren().add(button2);
 
@@ -156,7 +155,7 @@ public class ToolBox extends Pane {
         button3.setLayoutY(270);
 
         button3.setOnAction(e -> {
-            removeBall();
+            game.removeBall();
         });
 
         getChildren().add(button3);
@@ -171,10 +170,10 @@ public class ToolBox extends Pane {
         listracket.setLayoutX(40);
         listracket.setLayoutY(330);
         listracket.setOnAction(e -> {
-            root.getChildren().remove(PhysicEngine.graphRacket.getShape());
+            game.getChildren().remove(PhysicEngine.graphRacket.getShape());
             PhysicEngine.racket = PhysicEngine.init_racket(listracket.getValue());
             PhysicEngine.graphRacket =new RacketGraphics(PhysicEngine.racket, PhysicEngine.racket.getShapeType());
-            root.getChildren().add(PhysicEngine.graphRacket.getShape());   
+            game.getChildren().add(PhysicEngine.graphRacket.getShape());   
         });
 
         getChildren().addAll(label,listracket);
@@ -186,32 +185,11 @@ public class ToolBox extends Pane {
         getChildren().removeIf(e -> e instanceof Button || e instanceof CheckBox || e instanceof Label || e instanceof ComboBox || e instanceof LabelToggleButtonHBox);
     }
 
-    public void removeBall(){
-        for(Ball b : map.keySet()){
-            root.getChildren().remove(map.get(b));
-            if(b.getPreview()!=null){
-                b.getPreview().clear_path(root);
-            }
-        }
-        map.clear();
-        ball=null;
-    }
 
-    public void removeRacket(){
-        root.getChildren().remove(PhysicEngine.graphRacket.getShape());
-        PhysicEngine.racket=null;
-    }
-
-    public void removeBrick(){
-        for(Brick b : map2.keySet()){
-            root.getChildren().remove(map2.get(b));
-        }
-        map2.clear();
-    }
 
     public void clearCircles() {
         for (Circle p : circles) {
-            root.getChildren().remove(p);
+            game.getChildren().remove(p);
         }
     }
 
@@ -227,11 +205,18 @@ public class ToolBox extends Pane {
             labelangle.setText("Angle du vecteur de la balle : -");
             labelspeed.setText("Vitesse de la balle : -");
         }
-        if(map2.size()==0){
+        if(map2.size()<=0){
             getChildren().remove(BrickIncassableButton);
         }
-        pauseButton.getToggleButton().setSelected(PhysicEngine.Pause);
-        pauseButton.updateText();
+        else{
+            if(!getChildren().contains(BrickIncassableButton)){
+                getChildren().add(BrickIncassableButton);
+            }
+        }
+        if(pauseButton.getToggleButton().isSelected() != PhysicEngine.Pause){
+            pauseButton.getToggleButton().setSelected(PhysicEngine.Pause);
+            pauseButton.updateText();
+        }
     }
 
     public void setData(){
@@ -259,19 +244,19 @@ public class ToolBox extends Pane {
     public void update() {
         if (Bar) {
             Bar = false;
-            root.setOnMouseClicked(null);
+            game.setOnMouseClicked(null);
             PhysicEngine.start_border=0;
             PhysicEngine.LIMIT_SIMULATION.get(1).addX(-300);
 
             close();
-            root.getChildren().remove(this);
+            game.getChildren().remove(this);
         }
         else{
             Bar=true;
             addControls();
             PhysicEngine.start_border=300;
             PhysicEngine.LIMIT_SIMULATION.get(1).addX(300);
-            root.getChildren().add(this);
+            game.getChildren().add(this);
             affiche();
             afficherTest();
         }
@@ -346,7 +331,7 @@ public class ToolBox extends Pane {
     }
 
     private void addControls() {
-        root.setOnMouseClicked(event -> {
+        game.setOnMouseClicked(event -> {
             // Vérifier si la souris est dans la zone de jeu
             double mouseX = event.getX();
             double mouseY = event.getY();
@@ -366,9 +351,9 @@ public class ToolBox extends Pane {
                             b.setUnbreakable(true);
                         }
                         BricksGraphics brickg = new BricksGraphics(b,b.getC().getIntX(),b.getC().getIntY());
-                        game.setTakeBrick(brickg, b, this, root);
+                        game.setTakeBrick(brickg, b, this);
                         map2.put(b,brickg);
-                        root.getChildren().add(brickg);
+                        game.getChildren().add(brickg);
                         addBrickButton.getToggleButton().setSelected(false);
                         addBrickButton.updateText();
                     }
@@ -376,9 +361,9 @@ public class ToolBox extends Pane {
                     Ball b2 = PhysicEngine.init_ball(new Coordinates(mouseX, mouseY),null);
                     Integer nb = random.nextInt(list_image.size());
                     BallGraphics ballg = new BallGraphics(list_image.get(nb),b2);
-                    game.setTakeBall(ballg, b2, this, root);
+                    game.setTakeBall(ballg, b2, this);
                     map.put(b2,ballg);
-                    root.getChildren().add(ballg);
+                    game.getChildren().add(ballg);
                     addBallButton.getToggleButton().setSelected(false);
                     addBallButton.updateText();
                 }

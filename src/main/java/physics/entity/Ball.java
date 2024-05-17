@@ -270,7 +270,7 @@ public abstract class Ball extends Entity {
                 ball.getC().setY(ball.getY() - ny * overlap / 2);
     
             }
-
+            
             double angle = Math.atan2(dy, dx);
             double sin = Math.sin(angle);
             double cos = Math.cos(angle);

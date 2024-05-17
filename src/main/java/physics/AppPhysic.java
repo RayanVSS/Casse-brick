@@ -18,11 +18,13 @@ public class AppPhysic extends Application {
     Stage primaryStage;
     Scene scene;
     StackPane root;
+    public static AppPhysic app;
     public static PhysicSetting physics = new PhysicSetting();
 
     @Override
     public void start(Stage p) throws Exception {
         this.primaryStage = p;
+        app = this;
         root = new StackPane();
         scene = new Scene(root, PhysicSetting.DEFAULT_WINDOW_WIDTH, PhysicSetting.DEFAULT_WINDOW_HEIGHT);
         root.setStyle("-fx-background-color: #273654;");
@@ -45,7 +47,7 @@ public class AppPhysic extends Application {
 
         bouton1.setOnAction(e -> {
             root.getChildren().clear();
-            new PhysicEngine(primaryStage, this);
+            root.getChildren().add((new PhysicEngine()));;
         });
 
         bouton2.setOnAction(e -> {
@@ -222,11 +224,21 @@ public class AppPhysic extends Application {
         root.getChildren().add(buttonback);
     }
 
+    public void returnMenu(){
+        root.getChildren().clear();
+        menu();
+    }
+
     public Scene getScene() {
         return scene;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     public static void main(String[] args) {
         launch(args);
     }
+
 }

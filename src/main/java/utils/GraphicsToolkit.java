@@ -133,7 +133,6 @@ public final class GraphicsToolkit {
         public ToggleButton getToggleButton() {
             return toggleButton;
         }
-
     }
 
     /**

@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.Iterator;
 
 import config.Game;
+import entity.ball.ClassicBall;
 import entity.brick.BrickClassic;
 import entity.racket.CircleRacket;
 import entity.racket.ClassicRacket;
@@ -32,13 +33,15 @@ import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.BricksGraphics;
 import physics.gui.ToolBox;
 import physics.gui.Preview;
-import physics.gui.ToolBox;
+import physics.gui.TestPreset;
 import utils.GameConstants;
+import utils.ImageLoader;
 import utils.Key;
-import java.util.Map;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
 
 /***************************************************************************
  * Explication de classe PhysicEngine :
@@ -56,7 +59,7 @@ import java.util.HashMap;
  * @author Ilias Bencheikh , Olivier Guan
  **************************************************************************/
 
-public class PhysicEngine {
+public class PhysicEngine extends Pane{
 
     //Initialisation des objets
 
@@ -73,62 +76,53 @@ public class PhysicEngine {
     public static boolean RACKET=true;
     public static double start_border=0;
     
-    private Stage primaryStage;
-    private Pane root;
     private ToolBox toolBox;
 
     PhysicSetting physics;
 
     Map<Ball,BallGraphics> listball=new HashMap<>();
     Map<Brick,BricksGraphics> listbrick=new HashMap<>();
-    BallGraphics graphBall;
 
+    public AppPhysic app=AppPhysic.app;
     public static Racket racket;
     public static RacketGraphics graphRacket;
     Key key = new Key();
 
     public static boolean Pause = false;
 
-    public PhysicEngine(Stage pStage, AppPhysic appPhysic) {
+    public PhysicEngine() {
         clear();
 
         // Initialisation de la fenetre
 
-        this.primaryStage = pStage;
-        root = new Pane();
-        primaryStage.setScene(new javafx.scene.Scene(root, PhysicSetting.DEFAULT_WINDOW_WIDTH, PhysicSetting.DEFAULT_WINDOW_HEIGHT));
-
         // Initialisation de la simulation
 
         this.physics = AppPhysic.physics;
+        this.setStyle("-fx-background-color: #FFFFFF;");
 
         Ball ball = init_ball(null,null);
-        graphBall = new BallGraphics(new Image("src/main/ressources/balle/classic/classic.png"),ball);
-        root.getChildren().add(graphBall);
-        listball.put(ball, graphBall);
+        addBall(ball);
 
         listbrick = new HashMap<>();
 
         // Initialisation de la barre d'option
         
-        toolBox = new ToolBox(root,listball,listbrick,this);
+        toolBox = new ToolBox(listball,listbrick,this);
 
         if(RACKET){
             racket=init_racket("rectangle");
             graphRacket = new RacketGraphics(racket, racket.getShapeType());
             graphRacket.getShape().setFill(Color.BLACK);
-            root.getChildren().add(graphRacket.getShape());
+            this.getChildren().add(graphRacket.getShape());
         }
-        primaryStage.show();
-
         // Initialisation de la trajectoire
 
-        ball.setPreview(new Preview(ball, physics, root));
+        ball.setPreview(new Preview(ball, physics, this));
         ball.getPreview().init_path();
 
         //Initialisation des evenements de la souris
 
-        setTakeBall(graphBall,ball,toolBox,root);
+        setTakeBall(listball.get(ball),ball,toolBox);
 
         // Initialisation de l'animation
 
@@ -155,14 +149,14 @@ public class PhysicEngine {
             public void KeyPressed() {
                 if (key.getKeysPressed().contains(KeyCode.ESCAPE)) {
                     stop();
-                    primaryStage.setScene(appPhysic.getScene());
-                    appPhysic.menu();
-                } else if (key.getKeysPressed().contains(KeyCode.M)) {
+                    app.returnMenu();
+                } else if (key.getKeysPressed().contains(KeyCode.M)&& !ToolBox.testpreset) {
                     toolBox.update();
                     key.getKeysPressed().remove(KeyCode.M);
                 }
                 else if(key.getKeysPressed().contains(KeyCode.P)){
                     Pause = !Pause;
+                    toolBox.updateData();
                     key.getKeysPressed().remove(KeyCode.P);
                 }
             }
@@ -178,7 +172,7 @@ public class PhysicEngine {
         if(!listball.isEmpty()){
             Ball ball = listball.keySet().iterator().next();
             if(ball.getPreview()==null){
-                ball.setPreview(new Preview(ball, physics, root));
+                ball.setPreview(new Preview(ball, physics, this));
                 ball.getPreview().init_path();
             }
         }
@@ -206,6 +200,7 @@ public class PhysicEngine {
 
         for(Ball b : listball.keySet()){
             listball.get(b).update();
+            b.CollisionB=false;
         }
 
         // Mise à jour de la position des briques
@@ -324,7 +319,7 @@ public class PhysicEngine {
         if(racket==null || Pause){
             return;
         }
-        primaryStage.getScene().setOnKeyReleased(eWind -> {
+        app.getScene().setOnKeyReleased(eWind -> {
             key.getKeysPressed().remove(eWind.getCode());
         });
         Racket.d = key.getKeysPressed();
@@ -335,15 +330,15 @@ public class PhysicEngine {
             }
         }
         racket.getDirection().setX(0);
-        primaryStage.getScene().setOnKeyPressed(eWind -> {
+        app.getScene().setOnKeyPressed(eWind -> {
             key.getKeysPressed().add(eWind.getCode());
         });
         graphRacket.updatePos();
     }
 
-    public void setTakeBall(BallGraphics g,Ball b,ToolBox toolBox,Pane root){
+    public void setTakeBall(BallGraphics g,Ball b,ToolBox toolBox){
         g.setOnMousePressed(event -> {
-            if(!toolBox.isBar() || Pause){
+            if(!toolBox.isBar() && !Pause){
                 g.setMouseXY(event.getSceneX(),event.getSceneY());
                 double ballX = b.getC().getX();
                 double ballY = b.getC().getY();
@@ -351,15 +346,14 @@ public class PhysicEngine {
                 if (distance <= b.getRadius()+10) {
                     g.setMouseDraggingBall(true);
                     if(b.getPreview()!=null){
-                        b.getPreview().clear_path(root);
+                        b.getPreview().clear_path(this);
                     }
                 }
             }
         });
 
         g.setOnMouseDragged(event -> {
-            if (g.IsMouseDraggingBall() && (!toolBox.isBar()|| Pause)) {
-                //Condition
+            if (g.IsMouseDraggingBall() && (!toolBox.isBar()&& !Pause)) {
                 boolean nochevauchement = true;
                 for(Brick brick : listbrick.keySet()){
                     if(brick.contains(event.getSceneX(),event.getSceneY())){
@@ -375,7 +369,7 @@ public class PhysicEngine {
         });
 
         g.setOnMouseReleased(event -> {
-            if (g.IsMouseDraggingBall()&& !toolBox.isBar()) {
+            if (g.IsMouseDraggingBall()&& !toolBox.isBar() && !Pause) {
                 g.setMouseDraggingBall(false);
                 double dx = (event.getSceneX() - g.getMouseX()) / 40;
                 double dy = (event.getSceneY() - g.getMouseY()) / 40;
@@ -394,10 +388,10 @@ public class PhysicEngine {
         });
     }
 
-    public void setTakeBrick(BricksGraphics g,Brick b,ToolBox toolBox,Pane root){
+    public void setTakeBrick(BricksGraphics g,Brick b,ToolBox toolBox){
         
         g.setOnMousePressed(event -> {
-            if(!toolBox.isBar() || Pause){
+            if(!toolBox.isBar() && !Pause){
                 g.setMouseXY(event.getSceneX(),event.getSceneY());
                 double brickX = b.getC().getX();
                 double brickY = b.getC().getY();
@@ -410,7 +404,7 @@ public class PhysicEngine {
         });
 
         g.setOnMouseDragged(event -> {
-            if (g.IsMouseDraggingBall() && (!toolBox.isBar()|| Pause)) {
+            if (g.IsMouseDraggingBall() && (!toolBox.isBar()&& !Pause)) {
                 boolean nochevauchement = true;
                 for(Brick brick : listbrick.keySet()){
                     if((brick.contains(event.getSceneX(),event.getSceneY()) || brick.contains(event.getSceneX()+GameConstants.BRICK_WIDTH,event.getSceneY()) || brick.contains(event.getSceneX(),event.getSceneY()+GameConstants.BRICK_HEIGHT) || brick.contains(event.getSceneX()+GameConstants.BRICK_WIDTH,event.getSceneY()+GameConstants.BRICK_HEIGHT))){
@@ -427,7 +421,7 @@ public class PhysicEngine {
         });
 
         g.setOnMouseReleased(event -> {
-            if (g.IsMouseDraggingBall()&& (!toolBox.isBar()|| Pause)) {
+            if (g.IsMouseDraggingBall()&& (!toolBox.isBar() && !Pause)) {
                 g.setMouseDraggingBall(false);
                 b.createsegments();
                 b.setTransparent(false);
@@ -436,14 +430,42 @@ public class PhysicEngine {
     }
 
     public void addBall(Ball ball){
-        BallGraphics graphBall = new BallGraphics(ball);
-        root.getChildren().add(graphBall);
+        BallGraphics graphBall = new BallGraphics(ToolBox.list_image.get((int)(Math.random()*listball.size())),ball);
+        this.getChildren().add(graphBall);
         listball.put(ball, graphBall);
     }
 
     public void clear(){
         PhysicEngine.start_border=0;
         Racket.d.clear();
+        removeBall();
+        removeBrick();
+        removeRacket();
         Pause = false;
+    }
+
+    public void removeBall(){
+        for(Ball b : listball.keySet()){
+            this.getChildren().remove(listball.get(b));
+            if(b.getPreview()!=null){
+                b.getPreview().clear_path(this);
+            }
+        }
+        listball.clear();
+    }
+
+    public void removeRacket(){
+        if(PhysicEngine.racket==null){
+            return;
+        }
+        this.getChildren().remove(PhysicEngine.graphRacket.getShape());
+        PhysicEngine.racket=null;
+    }
+
+    public void removeBrick(){
+        for(Brick b : listbrick.keySet()){
+            this.getChildren().remove(listbrick.get(b));
+        }
+        listbrick.clear();
     }
 }
