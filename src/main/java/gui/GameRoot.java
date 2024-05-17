@@ -1,7 +1,7 @@
 package gui;
 
-import static physics.entity.Racket.AddIntensityBall;
 //pour les boosts
+import static physics.entity.Racket.AddIntensityBall;
 import static physics.entity.Racket.StopBall;
 
 import java.util.Iterator;

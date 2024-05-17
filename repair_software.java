@@ -49,6 +49,7 @@ public class repair_software {
     public static File[] files = directory.listFiles();
     public static int nombre_corrompu = 0;
     public static Scanner sc = new Scanner(System.in);
+    public static boolean fini = false;
 
     // Méthode pour effacer l'écran du terminal
     public static void clearScreen() {

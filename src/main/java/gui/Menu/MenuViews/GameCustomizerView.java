@@ -95,7 +95,7 @@ public class GameCustomizerView implements Menu, ViewPosition {
         optionsBoxCenter = new VBox(25);
         optionsBoxCenter.setAlignment(Pos.CENTER);
 
-        life = new LabelSliderHBox("Nombre de vies", 1, 10, 3, false, 1);
+        life = new LabelSliderHBox("Nombre de vies", 1, 9, 3, false, 1);
 
         LabelVBox mapVBox = new LabelVBox("Map", 5);
         mapHeight = new LabelSliderHBox("Lignes de briques", 1, 12, 5, false, 1);

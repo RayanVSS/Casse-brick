@@ -12,6 +12,7 @@ public class GravityBall extends Ball {
                 GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS);
         super.getPhysicSetting().setGravite(0.1);
         super.getPhysicSetting().setWindow(GameConstants.DEFAULT_GAME_ROOT_WIDTH,GameConstants.DEFAULT_WINDOW_HEIGHT);
+        getPhysicSetting().changeGravity();
     }
 
     public GravityBall(int d) {
@@ -25,8 +26,8 @@ public class GravityBall extends Ball {
                 break;
             }
         }
-        double newX = this.getX() + this.getDirection().getX() * this.getSpeed() ;
-        double newY = this.getY() + this.getDirection().getY() * this.getSpeed() ;
+        double newX = this.getX() + this.getDirection().getX() * this.getSpeed()/2 ;
+        double newY = this.getY() + this.getDirection().getY() * this.getSpeed()/2 ;
         if (newY > h - this.getRadius()) {
             super.setDelete(true);
         }

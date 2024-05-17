@@ -13,6 +13,7 @@ import utils.GameConstants;
 import java.util.List;
 import java.util.Set;
 
+
 /**
  * Classe Balle
  * 
@@ -296,6 +297,7 @@ public abstract class Ball extends Entity {
     public boolean checkCollision(Racket r){
         for(Segment l:r.segments){
             if(checkCollision(l)){
+                CollisionR = true;
                 rotation.addEffect(10*-(r.getDirection().getX()));
                 return true;
             }
