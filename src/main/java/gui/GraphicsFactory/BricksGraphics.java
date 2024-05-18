@@ -72,43 +72,47 @@ public class BricksGraphics extends ImageView implements EntityGraphics {
 
     public void update() {
         setWaitingRemoved(brick.isDestroyed());
-        // if (brick != null) {
-        //     if (brick.isDestroyed()) {
-        //         this.waitingRemoved = true;
-        //         if (this.getImage() != null) {
-        //             this.setImage(null);
-        //         }
-        //     } else {
-        //         if (brick.getC().getX() != this.getX() || brick.getC().getY() != this.getY()) {
-        //             this.setX(brick.getC().getX());
-        //             this.setY(brick.getC().getY());
-        //         }
-        //         if (brick.isUnbreakable() && !this.isUnbreakable) {
-        //             // getChildren().remove(imageView);
-        //             this.currentImage = ImageLoader.loadImage("src/main/ressources/briqueii.png");
-        //             this.setImageSize(this.currentImage);
-        //             this.isUnbreakable = true;
-        //         }
-        //         if (!brick.isUnbreakable() && this.isUnbreakable) {
-        //             this.isUnbreakable = false;
-        //             // getChildren().remove(imageView);
+    }
 
-        //             if (brick.getColor() != null) {
-        //                 this.currentImage = ImageLoader.loadImage(colorToImageMap.get(brick.getColor()));
-        //             } else {
-        //                 this.currentImage = ImageLoader.loadImage("src/main/ressources/briquee.png");
-        //             }
-        //             this.setImage(this.currentImage);
-        //         }
-        //         if (brick.isTransparent() && !isTransparent) {
-        //             setOpacity(0.5);
-        //             this.isTransparent = true;
-        //         } else if (!brick.isTransparent() && isTransparent) {
-        //             isTransparent = false;
-        //             setOpacity(1);
-        //         }
-        //     }
-        // }
+    public void update2(){
+        if (brick != null) {
+            if (brick.isDestroyed()) {
+                this.waitingRemoved = true;
+                if (this.getImage() != null) {
+                    this.setImage(null);
+                }
+            } else {
+                if (brick.getC().getX() != this.getX() || brick.getC().getY() != this.getY()) {
+                    this.setX(brick.getC().getX());
+                    this.setY(brick.getC().getY());
+                }
+                if (brick.isUnbreakable() && !this.isUnbreakable) {
+                    // getChildren().remove(imageView);
+                    this.currentImage = ImageLoader.loadImage("src/main/ressources/briqueii.png");
+                    this.setImageSize(this.currentImage);
+                    this.isUnbreakable = true;
+                }
+                if (!brick.isUnbreakable() && this.isUnbreakable) {
+                    this.isUnbreakable = false;
+                    // getChildren().remove(imageView);
+
+                    if (brick.getColor() != null) {
+                        this.currentImage = ImageLoader.loadImage(colorToImageMap.get(brick.getColor()));
+                    } else {
+                        this.currentImage = ImageLoader.loadImage("src/main/ressources/briquee.png");
+                    }
+                    this.setImage(this.currentImage);
+                }
+                if (brick.isTransparent() && !isTransparent) {
+                    setOpacity(0.5);
+                    this.isTransparent = true;
+                } else if (!brick.isTransparent() && isTransparent) {
+                    isTransparent = false;
+                    setOpacity(1);
+                }
+            }
+        }
+
     }
 
     public Entity getEntity() {

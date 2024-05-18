@@ -137,6 +137,7 @@ public class Game {
         if (balls.isEmpty()) {
             life--;
             balls.add(Ball.clone(originalball));
+            bonuslist.clear();
             racket.reset();
         }
         // if (rules.isInfinite()) {
