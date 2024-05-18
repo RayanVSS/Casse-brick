@@ -94,9 +94,6 @@ public class PhysicEngine extends Pane{
 
     public PhysicEngine() {
         clear();
-
-        // Initialisation de la fenetre
-
         // Initialisation de la simulation
 
         this.physics = AppPhysic.physics;
@@ -207,7 +204,7 @@ public class PhysicEngine extends Pane{
         Iterator<Brick> it = listbrick.keySet().iterator();
         while(it.hasNext()){
             Brick b = (Brick) it.next();
-            listbrick.get(b).update();
+            listbrick.get(b).update2();
             if(b.isDestroyed()){
                 it.remove();
             }
@@ -333,6 +330,7 @@ public class PhysicEngine extends Pane{
             }
         }
         racket.getDirection().setX(0);
+        racket.getDirection().setY(0);
         app.getScene().setOnKeyPressed(eWind -> {
             key.getKeysPressed().add(eWind.getCode());
         });
@@ -439,7 +437,7 @@ public class PhysicEngine extends Pane{
     }
 
     public void addBrick(Brick brick){
-        BricksGraphics graphBrick = new BricksGraphics(brick,brick.getC().getIntX(),brick.getC().getIntY(),EntityColor.BLUE);
+        BricksGraphics graphBrick = new BricksGraphics(brick,EntityColor.BLUE);
         this.getChildren().add(graphBrick);
         listbrick.put(brick, graphBrick);
     }

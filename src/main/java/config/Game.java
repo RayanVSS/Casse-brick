@@ -8,13 +8,16 @@ import java.util.TimerTask;
 import entity.ball.GravityBall;
 import entity.ball.MagnetBall;
 import entity.Bonus;
+import entity.Boost;
 import physics.entity.Ball;
+import physics.entity.Brick;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
 import gui.App;
 import javafx.application.Platform;
+import java.util.Iterator;
 
 public class Game {
 
@@ -32,6 +35,7 @@ public class Game {
     private List<Bonus> bonuslist = new ArrayList<>();
     private List<Ball> balls = new ArrayList<>();
     private int repetition; // pour saut
+    private List<Boost> boosts = new ArrayList<>();
 
     public Game(Ball ball, Racket racket, GameRules rules) {
         originalball = ball;
@@ -84,20 +88,14 @@ public class Game {
                 ball.checkCollisionOtherBall(balls);
             }
         }
-
         for (Ball ball : balls) {
             if (ball.delete()) {
+                ball.setDestroyed(true);
                 balls.remove(ball);
                 break;
             }
-            map.handleCollisionBricks(ball, rules); // gérer la collision des briques
-            if (map.updateBricksStatus(this)) {
-                // si la briques est cassée, chance d'avoir un boost
-                Bonus bonus = Bonus.createBonus(ball.getC(), balls);
-                if (bonus != null) {
-                    bonuslist.add(bonus);
-                }
-            }
+            // map.handleCollisionBricks(ball, rules); // gérer la collision des briques
+            map.updateBricksStatus(this);
             // seulement si la balle est une MagnetBall
             if (ball instanceof MagnetBall) {
                 // donne les coordonnées de la raquette a la MagnetBall
@@ -150,6 +148,15 @@ public class Game {
                     updateRulesRacket();
                 }
             }
+            for(Brick brick : map.getBricks()){
+                if(ball.checkCollision(brick)){
+                    Bonus bonus = Bonus.createBonus(ball.getC().clone());
+                    if (bonus != null) {
+                        bonuslist.add(bonus);
+                    }
+                    break;
+                }
+            }
             ball.movement(deltaT);
             ball.CollisionB = false;
         }
@@ -158,8 +165,16 @@ public class Game {
         if (balls.isEmpty()) {
             life--;
             balls.add(Ball.clone(originalball));
+            bonuslist.clear();
             racket.reset();
         }
+        // if (rules.isInfinite()) {
+        //     if (!isInfiniteBonus()) {
+        //         rules.infiniteUpdate(map, 0.60);
+        //     } else {
+        //         rules.infiniteUpdate(map, 0);
+        //     }
+        // }
         updateGameStatus();
         racket.getDirection().setX(0);
 
@@ -200,8 +215,17 @@ public class Game {
         rules.shuffleBricks(map.getBricks());
     }
 
+    public boolean isInfiniteBonus() {
+        for (Boost b : boosts) {
+            if (b.getType().equals("infiniteStop")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void updateGameStatus() { // Vérifie & MAJ le statut de la Game, gagnée/perdue
-        if (life == 0 || !rules.check()) {
+        if (life == 0 || !rules.check(map, racket.getC())) {
             lost = true;
             inGameTimer.cancel();
         }
@@ -232,6 +256,11 @@ public class Game {
         // return true; // décommenter ici pour tester les wins
         return map.countBricks() == 0;
     }
+
+    // public Coordinates resetBallInfinite() {
+    //     Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2, map.lastBrick() + 900 / 2);
+    //     return c;
+    // }
 
     // Setters/getters
 
@@ -296,4 +325,7 @@ public class Game {
         this.score = score;
     }
 
+    // public boolean isInfinite() {
+    // return isInfinite;
+    // }
 }

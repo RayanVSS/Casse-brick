@@ -7,6 +7,7 @@ public abstract class Entity {
 
     private Coordinates c;
     private Vector direction;
+    private boolean isDestroyed;
 
     protected Entity(Coordinates c, Vector vector) {
         this.c = c;
@@ -33,4 +34,11 @@ public abstract class Entity {
         this.direction = direction;
     }
 
+    public boolean isDestroyed() {
+        return isDestroyed;
+    }
+
+    public void setDestroyed(boolean isDestroyed) {
+        this.isDestroyed = isDestroyed;
+    }
 }
