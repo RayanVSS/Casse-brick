@@ -1,0 +1,211 @@
+{
+  "PATH": false,
+  "MUSIC": 0.0,
+  "CSS": "CLASSIC",
+  "MONEY": 0.0,
+  "SKIN_BALL": "Null",
+  "INVENTAIRE": [],
+  "PARTICLES": true,
+  "LEFT": "LEFT",
+  "FPS": true,
+  "PSEUDO": "",
+  "SPACE": "SPACE",
+  "TEXTURE": "Null",
+  "EXP_LEVEL": 1.0,
+  "SOUND": 50.0,
+  "RIGHT": "RIGHT",
+  "ADMIN": false,
+  "PROGRESS": {
+    "stages": [
+      {
+        "difficulty": 0,
+        "customGame": false,
+        "unlockLevel": 1,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 1,
+        "customGame": false,
+        "unlockLevel": 2,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 2,
+        "customGame": false,
+        "unlockLevel": 3,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 3,
+        "customGame": false,
+        "unlockLevel": 4,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 4,
+        "customGame": false,
+        "unlockLevel": 5,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 5,
+        "customGame": false,
+        "unlockLevel": 6,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 6,
+        "customGame": false,
+        "unlockLevel": 7,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 7,
+        "customGame": false,
+        "unlockLevel": 8,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 8,
+        "customGame": false,
+        "unlockLevel": 9,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 9,
+        "customGame": false,
+        "unlockLevel": 10,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 10,
+        "customGame": false,
+        "unlockLevel": 11,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 11,
+        "customGame": false,
+        "unlockLevel": 12,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 12,
+        "customGame": false,
+        "unlockLevel": 13,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 13,
+        "customGame": false,
+        "unlockLevel": 14,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 14,
+        "customGame": false,
+        "unlockLevel": 15,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 15,
+        "customGame": false,
+        "unlockLevel": 16,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 16,
+        "customGame": false,
+        "unlockLevel": 17,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 17,
+        "customGame": false,
+        "unlockLevel": 18,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 18,
+        "customGame": false,
+        "unlockLevel": 19,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 19,
+        "customGame": false,
+        "unlockLevel": 20,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 20,
+        "customGame": false,
+        "unlockLevel": 21,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 21,
+        "customGame": false,
+        "unlockLevel": 22,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 22,
+        "customGame": false,
+        "unlockLevel": 23,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 23,
+        "customGame": false,
+        "unlockLevel": 24,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 24,
+        "customGame": false,
+        "unlockLevel": 25,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 25,
+        "customGame": false,
+        "unlockLevel": 26,
+        "completed": false,
+        "maxScore": 0
+      },
+      {
+        "difficulty": 26,
+        "customGame": false,
+        "unlockLevel": 27,
+        "completed": false,
+        "maxScore": 0
+      }
+    ]
+  }
+}
