@@ -62,7 +62,7 @@ public class Boost extends Rectangle {
                     break;
                 case "infiniteStop":
                     System.out.println("infiniteStop");
-                    game.getRules().infiniteUpdate(game.getMap(), 0);
+                    game.getRules().setInfiniteStop(true,game.getMap(),1000);
                     break;
                 default:
                     break;

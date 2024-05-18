@@ -2,6 +2,8 @@ package config;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.checkerframework.checker.units.qual.C;
 
@@ -24,6 +26,7 @@ public class GameRules {
     private boolean transparent;
     private boolean unbreakable;
     private boolean infinite;
+    private boolean infiniteStop;
 
     // Variables servant au bon fonctionnement des règles activées
     private int remainingTime = GameConstants.GR_REMAINING_TIME;
@@ -36,6 +39,7 @@ public class GameRules {
     private int initalRemainingTime = remainingTime;
     private int initalRemainingBounces = remainingBounces;
 
+
     public GameRules(BricksArrangement arrangement, boolean limitedTime, boolean limitedBounces,
             boolean randomSwitchBricks, boolean colorRestricted, boolean transparent, boolean unbreakable,boolean infinite) {
 
@@ -47,6 +51,7 @@ public class GameRules {
         this.transparent = transparent;
         this.unbreakable = unbreakable;
         this.infinite = infinite;
+        this.infiniteStop=false;
     }
 
     /**
@@ -257,7 +262,6 @@ public class GameRules {
         Brick[][] bricks = m.getBricks();
         for (int i = list.size() - 1; i > -1; i--) {
             Brick b = list.get(i);
-            // Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY() + 0.60);
             Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY() + vitesse);
             if (m.inMap(c.getIntX() / GameConstants.BRICK_WIDTH, c.getIntY() / GameConstants.BRICK_HEIGHT)) {
                 bricks[(int) b.getC().getX() / GameConstants.BRICK_WIDTH][(int) b.getC().getY()
@@ -267,19 +271,35 @@ public class GameRules {
                         / GameConstants.BRICK_HEIGHT] = b;
             }
         }
-        // for (int i = 0; i < bricks.length; i++) {
-        //     for (int j = 0; j < bricks[0].length; j++) {
-        //         if (bricks[i][j] == null) {
-        //             bricks[i][j] = new BrickClassic(
-        //                     new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
-        //         } else {
-        //             break;
-        //         }
-        //     }
-        // }
-        // m.displayBricksInTerminal();
     }
 
+    public void setInfiniteStop(boolean infiniteStop,Map m,int duration){
+        if (!this.infiniteStop){
+            this.infiniteStop=infiniteStop;
+            if (this.infiniteStop){
+                infiniteStop(m,duration);
+            }
+        }
+
+    }
+
+    public void testInfinite(Map m){
+        if (!this.infiniteStop){
+            infiniteUpdate(m,0.60);
+        }
+    }
+
+    public void infiniteStop(Map map,int duration){
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            public void run() {
+                infiniteUpdate(map, 0);
+                infiniteStop=false;
+            }
+        };
+        timer.schedule(task, duration);
+        
+    }
     public ArrayList<Brick> createBrickInfinite(Brick[][] bricks){
         ArrayList<Brick> b=new ArrayList<>();
         for (int i = 0; i < bricks.length; i++) {

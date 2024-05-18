@@ -67,6 +67,11 @@ public class GameCustomizerController {
                     click.play();
                     gameCustomizerView.getRuleUnbreakable().updateText();
                 });
+        gameCustomizerView.getRuleInfinite().getToggleButton()
+                .setOnAction(e -> {
+                    click.play();
+                    gameCustomizerView.getRuleInfinite().updateText();
+                });
     }
 
     private void ruleLimitedTimeAction() {
@@ -162,13 +167,16 @@ public class GameCustomizerController {
     }
 
     private GameRules getRulesConfig() {
+        if(gameCustomizerView.getRuleInfinite().getToggleButton().isSelected()){
+            return new GameRules(BricksArrangement.INFINITE, false, false, false, false, false, false, true);
+        }
         GameRules rules = new GameRules(BricksArrangement.DEFAULT,
                 gameCustomizerView.getRuleLimitedTime().getToggleButton().isSelected(),
                 gameCustomizerView.getRuleLimitedBounces().getToggleButton().isSelected(),
                 gameCustomizerView.getRuleRandomSwitchBricks().getToggleButton().isSelected(),
                 gameCustomizerView.getRuleColorRestricted().getToggleButton().isSelected(),
                 gameCustomizerView.getRuleTransparent().getToggleButton().isSelected(),
-                gameCustomizerView.getRuleUnbreakable().getToggleButton().isSelected(),false);//TODO A CHANGER
+                gameCustomizerView.getRuleUnbreakable().getToggleButton().isSelected(),gameCustomizerView.getRuleInfinite().getToggleButton().isSelected());//TODO A CHANGER
         if (gameCustomizerView.getRuleLimitedTime().getToggleButton().isSelected()) {
             rules.redefInitialResetTime((int) gameCustomizerView.getTimeLimit().getSlider().getValue());
         }

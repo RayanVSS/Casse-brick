@@ -115,12 +115,14 @@ public class Game {
             }
         }
         if (rules.isInfinite()) {
-            if (!isInfiniteBonus()){
-                rules.infiniteUpdate(map,0.60);
-            }
-            else{
-                rules.infiniteUpdate(map,0);
-            }   
+            rules.testInfinite(map);
+            // rules.infiniteUpdate(map,0.60);//TODO CST PR LA VITESSE DES BRICK
+            // if (!isInfiniteBonus()){
+            //     rules.infiniteUpdate(map,0.60);
+            // }
+            // else{
+            //     rules.infiniteUpdate(map,0);
+            // }   
         }
         updateGameStatus();
     }
@@ -166,6 +168,7 @@ public class Game {
         // return map.countBricks() == 0;
     }
 
+    //TODO DANS GAMERULES MAYBE
     public Coordinates resetBallInfinite(){
         Coordinates c=new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH/2, map.lastBrick()+900/2);//TODO A tâtonner SINON LE METTRE PROCHE DE LA RAQUETTE
         return c;
