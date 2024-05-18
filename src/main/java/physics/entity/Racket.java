@@ -9,10 +9,14 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.checkerframework.checker.units.qual.g;
+
 import gui.GameRoot;
 import gui.GraphicsFactory.RacketGraphics;
 import physics.geometry.Figure;
 import utils.Key;
+
+import java.util.List;
 import java.util.HashSet;
 import physics.geometry.Segment;
 
@@ -379,6 +383,24 @@ public abstract class Racket extends Figure {
             s.deplace(v1);
         }
         c.add(v1);
+    }
+
+    public void BallinRacket(Ball b) {
+       if(shape=="rectangle"){
+            if(segments.get(0).intersect(b.getC(),b.getRadius(),b.getRadius())){
+                b.getC().setY(this.getC().getY()-b.getRadius());
+            }
+            else if(segments.get(2).intersect(b.getC(),b.getRadius(),b.getRadius())){
+                b.getC().setY(this.getC().getX()+getLargeur()+b.getRadius());
+            }
+            else if(segments.get(1).intersect(b.getC(),b.getRadius(),b.getRadius())){
+                b.getC().setX(this.getC().getX()+getLongueur()+b.getRadius());
+            }
+            else if(segments.get(3).intersect(b.getC(),b.getRadius(),b.getRadius())){
+                b.getC().setX(this.getC().getX()-b.getRadius());
+            }
+
+       }
     }
 
     // fonction obligatoire

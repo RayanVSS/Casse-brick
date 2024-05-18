@@ -44,8 +44,8 @@ public class PhysicTools {
             double d1 = d.getX() * normalX + d.getY() * normalY;
 
             d.setX(d.getX() - 2 * d1 * normalX);
-            d.setY(d.getY() - 2 * d1 * normalY);
-    
+            d.setY(d.getY() - 2 * d1 * normalY+(rotation.getEffect())/90*normalY);
+            
             return true;
         }
         return false;
@@ -55,11 +55,9 @@ public class PhysicTools {
     
 
     public static boolean checkCollision(Coordinates c ,Vector d, double radius ,Brick b,Rotation rotation){
-        if (intersectBrick(c, (int) radius, b)) {
-            for (Segment s : b.getSegments()) {
-                if(checkCollision(c,d,radius,s,rotation)){
-                    return true;
-                }
+        for (Segment s : b.getSegments()) {
+            if(checkCollision(c,d,radius,s,rotation)){
+                return true;
             }
         }
         return false;
