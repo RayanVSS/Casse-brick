@@ -3,7 +3,6 @@ package config;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.checkerframework.checker.units.qual.C;
 
 import entity.EntityColor;
 import entity.brick.BrickClassic;

@@ -11,7 +11,6 @@ import physics.entity.Racket;
 
 public class Bonus extends Rectangle{
     private Coordinates c;
-    private List<Ball> ballList;
     private Color COLOR_BONUS = Color.rgb(233, 255, 0);;
 
 
@@ -19,20 +18,20 @@ public class Bonus extends Rectangle{
         super(x, y, width, height);
     }
 
-    public Bonus(Coordinates c, List<Ball> ballList) {
+    public Bonus(Coordinates c) {
         super(c.getX(), c.getY(), GameConstants.WIDTH, GameConstants.HEIGHT);
         this.c = c;
-        this.ballList=ballList;
         setFill(COLOR_BONUS);
     }
 
-    public static Bonus createBonus(Coordinates c,List<Ball> ballList) {
-        if (Math.random() < GameConstants.BONUS_CHANCE) {
-            if (Math.random() > 0.2) {
+    public static Bonus createBonus(Coordinates c) {
+        double random = Math.random();
+        if (random < GameConstants.BONUS_CHANCE) {
+            if (random < 0.02) {
                 return new Boost(c);
             }
             else{
-                return new Bonus(c,ballList);
+                return new Bonus(c);
             }
         }
         return null;
@@ -41,7 +40,7 @@ public class Bonus extends Rectangle{
     public boolean move(Boolean CollisionRacket, Racket racket, List<Ball> ballList) {
         if (CollisionRacket) {
             Ball newBall = Ball.clone(ballList.get(0));
-            newBall.setC(new Coordinates(racket.getC().getX() + racket.largeur / 2, racket.getC().getY() - newBall.getRadius()));
+            newBall.setC(new Coordinates(racket.getC().getX() + racket.largeur / 2, racket.getC().getY() - newBall.getRadius()*2));
             newBall.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION.clone());
             ballList.add(newBall);
             return true;

@@ -15,6 +15,7 @@ import static physics.entity.Racket.d;
 import javafx.scene.input.KeyCode;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 
 
@@ -214,13 +215,21 @@ public abstract class Ball extends Entity {
         this.setSpeed(baseSpeed);
     }
 
-    public void checkCollision(Brick b) {
+    public boolean checkCollision(Brick b) {
        if(PhysicTools.checkCollision(this.getC(), this.getDirection(), this.radius,b,rotation)){
            b.absorb(100);
+           return true;
        }
+       return false;
     }
 
     public void checkCollision(Set<Brick> bricks) {
+        for (Brick b : bricks) {
+            this.checkCollision(b);
+        }
+    }
+
+    public void checkCollision(ArrayList<Brick> bricks) {
         for (Brick b : bricks) {
             this.checkCollision(b);
         }

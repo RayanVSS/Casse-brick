@@ -91,13 +91,7 @@ public class Game {
                 break;
             }
             // map.handleCollisionBricks(ball, rules); // gérer la collision des briques
-            if (map.updateBricksStatus(this)) {
-                // si la briques est cassée, chance d'avoir un boost
-                Bonus bonus = Bonus.createBonus(ball.getC(), balls);
-                if (bonus != null) {
-                    bonuslist.add(bonus);
-                }
-            }
+            map.updateBricksStatus(this);
             // seulement si la balle est une MagnetBall
             if (ball instanceof MagnetBall) {
                 ball.CollisionR = false;
@@ -123,12 +117,17 @@ public class Game {
                     updateRulesRacket();
                 }
             }
+            for(Brick brick : map.getBricks()){
+                if(ball.checkCollision(brick)){
+                    Bonus bonus = Bonus.createBonus(ball.getC().clone());
+                    if (bonus != null) {
+                        bonuslist.add(bonus);
+                    }
+                    break;
+                }
+            }
             ball.movement(deltaT);
             ball.CollisionB = false;
-
-            for (Brick brick : map.getBricks()) {
-                ball.checkCollision(brick);
-            }
         }
 
         // Gere les conditions de perte
