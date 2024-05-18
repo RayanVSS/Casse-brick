@@ -1,8 +1,12 @@
 package entity.racket;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javafx.scene.input.KeyCode;
+import physics.entity.Ball;
 import physics.entity.Racket;
 import utils.GameConstants;
 
@@ -25,20 +29,17 @@ public class ClassicRacket extends Racket {
             if (key == GameConstants.LEFT) {
                 if (this.mX() > -largeur / 2)
                     this.deplaceX(-speed);
-                    this.getDirection().setX(-1);
+                this.getDirection().setX(-1);
             }
             if (key == GameConstants.RIGHT) {
                 if (this.mX() < super.getWidth() - longueur - 70)
                     this.deplaceX(speed);
-                    this.getDirection().setX(1);
+                this.getDirection().setX(1);
             }
             if (key == GameConstants.SPACE) {
                 setJump(jump);
-                System.out.println("jump " + jump);
-                System.out.println("jumpUP " + getJumpUP());
-                System.out.println("jumpDOWN " + getJumpDOWN());
-                
-            }          
+
+            }
         }
     }
 
@@ -49,6 +50,5 @@ public class ClassicRacket extends Racket {
          * }
          */
     }
-
 
 }

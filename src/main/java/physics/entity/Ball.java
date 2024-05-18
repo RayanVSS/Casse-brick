@@ -11,6 +11,7 @@ import physics.config.PhysicSetting;
 import utils.GameConstants;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 
 
@@ -37,6 +38,7 @@ public abstract class Ball extends Entity {
     private double zoneHeight = GameConstants.DEFAULT_WINDOW_HEIGHT;
     public boolean CollisionB =false;
     private boolean delete = false;
+    public static Racket getRa; // coordonnées de la raquette
 
     public Ball() {
         super(new Coordinates(0, 0), new Vector(new Coordinates(0, 0)));
@@ -200,8 +202,9 @@ public abstract class Ball extends Entity {
         return Math.max(min, Math.min(max, val));
     }
 
-    public void reset() {
-        this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
+    public void reset(Coordinates c) {
+        this.setC(c);
+        // this.setC(GameConstants.DEFAULT_BALL_START_COORDINATES);
         this.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION);
         this.setSpeed(GameConstants.DEFAULT_BALL_SPEED);
         this.setRadius(GameConstants.DEFAULT_BALL_RADIUS);
@@ -209,13 +212,21 @@ public abstract class Ball extends Entity {
         this.setSpeed(baseSpeed);
     }
 
-    public void checkCollision(Brick b) {
+    public boolean checkCollision(Brick b) {
        if(PhysicTools.checkCollision(this.getC(), this.getDirection(), this.radius,b,rotation)){
            b.absorb(100);
+           return true;
        }
+       return false;
     }
 
     public void checkCollision(Set<Brick> bricks) {
+        for (Brick b : bricks) {
+            this.checkCollision(b);
+        }
+    }
+
+    public void checkCollision(ArrayList<Brick> bricks) {
         for (Brick b : bricks) {
             this.checkCollision(b);
         }
@@ -297,7 +308,7 @@ public abstract class Ball extends Entity {
         for(Segment l:r.segments){
             if(checkCollision(l)){
                 CollisionR = true;
-                rotation.addEffect(10*-(r.getDirection().getX()));
+                rotation.addEffect(-(r.getDirection().getX()*r.speed));
                 return true;
             }
         }

@@ -2,13 +2,14 @@
   "PATH": true,
   "MUSIC": 0,
   "CSS": "PINK",
-  "MONEY": 0,
+  "MONEY": 975,
   "SKIN_BALL": "src/main/ressources/balle/light/gravity.png",
   "INVENTAIRE": [
     "Rouge",
     "ClassicLight",
     "Etoile",
     "GravityBlack",
+    "Rose",
     "GravityLight"
   ],
   "PARTICLES": true,
@@ -16,7 +17,7 @@
   "FPS": true,
   "PSEUDO": "Majda",
   "SPACE": "SPACE",
-  "TEXTURE": "src/main/ressources/Texture/rouge.jpg",
+  "TEXTURE": "src/main/ressources/Texture/rose.jpg",
   "EXP_LEVEL": 1,
   "PROGRESS": {
     "stages": [
@@ -211,7 +212,7 @@
       }
     ]
   },
-  "SOUND": 50,
+  "SOUND": 52,
   "RIGHT": "RIGHT",
   "ADMIN": false
 }

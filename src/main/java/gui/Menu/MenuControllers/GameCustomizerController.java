@@ -168,7 +168,7 @@ public class GameCustomizerController {
                 gameCustomizerView.getRuleRandomSwitchBricks().getToggleButton().isSelected(),
                 gameCustomizerView.getRuleColorRestricted().getToggleButton().isSelected(),
                 gameCustomizerView.getRuleTransparent().getToggleButton().isSelected(),
-                gameCustomizerView.getRuleUnbreakable().getToggleButton().isSelected());
+                gameCustomizerView.getRuleUnbreakable().getToggleButton().isSelected(),false);//TODO A CHANGER
         if (gameCustomizerView.getRuleLimitedTime().getToggleButton().isSelected()) {
             rules.redefInitialResetTime((int) gameCustomizerView.getTimeLimit().getSlider().getValue());
         }

@@ -28,6 +28,7 @@ public class GameModeView implements Menu, ViewPosition {
     private Button customGameButton;
     private Button backButton;
     private ConsoleView consoleView;
+    private Button infinityButton;
     private BaseView baseView;
 
     public GameModeView(Stage primaryStage) {
@@ -39,8 +40,9 @@ public class GameModeView implements Menu, ViewPosition {
         centerBox = new VBox(45);
         stagesButton = createButton("Niveaux", 0, 0);
         customGameButton = createButton("Personnaliser", 0, 0);
+        infinityButton = createButton("Mode Infini", 0, 0);
         backButton = createButton("Retour", 0, 0);
-        centerBox.getChildren().addAll(stagesButton, customGameButton, backButton);
+        centerBox.getChildren().addAll(stagesButton, customGameButton, infinityButton, backButton);
         centerBox.setAlignment(Pos.CENTER);
         centerBox.setPadding(new Insets(200, 0, 0, 0));
 
@@ -88,6 +90,10 @@ public class GameModeView implements Menu, ViewPosition {
 
     public Button getBackButton() {
         return backButton;
+    }
+
+    public Button getInfinityButton() {
+        return infinityButton;
     }
 
 }

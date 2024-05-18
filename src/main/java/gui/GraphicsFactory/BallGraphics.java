@@ -20,7 +20,7 @@ public class BallGraphics extends Circle implements EntityGraphics {
 
     private Ball ball;
 
-    private boolean waitingAdded, waitingRemoved;
+    private boolean waitingAdded = true, waitingRemoved;
     // Partie pour le drag and drop
     private boolean isMouseDraggingBall = false;
     private double mouseX, mouseY = 0;
@@ -33,7 +33,6 @@ public class BallGraphics extends Circle implements EntityGraphics {
         setBall();
         setCenterX(ball.getC().getX());
         setCenterY(ball.getC().getY());
-        waitingAdded = true;
     }
 
     public BallGraphics(Image i, Ball ball) {
@@ -47,14 +46,14 @@ public class BallGraphics extends Circle implements EntityGraphics {
         }
         setCenterX(ball.getC().getX());
         setCenterY(ball.getC().getY());
-        waitingAdded = true;
     }
 
     public void update() {
         updateBall();
+        setWaitingRemoved(ball.isDestroyed());
         setCenterX(ball.getC().getX());
         setCenterY(ball.getC().getY());
-        setRotate(getRotate()+ball.getRotation().getAngle());
+        setRotate(getRotate() + ball.getRotation().getAngle() / 2);
     }
 
     private void setBall() {
@@ -137,7 +136,6 @@ public class BallGraphics extends Circle implements EntityGraphics {
             }
         }
         if (ball.getColor() != null) {
-            
             switch (ball.getColor()) {
                 case RED:
                     this.setFill(Color.RED);
@@ -154,7 +152,7 @@ public class BallGraphics extends Circle implements EntityGraphics {
         }
     }
 
-   public boolean IsMouseDraggingBall() {
+    public boolean IsMouseDraggingBall() {
         return isMouseDraggingBall;
     }
 

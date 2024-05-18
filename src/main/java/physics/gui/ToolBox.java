@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Random;
 
-
 import entity.EntityColor;
 import utils.GraphicsToolkit.LabelToggleButtonHBox;
 import utils.ImageLoader;
@@ -28,7 +27,6 @@ import utils.GameConstants;
 import physics.config.PhysicEngine;
 import physics.config.PhysicSetting;
 
-
 public class ToolBox extends Pane {
     
     private boolean Bar=false;
@@ -39,8 +37,8 @@ public class ToolBox extends Pane {
     private TestPreset test;
     private Ball firstball;
 
-    private Map<Ball,BallGraphics> map;
-    private Map<Brick,BricksGraphics> map2;
+    private Map<Ball, BallGraphics> map;
+    private Map<Brick, BricksGraphics> map2;
 
     private ArrayList<Circle> circles=new ArrayList<>();
     public static ArrayList<Image> list_image=new ArrayList<>(Arrays.asList(
@@ -53,7 +51,7 @@ public class ToolBox extends Pane {
     ));
 
     private Random random = new Random();
-    
+
     private Label labelrotate;
     private Label labelangle;
     private Label labelspeed;
@@ -71,7 +69,7 @@ public class ToolBox extends Pane {
         setSeparator();
     }
 
-    public void afficherTest(){
+    public void afficherTest() {
         Button button1 = new Button("Activer les test unitaires");
         button1.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
         button1.setLayoutX(10);
@@ -92,11 +90,12 @@ public class ToolBox extends Pane {
                 button1.setLayoutX(10);
                 button1.setLayoutY(200);
                 getChildren().add(test);
-                getChildren().removeIf(e -> (e instanceof Button && !e.equals(button1)) || e instanceof CheckBox || e instanceof Label || e instanceof ComboBox || (e instanceof LabelToggleButtonHBox && !e.equals(pauseButton)));
+                getChildren().removeIf(e -> (e instanceof Button && !e.equals(button1)) || e instanceof CheckBox
+                        || e instanceof Label || e instanceof ComboBox
+                        || (e instanceof LabelToggleButtonHBox && !e.equals(pauseButton)));
                 button1.setText("Desactiver les test unitaires");
 
-            }
-            else{
+            } else {
                 getChildren().remove(test);
                 game.clear();
                 affiche();
@@ -105,10 +104,10 @@ public class ToolBox extends Pane {
                 button1.setLayoutY(400);
             }
         });
-        getChildren().addAll(button1,pauseButton);
+        getChildren().addAll(button1, pauseButton);
     }
 
-    public void affiche(){
+    public void affiche() {
         Label label = new Label("Informations sur la simulation :");
         label.setStyle("-fx-font-size: 13; -fx-text-fill: #d5bbb1;");
         label.setLayoutX(10);
@@ -130,19 +129,17 @@ public class ToolBox extends Pane {
                 else{
                     button.setSelected(false);
                 }
-            }
-            else{
-                PhysicEngine.Pause=false;
+            } else {
+                PhysicEngine.Pause = false;
             }
         });
         button.setLayoutX(200);
         button.setLayoutY(50);
 
-        getChildren().addAll(labelspeed,labelangle,labelrotate,button,label);
+        getChildren().addAll(labelspeed, labelangle, labelrotate, button, label);
 
-        getChildren().addAll(addBallButton,addBrickButton);
+        getChildren().addAll(addBallButton, addBrickButton);
 
-            
         Button button2 = new Button("Supprimer toutes les briques ajoutées");
         button2.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
         button2.setLayoutX(30);
@@ -168,7 +165,7 @@ public class ToolBox extends Pane {
         label.setLayoutX(10);
         label.setLayoutY(310);
         ComboBox<String> listracket = new ComboBox<String>();
-        listracket.getItems().addAll("rectangle","rond","triangle","losange","YnotFixe");
+        listracket.getItems().addAll("rectangle", "rond", "triangle", "losange", "YnotFixe");
         listracket.setValue(null);
         listracket.setLayoutX(40);
         listracket.setLayoutY(330);
@@ -179,13 +176,14 @@ public class ToolBox extends Pane {
             game.getChildren().add(PhysicEngine.graphRacket.getShape());   
         });
 
-        getChildren().addAll(label,listracket);
+        getChildren().addAll(label, listracket);
 
     }
 
     public void reset() {
         clearCircles();
-        getChildren().removeIf(e -> e instanceof Button || e instanceof CheckBox || e instanceof Label || e instanceof ComboBox || e instanceof LabelToggleButtonHBox);
+        getChildren().removeIf(e -> e instanceof Button || e instanceof CheckBox || e instanceof Label
+                || e instanceof ComboBox || e instanceof LabelToggleButtonHBox);
     }
 
 
@@ -240,10 +238,10 @@ public class ToolBox extends Pane {
         labelspeed.setStyle("-fx-font-size: 13; -fx-text-fill: #d5bbb1;");
         labelspeed.setLayoutX(10);
         labelspeed.setLayoutY(140);
-        
+
     }
 
-    public void close(){
+    public void close() {
         reset();
     }
 
@@ -260,7 +258,7 @@ public class ToolBox extends Pane {
         else{
             Bar=true;
             addControls();
-            PhysicEngine.start_border=300;
+            PhysicEngine.start_border = 300;
             PhysicEngine.LIMIT_SIMULATION.get(1).addX(300);
             game.getChildren().add(this);
             affiche();
@@ -272,7 +270,7 @@ public class ToolBox extends Pane {
         return Bar;
     }
 
-    public void setSeparator(){
+    public void setSeparator() {
         ImageView separator = new ImageView(ImageLoader.loadImage("src/main/ressources/lifeScore/blackSep.png"));
         double windowHeight = getHeight();
         separator.setFitHeight(windowHeight);
@@ -294,7 +292,7 @@ public class ToolBox extends Pane {
                 if(!getChildren().contains(BrickIncassableButton)){
                     getChildren().add(BrickIncassableButton);
                 }
-           }
+            }
             addBrickButton.updateText();
         });
 
@@ -304,14 +302,12 @@ public class ToolBox extends Pane {
             for(Brick brick : map2.keySet()){
                 if(BrickIncassableButton.getToggleButton().isSelected()){
                     brick.setUnbreakable(true);
-                }
-                else{
+                } else {
                     brick.setUnbreakable(false);
                 }
             }
             BrickIncassableButton.updateText();
         });
-
 
         addBallButton = new LabelToggleButtonHBox("Ajouter une balle", false);
         addBallButton.getToggleButton().setOnAction(e -> addBallButton.updateText());
@@ -342,22 +338,28 @@ public class ToolBox extends Pane {
             double mouseX = event.getX();
             double mouseY = event.getY();
             boolean nochevauchement = true;
-            
-            if (mouseX>PhysicEngine.start_border+GameConstants.BRICK_WIDTH && mouseX<PhysicSetting.DEFAULT_WINDOW_WIDTH-GameConstants.BRICK_WIDTH && mouseY>GameConstants.BRICK_HEIGHT && mouseY<PhysicSetting.DEFAULT_WINDOW_HEIGHT-GameConstants.BRICK_HEIGHT) {
+
+            if (mouseX > PhysicEngine.start_border + GameConstants.BRICK_WIDTH
+                    && mouseX < PhysicSetting.DEFAULT_WINDOW_WIDTH - GameConstants.BRICK_WIDTH
+                    && mouseY > GameConstants.BRICK_HEIGHT
+                    && mouseY < PhysicSetting.DEFAULT_WINDOW_HEIGHT - GameConstants.BRICK_HEIGHT) {
                 if (addBrickButton.getToggleButton().isSelected()) {
-                    for(Brick brick : map2.keySet()){
-                        if((brick.contains(mouseX,mouseY) || brick.contains(mouseX+GameConstants.BRICK_WIDTH,mouseY) || brick.contains(mouseX,mouseY+GameConstants.BRICK_HEIGHT) || brick.contains(mouseX+GameConstants.BRICK_WIDTH,mouseY+GameConstants.BRICK_HEIGHT))){
+                    for (Brick brick : map2.keySet()) {
+                        if ((brick.contains(mouseX, mouseY)
+                                || brick.contains(mouseX + GameConstants.BRICK_WIDTH, mouseY)
+                                || brick.contains(mouseX, mouseY + GameConstants.BRICK_HEIGHT) || brick.contains(
+                                        mouseX + GameConstants.BRICK_WIDTH, mouseY + GameConstants.BRICK_HEIGHT))) {
                             nochevauchement = false;
                             break;
                         }
                     }
-                    if(nochevauchement){
+                    if (nochevauchement) {
                         Brick b = PhysicEngine.init_brick(new Coordinates(mouseX, mouseY));
                         b.setColor(EntityColor.BLUE);
                         if(BrickIncassableButton.getToggleButton().isSelected()){
                             b.setUnbreakable(true);
                         }
-                        BricksGraphics brickg = new BricksGraphics(b,b.getC().getIntX(),b.getC().getIntY(),EntityColor.BLUE);
+                        BricksGraphics brickg = new BricksGraphics(b,EntityColor.BLUE);
                         game.setTakeBrick(brickg, b, this);
                         map2.put(b,brickg);
                         game.getChildren().add(brickg);
@@ -365,7 +367,7 @@ public class ToolBox extends Pane {
                         addBrickButton.updateText();
                     }
                 } else if (addBallButton.getToggleButton().isSelected()) {
-                    Ball b2 = PhysicEngine.init_ball(new Coordinates(mouseX, mouseY),null);
+                    Ball b2 = PhysicEngine.init_ball(new Coordinates(mouseX, mouseY), null);
                     Integer nb = random.nextInt(list_image.size());
                     BallGraphics ballg = new BallGraphics(list_image.get(nb),b2);
                     game.setTakeBall(ballg, b2, this);

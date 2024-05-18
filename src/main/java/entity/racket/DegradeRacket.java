@@ -1,8 +1,11 @@
 package entity.racket;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javafx.scene.input.KeyCode;
+import physics.entity.Ball;
 import physics.entity.Racket;
 import utils.GameConstants;
 
@@ -30,8 +33,8 @@ public class DegradeRacket extends Racket {
                     this.getDirection().setX(1);
             }
             if (key == GameConstants.SPACE) {
-                setlargeurP(true);
-                setVitesseP(true);
+                setJump(jump);
+
             }
         }
     }

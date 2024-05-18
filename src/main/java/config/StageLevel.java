@@ -1,6 +1,8 @@
 package config;
 
 import gui.Console;
+import entity.ball.ClassicBall;
+import entity.racket.ClassicRacket;
 import gui.Menu.MenuControllers.GameCustomizerController;
 import save.PlayerData;
 import utils.GameConstants;
@@ -25,6 +27,10 @@ public class StageLevel {
     public StageLevel(Game game, boolean customGame) {
         this.game = game;
         this.customGame = customGame;
+    }
+
+    public StageLevel(Game game) {
+        this.game = game;
     }
 
     public boolean canLoadGame() {
@@ -53,10 +59,14 @@ public class StageLevel {
         game.resetBalls();
         game.getRacket().reset();
         game.getRules().reset();
-        game = new Game(
+        if (game.getRules().isInfinite()){
+            game=new Game(new ClassicBall(), new ClassicRacket(), GameConstants.INFINITE_MODE);
+        }else{
+            game = new Game(
                 GameConstants.PRECONFIG_GAME_BALL[difficulty],
                 GameConstants.PRECONFIG_GAME_RACKET[difficulty],
                 GameConstants.PRECONFIG_GAME_RULES[difficulty]);
+            }
     }
 
     public void lostAction() {

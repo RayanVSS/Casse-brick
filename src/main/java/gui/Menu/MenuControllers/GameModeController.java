@@ -1,5 +1,7 @@
 package gui.Menu.MenuControllers;
 
+import org.checkerframework.checker.units.qual.g;
+
 import gui.App;
 import gui.Menu.MenuViews.GameModeView;
 import javafx.application.Platform;
@@ -28,6 +30,7 @@ public class GameModeController {
             click.play();
             back();
         });
+        gameModeView.getInfinityButton().setOnAction(e -> showInfinityMode());
     }
 
     private void showStages() {
@@ -39,6 +42,12 @@ public class GameModeController {
     private void showCustomizer() {
         Platform.runLater(() -> {
             App.menuManager.changeScene(gameModeView.getPrimaryStage(), "GameCustomizerView");
+        });
+    }
+
+    private void showInfinityMode() {
+        Platform.runLater(() -> {
+            App.menuManager.changeScene(gameModeView.getPrimaryStage(), "InfinityModeView");
         });
     }
 
