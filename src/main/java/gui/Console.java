@@ -573,6 +573,7 @@ public class Console {
                 if (PlayerData.isAdmin == false) {
                     systemDisplay("Vous étiez déjà : Joueur");
                 } else {
+                    PlayerData.isAdmin = false;
                     systemDisplay("Vous êtes devenu : Joueur");
                 }
 
@@ -581,6 +582,7 @@ public class Console {
                 if (PlayerData.isAdmin == true) {
                     systemDisplay("Vous étiez déjà : Administrateur");
                 } else {
+                    PlayerData.isAdmin = true;
                     systemDisplay("Vous êtes devenu : Administrateur");
                 }
 
