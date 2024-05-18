@@ -1,14 +1,20 @@
 package gui;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import gui.Menu.Menu;
+import gui.Menu.MenuControllers.TutoController;
 import gui.Menu.MenuViews.BoutiqueView;
 import gui.Menu.MenuViews.ChapterView;
 import gui.Menu.MenuViews.GameCustomizerView;
@@ -20,7 +26,6 @@ import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
 import gui.Menu.MenuViews.WinView;
-import gui.Menu.MenuControllers.TutoController;
 import javafx.application.Platform;
 import save.PlayerData;
 import save.Sauvegarde;
@@ -168,87 +173,116 @@ public class Console {
     ///////////////////      ANALYSE : parts[1]      ///////////////////
 
     private static void commandProcessingRun(String[] parts) {
-        systemDisplay("Pas encore implémenté.");
+        if (parts.length < 2) {
+            systemDisplay("Commande run vide : /run ?");
+        } else {
+            switch (parts[1].toLowerCase()) {
+                case "physic":
+                    commandRunPhysicDemo(parts);
+                    break;
+
+                case "demo":
+                    commandRunPhysicDemo(parts);
+                    break;
+
+                case "repair":
+                    // !!! Phase expérimentale !!! //
+                    commandRunRepair();
+                    break;
+
+                default:
+                    systemDisplay("Commande /run erronée : '" + parts[1] + "' est un argument inconnu.");
+                    break;
+            }
+        }
     }
 
     private static void commandProcessingGet(String[] parts) {
-        switch (parts[1].toLowerCase()) {
-            case "viewpos":
-                commandGetViewPos();
-                break;
+        if (parts.length < 2) {
+            systemDisplay("Commande get vide : /get ?");
+        } else {
+            switch (parts[1].toLowerCase()) {
+                case "viewpos":
+                    commandGetViewPos();
+                    break;
 
-            case "pseudo":
-                commandGetPseudo();
-                break;
+                case "pseudo":
+                    commandGetPseudo();
+                    break;
 
-            case "exp":
-                commandGetExp();
-                break;
+                case "exp":
+                    commandGetExp();
+                    break;
 
-            case "money":
-                commandGetMoney();
-                break;
+                case "money":
+                    commandGetMoney();
+                    break;
 
-            case "inventory":
-                commandGetInventory();
-                break;
+                case "inventory":
+                    commandGetInventory();
+                    break;
 
-            case "save":
-                commandGetSave();
-                break;
+                case "save":
+                    commandGetSave();
+                    break;
 
-            case "admin":
-                commandGetAdmin();
-                break;
+                case "admin":
+                    commandGetAdmin();
+                    break;
 
-            case "theme":
-                commandGetTheme();
-                break;
+                case "theme":
+                    commandGetTheme();
+                    break;
 
-            case "loadtuto":
-                commandGetLoadTuto();
-                break;
+                case "loadtuto":
+                    commandGetLoadTuto();
+                    break;
 
-            default:
-                systemDisplay("Commande /get erronée : '" + parts[1] + "' est un argument inconnu.");
-                break;
+                default:
+                    systemDisplay("Commande /get erronée : '" + parts[1] + "' est un argument inconnu.");
+                    break;
+            }
         }
     }
 
     private static void commandProcessingSet(String[] parts) {
-        switch (parts[1].toLowerCase()) {
+        if (parts.length < 2) {
+            systemDisplay("Commande set vide : /set ?");
+        } else {
+            switch (parts[1].toLowerCase()) {
 
-            case "pseudo":
-                commandSetPseudo(parts);
-                break;
+                case "pseudo":
+                    commandSetPseudo(parts);
+                    break;
 
-            case "exp":
-                commandSetExp(parts);
-                break;
+                case "exp":
+                    commandSetExp(parts);
+                    break;
 
-            case "money":
-                commandSetMoney(parts);
-                break;
+                case "money":
+                    commandSetMoney(parts);
+                    break;
 
-            case "inventory":
-                commandSetInventory(parts);
-                break;
+                case "inventory":
+                    commandSetInventory(parts);
+                    break;
 
-            case "admin":
-                commandSetAdmin(parts);
-                break;
+                case "admin":
+                    commandSetAdmin(parts);
+                    break;
 
-            case "theme":
-                commandSetTheme(parts);
-                break;
+                case "theme":
+                    commandSetTheme(parts);
+                    break;
 
-            case "loadtuto":
-                commandSetLoadTuto(parts);
-                break;
+                case "loadtuto":
+                    commandSetLoadTuto(parts);
+                    break;
 
-            default:
-                systemDisplay("Commande /set erronée : '" + parts[1] + "' est un argument inconnu.");
-                break;
+                default:
+                    systemDisplay("Commande /set erronée : '" + parts[1] + "' est un argument inconnu.");
+                    break;
+            }
         }
     }
 
@@ -276,6 +310,88 @@ public class Console {
                 System.exit(0);
             }
         }, 500); // Délai de lecture
+    }
+
+    private static void commandRunPhysicDemo(String[] parts) {
+        systemDisplay("Commande détectée : /run " + parts[1].toLowerCase());
+        systemDisplay("Lancement de AppPhysic...");
+        display("[AppPhysic] Lancement en cours...");
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            try {
+                ProcessBuilder processBuilder = new ProcessBuilder();
+                processBuilder.directory(new File("../2023-ad1-c"));
+
+                // Déterminer le fichier exécutable en fonction du système d'exploitation
+                String gradleCommand = System.getProperty("os.name").toLowerCase().contains("win")
+                        ? "gradlew.bat"
+                        : "./gradlew";
+
+                processBuilder.command(gradleCommand, "physic");
+
+                Process process = processBuilder.start();
+
+                // Lire la sortie de la commande
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    display("[Gradle] " + line);
+                }
+                int exitCode = process.waitFor();
+                if (exitCode != 0) {
+                    display(
+                            "[Gradle] Erreur lors de l'exécution de la tâche Gradle. Code de sortie : " + exitCode);
+                } else {
+                    display("[Gradle] Exécution réussie avec code de sortie : " + exitCode);
+                    display("[AppPhysic] Fermeture en cours...");
+                    systemDisplay("AppPhysic fermée avec succès.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        executorService.shutdown();
+    }
+
+    private static void commandRunRepair() {
+        systemDisplay("Commande détectée : /run repair");
+        systemDisplay("Lancement de RepairSoftware...");
+        display("[RepairSoftware] Lancement en cours...");
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(() -> {
+            try {
+                ProcessBuilder processBuilder = new ProcessBuilder();
+                processBuilder.directory(new File("../2023-ad1-c"));
+
+                // Déterminer le fichier exécutable en fonction du système d'exploitation
+                String gradleCommand = System.getProperty("os.name").toLowerCase().contains("win")
+                        ? "gradlew.bat"
+                        : "./gradlew";
+
+                processBuilder.command(gradleCommand, "Repair");
+
+                Process process = processBuilder.start();
+
+                // Lire la sortie de la commande
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    display("[Gradle] " + line);
+                }
+                int exitCode = process.waitFor();
+                if (exitCode != 0) {
+                    display(
+                            "[Gradle] Erreur lors de l'exécution de la tâche Gradle. Code de sortie : " + exitCode);
+                } else {
+                    display("[Gradle] Exécution réussie avec code de sortie : " + exitCode);
+                    display("[RepairSoftware] Fermeture en cours...");
+                    systemDisplay("RepairSoftware fermé avec succès.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        executorService.shutdown();
     }
 
     private static void commandGetViewPos() { // Plutôt pour débug
@@ -457,6 +573,7 @@ public class Console {
                 if (PlayerData.isAdmin == false) {
                     systemDisplay("Vous étiez déjà : Joueur");
                 } else {
+                    PlayerData.isAdmin = false;
                     systemDisplay("Vous êtes devenu : Joueur");
                 }
 
@@ -465,6 +582,7 @@ public class Console {
                 if (PlayerData.isAdmin == true) {
                     systemDisplay("Vous étiez déjà : Administrateur");
                 } else {
+                    PlayerData.isAdmin = true;
                     systemDisplay("Vous êtes devenu : Administrateur");
                 }
 
