@@ -582,14 +582,12 @@ public abstract class Racket extends Figure {
         BoostTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
                 jumpUP = false;
                 jumpDOWN = true;
                 BoostTimer.cancel();
                 Timer BoostTimer2 = new Timer();
                 BoostTimer2.schedule(new TimerTask() {
                     public void run() {
-                        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                         calibrage = true;
                         jumpDOWN = false;
                         BoostTimer2.cancel();

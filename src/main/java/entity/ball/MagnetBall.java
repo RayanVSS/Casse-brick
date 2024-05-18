@@ -2,7 +2,6 @@ package entity.ball;
 
 import entity.racket.MagnetRacket;
 import physics.entity.Ball;
-import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
@@ -38,7 +37,6 @@ public class MagnetBall extends Ball {
     private static String etatRacket = MagnetRacket.getEtat();// etat de la Raquette
     private String etatBall = "positif"; // etat de la balle
     private boolean Front = false;// si la balle est devant la raquette
-    public static Racket getRa; // coordonnées de la raquette
     private Key mouvement = new Key(); // pour savoir si la touche est appuyée
 
     // variable pour calculer la vitesse de la balle

@@ -41,6 +41,7 @@ public abstract class Ball extends Entity {
     private double zoneHeight = GameConstants.DEFAULT_WINDOW_HEIGHT;
     public boolean CollisionB =false;
     private boolean delete = false;
+    public static Racket getRa; // coordonnées de la raquette
 
     public Ball() {
         super(new Coordinates(0, 0), new Vector(new Coordinates(0, 0)));
