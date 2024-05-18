@@ -183,8 +183,8 @@ public class GameRules {
     }
 
     public boolean verifyInfinite(Map m, Coordinates raquetCoordinates) {//TODO A tâtonner
-        Coordinates c = m.lastBricks().getC();
-        if (c.getY() >= raquetCoordinates.getY()) {
+        Coordinates c = m.getBricks().get(m.getBricks().size()-1).getC();
+        if (c.getY() >= raquetCoordinates.getY()-31) {//TODO AJOUTER DS GAMECONSTANTE
             return false;
         }
         return true;
@@ -234,11 +234,11 @@ public class GameRules {
         ArrayList<Brick> b=new ArrayList<>();
         Brick first= m.getBricks().get(0);
         // System.out.println("______________________");
-        // System.out.println(first.getC().getIntX());
-        // System.out.println(first.getC().getIntY());
+        System.out.println(first.getC().getIntX());
+        System.out.println(first.getC().getIntY());
         // System.out.println("__________________________");
         for (int i = 0; i < m.getColumnsBricks(); i++) {
-            for (int j = 0; j < first.getC().getIntY(); j++) {
+            for (int j = 0; j<first.getC().getIntY()/GameConstants.BRICK_WIDTH; j++) {
                 // System.out.println("AAAAAAAAAAAAAAAAAAA");
                 Brick brick=new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
                 if (isColorRestricted()){

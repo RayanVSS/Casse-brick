@@ -81,7 +81,7 @@ public class Map {
     }
 
     public boolean inMap(int x, int y) {
-        return x >= 0 && x <=GameConstants.MAP_HEIGHT && y >= 0 && y <= GameConstants.MAP_WIDTH;
+        return x >= 0 && x <=GameConstants.MAP_WIDTH && y >= 0 && y <= GameConstants.MAP_HEIGHT;
     }
 
     
@@ -166,17 +166,6 @@ public class Map {
         return bricks.size();
     }
 
-    public Brick lastBricks() {
-            Brick res = null;
-            for (int i = bricks.size() - 1; i > -1; i--) {
-                    if (bricks.get(i) != null) {
-                        res = bricks.get(i);
-                        break;
-                    }
-                }
-            return res;
-    }
-
 
     public int getRowsBricks(){
         return rowsBricks;
@@ -189,6 +178,18 @@ public class Map {
     
 
 }
+
+
+    // public Brick lastBricks() {
+    //         Brick res = null;
+    //         for (int i = bricks.size() - 1; i > -1; i--) {
+    //                 if (bricks.get(i) != null) {
+    //                     res = bricks.get(i);
+    //                     break;
+    //                 }
+    //             }
+    //         return res;
+    // }
 
     // public boolean inMap(int x, int y) {
     //     return x >= 0 && x < bricks.length && y >= 0 && y < bricks[0].length;

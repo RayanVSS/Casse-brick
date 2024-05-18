@@ -130,7 +130,7 @@ public class GameRoot {
         addEntitiesGraphics();
         updateEntitiesGraphics();
         if (game.getRules().isInfinite()) {
-            infiniteUp(game.getRules().createBrickInfinite(game.getMap()));
+            // infiniteUp(game.getRules().createBrickInfinite(game.getMap()));
         }
         graphRacket.update();
         if (GameConstants.PARTICLES) {
