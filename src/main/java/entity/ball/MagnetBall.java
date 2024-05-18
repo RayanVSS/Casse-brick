@@ -136,15 +136,15 @@ public class MagnetBall extends Ball {
                 } else {
                     // si la balle est en collision avec la raquette alors la balle reste coller a
                     // la raquette
-                    this.setC(new Coordinates(newX, newY)); // la balle reste coller a la raquette
+                    this.setC(new Coordinates(newX, getRa.getC().getY() - this.getRadius()*1.1)); // la balle reste coller a la raquette
                     this.getDirection().setX(0); 
-                    this.getDirection().setY(1);
+                    this.getDirection().setY(-1);
                     CollisionR = true; //la balle est en collision avec la raquette
                     if (mouvement.contains(GameConstants.LEFT)) {
-                        this.setC(new Coordinates(newX - getRa.getSpeed(), newY));
+                        this.setC(new Coordinates(newX - getRa.getSpeed(),  getRa.getC().getY() - this.getRadius()*1.1));
                     }
                     if (mouvement.contains(GameConstants.RIGHT)) {
-                        this.setC(new Coordinates(newX + getRa.getSpeed(), newY));
+                        this.setC(new Coordinates(newX + getRa.getSpeed(),  getRa.getC().getY() - this.getRadius()*1.1));
                     }
                     return;
                 }
@@ -154,7 +154,10 @@ public class MagnetBall extends Ball {
                 CollisionR = false;
                 // repulsion de la balle de la raquette qui est moin puissante si la balle est
                 // loin de la raquette
-                if (getRa.getC().getY() - this.getC().getY() < 10) {
+                if(getRa.getC().getY()-this.getRadius()*1.1  < this.getC().getY()){ // bug qui fait que la balle transperce la raquette
+                    this.setC(new Coordinates(newX, getRa.getC().getY() - this.getRadius()*1.1));
+                }
+                else if (getRa.getC().getY() - this.getC().getY() < 10) {
                     this.getDirection().setY(this.getDirection().getY() - GameConstants.POWER_MAGNET);
                     side_attraction_less(1.0);
                 } else if (getRa.getC().getY() - this.getC().getY() < 20) {

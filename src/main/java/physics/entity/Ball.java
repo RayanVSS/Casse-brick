@@ -243,52 +243,51 @@ public abstract class Ball extends Entity {
 
     public void checkCollision(Ball ball) {
         if (CollisionB) {
-            return;
+          return;
         }
-
+        
         double distance = this.radius + ball.radius;
-    
-        if (Math.abs(this.getX() - ball.getX()) < distance &&
-            Math.abs(this.getY() - ball.getY()) < distance) {
-    
-            double dx = this.getX() - ball.getX();
-            double dy = this.getY() - ball.getY();
-            distance = Math.sqrt(dx * dx + dy * dy);
-    
-            if (distance < this.radius + ball.radius) {
-                double overlap = this.radius + ball.radius - distance;
-    
-                double nx = dx / distance; 
-                double ny = dy / distance;
-    
-                this.getC().setX(this.getX() + nx * overlap / 2);
-                this.getC().setY(this.getY() + ny * overlap / 2);
-                ball.getC().setX(ball.getX() - nx * overlap / 2);
-                ball.getC().setY(ball.getY() - ny * overlap / 2);
-    
-            }
-
+        double dx = this.getX() - ball.getX();
+        double dy = this.getY() - ball.getY();
+      
+        if (Math.abs(dx) < distance &&
+            Math.abs(dy) < distance) {
+      
+          distance = Math.sqrt(dx * dx + dy * dy);
+      
+          if (distance <= this.radius + ball.radius) {
+            double overlap = this.radius + ball.radius - distance;
+      
+            double nx = dx / distance;
+            double ny = dy / distance;
+      
+            this.getC().setX(this.getX() + nx * overlap / 2);
+            this.getC().setY(this.getY() + ny * overlap / 2);
+            ball.getC().setX(ball.getX() - nx * overlap / 2);
+            ball.getC().setY(ball.getY() - ny * overlap / 2);
+      
             double angle = Math.atan2(dy, dx);
             double sin = Math.sin(angle);
             double cos = Math.cos(angle);
-    
-            double tempX, tempY;
-            tempX = this.getDirection().getX() * cos + this.getDirection().getY() * sin;
-            tempY = this.getDirection().getY() * cos - this.getDirection().getX() * sin;
-    
+      
+            double vx1 = this.getDirection().getX() * cos + this.getDirection().getY() * sin;
+            double vy1 = this.getDirection().getY() * cos - this.getDirection().getX() * sin;
+      
             double vx2 = ball.getDirection().getX() * cos + ball.getDirection().getY() * sin;
             double vy2 = ball.getDirection().getY() * cos - ball.getDirection().getX() * sin;
-    
-            this.getDirection().setX(vx2 * cos - tempY * sin);
-            this.getDirection().setY(tempY * cos + vx2 * sin);
-    
-            ball.getDirection().setX(tempX * cos - vy2 * sin);
-            ball.getDirection().setY(vy2 * cos + tempX * sin);
-
+      
+            this.getDirection().setX(vx2 * cos - vy1 * sin);
+            this.getDirection().setY(vy1 * cos + vx2 * sin);
+      
+            ball.getDirection().setX(vx1 * cos - vy2 * sin);
+            ball.getDirection().setY(vy2 * cos + vx1 * sin);
+      
             CollisionB = true;
             ball.CollisionB = true;
+          }
         }
-    }
+      }
+      
 
     public boolean checkCollision(Segment segment) {
         return PhysicTools.checkCollision(getC(), getDirection(), radius, segment, rotation);

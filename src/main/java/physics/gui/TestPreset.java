@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import physics.config.PhysicEngine;
+import physics.config.PhysicSetting;
 import physics.entity.Ball;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
@@ -59,12 +60,17 @@ public class TestPreset extends VBox {
     private void setupPreset(int presetIndex, double zoneWidth, double zoneHeight) { // à simplifier
         Random random = new Random();
         Ball temp;
+        game.clear();
         switch (presetIndex) {
             case 0:
+                temp = PhysicEngine.init_ball(new Coordinates(PhysicSetting.DEFAULT_WINDOW_WIDTH/2, PhysicSetting.DEFAULT_WINDOW_HEIGHT/2),
+                    new Vector(new Coordinates(random.nextDouble(), random.nextDouble())));
+                System.out.println(zoneWidth + "+" + zoneHeight);
+                game.addBall(temp);
                 break;
 
             case 1:
-                temp = PhysicEngine.init_ball(new Coordinates(random.nextInt(200), random.nextInt(800)),
+                temp = PhysicEngine.init_ball(new Coordinates(PhysicSetting.DEFAULT_WINDOW_WIDTH/2, PhysicSetting.DEFAULT_WINDOW_HEIGHT/2),
                         new Vector(new Coordinates(random.nextDouble(), random.nextDouble())));
                 System.out.println(zoneWidth + "+" + zoneHeight);
                 game.addBall(temp);

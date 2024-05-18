@@ -60,7 +60,7 @@ public class PhysicSetting {
     private double Gravite = 0.1;
     private double Mass = 1;
     private final double stop_bounce = 0.02;
-    private double retention = 1;
+    private double retention = 0.9;
     private final double friction_sol = 0.1;
     private final double friction_air = 0.01;
     private final double MAX_VELOCITY = 10;
@@ -109,11 +109,13 @@ public class PhysicSetting {
         if (!Gravity) {
             return;
         }
-        if (c.getY() < DEFAULT_WINDOW_WIDTH - Radius) {
+        if (c.getY() < DEFAULT_WINDOW_HEIGHT - Radius) {
             d.setY(d.getY() + Gravite*Mass);
         }
-        else
-        if(DEFAULT_WINDOW_HEIGHT-c.getY()-Radius<stop_bounce){
+        else if(c.getY()+Radius>=DEFAULT_WINDOW_HEIGHT){
+            d.setY(d.getY()*retention);
+        }
+        else if(d.getY()<stop_bounce && c.getY()+Radius>=DEFAULT_WINDOW_HEIGHT){
             d.setY(0);
         }
         if (d.getY() == 0 && d.getX() != 0) {

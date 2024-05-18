@@ -78,11 +78,12 @@ public class Game {
         // Vérifie si la balle est en collision avec une autre balle avant de les
         // déplacer
         for (Ball ball : balls) {
-            ball.checkCollisionOtherBall(balls);
+            if (!(ball instanceof MagnetBall)) {
+                ball.checkCollisionOtherBall(balls);
+            }
         }
 
         for (Ball ball : balls) {
-            ball.CollisionB = false;
             if (ball.delete()) {
                 balls.remove(ball);
                 break;
@@ -97,7 +98,6 @@ public class Game {
             }
             // seulement si la balle est une MagnetBall
             if (ball instanceof MagnetBall) {
-                originalball.CollisionR = false;
                 // donne les coordonnées de la raquette a la MagnetBall
                 // actualise l'etat de la raquette
                 if (BallFrontRacket(ball)) {
@@ -105,23 +105,25 @@ public class Game {
                 } else {
                     ((MagnetBall) ball).setFront(false);
                 }
-                if (ball.checkCollision(racket)) {
-                    originalball.CollisionR = true;
-                    App.ballSound.update();
-                    App.ballSound.play();
-                    updateRulesRacket();
+                if (!ball.CollisionR) {
+                    if (ball.checkCollision(racket)) {
+                        ball.CollisionR = true;
+                        App.ballSound.update();
+                        App.ballSound.play();
+                        updateRulesRacket();
+                    }
                 }
             } else {
                 // Si la balle touche la raquette
                 if (ball.checkCollision(racket)) {
-                    originalball.CollisionR = true;
+                    ball.CollisionR = true;
                     App.ballSound.update();
                     App.ballSound.play();
                     updateRulesRacket();
                 }
             }
             ball.movement(deltaT);
-
+            ball.CollisionB = false;
         }
 
         // Gere les conditions de perte
@@ -133,22 +135,22 @@ public class Game {
         updateGameStatus();
         racket.getDirection().setX(0);
 
-        if(racket.getJumpUP()){
+        if (racket.getJumpUP()) {
             racket.deplaceY(-5);
         }
-        if(racket.getJumpDOWN()){
+        if (racket.getJumpDOWN()) {
             racket.deplaceY(2.9);
         }
-        if(racket.getCalibrage()){
-            Coordinates c = new Coordinates(racket.getC().getX(),GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
-            Vector direction = new Vector(0,0);
+        if (racket.getCalibrage()) {
+            Coordinates c = new Coordinates(racket.getC().getX(), GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
+            Vector direction = new Vector(0, 0);
             racket.setC(c);
             racket.setDirection(direction);
             racket.setCalibrage(false);
             System.out.println(racket.getC().getY());
-            
+
         }
-        
+
     }
 
     private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette

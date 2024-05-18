@@ -45,9 +45,9 @@ public class ChapterView implements Menu, ViewPosition {
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);// 1100, 800
 
         // Charger les images
-        Image image1 = ImageLoader.loadImage("src/main/ressources/chapitre/chapitre1.png");
-        Image image2 = ImageLoader.loadImage("src/main/ressources/chapitre/chapitre2.png");
-        Image image3 = ImageLoader.loadImage("src/main/ressources/chapitre/chapitre3.png");
+        Image image1 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre1.png");
+        Image image2 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre2.png");
+        Image image3 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre3.png");
 
         // Créer les boutons
         chapter1 = createChapterButton(image1, null, -10);
