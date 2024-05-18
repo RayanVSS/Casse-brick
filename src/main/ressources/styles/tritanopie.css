@@ -50,7 +50,6 @@
 /* LES ROOTS */
 .root,
 .root-options {
-    -fx-background-color: #F2F2F2;
     -fx-alignment: center;
     -fx-spacing: 20;
     -fx-font-family: "Kode Mono";
