@@ -33,6 +33,9 @@ public class ChapterView implements Menu, ViewPosition {
     private Button chapter3;
     private ImageView chapter3Image;
 
+    private Button chapter4;
+    private ImageView chapter4Image;
+
     private Button backButton;
 
     private ConsoleView consoleView;
@@ -48,6 +51,7 @@ public class ChapterView implements Menu, ViewPosition {
         Image image1 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre1.png");
         Image image2 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre2.png");
         Image image3 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre3.png");
+        Image image4 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre4.png");
 
         backButton = createButton("Retour", 0, 0);
 
@@ -79,6 +83,15 @@ public class ChapterView implements Menu, ViewPosition {
         chapter3.setPrefWidth(800);
         chapter3.setPrefHeight(120);
 
+        chapter4 = new Button();
+        chapter4Image = new ImageView(image4);
+        chapter4Image.setFitWidth(800);
+        chapter4Image.setFitHeight(120);
+        chapter4.setGraphic(chapter4Image);
+        chapter4.setStyle("-fx-background-color: transparent;");
+        chapter4.setPrefWidth(800);
+        chapter4.setPrefHeight(120);
+
         String hoverStyle = "-fx-background-color: #FFFFFF; -fx-opacity: 0.5;";
         chapter1.setOnMouseEntered(e -> chapter1.setStyle(hoverStyle));
         chapter1.setOnMouseExited(e -> chapter1.setStyle("-fx-background-color: transparent;"));
@@ -86,9 +99,11 @@ public class ChapterView implements Menu, ViewPosition {
         chapter2.setOnMouseExited(e -> chapter2.setStyle("-fx-background-color: transparent;"));
         chapter3.setOnMouseEntered(e -> chapter3.setStyle(hoverStyle));
         chapter3.setOnMouseExited(e -> chapter3.setStyle("-fx-background-color: transparent;"));
+        chapter4.setOnMouseEntered(e -> chapter4.setStyle(hoverStyle));
+        chapter4.setOnMouseExited(e -> chapter4.setStyle("-fx-background-color: transparent;"));
 
         // Ajouter les boutons à la box centrale
-        centerBox.getChildren().addAll(chapter1, chapter2, chapter3, backButton);
+        centerBox.getChildren().addAll(chapter1, chapter2, chapter3, chapter4, backButton);
         centerBox.setAlignment(Pos.CENTER);
         centerBox.setPadding(new Insets(50, 0, 0, 0));
 
@@ -130,6 +145,10 @@ public class ChapterView implements Menu, ViewPosition {
 
     public Button getChapter3() {
         return chapter3;
+    }
+
+    public Button getChapter4() {
+        return chapter4;
     }
 
     public Button getBackButton() {

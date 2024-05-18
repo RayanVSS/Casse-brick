@@ -17,6 +17,7 @@ public class ChapterController {
         Chapterview.getChapter1().setOnAction(e -> showChapter1());
         Chapterview.getChapter2().setOnAction(e -> showChapter2());
         Chapterview.getChapter3().setOnAction(e -> showChapter3());
+        Chapterview.getChapter4().setOnAction(e -> showChapter4());
         Chapterview.getBackButton().setOnAction(e -> back());
     }
 
@@ -40,6 +41,14 @@ public class ChapterController {
             App.menuManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
         });
     }
+
+    private void showChapter4() {
+        Platform.runLater(() -> {
+            StageSelectorController.setChapter(3);
+            App.menuManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
+        });
+    }
+
 
     private void back() {
         Platform.runLater(() -> {

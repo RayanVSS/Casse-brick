@@ -16,14 +16,12 @@ public class Boost extends Bonus {
 
     public Boost(Coordinates c) {
         super(c.getX(), c.getY(), GameConstants.WIDTH, GameConstants.HEIGHT);
-        // type = getRandomType();
-        type = "infiniteStop";
+        type = getRandomType();
         super.setC(new Coordinates(c.getX() + (GameConstants.HEIGHT / 2), c.getY() + GameConstants.HEIGHT));
         // couleur du boost
         color();
         if (type.equals("vitesseP") || type.equals("largeurP") || type.equals("zhonya")) {
             setFill(COLOR_BONUS);
-            setFill(COLOR_MALUS);
         } else if (type.equals("infiniteStop")) {
             setFill(GameConstants.COLOR_INFINITE_STOP);
         } else {
