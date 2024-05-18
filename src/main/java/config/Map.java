@@ -13,12 +13,12 @@ public class Map {
     // private Brick[][] bricks;
     private ArrayList<Brick> bricks;
     private GameRules rules;
-    private int columnsBricks, rowsBricks;
+    private int columns, rows;
 
     public Map(GameRules rules, int columnsBricks, int rowsBricks) {
         this.rules = rules;
-        this.columnsBricks = columnsBricks;
-        this.rowsBricks = rowsBricks;
+        this.columns = columnsBricks;
+        this.rows = rowsBricks;
         initBricks(columnsBricks, rowsBricks);
     }
 
@@ -164,29 +164,29 @@ public class Map {
         return bricks.size();
     }
 
-    public int lastBrick() {
-        int res = 0;
-        for (int i = bricks.length - 1; i > -1; i--) {
-            for (int j = bricks[0].length - 1; j > -1; j--) {
-                if (bricks[i][j] != null) {
-                    res = i;
-                    break;
-                }
-            }
-        }
-        return res;
-    }
+    // public int lastBrick() {
+    //     int res = 0;
+    //     for (int i = bricks.length - 1; i > -1; i--) {
+    //         for (int j = bricks[0].length - 1; j > -1; j--) {
+    //             if (bricks[i][j] != null) {
+    //                 res = i;
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     return res;
+    // }
 
-    public Brick lastBricks() {
-        Brick res = null;
-        for (int i = bricks.length - 1; i > -1; i--) {
-            for (int j = bricks[0].length - 1; j > -1; j--) {
-                if (bricks[i][j] != null) {
-                    res = bricks[i][j];
-                    break;
-                }
-            }
-        }
-        return res;
-    }
+    // public Brick lastBricks() {
+    //     Brick res = null;
+    //     for (int i = bricks.length - 1; i > -1; i--) {
+    //         for (int j = bricks[0].length - 1; j > -1; j--) {
+    //             if (bricks[i][j] != null) {
+    //                 res = bricks[i][j];
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     return res;
+    // }
 }
