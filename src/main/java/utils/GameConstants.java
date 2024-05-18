@@ -241,7 +241,7 @@ public final class GameConstants {
                         "src/main/ressources/Texture/rose.jpg",
                         "src/main/ressources/Texture/rouge.jpg",
                         "src/main/ressources/Texture/violet.png",
-                        "src/main/ressources/Texture/vert.jpg",
+                        "src/main/ressources/Texture/Vert.jpg",
                         "src/main/ressources/Texture/stars.jpg",
                         "src/main/ressources/Texture/black_white.jpg",
                         "src/main/ressources/Texture/grey.jpg",
