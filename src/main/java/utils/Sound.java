@@ -145,7 +145,7 @@ public class Sound {
 
     public static class LevelUpSound extends Sound {
         public LevelUpSound() {
-            super("src/main/ressources/sound/levelUp.wav");
+            super("src/main/ressources/sound/levelUP.wav");
             this.update();
         }
     }

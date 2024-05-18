@@ -45,7 +45,7 @@ public final class GameConstants {
         //MagnetBall
         public static final double POWER_MAGNET = 0.5; // puissance de l'attraction des aimants
         public static final boolean LIMITE_SPEED_MAGNET = true; // limite la vitesse de la balle lorsqu'elle est attirée par un aimant
-        public static final int VITESSE_MAX_MAGNET = 25; // vitesse maximale de la balle
+        public static final int VITESSE_MAX_MAGNET = 22; // vitesse maximale de la balle
         public static final int VITESSE_MIN_MAGNET = 7; // vitesse minimale de la balle
 
         // fenetre
@@ -239,7 +239,7 @@ public final class GameConstants {
                         "src/main/ressources/Texture/rose.jpg",
                         "src/main/ressources/Texture/rouge.jpg",
                         "src/main/ressources/Texture/violet.png",
-                        "src/main/ressources/Texture/vert.jpg",
+                        "src/main/ressources/Texture/Vert.jpg",
                         "src/main/ressources/Texture/stars.jpg",
                         "src/main/ressources/Texture/black_white.jpg",
                         "src/main/ressources/Texture/grey.jpg",
