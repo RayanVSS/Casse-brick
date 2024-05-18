@@ -1,4 +1,3 @@
-
 # 🧱Casse brique « physique » 
 
 Nous sommes le groupe AD1-C qui a eux le [sujet](https://moodle.u-paris.fr/pluginfile.php/2299294/mod_resource/content/4/Projet_breakout.pdf) "Casse brique" dans lequel on doit recréer le jeu éponyme en développant un moteur physique adapter
@@ -26,22 +25,17 @@ Pour notre projet, on utilise **gardle** afin de pouvoir bien séparer chaque pa
 
 le jeu:
 ```bash
-.\gradlew run
+./gradlew run
 ```
 
 le moteur physique:
 ```bash
-.\gradlew physic
-```
-
-test du moteur physique:
-```bash
-.\gradlew demoEnv
+./gradlew physic
 ```
 
 logiciel de maintenance pour les sauvegardes 
 ```bash
-.\gradlew Repair
+./gradlew repair --console=plain
 ```
 
 ## Contributing
