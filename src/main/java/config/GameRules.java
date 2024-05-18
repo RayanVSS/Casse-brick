@@ -38,7 +38,6 @@ public class GameRules {
     private int initalRemainingTime = remainingTime;
     private int initalRemainingBounces = remainingBounces;
 
-
     public GameRules(BricksArrangement arrangement, boolean limitedTime, boolean limitedBounces,
             boolean randomSwitchBricks, boolean colorRestricted, boolean transparent, boolean unbreakable,
             boolean infinite) {
@@ -51,7 +50,7 @@ public class GameRules {
         this.transparent = transparent;
         this.unbreakable = unbreakable;
         this.infinite = infinite;
-        this.infiniteStop=false;
+        this.infiniteStop = false;
     }
 
     /**
@@ -62,7 +61,7 @@ public class GameRules {
     }
 
     public boolean check(Map m, Coordinates cr) {
-        return verifyLimitedTime() && verifyLimitedBounces() && verifyInfinite(m,cr);
+        return verifyLimitedTime() && verifyLimitedBounces() && verifyInfinite(m, cr);
     }
 
     public void initRules(Game game) {
@@ -183,65 +182,66 @@ public class GameRules {
     }
 
     public boolean verifyInfinite(Map m, Coordinates raquetCoordinates) {//TODO A tâtonner
-        Coordinates c = m.getBricks().get(m.getBricks().size()-1).getC();
-        if (c.getY() >= raquetCoordinates.getY()-31) {//TODO AJOUTER DS GAMECONSTANTE
+        Coordinates c = m.getBricks().get(m.getBricks().size() - 1).getC();
+        if (c.getY() >= raquetCoordinates.getY() - 31) {//TODO AJOUTER DS GAMECONSTANTE
             return false;
         }
         return true;
     }
 
-    
-
     public void infiniteUpdate(Map m, double vitesse) {
         ArrayList<Brick> list = m.getBricks();
         for (Brick b : list) {
-            Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY() + vitesse);
-            if (m.inMap((int) c.getIntX()/GameConstants.BRICK_WIDTH,(int) c.getIntY()/GameConstants.BRICK_HEIGHT)) {
-                b.setC(c);
+            b.getC().setY(b.getC().getY() + vitesse);
+            // Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY() + vitesse);
+            // if (m.inMap((int) c.getIntX() / GameConstants.BRICK_WIDTH,
+            //         (int) c.getIntY() / GameConstants.BRICK_HEIGHT)) {
+            //     b.setC(c);
+            // }
+        }
+    }
+
+    public void setInfiniteStop(boolean infiniteStop, Map m, int duration) {
+        if (!this.infiniteStop) {
+            this.infiniteStop = infiniteStop;
+            if (this.infiniteStop) {
+                infiniteStop(m, duration);
             }
         }
-    }
-
-    public void setInfiniteStop(boolean infiniteStop,Map m,int duration){
-        if (!this.infiniteStop){
-            this.infiniteStop=infiniteStop;
-            if (this.infiniteStop){
-                infiniteStop(m,duration);
-            }
-        }
 
     }
 
-    public void testInfinite(Map m){
-        if (!this.infiniteStop){
-            infiniteUpdate(m,0.60);
+    public void testInfinite(Map m) {
+        if (!this.infiniteStop) {
+            infiniteUpdate(m, 0.60);
         }
     }
 
-    public void infiniteStop(Map map,int duration){
+    public void infiniteStop(Map map, int duration) {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             public void run() {
                 infiniteUpdate(map, 0);
-                infiniteStop=false;
+                infiniteStop = false;
             }
         };
         timer.schedule(task, duration);
-        
+
     }
 
-    public ArrayList<Brick> createBrickInfinite(Map m){
-        ArrayList<Brick> b=new ArrayList<>();
-        Brick first= m.getBricks().get(0);
+    public ArrayList<Brick> createBrickInfinite(Map m) {
+        ArrayList<Brick> b = new ArrayList<>();
+        Brick first = m.getBricks().get(0);
         // System.out.println("______________________");
         System.out.println(first.getC().getIntX());
         System.out.println(first.getC().getIntY());
         // System.out.println("__________________________");
         for (int i = 0; i < m.getColumnsBricks(); i++) {
-            for (int j = 0; j<first.getC().getIntY()/GameConstants.BRICK_WIDTH; j++) {
+            for (int j = 0; j < first.getC().getIntY() / GameConstants.BRICK_WIDTH; j++) {
                 // System.out.println("AAAAAAAAAAAAAAAAAAA");
-                Brick brick=new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
-                if (isColorRestricted()){
+                Brick brick = new BrickClassic(
+                        new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
+                if (isColorRestricted()) {
                     EntityColor rndColor = EntityColor.values()[new Random().nextInt(EntityColor.values().length)];
                     brick.setColor(rndColor);
                 }
@@ -251,12 +251,13 @@ public class GameRules {
         return b;
     }
 
-    public ArrayList<Brick> createeBrickInfinite(Map m){
-        ArrayList<Brick> b=new ArrayList<>();
-        for (int i = 0; i <m.getColumnsBricks() ; i++) {
+    public ArrayList<Brick> createeBrickInfinite(Map m) {
+        ArrayList<Brick> b = new ArrayList<>();
+        for (int i = 0; i < m.getColumnsBricks(); i++) {
             for (int j = 0; j < m.getRowsBricks(); j++) {
-                Brick brick=new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
-                if (isColorRestricted()){
+                Brick brick = new BrickClassic(
+                        new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
+                if (isColorRestricted()) {
                     EntityColor rndColor = EntityColor.values()[new Random().nextInt(EntityColor.values().length)];
                     brick.setColor(rndColor);
                 }
@@ -338,56 +339,55 @@ public class GameRules {
 
 }
 
+// private boolean verifyInfinitee(ArrayList<Brick> bricks) {
+//     for (int i = 0; i < bricks.length; i++) {
+//         if (bricks[i][bricks[0].length - 2] != null) {
+//             return false;
+//         }
+//     }
+//     return true;
+// }
 
 // private boolean verifyInfinitee(ArrayList<Brick> bricks) {
-    //     for (int i = 0; i < bricks.length; i++) {
-    //         if (bricks[i][bricks[0].length - 2] != null) {
-    //             return false;
-    //         }
-    //     }
-    //     return true;
-    // }
+//     for (int i = bricks.size()-1; i>=0; i--) {
+//         if (bricks.get(i).getC().getY() >= GameConstants.DEFAULT_WINDOW_WIDTH) {
+//             return false;
+//         }
+//     }
+//     return true;
+// }
 
-    // private boolean verifyInfinitee(ArrayList<Brick> bricks) {
-    //     for (int i = bricks.size()-1; i>=0; i--) {
-    //         if (bricks.get(i).getC().getY() >= GameConstants.DEFAULT_WINDOW_WIDTH) {
-    //             return false;
-    //         }
-    //     }
-    //     return true;
-    // }
-
-    // public void infiniteUpzdate(Map m, double vitesse) {
-    //     ArrayList<Brick> list = m.getBricks();
-    //     for (int i = list.size() - 1; i > -1; i--) {
-    //         Brick b = list.get(i);
-    //         Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY() + vitesse);
-    //         if (m.inMap(c.getIntX() / GameConstants.BRICK_WIDTH, c.getIntY() / GameConstants.BRICK_HEIGHT)) {
-    //             bricks[(int) b.getC().getX() / GameConstants.BRICK_WIDTH][(int) b.getC().getY()
-    //                     / GameConstants.BRICK_HEIGHT] = null;
-    //             b.setC(c);
-    //             bricks[(int) b.getC().getX() / GameConstants.BRICK_WIDTH][(int) b.getC().getY()
-    //                     / GameConstants.BRICK_HEIGHT] = b;
-    //         }
-    //     }
-    // }
+// public void infiniteUpzdate(Map m, double vitesse) {
+//     ArrayList<Brick> list = m.getBricks();
+//     for (int i = list.size() - 1; i > -1; i--) {
+//         Brick b = list.get(i);
+//         Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY() + vitesse);
+//         if (m.inMap(c.getIntX() / GameConstants.BRICK_WIDTH, c.getIntY() / GameConstants.BRICK_HEIGHT)) {
+//             bricks[(int) b.getC().getX() / GameConstants.BRICK_WIDTH][(int) b.getC().getY()
+//                     / GameConstants.BRICK_HEIGHT] = null;
+//             b.setC(c);
+//             bricks[(int) b.getC().getX() / GameConstants.BRICK_WIDTH][(int) b.getC().getY()
+//                     / GameConstants.BRICK_HEIGHT] = b;
+//         }
+//     }
+// }
 
 // public ArrayList<Brick> createBrickInfinite(Brick[][] bricks){
-    //     ArrayList<Brick> b=new ArrayList<>();
-    //     for (int i = 0; i < bricks.length; i++) {
-    //         for (int j = 0; j < bricks[0].length; j++) {
-    //             if (bricks[i][j] == null) {
-    //                 bricks[i][j] = new BrickClassic(
-    //                         new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
-    //                 if (isColorRestricted()){
-    //                     EntityColor rndColor = EntityColor.values()[new Random().nextInt(EntityColor.values().length)];
-    //                     bricks[i][j].setColor(rndColor);
-    //                 }
-    //                 b.add(bricks[i][j]);
-    //             } else {
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     return b;
-    // }
+//     ArrayList<Brick> b=new ArrayList<>();
+//     for (int i = 0; i < bricks.length; i++) {
+//         for (int j = 0; j < bricks[0].length; j++) {
+//             if (bricks[i][j] == null) {
+//                 bricks[i][j] = new BrickClassic(
+//                         new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
+//                 if (isColorRestricted()){
+//                     EntityColor rndColor = EntityColor.values()[new Random().nextInt(EntityColor.values().length)];
+//                     bricks[i][j].setColor(rndColor);
+//                 }
+//                 b.add(bricks[i][j]);
+//             } else {
+//                 break;
+//             }
+//         }
+//     }
+//     return b;
+// }

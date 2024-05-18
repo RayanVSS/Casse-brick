@@ -61,6 +61,7 @@ public class GameRoot {
             this.particleGroup = new ParticleGroup(root, game);
         }
         addEntitiesGraphics(); // Affichage du début
+        updateEntitiesGraphics();
         this.root.getChildren().add(graphRacket.getShape());
         this.updateEntitiesGraphics();
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
@@ -119,19 +120,10 @@ public class GameRoot {
         }
     }
 
-    public void infiniteUp(ArrayList<Brick> bricks) {
-        for (Brick brick : bricks) {
-            addBrick(brick);
-        }
-    }
-
     public void update(long deltaT) {
         BoostAction();
         addEntitiesGraphics();
         updateEntitiesGraphics();
-        if (game.getRules().isInfinite()) {
-            // infiniteUp(game.getRules().createBrickInfinite(game.getMap()));
-        }
         graphRacket.update();
         if (GameConstants.PARTICLES) {
             particleGroup.update();
