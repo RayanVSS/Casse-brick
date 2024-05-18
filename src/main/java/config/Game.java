@@ -124,13 +124,13 @@ public class Game {
             balls.add(Ball.clone(originalball));
             racket.reset();
         }
-        // if (rules.isInfinite()) {
-        //     if (!isInfiniteBonus()) {
-        //         rules.infiniteUpdate(map, 0.60);
-        //     } else {
-        //         rules.infiniteUpdate(map, 0);
-        //     }
-        // }
+        if (rules.isInfinite()) {
+            if (!isInfiniteBonus()) {
+                rules.infiniteUpdate(map, 0.60);
+            } else {
+                rules.infiniteUpdate(map, 0);
+            }
+        }
         updateGameStatus();
         racket.getDirection().setX(0);
     }
@@ -244,8 +244,4 @@ public class Game {
     public void setScore(int score) {
         this.score = score;
     }
-
-    // public boolean isInfinite() {
-    // return isInfinite;
-    // }
 }
