@@ -64,8 +64,12 @@ public class ChapterView implements Menu, ViewPosition {
         consoleView = ConsoleView.getInstance();
         bottomBox.getChildren().add(consoleView);
 
+        
+
         root.setCenter(centerBox);
         root.setBottom(bottomBox);
+
+        baseView = new BaseView(root, centerBox, bottomBox);
         new ChapterController(this);
     }
 

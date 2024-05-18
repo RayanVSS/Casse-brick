@@ -38,7 +38,8 @@ public class StageSelectorView implements Menu, ViewPosition {
     private Image unLock = ImageLoader.loadImage("src/main/ressources/cadenaOuvert.png");
 
     private ConsoleView consoleView;
-    private BaseView baseView; 
+    private BaseView baseView;
+    public static int chap;
 
     public StageSelectorView(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -47,6 +48,7 @@ public class StageSelectorView implements Menu, ViewPosition {
         bottomBox = new HBox();
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
 
+        System.out.println("chap " + chap);
         createStagesButtons();
 
         backButton = createButton("Retour", 0, 0);
@@ -72,8 +74,6 @@ public class StageSelectorView implements Menu, ViewPosition {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 Button tmp = createButton("" + count, 0, 0);
-                System.out.println("Stages : " + (count - 1) + " "
-                        + PlayerData.stagesProgress.getStages()[count - 1].canLoadGame());
                 if (PlayerData.stagesProgress.getStages()[count - 1].canLoadGame()) {
                     ImageView imageView = new ImageView(unLock);
                     imageView.setSmooth(true);
@@ -95,7 +95,6 @@ public class StageSelectorView implements Menu, ViewPosition {
                 count++;
             }
         }
-
         grid.setAlignment(Pos.CENTER);
     }
 
@@ -113,7 +112,7 @@ public class StageSelectorView implements Menu, ViewPosition {
         return primaryStage;
     }
 
-    public Scene getScene() { 
+    public Scene getScene() {
         return scene;
     }
 
@@ -127,6 +126,24 @@ public class StageSelectorView implements Menu, ViewPosition {
 
     @Override
     public void update() {
+        System.out.println("chap " + chap);
+        for (int i = 0; i < buttons.size(); i++) {
+            if (PlayerData.stagesProgress.getStages()[i + (chap * 9)].canLoadGame()) {
+                ImageView imageView = new ImageView(unLock);
+                imageView.setSmooth(true);
+                imageView.setPreserveRatio(true);
+                imageView.setFitHeight(50);
+                imageView.setFitWidth(50);
+                buttons.get(i).setGraphic(imageView);
+            } else {
+                ImageView imageView = new ImageView(lock);
+                imageView.setFitHeight(50);
+                imageView.setFitWidth(50);
+                imageView.setSmooth(true);
+                imageView.setPreserveRatio(true);
+                buttons.get(i).setGraphic(imageView);
+            }
+        }
         baseView.update();
     }
 }

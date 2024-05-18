@@ -1,6 +1,7 @@
 package gui.Menu.MenuControllers;
 
 import gui.Menu.MenuViews.ChapterView;
+import gui.Menu.MenuViews.StageSelectorView;
 import gui.App;
 import javafx.application.Platform;
 
@@ -23,6 +24,7 @@ public class ChapterController {
     private void showChapter1() {
         Platform.runLater(() -> {
             StageSelectorController.setChapter(0);
+            StageSelectorView.chap=0;
             App.menuManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
         });
     }
@@ -30,6 +32,7 @@ public class ChapterController {
     private void showChapter2() {
         Platform.runLater(() -> {
             StageSelectorController.setChapter(1);
+            StageSelectorView.chap=1;
             App.menuManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
         });
     }
@@ -37,6 +40,7 @@ public class ChapterController {
     private void showChapter3() {
         Platform.runLater(() -> {
             StageSelectorController.setChapter(2);
+            StageSelectorView.chap=2;
             App.menuManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
         });
     }

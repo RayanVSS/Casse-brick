@@ -1,7 +1,5 @@
 package gui;
 
-import gui.Menu.Menu;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import save.PlayerData;

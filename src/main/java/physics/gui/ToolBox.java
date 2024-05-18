@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Random;
 
-import org.checkerframework.checker.units.qual.g;
 
 import entity.EntityColor;
 import utils.GraphicsToolkit.LabelToggleButtonHBox;
