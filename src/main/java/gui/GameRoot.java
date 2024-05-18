@@ -13,6 +13,7 @@ import config.Game;
 import config.StageLevel;
 import entity.Bonus;
 import entity.Boost;
+import entity.brick.BrickClassic;
 import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.BricksGraphics;
 import gui.GraphicsFactory.EntityGraphics;
@@ -29,6 +30,7 @@ import physics.entity.Ball;
 import physics.entity.Brick;
 import physics.entity.Entity;
 import physics.entity.Racket;
+import physics.geometry.Coordinates;
 import utils.GameConstants;
 import utils.Key;
 
@@ -62,6 +64,8 @@ public class GameRoot {
         }
         addEntitiesGraphics(); // Affichage du début
         updateEntitiesGraphics();
+        BricksGraphics test = new BricksGraphics(new BrickClassic(new Coordinates(0, 0)));
+        this.root.getChildren().add(test);
         this.root.getChildren().add(graphRacket.getShape());
         this.updateEntitiesGraphics();
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
