@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import entity.ball.GravityBall;
 import entity.ball.MagnetBall;
 import entity.Bonus;
 import entity.Boost;
@@ -33,6 +34,7 @@ public class Game {
     private int timeElapsed = 0; // en secondes
     private List<Bonus> bonuslist = new ArrayList<>();
     private List<Ball> balls = new ArrayList<>();
+    private int repetition; // pour saut
     private List<Boost> boosts = new ArrayList<>();
 
     public Game(Ball ball, Racket racket, GameRules rules) {
@@ -114,6 +116,32 @@ public class Game {
             } else {
                 // Si la balle touche la raquette
                 if (ball.checkCollision(racket)) {
+                    if (ball.getC().getX() > racket.getC().getX()
+                            && ball.getC().getX() < racket.getC().getX() + racket.getLargeur() - 2
+                            && ball.getC().getY() > racket.getC().getY()) {
+                        System.out.println(ball.getC().getX() + "  " + racket.getC().getX());
+                        if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur()/2) {
+                            ball.setC(
+                                    new Coordinates(ball.getC().getX() - ball.getRadius() - 15, racket.getC().getY()));
+                            ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
+                            ball.getRotation().stopRotation();
+                            System.out.println("ball dans la raquette a gauche");
+                        } else if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
+                                && ball.getC().getX() > racket.getC().getX() + racket.getLargeur()/2) {
+                            ball.setC(
+                                    new Coordinates(ball.getC().getX() + ball.getRadius() + 15, racket.getC().getY()));
+                            ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
+                            ball.getRotation().stopRotation();
+                            System.out.println("ball dans la raquette a droite");
+                        } else {
+                            ball.setC(new Coordinates(ball.getC().getX() + racket.getLargeur() + ball.getRadius() + 30,
+                                    racket.getC().getY()));
+                            ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY()));
+                            ball.getRotation().stopRotation();
+                            System.out.println("ball dans la raquette au milieu");
+                        }
+                    }
+
                     ball.CollisionR = true;
                     App.ballSound.update();
                     App.ballSound.play();
@@ -151,18 +179,30 @@ public class Game {
         racket.getDirection().setX(0);
 
         if (racket.getJumpUP()) {
+            repetition++;
             racket.deplaceY(-5);
+            racket.setDirection(new Vector(racket.getDirection().getX(), -1));
+            for (Ball ball : balls) {
+                if (ball.getC().getX() > racket.getC().getX()
+                        && ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
+                        && ball.getC().getY() > racket.getC().getY() - racket.getLongueur()) {
+                    // Ball has entered the racket
+                    // Add your code here to handle the event
+                }
+            }
+            racket.createsegments();
         }
         if (racket.getJumpDOWN()) {
+            repetition = 0;
             racket.deplaceY(2.9);
+            racket.createsegments();
         }
         if (racket.getCalibrage()) {
             Coordinates c = new Coordinates(racket.getC().getX(), GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
-            Vector direction = new Vector(0, 0);
             racket.setC(c);
-            racket.setDirection(direction);
+            racket.setDirection(new Vector(racket.getDirection().getX(), 0));
             racket.setCalibrage(false);
-            System.out.println(racket.getC().getY());
+            racket.createsegments();
 
         }
 
