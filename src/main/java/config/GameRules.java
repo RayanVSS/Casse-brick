@@ -183,9 +183,13 @@ public class GameRules {
     }
 
     public boolean verifyInfinite(Map m, Coordinates raquetCoordinates) {//TODO A tâtonner
-        Coordinates c = m.getBricks().get(m.getBricks().size() - 1).getC();
-        if (c.getY() >= raquetCoordinates.getY() - 31) {//TODO AJOUTER DS GAMECONSTANTE
-            return false;
+        ArrayList<Brick> brick=m.getBricks();
+        Coordinates c;
+        for (int i=brick.size()-1;i>-1;i--){
+            c = m.getBricks().get(i).getC();
+            if (c.getY() >= raquetCoordinates.getY() - 31) {//TODO AJOUTER DS GAMECONSTANTE
+                return false;
+            }
         }
         return true;
     }
@@ -249,21 +253,21 @@ public class GameRules {
         }
     }
 
-    public ArrayList<Brick> createeBrickInfinite(Map m) {
-        ArrayList<Brick> b = new ArrayList<>();
-        for (int i = 0; i < m.getColumnsBricks(); i++) {
-            for (int j = 0; j < m.getRowsBricks(); j++) {
-                Brick brick = new BrickClassic(
-                        new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
-                if (isColorRestricted()) {
-                    EntityColor rndColor = EntityColor.values()[new Random().nextInt(EntityColor.values().length)];
-                    brick.setColor(rndColor);
-                }
-                b.add(brick);
-            }
-        }
-        return b;
-    }
+    // public ArrayList<Brick> createeBrickInfinite(Map m) {
+    //     ArrayList<Brick> b = new ArrayList<>();
+    //     for (int i = 0; i < m.getColumnsBricks(); i++) {
+    //         for (int j = 0; j < m.getRowsBricks(); j++) {
+    //             Brick brick = new BrickClassic(
+    //                     new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
+    //             if (isColorRestricted()) {
+    //                 EntityColor rndColor = EntityColor.values()[new Random().nextInt(EntityColor.values().length)];
+    //                 brick.setColor(rndColor);
+    //             }
+    //             b.add(brick);
+    //         }
+    //     }
+    //     return b;
+    // }
 
     // Redéfinie les valeurs à appliquer lors du reset
     public void redefInitialResetTime(int resetRemainingTime) {

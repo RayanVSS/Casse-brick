@@ -132,15 +132,6 @@ public class Game {
         racket.getDirection().setX(0);
     }
 
-    // public boolean isInfiniteBonus() {
-    //     for (Boost b : boosts) {
-    //         if (b.getType().equals("infiniteStop")) {
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // }
-
     private void updateGameStatus() { // Vérifie & MAJ le statut de la Game, gagnée/perdue
         if (life == 0 || !rules.check(map, racket.getC())) {
             lost = true;
