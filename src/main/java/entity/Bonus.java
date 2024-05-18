@@ -38,7 +38,7 @@ public class Bonus extends Rectangle{
         return null;
     }
 
-    public boolean move(Boolean CollisionRacket, Racket racket) {
+    public boolean move(Boolean CollisionRacket, Racket racket, List<Ball> ballList) {
         if (CollisionRacket) {
             Ball newBall = Ball.clone(ballList.get(0));
             newBall.setC(new Coordinates(racket.getC().getX() + racket.largeur / 2, racket.getC().getY() - newBall.getRadius()));

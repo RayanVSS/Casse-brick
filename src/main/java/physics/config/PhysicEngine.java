@@ -437,7 +437,7 @@ public class PhysicEngine extends Pane{
     }
 
     public void addBrick(Brick brick){
-        BricksGraphics graphBrick = new BricksGraphics(brick,brick.getC().getIntX(),brick.getC().getIntY(),EntityColor.BLUE);
+        BricksGraphics graphBrick = new BricksGraphics(brick,EntityColor.BLUE);
         this.getChildren().add(graphBrick);
         listbrick.put(brick, graphBrick);
     }
