@@ -137,7 +137,6 @@ public class Preview {
         if(ball.equals(b)){
             return;
         }
-        // gestion de la collision entre les balles en X
         double distance = ball.getRadius() + b.getRadius();
     
         if (Math.abs(this.c_trajectory.getX() - ball.getX()) < distance &&
@@ -146,16 +145,27 @@ public class Preview {
             double dx = this.c_trajectory.getX() - ball.getX();
             double dy = this.c_trajectory.getY() - ball.getY();
             distance = Math.sqrt(dx * dx + dy * dy);
-            
+
+            if (distance < ball.getRadius() + b.getRadius()) {
+                double overlap =  ball.getRadius() + b.getRadius() - distance;
+    
+                double nx = dx / distance; 
+                double ny = dy / distance;
+    
+                c_trajectory.setX(c_trajectory.getX() + nx * overlap / 2);
+                c_trajectory.setY(c_trajectory.getY() + ny * overlap / 2);
+            }
             double angle = Math.atan2(dy, dx);
             double sin = Math.sin(angle);
             double cos = Math.cos(angle);
+
+            double tempY;
+            tempY =  d_trajectory.getY() * cos -  d_trajectory.getX() * sin;
     
-            double vy1 = this.d_trajectory.getY() * cos - this.d_trajectory.getX() * sin;
-            double vx2 = b.getDirection().getX() * cos + b.getDirection().getY() * sin;
+            double vx2 = ball.getDirection().getX() * cos + ball.getDirection().getY() * sin;
     
-            this.d_trajectory.setX(vx2 * cos - vy1 * sin);
-            this.d_trajectory.setY(vy1 * cos + vx2 * sin);
+            d_trajectory.setX(vx2 * cos - tempY * sin);
+            d_trajectory.setY(tempY * cos + vx2 * sin);
 
         }
     }
@@ -176,18 +186,13 @@ public class Preview {
             compt = b.getPreview().getdt()-1;
         }
         for(int i = compt; i<50; i++){
-            double h = PhysicSetting.DEFAULT_WINDOW_HEIGHT;
-            double w = PhysicSetting.DEFAULT_WINDOW_WIDTH;
+            for(Segment s:PhysicEngine.LIMIT_SIMULATION){
+                if(PhysicTools.checkCollision(c, d, b.getRadius(), s, null)){
+                    break;
+                }
+            }
             double newX = c.getX() + d.getX() * b.getSpeed() ;
             double newY = c.getY() + d.getY() * b.getSpeed() ;
-            if (newX < 0 || newX > w - b.getRadius()) {
-                d.setX(-d.getX());
-                newX = c.getX() + d.getX()*b.getSpeed();
-            }
-            if (newY < 0 || newY > h - b.getRadius()) {
-                d.setY(-d.getY());
-                newY = c.getY() + d.getY()*b.getSpeed();
-            } 
             c=new Coordinates(newX, newY);
             AppPhysic.physics.checkGravity(c, d);
             if(i%5==0){

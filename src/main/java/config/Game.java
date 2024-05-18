@@ -82,7 +82,6 @@ public class Game {
         }
 
         for (Ball ball : balls) {
-            ball.CollisionB = false;
             if (ball.delete()) {
                 balls.remove(ball);
                 break;
@@ -97,7 +96,7 @@ public class Game {
             }
             // seulement si la balle est une MagnetBall
             if (ball instanceof MagnetBall) {
-                originalball.CollisionR = false;
+                ball.CollisionR = false;
                 // donne les coordonnées de la raquette a la MagnetBall
                 // actualise l'etat de la raquette
                 if (BallFrontRacket(ball)) {
@@ -106,7 +105,7 @@ public class Game {
                     ((MagnetBall) ball).setFront(false);
                 }
                 if (ball.checkCollision(racket)) {
-                    originalball.CollisionR = true;
+                    ball.CollisionR= true;
                     App.ballSound.update();
                     App.ballSound.play();
                     updateRulesRacket();
@@ -114,14 +113,14 @@ public class Game {
             } else {
                 // Si la balle touche la raquette
                 if (ball.checkCollision(racket)) {
-                    originalball.CollisionR = true;
+                    ball.CollisionR = true;
                     App.ballSound.update();
                     App.ballSound.play();
                     updateRulesRacket();
                 }
             }
             ball.movement(deltaT);
-
+            ball.CollisionB = false;
         }
 
         // Gere les conditions de perte
