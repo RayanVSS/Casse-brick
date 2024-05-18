@@ -54,7 +54,7 @@ public class BallGraphics extends Circle implements EntityGraphics {
         updateBall();
         setCenterX(ball.getC().getX());
         setCenterY(ball.getC().getY());
-        setRotate(getRotate()+ball.getRotation().getAngle());
+        setRotate(getRotate()+ball.getRotation().getAngle()/2);
     }
 
     private void setBall() {

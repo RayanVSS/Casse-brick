@@ -2,10 +2,12 @@ package physics.geometry;
 
 public class Rotation {
 
+    Vector vecteur;
     private double angle;
 
     public Rotation() {
         this.angle = 0;
+        vecteur = new Vector(0,0);
     }
 
     public void setAngle(double angle) {
@@ -39,6 +41,30 @@ public class Rotation {
 
     public void stopRotation() {
         this.angle = 0;
+    }
+
+    public double getX() {
+        return vecteur.getX();
+    }
+
+    public double getY() {
+        return vecteur.getY();
+    }
+
+    public void setX(double x) {
+        vecteur.setX(x);
+    }
+
+    public void setY(double y) {
+        vecteur.setY(y);
+    }
+
+    public void addX(double x) {
+        vecteur.setX(vecteur.getX() + x);
+    }
+
+    public void addY(double y) {
+        vecteur.setY(vecteur.getY() + y);
     }
 
 }

@@ -94,9 +94,6 @@ public class PhysicEngine extends Pane{
 
     public PhysicEngine() {
         clear();
-
-        // Initialisation de la fenetre
-
         // Initialisation de la simulation
 
         this.physics = AppPhysic.physics;
@@ -135,7 +132,7 @@ public class PhysicEngine extends Pane{
             public void handle(long now) {
                 KeyPressed();
                 if (racket != null) {
-                    racket.handleKeyPress(key.getKeysPressed());
+                    racket.handleKeyPress(key.getKeysPressed(),listball.keySet());
                 }
                 if (last == 0) {
                     last = now;
@@ -333,6 +330,7 @@ public class PhysicEngine extends Pane{
             }
         }
         racket.getDirection().setX(0);
+        racket.getDirection().setY(0);
         app.getScene().setOnKeyPressed(eWind -> {
             key.getKeysPressed().add(eWind.getCode());
         });

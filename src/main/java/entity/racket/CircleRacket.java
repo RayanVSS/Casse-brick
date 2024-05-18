@@ -3,6 +3,7 @@ package entity.racket;
 import java.util.Set;
 
 import javafx.scene.input.KeyCode;
+import physics.entity.Ball;
 import physics.entity.Racket;
 import utils.GameConstants;
 

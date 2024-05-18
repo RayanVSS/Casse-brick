@@ -301,7 +301,7 @@ public abstract class Ball extends Entity {
         for(Segment l:r.segments){
             if(checkCollision(l)){
                 CollisionR = true;
-                rotation.addEffect(10*-(r.getDirection().getX()));
+                rotation.addEffect(-(r.getDirection().getX()*r.speed));
                 return true;
             }
         }

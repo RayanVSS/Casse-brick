@@ -43,9 +43,9 @@ public class PhysicTools {
     
             double d1 = d.getX() * normalX + d.getY() * normalY;
 
-            d.setX(d.getX() - 2 * d1 * normalX);
-            d.setY(d.getY() - 2 * d1 * normalY);
-    
+            d.setX(d.getX() - 2 * d1 * normalX+(rotation.getEffect())/20*normalY);
+            d.setY(d.getY() - 2 * d1 * normalY+(rotation.getEffect())/20*normalX);
+            
             return true;
         }
         return false;

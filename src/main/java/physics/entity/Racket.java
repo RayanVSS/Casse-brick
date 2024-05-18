@@ -9,6 +9,8 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.checkerframework.checker.units.qual.g;
+
 import gui.GameRoot;
 import gui.GraphicsFactory.RacketGraphics;
 import physics.geometry.Figure;
@@ -379,6 +381,19 @@ public abstract class Racket extends Figure {
             s.deplace(v1);
         }
         c.add(v1);
+    }
+
+    public void BallinRacket(Ball b) {
+       for (Segment s : segments) {
+            double radius = b.getRadius();
+            if (s.intersect(b.getC(), radius, radius)) {
+                if(s==segments.get(1) || s==segments.get(2)){
+                    b.getC().setY(s.getStart().getY() -radius);
+                }else{
+                    b.getC().setX(s.getStart().getX() +radius);
+                }
+            }
+        }
     }
 
     // fonction obligatoire
