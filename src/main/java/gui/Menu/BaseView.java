@@ -13,25 +13,45 @@ import javafx.scene.paint.Stop;
 import utils.GameConstants;
 import javafx.scene.layout.Region;
 
-public class BaseView  {
+public class BaseView {
 
     private LinearGradient linearGradient = null;
     private Pane pane;
     private Node[] n;
 
-    public BaseView( Pane pane,Node... n) {
+    public BaseView(Pane pane, Node... n) {
         this.pane = pane;
         this.n = n;
         switch (GameConstants.CSS) {
             case ACHROMATOPSIE:
+                linearGradient = new LinearGradient(1, 1, 1, 0, true, CycleMethod.NO_CYCLE, new Stop[] {
+                        new Stop(0, Color.web("#FFFFFF")),
+                        new Stop(1, Color.web("#808080"))
+                });
                 break;
             case BLACK:
+                linearGradient = new LinearGradient(1, 1, 1, 0, true, CycleMethod.NO_CYCLE, new Stop[] {
+                        new Stop(0, Color.web("#6A6A6A")),
+                        new Stop(1, Color.web("#282C35"))
+                });
                 break;
             case CLASSIC:
+                linearGradient = new LinearGradient(1, 1, 1, 0, true, CycleMethod.NO_CYCLE, new Stop[] {
+                        new Stop(0, Color.web("#B9D9EB")),
+                        new Stop(1, Color.web("#273654"))
+                });
                 break;
             case DEUTERANOPIE:
+                linearGradient = new LinearGradient(1, 1, 1, 0, true, CycleMethod.NO_CYCLE, new Stop[] {
+                        new Stop(0, Color.web("#6A6A6A")),
+                        new Stop(1, Color.web("#282C35"))
+                });
                 break;
             case LIGHT:
+                linearGradient = new LinearGradient(1, 1, 1, 0, true, CycleMethod.NO_CYCLE, new Stop[] {
+                        new Stop(0, Color.web("#E1E8ED")),
+                        new Stop(1, Color.web("#1DA1F2"))
+                });
                 break;
             case PINK:
                 linearGradient = new LinearGradient(1, 1, 1, 0, true, CycleMethod.NO_CYCLE, new Stop[] {
@@ -40,8 +60,16 @@ public class BaseView  {
                 });
                 break;
             case PROTANOPIE:
+                linearGradient = new LinearGradient(1, 1, 1, 0, true, CycleMethod.NO_CYCLE, new Stop[] {
+                        new Stop(0, Color.web("#C0C0C0")),
+                        new Stop(1, Color.web("#282C35"))
+                });
                 break;
             case TRITANOPIE:
+                linearGradient = new LinearGradient(1, 1, 1, 0, true, CycleMethod.NO_CYCLE, new Stop[] {
+                        new Stop(0, Color.web("#B3B3B3")),
+                        new Stop(1, Color.web("#333333"))
+                });
                 break;
             default:
                 break;
@@ -90,7 +118,5 @@ public class BaseView  {
         }
         System.out.println("BaseView created");
     }
-
-
 
 }
