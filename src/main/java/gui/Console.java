@@ -43,7 +43,7 @@ import utils.GameConstants;
  * @author GUAN Olivier
  */
 
-public class Console {
+public final class Console {
 
     private static ArrayList<String> history;
     private static Queue<String> queue;
