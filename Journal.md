@@ -782,3 +782,7 @@ Ajouts :
     - résolution d'une mauvaise rotation de la balle
     - la balle peut s'accrocher sur toute la raquette
 - ajout de commentaire dans le code 
+- amélioration de "GravityBall" 
+- création du chapitre 4
+- résolution du bug dans laquel la balle rentre dans la raquette 
+- ajout de l'option de faire un saut avec une raquette 
