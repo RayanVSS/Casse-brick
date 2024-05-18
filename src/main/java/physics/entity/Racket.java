@@ -64,17 +64,16 @@ import physics.geometry.Segment;
 public abstract class Racket extends Figure {
 
     // base
-    public double DEFAULT_WINDOW_WIDTH=GameConstants.DEFAULT_GAME_ROOT_WIDTH;
+    public double DEFAULT_WINDOW_WIDTH = GameConstants.DEFAULT_GAME_ROOT_WIDTH;
     Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5,
             GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
-    public Vector direction = new Vector(0,0);
+    public Vector direction = new Vector(0, 0);
     public double speed;
     public int longueur;
     public int largeur;
     public String shape;
     public boolean fixeY;
     public boolean jump;
-    
 
     // boost
     Boolean vitesseP = false;
@@ -84,14 +83,19 @@ public abstract class Racket extends Figure {
     boolean freeze = false;
     boolean zhonya = false;
     boolean intensityBall = false;
+    boolean jumpActive = false;
     private long startTimer;
     // varible pour les boosts
     public static boolean StopBall = false;
     public static boolean AddIntensityBall = false;
-    public static Key key = GameRoot.key; ;
+    public static Key key = GameRoot.key;;
     public static Set<KeyCode> d = new HashSet<>();
 
     private long jumpStartTime;
+    // jump
+    private boolean jumpUP = false;
+    private boolean jumpDOWN = false;
+    private boolean calibrage = false;
 
     // creation de la raquette
     public Racket(int largeur, int longueur, String shape, int speed, boolean fixeY, boolean jump) {
@@ -119,7 +123,7 @@ public abstract class Racket extends Figure {
     }
 
     public boolean CollisionRacket(Ball b) {
-        if (shape.equals("rectangle") || shape.equals("losange") || shape.equals("triangle")){
+        if (shape.equals("rectangle") || shape.equals("losange") || shape.equals("triangle")) {
             for (Segment s : segments) {
                 return b.checkCollision(s);
             }
@@ -204,7 +208,7 @@ public abstract class Racket extends Figure {
                     // balle qui va vers la gauche
                 } else {
                     b.setDirection(new Vector(-0.1 + b.getDirection().getX() * changeDirectionP,
-                            0.1 + b.getDirection().getY() * changeDirectionN));   
+                            0.1 + b.getDirection().getY() * changeDirectionN));
                 }
             }
             b.setSpeed(b.getSpeed() * 1.1);
@@ -255,7 +259,8 @@ public abstract class Racket extends Figure {
             // Calculer le nouvel angle de rebond en fonction de l'angle d'incidence
             double newAngle = Math.PI + (Math.PI - incidentAngle);
 
-            // Mettre à jour la direction de la balle pour refléter le nouvel angle de rebond
+            // Mettre à jour la direction de la balle pour refléter le nouvel angle de
+            // rebond
             double newDirectionX = Math.cos(newAngle) * 1.1;
             double newDirectionY = Math.sin(newAngle) * 1.1;
             b.setDirection(new Vector(newDirectionX, newDirectionY));
@@ -338,18 +343,21 @@ public abstract class Racket extends Figure {
         return false;
     }
 
-    public void createsegments(){
+    public void createsegments() {
         segments.clear();
-        if(shape.equals("rectangle")){
+        if (shape.equals("rectangle")) {
             segments.add(new Segment(c.getX(), c.getY(), c.getX() + largeur, c.getY()));
             segments.add(new Segment(c.getX() + largeur, c.getY(), c.getX() + largeur, c.getY() + longueur));
             segments.add(new Segment(c.getX() + largeur, c.getY() + longueur, c.getX(), c.getY() + longueur));
             segments.add(new Segment(c.getX(), c.getY() + longueur, c.getX(), c.getY()));
-        }else if(shape.equals("triangle")){
-            segments.add(new Segment(c.getX(), c.getY() - longueur / 2, c.getX() + largeur / 2, c.getY() + longueur / 2));
-            segments.add(new Segment(c.getX() + largeur / 2, c.getY() + longueur / 2, c.getX() - largeur / 2, c.getY() + longueur / 2));
-            segments.add(new Segment(c.getX() - largeur / 2, c.getY() + longueur / 2, c.getX(), c.getY() - longueur / 2));
-        }else if(shape.equals("losange")){
+        } else if (shape.equals("triangle")) {
+            segments.add(
+                    new Segment(c.getX(), c.getY() - longueur / 2, c.getX() + largeur / 2, c.getY() + longueur / 2));
+            segments.add(new Segment(c.getX() + largeur / 2, c.getY() + longueur / 2, c.getX() - largeur / 2,
+                    c.getY() + longueur / 2));
+            segments.add(
+                    new Segment(c.getX() - largeur / 2, c.getY() + longueur / 2, c.getX(), c.getY() - longueur / 2));
+        } else if (shape.equals("losange")) {
             segments.add(new Segment(c.getX(), c.getY() - longueur / 2, c.getX() + largeur / 2, c.getY()));
             segments.add(new Segment(c.getX() + largeur / 2, c.getY(), c.getX(), c.getY() + longueur / 2));
             segments.add(new Segment(c.getX(), c.getY() + longueur / 2, c.getX() - largeur / 2, c.getY()));
@@ -557,16 +565,66 @@ public abstract class Racket extends Figure {
         }
     }
 
+    // Saut
+    public void setJump(Boolean jumpActive) {
+        if (!this.jumpActive) {
+            this.jumpActive = jumpActive;
+            if (this.jumpActive) {
+                jumpUP = true;
+                jump(GameConstants.BOOST_DURATION_JUMP);
+            }
+        }
+    }
+
+    public void jump(int duration) {
+        startTimer = System.currentTimeMillis();
+        Timer BoostTimer = new Timer();
+        BoostTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+                jumpUP = false;
+                jumpDOWN = true;
+                BoostTimer.cancel();
+                Timer BoostTimer2 = new Timer();
+                BoostTimer2.schedule(new TimerTask() {
+                    public void run() {
+                        System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                        calibrage = true;
+                        jumpDOWN = false;
+                        BoostTimer2.cancel();
+                        Timer BoostTimer3 = new Timer();
+                        BoostTimer3.schedule(new TimerTask() {
+                            public void run() {
+                                jumpActive = false;
+                                BoostTimer3.cancel();
+                            }
+                        }, 200);
+                    }
+                }, 200);
+            }
+        }, 100);
+
+    }
+
     public void reset() {
         Coordinates c = new Coordinates(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2.5,
                 GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
-        Vector direction = new Vector(0,0);
+        Vector direction = new Vector(0, 0);
         this.setC(c);
         this.setDirection(direction);
         createsegments();
     }
 
     // GET et SET
+    public void setCalibrage(boolean calibrage) {
+        this.calibrage = calibrage;
+    }
+
+    public Boolean getCalibrage() {
+        return calibrage;
+    }
+
     public Boolean getJump() {
         return jump;
     }
@@ -635,10 +693,6 @@ public abstract class Racket extends Figure {
         this.jumpStartTime = jumpStartTime;
     }
 
-    public void setJump(boolean jump) {
-        this.jump = jump;
-    }
-
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -679,8 +733,24 @@ public abstract class Racket extends Figure {
         return shape;
     }
 
-
     public long getBoostDuration() {
         return System.currentTimeMillis() - startTimer;
     }
+
+    public Boolean getJumpUP() {
+        return jumpUP;
+    }
+
+    public void setJumpUP(Boolean jumpUP) {
+        this.jumpUP = jumpUP;
+    }
+
+    public Boolean getJumpDOWN() {
+        return jumpDOWN;
+    }
+
+    public void setJumpDOWN(Boolean jumpDOWN) {
+        this.jumpDOWN = jumpDOWN;
+    }
+
 }

@@ -52,7 +52,7 @@ import javafx.scene.input.KeyCode;
  */
 
 public class Key {
-    private final Set<KeyCode> keysPressed = new HashSet<>();
+    private static final Set<KeyCode> keysPressed = new HashSet<>();
 
     public Key() {
     }
@@ -82,8 +82,8 @@ public class Key {
     }
 
     public void setKeysPressed(Set<KeyCode> keysPressed) {
-        this.keysPressed.clear();
-        this.keysPressed.addAll(keysPressed);
+        keysPressed.clear();
+        keysPressed.addAll(keysPressed);
     }
 
     public void clear() {

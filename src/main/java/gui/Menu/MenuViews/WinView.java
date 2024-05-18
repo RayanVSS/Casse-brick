@@ -2,6 +2,7 @@ package gui.Menu.MenuViews;
 
 import config.StageLevel;
 import gui.App;
+import gui.Console;
 import gui.GameView;
 import gui.ViewPosition;
 import gui.Menu.Menu;
@@ -51,6 +52,7 @@ public class WinView extends VBox implements Menu, ViewPosition {
             finDuJeu();
         }
         gain.setText("Gain : " + GameConstants.LAST_WIN_MONEY);
+        Console.systemDisplay("Vous venez de gagner : " + GameConstants.LAST_WIN_MONEY);
         saveViewPosition();
         new WinController(this);
     }
