@@ -6,7 +6,7 @@
  * User Manual available at https://docs.gradle.org/8.0.2/userguide/building_java_projects.html
  */
 
- buildscript {
+buildscript {
     repositories {
         gradlePluginPortal()
         jcenter()
@@ -27,7 +27,7 @@ plugins {
 
 javafx {
     version = "17.0.1"
-    modules = ['javafx.controls', 'javafx.media', 'javafx.base', 'javafx.graphics']
+    modules = ['javafx.controls', 'javafx.media', 'javafx.base', 'javafx.graphics', 'javafx.fxml', 'javafx.swing', 'javafx.web']
 }
 
 repositories {
@@ -42,6 +42,9 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
     implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'org.apache.pdfbox:pdfbox:2.0.24'
+    implementation 'org.apache.pdfbox:pdfbox-tools:2.0.24'
+
 }
 
 application {
@@ -108,3 +111,4 @@ task Repair(type: JavaExec) {
     }
 }
 
+compileJava.options.encoding = 'UTF-8'

@@ -1,5 +1,6 @@
 package config;
 
+import gui.Console;
 import entity.ball.ClassicBall;
 import entity.racket.ClassicRacket;
 import gui.Menu.MenuControllers.GameCustomizerController;
@@ -32,8 +33,14 @@ public class StageLevel {
     }
 
     public boolean canLoadGame() {
-        if (PlayerData.expLevel >= unlockLevel) {
-            System.out.println("Chargement du jeu...");
+        if (PlayerData.expLevel >= unlockLevel || PlayerData.isAdmin) {
+            if (PlayerData.expLevel < unlockLevel) { // ADMIN
+                Console.systemDisplay("Niveau requis : " + unlockLevel);
+                Console.systemDisplay("Niveau actuel : " + PlayerData.expLevel);
+                Console.systemDisplay("Niveau requis non atteint... mais...");
+                Console.systemDisplay("Droit Admin : Chargement du jeu autorisé.");
+            }
+            Console.systemDisplay("Chargement du jeu...");
             if (game == null) {
                 this.game = new Game(
                         GameConstants.PRECONFIG_GAME_BALL[difficulty],
@@ -42,13 +49,13 @@ public class StageLevel {
             }
             return true;
         } else {
-            System.out.println("Niveau requis non atteint.");
+            Console.systemDisplay("Niveau requis non atteint.");
             return false;
         }
     }
 
     public void resetGame() {
-        game.getBall().reset(GameConstants.DEFAULT_BALL_START_COORDINATES);
+        game.resetBalls();
         game.getRacket().reset();
         game.getRules().reset();
         if (game.getRules().isInfinite()){

@@ -1,26 +1,24 @@
 package gui.Menu.MenuViews;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import gui.GraphicsToolkit.LabelButton;
-import gui.GraphicsToolkit.LabelComboBoxHBox;
-import gui.GraphicsToolkit.LabelSliderHBox;
-import gui.GraphicsToolkit.LabelToggleButtonHBox;
-import gui.GraphicsToolkit.LabelVBox;
+import gui.ViewPosition;
+import gui.GraphicsFactory.ConsoleView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.OptionsController;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
+import utils.GraphicsToolkit.LabelButton;
+import utils.GraphicsToolkit.LabelComboBoxHBox;
+import utils.GraphicsToolkit.LabelSliderHBox;
+import utils.GraphicsToolkit.LabelToggleButtonHBox;
+import utils.GraphicsToolkit.LabelVBox;
 
 /**
  * Classe OptionsView qui implémente l'interface Menu pour représenter la vue
@@ -29,9 +27,12 @@ import utils.GameConstants;
  * @author Benmalek Majda
  * @author Bencheikh Ilias
  */
-public class OptionsView implements Menu {
+public class OptionsView implements Menu, ViewPosition {
     private Stage primaryStage;
-    private VBox root;
+
+    private BorderPane root;
+    private VBox centerBox;
+    private HBox bottomBox;
     private Scene scene;
 
     private HBox options;
@@ -42,36 +43,36 @@ public class OptionsView implements Menu {
     private LabelToggleButtonHBox fps, path, particles;
     private LabelButton buttonleft, buttonpower, buttonright;
 
-    private List<String> textureNames = loadTextureNames();
-    private LabelComboBoxHBox texture;
-    private ImageView textureImageView;
+    // private List<String> textureNames = loadTextureNames();
+    // private LabelComboBoxHBox texture;
+    // private ImageView textureImageView;
 
-    public final String TEXTURE_FOLDER = "src/main/ressources/Texture";
+    // public final String TEXTURE_FOLDER = "src/main/ressources/Texture";
 
     private HBox actionButtons;
     private Button backButton;
 
+    private ConsoleView consoleView;
+
     public OptionsView(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        root = new VBox(50);
+        root = new BorderPane();
+        centerBox = new VBox(50);
+        bottomBox = new HBox();
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
 
         initOptions();
         initActionButtons();
 
-        // a deplacer dans le controller
-        texture.getComboBox().setOnAction(event -> {
-            String selectedTexture = texture.getComboBox().getValue();
-            if (selectedTexture != null) {
-                String texturePath = TEXTURE_FOLDER + "/" + selectedTexture;
-                Image textureImage = new Image(new File(texturePath).toURI().toString());
-                textureImageView.setImage(textureImage);
-                GameConstants.TEXTURE = selectedTexture;
-            }
-            System.out.println(selectedTexture + " selected");
-        });
+        centerBox.getChildren().addAll(options, actionButtons);
+        centerBox.setPadding(new Insets(90, 0, 0, 0));
 
-        root.getChildren().addAll(options, actionButtons);
+        consoleView = ConsoleView.getInstance();
+        bottomBox.getChildren().add(consoleView);
+
+        root.setCenter(centerBox);
+        root.setBottom(bottomBox);
+
         new OptionsController(primaryStage, this);
     }
 
@@ -92,29 +93,13 @@ public class OptionsView implements Menu {
         LabelVBox labelVBox = new LabelVBox("Musique & Themes", 12);
         volumeMusic = new LabelSliderHBox("Musique", 0, 100, 50, false, 1);
         volumeSound = new LabelSliderHBox("Sons", 0, 100, 50, false, 1);
-        String[] themes = { "Classic", "Black", "Light", "Pink" };
+        String[] themes = { "Classic", "Black", "Light", "Pink", "Achromatopsie", "Deuteranopie", "Protanopie",
+                "Tritanopie" };
         String name = GameConstants.CSS.name();
         String capitalizedPath = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-        theme = new LabelComboBoxHBox(capitalizedPath, themes, capitalizedPath);
+        theme = new LabelComboBoxHBox("Theme", themes, capitalizedPath);
 
-        texture = new LabelComboBoxHBox("Texture", textureNames.toArray(new String[0]), GameConstants.TEXTURE);
-
-        ComboBox<String> textureComboBox = texture.getComboBox();
-        textureComboBox.getItems().addAll(textureNames);
-        if (GameConstants.TEXTURE.equals("Null")) {
-            textureComboBox.setPromptText("Choisir une texture");
-        } else {
-            textureComboBox.setValue(GameConstants.TEXTURE);
-        }
-        textureImageView = new ImageView();
-        if (!GameConstants.TEXTURE.equals("Null")) {
-            textureImageView
-                    .setImage(new Image(new File(TEXTURE_FOLDER + "/" + GameConstants.TEXTURE).toURI().toString()));
-        }
-        textureImageView.setFitWidth(100);
-        textureImageView.setPreserveRatio(true);
-
-        labelVBox.getChildren().addAll(volumeMusic, volumeSound, theme, texture, textureImageView);
+        labelVBox.getChildren().addAll(volumeMusic, volumeSound, theme);
         optionsLeft.getChildren().addAll(labelVBox);
     }
 
@@ -151,21 +136,14 @@ public class OptionsView implements Menu {
         actionButtons.getChildren().add(backButton);
     }
 
-    public List<String> loadTextureNames() {
-        List<String> textureNames = new ArrayList<>();
-        File folder = new File(TEXTURE_FOLDER);
-        if (folder.exists() && folder.isDirectory()) {
-            File[] fichiers = folder.listFiles();
-            if (fichiers != null) {
-                for (File fichier : fichiers) {
-                    if (fichier.isFile()) {
-                        textureNames.add(fichier.getName());
-                    }
-                }
-            }
-        }
-        textureNames.add("Null");
-        return textureNames;
+    @Override
+    public void moveConsoleView() {
+        bottomBox.getChildren().add(consoleView);
+    }
+
+    @Override
+    public void handleDynamicAction() {
+        consoleView.setDynamicFocus(scene);
     }
 
     public Scene getScene() {
@@ -204,7 +182,7 @@ public class OptionsView implements Menu {
         return primaryStage;
     }
 
-    public VBox getRoot() {
+    public BorderPane getRoot() {
         return root;
     }
 
@@ -244,7 +222,4 @@ public class OptionsView implements Menu {
         return theme.getComboBox();
     }
 
-    public ComboBox<String> getTextureComboBox() {
-        return texture.getComboBox();
-    }
 }

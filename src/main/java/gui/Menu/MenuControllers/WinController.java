@@ -5,6 +5,7 @@ import gui.GameView;
 import gui.Menu.MenuViews.WinView;
 import javafx.application.Platform;
 import save.PlayerData;
+import save.Sauvegarde;
 import utils.Sound.ClickSound;
 
 public class WinController {
@@ -28,6 +29,8 @@ public class WinController {
     }
 
     private void quit() {
+        Sauvegarde sauvegarde = new Sauvegarde();
+        sauvegarde.autoSave();
         view.getPrimaryStage().close();
         Platform.exit();
         System.exit(0);

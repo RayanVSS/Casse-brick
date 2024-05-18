@@ -20,8 +20,9 @@ public class MagnetBall extends Ball {
     public static Coordinates getRa = new Coordinates(0, 0);
 
     public MagnetBall() {
-        super(GameConstants.DEFAULT_BALL_START_COORDINATES, GameConstants.DEFAULT_BALL_START_DIRECTION,
-                GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS);
+        super(GameConstants.DEFAULT_BALL_START_COORDINATES.clone(), GameConstants.DEFAULT_BALL_START_DIRECTION.clone(),
+        GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS);
+        super.getPhysicSetting().setWindow(GameConstants.DEFAULT_GAME_ROOT_WIDTH,GameConstants.DEFAULT_WINDOW_HEIGHT);
     }
 
     public MagnetBall(int d) {
@@ -29,12 +30,11 @@ public class MagnetBall extends Ball {
     }
 
     @Override
-    public boolean movement() {
-        boolean lost = true;
+    public void movement(long deltaT) {
         double w = getZoneWidth();
         double h = getZoneHeight();
-        double newX = this.getC().getX() + this.getDirection().getX();
-        double newY = this.getC().getY() + this.getDirection().getY();
+        double newX = this.getC().getX() + this.getDirection().getX() * this.getSpeed()*deltaT;
+        double newY = this.getC().getY() + this.getDirection().getY() * this.getSpeed()*deltaT;
         //verifie si la balle est devant la raquette avant n'importe action 
         if (Front) {
             //actualise l'etat de la raquette
@@ -83,7 +83,7 @@ public class MagnetBall extends Ball {
                     this.getDirection().setX(0);
                     this.getDirection().setY(1);
                     CollisionR = true;
-                    return true;
+                    return;
                 }
             }
             //si l'etat de la raquette est different de la balle
@@ -136,11 +136,10 @@ public class MagnetBall extends Ball {
             CollisionR = false;
         }
         if (newY > h - this.getRadius()) {
-            lost = false;
+            super.setDelete(true);
         }
 
         this.setC(new Coordinates(newX, newY));
-        return lost;
     }
 
     //attraction de la balle vers le centre raquette 

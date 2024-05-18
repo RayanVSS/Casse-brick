@@ -13,9 +13,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
+import utils.ImageLoader;
 import utils.Key;
 
-public class GameView {
+public class GameView implements ViewPosition {
     private Stage primaryStage;
     private Pane root = new Pane();
     private VBox SLFPS = new VBox();
@@ -55,6 +56,7 @@ public class GameView {
         this.animation();
         // Affichage de la fenêtre
         primaryStage.setScene(scene);
+        saveViewPosition();
     }
 
     public void animation() {
@@ -78,9 +80,9 @@ public class GameView {
                     gameRoot.update(deltaT);
                     scoreLifeView.update();
                     scene.getStylesheets().add(GameConstants.CSS.getPath());
-
                 }
                 last = now;
+                saveViewPosition();
             }
         };
         animationTimer.start();

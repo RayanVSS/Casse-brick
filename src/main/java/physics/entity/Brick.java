@@ -3,49 +3,47 @@ package physics.entity;
 import entity.EntityColor;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
+import utils.GameConstants;
+import physics.geometry.Segment;
+import java.util.ArrayList;
 
 public abstract class Brick extends Entity {
 
     private int durability;
-    private boolean destroyed;
 
     private EntityColor color;
     private boolean transparent;
     private boolean unbreakable;
+    private ArrayList<Segment> segments = new ArrayList<>();
 
     protected Brick(Coordinates c, int durability, EntityColor color) {
         super(c);
         this.durability = durability;
         this.color = color;
+        createsegments();
     }
 
-    protected Brick(Coordinates c, int durability) {
+    public Brick(Coordinates c, int durability) {
         this(c, durability, null);
+        createsegments();
     }
 
     protected Brick(Coordinates c, Vector vector, int durability) {
         this(c, durability, null);
         setDirection(vector);
+        createsegments();
     }
 
     public void absorb(int damage) {
         durability -= damage;
-        if (durability <= 0) {
+        if (durability <= 0 && !unbreakable) {
             durability = 0;
-            destroyed = true;
+            setDestroyed(true);
         }
     }
 
     public int getDurability() {
         return durability;
-    }
-
-    public boolean isDestroyed() {
-        return destroyed;
-    }
-
-    public void setDestroyed(boolean destroyed) {
-        this.destroyed = destroyed;
     }
 
     public void setDurability(int durability) {
@@ -76,4 +74,30 @@ public abstract class Brick extends Entity {
         this.color = color;
     }
 
+    public boolean contains(double x, double y) {
+        return x >= getC().getX() && x <= getC().getX() + GameConstants.BRICK_WIDTH &&
+                y >= getC().getY() && y <= getC().getY() + GameConstants.BRICK_HEIGHT;
+    }
+
+    public ArrayList<Segment> getSegments() {
+        return segments;
+    }
+
+    public void createsegments() {
+        segments.clear();
+        segments.add(
+                new Segment(getC().getX(), getC().getY(), getC().getX() + GameConstants.BRICK_WIDTH, getC().getY()));
+        segments.add(new Segment(getC().getX() + GameConstants.BRICK_WIDTH, getC().getY(),
+                getC().getX() + GameConstants.BRICK_WIDTH, getC().getY() + GameConstants.BRICK_HEIGHT));
+        segments.add(new Segment(getC().getX() + GameConstants.BRICK_WIDTH, getC().getY() + GameConstants.BRICK_HEIGHT,
+                getC().getX(), getC().getY() + GameConstants.BRICK_HEIGHT));
+        segments.add(
+                new Segment(getC().getX(), getC().getY() + GameConstants.BRICK_HEIGHT, getC().getX(), getC().getY()));
+    }
+
+    public void deplace(Vector v) {
+        for (Segment s : segments) {
+            s.deplace(v);
+        }
+    }
 }

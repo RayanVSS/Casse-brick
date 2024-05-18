@@ -1,8 +1,7 @@
 package gui.Menu.MenuViews;
 
 import gui.App;
-import gui.ImageLoader;
-import gui.GraphicsToolkit.LabelButton;
+import gui.ViewPosition;
 import config.StageLevel;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.PauseController;
@@ -15,8 +14,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
+import utils.ImageLoader;
+import utils.GraphicsToolkit.LabelButton;
 
-public class PauseView extends Pane implements Menu {
+public class PauseView extends Pane implements Menu, ViewPosition {
     private Stage primaryStage;
     private Button btnReplay, btnMenu, btnQuit, btnResume;
     private AnimationTimer animationTimer;
@@ -58,6 +59,7 @@ public class PauseView extends Pane implements Menu {
         // Pour centrer la VBox
         vBox.setLayoutX((this.getPrefWidth() - vBox.getPrefWidth()) / 2);
         vBox.setLayoutY((this.getPrefHeight() - vBox.getPrefHeight()) / 2.5);
+        saveViewPosition();
         new PauseController(p, this);
     }
 
@@ -94,9 +96,9 @@ public class PauseView extends Pane implements Menu {
         } else {
             btnMuteSound.getButton().setGraphic(unmuteImageView2);
         }
-        btnMuteMusic.setLayoutX(850);
+        btnMuteMusic.setLayoutX(GameConstants.DEFAULT_WINDOW_WIDTH - 250);
         btnMuteMusic.setLayoutY(10);
-        btnMuteSound.setLayoutX(850);
+        btnMuteSound.setLayoutX(GameConstants.DEFAULT_WINDOW_WIDTH - 250);
         btnMuteSound.setLayoutY(100);
     }
 

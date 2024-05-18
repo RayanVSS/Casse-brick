@@ -1,21 +1,23 @@
 {
   "PATH": false,
-  "MUSIC": 50,
+  "MUSIC": 0,
   "CSS": "CLASSIC",
-  "MONEY": 100,
+  "MONEY": 0,
+  "SKIN_BALL": "Null",
+  "INVENTAIRE": [],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": false,
   "PSEUDO": "Sans nom",
   "SPACE": "SPACE",
-  "TEXTURE": "Null",
-  "EXP_LEVEL": 2,
+  "TEXTURE": "src/main/ressources/Texture/arc_en_ciel.jpg",
+  "EXP_LEVEL": 1,
   "PROGRESS": {
     "stages": [
       {
         "difficulty": 0,
         "unlockLevel": 1,
-        "completed": true,
+        "completed": false,
         "maxScore": 0,
         "customGame": false
       },
@@ -203,7 +205,7 @@
       }
     ]
   },
-  "SOUND": 50,
+  "SOUND": 10,
   "RIGHT": "RIGHT",
   "ADMIN": false
 }

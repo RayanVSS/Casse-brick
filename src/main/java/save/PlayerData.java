@@ -3,6 +3,7 @@ package save;
 import config.GameRules;
 import config.StageLevel;
 import config.StagesProgress;
+import gui.Inventaire;
 import utils.GameConstants;
 
 public class PlayerData {
@@ -12,6 +13,7 @@ public class PlayerData {
     public static int money;
     public static boolean isAdmin;
     public static StagesProgress stagesProgress;
+    public static Inventaire inventaire;
 
     public static void initPlayerData() {
         pseudo = "Sans nom";
@@ -20,6 +22,8 @@ public class PlayerData {
         isAdmin = false;
         stagesProgress = new StagesProgress(GameConstants.STAGES_QTY);
         stagesProgress.createStages();
+        inventaire = new Inventaire();
+
     }
 
     /**
@@ -45,7 +49,6 @@ public class PlayerData {
         int winMoney = level.getGame().getScore(); // Base
         winMoney += applyBonus(level);
         winMoney *= applyMultipliers(level);
-        System.out.println("Vous avez gagné : " + winMoney);
         return winMoney;
     }
 

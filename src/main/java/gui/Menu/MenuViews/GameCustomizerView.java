@@ -1,26 +1,32 @@
 package gui.Menu.MenuViews;
 
-import gui.GraphicsToolkit.LabelComboBoxHBox;
-import gui.GraphicsToolkit.LabelSliderHBox;
-import gui.GraphicsToolkit.LabelToggleButtonHBox;
-import gui.GraphicsToolkit.LabelVBox;
+import gui.ViewPosition;
+import gui.GraphicsFactory.ConsoleView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameCustomizerController;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
+import utils.GraphicsToolkit.LabelComboBoxHBox;
+import utils.GraphicsToolkit.LabelSliderHBox;
+import utils.GraphicsToolkit.LabelToggleButtonHBox;
+import utils.GraphicsToolkit.LabelVBox;
 
-public class GameCustomizerView implements Menu {
+public class GameCustomizerView implements Menu, ViewPosition {
 
     private Stage primaryStage;
-    private VBox root;
+    private BorderPane root;
+    private VBox centerBox;
+    private HBox bottomBox;
     private Scene scene;
     private HBox configOptionsBox;
-    private VBox optionsBoxLeft, optionsBoxRight;
+    private VBox optionsBoxLeft, optionsBoxCenter, optionsBoxRight;
 
     private LabelSliderHBox life, mapWidht, mapHeight, ballSize, ballSpeed, timeLimit, bouncesLimit;
     private LabelComboBoxHBox ball, racket;
@@ -30,34 +36,66 @@ public class GameCustomizerView implements Menu {
     private HBox actionButtons;
     private Button createGame, backButton;
 
+    private ConsoleView consoleView;
+
     public GameCustomizerView(Stage primaryStage) {
 
         this.primaryStage = primaryStage;
-        root = new VBox(50);
+        root = new BorderPane();
+        centerBox = new VBox(40);
+        bottomBox = new HBox();
+        consoleView = ConsoleView.getInstance();
+
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
 
         initOptionsBox();
         initActionButtons();
-
-        root.getChildren().addAll(configOptionsBox, actionButtons);
+        addComponents();
+        localStyle();
 
         new GameCustomizerController(this);
     }
 
+    private void addComponents() {
+        centerBox.getChildren().addAll(configOptionsBox, actionButtons);
+        bottomBox.getChildren().addAll(consoleView);
+        root.setCenter(centerBox);
+        root.setBottom(bottomBox);
+        configOptionsBox.getChildren().addAll(optionsBoxLeft, optionsBoxCenter, optionsBoxRight);
+    }
+
     private void initOptionsBox() {
-        configOptionsBox = new HBox(50);
+        configOptionsBox = new HBox(30);
         configOptionsBox.setAlignment(Pos.CENTER);
         initOptionsBoxLeft();
+        initOptionsBoxCenter();
         initOptionsBoxRight();
-        configOptionsBox.getChildren().addAll(optionsBoxLeft, optionsBoxRight);
     }
 
     private void initOptionsBoxLeft() {
 
-        optionsBoxLeft = new VBox(25);
+        optionsBoxLeft = new VBox(15);
         optionsBoxLeft.setAlignment(Pos.CENTER);
 
-        life = new LabelSliderHBox("Nombre de vies", 1, 10, 3, false, 1);
+        LabelVBox timeVBox = new LabelVBox("Time", 3);
+        ruleLimitedTime = new LabelToggleButtonHBox("Temps limité", false);
+        timeLimit = new LabelSliderHBox("Temps (secondes)", 1, 1800, 300, true, 1); //en secondes
+        timeVBox.getChildren().addAll(ruleLimitedTime, timeLimit);
+
+        LabelVBox bouncesVBox = new LabelVBox("Bounces", 3);
+        ruleLimitedBounces = new LabelToggleButtonHBox("Rebonds limités", false);
+        bouncesLimit = new LabelSliderHBox("Rebonds", 1, 150, 50, true, 1);
+        bouncesVBox.getChildren().addAll(ruleLimitedBounces, bouncesLimit);
+
+        optionsBoxLeft.getChildren().addAll(timeVBox, bouncesVBox);
+    }
+
+    private void initOptionsBoxCenter() {
+
+        optionsBoxCenter = new VBox(25);
+        optionsBoxCenter.setAlignment(Pos.CENTER);
+
+        life = new LabelSliderHBox("Nombre de vies", 1, 9, 3, false, 1);
 
         LabelVBox mapVBox = new LabelVBox("Map", 5);
         mapHeight = new LabelSliderHBox("Lignes de briques", 1, 12, 5, false, 1);
@@ -74,35 +112,22 @@ public class GameCustomizerView implements Menu {
 
         racket = new LabelComboBoxHBox("Type de raquette", new String[] { "Classic", "Magnet", "YNotFixe" }, "Classic");
 
-        optionsBoxLeft.getChildren().addAll(life, mapVBox, ballVBox, racket);
+        optionsBoxCenter.getChildren().addAll(life, mapVBox, ballVBox, racket);
     }
 
     private void initOptionsBoxRight() {
 
-        optionsBoxRight = new VBox(25);
+        optionsBoxRight = new VBox(15);
         optionsBoxRight.setAlignment(Pos.CENTER);
 
-        LabelVBox optionsVBox = new LabelVBox("Options", 12);
-
-        LabelVBox timeVBox = new LabelVBox("Time", 3);
-        ruleLimitedTime = new LabelToggleButtonHBox("Temps limité", false);
-        timeLimit = new LabelSliderHBox("Temps (secondes)", 1, 1800, 300, true, 1); //en secondes
-        timeVBox.getChildren().addAll(ruleLimitedTime, timeLimit);
-
-        LabelVBox bouncesVBox = new LabelVBox("Bounces", 3);
-        ruleLimitedBounces = new LabelToggleButtonHBox("Rebonds limités", false);
-        bouncesLimit = new LabelSliderHBox("Rebonds", 1, 150, 50, true, 1);
-        bouncesVBox.getChildren().addAll(ruleLimitedBounces, bouncesLimit);
-
+        LabelVBox eventVBox = new LabelVBox("Event", 3);
         ruleRandomSwitchBricks = new LabelToggleButtonHBox("Swicth Aléatoire", false);
         ruleColorRestricted = new LabelToggleButtonHBox("Restriction de Couleur", false);
         ruleTransparent = new LabelToggleButtonHBox("Briques Fantôme", false);
         ruleUnbreakable = new LabelToggleButtonHBox("Briques Incassables", false);
+        eventVBox.getChildren().addAll(ruleRandomSwitchBricks, ruleColorRestricted, ruleTransparent, ruleUnbreakable);
 
-        optionsVBox.getChildren().addAll(timeVBox, bouncesVBox, ruleRandomSwitchBricks,
-                ruleColorRestricted, ruleTransparent, ruleUnbreakable);
-
-        optionsBoxRight.getChildren().addAll(optionsVBox);
+        optionsBoxRight.getChildren().addAll(eventVBox);
     }
 
     private void initActionButtons() {
@@ -111,6 +136,26 @@ public class GameCustomizerView implements Menu {
         backButton = createButton("Retour", 0, 0);
         createGame = createButton("Créer", 0, 0);
         actionButtons.getChildren().addAll(createGame, backButton);
+    }
+
+    // Fonction de correction de style sur les tailles (par-dessus le CSS)
+    private void localStyle() {
+        optionsBoxLeft.lookupAll("*").forEach(node -> node.setStyle("-fx-font-size: 16px;"));
+        optionsBoxCenter.lookupAll("*").forEach(node -> node.setStyle("-fx-font-size: 15px;"));
+        optionsBoxRight.lookupAll("*").forEach(node -> node.setStyle("-fx-font-size: 16px;"));
+        actionButtons.lookupAll("*").forEach(node -> node.setStyle("-fx-font-size: 20px;"));
+        centerBox.setPadding(new Insets(36, 0, 0, 0));
+        actionButtons.setPadding(new Insets(0, 0, 0, 120));
+    }
+
+    @Override
+    public void moveConsoleView() {
+        bottomBox.getChildren().add(consoleView);
+    }
+
+    @Override
+    public void handleDynamicAction() {
+        consoleView.setDynamicFocus(scene);
     }
 
     public Stage getPrimaryStage() {

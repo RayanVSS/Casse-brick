@@ -3,6 +3,9 @@ package gui.Menu;
 import java.util.HashMap;
 import java.util.Map;
 
+import gui.ViewPosition;
+import gui.GraphicsFactory.ConsoleView;
+import gui.Menu.MenuViews.BoutiqueView;
 import gui.Menu.MenuViews.ChapterView;
 import gui.Menu.MenuViews.GameCustomizerView;
 import gui.Menu.MenuViews.GameModeView;
@@ -11,6 +14,7 @@ import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
+import gui.Menu.MenuViews.TutoView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.GameConstants;
@@ -85,6 +89,12 @@ public class MenuManager {
         menu.getScene().getStylesheets().add(getClass().getResource(GameConstants.CSS.getPath()).toExternalForm());
     }
 
+    public void updateStylesheets() {
+        for (Menu menu : menus.values()) {
+            addStylesheet(menu);
+        }
+    }
+
     // Charge toutes les scènes du jeu
     public void preCreateAllView(Stage primaryStage) {
         createStartMenuViewScene(primaryStage);
@@ -94,7 +104,9 @@ public class MenuManager {
         createStageSelectorViewScene(primaryStage);
         createGameCustomizerViewScene(primaryStage);
         createChapterViewScene(primaryStage);
+        createBoutiqueView(primaryStage);
         createInfinityModeViewScene(primaryStage);
+        createTutoViewScene(primaryStage);
     }
 
     // Les méthodes suivantes créent des scènes spécifiques et les ajoutent à la
@@ -147,6 +159,18 @@ public class MenuManager {
         addMenu("InfinityModeView", infinityModeView);
     }
 
+    public void createBoutiqueView(Stage primaryStage) {
+        BoutiqueView boutiqueView = new BoutiqueView(primaryStage);
+        addStylesheet(boutiqueView);
+        addMenu("BoutiqueView", boutiqueView);
+    }
+
+    public void createTutoViewScene(Stage primaryStage) {
+        TutoView TutoView = new TutoView(primaryStage);
+        addStylesheet(TutoView);
+        addMenu("TutoView", TutoView);
+    }
+
     /**
      * Change la scène actuelle du primaryStage par une autre scène de la
      * collection.
@@ -158,6 +182,12 @@ public class MenuManager {
     public void changeScene(Stage primaryStage, String name) {
         Menu menu = getMenu(name);
         menu.update();
+        if (menu instanceof ViewPosition) {
+            ((ViewPosition) menu).saveViewPosition();
+            ((ViewPosition) menu).moveConsoleView();
+            ((ViewPosition) menu).handleDynamicAction();
+            ConsoleView.getInstance().unfocusAction();
+        }
         primaryStage.setScene(menu.getScene());
     }
 }

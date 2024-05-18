@@ -4,7 +4,6 @@ import gui.Menu.Menu;
 import gui.Menu.MenuControllers.InfinityModeController;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;

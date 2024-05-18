@@ -5,17 +5,20 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import entity.Boost;
 import entity.ball.MagnetBall;
+import entity.Bonus;
+import entity.Boost;
 import physics.entity.Ball;
+import physics.entity.Brick;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import utils.GameConstants;
 import gui.App;
+import javafx.application.Platform;
 
 public class Game {
 
-    private Ball ball;
+    private Ball originalball;
     private Racket racket;
     private Map map;
     private boolean lost;
@@ -26,36 +29,28 @@ public class Game {
     private GameRules rules;
     private Timer inGameTimer;
     private int timeElapsed = 0; // en secondes
+    private List<Bonus> bonuslist = new ArrayList<>();
+    private List<Ball> balls = new ArrayList<>();
     private List<Boost> boosts = new ArrayList<>();
-    // private boolean isInfinite;
 
     public Game(Ball ball, Racket racket, GameRules rules) {
-        this.ball = ball;
+        originalball = ball;
+        balls.add(Ball.clone(ball));
         this.racket = racket;
         this.rules = rules;
         this.map = new Map(rules, GameConstants.COLUMNS_OF_BRICKS, GameConstants.ROWS_OF_BRICKS);
         rules.initRules(this);
-        // this.isInfinite = false;
     }
 
     public Game(Ball ball, Racket racket, int life, GameRules rules, int columnsBricks, int rowsBricks) {
-        this.ball = ball;
+        originalball = ball;
+        balls.add(Ball.clone(ball));
         this.racket = racket;
         this.life = life;
         this.rules = rules;
         this.map = new Map(rules, columnsBricks, rowsBricks);
-        // this.isInfinite = false;
         rules.initRules(this);
     }
-    //TODO SERT A RIEN
-    // public Game(Ball ball, Racket racket, GameRules rules, boolean isInfinite) {
-    //     this.ball = ball;
-    //     this.racket = racket;
-    //     this.rules = rules;
-    //     this.map = new Map(rules, GameConstants.COLUMNS_OF_BRICKS,GameConstants.ROWS_OF_BRICKS);
-    //     // this.isInfinite = isInfinite;
-    //     rules.initRules(this);
-    // }
 
     private void start() {
         if (inGameTimer == null) {
@@ -63,8 +58,10 @@ public class Game {
             inGameTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() { // chaque seconde
-                    timeElapsed++;
-                    rules.updateRemainingTime();
+                    Platform.runLater(() -> {
+                        timeElapsed++;
+                        rules.updateRemainingTime();
+                    });
                 }
             }, 0, 1000);
         }
@@ -77,68 +74,75 @@ public class Game {
 
     public void update(long deltaT) {
         start();
-        //Vérifie si la balle touche une brique
-        map.handleCollisionBricks(ball, rules); //gérer la collision des briques
-        if (map.updateBricksStatus(this)) {
-            //si la briques est cassée, chance d'avoir un boost
-            Boost boost = Boost.createBoost(ball.getC());
-            if (boost != null) {
-                boosts.add(boost);
-            }
-        }
-        // Si la balle touche la raquette
-        if (racket.CollisionRacket(ball)) {
-            ball.setCollisionR(true);
-            App.ballSound.update();
-            App.ballSound.play();
-            updateRulesRacket();
-        }
-        // Gere les conditions de perte
-        if (!ball.movement()) {
-            life--;
-            if (rules.isInfinite()){
-                ball.reset(resetBallInfinite());
-            }else{
-                ball.reset(GameConstants.DEFAULT_BALL_START_COORDINATES);
-            }
-            racket.reset();
+
+        //Vérifie si la balle est en collision avec une autre balle avant de les déplacer
+        for (Ball ball : balls) {
+            ball.checkCollisionOtherBall(balls);
         }
 
-        if (ball instanceof MagnetBall) {
-            // donne les coordonnées de la raquette a la MagnetBall
-            setRa();
-            // actualise l'etat de la raquette
-            if (BallFrontRacket()) {
-                ((MagnetBall) ball).setFront(true);
-            } else {
-                ((MagnetBall) ball).setFront(false);
+        for (Ball ball : balls) {
+            ball.CollisionB = false;
+            if (ball.delete()) {
+                ball.setDestroyed(true);
+                balls.remove(ball);
+                break;
             }
+            // map.handleCollisionBricks(ball, rules); // gérer la collision des briques
+            if (map.updateBricksStatus(this)) {
+                // si la briques est cassée, chance d'avoir un boost
+                Bonus bonus = Bonus.createBonus(ball.getC(), balls);
+                if (bonus != null) {
+                    bonuslist.add(bonus);
+                }
+            }
+            // Si la balle touche la raquette
+            if (ball.checkCollision(racket)) {
+                App.ballSound.update();
+                App.ballSound.play();
+                rules.updateRulesRacket(map);
+            }
+            ball.movement(deltaT);
+
+            if (ball instanceof MagnetBall) {
+                // donne les coordonnées de la raquette a la MagnetBall
+                setRa();
+                // actualise l'etat de la raquette
+                if (BallFrontRacket(ball)) {
+                    ((MagnetBall) ball).setFront(true);
+                } else {
+                    ((MagnetBall) ball).setFront(false);
+                }
+            }
+            for (Brick brick : map.getBricks()) {
+                ball.checkCollision(brick);
+            }
+        }
+
+        // Gere les conditions de perte
+        if (balls.isEmpty()) {
+            life--;
+            balls.add(Ball.clone(originalball));
+            racket.reset();
         }
         if (rules.isInfinite()) {
             rules.testInfinite(map);//TODO CST PR LA VITESSE DES BRICK
+            rules.createBrickInfinite(map);
         }
         updateGameStatus();
+        racket.getDirection().setX(0);
     }
 
-    public boolean isInfiniteBonus(){
-        for (Boost b : boosts){
-            if (b.getType().equals("infiniteStop")){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    //TODO METTRE DANS GAMESRULES
-    private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette
-        rules.updateRemainingBounces();
-        rules.updateBricksTransparency(map);
-        rules.updateBricksUnbreakability(map);
-        rules.shuffleBricks(map.getBricks());
-    }
+    // public boolean isInfiniteBonus() {
+    //     for (Boost b : boosts) {
+    //         if (b.getType().equals("infiniteStop")) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 
     private void updateGameStatus() { // Vérifie & MAJ le statut de la Game, gagnée/perdue
-        if (life == 0 || !rules.check(map,racket.getC())) {
+        if (life == 0 || !rules.check(map, racket.getC())) {
             lost = true;
             inGameTimer.cancel();
         }
@@ -148,28 +152,42 @@ public class Game {
     }
 
     // Vérifie si la balle est devant la raquette
-    public boolean BallFrontRacket() {
-        if (racket.getC().getX() - ball.getC().getX() < 0
-                && (racket.getC().getX() + racket.getLargeur()) - ball.getC().getX() > 0) {
+    public boolean BallFrontRacket(Ball b) {
+        if (racket.getC().getX() - b.getC().getX() < 0
+                && (racket.getC().getX() + racket.getLargeur()) - b.getC().getX() > 0) {
             return true;
         }
         return false;
     }
 
-    private boolean verifyWin() {
-        return false; // décommenter ici pour tester les wins
-        // return map.countBricks() == 0;
+    public void deleteBalls() {
+        for (Ball b : balls) {
+            if (!b.delete()) {
+                balls.remove(b);
+                break;
+            }
+        }
     }
 
-    //TODO DANS GAMERULES MAYBE
-    public Coordinates resetBallInfinite(){
-        Coordinates c=new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH/2, map.lastBrick()+900/2);//TODO A tâtonner SINON LE METTRE PROCHE DE LA RAQUETTE
-        return c;
+    private boolean verifyWin() {
+        // return true; // décommenter ici pour tester les wins
+        return map.countBricks() == 0;
     }
+
+    // public Coordinates resetBallInfinite() {
+    //     Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2, map.lastBrick() + 900 / 2);
+    //     return c;
+    // }
 
     // Setters/getters
-    public Ball getBall() {
-        return ball;
+
+    public List<Ball> getBalls() {
+        return balls;
+    }
+
+    public void resetBalls() {
+        balls.clear();
+        balls.add(Ball.clone(originalball));
     }
 
     public boolean getCollide() {
@@ -216,16 +234,11 @@ public class Game {
         return rules;
     }
 
-    public List<Boost> getBoosts() {
-        return boosts;
+    public List<Bonus> getBoosts() {
+        return bonuslist;
     }
 
     public void setScore(int score) {
         this.score = score;
     }
-
-
-    // public boolean isInfinite() {
-    //     return isInfinite;
-    // }
 }
