@@ -64,8 +64,6 @@ public class GameRoot {
         }
         addEntitiesGraphics(); // Affichage du début
         updateEntitiesGraphics();
-        BricksGraphics test = new BricksGraphics(new BrickClassic(new Coordinates(0, 0)));
-        this.root.getChildren().add(test);
         this.root.getChildren().add(graphRacket.getShape());
         this.updateEntitiesGraphics();
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
