@@ -25,7 +25,7 @@ public class BricksGraphics extends StackPane implements EntityGraphics {
     private boolean isMouseDraggingBall = false;
     private double mouseX , mouseY = 0;
 
-    private static final Map<EntityColor, String> colorToImageMap;
+    public static final Map<EntityColor, String> colorToImageMap;
 
     static {
         colorToImageMap = new HashMap<>();
@@ -62,6 +62,8 @@ public class BricksGraphics extends StackPane implements EntityGraphics {
         this.i = i;
         this.j = j;
         this.setImageView(image);
+        setLayoutX(brick.getC().getX());
+        setLayoutY(brick.getC().getY());
         this.isUnbreakable = brick.isUnbreakable();
         this.isTransparent = brick.isTransparent();
     }

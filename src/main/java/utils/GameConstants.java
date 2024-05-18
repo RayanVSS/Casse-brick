@@ -61,8 +61,6 @@ public final class GameConstants {
                         add(new Segment(new Coordinates(0, 0), new Coordinates(DEFAULT_GAME_ROOT_WIDTH, 0)));
                         add(new Segment(new Coordinates(DEFAULT_GAME_ROOT_WIDTH, 0),
                                         new Coordinates(DEFAULT_GAME_ROOT_WIDTH, DEFAULT_WINDOW_HEIGHT)));
-                        add(new Segment(new Coordinates(DEFAULT_GAME_ROOT_WIDTH, DEFAULT_WINDOW_HEIGHT),
-                                        new Coordinates(0, DEFAULT_WINDOW_HEIGHT)));
                         add(new Segment(new Coordinates(0, DEFAULT_WINDOW_HEIGHT), new Coordinates(0, 0)));
                 }
         };

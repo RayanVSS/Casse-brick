@@ -27,7 +27,13 @@ public class StageLevel {
     }
 
     public boolean canLoadGame() {
-        if (PlayerData.expLevel >= unlockLevel) {
+        if (PlayerData.expLevel >= unlockLevel || PlayerData.isAdmin) {
+            if (PlayerData.expLevel < unlockLevel) { // ADMIN
+                Console.systemDisplay("Niveau requis : " + unlockLevel);
+                Console.systemDisplay("Niveau actuel : " + PlayerData.expLevel);
+                Console.systemDisplay("Niveau requis non atteint... mais...");
+                Console.systemDisplay("Droit Admin : Chargement du jeu autorisé.");
+            }
             Console.systemDisplay("Chargement du jeu...");
             if (game == null) {
                 this.game = new Game(

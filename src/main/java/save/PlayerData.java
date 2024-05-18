@@ -23,7 +23,7 @@ public class PlayerData {
         stagesProgress = new StagesProgress(GameConstants.STAGES_QTY);
         stagesProgress.createStages();
         inventaire = new Inventaire();
-        
+
     }
 
     /**
@@ -49,7 +49,6 @@ public class PlayerData {
         int winMoney = level.getGame().getScore(); // Base
         winMoney += applyBonus(level);
         winMoney *= applyMultipliers(level);
-        System.out.println("Vous avez gagné : " + winMoney);
         return winMoney;
     }
 
