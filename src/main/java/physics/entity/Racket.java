@@ -636,6 +636,36 @@ public abstract class Racket extends Figure {
         createsegments();
     }
 
+    public void Dojump(Racket racket, List<Ball> balls){
+        if (racket.getJumpUP()) {
+            racket.deplaceY(-5);
+            racket.setDirection(new Vector(racket.getDirection().getX(), -1));
+            for (Ball ball : balls) {
+                if (ball.getC().getX() > racket.getC().getX()
+                        && ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
+                        && ball.getC().getY() > racket.getC().getY() - racket.getLongueur()) {
+                    ball.setC(new Coordinates(ball.getC().getX(), racket.getC().getY() - racket.getLongueur() - 2));
+                    ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY()*1.2));
+                    ball.getRotation().stopRotation();
+                }
+            }
+            racket.createsegments();
+        }
+        if (racket.getJumpDOWN()) {
+            racket.deplaceY(2.9);
+            racket.createsegments();
+        }
+        if (racket.getCalibrage()) {
+            Coordinates c = new Coordinates(racket.getC().getX(), GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
+            racket.setC(c);
+            racket.setDirection(new Vector(racket.getDirection().getX(), 0));
+            racket.setCalibrage(false);
+            racket.createsegments();
+
+        }
+    }
+
+
     // GET et SET
     public void setCalibrage(boolean calibrage) {
         this.calibrage = calibrage;

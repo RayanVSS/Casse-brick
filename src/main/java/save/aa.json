@@ -3,15 +3,15 @@
   "MUSIC": 0,
   "CSS": "CLASSIC",
   "MONEY": 0,
-  "SKIN_BALL": "Null",
+  "SKIN_BALL": "src/main/ressources/balle/black/gravity.png",
   "INVENTAIRE": [],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": false,
   "PSEUDO": "Sans nom",
   "SPACE": "SPACE",
-  "TEXTURE": "src/main/ressources/Texture/arc_en_ciel.jpg",
-  "EXP_LEVEL": 1,
+  "TEXTURE": "src/main/ressources/Texture/stars.jpg",
+  "EXP_LEVEL": 36,
   "PROGRESS": {
     "stages": [
       {
