@@ -4,6 +4,7 @@
     -fx-background-color: #282C35;
     -fx-alignment: center;
     -fx-spacing: 20;
+    -fx-font-family: "Kode Mono";
 }
 
 .root-options {
@@ -41,20 +42,26 @@
     -fx-font-size: 20px;
 }
 
-.button-style {
+.button-style,
+.button-boutique {
     -fx-background-color: #6A6A6A;
 }
 
 .button-style,
-.label-style {
+.label-style,
+.button-boutique {
     -fx-text-fill: #C0C0C0;
 }
 
-.button-hover {
+.button-hover,
+.button-boutique {
     -fx-background-color: #657786;
     -fx-text-fill: #C0C0C0;
 }
 
+.button-boutique{
+    fx-font-size :10px;
+}
 /* LES TEXTES + LABELS */
 .fin-label {
     -fx-font-size: 35px;
@@ -77,7 +84,7 @@
 }
 
 .scoreL-style {
-    -fx-font-size: 20px;
+    -fx-font-size: 15px;
     -fx-text-fill: #C0C0C0;
 }
 

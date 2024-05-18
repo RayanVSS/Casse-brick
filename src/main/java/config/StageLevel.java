@@ -15,6 +15,7 @@ public class StageLevel {
     private boolean customGame;
     private transient GameCustomizerController gameReinitializer;
 
+
     public StageLevel(int difficulty, int unlockLevel, boolean customGame) {
 
         this.difficulty = difficulty;

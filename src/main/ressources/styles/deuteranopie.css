@@ -1,7 +1,7 @@
 /* LES ROOTS */
 .root,
 .root-options {
-    -fx-background-color: #282C35; 
+    -fx-background-color: #282C35;
     -fx-alignment: center;
     -fx-spacing: 20;
 }
@@ -11,7 +11,7 @@
 }
 
 .game-backgorund {
-    -fx-background-color: #282C35; 
+    -fx-background-color: #282C35;
 }
 
 .root-game-over,
@@ -47,22 +47,29 @@
     -fx-font-size: 20px;
 }
 
-.button-style {
+.button-style,
+.button-boutique {
     -fx-background-color: #6A6A6A;
 }
 
 .button-style,
-.label-style{
+.label-style,
+.button-boutique {
     -fx-text-fill: #C0C0C0;
 }
 
-.button-hover {
+.button-boutique {
+    -fx-font-size: 10px;
+}
+
+.button-hover,
+.button-boutique {
     -fx-background-color: #657786;
     -fx-text-fill: #C0C0C0;
 }
 
 /* LES TEXTES + LABELS */
-.fin-label{
+.fin-label {
     -fx-font-size: 35px;
     -fx-text-fill: #C0C0C0;
     -fx-font-weight: bold;

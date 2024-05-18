@@ -41,16 +41,23 @@
     -fx-font-size: 20px;
 }
 
-.button-style {
+.button-boutique{
+    -fx-font-size: 10px;
+}
+
+.button-style,
+.button-boutique {
     -fx-background-color: #B3B3B3;
 }
 
 .button-style,
-.label-style{
+.label-style,
+.button-boutique{
     -fx-text-fill: #000000;
 }
 
-.button-hover {
+.button-hover,
+.button-boutique {
     -fx-background-color: #D9D9D9;
     -fx-text-fill: #000000;
 }

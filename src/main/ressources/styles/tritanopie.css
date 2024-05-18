@@ -1,41 +1,50 @@
 /* LES RACINES */
-  
 
-  
-  
-  .button-style, .slider-style {
-    -fx-background-color: #D9D9D9; 
-  }
-  
-  .button-style, .label-style {
-    -fx-text-fill: #333333; 
-  }
-  
-  .button-hover {
-    -fx-background-color: #B3B3B3; 
-    -fx-text-fill: #333333; 
-  }
-  
-  /* LES TEXTES + LABELS */
-  .text-style, .title-style, .title-game-over-style {
+.button-style,
+.slider-style,
+.button-boutique  {
+    -fx-background-color: #D9D9D9;
+}
+
+.button-style,
+.label-style,
+.button-boutique  {
+    -fx-text-fill: #333333;
+}
+
+.button-hover,
+.button-boutique  {
+    -fx-background-color: #B3B3B3;
+    -fx-text-fill: #333333;
+}
+
+.button-boutique {
+    -fx-font-size: 10px;
+}
+
+/* LES TEXTES + LABELS */
+.text-style,
+.title-style,
+.title-game-over-style {
     -fx-font-size: 20px;
-    -fx-fill: #333333; 
-  }
-  
-  .title-style, .title-game-over-style {
+    -fx-fill: #333333;
+}
+
+.title-style,
+.title-game-over-style {
     -fx-font-size: 50;
-    -fx-text-fill: #333333; 
+    -fx-text-fill: #333333;
     -fx-font-weight: bold;
-  }
-  
-  .scoreL-style {
+}
+
+.scoreL-style {
     -fx-font-size: 25px;
     -fx-font-weight: bold;
-    -fx-fill: #333333; 
-  }
-  
+    -fx-fill: #333333;
+}
 
-  /* LES ROOTS */
+
+/* LES ROOTS */
 .root,
 .root-options {
     -fx-background-color: #F2F2F2;
@@ -83,7 +92,7 @@
 }
 
 .button-style,
-.label-style{
+.label-style {
     -fx-text-fill: #333333;
 }
 
@@ -93,7 +102,7 @@
 }
 
 /* LES TEXTES + LABELS */
-.fin-label{
+.fin-label {
     -fx-font-size: 35px;
     -fx-text-fill: #333333;
     -fx-font-weight: bold;

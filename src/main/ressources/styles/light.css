@@ -41,18 +41,26 @@
     -fx-font-size: 20px;
 }
 
-.button-style {
+
+.button-style,
+.button-boutique {
     -fx-background-color: #AAB8C2;
 }
 
 .button-style,
-.label-style {
+.label-style,
+.button-boutique {
     -fx-text-fill: #14171A;
 }
 
-.button-hover {
+.button-hover,
+.button-boutique {
     -fx-background-color: #657786;
     -fx-text-fill: #14171A;
+}
+
+.button-boutique {
+    -fx-font-size: 10px;
 }
 
 /* LES TEXTES + LABELS */

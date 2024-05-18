@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
@@ -25,17 +26,16 @@ public class ChapterView implements Menu, ViewPosition {
     private Scene scene;
 
     private Button chapter1;
-    private ImageView chapter1Image;
-
     private Button chapter2;
-    private ImageView chapter2Image;
 
     private Button chapter3;
-    private ImageView chapter3Image;
 
     private Button backButton;
 
     private ConsoleView consoleView;
+
+    private Image lock = ImageLoader.loadImage("src/main/ressources/cadenaFerme.png");
+    private Image unLock = ImageLoader.loadImage("src/main/ressources/cadenaOuvert.png");
 
     public ChapterView(Stage primaryStage) {
 
@@ -49,44 +49,12 @@ public class ChapterView implements Menu, ViewPosition {
         Image image2 = ImageLoader.loadImage("src/main/ressources/chapitre/chapitre2.png");
         Image image3 = ImageLoader.loadImage("src/main/ressources/chapitre/chapitre3.png");
 
+        // Créer les boutons
+        chapter1 = createChapterButton(image1, null, -10);
+        chapter2 = createChapterButton(image2,  null, 0);
+        chapter3 = createChapterButton(image3, null, 10);
+
         backButton = createButton("Retour", 0, 0);
-
-        // Initialiser les boutons et les images
-        chapter1 = new Button();
-        chapter1Image = new ImageView(image1);
-        chapter1Image.setFitWidth(800);
-        chapter1Image.setFitHeight(120);
-        chapter1.setGraphic(chapter1Image);
-        chapter1.setStyle("-fx-background-color: transparent;");
-        chapter1.setPrefWidth(800);
-        chapter1.setPrefHeight(120);
-        
-
-        chapter2 = new Button();
-        chapter2Image = new ImageView(image2);
-        chapter2Image.setFitWidth(800);
-        chapter2Image.setFitHeight(120);
-        chapter2.setGraphic(chapter2Image);
-        chapter2.setStyle("-fx-background-color: transparent;");
-        chapter2.setPrefWidth(800);
-        chapter2.setPrefHeight(120);
-
-        chapter3 = new Button();
-        chapter3Image = new ImageView(image3);
-        chapter3Image.setFitWidth(800);
-        chapter3Image.setFitHeight(120);
-        chapter3.setGraphic(chapter3Image);
-        chapter3.setStyle("-fx-background-color: transparent;");
-        chapter3.setPrefWidth(800);
-        chapter3.setPrefHeight(120);
-
-        String hoverStyle = "-fx-background-color: #FFFFFF; -fx-opacity: 0.5;";
-        chapter1.setOnMouseEntered(e -> chapter1.setStyle(hoverStyle));
-        chapter1.setOnMouseExited(e -> chapter1.setStyle("-fx-background-color: transparent;"));
-        chapter2.setOnMouseEntered(e -> chapter2.setStyle(hoverStyle));
-        chapter2.setOnMouseExited(e -> chapter2.setStyle("-fx-background-color: transparent;"));
-        chapter3.setOnMouseEntered(e -> chapter3.setStyle(hoverStyle));
-        chapter3.setOnMouseExited(e -> chapter3.setStyle("-fx-background-color: transparent;"));
 
         // Ajouter les boutons à la box centrale
         centerBox.getChildren().addAll(chapter1, chapter2, chapter3, backButton);
@@ -100,6 +68,33 @@ public class ChapterView implements Menu, ViewPosition {
         root.setCenter(centerBox);
         root.setBottom(bottomBox);
         new ChapterController(this);
+    }
+
+    private Button createChapterButton(Image chapterImage, Image lockImage, int lockYTranslate) {
+        ImageView chapterImageView = new ImageView(chapterImage);
+        chapterImageView.setFitWidth(800);
+        chapterImageView.setFitHeight(120);
+
+        ImageView lockView = new ImageView(lockImage);
+        lockView.setFitWidth(40);
+        lockView.setFitHeight(40);
+        lockView.setTranslateX(-100);
+        lockView.setTranslateY(lockYTranslate);
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(chapterImageView, lockView);
+
+        Button chapterButton = new Button();
+        chapterButton.setGraphic(stackPane);
+        chapterButton.setStyle("-fx-background-color: transparent;");
+        chapterButton.setPrefWidth(800);
+        chapterButton.setPrefHeight(120);
+
+        String hoverStyle = "-fx-background-color: #FFFFFF; -fx-opacity: 0.5;";
+        chapterButton.setOnMouseEntered(e -> chapterButton.setStyle(hoverStyle));
+        chapterButton.setOnMouseExited(e -> chapterButton.setStyle("-fx-background-color: transparent;"));
+
+        return chapterButton;
     }
 
     @Override

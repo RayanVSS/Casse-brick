@@ -26,8 +26,16 @@ public class Item implements Menu{
         this.worn = GameConstants.TEXTURE.equals(this.getPath()) || GameConstants.SKIN_BALL.equals(this.getPath());
         // GameConstants.BALL_PORTE==this || GameConstants.RACKET_PORTE==this;
 
-        button = createButton("");
-
+        button = new Button("");
+        button.getStyleClass().add("button-boutique");
+        button.setOnMouseEntered(e -> {
+            button.getStyleClass().remove("button-boutique");
+            button.getStyleClass().add("button-hover");
+        });
+        button.setOnMouseExited(e -> {
+            button.getStyleClass().remove("button-hover");
+            button.getStyleClass().add("button-boutique");
+        });
     }
 
     public void updateButtonBuy(){

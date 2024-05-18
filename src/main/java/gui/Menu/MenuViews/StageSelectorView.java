@@ -10,12 +10,16 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import save.PlayerData;
 import utils.GameConstants;
+import utils.ImageLoader;
 
 public class StageSelectorView implements Menu, ViewPosition {
 
@@ -28,6 +32,9 @@ public class StageSelectorView implements Menu, ViewPosition {
     private GridPane grid;
     private ArrayList<Button> buttons;
     private Button backButton;
+
+    private Image lock = ImageLoader.loadImage("src/main/ressources/cadenaFerme.png");
+    private Image unLock = ImageLoader.loadImage("src/main/ressources/cadenaOuvert.png");
 
     private ConsoleView consoleView;
 
@@ -62,6 +69,18 @@ public class StageSelectorView implements Menu, ViewPosition {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 Button tmp = createButton("" + count, 0, 0);
+                System.out.println("Stages : "+(count-1)+" "+PlayerData.stagesProgress.getStages()[count-1].canLoadGame());
+                if (PlayerData.stagesProgress.getStages()[count-1].canLoadGame()) {
+                    ImageView imageView = new ImageView(unLock);
+                    imageView.setFitHeight(50);
+                    imageView.setFitWidth(50);
+                    tmp.setGraphic(imageView);
+                } else {
+                    ImageView imageView = new ImageView(lock);
+                    imageView.setFitHeight(50);
+                    imageView.setFitWidth(50);
+                    tmp.setGraphic(imageView);
+                }
                 tmp.setPrefSize(120, 60);
                 grid.add(tmp, col, row);
                 buttons.add(tmp);

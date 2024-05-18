@@ -38,6 +38,10 @@
 
 /* LES BOUTONS */
 
+.button-boutique{
+    fx-font-size :10px;
+}
+
 .scoreL-style {
     -fx-font-size: 20px;
     -fx-text-fill: #1b263b;
@@ -49,16 +53,19 @@
     -fx-font-size: 20px;
 }
 
-.button-style {
+.button-style,
+.button-boutique {
     -fx-background-color: #1b263b;
 }
 
 .button-style,
-.label-style {
+.label-style,
+.button-boutique {
     -fx-text-fill: #d5bbb1;
 }
 
-.button-hover {
+.button-hover,
+.button-boutique {
     -fx-background-color: #d5bbb1;
     -fx-text-fill: #1b263b;
 }
