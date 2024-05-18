@@ -86,6 +86,7 @@ public class Game {
         }
         for (Ball ball : balls) {
             if (ball.delete()) {
+                ball.setDestroyed(true);
                 balls.remove(ball);
                 break;
             }
@@ -108,7 +109,7 @@ public class Game {
                     ((MagnetBall) ball).setFront(false);
                 }
                 if (ball.checkCollision(racket)) {
-                    ball.CollisionR= true;
+                    ball.CollisionR = true;
                     App.ballSound.update();
                     App.ballSound.play();
                     updateRulesRacket();
@@ -146,22 +147,22 @@ public class Game {
         updateGameStatus();
         racket.getDirection().setX(0);
 
-        if(racket.getJumpUP()){
+        if (racket.getJumpUP()) {
             racket.deplaceY(-5);
         }
-        if(racket.getJumpDOWN()){
+        if (racket.getJumpDOWN()) {
             racket.deplaceY(2.9);
         }
-        if(racket.getCalibrage()){
-            Coordinates c = new Coordinates(racket.getC().getX(),GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
-            Vector direction = new Vector(0,0);
+        if (racket.getCalibrage()) {
+            Coordinates c = new Coordinates(racket.getC().getX(), GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
+            Vector direction = new Vector(0, 0);
             racket.setC(c);
             racket.setDirection(direction);
             racket.setCalibrage(false);
             System.out.println(racket.getC().getY());
-            
+
         }
-        
+
     }
 
     private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette
