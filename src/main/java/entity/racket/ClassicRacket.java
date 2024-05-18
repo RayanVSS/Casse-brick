@@ -2,6 +2,7 @@ package entity.racket;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javafx.scene.input.KeyCode;
@@ -41,7 +42,7 @@ public class ClassicRacket extends Racket {
                 System.out.println("jumpUP " + getJumpUP());
                 System.out.println("jumpDOWN " + getJumpDOWN());
                 
-            }          
+            }      
         }
     }
 

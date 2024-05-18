@@ -132,7 +132,7 @@ public class PhysicEngine extends Pane{
             public void handle(long now) {
                 KeyPressed();
                 if (racket != null) {
-                    racket.handleKeyPress(key.getKeysPressed(),listball.keySet());
+                    racket.handleKeyPress(key.getKeysPressed());
                 }
                 if (last == 0) {
                     last = now;

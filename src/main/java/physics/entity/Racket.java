@@ -15,6 +15,8 @@ import gui.GameRoot;
 import gui.GraphicsFactory.RacketGraphics;
 import physics.geometry.Figure;
 import utils.Key;
+
+import java.util.List;
 import java.util.HashSet;
 import physics.geometry.Segment;
 
@@ -384,16 +386,21 @@ public abstract class Racket extends Figure {
     }
 
     public void BallinRacket(Ball b) {
-       for (Segment s : segments) {
-            double radius = b.getRadius();
-            if (s.intersect(b.getC(), radius, radius)) {
-                if(s==segments.get(1) || s==segments.get(2)){
-                    b.getC().setY(s.getStart().getY() -radius);
-                }else{
-                    b.getC().setX(s.getStart().getX() +radius);
-                }
+       if(shape=="rectangle"){
+            if(segments.get(0).intersect(b.getC(),b.getRadius(),b.getRadius())){
+                b.getC().setY(this.getC().getY()-b.getRadius());
             }
-        }
+            else if(segments.get(2).intersect(b.getC(),b.getRadius(),b.getRadius())){
+                b.getC().setY(this.getC().getX()+getLargeur()+b.getRadius());
+            }
+            else if(segments.get(1).intersect(b.getC(),b.getRadius(),b.getRadius())){
+                b.getC().setX(this.getC().getX()+getLongueur()+b.getRadius());
+            }
+            else if(segments.get(3).intersect(b.getC(),b.getRadius(),b.getRadius())){
+                b.getC().setX(this.getC().getX()-b.getRadius());
+            }
+
+       }
     }
 
     // fonction obligatoire
