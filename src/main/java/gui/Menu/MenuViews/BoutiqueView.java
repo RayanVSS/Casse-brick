@@ -3,6 +3,7 @@ package gui.Menu.MenuViews;
 import gui.Item;
 import gui.ViewPosition;
 import gui.GraphicsFactory.ConsoleView;
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.BoutiqueController;
 import javafx.scene.Scene;
@@ -49,6 +50,7 @@ public class BoutiqueView implements Menu, ViewPosition {
     private final int startPrice = 5;
 
     private ConsoleView consoleView;
+    private BaseView baseView;
 
     public BoutiqueView(Stage p) {
         this.primaryStage = p;
@@ -74,6 +76,7 @@ public class BoutiqueView implements Menu, ViewPosition {
         root.setBottom(consoleBox);
         localStyle();
 
+        baseView = new BaseView(root, contentBox, consoleBox);
         new BoutiqueController(this);
     }
 
@@ -170,8 +173,7 @@ public class BoutiqueView implements Menu, ViewPosition {
         consoleView.setDynamicFocus(scene);
     }
 
-    @Override
-    public Scene getScene() {
+    public Scene getScenes() {
         return scene;
     }
 
@@ -183,6 +185,7 @@ public class BoutiqueView implements Menu, ViewPosition {
         for (Item i : balleItem) {
             updateButton(i);
         }
+        baseView.update();
     }
 
     // GETTERS
@@ -216,6 +219,11 @@ public class BoutiqueView implements Menu, ViewPosition {
 
     public LabelVBox getMoneyVBox() {
         return moneyVBox;
+    }
+
+    @Override
+    public Scene getScene() {
+       return scene;
     }
 
 }

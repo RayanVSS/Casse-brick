@@ -1,12 +1,13 @@
 /* LES ROOTS */
 .root,
 .root-options {
-    /*-fx-background-color: #FEE5F2;*/
+    /* -fx-background-color: #FEE5F2; */
     -fx-alignment: center;
     -fx-spacing: 20;
-    -fx-background: linear-gradient(#FEE5F2, #FFB6C1);
-    background: linear-gradient(#FEE5F2, #FFB6C1);
+    /* -fx-background: linear-gradient(#FEE5F2, #FFB6C1); */
+    /* background: linear-gradient(#FEE5F2, #FFB6C1); */
     /*fx-background: linear-gradient(to right, blue, pink);*/
+    -fx-font-family: "Kode Mono";
 }
 
 .root-options {
@@ -65,6 +66,11 @@
     -fx-font-size: 10px;
 }
 
+.button-hover-boutique {
+    -fx-background-color: #FFB6C1;
+    -fx-text-fill: #C71585;
+}
+
 /* LES TEXTES + LABELS */
 .fin-label {
     -fx-font-size: 35px;
@@ -87,7 +93,7 @@
 }
 
 .scoreL-style {
-    -fx-font-size: 20px;
+    -fx-font-size: 15px;
     -fx-text-fill: #C71585;
 }
 
@@ -121,6 +127,14 @@
 
 .label-vbox {
     -fx-background-color: #FEE5F2;
+    -fx-border-color: #C71585;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 5px;
+    -fx-alignment: center;
+}
+.label-vbox-profil{
     -fx-border-color: #C71585;
     -fx-border-width: 2px;
     -fx-border-radius: 5px;

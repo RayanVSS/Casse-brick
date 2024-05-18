@@ -7,7 +7,7 @@ import javafx.scene.effect.DropShadow;
 import save.PlayerData;
 import utils.GameConstants;
 
-public class Item implements Menu{
+public class Item {
 
     private String name;
     private String path;
@@ -30,10 +30,10 @@ public class Item implements Menu{
         button.getStyleClass().add("button-boutique");
         button.setOnMouseEntered(e -> {
             button.getStyleClass().remove("button-boutique");
-            button.getStyleClass().add("button-hover");
+            button.getStyleClass().add("button-hover-boutique");
         });
         button.setOnMouseExited(e -> {
-            button.getStyleClass().remove("button-hover");
+            button.getStyleClass().remove("button-hover-boutique");
             button.getStyleClass().add("button-boutique");
         });
     }
@@ -102,9 +102,9 @@ public class Item implements Menu{
     }
 
 
-    @Override
-    public Scene getScene() {
-        throw new UnsupportedOperationException("Unimplemented method 'getScene'");
-    }
+    // @Override
+    // public Scene getScene() {
+    //     throw new UnsupportedOperationException("Unimplemented method 'getScene'");
+    // }
 
 }

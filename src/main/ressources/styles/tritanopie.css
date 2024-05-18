@@ -21,6 +21,10 @@
 .button-boutique {
     -fx-font-size: 10px;
 }
+.button-hover-boutique {
+    -fx-background-color: #B3B3B3;
+    -fx-text-fill: #333333;
+}
 
 /* LES TEXTES + LABELS */
 .text-style,
@@ -38,8 +42,7 @@
 }
 
 .scoreL-style {
-    -fx-font-size: 25px;
-    -fx-font-weight: bold;
+    -fx-font-size: 15px;
     -fx-fill: #333333;
 }
 
@@ -50,6 +53,7 @@
     -fx-background-color: #F2F2F2;
     -fx-alignment: center;
     -fx-spacing: 20;
+    -fx-font-family: "Kode Mono";
 }
 
 .root-options {
@@ -157,6 +161,14 @@
 
 .label-vbox {
     -fx-background-color: #2f3d57;
+    -fx-border-color: #D9D9D9;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 5px;
+}
+
+.label-vboxprofil {
     -fx-border-color: #D9D9D9;
     -fx-border-width: 2px;
     -fx-border-radius: 5px;

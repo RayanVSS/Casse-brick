@@ -1,16 +1,16 @@
 {
-  "PATH": false,
+  "PATH": true,
   "MUSIC": 0,
-  "CSS": "CLASSIC",
+  "CSS": "PINK",
   "MONEY": 0,
-  "SKIN_BALL": "src/main/ressources/balle/pink/classic.png",
+  "SKIN_BALL": "src/main/ressources/balle/light/gravity.png",
   "INVENTAIRE": [],
   "PARTICLES": true,
   "LEFT": "LEFT",
-  "FPS": false,
+  "FPS": true,
   "PSEUDO": "Sans nom",
   "SPACE": "SPACE",
-  "TEXTURE": "src/main/ressources/Texture/arc_en_ciel.jpg",
+  "TEXTURE": "src/main/ressources/Texture/rouge.jpg",
   "EXP_LEVEL": 1,
   "PROGRESS": {
     "stages": [

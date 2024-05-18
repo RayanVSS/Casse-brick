@@ -2,6 +2,7 @@ package gui.Menu.MenuViews;
 
 import gui.ViewPosition;
 import gui.GraphicsFactory.ConsoleView;
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameModeController;
 import javafx.geometry.Insets;
@@ -27,6 +28,7 @@ public class GameModeView implements Menu, ViewPosition {
     private Button customGameButton;
     private Button backButton;
     private ConsoleView consoleView;
+    private BaseView baseView;
 
     public GameModeView(Stage primaryStage) {
 
@@ -48,6 +50,8 @@ public class GameModeView implements Menu, ViewPosition {
         root.setCenter(centerBox);
         root.setBottom(bottomBox);
 
+        baseView = new BaseView(root, centerBox, bottomBox);
+
         new GameModeController(this);
     }
 
@@ -59,6 +63,11 @@ public class GameModeView implements Menu, ViewPosition {
     @Override
     public void handleDynamicAction() {
         consoleView.setDynamicFocus(scene);
+    }
+
+    @Override
+    public void update(){
+        baseView.update();
     }
 
     public Stage getPrimaryStage() {

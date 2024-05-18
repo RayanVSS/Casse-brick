@@ -2,6 +2,7 @@ package gui.Menu.MenuViews;
 
 import gui.ViewPosition;
 import gui.GraphicsFactory.ConsoleView;
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameCustomizerController;
 import javafx.geometry.Insets;
@@ -37,6 +38,7 @@ public class GameCustomizerView implements Menu, ViewPosition {
     private Button createGame, backButton;
 
     private ConsoleView consoleView;
+    private BaseView baseView;
 
     public GameCustomizerView(Stage primaryStage) {
 
@@ -52,6 +54,7 @@ public class GameCustomizerView implements Menu, ViewPosition {
         initActionButtons();
         addComponents();
         localStyle();
+        baseView = new BaseView(root, centerBox, bottomBox);
 
         new GameCustomizerController(this);
     }
@@ -157,6 +160,10 @@ public class GameCustomizerView implements Menu, ViewPosition {
         consoleView.setDynamicFocus(scene);
     }
 
+    @Override
+    public void update() {
+        baseView.update();
+    }
     public Stage getPrimaryStage() {
         return primaryStage;
     }

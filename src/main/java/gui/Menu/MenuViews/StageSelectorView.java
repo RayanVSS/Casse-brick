@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import gui.ViewPosition;
 import gui.GraphicsFactory.ConsoleView;
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.StageSelectorController;
 import javafx.geometry.Insets;
@@ -37,6 +38,7 @@ public class StageSelectorView implements Menu, ViewPosition {
     private Image unLock = ImageLoader.loadImage("src/main/ressources/cadenaOuvert.png");
 
     private ConsoleView consoleView;
+    private BaseView baseView; 
 
     public StageSelectorView(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -57,6 +59,7 @@ public class StageSelectorView implements Menu, ViewPosition {
 
         root.setCenter(centerBox);
         root.setBottom(bottomBox);
+        baseView = new BaseView(root, centerBox, bottomBox);
         new StageSelectorController(this);
     }
 
@@ -69,9 +72,12 @@ public class StageSelectorView implements Menu, ViewPosition {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 Button tmp = createButton("" + count, 0, 0);
-                System.out.println("Stages : "+(count-1)+" "+PlayerData.stagesProgress.getStages()[count-1].canLoadGame());
-                if (PlayerData.stagesProgress.getStages()[count-1].canLoadGame()) {
+                System.out.println("Stages : " + (count - 1) + " "
+                        + PlayerData.stagesProgress.getStages()[count - 1].canLoadGame());
+                if (PlayerData.stagesProgress.getStages()[count - 1].canLoadGame()) {
                     ImageView imageView = new ImageView(unLock);
+                    imageView.setSmooth(true);
+                    imageView.setPreserveRatio(true);
                     imageView.setFitHeight(50);
                     imageView.setFitWidth(50);
                     tmp.setGraphic(imageView);
@@ -79,6 +85,8 @@ public class StageSelectorView implements Menu, ViewPosition {
                     ImageView imageView = new ImageView(lock);
                     imageView.setFitHeight(50);
                     imageView.setFitWidth(50);
+                    imageView.setSmooth(true);
+                    imageView.setPreserveRatio(true);
                     tmp.setGraphic(imageView);
                 }
                 tmp.setPrefSize(120, 60);
@@ -87,6 +95,7 @@ public class StageSelectorView implements Menu, ViewPosition {
                 count++;
             }
         }
+
         grid.setAlignment(Pos.CENTER);
     }
 
@@ -104,7 +113,7 @@ public class StageSelectorView implements Menu, ViewPosition {
         return primaryStage;
     }
 
-    public Scene getScene() {
+    public Scene getScene() { 
         return scene;
     }
 
@@ -114,5 +123,10 @@ public class StageSelectorView implements Menu, ViewPosition {
 
     public Button getBackButton() {
         return backButton;
+    }
+
+    @Override
+    public void update() {
+        baseView.update();
     }
 }

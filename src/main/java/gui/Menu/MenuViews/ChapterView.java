@@ -1,5 +1,6 @@
 package gui.Menu.MenuViews;
 
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.ChapterController;
 import javafx.geometry.Insets;
@@ -33,9 +34,7 @@ public class ChapterView implements Menu, ViewPosition {
     private Button backButton;
 
     private ConsoleView consoleView;
-
-    private Image lock = ImageLoader.loadImage("src/main/ressources/cadenaFerme.png");
-    private Image unLock = ImageLoader.loadImage("src/main/ressources/cadenaOuvert.png");
+    private BaseView baseView;
 
     public ChapterView(Stage primaryStage) {
 
@@ -105,6 +104,11 @@ public class ChapterView implements Menu, ViewPosition {
     @Override
     public void handleDynamicAction() {
         consoleView.setDynamicFocus(scene);
+    }
+
+    @Override
+    public void update() {
+        baseView.update();
     }
 
     // Getters

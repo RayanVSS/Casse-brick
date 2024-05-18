@@ -5,6 +5,7 @@
     -fx-alignment: center;
     -fx-spacing: 20;
     /* -fx-background: linear-gradient(#B9D9EB, #273654); */
+    -fx-font-family: "Kode Mono";
 
 }
 
@@ -38,12 +39,17 @@
 
 /* LES BOUTONS */
 
-.button-boutique{
-    fx-font-size :10px;
+.button-boutique {
+    fx-font-size: 10px;
+}
+
+.button-hover-boutique {
+    -fx-background-color: #d5bbb1;
+    -fx-text-fill: #1b263b;
 }
 
 .scoreL-style {
-    -fx-font-size: 20px;
+    -fx-font-size: 15px;
     -fx-text-fill: #1b263b;
 }
 
@@ -122,6 +128,15 @@
 
 .label-vbox {
     -fx-background-color: #2f3d57;
+    -fx-border-color: #7a6f6b;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 5px;
+    -fx-alignment: center;
+}
+
+.label-vbox-profil {
     -fx-border-color: #7a6f6b;
     -fx-border-width: 2px;
     -fx-border-radius: 5px;

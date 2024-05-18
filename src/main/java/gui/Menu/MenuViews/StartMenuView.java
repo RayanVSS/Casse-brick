@@ -3,15 +3,24 @@ package gui.Menu.MenuViews;
 import gui.ViewPosition;
 import gui.GraphicsFactory.ConsoleView;
 import gui.GraphicsFactory.ProfileView;
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.StartMenuController;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
@@ -42,6 +51,7 @@ public class StartMenuView implements Menu, ViewPosition {
     private Button btnTuto;
     private Label title;
     private ConsoleView consoleView;
+    private BaseView baseView;
 
     /**
      * Constructeur de StartMenuView.
@@ -49,7 +59,6 @@ public class StartMenuView implements Menu, ViewPosition {
      * @param p Le stage principal sur lequel le menu de démarrage est affiché.
      */
     public StartMenuView(Stage p) {
-
         this.primaryStage = p;
 
         createTop();
@@ -59,6 +68,8 @@ public class StartMenuView implements Menu, ViewPosition {
         root.setTop(topBox);
         root.setCenter(centerBox);
         root.setBottom(bottomBox);
+
+        baseView = new BaseView(root, topBox, centerBox, bottomBox);
 
         new StartMenuController(p, this);
     }
@@ -93,9 +104,46 @@ public class StartMenuView implements Menu, ViewPosition {
         consoleView.setDynamicFocus(scene);
     }
 
+    public void applyGradientBackground() {
+        LinearGradient linearGradient = null;
+        switch (GameConstants.CSS) {
+            case ACHROMATOPSIE:
+                break;
+            case BLACK:
+                break;
+            case CLASSIC:
+                break;
+            case DEUTERANOPIE:
+                break;
+            case LIGHT:
+                break;
+            case PINK:
+                linearGradient = new LinearGradient(1, 1, 1, 0, true, CycleMethod.NO_CYCLE, new Stop[] {
+                        new Stop(0, Color.web("#FEE5F2")),
+                        new Stop(1, Color.web("#FFB6C1"))
+                });
+                break;
+            case PROTANOPIE:
+                break;
+            case TRITANOPIE:
+                break;
+            default:
+                break;
+        }
+
+        // Appliquer le LinearGradient à la scène
+        root.setBackground(new Background(new BackgroundFill(linearGradient, CornerRadii.EMPTY, Insets.EMPTY)));
+        topBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+        centerBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+        bottomBox.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+        profileView.getRoot()
+                .setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
     @Override
     public void update() {
         profileView.update();
+        baseView.update();
     }
 
     @Override
@@ -184,8 +232,8 @@ public class StartMenuView implements Menu, ViewPosition {
         return btnTuto;
     }
 
+    @Override
     public Scene getScene() {
         return scene;
     }
-
 }
