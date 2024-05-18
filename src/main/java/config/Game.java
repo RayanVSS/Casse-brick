@@ -115,14 +115,7 @@ public class Game {
             }
         }
         if (rules.isInfinite()) {
-            rules.testInfinite(map);
-            // rules.infiniteUpdate(map,0.60);//TODO CST PR LA VITESSE DES BRICK
-            // if (!isInfiniteBonus()){
-            //     rules.infiniteUpdate(map,0.60);
-            // }
-            // else{
-            //     rules.infiniteUpdate(map,0);
-            // }   
+            rules.testInfinite(map);//TODO CST PR LA VITESSE DES BRICK
         }
         updateGameStatus();
     }

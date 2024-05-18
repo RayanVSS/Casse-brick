@@ -307,6 +307,10 @@ public class GameRules {
                 if (bricks[i][j] == null) {
                     bricks[i][j] = new BrickClassic(
                             new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
+                    if (isColorRestricted()){
+                        EntityColor rndColor = EntityColor.values()[new Random().nextInt(EntityColor.values().length)];
+                        bricks[i][j].setColor(rndColor);
+                    }
                     b.add(bricks[i][j]);
                 } else {
                     break;
