@@ -77,7 +77,6 @@ public class Game {
         }
         
         for (Ball ball : balls) {
-            ball.CollisionB=false;
             if(ball.delete()){
                 balls.remove(ball);
                 break;
@@ -108,6 +107,7 @@ public class Game {
                     ((MagnetBall) ball).setFront(false);
                 }
             }
+            ball.CollisionB=false;
         }
         
         // Gere les conditions de perte

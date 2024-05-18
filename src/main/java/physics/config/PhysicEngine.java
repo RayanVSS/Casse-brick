@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.Iterator;
 
 import config.Game;
+import entity.EntityColor;
 import entity.ball.ClassicBall;
 import entity.brick.BrickClassic;
 import entity.racket.CircleRacket;
@@ -77,6 +78,7 @@ public class PhysicEngine extends Pane{
     public static double start_border=0;
     
     private ToolBox toolBox;
+    private Ball firstBall;
 
     PhysicSetting physics;
 
@@ -100,8 +102,8 @@ public class PhysicEngine extends Pane{
         this.physics = AppPhysic.physics;
         this.setStyle("-fx-background-color: #FFFFFF;");
 
-        Ball ball = init_ball(null,null);
-        addBall(ball);
+        firstBall = init_ball(null,null);
+        addBall(firstBall);
 
         listbrick = new HashMap<>();
 
@@ -117,12 +119,12 @@ public class PhysicEngine extends Pane{
         }
         // Initialisation de la trajectoire
 
-        ball.setPreview(new Preview(ball, physics, this));
-        ball.getPreview().init_path();
+        firstBall.setPreview(new Preview(firstBall, physics, this));
+        firstBall.getPreview().init_path();
 
         //Initialisation des evenements de la souris
 
-        setTakeBall(listball.get(ball),ball,toolBox);
+        setTakeBall(listball.get(firstBall),firstBall,toolBox);
 
         // Initialisation de l'animation
 
@@ -169,12 +171,10 @@ public class PhysicEngine extends Pane{
         if(Pause){
             return;
         }
-        if(!listball.isEmpty()){
-            Ball ball = listball.keySet().iterator().next();
-            if(ball.getPreview()==null){
-                ball.setPreview(new Preview(ball, physics, this));
-                ball.getPreview().init_path();
-            }
+        if(firstBall==null && listball.size()>0){
+            firstBall = listball.keySet().iterator().next();
+            firstBall.setPreview(new Preview(firstBall, physics, this));
+            firstBall.getPreview().init_path();
         }
 
         for(Ball b : listball.keySet()){
@@ -247,7 +247,10 @@ public class PhysicEngine extends Pane{
                 }
                 double newX = this.getX() + this.getDirection().getX() * this.getSpeed() ;
                 double newY = this.getY() + this.getDirection().getY() * this.getSpeed() ;
-                this.setC(new Coordinates(newX, newY));
+                if((newX<start_border+this.getRadius())){
+                    newX=start_border+this.getRadius();
+                }
+                this.getC().setXY(newX,newY);
                 this.getDirection().add(physics.getWind());
                 physics.checkGravity(this.getC(), this.getDirection());
             }
@@ -435,7 +438,14 @@ public class PhysicEngine extends Pane{
         listball.put(ball, graphBall);
     }
 
+    public void addBrick(Brick brick){
+        BricksGraphics graphBrick = new BricksGraphics(brick,brick.getC().getIntX(),brick.getC().getIntY(),EntityColor.BLUE);
+        this.getChildren().add(graphBrick);
+        listbrick.put(brick, graphBrick);
+    }
+
     public void clear(){
+        PhysicEngine.LIMIT_SIMULATION.get(1).addX(-PhysicEngine.start_border);
         PhysicEngine.start_border=0;
         Racket.d.clear();
         removeBall();
@@ -451,6 +461,7 @@ public class PhysicEngine extends Pane{
                 b.getPreview().clear_path(this);
             }
         }
+        firstBall=null;
         listball.clear();
     }
 
@@ -467,5 +478,9 @@ public class PhysicEngine extends Pane{
             this.getChildren().remove(listbrick.get(b));
         }
         listbrick.clear();
+    }
+
+    public Ball getFirstBall() {
+        return firstBall;
     }
 }
