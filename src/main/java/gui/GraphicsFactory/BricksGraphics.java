@@ -10,7 +10,6 @@ import physics.entity.Entity;
 import utils.GameConstants;
 import utils.ImageLoader;
 
-//TODO les brick ??????????
 
 public class BricksGraphics extends ImageView implements EntityGraphics {
     public Image currentImage;

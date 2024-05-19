@@ -37,7 +37,6 @@ public class GameModeController {
             click.play();
             back();
         });
-        // gameModeView.getInfinityButton().setOnAction(e -> showInfinityMode());
         gameModeView.getInfinityButton().setOnAction(e -> {
             click.play();
             playInfinite();
@@ -55,12 +54,6 @@ public class GameModeController {
             App.menuManager.changeScene(gameModeView.getPrimaryStage(), "GameCustomizerView");
         });
     }
-
-    // private void showInfinityMode() {
-    //     Platform.runLater(() -> {
-    //         App.menuManager.changeScene(gameModeView.getPrimaryStage(), "InfinityModeView");
-    //     });
-    // }
 
     public void playInfinite() {
         ClassicBall ball = new ClassicBall();

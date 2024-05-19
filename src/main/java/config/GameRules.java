@@ -26,7 +26,6 @@ public class GameRules {
     private boolean transparent;
     private boolean unbreakable;
     private boolean infinite;
-    private boolean infiniteStop;
 
     // Variables servant au bon fonctionnement des règles activées
     private int remainingTime = GameConstants.GR_REMAINING_TIME;
@@ -51,7 +50,6 @@ public class GameRules {
         this.transparent = transparent;
         this.unbreakable = unbreakable;
         this.infinite = infinite;
-        this.infiniteStop = false;
     }
 
     /**
@@ -182,12 +180,12 @@ public class GameRules {
         }
     }
 
-    public boolean verifyInfinite(Map m, Coordinates raquetCoordinates) {//TODO A tâtonner
+    public boolean verifyInfinite(Map m, Coordinates raquetCoordinates) {
         ArrayList<Brick> brick=m.getBricks();
         Coordinates c;
         for (int i=brick.size()-1;i>-1;i--){
             c = m.getBricks().get(i).getC();
-            if (c.getY() >= raquetCoordinates.getY() - 31) {//TODO AJOUTER DS GAMECONSTANTE
+            if (c.getY() >= raquetCoordinates.getY() - GameConstants.INFINITE_DISTANCE_RACKET) {
                 return false;
             }
         }
@@ -201,57 +199,10 @@ public class GameRules {
         }
     }
 
-    public void setInfiniteStop(boolean infiniteStop, Map m, int duration) {
-        if (!this.infiniteStop) {
-            this.infiniteStop = infiniteStop;
-            if (this.infiniteStop) {
-                infiniteStop(m, duration);
-            }
-        }
-
-    }
-
-    public void testInfinite(Map m) {
-        if (!this.infiniteStop) {
-            infiniteUpdate(m, 0.60);
-        }
-    }
-
-    public void infiniteStop(Map map, int duration) {
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            public void run() {
-                infiniteUpdate(map, 0);
-                infiniteStop = false;
-            }
-        };
-        timer.schedule(task, duration);
-
-    }
-
-    // public void createBrickInfinite(Map m) {
-    //     if (lastCreatedBrick == null || lastCreatedBrick.getC().getY() > 0) {
-    //         ArrayList<Brick> newBricks = new ArrayList<>();
-    //         int indexFirstColumn = (GameConstants.MAP_WIDTH - m.getColumnsBricks()) / 2;
-    //         for (int i = indexFirstColumn; i < indexFirstColumn + m.getColumnsBricks(); i++) {
-    //             Brick temp = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
-    //                     -1 * GameConstants.BRICK_HEIGHT));
-    //             if (isColorRestricted()) {
-    //                 temp.setColor(EntityColor.values()[new Random().nextInt(EntityColor.values().length)]);
-    //             }
-    //             newBricks.add(temp);
-    //         }
-    //         if (newBricks.size() > 0) {
-    //             lastCreatedBrick = newBricks.get(0);
-    //             m.getBricks().addAll(newBricks);
-    //         }
-    //     }
-    // }
 
     public void createBrickInfinite(Map m) {
         if (lastCreatedBrick == null || lastCreatedBrick.getC().getY() > 0) {
             ArrayList<Brick> newBricks = new ArrayList<>();
-            // int indexFirstColumn = (GameConstants.MAP_WIDTH - m.getColumnsBricks()) / 2;
             for (int i = 0; i < 0 + GameConstants.MAP_WIDTH; i++) {
                 Brick temp = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
                         -1 * GameConstants.BRICK_HEIGHT));
@@ -339,3 +290,32 @@ public class GameRules {
     }
 
 }
+
+
+// public void setInfiniteStop(boolean infiniteStop, Map m, int duration) {
+    //     if (!this.infiniteStop) {
+    //         this.infiniteStop = infiniteStop;
+    //         if (this.infiniteStop) {
+    //             infiniteStop(m, duration);
+    //         }
+    //     }
+
+    // }
+
+    // public void testInfinite(Map m) {
+    //     if (!this.infiniteStop) {
+    //         infiniteUpdate(m, 0.60);
+    //     }
+    // }
+
+    // public void infiniteStop(Map map, int duration) {
+    //     Timer timer = new Timer();
+    //     TimerTask task = new TimerTask() {
+    //         public void run() {
+    //             infiniteUpdate(map, 0);
+    //             infiniteStop = false;
+    //         }
+    //     };
+    //     timer.schedule(task, duration);
+
+    // }

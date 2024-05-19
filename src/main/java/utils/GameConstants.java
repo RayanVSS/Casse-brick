@@ -31,6 +31,7 @@ public final class GameConstants {
         public static final int MIN_SPACE_BETWEEN_RACKET_BRICKS = 5;
         public static final int BRICK_WIDTH = 60;
         public static final int BRICK_HEIGHT = 32;
+        public static final double BRICK_SPEED=0.60;
 
         // ball
         public static final int DEFAULT_BALL_SPEED = 5;
@@ -90,6 +91,7 @@ public final class GameConstants {
         // DegradeRacket
         public static final double DEGRADERACKET_TOLERANCE = -0.2;
         public static final double DEGRADERACKET_CHANGE_DIRECTION = 0.3;
+        public static final int INFINITE_DISTANCE_RACKET=31;
 
         // boost
         // temps des boosts
@@ -115,10 +117,9 @@ public final class GameConstants {
         // "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze",
         // "zhonya","intensityBall"
         public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya",
-                        "intensityBall","infiniteStop" };
+                        "intensityBall"};
         public static final Color COLOR_BONUS = Color.GREEN;
         public static final Color COLOR_MALUS = Color.RED;
-        public static final Color COLOR_INFINITE_STOP = Color.PURPLE;
 
         // Options du jeu
         public static boolean FPS = false;

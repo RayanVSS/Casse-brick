@@ -125,7 +125,7 @@ public class Game {
             racket.reset();
         }
         if (rules.isInfinite()) {
-            rules.testInfinite(map);//TODO CST PR LA VITESSE DES BRICK
+            rules.infiniteUpdate(map, GameConstants.BRICK_SPEED);
             rules.createBrickInfinite(map);
         }
         updateGameStatus();
