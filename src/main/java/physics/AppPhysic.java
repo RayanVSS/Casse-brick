@@ -87,8 +87,8 @@ public class AppPhysic extends Application {
 
     public void Path() {
         Label labelpath = new Label("Afficher le chemin de la balle");
-        ToggleButton buttonpath = new ToggleButton("OFF");
-        buttonpath.setSelected(false);
+        ToggleButton buttonpath = new ToggleButton((PhysicEngine.PATH) ? "ON" : "OFF");
+        buttonpath.setSelected(PhysicEngine.PATH);
         buttonpath.setOnAction(e -> {
             if (buttonpath.isSelected()) {
                 buttonpath.setText("ON");
@@ -107,7 +107,7 @@ public class AppPhysic extends Application {
     }
 
     public void Wind() {
-        Label labelspeed = new Label("Vitesse du vent : +" + physics.getSpeed_Wind() + "km/h");
+        Label labelspeed = new Label("Vitesse du vent : +" + physics.getSpeed_Wind() + "m/h");
         Slider wind_speed = new Slider(0, 100, physics.getSpeed_Wind());
         wind_speed.setOrientation(Orientation.HORIZONTAL);
         wind_speed.setMaxWidth(200);
@@ -127,7 +127,7 @@ public class AppPhysic extends Application {
         labelWind.setTranslateY(0);
         labelWind.setTranslateX(0);
         ComboBox<String> listWind = new ComboBox<String>();
-        listWind.getItems().addAll("Nord", "Sud", "Est", "Ouest");
+        listWind.getItems().addAll("Est", "Ouest");
         listWind.setTranslateX(0);
         listWind.setTranslateY(30);
         listWind.setMinWidth(250);
@@ -137,17 +137,11 @@ public class AppPhysic extends Application {
         listWind.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
         listWind.setOnAction(e -> {
             switch (listWind.getValue()) {
-                case "Nord":
+                case "Est":
                     physics.setDirection_Wind(0);
                     break;
-                case "Sud":
-                    physics.setDirection_Wind(1);
-                    break;
-                case "Est":
-                    physics.setDirection_Wind(2);
-                    break;
                 case "Ouest":
-                    physics.setDirection_Wind(3);
+                    physics.setDirection_Wind(1);
                     break;
             }
         });

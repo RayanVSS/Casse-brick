@@ -32,7 +32,7 @@ public class GameCustomizerView implements Menu, ViewPosition {
     private LabelSliderHBox life, mapWidht, mapHeight, ballSize, ballSpeed, timeLimit, bouncesLimit;
     private LabelComboBoxHBox ball, racket;
     private LabelToggleButtonHBox ruleLimitedTime, ruleLimitedBounces, ruleRandomSwitchBricks, ruleColorRestricted,
-            ruleTransparent, ruleUnbreakable;
+            ruleTransparent, ruleUnbreakable, ruleInfinite;
 
     private HBox actionButtons;
     private Button createGame, backButton;
@@ -101,9 +101,10 @@ public class GameCustomizerView implements Menu, ViewPosition {
         life = new LabelSliderHBox("Nombre de vies", 1, 9, 3, false, 1);
 
         LabelVBox mapVBox = new LabelVBox("Map", 5);
-        mapHeight = new LabelSliderHBox("Lignes briques", 1, 12, 5, false, 1);
-        mapWidht = new LabelSliderHBox("Colonnes briques", 1, 13, 13, false, 1);
-        mapVBox.getChildren().addAll(mapHeight, mapWidht);
+        mapHeight = new LabelSliderHBox("Lignes de briques", 1, 12, 5, false, 1);
+        mapWidht = new LabelSliderHBox("Colonnes de briques", 1, 13, 13, false, 1);
+        ruleInfinite = new LabelToggleButtonHBox("Mode infini", false);
+        mapVBox.getChildren().addAll(mapHeight, mapWidht, ruleInfinite);
 
         LabelVBox ballVBox = new LabelVBox("Ball", 5);
         ball = new LabelComboBoxHBox("Type de balle",
@@ -164,6 +165,7 @@ public class GameCustomizerView implements Menu, ViewPosition {
     public void update() {
         baseView.update();
     }
+
     public Stage getPrimaryStage() {
         return primaryStage;
     }
@@ -238,6 +240,10 @@ public class GameCustomizerView implements Menu, ViewPosition {
 
     public LabelToggleButtonHBox getRuleUnbreakable() {
         return ruleUnbreakable;
+    }
+
+    public LabelToggleButtonHBox getRuleInfinite() {
+        return ruleInfinite;
     }
 
 }

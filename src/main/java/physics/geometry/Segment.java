@@ -1,5 +1,8 @@
 package physics.geometry;
 
+/**
+ * Classe qui permet de gerer les segments
+ */
 public class Segment {
     private Coordinates start;
     private Coordinates end;

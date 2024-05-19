@@ -5,6 +5,12 @@ import physics.geometry.Coordinates;
 import physics.geometry.Segment;
 import utils.GameConstants;
 
+/**
+ * HyperBall est une ball qui a une vitesse qui augmente à chaque frame
+ * 
+ * @see Ball
+ */
+
 public class HyperBall extends Ball {
     private double speedBoost = 0.1;
 
@@ -15,19 +21,19 @@ public class HyperBall extends Ball {
     public HyperBall() {
         super(GameConstants.DEFAULT_BALL_START_COORDINATES.clone(), GameConstants.DEFAULT_BALL_START_DIRECTION.clone(),
                 GameConstants.DEFAULT_BALL_SPEED, GameConstants.DEFAULT_BALL_RADIUS);
-        super.getPhysicSetting().setWindow(GameConstants.DEFAULT_GAME_ROOT_WIDTH,GameConstants.DEFAULT_WINDOW_HEIGHT);
+        super.getPhysicSetting().setWindow(GameConstants.DEFAULT_GAME_ROOT_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
     }
 
     @Override
     public void movement(long deltaT) {
         double h = getZoneHeight();
-        for(Segment s : GameConstants.LIMIT_GAME_ROOT){
-            if(this.checkCollision(s)){
+        for (Segment s : GameConstants.LIMIT_GAME_ROOT) {
+            if (this.checkCollision(s)) {
                 break;
             }
         }
-        double newX = this.getX() + this.getDirection().getX() * this.getSpeed() ;
-        double newY = this.getY() + this.getDirection().getY() * this.getSpeed() ;
+        double newX = this.getX() + this.getDirection().getX() * this.getSpeed();
+        double newY = this.getY() + this.getDirection().getY() * this.getSpeed();
         if (newY > h - this.getRadius()) {
             super.setDelete(true);
         }

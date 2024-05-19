@@ -9,7 +9,7 @@ import gui.Menu.MenuViews.BoutiqueView;
 import gui.Menu.MenuViews.ChapterView;
 import gui.Menu.MenuViews.GameCustomizerView;
 import gui.Menu.MenuViews.GameModeView;
-import gui.Menu.MenuViews.InfinityModeView;
+// import gui.Menu.MenuViews.InfinityModeView;
 import gui.Menu.MenuViews.OptionsView;
 import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
@@ -21,6 +21,8 @@ import utils.GameConstants;
 
 /**
  * Classe de gestion des menus dans l'application.
+ * @author Benmalek Majda 
+ * @author Guan Olivier
  */
 public class MenuManager {
     private Map<String, Menu> menus = new HashMap<>();
@@ -105,7 +107,7 @@ public class MenuManager {
         createGameCustomizerViewScene(primaryStage);
         createChapterViewScene(primaryStage);
         createBoutiqueView(primaryStage);
-        createInfinityModeViewScene(primaryStage);
+        // createInfinityModeViewScene(primaryStage);
         createTutoViewScene(primaryStage);
     }
 
@@ -153,11 +155,11 @@ public class MenuManager {
         addMenu("Chapterview", chapterView);
     }
 
-    public void createInfinityModeViewScene(Stage primaryStage) {
-        InfinityModeView infinityModeView = new InfinityModeView(primaryStage);
-        addStylesheet(infinityModeView);
-        addMenu("InfinityModeView", infinityModeView);
-    }
+    // public void createInfinityModeViewScene(Stage primaryStage) {
+    //     InfinityModeView infinityModeView = new InfinityModeView(primaryStage);
+    //     addStylesheet(infinityModeView);
+    //     addMenu("InfinityModeView", infinityModeView);
+    // }
 
     public void createBoutiqueView(Stage primaryStage) {
         BoutiqueView boutiqueView = new BoutiqueView(primaryStage);

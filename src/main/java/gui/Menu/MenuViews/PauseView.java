@@ -18,6 +18,10 @@ import utils.GameConstants;
 import utils.ImageLoader;
 import utils.GraphicsToolkit.LabelButton;
 
+/**
+ * Cette classe est utilisée pour représenter graphiquement le menu de pause du jeu.
+ */
+
 public class PauseView extends Pane implements Menu, ViewPosition {
     private Stage primaryStage;
     private Button btnReplay, btnMenu, btnQuit, btnResume;

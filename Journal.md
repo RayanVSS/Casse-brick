@@ -562,6 +562,10 @@ affichage de la racket
 - affichage des vies amélioré
 - ameliorations de l'affichage des images
 
+### Amenah MUSHTAQ 
+<span style="color:green">**Fait:**</span>
+-résolutions de bugs
+
 ## Semaine 8 (02/4):
 
 ### Guan Olivier 
@@ -786,6 +790,8 @@ Ajouts :
 - création du chapitre 4
 - résolution du bug dans laquel la balle rentre dans la raquette 
 - ajout de l'option de faire un saut avec une raquette 
+- la raquette ne peut plus sortir du jeu
+- résolution du bug qui faisait perdre la balle durant une partie
 
 ## Du 30/4 a 16/5:
 ### Benmalek Majda
@@ -794,3 +800,9 @@ Ajouts :
 - Diagramme des classes 
 - Affichage visuel de l'état d'un niveau (verrouiller ou pas)
 
+
+### Amenah MUSHTAQ
+
+- Mode infini terminé
+- Résolution de bug 
+- Rapport

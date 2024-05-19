@@ -2,6 +2,7 @@ package entity;
 
 import java.util.List;
 
+import config.Game;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import physics.geometry.Coordinates;
@@ -37,8 +38,9 @@ public class Bonus extends Rectangle{
         return null;
     }
 
-    public boolean move(Boolean CollisionRacket, Racket racket, List<Ball> ballList) {
+    public boolean move(Boolean CollisionRacket, Racket racket, Game game) {
         if (CollisionRacket) {
+            List<Ball> ballList = game.getBalls();
             Ball newBall = Ball.clone(ballList.get(0));
             newBall.setC(new Coordinates(racket.getC().getX() + racket.largeur / 2, racket.getC().getY() - newBall.getRadius()*2));
             newBall.setDirection(GameConstants.DEFAULT_BALL_START_DIRECTION.clone());

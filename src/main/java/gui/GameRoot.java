@@ -60,8 +60,8 @@ public class GameRoot {
             this.particleGroup = new ParticleGroup(root, game);
         }
         addEntitiesGraphics(); // Affichage du début
+        updateEntitiesGraphics();
         this.root.getChildren().add(graphRacket.getShape());
-        this.updateEntitiesGraphics();
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         root.getStyleClass().add("game-backgorund");
     }
@@ -108,6 +108,10 @@ public class GameRoot {
             }
             if (eg.isWaitingRemoved()) {
                 if (eg instanceof BricksGraphics) {
+                    // BricksGraphics bg = (BricksGraphics) eg;
+                    // System.out.println("GRAPHIC COORD: X=" + bg.getX() + "    Y=" + bg.getY());
+                    // System.out.println(
+                    //         "BRICK COORD: X=" + bg.getBrick().getC().getX() + "    Y=" + bg.getBrick().getC().getY());
                     root.getChildren().remove((BricksGraphics) eg);
                 } else if (eg instanceof BallGraphics) {
                     root.getChildren().remove((BallGraphics) eg);
@@ -118,19 +122,12 @@ public class GameRoot {
         }
     }
 
-    // public void infiniteUp(ArrayList<Brick> bricks) {
-    //     for (Brick brick : bricks) {
-    //         addBrick(brick);
-    //     }
-    // }
-
     public void update(long deltaT) {
+        int life = game.getLife();
+        game.update(deltaT);
         BoostAction();
         addEntitiesGraphics();
         updateEntitiesGraphics();
-        // if (game.getRules().isInfinite()) {
-        //     infiniteUp(game.getRules().createBrickInfinite(game.getMap().getBricks()));
-        // }
         graphRacket.update();
         if (GameConstants.PARTICLES) {
             particleGroup.update();
@@ -139,9 +136,7 @@ public class GameRoot {
         BonusUpdate();
         key.handleInput(game);
         key.touchesR(scene, game);
-        int life = game.getLife();
         Racket.d = key.getKeysPressed();
-        game.update(deltaT);
         key.touchesM(scene, game);
         if (life != game.getLife()) {
             root.getChildren().removeIf(e -> e instanceof Bonus);
@@ -172,7 +167,7 @@ public class GameRoot {
             if (bonus instanceof Boost) {
                 Boost boost = (Boost) bonus;
                 if (boost.move(game.getRacket().CollisionRacket(boost.getC(), game.getRacket().getShapeType()),
-                        game.getRacket(), game.getBalls())) {
+                        game.getRacket(), game)) {
                     root.getChildren().remove(boost);
                     iterator.remove();
                 } else {
@@ -186,7 +181,7 @@ public class GameRoot {
                 }
             } else {
                 if (bonus.move(game.getRacket().CollisionRacket(bonus.getC(), game.getRacket().getShapeType()),
-                        game.getRacket(),game.getBalls())) {
+                        game.getRacket(), game)) {
                     root.getChildren().remove(bonus);
                     iterator.remove();
                 } else {

@@ -6,13 +6,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.TutoController;
 import gui.Menu.MenuViews.BoutiqueView;
@@ -26,9 +23,7 @@ import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
 import gui.Menu.MenuViews.WinView;
-import javafx.application.Platform;
 import save.PlayerData;
-import save.Sauvegarde;
 import utils.GameConstants;
 
 /**
@@ -48,7 +43,7 @@ import utils.GameConstants;
  * @author GUAN Olivier
  */
 
-public class Console {
+public final class Console {
 
     private static ArrayList<String> history;
     private static Queue<String> queue;
@@ -287,7 +282,20 @@ public class Console {
     }
 
     private static void commandProcessingReset(String[] parts) {
-        systemDisplay("Pas encore implémenté.");
+        if (parts.length < 2) {
+            systemDisplay("Commande reset vide : /reset ?");
+        } else {
+            switch (parts[1].toLowerCase()) {
+
+                case "playerdata":
+                    commandResetPlayerdata();
+                    break;
+
+                default:
+                    systemDisplay("Commande /reset erronée : '" + parts[1] + "' est un argument inconnu.");
+                    break;
+            }
+        }
     }
 
     private static void commandProcessingGame(String[] parts) {
@@ -300,16 +308,7 @@ public class Console {
 
     private static void commandExit() {
         systemDisplay("Commande détectée : /exit");
-        Sauvegarde save = new Sauvegarde();
-        save.autoSave();
-        Timer exitTimer = new Timer();
-        exitTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.exit();
-                System.exit(0);
-            }
-        }, 500); // Délai de lecture
+        App.autoSaveAndQuit2();
     }
 
     private static void commandRunPhysicDemo(String[] parts) {
@@ -450,7 +449,7 @@ public class Console {
     }
 
     private static void commandGetInventory() {
-
+        systemDisplay("Pas encore implémenté.");
     }
 
     private static void commandGetSave() {
@@ -468,7 +467,7 @@ public class Console {
     }
 
     private static void commandGetTheme() {
-
+        systemDisplay("Pas encore implémenté.");
     }
 
     private static void commandGetLoadTuto() {
@@ -560,7 +559,7 @@ public class Console {
     }
 
     private static void commandSetInventory(String[] parts) {
-
+        systemDisplay("Pas encore implémenté.");
     }
 
     private static void commandSetAdmin(String[] parts) {
@@ -575,6 +574,7 @@ public class Console {
                 } else {
                     PlayerData.isAdmin = false;
                     systemDisplay("Vous êtes devenu : Joueur");
+                    refreshView();
                 }
 
             } else if (value.equals("true") || value.equals("1")) {
@@ -584,6 +584,7 @@ public class Console {
                 } else {
                     PlayerData.isAdmin = true;
                     systemDisplay("Vous êtes devenu : Administrateur");
+                    refreshView();
                 }
 
             } else {
@@ -593,7 +594,7 @@ public class Console {
     }
 
     private static void commandSetTheme(String[] parts) {
-
+        systemDisplay("Pas encore implémenté.");
     }
 
     private static void commandSetLoadTuto(String[] parts) {
@@ -623,9 +624,16 @@ public class Console {
         }
     }
 
+    private static void commandResetPlayerdata() {
+        systemDisplay("Commande détectée : /reset playerdata");
+        PlayerData.initPlayerData();
+        refreshView();
+        systemDisplay("Vos données de joueur ont été réinitialisées.");
+    }
+
     private static void commandSave() {
         systemDisplay("Commande détectée : /save");
-        App.autoSaveAndQuit2();
+        App.save();
     }
 
 }

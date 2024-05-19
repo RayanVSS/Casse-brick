@@ -32,6 +32,12 @@ public class RacketGraphics {
 	private Color MAGNET_POS;
 	private Color MAGNET_NEG;
 
+	/**
+	 * Constructeur de la classe RacketGraphics.
+	 * 
+	 * @param racket    la raquette à représenter graphiquement.
+	 * @param shapeType le type de forme de la raquette.
+	 */
 	public RacketGraphics(Racket racket, String shapeType) {
 		this.racket = racket;
 		this.shapeType = shapeType;
@@ -71,66 +77,6 @@ public class RacketGraphics {
 
 	}
 
-	// public void updatePos() {
-	// switch (shapeType.toLowerCase()) {
-	// case "rectangle":
-	// setRectangleShape();
-	// break;
-	// case "losange":
-	// setLosangeShape();
-	// break;
-	// case "rond":
-	// setRondShape();
-	// break;
-	// case "triangle":
-	// setTriangleShape();
-	// break;
-	// default:
-	// throw new IllegalArgumentException("Forme non reconnue: " + shapeType);
-	// }
-	// if (!GameConstants.TEXTURE.equals("Null")) {
-	// addTexture();
-	// } else {
-	// shape.setFill(color);
-	// shape.setStroke(color);
-	// }
-	// }
-
-	// private void setRectangleShape() {
-	// ((Rectangle) shape).setX(racket.getC().getX());
-	// ((Rectangle) shape).setY(racket.getC().getY());
-	// ((Rectangle) shape).setWidth(racket.getLargeur());
-	// ((Rectangle) shape).setHeight(racket.getLongueur());
-	// ((Rectangle) shape).setArcWidth(20);
-	// ((Rectangle) shape).setArcHeight(20);
-	// }
-
-	// private void setLosangeShape() {
-	// ((Polygon) shape).getPoints().addAll(new Double[] {
-	// racket.getC().getX(), racket.getC().getY() - racket.getLongueur() / 2,
-	// racket.getC().getX() + racket.getLargeur() / 2, racket.getC().getY(),
-	// racket.getC().getX(), racket.getC().getY() + racket.getLongueur() / 2,
-	// racket.getC().getX() - racket.getLargeur() / 2, racket.getC().getY()
-	// });
-	// }
-
-	// private void setRondShape() {
-	// ((Ellipse) shape).setCenterX(racket.getC().getX());
-	// ((Ellipse) shape).setCenterY(racket.getC().getY());
-	// ((Ellipse) shape).setRadiusX(racket.getLargeur() / 2);
-	// ((Ellipse) shape).setRadiusY(racket.getLongueur() / 2);
-	// }
-
-	// private void setTriangleShape() {
-	// ((Polygon) shape).getPoints().addAll(new Double[] {
-	// racket.getC().getX(), racket.getC().getY() - racket.getLongueur() / 2,
-	// racket.getC().getX() + racket.getLargeur() / 2, racket.getC().getY() +
-	// racket.getLongueur() / 2,
-	// racket.getC().getX() - racket.getLargeur() / 2, racket.getC().getY() +
-	// racket.getLongueur() / 2
-	// });
-
-	// }
 	private void setShape() {
 		switch (shapeType.toLowerCase()) {
 			case "rectangle":
@@ -170,31 +116,35 @@ public class RacketGraphics {
 				throw new IllegalArgumentException("Forme non reconnue: " + shapeType);
 		}
 
-		// if (GameConstants.TEXTURE.equals("Null")) {
-		// 	shape.setFill(color);
-		// } else {
-		// 	addTexture();
-		// }
 	}
-
 
 	public void updatePos() {
-		if (shape instanceof Rectangle) {
-			((Rectangle) shape).setX(racket.getC().getX());
-			((Rectangle) shape).setY(racket.getC().getY());
-			((Rectangle) shape).setWidth(racket.getLargeur());
-		} else if (shape instanceof Polygon) {
-			((Polygon) shape).getPoints().remove(0, ((Polygon) shape).getPoints().size());
-			((Polygon) shape).getPoints().addAll(new Double[] {
-					racket.getC().getX(), racket.getC().getY() - racket.getLongueur() / 2,
-					racket.getC().getX() + racket.getLargeur() / 2, racket.getC().getY() + racket.getLongueur() / 2,
-					racket.getC().getX() - racket.getLargeur() / 2, racket.getC().getY() + racket.getLongueur() / 2
-			});
-		} else if (shape instanceof Ellipse) {
-			((Ellipse) shape).setCenterX(racket.getC().getX());
-			((Ellipse) shape).setCenterY(racket.getC().getY());
-		}
-	}
+        if (shape instanceof Rectangle) {
+            ((Rectangle) shape).setX(racket.getC().getX());
+            ((Rectangle) shape).setY(racket.getC().getY());
+            ((Rectangle) shape).setWidth(racket.getLargeur());
+        } else if (shape instanceof Polygon) {
+            if (racket.shape == "losange") {
+                ((Polygon) shape).getPoints().remove(0, ((Polygon) shape).getPoints().size());
+                ((Polygon) shape).getPoints().addAll(new Double[] {
+                        racket.getC().getX(), racket.getC().getY() - racket.getLongueur() / 2,
+                        racket.getC().getX() + racket.getLargeur() / 2, racket.getC().getY(),
+                        racket.getC().getX(), racket.getC().getY() + racket.getLongueur() / 2,
+                        racket.getC().getX() - racket.getLargeur() / 2, racket.getC().getY()
+                });
+            } else if (racket.shape == "triangle") {
+                ((Polygon) shape).getPoints().remove(0, ((Polygon) shape).getPoints().size());
+                ((Polygon) shape).getPoints().addAll(new Double[] {
+                        racket.getC().getX(), racket.getC().getY() - racket.getLongueur() / 2,
+                        racket.getC().getX() + racket.getLargeur() / 2, racket.getC().getY() + racket.getLongueur() / 2,
+                        racket.getC().getX() - racket.getLargeur() / 2, racket.getC().getY() + racket.getLongueur() / 2
+                });
+            }
+        } else if (shape instanceof Ellipse) {
+            ((Ellipse) shape).setCenterX(racket.getC().getX());
+            ((Ellipse) shape).setCenterY(racket.getC().getY());
+        }
+    }
 
 	private void magnetColor() {
 		if (MagnetRacket.getEtat().equals("positif")) {
@@ -202,7 +152,7 @@ public class RacketGraphics {
 		} else {
 			shape.setFill(MAGNET_NEG);
 		}
-		
+
 	}
 
 	private void strokeColor() {

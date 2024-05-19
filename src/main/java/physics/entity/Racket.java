@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.checkerframework.checker.units.qual.g;
 
 import gui.GameRoot;
 import gui.GraphicsFactory.RacketGraphics;
@@ -247,24 +246,23 @@ public abstract class Racket extends Figure {
     public boolean CollisionRond(Ball b) {
         double rx = this.getC().getX(); // centre x
         double ry = this.getC().getY(); // centre y
+        ry += 270;
         double radiusX = this.getLargeur() / 2; // Rayon horizontal de l'ellipse
         double radiusY = this.getLongueur() / 2; // Rayon vertical de l'ellipse
-        ry += 170;
-        double dx = b.getC().getX() - rx;
-        double dy = b.getC().getY() - ry;
+        double dx = rx - b.getC().getX();
+        double dy = ry - b.getC().getY();
         // normalisation
         double nx = dx / radiusX;
         double ny = dy / radiusY;
         double distance = Math.sqrt(nx * nx + ny * ny);
-        if (distance < b.getRadius() - 0.2) {
+        if (distance < b.getRadius() - 0.3) {
             // Calculer l'angle d'incidence de la balle par rapport à la raquette
             double incidentAngle = Math.atan2(dy, dx);
 
             // Calculer le nouvel angle de rebond en fonction de l'angle d'incidence
             double newAngle = Math.PI + (Math.PI - incidentAngle);
 
-            // Mettre à jour la direction de la balle pour refléter le nouvel angle de
-            // rebond
+            // Mettre à jour la direction de la balle pour refléter le nouvel angle de rebond
             double newDirectionX = Math.cos(newAngle) * 1.1;
             double newDirectionY = Math.sin(newAngle) * 1.1;
             b.setDirection(new Vector(newDirectionX, newDirectionY));
@@ -404,8 +402,10 @@ public abstract class Racket extends Figure {
     }
 
     // fonction obligatoire
-    public abstract void handleKeyPress(Set<KeyCode> keysPressed);
+    public abstract void handleKeyPress(Set<KeyCode> keysPressed,List<Ball> balls);
 
+    public abstract void handleKeyPress(Set<KeyCode> keysPressed);
+    
     public abstract void handleKeyRelease(KeyCode event);
 
     public double getWidth() {
@@ -645,7 +645,7 @@ public abstract class Racket extends Figure {
                         && ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
                         && ball.getC().getY() > racket.getC().getY() - racket.getLongueur()) {
                     ball.setC(new Coordinates(ball.getC().getX(), racket.getC().getY() - racket.getLongueur() - 2));
-                    ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY()*1.2));
+                    ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY() * 1.25));
                     ball.getRotation().stopRotation();
                 }
             }

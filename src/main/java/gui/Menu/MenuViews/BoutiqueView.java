@@ -24,6 +24,13 @@ import utils.GameConstants;
 import utils.GraphicsToolkit.LabelVBox;
 import utils.ImageLoader;
 
+/**
+ * Classe représentant la vue de la boutique dans le jeu.
+ * Cette classe est responsable de l'affichage des éléments de la boutique et de
+ * leur mise à jour.
+ * Implemente l'interface Menu et ViewPosition.
+ * @author Benmalek Majda
+ */
 public class BoutiqueView implements Menu, ViewPosition {
 
     private Stage primaryStage;
@@ -54,6 +61,12 @@ public class BoutiqueView implements Menu, ViewPosition {
     private ConsoleView consoleView;
     private BaseView baseView;
 
+    /**
+     * Constructeur de la classe BoutiqueView.
+     * Initialise la vue de la boutique avec les éléments nécessaires.
+     *
+     * @param p Le stage principal sur lequel la vue de la boutique sera affichée.
+     */
     public BoutiqueView(Stage p) {
         this.primaryStage = p;
         root = new BorderPane();
@@ -66,10 +79,10 @@ public class BoutiqueView implements Menu, ViewPosition {
         title = createLabel("Boutique", 0, 0);
         title.getStyleClass().add("title-style");
 
-        HBox h=new HBox();
+        HBox h = new HBox();
         back = createButton("Retour", 0, 0);
         takeOff = createButton("Tout enlever", 0, 0);
-        h.getChildren().addAll(back,takeOff);
+        h.getChildren().addAll(back, takeOff);
         h.setAlignment(javafx.geometry.Pos.CENTER);
         h.setSpacing(10);
         StackPane.setMargin(h, new javafx.geometry.Insets(10, 10, 10, 10));
@@ -88,11 +101,17 @@ public class BoutiqueView implements Menu, ViewPosition {
         new BoutiqueController(this);
     }
 
+    /**
+     * Initialise la VBox contenant le montant d'argent du joueur.
+     */
     private void initArgent() {
         moneyVBox = new LabelVBox("Argent : " + moneyValue, 10);
         moneyVBox.setPrefWidth(10);
     }
 
+    /**
+     * Initialise les items disponibles dans la boutique.
+     */
     private void initItems() {
         for (int i = 0; i < GameConstants.LABELS_RAQUETTE.length; i++) {
             raquetteItem[i] = new Item(GameConstants.LABELS_RAQUETTE[i], GameConstants.PATHS_RAQUETTE[i],
@@ -111,6 +130,11 @@ public class BoutiqueView implements Menu, ViewPosition {
         }
     }
 
+    /**
+     * Met à jour l'état du bouton d'un item.
+     *
+     * @param i L'item dont le bouton doit être mis à jour.
+     */
     private void updateButton(Item i) {
         i.setBought(PlayerData.inventaire.isBought(i.getName()));
         i.setWorn(GameConstants.TEXTURE.equals(i.getPath()) || GameConstants.SKIN_BALL.equals(i.getPath()));
@@ -127,6 +151,9 @@ public class BoutiqueView implements Menu, ViewPosition {
         }
     }
 
+    /**
+     * Initialise la boutique avec les items et l'argent du joueur.
+     */
     private void initBoutique() {
         initItems();
         raquette = new LabelVBox("Texture Raquette:", 5);
@@ -168,8 +195,9 @@ public class BoutiqueView implements Menu, ViewPosition {
 
     // Fonction de correction de style sur les tailles (par-dessus le CSS)
     private void localStyle() {
-        // boutique.lookupAll("*").forEach(node -> node.setStyle("-fx-font-size: 16px;"));
-        // QUE mettre des changements de tailles etc 
+        // boutique.lookupAll("*").forEach(node -> node.setStyle("-fx-font-size:
+        // 16px;"));
+        // QUE mettre des changements de tailles etc
     }
 
     @Override
@@ -186,6 +214,10 @@ public class BoutiqueView implements Menu, ViewPosition {
         return scene;
     }
 
+    /**
+     * Met à jour la vue de la boutique.
+     * Cette méthode est appelée pour rafraîchir l'affichage de la boutique.
+     */
     @Override
     public void update() {
         for (Item i : raquetteItem) {
@@ -236,7 +268,7 @@ public class BoutiqueView implements Menu, ViewPosition {
 
     @Override
     public Scene getScene() {
-       return scene;
+        return scene;
     }
 
 }
