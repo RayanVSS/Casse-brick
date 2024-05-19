@@ -211,8 +211,8 @@ public class TestPreset extends VBox {
                         new Vector(new Coordinates(1, -0.6)));
                 game.addBall(tempBall);
                 tempBall = PhysicEngine.init_ball(
-                        new Coordinates(3 * (width / 4) + 3 * brickWidth, 2 * (height / 4)),
-                        new Vector(new Coordinates(-1, -0.55)));
+                        new Coordinates(3 * (width / 4) + 3 * brickWidth, 2 * (height / 4) + 100),
+                        new Vector(new Coordinates(-2, -0.4)));
                 game.addBall(tempBall);
 
                 break;
