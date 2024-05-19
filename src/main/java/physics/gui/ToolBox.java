@@ -70,39 +70,55 @@ public class ToolBox extends Pane {
 
     public void afficherTest() {
         Button button1 = new Button("Activer les test unitaires");
-        button1.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        button1.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
         button1.setLayoutX(10);
-        button1.setLayoutY(400);
+        button1.setLayoutY(440);
         button1.setOnAction(e1 -> {
             testpreset = !testpreset;
             if (testpreset) {
                 game.removeBall();
                 game.removeBrick();
                 game.removeRacket();
-                Label label = new Label("Test unitaire activé");
-                label.setStyle("-fx-font-size: 13; -fx-text-fill: #d5bbb1;");
-                label.setLayoutX(10);
-                label.setLayoutY(50);
-                getChildren().add(label);
-                test.setLayoutX(10);
-                test.setLayoutY(60);
-                button1.setLayoutX(10);
-                button1.setLayoutY(200);
+            
+                test.setLayoutX(60);
+                test.setLayoutY(290);
+                button1.setLayoutX(20);
+                button1.setLayoutY(400);
                 getChildren().add(test);
                 getChildren().removeIf(e -> (e instanceof Button && !e.equals(button1)) || e instanceof CheckBox
                         || e instanceof Label || e instanceof ComboBox
                         || (e instanceof LabelToggleButtonHBox && !e.equals(pauseButton)));
+                Label label = new Label("Test unitaire :");
+
+                label.setStyle("-fx-font-size: 13; -fx-text-fill: #FFFFFF;");
+                label.setLayoutX(20);
+                label.setLayoutY(210);
+                getChildren().add(label);
+        
+                label = new Label("Veuillez selectionner un test :");
+                label.setStyle("-fx-font-size: 13; -fx-text-fill: #FFFFFF;");
+                label.setLayoutX(20);
+                label.setLayoutY(260);
+                getChildren().add(label);
+
                 button1.setText("Desactiver les test unitaires");
-                pauseButton.setLayoutY(170);
+                button1.setLayoutX(20);
+                button1.setLayoutY(430);
+                pauseButton.setLayoutX(20);
+                pauseButton.setLayoutY(390);
+                PhysicEngine.LIMIT_SIMULATION.get(1).addX(300);
 
             } else {
                 getChildren().remove(test);
+                getChildren().removeIf(e -> (e instanceof Label));
                 game.clear();
                 affiche();
                 updateData();
                 button1.setText("Activer les test unitaires");
-                button1.setLayoutY(400);
-                pauseButton.setLayoutY(370);
+                button1.setLayoutY(440);
+                pauseButton.setLayoutY(400);
+                button1.setLayoutX(10);
+                pauseButton.setLayoutX(10);
             }
         });
         getChildren().addAll(button1, pauseButton);
@@ -110,13 +126,13 @@ public class ToolBox extends Pane {
 
     public void affiche() {
         Label label = new Label("Informations sur la simulation :");
-        label.setStyle("-fx-font-size: 13; -fx-text-fill: #d5bbb1;");
+        label.setStyle("-fx-font-size: 13; -fx-text-fill: #FFFFFF;");
         label.setLayoutX(10);
         label.setLayoutY(10);
 
         getChildren().add(label);
         label = new Label("Afficher la trajectoire sans effet :");
-        label.setStyle("-fx-font-size: 13; -fx-text-fill: #d5bbb1;");
+        label.setStyle("-fx-font-size: 13; -fx-text-fill: #FFFFFF;");
         label.setLayoutX(10);
         label.setLayoutY(50);
         CheckBox button = new CheckBox();
@@ -141,18 +157,18 @@ public class ToolBox extends Pane {
         getChildren().addAll(addBallButton, addBrickButton);
 
         Button button2 = new Button("Supprimer toutes les briques ajoutées");
-        button2.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        button2.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
         button2.setLayoutX(10);
-        button2.setLayoutY(260);
+        button2.setLayoutY(270);
         button2.setOnAction(e -> {
             game.removeBrick();
         });
         getChildren().add(button2);
 
         Button button3 = new Button("Supprimer toutes les balles ajoutées");
-        button3.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        button3.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
         button3.setLayoutX(10);
-        button3.setLayoutY(280);
+        button3.setLayoutY(300);
 
         button3.setOnAction(e -> {
             game.removeBall();
@@ -161,14 +177,15 @@ public class ToolBox extends Pane {
         getChildren().add(button3);
 
         label = new Label("Changer la forme de la raquette :");
-        label.setStyle("-fx-font-size: 13; -fx-text-fill: #d5bbb1;");
+        label.setStyle("-fx-font-size: 13;-fx-text-fill: #FFFFFF;");
         label.setLayoutX(10);
-        label.setLayoutY(320);
+        label.setLayoutY(340);
         ComboBox<String> listracket = new ComboBox<String>();
+        listracket.setStyle("-fx-font-size: 13;-fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
         listracket.getItems().addAll("rectangle", "rond (beta)", "triangle", "losange", "YnotFixe");
         listracket.setValue(null);
         listracket.setLayoutX(40);
-        listracket.setLayoutY(340);
+        listracket.setLayoutY(360);
         listracket.setOnAction(e -> {
             game.getChildren().remove(PhysicEngine.graphRacket.getShape());
             String shape = listracket.getValue();
@@ -213,7 +230,7 @@ public class ToolBox extends Pane {
         if (map2.size() <= 0) {
             getChildren().remove(BrickIncassableButton);
         } else {
-            if (!getChildren().contains(BrickIncassableButton)) {
+            if (!getChildren().contains(BrickIncassableButton) && !testpreset) {
                 getChildren().add(BrickIncassableButton);
             }
         }
@@ -225,19 +242,19 @@ public class ToolBox extends Pane {
 
     public void setData() {
         labelrotate = new Label("Effet de la rotation :" + PhysicSetting.CalculateRotation(firstball) + " degre");
-        labelrotate.setStyle("-fx-font-size: 13; -fx-text-fill: #d5bbb1;");
+        labelrotate.setStyle("-fx-font-size: 13; -fx-text-fill: #FFFFFF;");
 
         labelrotate.setLayoutX(10);
         labelrotate.setLayoutY(80);
 
         labelangle = new Label("Angle du vecteur de la balle : " + PhysicSetting.CalculateAngle(firstball) + " degre");
-        labelangle.setStyle("-fx-font-size: 13; -fx-text-fill: #d5bbb1;");
+        labelangle.setStyle("-fx-font-size: 13; -fx-text-fill: #FFFFFF;");
         labelangle.setLayoutX(10);
         labelangle.setLayoutY(110);
 
         labelspeed = new Label(
                 "Vitesse de la balle : " + PhysicSetting.CalculateSpeed(firstball.getDirection()) + " m/s");
-        labelspeed.setStyle("-fx-font-size: 13; -fx-text-fill: #d5bbb1;");
+        labelspeed.setStyle("-fx-font-size: 13; -fx-text-fill: #FFFFFF;");
         labelspeed.setLayoutX(10);
         labelspeed.setLayoutY(140);
 
@@ -287,7 +304,7 @@ public class ToolBox extends Pane {
 
     private void createUtilsButtons() {
         addBrickButton = new LabelToggleButtonHBox("Ajouter une brique", false);
-        addBrickButton.setStyle("-fx-font-size: 13;-fx-background-color: #1b263b; -fx-text-fill: #d5bbb1;");
+        addBrickButton.setStyle("-fx-font-size: 13;-fx-background-color: #273654; -fx-text-fill: #FFFFFF;");
         addBrickButton.getToggleButton().setOnAction(e -> {
             if (addBrickButton.getToggleButton().isSelected()) {
                 if (!getChildren().contains(BrickIncassableButton)) {
@@ -297,8 +314,10 @@ public class ToolBox extends Pane {
             addBrickButton.updateText();
         });
 
+        addBrickButton.getLabel().setStyle("-fx-text-fill: #FFFFFF;");
+
         BrickIncassableButton = new LabelToggleButtonHBox("Incassable", false);
-        BrickIncassableButton.setStyle("-fx-font-size: 13;-fx-background-color: #1b263b; -fx-text-fill: #d5bbb1;");
+        BrickIncassableButton.setStyle("-fx-font-size: 13;-fx-background-color: #273654; -fx-text-fill: #FFFFFF;");
         BrickIncassableButton.getToggleButton().setOnAction(e -> {
             for (Brick brick : map2.keySet()) {
                 if (BrickIncassableButton.getToggleButton().isSelected()) {
@@ -310,15 +329,21 @@ public class ToolBox extends Pane {
             BrickIncassableButton.updateText();
         });
 
+        BrickIncassableButton.getLabel().setStyle("-fx-text-fill: #FFFFFF;");
+
         addBallButton = new LabelToggleButtonHBox("Ajouter une balle", false);
         addBallButton.getToggleButton().setOnAction(e -> addBallButton.updateText());
-        addBallButton.setStyle("-fx-font-size: 13;-fx-background-color: #1b263b; -fx-text-fill: #d5bbb1;");
+        addBallButton.setStyle("-fx-font-size: 13;-fx-background-color: #273654; -fx-text-fill: #FFFFFF;");
         pauseButton = new LabelToggleButtonHBox("Partie en pause : ", PhysicEngine.Pause);
         pauseButton.getToggleButton().setOnAction(e -> {
             PhysicEngine.Pause = !PhysicEngine.Pause;
             pauseButton.updateText();
         });
-        pauseButton.setStyle("-fx-font-size: 13;-fx-background-color: #1b263b; -fx-text-fill: #d5bbb1;");
+
+        addBallButton.getLabel().setStyle("-fx-text-fill: #FFFFFF;");
+        pauseButton.setStyle("-fx-font-size: 13;-fx-background-color: #273654; -fx-text-fill: #FFFFFF;");
+
+        pauseButton.getLabel().setStyle("-fx-text-fill: #FFFFFF;");
 
         BrickIncassableButton.setLayoutX(10);
         BrickIncassableButton.setLayoutY(200);
@@ -330,7 +355,7 @@ public class ToolBox extends Pane {
         addBallButton.setLayoutY(230);
 
         pauseButton.setLayoutX(10);
-        pauseButton.setLayoutY(370);
+        pauseButton.setLayoutY(400);
 
     }
 

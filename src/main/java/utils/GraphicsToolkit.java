@@ -94,7 +94,7 @@ public final class GraphicsToolkit {
             Region spacer = new Region();
             HBox.setHgrow(spacer, Priority.ALWAYS);
 
-            getChildren().addAll(label, spacer, toggleButton);
+            getChildren().addAll(label,spacer, toggleButton);
         }
 
         private void initComponents(String text, boolean selected) {
@@ -132,6 +132,10 @@ public final class GraphicsToolkit {
 
         public ToggleButton getToggleButton() {
             return toggleButton;
+        }
+
+        public Label getLabel() {
+            return label;
         }
     }
 

@@ -84,6 +84,17 @@ public class PhysicEngine extends Pane {
         clear();
         // Initialisation de la simulation
 
+        LIMIT_SIMULATION= new ArrayList<Segment>() {
+            {
+                add(new Segment(new Coordinates(0, 0), new Coordinates(PhysicSetting.DEFAULT_WINDOW_WIDTH, 0)));
+                add(new Segment(new Coordinates(0, 0), new Coordinates(0, PhysicSetting.DEFAULT_WINDOW_HEIGHT)));
+                add(new Segment(new Coordinates(PhysicSetting.DEFAULT_WINDOW_WIDTH, 0),
+                        new Coordinates(PhysicSetting.DEFAULT_WINDOW_WIDTH, PhysicSetting.DEFAULT_WINDOW_HEIGHT)));
+                add(new Segment(new Coordinates(0, PhysicSetting.DEFAULT_WINDOW_HEIGHT),
+                        new Coordinates(PhysicSetting.DEFAULT_WINDOW_WIDTH, PhysicSetting.DEFAULT_WINDOW_HEIGHT)));
+            }
+        };
+
         this.physics = AppPhysic.physics;
         physics.setWind();
         this.setStyle("-fx-background-color: #FFFFFF;");

@@ -42,8 +42,8 @@ public class AppPhysic extends Application {
     public void menu() {
         Button bouton1 = new Button("Lancer la simulation");
         Button bouton2 = new Button("Options");
-        bouton1.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
-        bouton2.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        bouton1.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
+        bouton2.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
 
         bouton1.setOnAction(e -> {
             root.getChildren().clear();
@@ -76,12 +76,12 @@ public class AppPhysic extends Application {
             physics.setSpeed_Ball(newvalue.intValue());
             labelspeed.setText("Vitesse de la balle : " + newvalue.intValue() + " km/h");
         });
-        labelspeed.setStyle("-fx-text-fill: #d5bbb1;");
+        labelspeed.setStyle("-fx-text-fill: #FFFFFF;");
         labelspeed.setTranslateY(-130);
         labelspeed.setTranslateX(350);
         speed.setTranslateX(labelspeed.getTranslateX());
         speed.setTranslateY(labelspeed.getTranslateY() + 30);
-        speed.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        speed.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
         root.getChildren().addAll(labelspeed, speed);
     }
 
@@ -97,12 +97,12 @@ public class AppPhysic extends Application {
             }
             PhysicEngine.PATH = buttonpath.isSelected();
         });
-        labelpath.setStyle("-fx-text-fill: #d5bbb1;");
+        labelpath.setStyle("-fx-text-fill: #FFFFFF;");
         labelpath.setTranslateY(0);
         labelpath.setTranslateX(400);
         buttonpath.setTranslateX(labelpath.getTranslateX());
         buttonpath.setTranslateY(labelpath.getTranslateY() + 30);
-        buttonpath.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        buttonpath.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
         root.getChildren().addAll(labelpath, buttonpath);
     }
 
@@ -115,15 +115,15 @@ public class AppPhysic extends Application {
             physics.setSpeed_Wind(newvalue.intValue());
             labelspeed.setText("Vitesse du vent : " + newvalue.intValue() + " km/h");
         });
-        labelspeed.setStyle("-fx-text-fill: #d5bbb1;");
+        labelspeed.setStyle("-fx-text-fill: #FFFFFF;");
         labelspeed.setTranslateY(-130);
         labelspeed.setTranslateX(0);
         wind_speed.setTranslateX(labelspeed.getTranslateX());
         wind_speed.setTranslateY(labelspeed.getTranslateY() + 30);
-        wind_speed.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        wind_speed.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
 
         Label labelWind = new Label("Direction du vent");
-        labelWind.setStyle("-fx-text-fill: #d5bbb1;");
+        labelWind.setStyle("-fx-text-fill: #FFFFFF;");
         labelWind.setTranslateY(0);
         labelWind.setTranslateX(0);
         ComboBox<String> listWind = new ComboBox<String>();
@@ -134,7 +134,7 @@ public class AppPhysic extends Application {
         listWind.setMaxWidth(250);
         listWind.setMinHeight(40);
         listWind.setMaxHeight(40);
-        listWind.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        listWind.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
         listWind.setOnAction(e -> {
             switch (listWind.getValue()) {
                 case "Est":
@@ -150,11 +150,11 @@ public class AppPhysic extends Application {
 
     public void Gravity() {
         Label labelGravity = new Label("Gravite terrestre");
-        labelGravity.setStyle("-fx-text-fill: #d5bbb1;");
+        labelGravity.setStyle("-fx-text-fill: #FFFFFF;");
         labelGravity.setTranslateY(0);
         labelGravity.setTranslateX(-350);
         Button buttonGravity = new Button((physics.getGravity()) ? "ON" : "OFF");
-        buttonGravity.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        buttonGravity.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
         buttonGravity.setOnAction(e -> {
             physics.changeGravity();
             if (physics.getGravity()) {
@@ -170,7 +170,7 @@ public class AppPhysic extends Application {
 
     public void Mass() {
         Label labelMass = new Label("Masse de la balle : " + physics.getMass() + " g");
-        labelMass.setStyle("-fx-text-fill: #d5bbb1;");
+        labelMass.setStyle("-fx-text-fill: #FFFFFF;");
         labelMass.setTranslateY(100);
         labelMass.setTranslateX(-350);
         Slider mass = new Slider(1, 10, physics.getMass());
@@ -182,14 +182,14 @@ public class AppPhysic extends Application {
         });
         mass.setTranslateX(labelMass.getTranslateX());
         mass.setTranslateY(labelMass.getTranslateY() + 30);
-        mass.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        mass.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
         root.getChildren().addAll(labelMass, mass);
     }
 
     public void Racket() {
         Label labelracket = new Label("Racket");
         Button buttonracket = new Button((PhysicEngine.RACKET)?"ON":"OFF");
-        buttonracket.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        buttonracket.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
         buttonracket.setOnAction(e -> {
             PhysicEngine.RACKET = !PhysicEngine.RACKET;
             if (PhysicEngine.RACKET) {
@@ -198,7 +198,7 @@ public class AppPhysic extends Application {
                 buttonracket.setText("OFF");
             }
         });
-        labelracket.setStyle("-fx-text-fill: #d5bbb1;");
+        labelracket.setStyle("-fx-text-fill: #FFFFFF;");
         labelracket.setTranslateY(-200);
         labelracket.setTranslateX(-350);
         buttonracket.setTranslateX(labelracket.getTranslateX());
@@ -208,7 +208,7 @@ public class AppPhysic extends Application {
 
     public void back() {
         Button buttonback = new Button("Retour");
-        buttonback.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
+        buttonback.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #FFFFFF;");
         buttonback.setOnAction(e -> {
             root.getChildren().clear();
             menu();
