@@ -207,7 +207,7 @@ public class TestPreset extends VBox {
                         new Vector(new Coordinates(-1, 1)));
                 game.addBall(tempBall);
                 tempBall = PhysicEngine.init_ball(
-                        new Coordinates(1 * (width / 4) - 100, 2 * (height / 4) + 6 * brickHeight),
+                        new Coordinates(1 * (width / 4) +20, 2 * (height / 4) + 6 * brickHeight),
                         new Vector(new Coordinates(1, -0.6)));
                 game.addBall(tempBall);
                 tempBall = PhysicEngine.init_ball(

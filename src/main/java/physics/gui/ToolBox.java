@@ -106,6 +106,7 @@ public class ToolBox extends Pane {
                 button1.setLayoutY(430);
                 pauseButton.setLayoutX(20);
                 pauseButton.setLayoutY(390);
+                PhysicEngine.LIMIT_SIMULATION.get(1).addX(300);
 
             } else {
                 getChildren().remove(test);
