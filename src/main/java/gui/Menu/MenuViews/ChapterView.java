@@ -28,12 +28,8 @@ public class ChapterView implements Menu, ViewPosition {
 
     private Button chapter1;
     private Button chapter2;
-
     private Button chapter3;
-    private ImageView chapter3Image;
-
     private Button chapter4;
-    private ImageView chapter4Image;
 
     private Button backButton;
 

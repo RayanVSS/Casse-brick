@@ -21,6 +21,8 @@ import utils.GameConstants;
 
 /**
  * Classe de gestion des menus dans l'application.
+ * @author Benmalek Majda 
+ * @author Guan Olivier
  */
 public class MenuManager {
     private Map<String, Menu> menus = new HashMap<>();

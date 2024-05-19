@@ -1,9 +1,12 @@
 package physics.config;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.Iterator;
 
-import entity.EntityColor;
+import config.Game;
+import entity.ball.ClassicBall;
 import entity.brick.BrickClassic;
 import entity.racket.CircleRacket;
 import entity.racket.ClassicRacket;
@@ -12,11 +15,14 @@ import entity.racket.DiamondRacket;
 import entity.racket.YNotFixeRacket;
 import gui.GraphicsFactory.RacketGraphics;
 import javafx.animation.AnimationTimer;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import physics.AppPhysic;
 import physics.entity.Ball;
 import physics.entity.Brick;
+import physics.entity.Entity.EntityColor;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Segment;
@@ -27,10 +33,13 @@ import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.BricksGraphics;
 import physics.gui.ToolBox;
 import physics.gui.Preview;
+import physics.gui.TestPreset;
 import utils.GameConstants;
+import utils.ImageLoader;
 import utils.Key;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /***************************************************************************
@@ -88,6 +97,7 @@ public class PhysicEngine extends Pane {
         // Initialisation de la simulation
 
         this.physics = AppPhysic.physics;
+        physics.setWind();
         this.setStyle("-fx-background-color: #FFFFFF;");
 
         firstBall = init_ball(null, null);
@@ -123,7 +133,7 @@ public class PhysicEngine extends Pane {
             public void handle(long now) {
                 KeyPressed();
                 if (racket != null) {
-                    racket.handleKeyPress(key.getKeysPressed());
+                    racket.handleKeyPress(key.getKeysPressed(), new ArrayList<>(listball.keySet()));
                 }
                 if (last == 0) {
                     last = now;
@@ -195,6 +205,7 @@ public class PhysicEngine extends Pane {
             Brick b = (Brick) it.next();
             listbrick.get(b).update();
             if (b.isDestroyed()) {
+                this.getChildren().remove(listbrick.get(b));
                 it.remove();
             }
         }
@@ -231,59 +242,21 @@ public class PhysicEngine extends Pane {
                         break;
                     }
                 }
+
                 double newX = this.getX() + this.getDirection().getX() * this.getSpeed();
                 double newY = this.getY() + this.getDirection().getY() * this.getSpeed();
                 if ((newX < start_border + this.getRadius())) {
                     newX = start_border + this.getRadius();
                 }
-                this.getC().setXY(newX, newY);
-                this.getDirection().add(physics.getWind());
+                this.getC().setXY(newX,newY);
+                physics.checkWind(this);
                 physics.checkGravity(this.getC(), this.getDirection());
+                this.normalizeDirection();
             }
         };
     }
 
     public static Racket init_racket(String type) {
-        /* 
-        int longueur=0;
-        int largeur=0;
-        if(type.equals("rectangle")){
-            longueur=200;
-            largeur=20;
-        }
-        else if(type.equals("losange")){
-            longueur=200;
-            largeur=40;
-        }
-        else if(type.equals("rond")){
-            longueur=200;
-            largeur=200;
-        }
-        else if(type.equals("triangle")){
-            longueur=200;
-            largeur=200;
-        }
-        return new Racket(longueur, largeur, type, 8, false, true) {
-            @Override
-            public void handleKeyPress(Set<KeyCode> keysPressed) {
-                for (KeyCode key : keysPressed) {
-                    if(key==KeyCode.LEFT){
-                        if (this.mX() >start_border +longueur / 2 )
-                            this.mX(this.mX() - speed);
-                    }
-                    if(key==KeyCode.RIGHT){
-                        if (this.mX() < PhysicSetting.DEFAULT_WINDOW_WIDTH - longueur - 70)
-                            this.mX(this.mX() + speed);
-                    }
-                }
-            }
-        
-            @Override
-            public void handleKeyRelease(KeyCode event) {
-                // Fonction non utilisée
-            }
-        };
-        */
         Racket r;
         if (type.equals("YnotFixe")) {
             r = new YNotFixeRacket();

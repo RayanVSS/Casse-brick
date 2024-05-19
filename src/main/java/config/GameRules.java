@@ -7,10 +7,10 @@ import java.util.TimerTask;
 
 import org.checkerframework.checker.units.qual.C;
 
-import entity.EntityColor;
 import entity.brick.BrickClassic;
 import physics.entity.Ball;
 import physics.entity.Brick;
+import physics.entity.Entity.EntityColor;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
@@ -117,6 +117,8 @@ public class GameRules {
                 Coordinates tempC = brick1.getC();
                 brick1.setC(brick2.getC());
                 brick2.setC(tempC);
+                brick1.createsegments();
+                brick2.createsegments();
             }
         }
     }
@@ -211,7 +213,7 @@ public class GameRules {
     }
 
     public void createBrickInfinite(Map m) {
-        if (lastCreatedBrick == null || lastCreatedBrick.getC().getY() > 0) {
+        if (lastCreatedBrick == null || lastCreatedBrick.getC().getY() > -1) {
             ArrayList<Brick> newBricks = new ArrayList<>();
             for (int i = 0; i < 0 + GameConstants.MAP_WIDTH; i++) {
                 Brick temp = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,

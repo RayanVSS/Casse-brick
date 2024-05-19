@@ -125,6 +125,7 @@ public class GameRoot {
     }
 
     public void update(long deltaT) {
+        int life = game.getLife();
         game.update(deltaT);
         BoostAction();
         addEntitiesGraphics();
@@ -137,9 +138,7 @@ public class GameRoot {
         BonusUpdate();
         key.handleInput(game);
         key.touchesR(scene, game);
-        int life = game.getLife();
         Racket.d = key.getKeysPressed();
-
         key.touchesM(scene, game);
         if (life != game.getLife()) {
             root.getChildren().removeIf(e -> e instanceof Bonus);
@@ -170,7 +169,7 @@ public class GameRoot {
             if (bonus instanceof Boost) {
                 Boost boost = (Boost) bonus;
                 if (boost.move(game.getRacket().CollisionRacket(boost.getC(), game.getRacket().getShapeType()),
-                        game.getRacket(), game.getBalls())) {
+                        game.getRacket(), game)) {
                     root.getChildren().remove(boost);
                     iterator.remove();
                 } else {
@@ -184,7 +183,7 @@ public class GameRoot {
                 }
             } else {
                 if (bonus.move(game.getRacket().CollisionRacket(bonus.getC(), game.getRacket().getShapeType()),
-                        game.getRacket(), game.getBalls())) {
+                        game.getRacket(), game)) {
                     root.getChildren().remove(bonus);
                     iterator.remove();
                 } else {

@@ -14,6 +14,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
 
+/**
+ * Cette classe est responsable de l'affichage de la fenêtre de victoire et de
+ * sa mise à jour.
+ * Implémente l'interface Menu et ViewPosition.
+ * 
+ * @author Benmalek Majda
+ * @author Guan Olivier
+ */
 public class WinView extends VBox implements Menu, ViewPosition {
 
     private Stage primaryStage;
@@ -26,6 +34,15 @@ public class WinView extends VBox implements Menu, ViewPosition {
     private Label gain;
     private BaseView baseView;
 
+    /**
+     * Constructeur de la classe WinView.
+     * Initialise la vue de la fenêtre de victoire avec les éléments nécessaires.
+     *
+     * @param p     Le stage principal sur lequel la vue de la fenêtre de victoire
+     *              sera affichée.
+     * @param game  La vue du jeu actuel.
+     * @param level Le niveau actuel du jeu.
+     */
     public WinView(Stage p, GameView game, StageLevel level) {
         App.levelUp.play();
         this.primaryStage = p;
@@ -60,6 +77,10 @@ public class WinView extends VBox implements Menu, ViewPosition {
         new WinController(this);
     }
 
+     /**
+     * Méthode pour gérer la fin du jeu.
+     * Cette méthode est appelée lorsque le joueur a terminé tous les niveaux du jeu.
+     */
     public void finDuJeu() {
         this.getChildren().clear();
         Label fiin = createLabel("Vous avez terminé le jeu.", 0, 0);
@@ -98,6 +119,10 @@ public class WinView extends VBox implements Menu, ViewPosition {
         return level;
     }
 
+    /**
+     * Met à jour la vue de la fenêtre de victoire.
+     * Pour changer le background par rapport au theme choisi. 
+     */
     @Override
     public void update() {
         baseView.update();

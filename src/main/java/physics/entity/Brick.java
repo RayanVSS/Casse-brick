@@ -1,6 +1,5 @@
 package physics.entity;
 
-import entity.EntityColor;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;

@@ -13,18 +13,35 @@ import javafx.scene.paint.Stop;
 import utils.GameConstants;
 import javafx.scene.layout.Region;
 
+/**
+ * Cette classe sert à gérer le background de tout les panes du jeu pour avoir
+ * le dégradé de couleur.
+ * 
+ * @author Benmalek Majda
+ */
 public class BaseView {
 
     private LinearGradient linearGradient = null;
     private Pane pane;
     private Node[] n;
 
+    /**
+     * Constructeur de la classe BaseView.
+     * Initialise la vue de base avec les éléments nécessaires.
+     *
+     * @param pane Le pane sur lequel la vue de base sera affichée.
+     * @param n Les noeuds qui seront affichés sur le pane.
+     */
     public BaseView(Pane pane, Node... n) {
         this.pane = pane;
         this.n = n;
         update();
     }
 
+    /**
+     * Met a jour pour géré le changement de themes.
+     * Cette méthode est appelée pour rafraîchir l'affichage.
+     */
     public void update() {
         setLinear();
         pane.setBackground(new Background(new BackgroundFill(linearGradient, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -34,6 +51,11 @@ public class BaseView {
         }
     }
 
+
+    /**
+     * Définit le gradient linéaire.
+     * Cette méthode est appelée pour définir le gradient linéaire en fonction du CSS actuel.
+     */
     public void setLinear() {
         switch (GameConstants.CSS) {
             case ACHROMATOPSIE:
