@@ -37,9 +37,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage p) throws Exception {
-        try{
-            Font.loadFont(new FileInputStream("src/main/ressources/font/blabla.ttf"),10);
-        }catch(FileNotFoundException e){
+        try {
+            Font.loadFont(new FileInputStream("src/main/ressources/font/blabla.ttf"), 10);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -87,6 +87,7 @@ public class App extends Application {
 
     public static void autoSaveAndQuit1() { // Rapide, ne pas voir l'exécution 
         sauvegarde.autoSave();
+        Console.systemDisplay("Fermeture du jeu...");
         primaryStage.close();
         Platform.exit();
         System.exit(0);
@@ -94,13 +95,18 @@ public class App extends Application {
 
     public static void autoSaveAndQuit2() { // Lent, voir l'exécution 
         sauvegarde.autoSave();
-        PauseTransition pause = new PauseTransition(Duration.seconds(1.0));
+        Console.systemDisplay("Fermeture du jeu...");
+        PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
         pause.setOnFinished(event -> {
             primaryStage.close();
             Platform.exit();
             System.exit(0);
         });
         pause.play();
+    }
+
+    public static void save() {
+        sauvegarde.autoSave();
     }
 
     public static void main(String[] args) {

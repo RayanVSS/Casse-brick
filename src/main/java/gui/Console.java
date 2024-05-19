@@ -287,7 +287,20 @@ public final class Console {
     }
 
     private static void commandProcessingReset(String[] parts) {
-        systemDisplay("Pas encore implémenté.");
+        if (parts.length < 2) {
+            systemDisplay("Commande reset vide : /reset ?");
+        } else {
+            switch (parts[1].toLowerCase()) {
+
+                case "playerdata":
+                    commandResetPlayerdata();
+                    break;
+
+                default:
+                    systemDisplay("Commande /reset erronée : '" + parts[1] + "' est un argument inconnu.");
+                    break;
+            }
+        }
     }
 
     private static void commandProcessingGame(String[] parts) {
@@ -300,16 +313,7 @@ public final class Console {
 
     private static void commandExit() {
         systemDisplay("Commande détectée : /exit");
-        Sauvegarde save = new Sauvegarde();
-        save.autoSave();
-        Timer exitTimer = new Timer();
-        exitTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.exit();
-                System.exit(0);
-            }
-        }, 500); // Délai de lecture
+        App.autoSaveAndQuit2();
     }
 
     private static void commandRunPhysicDemo(String[] parts) {
@@ -575,6 +579,7 @@ public final class Console {
                 } else {
                     PlayerData.isAdmin = false;
                     systemDisplay("Vous êtes devenu : Joueur");
+                    refreshView();
                 }
 
             } else if (value.equals("true") || value.equals("1")) {
@@ -584,6 +589,7 @@ public final class Console {
                 } else {
                     PlayerData.isAdmin = true;
                     systemDisplay("Vous êtes devenu : Administrateur");
+                    refreshView();
                 }
 
             } else {
@@ -623,9 +629,16 @@ public final class Console {
         }
     }
 
+    private static void commandResetPlayerdata() {
+        systemDisplay("Commande détectée : /reset playerdata");
+        PlayerData.initPlayerData();
+        refreshView();
+        systemDisplay("Vos données de joueur ont été réinitialisées.");
+    }
+
     private static void commandSave() {
         systemDisplay("Commande détectée : /save");
-        App.autoSaveAndQuit2();
+        App.save();
     }
 
 }
