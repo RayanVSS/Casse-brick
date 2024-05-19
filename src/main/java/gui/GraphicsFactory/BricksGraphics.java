@@ -3,13 +3,19 @@ package gui.GraphicsFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-import entity.EntityColor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import physics.entity.Brick;
 import physics.entity.Entity;
+import physics.entity.Entity.EntityColor;
 import utils.GameConstants;
 import utils.ImageLoader;
+
+
+/**
+ * Classe BricksGraphics qui étend ImageView et implémente EntityGraphics.
+ * Cette classe est utilisée pour représenter graphiquement une brique dans le jeu.
+ */
 
 public class BricksGraphics extends ImageView implements EntityGraphics {
     public Image currentImage;
@@ -23,11 +29,12 @@ public class BricksGraphics extends ImageView implements EntityGraphics {
 
     public static final Map<EntityColor, String> colorToImageMap;
 
+    //permet d'associer à chaque couleur une image de brique
     static {
         colorToImageMap = new HashMap<>();
-        colorToImageMap.put(EntityColor.RED, "src/main/ressources/brique/briqueRouge.png");
-        colorToImageMap.put(EntityColor.GREEN, "src/main/ressources/brique/briqueVert.png");
-        colorToImageMap.put(EntityColor.BLUE, "src/main/ressources/brique/briqueBleu.png");
+        colorToImageMap.put(EntityColor.RED, "src/main/ressources/brique/briqueRougeContours.png");
+        colorToImageMap.put(EntityColor.GREEN, "src/main/ressources/brique/briqueVertContours.png");
+        colorToImageMap.put(EntityColor.BLUE, "src/main/ressources/brique/briqueBleuContours.png");
     }
 
     public BricksGraphics(Brick brick) {
@@ -53,17 +60,14 @@ public class BricksGraphics extends ImageView implements EntityGraphics {
 
     public void update() {
         setWaitingRemoved(brick.isDestroyed());
-        setOpacity(brick.isTransparent() ? 0.5 : 1.0);
+        setOpacity(brick.isTransparent() ? 0.4 : 1.0);
         if (brick.getColor() != null) {
-            setImage(ImageLoader.loadImage(colorToImageMap.get(brick.getColor()), GameConstants.BRICK_WIDTH,
-                    GameConstants.BRICK_HEIGHT));
+            setImage(ImageLoader.loadImage(colorToImageMap.get(brick.getColor())));
         } else {
-            setImage(ImageLoader.loadImage("src/main/ressources/brique/briqueOrange.png", GameConstants.BRICK_WIDTH,
-                    GameConstants.BRICK_HEIGHT));
+            setImage(ImageLoader.loadImage("src/main/ressources/brique/briqueOrangeContours.png"));
         }
         if (brick.isUnbreakable()) {
-            setImage(ImageLoader.loadImage("src/main/ressources/brique/briqueGris.png", GameConstants.BRICK_WIDTH,
-                    GameConstants.BRICK_HEIGHT));
+            setImage(ImageLoader.loadImage("src/main/ressources/brique/briqueGrisContours.png"));
         }
         this.setX(brick.getC().getX());
         this.setY(brick.getC().getY());

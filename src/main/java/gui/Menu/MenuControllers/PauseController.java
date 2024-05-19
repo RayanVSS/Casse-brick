@@ -12,6 +12,11 @@ import save.Sauvegarde;
 import utils.GameConstants;
 import utils.Sound.ClickSound;
 
+/*Classe permettant de mettre en pause le jeu et de pouvoir recommencer,continuer quitter la partie 
+    ou bien de rendre muet le jeu
+ * 
+ */
+
 public class PauseController {
     private Timer timer;
     private PauseView view;
@@ -69,6 +74,7 @@ public class PauseController {
     private void menu() {
         view.getChildren().clear();
         this.timer.cancel();
+        this.view.getStageLevel().resetGame();
         App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
     }
 

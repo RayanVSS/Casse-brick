@@ -32,7 +32,7 @@ public final class GameConstants {
         public static final int MIN_SPACE_BETWEEN_RACKET_BRICKS = 5;
         public static final int BRICK_WIDTH = 60;
         public static final int BRICK_HEIGHT = 32;
-        public static final double BRICK_SPEED = 0.60;
+        public static final double BRICK_SPEED = 0.30;
 
         // ball
         public static final int DEFAULT_BALL_SPEED = 5;

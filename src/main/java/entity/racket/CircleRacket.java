@@ -1,8 +1,6 @@
 package entity.racket;
 
-import java.lang.reflect.Array;
 import java.util.Set;
-
 import javafx.scene.input.KeyCode;
 import physics.entity.Ball;
 import physics.entity.Racket;
@@ -13,7 +11,10 @@ import java.util.List;
  * Raquette en forme de rond
  *
  * @see RaketGraphics
+ * @see Racket
+ * @author Belhassen rayan
  */
+
 public class CircleRacket extends Racket {
 
     public CircleRacket() {

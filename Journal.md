@@ -562,6 +562,10 @@ affichage de la racket
 - affichage des vies amélioré
 - ameliorations de l'affichage des images
 
+### Amenah MUSHTAQ 
+<span style="color:green">**Fait:**</span>
+-résolutions de bugs
+
 ## Semaine 8 (02/4):
 
 ### Guan Olivier 
@@ -796,3 +800,9 @@ Ajouts :
 - Diagramme des classes 
 - Affichage visuel de l'état d'un niveau (verrouiller ou pas)
 
+
+### Amenah MUSHTAQ
+
+- Mode infini terminé
+- Résolution de bug 
+- Rapport

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import entity.Bonus;
 import entity.Boost;
 import entity.ball.MagnetBall;
@@ -17,8 +16,7 @@ import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
-import gui.App;
-import javafx.application.Platform;
+
 
 public class Game {
 
@@ -186,6 +184,9 @@ public class Game {
             balls.add(Ball.clone(originalball));
             bonuslist.clear();
             racket.reset();
+            if (rules.isInfinite()){
+                balls.get(0).getC().setXY(racket.getC().getX()+20, racket.getC().getY()-50);
+            }
         }
         if (rules.isInfinite()) {
             rules.infiniteUpdate(map, GameConstants.BRICK_SPEED);
@@ -247,12 +248,6 @@ public class Game {
         // return true; // décommenter ici pour tester les wins
         return map.countBricks() == 0;
     }
-
-    // public Coordinates resetBallInfinite() {
-    // Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2,
-    // map.lastBrick() + 900 / 2);
-    // return c;
-    // }
 
     // Setters/getters
 
