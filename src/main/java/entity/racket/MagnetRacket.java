@@ -13,7 +13,7 @@ import utils.GameConstants;
 
 public class MagnetRacket extends Racket {
     // etat de la raquette
-    private static String etat = "positif";
+    private static String etat = "negatif";
     private boolean change = false;
 
     // creation de la raquette

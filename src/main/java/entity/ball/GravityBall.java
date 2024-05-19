@@ -48,11 +48,11 @@ public class GravityBall extends Ball {
             if (speedY < GameConstants.VITESSE_MIN_GRAVITY && speedY >= 0) {
                 newY += 0.2;
             }
-            if (speedX > GameConstants.VITESSE_MAX_MAGNET) {
-                newX = this.getC().getX() + GameConstants.VITESSE_MAX_MAGNET;
+            if (speedX > GameConstants.VITESSE_MAX_GRAVITY) {
+                newX = this.getC().getX() + GameConstants.VITESSE_MAX_GRAVITY;
             }
-            if (speedX < -GameConstants.VITESSE_MAX_MAGNET) {
-                newX = this.getC().getX() - GameConstants.VITESSE_MAX_MAGNET;
+            if (speedX < -GameConstants.VITESSE_MAX_GRAVITY) {
+                newX = this.getC().getX() - GameConstants.VITESSE_MAX_GRAVITY;
             }
             if (speedX > -1.5 && speedX <= 0) {
                 newX -= 0.2;

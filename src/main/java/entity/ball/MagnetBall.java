@@ -93,7 +93,7 @@ public class MagnetBall extends Ball {
         }
         if (Front) { // verifie si la balle est devant la raquette avant n'importe action
             etatRacket = MagnetRacket.getEtat();// actualise l'etat de la raquette
-            if (etatRacket == etatBall) {// si l'etat de la raquette est la meme que la balle
+            if (etatRacket != etatBall) {// si l'etat de la raquette est la meme que la balle
                 if (!CollisionR) {
                     // attraction de la balle vers la raquette qui est moin puissante si la balle
                     // est loin de la raquette
@@ -148,7 +148,7 @@ public class MagnetBall extends Ball {
                 }
             }
             // si l'etat de la raquette est different de la balle
-            if (etatRacket != etatBall) {
+            if (etatRacket == etatBall) {
                 CollisionR = false;
                 // repulsion de la balle de la raquette qui est moin puissante si la balle est
                 // loin de la raquette
