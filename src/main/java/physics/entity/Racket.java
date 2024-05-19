@@ -404,6 +404,8 @@ public abstract class Racket extends Figure {
     // fonction obligatoire
     public abstract void handleKeyPress(Set<KeyCode> keysPressed,List<Ball> balls);
 
+    public abstract void handleKeyPress(Set<KeyCode> keysPressed);
+
     public abstract void handleKeyRelease(KeyCode event);
 
     public double getWidth() {

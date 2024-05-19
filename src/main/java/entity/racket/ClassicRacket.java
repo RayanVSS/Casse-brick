@@ -26,6 +26,26 @@ public class ClassicRacket extends Racket {
     }
 
     // Mouvement a l'appui des touches
+
+    public void handleKeyPress(Set<KeyCode> keysPressed) {
+        for (KeyCode key : keysPressed) {
+            if (key == GameConstants.LEFT) {
+                if (this.mX() > 0)
+                    this.deplaceX(-speed);
+                this.getDirection().setX(-1);
+            }
+            if (key == GameConstants.RIGHT) {
+                if (this.mX() + largeur < super.getWidth())
+                    this.deplaceX(speed);
+                this.getDirection().setX(1);
+            }
+            if (key == GameConstants.SPACE) {
+                setJump(jump);
+
+            }
+        }
+    }
+
     public void handleKeyPress(Set<KeyCode> keysPressed,List<Ball> balls) {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {

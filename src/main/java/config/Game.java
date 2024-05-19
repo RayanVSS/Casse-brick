@@ -114,29 +114,49 @@ public class Game {
                         ball.CollisionR = true;
                         App.ballSound.update();
                         App.ballSound.play();
-                        updateRulesRacket();
+                        rules.updateRulesRacket(map);
                     }
                 }
             } else {
                 // Si la balle touche la raquette
                 if (ball.checkCollision(racket)) {
+                    if (ball.getC().getX() > racket.getC().getX() // Si la balle est dans la raquette
+                            && ball.getC().getX() < racket.getC().getX() + racket.getLargeur() - 2
+                            && ball.getC().getY() + racket.getLongueur() / 2 > racket.getC().getY()) {
+                        System.out.println(ball.getC().getX() + "  " + racket.getC().getX());
+                        if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur() / 2) {
+                            ball.setC(
+                                    new Coordinates(ball.getC().getX() - ball.getRadius() - 15,
+                                            racket.getC().getY() - ball.getRadius()));
+                            ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
+                            ball.getRotation().stopRotation();
+                            System.out.println("ball dans la raquette a gauche");
+                        } else if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
+                                && ball.getC().getX() > racket.getC().getX() + racket.getLargeur() / 2) {
+                            ball.setC(
+                                    new Coordinates(ball.getC().getX() + ball.getRadius() + 15,
+                                            racket.getC().getY() - ball.getRadius()));
+                            ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
+                            ball.getRotation().stopRotation();
+                            System.out.println("ball dans la raquette a droite");
+                        } else {
+                            ball.setC(new Coordinates(ball.getC().getX() + racket.getLargeur() + ball.getRadius() + 30,
+                                    racket.getC().getY()));
+                            ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY()));
+                            ball.getRotation().stopRotation();
+                            System.out.println("ball dans la raquette au milieu");
+                        }
+                    }
+
                     ball.CollisionR = true;
                     App.ballSound.update();
                     App.ballSound.play();
-                    updateRulesRacket();
-                }
-            }
-            for(Brick brick : map.getBricks()){
-                if(ball.checkCollision(brick)){
-                    Bonus bonus = Bonus.createBonus(ball.getC().clone());
-                    if (bonus != null) {
-                        bonuslist.add(bonus);
-                    }
-                    break;
+                    rules.updateRulesRacket(map);
                 }
             }
             ball.movement(deltaT);
             ball.CollisionB = false;
+
         }
 
         // Gere les conditions de perte

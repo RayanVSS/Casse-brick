@@ -43,7 +43,9 @@ public class PhysicTools {
             normalX /= lenNormal;
             normalY /= lenNormal;
     
-           
+            // Repositionner la balle juste en dehors du segment
+            c.setX(closestX+ normalX * (radius)); // Légère marge pour éviter la pénétration
+            c.setY(closestY + normalY * (radius));
             // Corriger le vecteur de direction après la collision
             double d1 = d.getX() * normalX + d.getY() * normalY;
     

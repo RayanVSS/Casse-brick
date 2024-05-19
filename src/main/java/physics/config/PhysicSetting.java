@@ -173,8 +173,14 @@ public class PhysicSetting {
     }
 
     public void checkWind(Ball b){
-        if(b.getC().getX() > Math.abs(Wind.getX()/(10*b.getMass())) && b.getC().getX() -Math.abs(Wind.getX()/(10*b.getMass())) < DEFAULT_WINDOW_WIDTH){
-            b.setC(new Coordinates(b.getC().getX()+Wind.getX()/(10*b.getMass()), b.getC().getY()));
+        b.getDirection().setX(b.getDirection().getX()+Wind.getX());
+        if(b.getC().getX()>=DEFAULT_WINDOW_WIDTH-b.getRadius() && b.getDirection().getX()<=1 && Wind.getX()>0){
+            b.getDirection().setXY(0,0);
+            b.getC().setX(DEFAULT_WINDOW_WIDTH-b.getRadius());
+        }
+        if(b.getC().getX()<=b.getRadius()&&Wind.getX()<0){
+            b.getDirection().setX(0);
+            b.getC().setX(b.getRadius());
         }
     }
 

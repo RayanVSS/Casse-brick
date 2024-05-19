@@ -257,46 +257,6 @@ public class PhysicEngine extends Pane{
     }
 
     public static Racket init_racket(String type) {
-        /* 
-        int longueur=0;
-        int largeur=0;
-        if(type.equals("rectangle")){
-            longueur=200;
-            largeur=20;
-        }
-        else if(type.equals("losange")){
-            longueur=200;
-            largeur=40;
-        }
-        else if(type.equals("rond")){
-            longueur=200;
-            largeur=200;
-        }
-        else if(type.equals("triangle")){
-            longueur=200;
-            largeur=200;
-        }
-        return new Racket(longueur, largeur, type, 8, false, true) {
-            @Override
-            public void handleKeyPress(Set<KeyCode> keysPressed) {
-                for (KeyCode key : keysPressed) {
-                    if(key==KeyCode.LEFT){
-                        if (this.mX() >start_border +longueur / 2 )
-                            this.mX(this.mX() - speed);
-                    }
-                    if(key==KeyCode.RIGHT){
-                        if (this.mX() < PhysicSetting.DEFAULT_WINDOW_WIDTH - longueur - 70)
-                            this.mX(this.mX() + speed);
-                    }
-                }
-            }
-
-            @Override
-            public void handleKeyRelease(KeyCode event) {
-                // Fonction non utilisée
-            }
-        };
-        */
         Racket r;
         if(type.equals("YnotFixe")){
             r=new YNotFixeRacket();

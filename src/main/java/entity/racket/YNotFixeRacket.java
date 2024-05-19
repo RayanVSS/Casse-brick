@@ -1,10 +1,7 @@
 package entity.racket;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import org.checkerframework.checker.units.qual.s;
 
 import javafx.scene.input.KeyCode;
 import physics.entity.Ball;
@@ -26,6 +23,45 @@ public class YNotFixeRacket extends Racket {
     }
 
     // Mouvement a l'appui des touches
+    public void handleKeyPress(Set<KeyCode> keysPressed) {
+        for (KeyCode key : keysPressed) {
+            switch (key) {
+                case Q:
+                case LEFT:
+                    if (this.mX() > 0)
+                        this.deplaceX(-speed);
+                        this.getDirection().setX(-1);
+                    break;
+                case D:
+                case RIGHT:
+                    if (this.mX() + largeur < super.getWidth())
+                        this.deplaceX(speed);
+                        this.getDirection().setX(1);
+                    break;
+                case Z:
+                case UP:
+                    if (this.mY() > 50)
+                        this.deplaceY(-speed);
+                        this.getDirection().setY(-1);
+                    break;
+                case S:
+                case DOWN:
+                    if (this.mY() < GameConstants.DEFAULT_WINDOW_HEIGHT - 50)
+                        this.deplaceY(speed);
+                        this.getDirection().setY(1);
+                    break;
+                case SPACE:
+                    if (jump) {
+                        // long jumpStartTime = System.nanoTime();
+                        break;
+                    }
+                default:
+                    break;
+            }
+            
+        }
+    }
+
     public void handleKeyPress(Set<KeyCode> keysPressed,List<Ball> balls) {
         for (KeyCode key : keysPressed) {
             switch (key) {

@@ -165,7 +165,7 @@ public class ToolBox extends Pane {
         label.setLayoutX(10);
         label.setLayoutY(310);
         ComboBox<String> listracket = new ComboBox<String>();
-        listracket.getItems().addAll("rectangle", "rond", "triangle", "losange", "YnotFixe");
+        listracket.getItems().addAll("rectangle", "rond (beta)", "triangle", "losange", "YnotFixe");
         listracket.setValue(null);
         listracket.setLayoutX(40);
         listracket.setLayoutY(330);
