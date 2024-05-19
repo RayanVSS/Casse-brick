@@ -39,7 +39,7 @@ Pour le logiciel de maintenance des sauvegardes :
 ./gradlew repair --console=plain
 ```
 
-## Contribuer
+## Contribution
 
 Tous les membres du projet sont notés dans le fichier `contact.csv`.
 

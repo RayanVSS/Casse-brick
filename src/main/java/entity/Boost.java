@@ -41,10 +41,12 @@ public class Boost extends Bonus {
                 case "largeurP":
                     System.out.println("largeurP");
                     racket.setlargeurP(true);
+                    racket.createsegments();
                     break;
                 case "largeurM":
                     System.out.println("largeurM");
                     racket.setLargeurM(true);
+                    racket.createsegments();
                     break;
                 case "freeze":
                     System.out.println("freeze");
