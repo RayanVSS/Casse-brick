@@ -48,7 +48,6 @@ public class StageSelectorView implements Menu, ViewPosition {
         bottomBox = new HBox();
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
 
-        System.out.println("chap " + chap);
         createStagesButtons();
 
         backButton = createButton("Retour", 0, 0);
@@ -126,7 +125,6 @@ public class StageSelectorView implements Menu, ViewPosition {
 
     @Override
     public void update() {
-        System.out.println("chap " + chap);
         for (int i = 0; i < buttons.size(); i++) {
             if (PlayerData.stagesProgress.getStages()[i + (chap * 9)].canLoadGame()) {
                 ImageView imageView = new ImageView(unLock);

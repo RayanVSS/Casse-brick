@@ -1,9 +1,13 @@
 package physics.config;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.Iterator;
 
+import config.Game;
 import entity.EntityColor;
+import entity.ball.ClassicBall;
 import entity.brick.BrickClassic;
 import entity.racket.CircleRacket;
 import entity.racket.ClassicRacket;
@@ -12,8 +16,10 @@ import entity.racket.DiamondRacket;
 import entity.racket.YNotFixeRacket;
 import gui.GraphicsFactory.RacketGraphics;
 import javafx.animation.AnimationTimer;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import physics.AppPhysic;
 import physics.entity.Ball;
 import physics.entity.Brick;
@@ -27,10 +33,13 @@ import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.BricksGraphics;
 import physics.gui.ToolBox;
 import physics.gui.Preview;
+import physics.gui.TestPreset;
 import utils.GameConstants;
+import utils.ImageLoader;
 import utils.Key;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 
@@ -87,6 +96,7 @@ public class PhysicEngine extends Pane{
         // Initialisation de la simulation
 
         this.physics = AppPhysic.physics;
+        physics.setWind();
         this.setStyle("-fx-background-color: #FFFFFF;");
 
         firstBall = init_ball(null,null);
@@ -232,14 +242,16 @@ public class PhysicEngine extends Pane{
                         break;
                     }
                 }
+                
                 double newX = this.getX() + this.getDirection().getX() * this.getSpeed() ;
                 double newY = this.getY() + this.getDirection().getY() * this.getSpeed() ;
                 if((newX<start_border+this.getRadius())){
                     newX=start_border+this.getRadius();
                 }
                 this.getC().setXY(newX,newY);
-                this.getDirection().add(physics.getWind());
+                getC().setX(getX()+physics.getMass()/physics.getWind().getX());
                 physics.checkGravity(this.getC(), this.getDirection());
+                
             }
         };
     }
@@ -314,7 +326,33 @@ public class PhysicEngine extends Pane{
         });
         Racket.d = key.getKeysPressed();
         for (Ball ball : listball.keySet()) {
-            ball.checkCollision(racket);
+            if(ball.checkCollision(racket)){
+                if (ball.getC().getX() > racket.getC().getX()
+                            && ball.getC().getX() < racket.getC().getX() + racket.getLargeur() - 2
+                            && ball.getC().getY() > racket.getC().getY()) {
+                        System.out.println(ball.getC().getX() + "  " + racket.getC().getX());
+                        if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur()/2) {
+                            ball.setC(
+                                    new Coordinates(ball.getC().getX() - ball.getRadius() - 15, racket.getC().getY()));
+                            ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
+                            ball.getRotation().stopRotation();
+                            System.out.println("ball dans la raquette a gauche");
+                        } else if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
+                                && ball.getC().getX() > racket.getC().getX() + racket.getLargeur()/2) {
+                            ball.setC(
+                                    new Coordinates(ball.getC().getX() + ball.getRadius() + 15, racket.getC().getY()));
+                            ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
+                            ball.getRotation().stopRotation();
+                            System.out.println("ball dans la raquette a droite");
+                        } else {
+                            ball.setC(new Coordinates(ball.getC().getX() + racket.getLargeur() + ball.getRadius() + 30,
+                                    racket.getC().getY()));
+                            ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY()));
+                            ball.getRotation().stopRotation();
+                            System.out.println("ball dans la raquette au milieu");
+                        }
+                    }
+            }
             if (ball.getPreview() != null) {
                 ball.getPreview().update(racket);
             }

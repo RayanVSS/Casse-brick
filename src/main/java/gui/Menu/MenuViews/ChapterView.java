@@ -28,12 +28,8 @@ public class ChapterView implements Menu, ViewPosition {
 
     private Button chapter1;
     private Button chapter2;
-
     private Button chapter3;
-    private ImageView chapter3Image;
-
     private Button chapter4;
-    private ImageView chapter4Image;
 
     private Button backButton;
 
@@ -55,10 +51,9 @@ public class ChapterView implements Menu, ViewPosition {
 
         // Créer les boutons
         chapter1 = createChapterButton(image1, null, -10);
-        chapter2 = createChapterButton(image2,  null, 0);
+        chapter2 = createChapterButton(image2, null, 0);
         chapter3 = createChapterButton(image3, null, 10);
         chapter4 = createChapterButton(image4, null, 20);
-
 
         backButton = createButton("Retour", 0, 0);
 
@@ -70,8 +65,6 @@ public class ChapterView implements Menu, ViewPosition {
         bottomBox = new HBox();
         consoleView = ConsoleView.getInstance();
         bottomBox.getChildren().add(consoleView);
-
-        
 
         root.setCenter(centerBox);
         root.setBottom(bottomBox);

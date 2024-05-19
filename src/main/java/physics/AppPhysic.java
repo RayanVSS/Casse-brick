@@ -127,7 +127,7 @@ public class AppPhysic extends Application {
         labelWind.setTranslateY(0);
         labelWind.setTranslateX(0);
         ComboBox<String> listWind = new ComboBox<String>();
-        listWind.getItems().addAll("Nord", "Sud", "Est", "Ouest");
+        listWind.getItems().addAll("Est", "Ouest");
         listWind.setTranslateX(0);
         listWind.setTranslateY(30);
         listWind.setMinWidth(250);
@@ -137,17 +137,11 @@ public class AppPhysic extends Application {
         listWind.setStyle("-fx-font-size: 20; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
         listWind.setOnAction(e -> {
             switch (listWind.getValue()) {
-                case "Nord":
+                case "Est":
                     physics.setDirection_Wind(0);
                     break;
-                case "Sud":
-                    physics.setDirection_Wind(1);
-                    break;
-                case "Est":
-                    physics.setDirection_Wind(2);
-                    break;
                 case "Ouest":
-                    physics.setDirection_Wind(3);
+                    physics.setDirection_Wind(1);
                     break;
             }
         });
