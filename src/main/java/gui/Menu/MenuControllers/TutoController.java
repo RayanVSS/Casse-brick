@@ -49,6 +49,9 @@ public class TutoController {
             if(event.getCode() == KeyCode.F3) {
                 view.getWebEngine().load("https://gaufre.informatique.univ-paris-diderot.fr/guano/2023-ad1-c");
             }
+            if(event.getCode() == KeyCode.F4) {
+                view.getWebEngine().load("https://docs.google.com/document/d/1ak557c8DG7BCcFZVSV0UEQINS6R4TFpXSKVu4PKBWsE/edit");
+            }
         });
 
         TutoController.loadedProperty().addListener(new ChangeListener<Boolean>() {
