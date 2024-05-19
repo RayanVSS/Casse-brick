@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import physics.config.PhysicEngine;
 import physics.config.PhysicSetting;
 import physics.entity.Ball;
+import physics.entity.Brick;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 
@@ -23,7 +24,7 @@ public class TestPreset extends VBox {
     private GridPane presetsButtons;
     private PhysicEngine game;
 
-    public TestPreset(double zoneWidth, double zoneHeight,PhysicEngine game) {
+    public TestPreset(double zoneWidth, double zoneHeight, PhysicEngine game) {
 
         super(15);
         this.game = game;
@@ -56,24 +57,29 @@ public class TestPreset extends VBox {
                 "-fx-border-width: 1px; ");
     }
 
-
     private void setupPreset(int presetIndex, double zoneWidth, double zoneHeight) { // à simplifier
         Random random = new Random();
-        Ball temp;
+        Ball tempBall;
+        Brick tempBrick;
         game.clear();
         switch (presetIndex) {
             case 0:
-                temp = PhysicEngine.init_ball(new Coordinates(PhysicSetting.DEFAULT_WINDOW_WIDTH/2, PhysicSetting.DEFAULT_WINDOW_HEIGHT/2),
-                    new Vector(new Coordinates(random.nextDouble(), random.nextDouble())));
-                System.out.println(zoneWidth + "+" + zoneHeight);
-                game.addBall(temp);
-                break;
+
+                // temp = PhysicEngine.init_ball(
+                //         new Coordinates(PhysicSetting.DEFAULT_WINDOW_WIDTH / 2,
+                //                 PhysicSetting.DEFAULT_WINDOW_HEIGHT / 2),
+                //         new Vector(new Coordinates(random.nextDouble(), random.nextDouble())));
+
+                // game.addBall(temp);
+                // break;
 
             case 1:
-                temp = PhysicEngine.init_ball(new Coordinates(PhysicSetting.DEFAULT_WINDOW_WIDTH/2, PhysicSetting.DEFAULT_WINDOW_HEIGHT/2),
-                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble())));
-                System.out.println(zoneWidth + "+" + zoneHeight);
-                game.addBall(temp);
+                // temp = PhysicEngine.init_ball(
+                //         new Coordinates(PhysicSetting.DEFAULT_WINDOW_WIDTH / 2,
+                //                 PhysicSetting.DEFAULT_WINDOW_HEIGHT / 2),
+                //         new Vector(new Coordinates(random.nextDouble(), random.nextDouble())));
+
+                // game.addBall(temp);
                 break;
             case 2:
                 game.addBall(PhysicEngine.init_ball(new Coordinates(random.nextInt(200), random.nextInt(800)),

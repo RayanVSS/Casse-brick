@@ -217,7 +217,7 @@ public class GameRules {
     }
 
     public void createBrickInfinite(Map m) {
-        if (lastCreatedBrick == null || lastCreatedBrick.getC().getY() > 0) {
+        if (lastCreatedBrick == null || lastCreatedBrick.getC().getY() > -1) {
             ArrayList<Brick> newBricks = new ArrayList<>();
             for (int i = 0; i < 0 + GameConstants.MAP_WIDTH; i++) {
                 Brick temp = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
