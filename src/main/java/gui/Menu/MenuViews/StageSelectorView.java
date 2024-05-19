@@ -74,7 +74,7 @@ public class StageSelectorView implements Menu, ViewPosition {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 Button tmp = createButton("" + count, 0, 0);
-                if (PlayerData.stagesProgress.getStages()[count - 1].canLoadGame()) {
+                if (PlayerData.stagesProgress.getStages()[count - 1].canLoadGameForDisplay()) {
                     ImageView imageView = new ImageView(unLock);
                     imageView.setSmooth(true);
                     imageView.setPreserveRatio(true);
@@ -128,7 +128,7 @@ public class StageSelectorView implements Menu, ViewPosition {
     public void update() {
         System.out.println("chap " + chap);
         for (int i = 0; i < buttons.size(); i++) {
-            if (PlayerData.stagesProgress.getStages()[i + (chap * 9)].canLoadGame()) {
+            if (PlayerData.stagesProgress.getStages()[i + (chap * 9)].canLoadGameForDisplay()) {
                 ImageView imageView = new ImageView(unLock);
                 imageView.setSmooth(true);
                 imageView.setPreserveRatio(true);

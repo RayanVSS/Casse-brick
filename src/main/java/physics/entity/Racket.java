@@ -1,24 +1,21 @@
 package physics.entity;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
-import physics.geometry.Coordinates;
-import physics.geometry.Vector;
-import utils.GameConstants;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.checkerframework.checker.units.qual.g;
-
 import gui.GameRoot;
 import gui.GraphicsFactory.RacketGraphics;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
+import physics.geometry.Coordinates;
 import physics.geometry.Figure;
-import utils.Key;
-
-import java.util.List;
-import java.util.HashSet;
 import physics.geometry.Segment;
+import physics.geometry.Vector;
+import utils.GameConstants;
+import utils.Key;
 
 /***************************************************************************
  * Explication de classe pour la raquette *
@@ -386,21 +383,18 @@ public abstract class Racket extends Figure {
     }
 
     public void BallinRacket(Ball b) {
-       if(shape=="rectangle"){
-            if(segments.get(0).intersect(b.getC(),b.getRadius(),b.getRadius())){
-                b.getC().setY(this.getC().getY()-b.getRadius());
-            }
-            else if(segments.get(2).intersect(b.getC(),b.getRadius(),b.getRadius())){
-                b.getC().setY(this.getC().getX()+getLargeur()+b.getRadius());
-            }
-            else if(segments.get(1).intersect(b.getC(),b.getRadius(),b.getRadius())){
-                b.getC().setX(this.getC().getX()+getLongueur()+b.getRadius());
-            }
-            else if(segments.get(3).intersect(b.getC(),b.getRadius(),b.getRadius())){
-                b.getC().setX(this.getC().getX()-b.getRadius());
+        if (shape == "rectangle") {
+            if (segments.get(0).intersect(b.getC(), b.getRadius(), b.getRadius())) {
+                b.getC().setY(this.getC().getY() - b.getRadius());
+            } else if (segments.get(2).intersect(b.getC(), b.getRadius(), b.getRadius())) {
+                b.getC().setY(this.getC().getX() + getLargeur() + b.getRadius());
+            } else if (segments.get(1).intersect(b.getC(), b.getRadius(), b.getRadius())) {
+                b.getC().setX(this.getC().getX() + getLongueur() + b.getRadius());
+            } else if (segments.get(3).intersect(b.getC(), b.getRadius(), b.getRadius())) {
+                b.getC().setX(this.getC().getX() - b.getRadius());
             }
 
-       }
+        }
     }
 
     // fonction obligatoire
@@ -636,7 +630,7 @@ public abstract class Racket extends Figure {
         createsegments();
     }
 
-    public void Dojump(Racket racket, List<Ball> balls){
+    public void Dojump(Racket racket, List<Ball> balls) {
         if (racket.getJumpUP()) {
             racket.deplaceY(-5);
             racket.setDirection(new Vector(racket.getDirection().getX(), -1));
@@ -645,7 +639,7 @@ public abstract class Racket extends Figure {
                         && ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
                         && ball.getC().getY() > racket.getC().getY() - racket.getLongueur()) {
                     ball.setC(new Coordinates(ball.getC().getX(), racket.getC().getY() - racket.getLongueur() - 2));
-                    ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY()*1.2));
+                    ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY() * 1.2));
                     ball.getRotation().stopRotation();
                 }
             }
@@ -664,7 +658,6 @@ public abstract class Racket extends Figure {
 
         }
     }
-
 
     // GET et SET
     public void setCalibrage(boolean calibrage) {

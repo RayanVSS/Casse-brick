@@ -1,5 +1,7 @@
 package gui.Menu.MenuViews;
 
+import gui.ViewPosition;
+import gui.GraphicsFactory.ConsoleView;
 import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.ChapterController;
@@ -16,8 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
 import utils.ImageLoader;
-import gui.ViewPosition;
-import gui.GraphicsFactory.ConsoleView;
 
 public class ChapterView implements Menu, ViewPosition {
     private Stage primaryStage;
@@ -55,10 +55,9 @@ public class ChapterView implements Menu, ViewPosition {
 
         // Créer les boutons
         chapter1 = createChapterButton(image1, null, -10);
-        chapter2 = createChapterButton(image2,  null, 0);
+        chapter2 = createChapterButton(image2, null, 0);
         chapter3 = createChapterButton(image3, null, 10);
         chapter4 = createChapterButton(image4, null, 20);
-
 
         backButton = createButton("Retour", 0, 0);
 
@@ -70,8 +69,6 @@ public class ChapterView implements Menu, ViewPosition {
         bottomBox = new HBox();
         consoleView = ConsoleView.getInstance();
         bottomBox.getChildren().add(consoleView);
-
-        
 
         root.setCenter(centerBox);
         root.setBottom(bottomBox);
