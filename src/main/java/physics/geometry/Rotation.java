@@ -1,5 +1,9 @@
 package physics.geometry;
 
+
+/**
+ * Classe qui permet de gerer la rotation d'un objet
+ */
 public class Rotation {
 
     Vector vecteur;

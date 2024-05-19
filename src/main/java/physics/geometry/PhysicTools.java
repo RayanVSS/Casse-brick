@@ -4,6 +4,10 @@ import physics.entity.Brick;
 import utils.GameConstants;
 import physics.entity.Ball;
 
+/**
+ * Classe utilitaire pour les calculs de physique
+ */
+
 public class PhysicTools {
 
     public static boolean checkCollision(Coordinates c, Vector d, double radius, Segment segment, Rotation rotation) {

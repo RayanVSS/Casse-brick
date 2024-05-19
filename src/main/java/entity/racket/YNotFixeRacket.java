@@ -1,5 +1,6 @@
 package entity.racket;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javafx.scene.input.KeyCode;
@@ -68,7 +69,7 @@ public class YNotFixeRacket extends Racket {
             switch (key) {
                 case Q:
                 case LEFT:
-                    if (this.mX() > -longueur / 2)
+                    if (this.mX() > 0)
                         this.deplaceX(-speed);
                         this.getDirection().setX(-1);
                         for (Ball ball : balls) {
@@ -91,7 +92,7 @@ public class YNotFixeRacket extends Racket {
                     break;
                 case D:
                 case RIGHT:
-                    if (this.mX() < super.getWidth() - largeur - 70)
+                    if (this.mX() < super.getWidth() - largeur )
                         this.deplaceX(speed);
                         this.getDirection().setX(1);
                         for (Ball ball : balls) {
@@ -168,6 +169,7 @@ public class YNotFixeRacket extends Racket {
             
         }
     }
+
 
     // Mouvement au relachement des touches
     public void handleKeyRelease(KeyCode event) {

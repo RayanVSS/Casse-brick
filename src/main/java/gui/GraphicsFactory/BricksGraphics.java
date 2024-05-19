@@ -11,6 +11,12 @@ import physics.entity.Entity.EntityColor;
 import utils.GameConstants;
 import utils.ImageLoader;
 
+
+/**
+ * Classe BricksGraphics qui étend ImageView et implémente EntityGraphics.
+ * Cette classe est utilisée pour représenter graphiquement une brique dans le jeu.
+ */
+
 public class BricksGraphics extends ImageView implements EntityGraphics {
     public Image currentImage;
     public Brick brick;
@@ -23,6 +29,7 @@ public class BricksGraphics extends ImageView implements EntityGraphics {
 
     public static final Map<EntityColor, String> colorToImageMap;
 
+    //permet d'associer à chaque couleur une image de brique
     static {
         colorToImageMap = new HashMap<>();
         colorToImageMap.put(EntityColor.RED, "src/main/ressources/brique/briqueRougeContours.png");

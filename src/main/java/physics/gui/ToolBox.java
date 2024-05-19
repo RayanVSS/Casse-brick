@@ -93,6 +93,7 @@ public class ToolBox extends Pane {
                         || e instanceof Label || e instanceof ComboBox
                         || (e instanceof LabelToggleButtonHBox && !e.equals(pauseButton)));
                 button1.setText("Desactiver les test unitaires");
+                pauseButton.setLayoutY(170);
 
             } else {
                 getChildren().remove(test);
@@ -101,6 +102,7 @@ public class ToolBox extends Pane {
                 updateData();
                 button1.setText("Activer les test unitaires");
                 button1.setLayoutY(400);
+                pauseButton.setLayoutY(370);
             }
         });
         getChildren().addAll(button1, pauseButton);
@@ -140,8 +142,8 @@ public class ToolBox extends Pane {
 
         Button button2 = new Button("Supprimer toutes les briques ajoutées");
         button2.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
-        button2.setLayoutX(30);
-        button2.setLayoutY(250);
+        button2.setLayoutX(10);
+        button2.setLayoutY(260);
         button2.setOnAction(e -> {
             game.removeBrick();
         });
@@ -149,8 +151,8 @@ public class ToolBox extends Pane {
 
         Button button3 = new Button("Supprimer toutes les balles ajoutées");
         button3.setStyle("-fx-font-size: 13; -fx-background-color: #1b263b;-fx-text-fill: #d5bbb1;");
-        button3.setLayoutX(30);
-        button3.setLayoutY(270);
+        button3.setLayoutX(10);
+        button3.setLayoutY(280);
 
         button3.setOnAction(e -> {
             game.removeBall();
@@ -161,17 +163,21 @@ public class ToolBox extends Pane {
         label = new Label("Changer la forme de la raquette :");
         label.setStyle("-fx-font-size: 13; -fx-text-fill: #d5bbb1;");
         label.setLayoutX(10);
-        label.setLayoutY(310);
+        label.setLayoutY(320);
         ComboBox<String> listracket = new ComboBox<String>();
         listracket.getItems().addAll("rectangle", "rond (beta)", "triangle", "losange", "YnotFixe");
         listracket.setValue(null);
         listracket.setLayoutX(40);
-        listracket.setLayoutY(330);
+        listracket.setLayoutY(340);
         listracket.setOnAction(e -> {
             game.getChildren().remove(PhysicEngine.graphRacket.getShape());
-            PhysicEngine.racket = PhysicEngine.init_racket(listracket.getValue());
+            String shape = listracket.getValue();
+            if(shape.equals("rond (beta)")){
+                shape="rond";
+            }
+            PhysicEngine.racket = PhysicEngine.init_racket(shape);
             PhysicEngine.graphRacket = new RacketGraphics(PhysicEngine.racket, PhysicEngine.racket.getShapeType());
-            game.getChildren().add(PhysicEngine.graphRacket.getShape());
+            game.getChildren().add(PhysicEngine.graphRacket.getShape());   
         });
 
         getChildren().addAll(label, listracket);
@@ -324,7 +330,7 @@ public class ToolBox extends Pane {
         addBallButton.setLayoutY(230);
 
         pauseButton.setLayoutX(10);
-        pauseButton.setLayoutY(360);
+        pauseButton.setLayoutY(370);
 
     }
 

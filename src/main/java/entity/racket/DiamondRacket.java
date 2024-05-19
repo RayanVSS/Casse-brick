@@ -45,27 +45,27 @@ public class DiamondRacket extends Racket {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {
                 if (this.mX() > largeur / 2)
-                    this.mX(this.mX() - speed);
-                this.getDirection().setX(-1);
-                for (Ball ball : balls) {
-                    if (PhysicTools.checkCollision(ball, this.getSegments().get(2))
-                            || PhysicTools.checkCollision(ball, this.getSegments().get(3))) {
-                        ball.getDirection().setX(ball.getDirection().getX() + this.getDirection().getX());
-                        ball.getC().setX(ball.getC().getX() - speed / Math.abs(ball.getDirection().getX()));
+                    this.deplaceX(-speed);
+                    this.getDirection().setX(-1);
+                    for (Ball ball : balls) {
+                        if (PhysicTools.checkCollision(ball, this.getSegments().get(2))
+                                || PhysicTools.checkCollision(ball, this.getSegments().get(3))) {
+                            ball.getDirection().setX(ball.getDirection().getX() + this.getDirection().getX());
+                            ball.getC().setX(ball.getC().getX() - speed / Math.abs(ball.getDirection().getX()));
+                        }
                     }
-                }
             }
             if (key == GameConstants.RIGHT) {
                 if (this.mX() < super.getWidth() - largeur / 2)
-                    this.mX(this.mX() + speed);
-                this.getDirection().setX(1);
-                for (Ball ball : balls) {
-                    if (PhysicTools.checkCollision(ball, this.getSegments().get(0))
-                            || PhysicTools.checkCollision(ball, this.getSegments().get(1))) {
-                        ball.getDirection().setX(ball.getDirection().getX() + this.getDirection().getX());
-                        ball.getC().setX(ball.getC().getX() + speed / Math.abs(ball.getDirection().getX()));
+                    this.deplaceX(speed);
+                    this.getDirection().setX(1);
+                    for (Ball ball : balls) {
+                        if (PhysicTools.checkCollision(ball, this.getSegments().get(0))
+                                || PhysicTools.checkCollision(ball, this.getSegments().get(1))) {
+                            ball.getDirection().setX(ball.getDirection().getX() + this.getDirection().getX());
+                            ball.getC().setX(ball.getC().getX() + speed / Math.abs(ball.getDirection().getX()));
+                        }
                     }
-                }
             }
             if (key == GameConstants.SPACE) {
                 setlargeurP(true);

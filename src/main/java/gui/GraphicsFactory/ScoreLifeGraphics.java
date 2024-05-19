@@ -51,7 +51,11 @@ public class ScoreLifeGraphics extends VBox implements Menu {
         scoreLabel = createLabel("Score: " + score);
 
         maxScore = createLabel("Meilleur score: " + stage.getMaxScore());
-        if (!stage.isCustomGame()) {
+        
+        if (game.getRules().isInfinite()){
+            niveau = createLabel("Mode Infini");
+        }
+        else if (!stage.isCustomGame()) {
             niveau = createLabel("Niveau: " + (stage.getDifficulty() + 1));
             niveau.setVisible(true);
         }

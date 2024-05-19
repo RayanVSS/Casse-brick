@@ -100,11 +100,9 @@ public class PhysicEngine extends Pane {
         if (RACKET) {
             racket = init_racket("rectangle");
             graphRacket = new RacketGraphics(racket, racket.getShapeType());
-            graphRacket.getShape().setFill(Color.BLACK);
             this.getChildren().add(graphRacket.getShape());
         }
         // Initialisation de la trajectoire
-
         firstBall.setPreview(new Preview(firstBall, physics, this));
         firstBall.getPreview().init_path();
 
@@ -257,7 +255,7 @@ public class PhysicEngine extends Pane {
         } else {
             r = new ClassicRacket();
         }
-        r.setWindowWidth(PhysicSetting.DEFAULT_WINDOW_WIDTH);
+        r.setWindowWidth(GameConstants.DEFAULT_WINDOW_WIDTH);
         return r;
     }
 
@@ -270,7 +268,12 @@ public class PhysicEngine extends Pane {
         });
         Racket.d = key.getKeysPressed();
         for (Ball ball : listball.keySet()) {
-            ball.checkCollision(racket);
+            if(racket.getShapeType().equals("rond")){
+                racket.CollisionRond(ball);
+            }
+            else{
+                ball.checkCollision(racket);
+            }
             if (ball.getPreview() != null) {
                 ball.getPreview().update(racket);
             }
