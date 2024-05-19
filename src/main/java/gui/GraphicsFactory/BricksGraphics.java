@@ -64,8 +64,8 @@ public class BricksGraphics extends ImageView implements EntityGraphics {
             setImage(ImageLoader.loadImage("src/main/ressources/brique/briqueGris.png", GameConstants.BRICK_WIDTH,
                     GameConstants.BRICK_HEIGHT));
         }
-        // this.setX(brick.getC().getX());
-        // this.setY(brick.getC().getY());
+        this.setX(brick.getC().getX());
+        this.setY(brick.getC().getY());
     }
 
     public Entity getEntity() {

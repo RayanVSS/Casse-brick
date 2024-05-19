@@ -12,6 +12,7 @@ import entity.brick.BrickClassic;
 import physics.entity.Ball;
 import physics.entity.Brick;
 import physics.geometry.Coordinates;
+import physics.geometry.Vector;
 import utils.GameConstants;
 
 public class GameRules {
@@ -206,8 +207,10 @@ public class GameRules {
 
     public void infiniteUpdate(Map m, double vitesse) {
         ArrayList<Brick> list = m.getBricks();
+        Vector deplace = new Vector(new Coordinates(0, vitesse));
         for (Brick b : list) {
             b.getC().setY(b.getC().getY() + vitesse);
+            b.deplace(deplace);
         }
     }
 

@@ -99,23 +99,26 @@ public class Game {
                 break;
             }
             for (Brick brick : map.getBricks()) {
+                boolean breakBrick = false;
                 if (rules.canCollide(brick) && ball.checkCollision(brick)) {
                     if (rules.isColorRestricted()) {
                         if (ball.getColor() == brick.getColor()) {
-                            brick.absorb(100);
+                            breakBrick = true;
                         }
                         ball.setColor(brick.getColor());
+                    } else {
+                        breakBrick = true;
                     }
-
-                    Bonus bonus = Bonus.createBonus(ball.getC().clone());
-                    if (bonus != null) {
-                        bonuslist.add(bonus);
+                    if (breakBrick) {
+                        brick.absorb(100);
+                        Bonus bonus = Bonus.createBonus(ball.getC().clone());
+                        if (bonus != null) {
+                            bonuslist.add(bonus);
+                        }
                     }
                     break;
                 }
             }
-            // map.handleCollisionBricks(ball, rules); // gérer la collision des briques
-            map.updateBricksStatus(this);
             // seulement si la balle est une MagnetBall
             if (ball instanceof MagnetBall) {
                 // donne les coordonnées de la raquette a la MagnetBall
@@ -168,7 +171,6 @@ public class Game {
                     rules.updateRulesRacket(map);
                 }
             }
-
             ball.movement(deltaT);
             ball.CollisionB = false;
         }
@@ -184,6 +186,7 @@ public class Game {
             rules.infiniteUpdate(map, GameConstants.BRICK_SPEED);
             rules.createBrickInfinite(map);
         }
+        map.updateBricksStatus(this);
         updateGameStatus();
         racket.getDirection().setX(0);
     }
