@@ -30,7 +30,7 @@ public class DiamondRacket extends Racket {
                     for (Ball ball : balls) {
                         if(PhysicTools.checkCollision(ball,this.getSegments().get(2))||PhysicTools.checkCollision(ball,this.getSegments().get(3))){
                             ball.getDirection().setX(ball.getDirection().getX()+this.getDirection().getX());
-                            ball.getC().setX(ball.getC().getX()-speed);
+                            ball.getC().setX(ball.getC().getX()-speed/Math.abs(ball.getDirection().getX()));
                         }
                     }
             }
@@ -41,7 +41,7 @@ public class DiamondRacket extends Racket {
                     for (Ball ball : balls) {
                         if(PhysicTools.checkCollision(ball,this.getSegments().get(0))||PhysicTools.checkCollision(ball,this.getSegments().get(1))){
                             ball.getDirection().setX(ball.getDirection().getX()+this.getDirection().getX());
-                            ball.getC().setX(ball.getC().getX()+speed);
+                            ball.getC().setX(ball.getC().getX()+speed/Math.abs(ball.getDirection().getX()));
                         }
                     }
             }

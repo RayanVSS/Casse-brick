@@ -35,7 +35,7 @@ public class MagnetRacket extends Racket {
                         if(PhysicTools.checkCollision(ball,this.getSegments().get(3))){
                             if(ball.getC().getX()-speed > ball.getRadius()){
                                 ball.getC().setX(ball.getC().getX()-speed);
-                                ball.getDirection().setX(ball.getDirection().getX()-speed);
+                                ball.getDirection().setX(ball.getDirection().getX()-speed/Math.abs(ball.getDirection().getX()));
                             }
                             else{
                                 int m=1;
@@ -57,7 +57,7 @@ public class MagnetRacket extends Racket {
                         if(PhysicTools.checkCollision(ball,this.getSegments().get(1))){
                             if(ball.getC().getX()+speed < super.getWidth()-ball.getRadius()){
                                 ball.getC().setX(ball.getC().getX()+speed);
-                                ball.getDirection().setX(ball.getDirection().getX()+speed);
+                                ball.getDirection().setX(ball.getDirection().getX()+speed/Math.abs(ball.getDirection().getX()));
                             }
                             else{
                                 int m=1;
