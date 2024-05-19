@@ -793,7 +793,6 @@ Ajouts :
 - la raquette ne peut plus sortir du jeu
 - résolution du bug qui faisait perdre la balle durant une partie
 
-## Du 30/4 a 16/5:
 ### Benmalek Majda
 - Boutique fini 
 - Nouvelle police du jeu 
@@ -806,3 +805,20 @@ Ajouts :
 - Mode infini terminé
 - Résolution de bug 
 - Rapport
+
+
+### GUAN Olivier
+
+- Refonte structure (SceneManager -> MenuManager) (Ajout : refresh à chaque changeScene)
+- Console, ConsoleView, ViewPosition et intégrations aux menus
+- Les commandes de Console, exit, run, save, set, get etc...
+- Adaptations des CSS à la console
+- Input history dans console
+- Accessibilité augmentée dans console
+- Refonte de la structure de données des briques Brick\[\]\[\] en Arraylist
+- Intégration du niveau infini pour l'arraylist
+- Refonte & facto de BrickGraphics
+- Presets de l'app de démo/physic
+- Rapport
+
+
