@@ -202,7 +202,8 @@
         "difficulty": 26,
         "unlockLevel": 27,
         "completed": false,
-        "maxScore": 0
+        "maxScore": 0,
+        "customGame": false
       },
       {
         "difficulty": 27,
