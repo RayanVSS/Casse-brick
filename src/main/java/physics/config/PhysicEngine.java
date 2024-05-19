@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.Iterator;
 
 import config.Game;
-import entity.EntityColor;
 import entity.ball.ClassicBall;
 import entity.brick.BrickClassic;
 import entity.racket.CircleRacket;
@@ -23,6 +22,7 @@ import javafx.stage.Stage;
 import physics.AppPhysic;
 import physics.entity.Ball;
 import physics.entity.Brick;
+import physics.entity.Entity.EntityColor;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Segment;

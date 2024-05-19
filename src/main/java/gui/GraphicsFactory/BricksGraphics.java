@@ -2,11 +2,12 @@ package gui.GraphicsFactory;
 
 import java.util.HashMap;
 import java.util.Map;
-import entity.EntityColor;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import physics.entity.Brick;
 import physics.entity.Entity;
+import physics.entity.Entity.EntityColor;
 import utils.GameConstants;
 import utils.ImageLoader;
 

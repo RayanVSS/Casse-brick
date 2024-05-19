@@ -7,10 +7,10 @@ import java.util.TimerTask;
 
 import org.checkerframework.checker.units.qual.C;
 
-import entity.EntityColor;
 import entity.brick.BrickClassic;
 import physics.entity.Ball;
 import physics.entity.Brick;
+import physics.entity.Entity.EntityColor;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
