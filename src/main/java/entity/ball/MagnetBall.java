@@ -84,10 +84,10 @@ public class MagnetBall extends Ball {
             if (speedX < -GameConstants.VITESSE_MAX_MAGNET) {
                 newX = this.getC().getX() - GameConstants.VITESSE_MAX_MAGNET;
             }
-            if (speedX > -1.5 && speedX <= 0) {
+            if (speedX > -GameConstants.VITESSE_MIN_MAGNET && speedX <= 0) {
                 newX -= 0.2;
             }
-            if (speedX < 1.5 && speedX >= 0) {
+            if (speedX < GameConstants.VITESSE_MIN_MAGNET && speedX >= 0) {
                 newX += 0.2;
             }
         }
@@ -134,15 +134,19 @@ public class MagnetBall extends Ball {
                 } else {
                     // si la balle est en collision avec la raquette alors la balle reste coller a
                     // la raquette
-                    this.setC(new Coordinates(newX, getRa.getC().getY() - this.getRadius()*1.1)); // la balle reste coller a la raquette
-                    this.getDirection().setX(0); 
+                    this.setC(new Coordinates(newX, getRa.getC().getY() - this.getRadius() * 1.1)); // la balle reste
+                                                                                                    // coller a la
+                                                                                                    // raquette
+                    this.getDirection().setX(0);
                     this.getDirection().setY(-1);
-                    CollisionR = true; //la balle est en collision avec la raquette
+                    CollisionR = true; // la balle est en collision avec la raquette
                     if (mouvement.contains(GameConstants.LEFT)) {
-                        this.setC(new Coordinates(newX - getRa.getSpeed(),  getRa.getC().getY() - this.getRadius()*1.1));
+                        this.setC(
+                                new Coordinates(newX - getRa.getSpeed(), getRa.getC().getY() - this.getRadius() * 1.1));
                     }
                     if (mouvement.contains(GameConstants.RIGHT)) {
-                        this.setC(new Coordinates(newX + getRa.getSpeed(),  getRa.getC().getY() - this.getRadius()*1.1));
+                        this.setC(
+                                new Coordinates(newX + getRa.getSpeed(), getRa.getC().getY() - this.getRadius() * 1.1));
                     }
                     return;
                 }
@@ -152,10 +156,10 @@ public class MagnetBall extends Ball {
                 CollisionR = false;
                 // repulsion de la balle de la raquette qui est moin puissante si la balle est
                 // loin de la raquette
-                if(getRa.getC().getY()-this.getRadius()*1.1  < this.getC().getY()){ // bug qui fait que la balle transperce la raquette
-                    this.setC(new Coordinates(newX, getRa.getC().getY() - this.getRadius()*1.1));
-                }
-                else if (getRa.getC().getY() - this.getC().getY() < 10) {
+                if (getRa.getC().getY() - this.getRadius() * 1.1 < this.getC().getY()) { // bug qui fait que la balle
+                                                                                         // transperce la raquette
+                    this.setC(new Coordinates(newX, getRa.getC().getY() - this.getRadius() * 1.1));
+                } else if (getRa.getC().getY() - this.getC().getY() < 10) {
                     this.getDirection().setY(this.getDirection().getY() - GameConstants.POWER_MAGNET);
                     side_attraction_less(1.0);
                 } else if (getRa.getC().getY() - this.getC().getY() < 20) {
@@ -203,6 +207,23 @@ public class MagnetBall extends Ball {
         }
         if (newY > h - this.getRadius()) {
             super.setDelete(true);
+        }
+        if (newX < 0) { // si la balle sort de l'écran par la gauche
+            newX = -newX + 5;
+        } else if (newX < -GameConstants.DEFAULT_GAME_ROOT_WIDTH) { // si la balle sort de l'écran par la droite
+            newX = 20;
+        } else if (newX > GameConstants.DEFAULT_GAME_ROOT_WIDTH) { // si la balle sort de l'écran par la droite
+            newX = GameConstants.DEFAULT_GAME_ROOT_WIDTH - 30;
+        } else if (newY < 0) { // si la balle sort de l'écran par le haut
+            newY = -newY + 5;
+        } else { // si la balle sort de l'écran par le haut
+            String newYString = String.valueOf(newY);
+            String newXString = String.valueOf(newX);
+            if (newYString.contains("NaN") || newXString.contains("NaN")) {
+                newY = GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2;
+                newX = GameConstants.DEFAULT_WINDOW_HEIGHT / 2;
+                this.setDirection(new Vector(0, -1));
+            }
         }
 
         this.setC(new Coordinates(newX, newY));

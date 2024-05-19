@@ -23,14 +23,14 @@ public class DegradeRacket extends Racket {
     public void handleKeyPress(Set<KeyCode> keysPressed) {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {
-                if (this.mX() > -largeur / 2)
+                if (this.mX() > largeur / 2)
                     this.deplaceX(-speed);
-                    this.getDirection().setX(-1);
+                this.getDirection().setX(-1);
             }
             if (key == GameConstants.RIGHT) {
-                if (this.mX() < super.getWidth() - longueur - 70)
+                if (this.mX() < super.getWidth() - largeur / 2)
                     this.deplaceX(speed);
-                    this.getDirection().setX(1);
+                this.getDirection().setX(1);
             }
             if (key == GameConstants.SPACE) {
                 setJump(jump);

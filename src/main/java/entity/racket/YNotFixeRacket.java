@@ -28,13 +28,13 @@ public class YNotFixeRacket extends Racket {
             switch (key) {
                 case Q:
                 case LEFT:
-                    if (this.mX() > -longueur / 2)
+                    if (this.mX() > 0)
                         this.deplaceX(-speed);
                         this.getDirection().setX(-1);
                     break;
                 case D:
                 case RIGHT:
-                    if (this.mX() < super.getWidth() - largeur - 70)
+                    if (this.mX() + largeur < super.getWidth())
                         this.deplaceX(speed);
                         this.getDirection().setX(1);
                     break;
