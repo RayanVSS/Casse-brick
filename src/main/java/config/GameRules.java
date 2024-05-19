@@ -234,11 +234,30 @@ public class GameRules {
 
     }
 
+    // public void createBrickInfinite(Map m) {
+    //     if (lastCreatedBrick == null || lastCreatedBrick.getC().getY() > 0) {
+    //         ArrayList<Brick> newBricks = new ArrayList<>();
+    //         int indexFirstColumn = (GameConstants.MAP_WIDTH - m.getColumnsBricks()) / 2;
+    //         for (int i = indexFirstColumn; i < indexFirstColumn + m.getColumnsBricks(); i++) {
+    //             Brick temp = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
+    //                     -1 * GameConstants.BRICK_HEIGHT));
+    //             if (isColorRestricted()) {
+    //                 temp.setColor(EntityColor.values()[new Random().nextInt(EntityColor.values().length)]);
+    //             }
+    //             newBricks.add(temp);
+    //         }
+    //         if (newBricks.size() > 0) {
+    //             lastCreatedBrick = newBricks.get(0);
+    //             m.getBricks().addAll(newBricks);
+    //         }
+    //     }
+    // }
+
     public void createBrickInfinite(Map m) {
         if (lastCreatedBrick == null || lastCreatedBrick.getC().getY() > 0) {
             ArrayList<Brick> newBricks = new ArrayList<>();
-            int indexFirstColumn = (GameConstants.MAP_WIDTH - m.getColumnsBricks()) / 2;
-            for (int i = indexFirstColumn; i < indexFirstColumn + m.getColumnsBricks(); i++) {
+            // int indexFirstColumn = (GameConstants.MAP_WIDTH - m.getColumnsBricks()) / 2;
+            for (int i = 0; i < 0 + GameConstants.MAP_WIDTH; i++) {
                 Brick temp = new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
                         -1 * GameConstants.BRICK_HEIGHT));
                 if (isColorRestricted()) {

@@ -44,9 +44,21 @@ public class Map {
         }
     }
 
+    // private void initInfiniteBricksArrangement() {
+    //     int indexFirstColumn = (GameConstants.MAP_WIDTH - columnsBricks) / 2;
+    //     for (int i = indexFirstColumn; i < indexFirstColumn + columnsBricks; i++) { // espace côté
+    //                                                                                 // gauche/droit
+    //         for (int j = 0; j < rowsBricks; j++) { // 1 espace en haut
+    //             bricks.add(new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
+    //                     j * GameConstants.BRICK_HEIGHT)));
+    //         }
+    //     }
+    // }
+
     private void initInfiniteBricksArrangement() {
-        int indexFirstColumn = (GameConstants.MAP_WIDTH - columnsBricks) / 2;
-        for (int i = indexFirstColumn; i < indexFirstColumn + columnsBricks; i++) { // espace côté
+        // int indexFirstColumn = (GameConstants.MAP_WIDTH - columnsBricks) / 2;
+        int indexFirstColumn = 0;
+        for (int i = indexFirstColumn; i < GameConstants.MAP_WIDTH; i++) { // espace côté
                                                                                     // gauche/droit
             for (int j = 0; j < rowsBricks; j++) { // 1 espace en haut
                 bricks.add(new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
