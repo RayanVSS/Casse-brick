@@ -110,15 +110,16 @@ public class GameRules {
     public void shuffleBricks(ArrayList<Brick> bricks) {
         if (randomSwitchBricks) {
             Random rnd = new Random();
-            Brick rndBrick = bricks.get(rnd.nextInt(bricks.size()));
-            for (Brick brick1 : bricks) {
+            for (int i = 0; i < bricks.size(); i++) {
+                int j = rnd.nextInt(bricks.size());
 
-                Brick temp = rndBrick;
-                rndBrick = brick1;
-                brick1 = temp;
-                Coordinates tempC = rndBrick.getC();
-                rndBrick.setC(brick1.getC());
-                brick1.setC(tempC);
+                // Échanger les briques
+                Brick brick1 = bricks.get(i);
+                Brick brick2 = bricks.get(j);
+
+                Coordinates tempC = brick1.getC();
+                brick1.setC(brick2.getC());
+                brick2.setC(tempC);
             }
         }
     }

@@ -110,6 +110,10 @@ public class GameRoot {
             }
             if (eg.isWaitingRemoved()) {
                 if (eg instanceof BricksGraphics) {
+                    // BricksGraphics bg = (BricksGraphics) eg;
+                    // System.out.println("GRAPHIC COORD: X=" + bg.getX() + "    Y=" + bg.getY());
+                    // System.out.println(
+                    //         "BRICK COORD: X=" + bg.getBrick().getC().getX() + "    Y=" + bg.getBrick().getC().getY());
                     root.getChildren().remove((BricksGraphics) eg);
                 } else if (eg instanceof BallGraphics) {
                     root.getChildren().remove((BallGraphics) eg);

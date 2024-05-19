@@ -98,6 +98,22 @@ public class Game {
                 balls.remove(ball);
                 break;
             }
+            for (Brick brick : map.getBricks()) {
+                if (rules.canCollide(brick) && ball.checkCollision(brick)) {
+                    if (rules.isColorRestricted()) {
+                        if (ball.getColor() == brick.getColor()) {
+                            brick.absorb(100);
+                        }
+                        ball.setColor(brick.getColor());
+                    }
+
+                    Bonus bonus = Bonus.createBonus(ball.getC().clone());
+                    if (bonus != null) {
+                        bonuslist.add(bonus);
+                    }
+                    break;
+                }
+            }
             // map.handleCollisionBricks(ball, rules); // gérer la collision des briques
             map.updateBricksStatus(this);
             // seulement si la balle est une MagnetBall
@@ -152,22 +168,7 @@ public class Game {
                     rules.updateRulesRacket(map);
                 }
             }
-            for (Brick brick : map.getBricks()) {
-                if (rules.canCollide(brick) && ball.checkCollision(brick)) {
-                    if (rules.isColorRestricted()) {
-                        if (ball.getColor() == brick.getColor()) {
-                            brick.absorb(100);
-                        }
-                        ball.setColor(brick.getColor());
-                    }
 
-                    Bonus bonus = Bonus.createBonus(ball.getC().clone());
-                    if (bonus != null) {
-                        bonuslist.add(bonus);
-                    }
-                    break;
-                }
-            }
             ball.movement(deltaT);
             ball.CollisionB = false;
         }

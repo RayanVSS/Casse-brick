@@ -35,12 +35,13 @@ public class BricksGraphics extends ImageView implements EntityGraphics {
         this.waitingRemoved = false;
         setFitWidth(GameConstants.BRICK_WIDTH);
         setFitHeight(GameConstants.BRICK_HEIGHT);
+        this.setX(brick.getC().getX());
+        this.setY(brick.getC().getY());
         update();
     }
 
     public BricksGraphics(Brick brick, EntityColor c) {
         this(brick);
-        update();
     }
 
     public void setImageSize(Image image) {
@@ -63,8 +64,8 @@ public class BricksGraphics extends ImageView implements EntityGraphics {
             setImage(ImageLoader.loadImage("src/main/ressources/brique/briqueGris.png", GameConstants.BRICK_WIDTH,
                     GameConstants.BRICK_HEIGHT));
         }
-        this.setX(brick.getC().getX());
-        this.setY(brick.getC().getY());
+        // this.setX(brick.getC().getX());
+        // this.setY(brick.getC().getY());
     }
 
     public Entity getEntity() {
@@ -107,4 +108,9 @@ public class BricksGraphics extends ImageView implements EntityGraphics {
         this.mouseX = mouseX;
         this.mouseY = mouseY;
     }
+
+    public Brick getBrick() {
+        return brick;
+    }
+
 }
