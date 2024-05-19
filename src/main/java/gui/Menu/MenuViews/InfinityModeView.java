@@ -1,5 +1,6 @@
 package gui.Menu.MenuViews;
 
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.InfinityModeController;
 import javafx.scene.Scene;
@@ -21,6 +22,8 @@ public class InfinityModeView implements Menu {
     private Button playButton;
     private Button backButton;
 
+    private BaseView baseView;
+
     public InfinityModeView(Stage primaryStage) {
         this.primaryStage = primaryStage;
         root = new VBox(45);
@@ -36,6 +39,8 @@ public class InfinityModeView implements Menu {
         // root.getChildren().addAll(RandomMode, ColorMode, TransparentMode,
         // UnbreakableMode, playButton, backButton);
         root.getChildren().addAll(playButton, backButton);
+
+        baseView = new BaseView(root);
         new InfinityModeController(this);
     }
 
@@ -57,6 +62,11 @@ public class InfinityModeView implements Menu {
 
     public VBox getRoot() {
         return root;
+    }
+
+    @Override
+    public void update(){
+        baseView.update();
     }
 
     // public CheckBox getRandomMode() {

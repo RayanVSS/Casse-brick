@@ -3,8 +3,13 @@
   "MUSIC": 0,
   "CSS": "CLASSIC",
   "MONEY": 0,
-  "SKIN_BALL": "Null",
-  "INVENTAIRE": [],
+  "SKIN_BALL": "src/main/ressources/balle/pink/classic.png",
+  "INVENTAIRE": [
+    "Arc-en-ciel",
+    "ClassicPink",
+    "Etoile",
+    "GravityLight"
+  ],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": false,
@@ -199,6 +204,69 @@
       {
         "difficulty": 26,
         "unlockLevel": 27,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 27,
+        "unlockLevel": 28,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 28,
+        "unlockLevel": 29,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 29,
+        "unlockLevel": 30,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 30,
+        "unlockLevel": 31,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 31,
+        "unlockLevel": 32,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 32,
+        "unlockLevel": 33,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 33,
+        "unlockLevel": 34,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 34,
+        "unlockLevel": 35,
+        "completed": false,
+        "maxScore": 0,
+        "customGame": false
+      },
+      {
+        "difficulty": 35,
+        "unlockLevel": 36,
         "completed": false,
         "maxScore": 0,
         "customGame": false

@@ -5,6 +5,7 @@ import java.util.Random;
 import config.GameRules;
 import config.GameRules.BricksArrangement;
 import entity.ball.ClassicBall;
+import entity.ball.GravityBall;
 import entity.racket.ClassicRacket;
 import entity.racket.DegradeRacket;
 import entity.racket.MagnetRacket;
@@ -45,8 +46,15 @@ public final class GameConstants {
         //MagnetBall
         public static final double POWER_MAGNET = 0.5; // puissance de l'attraction des aimants
         public static final boolean LIMITE_SPEED_MAGNET = true; // limite la vitesse de la balle lorsqu'elle est attirée par un aimant
-        public static final int VITESSE_MAX_MAGNET = 15; // vitesse maximale de la balle
-        public static final int VITESSE_MIN_MAGNET = 7; // vitesse minimale de la balle
+        public static final int VITESSE_MAX_MAGNET = 20; // vitesse maximale de la balle
+        public static final int VITESSE_MIN_MAGNET = 3; // vitesse minimale de la balle
+        //gravityBall
+        public static final double GRAVITY_POWER = 0.2; // gravité de la balle
+        public static final double LOOSE_SPEED = 0.6; // perte de vitesse de la balle
+        public static final double VITESSE_MAX_GRAVITY = 12; // vitesse maximale de la balle
+        public static final double VITESSE_MIN_GRAVITY = 1.5; // vitesse minimale de la balle
+
+        
 
         // fenetre
         // public static final double DEFAULT_WINDOW_WIDTH = MAP_WIDTH * BRICK_WIDTH;
@@ -119,7 +127,7 @@ public final class GameConstants {
         public static final int WIDTH = 20;
         public static final int HEIGHT = 20;
         public static final double BONUS_SPEED = 2;
-        public static final double BONUS_CHANCE = 0.2;
+        public static final double BONUS_CHANCE = 0.6;
         // "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze",
         // "zhonya","intensityBall"
         public static final String[] BONUS_LIST = { "vitesseP", "vitesseM", "largeurP", "largeurM", "freeze", "zhonya",
@@ -153,7 +161,7 @@ public final class GameConstants {
                                                           // (temporairement)
         public static int GR_DEFAULT_QTY_UNBREAKABLE = 5; // quantité par défaut de briques qui deviennent incassables
                                                           // (temporairement)
-        public static final int CHAPTERS_QTY = 3;
+        public static final int CHAPTERS_QTY = 4;
         public static final int STAGES_QTY = 9 * CHAPTERS_QTY;
 
         // SKins
@@ -190,7 +198,17 @@ public final class GameConstants {
                         new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false,false),
                         new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true,false),
                         new GameRules(BricksArrangement.DEFAULT, true, true, false, false, false, false,false),
-                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true,false)
+                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true,false),
+                        // chapter 3
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, true, false, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, true, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, true, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, true, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, true, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, false, false, false, false, false, true,false),
+                        new GameRules(BricksArrangement.DEFAULT, true, true, false, false, false, false,false),
+                        new GameRules(BricksArrangement.DEFAULT, true, true, true, true, true, true,false),
         };
 
         public static GameRules INFINITE_MODE = new GameRules(BricksArrangement.INFINITE, false, false, false, false,
@@ -210,7 +228,11 @@ public final class GameConstants {
                         // chapter 3
                         new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
                         new ClassicBall(), new ClassicBall(), new ClassicBall(), new ClassicBall(),
-                        new ClassicBall()
+                        new ClassicBall(),
+                        // chapter 4
+                        new GravityBall(), new GravityBall(), new GravityBall(), new GravityBall(),
+                        new GravityBall(), new GravityBall(), new GravityBall(), new GravityBall(),
+                        new GravityBall()
         };
 
         // à changer plus tard
@@ -227,6 +249,10 @@ public final class GameConstants {
                         new DegradeRacket(), new DegradeRacket(), new DegradeRacket(), new DegradeRacket(),
                         new DegradeRacket(), new DegradeRacket(), new DegradeRacket(), new DegradeRacket(),
                         new DegradeRacket(),
+                        // chapter 4
+                        new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
+                        new ClassicRacket(), new ClassicRacket(), new ClassicRacket(), new ClassicRacket(),
+                        new ClassicRacket()
 
         };
 

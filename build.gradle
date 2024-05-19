@@ -83,19 +83,6 @@ task physic(type: JavaExec) {
     }
 }
 
-task demoEnv(type: JavaExec) {
-    description = "Exécute l'application de démonstration"
-    group = "custom"
-    main = 'physics.DemoEnvironment'
-    classpath = sourceSets.main.runtimeClasspath
-
-    doFirst {
-        jvmArgs = [
-            '--module-path', classpath.asPath,
-            '--add-modules', 'javafx.controls,javafx.media,javafx.base,javafx.graphics'
-        ]
-    }
-}
 task Repair(type: JavaExec) {
     description = "Exécute Repair_software"
     group = "custom"

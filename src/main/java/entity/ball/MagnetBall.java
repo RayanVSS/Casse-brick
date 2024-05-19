@@ -72,10 +72,10 @@ public class MagnetBall extends Ball {
             if (speedY < -GameConstants.VITESSE_MAX_MAGNET) {
                 newY = this.getC().getY() - GameConstants.VITESSE_MAX_MAGNET;
             }
-            if (speedY > -1.5 && speedY <= 0) {
+            if (speedY > -GameConstants.VITESSE_MIN_MAGNET && speedY <= 0) {
                 newY -= 0.2;
             }
-            if (speedY < 1.5 && speedY >= 0) {
+            if (speedY < GameConstants.VITESSE_MIN_MAGNET && speedY >= 0) {
                 newY += 0.2;
             }
             if (speedX > GameConstants.VITESSE_MAX_MAGNET) {

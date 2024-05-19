@@ -2,6 +2,7 @@ package gui.Menu.MenuViews;
 
 import gui.GameView;
 import gui.ViewPosition;
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameOverController;
 import javafx.scene.control.Button;
@@ -25,6 +26,7 @@ public class GameOverView extends VBox implements Menu, ViewPosition {
     private Button btnMenu;
     private Label gameOver;
     private GameView game;
+    private BaseView baseView;
 
     /**
      * Constructeur de la classe GameOver.
@@ -49,6 +51,7 @@ public class GameOverView extends VBox implements Menu, ViewPosition {
         setPrefHeight(game.getRoot().getHeight());
         getStylesheets().add(GameConstants.CSS.getPath());
         saveViewPosition();
+        baseView = new BaseView(this);
         new GameOverController(this);
     }
 
@@ -99,5 +102,10 @@ public class GameOverView extends VBox implements Menu, ViewPosition {
 
     public GameView getGame() {
         return game;
+    }
+
+    @Override
+    public void update(){
+        baseView.update();
     }
 }

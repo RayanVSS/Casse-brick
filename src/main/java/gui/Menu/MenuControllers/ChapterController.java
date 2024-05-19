@@ -1,6 +1,7 @@
 package gui.Menu.MenuControllers;
 
 import gui.Menu.MenuViews.ChapterView;
+import gui.Menu.MenuViews.StageSelectorView;
 import gui.App;
 import javafx.application.Platform;
 
@@ -17,12 +18,14 @@ public class ChapterController {
         Chapterview.getChapter1().setOnAction(e -> showChapter1());
         Chapterview.getChapter2().setOnAction(e -> showChapter2());
         Chapterview.getChapter3().setOnAction(e -> showChapter3());
+        Chapterview.getChapter4().setOnAction(e -> showChapter4());
         Chapterview.getBackButton().setOnAction(e -> back());
     }
 
     private void showChapter1() {
         Platform.runLater(() -> {
             StageSelectorController.setChapter(0);
+            StageSelectorView.chap=0;
             App.menuManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
         });
     }
@@ -30,6 +33,7 @@ public class ChapterController {
     private void showChapter2() {
         Platform.runLater(() -> {
             StageSelectorController.setChapter(1);
+            StageSelectorView.chap=1;
             App.menuManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
         });
     }
@@ -37,9 +41,18 @@ public class ChapterController {
     private void showChapter3() {
         Platform.runLater(() -> {
             StageSelectorController.setChapter(2);
+            StageSelectorView.chap=2;
             App.menuManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
         });
     }
+
+    private void showChapter4() {
+        Platform.runLater(() -> {
+            StageSelectorController.setChapter(3);
+            App.menuManager.changeScene(Chapterview.getPrimaryStage(), "StageSelectorView");
+        });
+    }
+
 
     private void back() {
         Platform.runLater(() -> {

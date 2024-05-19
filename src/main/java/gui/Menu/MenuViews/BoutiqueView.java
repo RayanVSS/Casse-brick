@@ -3,6 +3,7 @@ package gui.Menu.MenuViews;
 import gui.Item;
 import gui.ViewPosition;
 import gui.GraphicsFactory.ConsoleView;
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.BoutiqueController;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -46,9 +48,11 @@ public class BoutiqueView implements Menu, ViewPosition {
     private LabelVBox moneyVBox;
 
     private Button back;
+    private Button takeOff;
     private final int startPrice = 5;
 
     private ConsoleView consoleView;
+    private BaseView baseView;
 
     public BoutiqueView(Stage p) {
         this.primaryStage = p;
@@ -56,17 +60,22 @@ public class BoutiqueView implements Menu, ViewPosition {
         contentBox = new VBox();
         consoleBox = new HBox();
         scene = new Scene(root, GameConstants.DEFAULT_WINDOW_WIDTH, GameConstants.DEFAULT_WINDOW_HEIGHT);
-        System.out.println("BoutiqueView created");
 
         initBoutique();
 
         title = createLabel("Boutique", 0, 0);
         title.getStyleClass().add("title-style");
 
+        HBox h=new HBox();
         back = createButton("Retour", 0, 0);
-
+        takeOff = createButton("Tout enlever", 0, 0);
+        h.getChildren().addAll(back,takeOff);
+        h.setAlignment(javafx.geometry.Pos.CENTER);
+        h.setSpacing(10);
+        StackPane.setMargin(h, new javafx.geometry.Insets(10, 10, 10, 10));
         contentBox.getStyleClass().add("root");
-        contentBox.getChildren().addAll(title, moneyVBox, boutique, back);
+        contentBox.getChildren().addAll(title, moneyVBox, boutique, h);
+        contentBox.setAlignment(javafx.geometry.Pos.CENTER);
 
         consoleView = ConsoleView.getInstance();
         consoleBox.getChildren().add(consoleView);
@@ -75,7 +84,7 @@ public class BoutiqueView implements Menu, ViewPosition {
         root.setBottom(consoleBox);
         localStyle();
 
-        System.out.println("SKIN BALL: " + GameConstants.SKIN_BALL);
+        baseView = new BaseView(root, contentBox, consoleBox);
         new BoutiqueController(this);
     }
 
@@ -88,47 +97,46 @@ public class BoutiqueView implements Menu, ViewPosition {
         for (int i = 0; i < GameConstants.LABELS_RAQUETTE.length; i++) {
             raquetteItem[i] = new Item(GameConstants.LABELS_RAQUETTE[i], GameConstants.PATHS_RAQUETTE[i],
                     startPrice * i + 5, "raquette");
-            if (PlayerData.inventaire.contains(raquetteItem[i].getName())) {
-                raquetteItem[i].updateButtonBuy();
-            }
-            if (raquetteItem[i].getPath().equals(GameConstants.TEXTURE)) {
-                System.out.println("raquette: " + GameConstants.TEXTURE);
-                System.out.println("raquette path: " + raquetteItem[i].getPath());
-                GameConstants.RACKET_PORTE = raquetteItem[i];
-                raquetteItem[i].updateChange();
-            }
             LabelVBox labelVBox = new LabelVBox(raquetteItem[i].getName(), 20);
             labelVBox.getChildren().addAll(initRectangle(raquetteItem[i].getPath()), raquetteItem[i].getButton());
-            raquetteGrid.add(labelVBox, i % 3, i / 3);
+            raquetteGrid.add(labelVBox, i % 4, i / 4);
         }
+
         for (int i = 0; i < GameConstants.LABELS_BALLE.length; i++) {
             balleItem[i] = new Item(GameConstants.LABELS_BALLE[i], GameConstants.PATHS_BALLE[i], startPrice * i + 5,
                     "balle");
-            if (PlayerData.inventaire.contains(balleItem[i].getName())) {
-                balleItem[i].updateButtonBuy();
-            }
-            if (balleItem[i].getPath().equals(GameConstants.SKIN_BALL)) {
-                System.out.println("balle: " + GameConstants.SKIN_BALL);
-                System.out.println("balle path: " + balleItem[i].getPath());
-                GameConstants.BALL_PORTE = balleItem[i];
-                balleItem[i].updateChange();
-            }
             LabelVBox labelVBox = new LabelVBox(balleItem[i].getName(), 10);
             labelVBox.getChildren().addAll(initImage(balleItem[i].getPath()), balleItem[i].getButton());
-            balleGrid.add(labelVBox, i % 3, i / 3);
+            balleGrid.add(labelVBox, i % 4, i / 4);
+        }
+    }
+
+    private void updateButton(Item i) {
+        i.setBought(PlayerData.inventaire.isBought(i.getName()));
+        i.setWorn(GameConstants.TEXTURE.equals(i.getPath()) || GameConstants.SKIN_BALL.equals(i.getPath()));
+        if (i.isWorn() && i.getType().equals("balle")) {
+            GameConstants.BALL_PORTE = i;
+            i.updateChange();
+        } else if (i.isWorn() && i.getType().equals("raquette")) {
+            GameConstants.RACKET_PORTE = i;
+            i.updateChange();
+        } else if (i.isBought()) {
+            i.updateButtonBuy();
+        } else {
+            i.getButton().setText("Prix : " + i.getPrice());
         }
     }
 
     private void initBoutique() {
         initItems();
-        raquette = new LabelVBox("Texture Raquette:", 10);
-        raquetteGrid.setHgap(10);
-        raquetteGrid.setVgap(10);
+        raquette = new LabelVBox("Texture Raquette:", 5);
+        raquetteGrid.setHgap(5);
+        raquetteGrid.setVgap(5);
         raquette.getChildren().add(raquetteGrid);
 
-        balle = new LabelVBox("Skin Balle:", 10);
-        balleGrid.setHgap(10);
-        balleGrid.setVgap(10);
+        balle = new LabelVBox("Skin Balle:", 5);
+        balleGrid.setHgap(5);
+        balleGrid.setVgap(5);
         balle.getChildren().add(balleGrid);
 
         initArgent();
@@ -174,9 +182,19 @@ public class BoutiqueView implements Menu, ViewPosition {
         consoleView.setDynamicFocus(scene);
     }
 
-    @Override
-    public Scene getScene() {
+    public Scene getScenes() {
         return scene;
+    }
+
+    @Override
+    public void update() {
+        for (Item i : raquetteItem) {
+            updateButton(i);
+        }
+        for (Item i : balleItem) {
+            updateButton(i);
+        }
+        baseView.update();
     }
 
     // GETTERS
@@ -190,6 +208,10 @@ public class BoutiqueView implements Menu, ViewPosition {
 
     public Button getBtnBack() {
         return back;
+    }
+
+    public Button getBtnTakeOff() {
+        return takeOff;
     }
 
     public Item[] getRaquetteItem() {
@@ -212,18 +234,9 @@ public class BoutiqueView implements Menu, ViewPosition {
         return moneyVBox;
     }
 
-    public Button getButtonFromPath(String path) {
-        for (Item item : raquetteItem) {
-            if (item.getPath().equals(path)) {
-                return item.getButton();
-            }
-        }
-        for (Item item : balleItem) {
-            if (item.getPath().equals(path)) {
-                return item.getButton();
-            }
-        }
-        return null;
+    @Override
+    public Scene getScene() {
+       return scene;
     }
 
 }
