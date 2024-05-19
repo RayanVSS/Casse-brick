@@ -133,7 +133,7 @@ public class PhysicEngine extends Pane {
             public void handle(long now) {
                 KeyPressed();
                 if (racket != null) {
-                    racket.handleKeyPress(key.getKeysPressed());
+                    racket.handleKeyPress(key.getKeysPressed(), new ArrayList<>(listball.keySet()));
                 }
                 if (last == 0) {
                     last = now;
@@ -247,55 +247,15 @@ public class PhysicEngine extends Pane {
                 if ((newX < start_border + this.getRadius())) {
                     newX = start_border + this.getRadius();
                 }
-                this.getC().setXY(newX, newY);
-                getC().setX(getX() + physics.getMass() / physics.getWind().getX());
+                this.getC().setXY(newX,newY);
+                physics.checkWind(this);
                 physics.checkGravity(this.getC(), this.getDirection());
-
+                this.normalizeDirection();
             }
         };
     }
 
     public static Racket init_racket(String type) {
-        /* 
-        int longueur=0;
-        int largeur=0;
-        if(type.equals("rectangle")){
-            longueur=200;
-            largeur=20;
-        }
-        else if(type.equals("losange")){
-            longueur=200;
-            largeur=40;
-        }
-        else if(type.equals("rond")){
-            longueur=200;
-            largeur=200;
-        }
-        else if(type.equals("triangle")){
-            longueur=200;
-            largeur=200;
-        }
-        return new Racket(longueur, largeur, type, 8, false, true) {
-            @Override
-            public void handleKeyPress(Set<KeyCode> keysPressed) {
-                for (KeyCode key : keysPressed) {
-                    if(key==KeyCode.LEFT){
-                        if (this.mX() >start_border +longueur / 2 )
-                            this.mX(this.mX() - speed);
-                    }
-                    if(key==KeyCode.RIGHT){
-                        if (this.mX() < PhysicSetting.DEFAULT_WINDOW_WIDTH - longueur - 70)
-                            this.mX(this.mX() + speed);
-                    }
-                }
-            }
-        
-            @Override
-            public void handleKeyRelease(KeyCode event) {
-                // Fonction non utilisée
-            }
-        };
-        */
         Racket r;
         if (type.equals("YnotFixe")) {
             r = new YNotFixeRacket();
@@ -321,33 +281,7 @@ public class PhysicEngine extends Pane {
         });
         Racket.d = key.getKeysPressed();
         for (Ball ball : listball.keySet()) {
-            if (ball.checkCollision(racket)) {
-                if (ball.getC().getX() > racket.getC().getX()
-                        && ball.getC().getX() < racket.getC().getX() + racket.getLargeur() - 2
-                        && ball.getC().getY() > racket.getC().getY()) {
-                    System.out.println(ball.getC().getX() + "  " + racket.getC().getX());
-                    if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur() / 2) {
-                        ball.setC(
-                                new Coordinates(ball.getC().getX() - ball.getRadius() - 15, racket.getC().getY()));
-                        ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
-                        ball.getRotation().stopRotation();
-                        System.out.println("ball dans la raquette a gauche");
-                    } else if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
-                            && ball.getC().getX() > racket.getC().getX() + racket.getLargeur() / 2) {
-                        ball.setC(
-                                new Coordinates(ball.getC().getX() + ball.getRadius() + 15, racket.getC().getY()));
-                        ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
-                        ball.getRotation().stopRotation();
-                        System.out.println("ball dans la raquette a droite");
-                    } else {
-                        ball.setC(new Coordinates(ball.getC().getX() + racket.getLargeur() + ball.getRadius() + 30,
-                                racket.getC().getY()));
-                        ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY()));
-                        ball.getRotation().stopRotation();
-                        System.out.println("ball dans la raquette au milieu");
-                    }
-                }
-            }
+            ball.checkCollision(racket);
             if (ball.getPreview() != null) {
                 ball.getPreview().update(racket);
             }

@@ -177,6 +177,7 @@ public class Game {
             }
             ball.movement(deltaT);
             ball.CollisionB = false;
+
         }
 
         // Gere les conditions de perte

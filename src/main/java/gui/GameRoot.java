@@ -125,6 +125,7 @@ public class GameRoot {
     }
 
     public void update(long deltaT) {
+        int life = game.getLife();
         game.update(deltaT);
         BoostAction();
         addEntitiesGraphics();
@@ -137,9 +138,7 @@ public class GameRoot {
         BonusUpdate();
         key.handleInput(game);
         key.touchesR(scene, game);
-        int life = game.getLife();
         Racket.d = key.getKeysPressed();
-
         key.touchesM(scene, game);
         if (life != game.getLife()) {
             root.getChildren().removeIf(e -> e instanceof Bonus);
