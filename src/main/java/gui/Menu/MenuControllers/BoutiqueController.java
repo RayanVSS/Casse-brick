@@ -1,6 +1,7 @@
 package gui.Menu.MenuControllers;
 
 import gui.App;
+import gui.Console;
 import gui.Item;
 import gui.Menu.MenuViews.BoutiqueView;
 import save.PlayerData;
@@ -56,7 +57,7 @@ public class BoutiqueController {
             PlayerData.inventaire.addItem(item.getName());
             PlayerData.inventaire.afficheInventaire();
         } else {
-            System.out.println("Pas assez d'argent");
+            Console.display("Vous n'avez pas assez d'argent pour acheter cet item");
         }
     }
 
