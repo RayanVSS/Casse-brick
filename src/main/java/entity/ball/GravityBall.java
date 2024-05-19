@@ -6,6 +6,15 @@ import physics.geometry.Coordinates;
 import physics.geometry.Segment;
 import utils.GameConstants;
 
+/**
+ * GravityBall est une ball qui a une force gravitationnelle qui attire la balle
+ * cette force est créer par la partie physique du jeux
+ * 
+ * 
+ * @see Ball
+ * 
+ */
+
 public class GravityBall extends Ball {
     private double LooseSpeed = GameConstants.LOOSE_SPEED;
 

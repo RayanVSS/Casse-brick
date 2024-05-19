@@ -6,13 +6,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.TutoController;
 import gui.Menu.MenuViews.BoutiqueView;
@@ -26,9 +23,7 @@ import gui.Menu.MenuViews.SaveView;
 import gui.Menu.MenuViews.StageSelectorView;
 import gui.Menu.MenuViews.StartMenuView;
 import gui.Menu.MenuViews.WinView;
-import javafx.application.Platform;
 import save.PlayerData;
-import save.Sauvegarde;
 import utils.GameConstants;
 
 /**
