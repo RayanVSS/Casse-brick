@@ -77,7 +77,7 @@ public class BallGraphics extends Circle implements EntityGraphics {
     }
 
     private void setBall() {
-        if (GameConstants.SKIN_BALL.equals("Null")) {
+        if (GameConstants.SKIN_BALL.equals("Null") || (ball instanceof MagnetBall)) {
             color();
             this.setFill(color);
             if (ball instanceof GravityBall) {
@@ -87,9 +87,6 @@ public class BallGraphics extends Circle implements EntityGraphics {
                 this.setStrokeWidth(3.5);
                 this.setStroke(HYPER);
             } 
-        }else if ( (ball instanceof MagnetBall)){
-            color();
-            this.setFill(color);
         } else {
             image = ImageLoader.loadImage(GameConstants.SKIN_BALL);
             ballImage = new ImagePattern(image);
