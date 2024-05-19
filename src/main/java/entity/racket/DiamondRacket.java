@@ -43,7 +43,7 @@ public class DiamondRacket extends Racket {
     public void handleKeyPress(Set<KeyCode> keysPressed,List<Ball> balls) {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {
-                if (this.mX() > -largeur / 2)
+                if (this.mX() > 0)
                     this.mX(this.mX() - speed);
                     this.getDirection().setX(-1);
                     for (Ball ball : balls) {

@@ -15,6 +15,9 @@ import utils.GameConstants;
  * simulation    
  *        
  * @lien https://www.irif.fr/~emiquey/stuff/TIPE.pdf   
+ * @lien https://youtu.be/6tbk8w3YUIg?si=tlYFOf8Xj7AYuihJ
+ * @lien https://youtu.be/fUObjVMI3Jw?si=LnWxDIIRvN-Fjujk
+ * @lien https://youtu.be/eED4bSkYCB8?si=ItFmIaFxVdEG7qDt
  * 
  * @var Ball ball : La balle pour la simulation 
  * @var Racket racket : La raquette pour la simulation

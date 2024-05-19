@@ -1,13 +1,9 @@
 package physics.config;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.Iterator;
 
-import config.Game;
 import entity.EntityColor;
-import entity.ball.ClassicBall;
 import entity.brick.BrickClassic;
 import entity.racket.CircleRacket;
 import entity.racket.ClassicRacket;
@@ -16,10 +12,8 @@ import entity.racket.DiamondRacket;
 import entity.racket.YNotFixeRacket;
 import gui.GraphicsFactory.RacketGraphics;
 import javafx.animation.AnimationTimer;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import physics.AppPhysic;
 import physics.entity.Ball;
 import physics.entity.Brick;
@@ -33,13 +27,10 @@ import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.BricksGraphics;
 import physics.gui.ToolBox;
 import physics.gui.Preview;
-import physics.gui.TestPreset;
 import utils.GameConstants;
-import utils.ImageLoader;
 import utils.Key;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /***************************************************************************
@@ -112,11 +103,9 @@ public class PhysicEngine extends Pane {
         if (RACKET) {
             racket = init_racket("rectangle");
             graphRacket = new RacketGraphics(racket, racket.getShapeType());
-            graphRacket.getShape().setFill(Color.BLACK);
             this.getChildren().add(graphRacket.getShape());
         }
         // Initialisation de la trajectoire
-
         firstBall.setPreview(new Preview(firstBall, physics, this));
         firstBall.getPreview().init_path();
 
@@ -212,6 +201,7 @@ public class PhysicEngine extends Pane {
 
         if (RACKET) {
             update_racket();
+            System.out.println("Racket : " + racket.getC().getX() + " " + racket.getC().getY());
         }
 
         // Mise à jour de la position de la raquette
@@ -269,7 +259,7 @@ public class PhysicEngine extends Pane {
         } else {
             r = new ClassicRacket();
         }
-        r.setWindowWidth(PhysicSetting.DEFAULT_WINDOW_WIDTH);
+        r.setWindowWidth(GameConstants.DEFAULT_WINDOW_WIDTH);
         return r;
     }
 
@@ -282,7 +272,12 @@ public class PhysicEngine extends Pane {
         });
         Racket.d = key.getKeysPressed();
         for (Ball ball : listball.keySet()) {
-            ball.checkCollision(racket);
+            if(racket.getShapeType().equals("rond")){
+                racket.CollisionRond(ball);
+            }
+            else{
+                ball.checkCollision(racket);
+            }
             if (ball.getPreview() != null) {
                 ball.getPreview().update(racket);
             }

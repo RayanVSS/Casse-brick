@@ -49,7 +49,7 @@ public class ClassicRacket extends Racket {
     public void handleKeyPress(Set<KeyCode> keysPressed,List<Ball> balls) {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {
-                if (this.mX() > -largeur / 2)
+                if (this.mX() > 0)
                     this.deplaceX(-speed);
                     this.getDirection().setX(-1);
                     for (Ball ball : balls) {
@@ -71,7 +71,7 @@ public class ClassicRacket extends Racket {
                     }
             }
             if (key == GameConstants.RIGHT) {
-                if (this.mX() < super.getWidth() - longueur - 70)
+                if (this.mX() < super.getWidth() - largeur)
                     this.deplaceX(speed);
                     this.getDirection().setX(1);
                     for (Ball ball : balls) {
