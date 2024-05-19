@@ -7,6 +7,7 @@ Nous sommes le groupe AD1-C qui a eu le [sujet](https://moodle.u-paris.fr/plugin
 - [Installation](#installation)
 - [Lancement du jeu](#lancement-du-jeu)
 - [Contribution](#contribution)
+- [Rapport](#Rapport)
 
 ## Installation
 
@@ -42,5 +43,9 @@ Pour le logiciel de maintenance des sauvegardes :
 ## Contribution
 
 Tous les membres du projet sont notés dans le fichier `contact.csv`.
+
+## Rapport 
+
+Le rapport et d'autre élément sont dans le dossier `rapport` .
 
 ![Logo](https://blogs.aphp.fr/wp-content/blogs.dir/214/files/2022/05/UniversiteParisCite_logo_horizontal_couleur_CMJN.jpg)
