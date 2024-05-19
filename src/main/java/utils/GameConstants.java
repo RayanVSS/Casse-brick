@@ -8,6 +8,7 @@ import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.racket.ClassicRacket;
 import entity.racket.DegradeRacket;
+import entity.racket.DiamondRacket;
 import entity.racket.MagnetRacket;
 import entity.ball.MagnetBall;
 import gui.ViewPosition;

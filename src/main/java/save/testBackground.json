@@ -271,7 +271,7 @@
       }
     ]
   },
-  "SOUND": 50,
+  "SOUND": 0,
   "RIGHT": "RIGHT",
   "ADMIN": true
 }

@@ -71,7 +71,7 @@ public class ClassicRacket extends Racket {
                     }
             }
             if (key == GameConstants.RIGHT) {
-                if (this.mX() < super.getWidth() - largeur)
+                if (this.mX() + largeur < super.getWidth())
                     this.deplaceX(speed);
                 this.getDirection().setX(1);
                 for (Ball ball : balls) {

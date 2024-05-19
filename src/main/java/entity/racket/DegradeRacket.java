@@ -25,7 +25,7 @@ public class DegradeRacket extends Racket {
     public void handleKeyPress(Set<KeyCode> keysPressed) {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {
-                if (this.mX() > 0)
+                if (this.mX() > 0 )
                     this.deplaceX(-speed);
                 this.getDirection().setX(-1);
             }
