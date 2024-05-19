@@ -29,7 +29,7 @@ public class DegradeRacket extends Racket {
                     this.getDirection().setX(-1);
                     for (Ball ball : balls) {
                         if(PhysicTools.checkCollision(ball,this.getSegments().get(2))){
-                            ball.getDirection().setX(ball.getDirection().getX()+this.getDirection().getX());
+                            ball.getDirection().setX(ball.getDirection().getX()-speed);
                             ball.getC().setX(ball.getC().getX()-speed);
                         }
                     }
@@ -40,7 +40,7 @@ public class DegradeRacket extends Racket {
                     this.getDirection().setX(1);
                     for (Ball ball : balls) {
                         if(PhysicTools.checkCollision(ball,this.getSegments().get(0))){
-                            ball.getDirection().setX(ball.getDirection().getX()+this.getDirection().getX());
+                            ball.getDirection().setX(ball.getDirection().getX()+speed);
                             ball.getC().setX(ball.getC().getX()+speed);
                         }
                     }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.checkerframework.checker.units.qual.s;
+
 import javafx.scene.input.KeyCode;
 import physics.entity.Ball;
 import physics.entity.Racket;
@@ -34,8 +36,19 @@ public class YNotFixeRacket extends Racket {
                         this.getDirection().setX(-1);
                         for (Ball ball : balls) {
                             if(PhysicTools.checkCollision(ball,this.getSegments().get(3))){
-                                ball.getDirection().setX(ball.getDirection().getX()+this.getDirection().getX());
-                                ball.getC().setX(ball.getC().getX()-speed);
+                                if(ball.getC().getX()-speed > ball.getRadius()){
+                                    ball.getC().setX(ball.getC().getX()-speed);
+                                    ball.getDirection().setX(ball.getDirection().getX()-speed);
+                                }
+                                else{
+                                    int m=1;
+                                    if(ball.getC().getY() > this.getC().getY()+this.longueur){
+                                        m=-1;
+                                    }
+                                    this.deplaceX(speed);
+                                    ball.getC().setY(ball.getC().getY()-m*speed);
+                                    ball.getDirection().setY(ball.getDirection().getY()-m*speed/2);
+                                }
                             }
                         }
                     break;
@@ -46,8 +59,19 @@ public class YNotFixeRacket extends Racket {
                         this.getDirection().setX(1);
                         for (Ball ball : balls) {
                             if(PhysicTools.checkCollision(ball,this.getSegments().get(1))){
-                                ball.getDirection().setX(ball.getDirection().getX()+this.getDirection().getX());
-                                ball.getC().setX(ball.getC().getX()+speed);
+                                if(ball.getC().getX()+speed < super.getWidth()-ball.getRadius()){
+                                    ball.getC().setX(ball.getC().getX()+speed);
+                                    ball.getDirection().setX(ball.getDirection().getX()+speed);
+                                }
+                                else{
+                                    int m=1;
+                                    if(ball.getC().getY() > this.getC().getY()+this.longueur){
+                                        m=-1;
+                                    }
+                                    this.deplaceX(-speed);
+                                    ball.getC().setY(ball.getC().getY()-m*speed);
+                                    ball.getDirection().setY(ball.getDirection().getY()-m*speed/2);
+                                }
                             }
                         }
                     break;
@@ -58,8 +82,19 @@ public class YNotFixeRacket extends Racket {
                         this.getDirection().setY(-1);
                         for (Ball ball : balls) {
                             if(PhysicTools.checkCollision(ball,this.getSegments().get(0))){
-                                ball.getDirection().setY(ball.getDirection().getY()+this.getDirection().getY());
-                                ball.getC().setY(ball.getC().getY()-speed);
+                                if(ball.getC().getY()-speed > ball.getRadius()){
+                                    ball.getC().setY(ball.getC().getY()-speed);
+                                    ball.getDirection().setY(ball.getDirection().getY()-speed);
+                                }
+                                else{
+                                    int m=1;
+                                    if(ball.getC().getX() > this.getC().getX()+this.largeur){
+                                        m=-1;
+                                    }
+                                    this.deplaceY(speed);
+                                    ball.getC().setX(ball.getC().getX()-m*speed);
+                                    ball.getDirection().setX(ball.getDirection().getX()-m*speed/2);
+                                }
                             }
                         }
                     break;
@@ -70,8 +105,18 @@ public class YNotFixeRacket extends Racket {
                         this.getDirection().setY(1);
                         for (Ball ball : balls) {
                             if(PhysicTools.checkCollision(ball,this.getSegments().get(2))){
-                                ball.getDirection().setY(ball.getDirection().getY()+this.getDirection().getY());
-                                ball.getC().setY(ball.getC().getY()+speed);
+                                if(ball.getC().getY()+speed < GameConstants.DEFAULT_WINDOW_HEIGHT-ball.getRadius()){
+                                    ball.getC().setY(ball.getC().getY()+speed);
+                                    ball.getDirection().setY(ball.getDirection().getY()+speed);
+                                }
+                                else{
+                                    int m=1;
+                                    if(ball.getC().getX() > this.getC().getX()+this.largeur){
+                                        m=-1;
+                                    }
+                                    this.deplaceY(-speed);
+                                    ball.getC().setX(ball.getC().getX()-m*speed/2);
+                                }
                             }
                         }
                     break;

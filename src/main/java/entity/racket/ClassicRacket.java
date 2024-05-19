@@ -34,8 +34,19 @@ public class ClassicRacket extends Racket {
                     this.getDirection().setX(-1);
                     for (Ball ball : balls) {
                         if(PhysicTools.checkCollision(ball,this.getSegments().get(3))){
-                            ball.getDirection().setX(ball.getDirection().getX()+this.getDirection().getX());
-                            ball.getC().setX(ball.getC().getX()-speed);
+                            if(ball.getC().getX()-speed > ball.getRadius()){
+                                ball.getC().setX(ball.getC().getX()-speed);
+                                ball.getDirection().setX(ball.getDirection().getX()-speed);
+                            }
+                            else{
+                                int m=1;
+                                if(ball.getC().getY() > this.getC().getY()+this.longueur){
+                                    m=-1;
+                                }
+                                this.deplaceX(speed);
+                                ball.getC().setY(ball.getC().getY()-m*speed);
+                                ball.getDirection().setY(ball.getDirection().getY()-m*speed/2);
+                            }
                         }
                     }
             }
@@ -45,8 +56,19 @@ public class ClassicRacket extends Racket {
                     this.getDirection().setX(1);
                     for (Ball ball : balls) {
                         if(PhysicTools.checkCollision(ball,this.getSegments().get(1))){
-                            ball.getDirection().setX(ball.getDirection().getX()+this.getDirection().getX());
-                            ball.getC().setX(ball.getC().getX()+speed);
+                            if(ball.getC().getX()+speed < super.getWidth()-ball.getRadius()){
+                                ball.getC().setX(ball.getC().getX()+speed);
+                                ball.getDirection().setX(ball.getDirection().getX()+speed);
+                            }
+                            else{
+                                int m=1;
+                                if(ball.getC().getY() > this.getC().getY()+this.longueur){
+                                    m=-1;
+                                }
+                                this.deplaceX(-speed);
+                                ball.getC().setY(ball.getC().getY()-m*speed);
+                                ball.getDirection().setY(ball.getDirection().getY()-m*speed/2);
+                            }
                         }
                     }
             }
