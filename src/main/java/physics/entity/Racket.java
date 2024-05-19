@@ -641,7 +641,7 @@ public abstract class Racket extends Figure {
                         && ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
                         && ball.getC().getY() > racket.getC().getY() - racket.getLongueur()) {
                     ball.setC(new Coordinates(ball.getC().getX(), racket.getC().getY() - racket.getLongueur() - 2));
-                    ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY() * 1.2));
+                    ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY() * 1.25));
                     ball.getRotation().stopRotation();
                 }
             }
