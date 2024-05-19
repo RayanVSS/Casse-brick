@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import entity.Bonus;
+import entity.Boost;
 import entity.ball.MagnetBall;
 import entity.racket.ClassicRacket;
 import gui.App;
@@ -191,16 +193,7 @@ public class Game {
         map.updateBricksStatus(this);
         updateGameStatus();
         racket.getDirection().setX(0);
-
         racket.Dojump(racket, balls);
-
-    }
-
-    private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette
-        rules.updateRemainingBounces();
-        rules.updateBricksTransparency(map);
-        rules.updateBricksUnbreakability(map);
-        rules.shuffleBricks(map.getBricks());
     }
 
     public boolean isInfiniteBonus() {
