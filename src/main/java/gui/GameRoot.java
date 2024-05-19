@@ -60,8 +60,8 @@ public class GameRoot {
             this.particleGroup = new ParticleGroup(root, game);
         }
         addEntitiesGraphics(); // Affichage du début
+        updateEntitiesGraphics();
         this.root.getChildren().add(graphRacket.getShape());
-        this.updateEntitiesGraphics();
         root.setPrefWidth(GameConstants.DEFAULT_GAME_ROOT_WIDTH);
         root.getStyleClass().add("game-backgorund");
     }
@@ -186,7 +186,7 @@ public class GameRoot {
                 }
             } else {
                 if (bonus.move(game.getRacket().CollisionRacket(bonus.getC(), game.getRacket().getShapeType()),
-                        game.getRacket(),game.getBalls())) {
+                        game.getRacket(), game.getBalls())) {
                     root.getChildren().remove(bonus);
                     iterator.remove();
                 } else {

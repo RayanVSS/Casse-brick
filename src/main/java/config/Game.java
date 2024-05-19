@@ -153,7 +153,14 @@ public class Game {
                 }
             }
             for (Brick brick : map.getBricks()) {
-                if (ball.checkCollision(brick)) {
+                if (rules.canCollide(brick) && ball.checkCollision(brick)) {
+                    if (rules.isColorRestricted()) {
+                        if (ball.getColor() == brick.getColor()) {
+                            brick.absorb(100);
+                        }
+                        ball.setColor(brick.getColor());
+                    }
+
                     Bonus bonus = Bonus.createBonus(ball.getC().clone());
                     if (bonus != null) {
                         bonuslist.add(bonus);

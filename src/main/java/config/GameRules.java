@@ -3,7 +3,6 @@ package config;
 import java.util.ArrayList;
 import java.util.Random;
 
-
 import entity.EntityColor;
 import entity.brick.BrickClassic;
 import physics.entity.Ball;
@@ -106,11 +105,15 @@ public class GameRules {
     public void shuffleBricks(ArrayList<Brick> bricks) {
         if (randomSwitchBricks) {
             Random rnd = new Random();
+            Brick rndBrick = bricks.get(rnd.nextInt(bricks.size()));
             for (Brick brick1 : bricks) {
-                Coordinates b1C = brick1.getC();
-                Brick brick2 = bricks.get(rnd.nextInt(bricks.size()));
-                brick1.setC(brick2.getC());
-                brick2.setC(b1C);
+
+                Brick temp = rndBrick;
+                rndBrick = brick1;
+                brick1 = temp;
+                Coordinates tempC = rndBrick.getC();
+                rndBrick.setC(brick1.getC());
+                brick1.setC(tempC);
             }
         }
     }
@@ -136,21 +139,19 @@ public class GameRules {
         if (transparent) {
             int apply = qty_transparent;
             ArrayList<Brick> tempList = map.getBricks();
-            Random random = new Random();
-            while (apply > 0 && map.countBricks() > qty_transparent) {
-                Brick rndBrick = tempList.get(random.nextInt(tempList.size()));
-                if (!rndBrick.isTransparent()) {
-                    apply--;
-                    tempList.remove(rndBrick);
-                    rndBrick.setTransparent(true);
-                }
-            }
-
             // On enleve dans les briques restantes ceux ayant l'effet transparent du
             // dernier tour
             for (Brick brick : tempList) {
                 if (brick.isTransparent()) {
                     brick.setTransparent(false);
+                }
+            }
+            Random random = new Random();
+            while (apply > 0 && map.countBricks() > qty_transparent) {
+                Brick rndBrick = tempList.get(random.nextInt(tempList.size()));
+                if (!rndBrick.isTransparent()) {
+                    apply--;
+                    rndBrick.setTransparent(true);
                 }
             }
         }
@@ -160,16 +161,6 @@ public class GameRules {
         if (unbreakable) {
             int apply = qty_unbreakable;
             ArrayList<Brick> tempList = map.getBricks();
-            Random random = new Random();
-            while (apply > 0 && map.countBricks() > qty_unbreakable) {
-                Brick rndBrick = tempList.get(random.nextInt(tempList.size()));
-                if (!rndBrick.isUnbreakable()) {
-                    apply--;
-                    tempList.remove(rndBrick);
-                    rndBrick.setUnbreakable(true);
-                }
-            }
-
             // On enleve dans les briques restantes ceux ayant l'effet unbreakable du
             // dernier tour
             for (Brick brick : tempList) {
@@ -177,7 +168,22 @@ public class GameRules {
                     brick.setUnbreakable(false);
                 }
             }
+            Random random = new Random();
+            while (apply > 0 && map.countBricks() > qty_unbreakable) {
+                Brick rndBrick = tempList.get(random.nextInt(tempList.size()));
+                if (!rndBrick.isUnbreakable()) {
+                    apply--;
+                    rndBrick.setUnbreakable(true);
+                }
+            }
         }
+    }
+
+    public boolean canCollide(Brick brick) {
+        if (transparent) {
+            return !brick.isTransparent();
+        }
+        return true;
     }
 
     // public boolean verifyInfinite(Map m, Coordinates raquetCoordinates) {//TODO A tâtonner

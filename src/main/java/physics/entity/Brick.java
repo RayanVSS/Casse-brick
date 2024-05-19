@@ -35,10 +35,12 @@ public abstract class Brick extends Entity {
     }
 
     public void absorb(int damage) {
-        durability -= damage;
-        if (durability <= 0 && !unbreakable) {
-            durability = 0;
-            setDestroyed(true);
+        if (!unbreakable) {
+            durability -= damage;
+            if (durability <= 0) {
+                durability = 0;
+                setDestroyed(true);
+            }
         }
     }
 
