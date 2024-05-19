@@ -1,6 +1,5 @@
 package entity.ball;
 
-
 import entity.racket.ClassicRacket;
 import physics.entity.Ball;
 import physics.geometry.Coordinates;
@@ -32,7 +31,7 @@ public class GravityBall extends Ball {
         double newX = this.getX() + this.getDirection().getX() * this.getSpeed() / 2;
         double newY = this.getY() + this.getDirection().getY() * this.getSpeed() / 2;
         // limite de vitesse de la balle
-        if (GameConstants.LIMITE_SPEED_MAGNET) {
+        if (GameConstants.LIMITE_SPEED_GRAVITY) {
             double speedY = newY - this.getC().getY();
             double speedX = newX - this.getC().getX();
             if (speedY > GameConstants.VITESSE_MAX_GRAVITY) {
@@ -47,16 +46,16 @@ public class GravityBall extends Ball {
             if (speedY < GameConstants.VITESSE_MIN_GRAVITY && speedY >= 0) {
                 newY += 0.2;
             }
-            if (speedX > GameConstants.VITESSE_MAX_MAGNET) {
-                newX = this.getC().getX() + GameConstants.VITESSE_MAX_MAGNET;
+            if (speedX > GameConstants.VITESSE_MAX_GRAVITY) {
+                newX = this.getC().getX() + GameConstants.VITESSE_MAX_GRAVITY;
             }
-            if (speedX < -GameConstants.VITESSE_MAX_MAGNET) {
-                newX = this.getC().getX() - GameConstants.VITESSE_MAX_MAGNET;
+            if (speedX < -GameConstants.VITESSE_MAX_GRAVITY) {
+                newX = this.getC().getX() - GameConstants.VITESSE_MAX_GRAVITY;
             }
-            if (speedX > -1.5 && speedX <= 0) {
+            if (speedX > -GameConstants.VITESSE_MIN_GRAVITY && speedX <= 0) {
                 newX -= 0.2;
             }
-            if (speedX < 1.5 && speedX >= 0) {
+            if (speedX < GameConstants.VITESSE_MIN_GRAVITY && speedX >= 0) {
                 newX += 0.2;
             }
         }
@@ -85,6 +84,23 @@ public class GravityBall extends Ball {
         if (this.getC().getX() < 22) {
             if (this.getDirection().getX() < 0) {
                 this.getDirection().setX(-this.getDirection().getX());
+            }
+        }
+        if (newX < 0) { // si la balle sort de l'écran par la gauche
+            newX = -newX + 5;
+        } else if (newX < -GameConstants.DEFAULT_GAME_ROOT_WIDTH) { // si la balle sort de l'écran par la droite
+            newX = 20;
+        } else if (newX > GameConstants.DEFAULT_GAME_ROOT_WIDTH) { // si la balle sort de l'écran par la droite
+            newX = GameConstants.DEFAULT_GAME_ROOT_WIDTH - 30;
+        } else if (newY < 0) { // si la balle sort de l'écran par le haut
+            newY = -newY + 5;
+        } else { // si la balle sort de l'écran par le haut
+            String newYString = String.valueOf(newY);
+            String newXString = String.valueOf(newX);
+            if (newYString.contains("NaN") || newXString.contains("NaN")) {
+                newY = GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2;
+                newX = GameConstants.DEFAULT_WINDOW_HEIGHT / 2;
+                this.getDirection().setY(-1);
             }
         }
 

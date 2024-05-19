@@ -205,7 +205,6 @@ public class PhysicEngine extends Pane {
             Brick b = (Brick) it.next();
             listbrick.get(b).update();
             if (b.isDestroyed()) {
-                this.getChildren().remove(listbrick.get(b));
                 it.remove();
             }
         }

@@ -87,8 +87,8 @@ public class AppPhysic extends Application {
 
     public void Path() {
         Label labelpath = new Label("Afficher le chemin de la balle");
-        ToggleButton buttonpath = new ToggleButton("OFF");
-        buttonpath.setSelected(false);
+        ToggleButton buttonpath = new ToggleButton((PhysicEngine.PATH) ? "ON" : "OFF");
+        buttonpath.setSelected(PhysicEngine.PATH);
         buttonpath.setOnAction(e -> {
             if (buttonpath.isSelected()) {
                 buttonpath.setText("ON");
@@ -107,7 +107,7 @@ public class AppPhysic extends Application {
     }
 
     public void Wind() {
-        Label labelspeed = new Label("Vitesse du vent : +" + physics.getSpeed_Wind() + "km/h");
+        Label labelspeed = new Label("Vitesse du vent : +" + physics.getSpeed_Wind() + "m/h");
         Slider wind_speed = new Slider(0, 100, physics.getSpeed_Wind());
         wind_speed.setOrientation(Orientation.HORIZONTAL);
         wind_speed.setMaxWidth(200);

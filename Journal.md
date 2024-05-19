@@ -786,6 +786,8 @@ Ajouts :
 - création du chapitre 4
 - résolution du bug dans laquel la balle rentre dans la raquette 
 - ajout de l'option de faire un saut avec une raquette 
+- la raquette ne peut plus sortir du jeu
+- résolution du bug qui faisait perdre la balle durant une partie
 
 ## Du 30/4 a 16/5:
 ### Benmalek Majda

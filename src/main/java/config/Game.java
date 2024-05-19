@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import entity.ball.MagnetBall;
-import entity.racket.ClassicRacket;
 import entity.Bonus;
 import entity.Boost;
+import entity.ball.MagnetBall;
+import entity.racket.ClassicRacket;
+import gui.App;
+import javafx.application.Platform;
 import physics.entity.Ball;
 import physics.entity.Brick;
 import physics.entity.Racket;
@@ -85,9 +87,9 @@ public class Game {
                 ball.checkCollisionOtherBall(balls);
             }
             if (racket instanceof ClassicRacket) {
-                if(BallFrontRacket_close(ball)){
+                if (BallFrontRacket_close(ball)) {
                     ((ClassicRacket) racket).setBallFrontRacket(true);
-                }else{
+                } else {
                     ((ClassicRacket) racket).setBallFrontRacket(false);
                 }
             }
@@ -98,8 +100,27 @@ public class Game {
                 balls.remove(ball);
                 break;
             }
-            // map.handleCollisionBricks(ball, rules); // gérer la collision des briques
-            map.updateBricksStatus(this);
+            for (Brick brick : map.getBricks()) {
+                boolean breakBrick = false;
+                if (rules.canCollide(brick) && ball.checkCollision(brick)) {
+                    if (rules.isColorRestricted()) {
+                        if (ball.getColor() == brick.getColor()) {
+                            breakBrick = true;
+                        }
+                        ball.setColor(brick.getColor());
+                    } else {
+                        breakBrick = true;
+                    }
+                    if (breakBrick) {
+                        brick.absorb(100);
+                        Bonus bonus = Bonus.createBonus(ball.getC().clone());
+                        if (bonus != null) {
+                            bonuslist.add(bonus);
+                        }
+                    }
+                    break;
+                }
+            }
             // seulement si la balle est une MagnetBall
             if (ball instanceof MagnetBall) {
                 // donne les coordonnées de la raquette a la MagnetBall
@@ -114,26 +135,28 @@ public class Game {
                         ball.CollisionR = true;
                         App.ballSound.update();
                         App.ballSound.play();
-                        updateRulesRacket();
+                        rules.updateRulesRacket(map);
                     }
                 }
             } else {
                 // Si la balle touche la raquette
                 if (ball.checkCollision(racket)) {
-                    if (ball.getC().getX() > racket.getC().getX() // Si la balle est dans la raquette 
+                    if (ball.getC().getX() > racket.getC().getX() // Si la balle est dans la raquette
                             && ball.getC().getX() < racket.getC().getX() + racket.getLargeur() - 2
-                            && ball.getC().getY() > racket.getC().getY()) {
+                            && ball.getC().getY() + racket.getLongueur() / 2 > racket.getC().getY()) {
                         System.out.println(ball.getC().getX() + "  " + racket.getC().getX());
-                        if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur()/2) {
+                        if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur() / 2) {
                             ball.setC(
-                                    new Coordinates(ball.getC().getX() - ball.getRadius() - 15, racket.getC().getY()));
+                                    new Coordinates(ball.getC().getX() - ball.getRadius() - 15,
+                                            racket.getC().getY() - ball.getRadius()));
                             ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
                             ball.getRotation().stopRotation();
                             System.out.println("ball dans la raquette a gauche");
                         } else if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
-                                && ball.getC().getX() > racket.getC().getX() + racket.getLargeur()/2) {
+                                && ball.getC().getX() > racket.getC().getX() + racket.getLargeur() / 2) {
                             ball.setC(
-                                    new Coordinates(ball.getC().getX() + ball.getRadius() + 15, racket.getC().getY()));
+                                    new Coordinates(ball.getC().getX() + ball.getRadius() + 15,
+                                            racket.getC().getY() - ball.getRadius()));
                             ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
                             ball.getRotation().stopRotation();
                             System.out.println("ball dans la raquette a droite");
@@ -149,20 +172,12 @@ public class Game {
                     ball.CollisionR = true;
                     App.ballSound.update();
                     App.ballSound.play();
-                    updateRulesRacket();
-                }
-            }
-            for(Brick brick : map.getBricks()){
-                if(ball.checkCollision(brick)){
-                    Bonus bonus = Bonus.createBonus(ball.getC().clone());
-                    if (bonus != null) {
-                        bonuslist.add(bonus);
-                    }
-                    break;
+                    rules.updateRulesRacket(map);
                 }
             }
             ball.movement(deltaT);
             ball.CollisionB = false;
+
         }
 
         // Gere les conditions de perte
@@ -172,25 +187,14 @@ public class Game {
             bonuslist.clear();
             racket.reset();
         }
-        // if (rules.isInfinite()) {
-        //     if (!isInfiniteBonus()) {
-        //         rules.infiniteUpdate(map, 0.60);
-        //     } else {
-        //         rules.infiniteUpdate(map, 0);
-        //     }
-        // }
+        if (rules.isInfinite()) {
+            rules.infiniteUpdate(map, GameConstants.BRICK_SPEED);
+            rules.createBrickInfinite(map);
+        }
+        map.updateBricksStatus(this);
         updateGameStatus();
         racket.getDirection().setX(0);
-
-        racket.Dojump(racket,balls);
-
-    }
-
-    private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette
-        rules.updateRemainingBounces();
-        rules.updateBricksTransparency(map);
-        rules.updateBricksUnbreakability(map);
-        rules.shuffleBricks(map.getBricks());
+        racket.Dojump(racket, balls);
     }
 
     public boolean isInfiniteBonus() {
@@ -224,12 +228,11 @@ public class Game {
     public boolean BallFrontRacket_close(Ball b) {
         if (racket.getC().getX() - b.getC().getX() < 0
                 && (racket.getC().getX() + racket.getLargeur()) - b.getC().getX() > 0
-                && racket.getC().getY() - b.getC().getY() < racket.getLongueur() + 20){
+                && racket.getC().getY() - b.getC().getY() < racket.getLongueur() + 20) {
             return true;
         }
         return false;
     }
-
 
     public void deleteBalls() {
         for (Ball b : balls) {
@@ -246,8 +249,9 @@ public class Game {
     }
 
     // public Coordinates resetBallInfinite() {
-    //     Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2, map.lastBrick() + 900 / 2);
-    //     return c;
+    // Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2,
+    // map.lastBrick() + 900 / 2);
+    // return c;
     // }
 
     // Setters/getters
@@ -298,7 +302,7 @@ public class Game {
     }
 
     public void setRa() {
-        MagnetBall.getRa = racket;
+        Ball.getRa = racket;
     }
 
     public GameRules getRules() {
