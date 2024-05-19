@@ -24,26 +24,26 @@ public class TestPreset extends VBox {
     private GridPane presetsButtons;
     private PhysicEngine game;
 
-    public TestPreset(double zoneWidth, double zoneHeight, PhysicEngine game) {
+    public TestPreset(PhysicEngine game) {
 
         super(15);
         this.game = game;
 
         setAlignment(Pos.CENTER);
 
-        createPresetButtons(zoneWidth, zoneHeight);
+        createPresetButtons();
         setStyle();
 
         getChildren().addAll(presetsPlusReset);
     }
 
-    private void createPresetButtons(double zoneWidth, double zoneHeight) {
+    private void createPresetButtons() {
         presetsButtons = new GridPane();
         for (int i = 0; i < 9; i++) {
             Button temp = new Button("" + (i + 1));
             final int j = i;
             temp.setOnAction(event -> {
-                setupPreset(j, zoneWidth, zoneHeight);
+                setupPreset(j);
             });
             presetsButtons.add(temp, i % 3, i / 3);
         }
@@ -57,39 +57,25 @@ public class TestPreset extends VBox {
                 "-fx-border-width: 1px; ");
     }
 
-    private void setupPreset(int presetIndex, double zoneWidth, double zoneHeight) { // à simplifier
+    private void setupPreset(int presetIndex) { // à simplifier
         Random random = new Random();
         Ball tempBall;
         Brick tempBrick;
+        double width = PhysicSetting.DEFAULT_WINDOW_WIDTH;
+        double height = PhysicSetting.DEFAULT_WINDOW_HEIGHT;
         game.clear();
         switch (presetIndex) {
             case 0:
+                tempBrick = PhysicEngine.init_brick(new Coordinates(width / 4, height / 4));
+                game.addBrick(tempBrick);
 
-                // temp = PhysicEngine.init_ball(
-                //         new Coordinates(PhysicSetting.DEFAULT_WINDOW_WIDTH / 2,
-                //                 PhysicSetting.DEFAULT_WINDOW_HEIGHT / 2),
-                //         new Vector(new Coordinates(random.nextDouble(), random.nextDouble())));
-
-                // game.addBall(temp);
-                // break;
+                break;
 
             case 1:
-                // temp = PhysicEngine.init_ball(
-                //         new Coordinates(PhysicSetting.DEFAULT_WINDOW_WIDTH / 2,
-                //                 PhysicSetting.DEFAULT_WINDOW_HEIGHT / 2),
-                //         new Vector(new Coordinates(random.nextDouble(), random.nextDouble())));
-
-                // game.addBall(temp);
                 break;
             case 2:
-                game.addBall(PhysicEngine.init_ball(new Coordinates(random.nextInt(200), random.nextInt(800)),
-                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
-                game.addBall(PhysicEngine.init_ball(new Coordinates(random.nextInt(200), random.nextInt(800)),
-                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
                 break;
             case 3:
-                game.addBall(PhysicEngine.init_ball(new Coordinates(150, 520), new Vector(new Coordinates(0, 1))));
-                game.addBall(PhysicEngine.init_ball(new Coordinates(50, 720), new Vector(new Coordinates(1, 0))));
                 break;
             case 4:
                 break;
@@ -100,21 +86,8 @@ public class TestPreset extends VBox {
             case 7:
                 break;
             case 8:
-                game.addBall(PhysicEngine.init_ball(new Coordinates(random.nextInt(200), random.nextInt(800)),
-                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
-                game.addBall(PhysicEngine.init_ball(new Coordinates(random.nextInt(200), random.nextInt(800)),
-                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
-                game.addBall(PhysicEngine.init_ball(new Coordinates(random.nextInt(200), random.nextInt(800)),
-                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
-                game.addBall(PhysicEngine.init_ball(new Coordinates(random.nextInt(200), random.nextInt(800)),
-                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
-                game.addBall(PhysicEngine.init_ball(new Coordinates(random.nextInt(200), random.nextInt(800)),
-                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
-                game.addBall(PhysicEngine.init_ball(new Coordinates(random.nextInt(200), random.nextInt(800)),
-                        new Vector(new Coordinates(random.nextDouble(), random.nextDouble()))));
                 break;
             default:
-
                 break;
         }
     }

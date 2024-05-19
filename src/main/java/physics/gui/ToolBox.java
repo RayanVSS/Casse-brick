@@ -60,7 +60,7 @@ public class ToolBox extends Pane {
         this.game = game;
         this.map2 = map2;
         firstball = game.getFirstBall();
-        test = new TestPreset(0, 0, game);
+        test = new TestPreset(game);
         setStyle("-fx-background-color: #273654;");
         setWidth(300);
         createUtilsButtons();
