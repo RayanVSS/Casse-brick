@@ -17,7 +17,6 @@ public class StageLevel {
     private boolean customGame;
     private transient GameCustomizerController gameReinitializer;
 
-
     public StageLevel(int difficulty, int unlockLevel, boolean customGame) {
 
         this.difficulty = difficulty;
@@ -40,6 +39,7 @@ public class StageLevel {
                 Console.systemDisplay("Niveau actuel : " + PlayerData.expLevel);
                 Console.systemDisplay("Niveau requis non atteint... mais...");
                 Console.systemDisplay("Droit Admin : Chargement du jeu autorisé.");
+
             }
             Console.systemDisplay("Chargement du jeu...");
             if (game == null) {
@@ -55,18 +55,22 @@ public class StageLevel {
         }
     }
 
+    public boolean canLoadGameForDisplay() {
+        return PlayerData.expLevel >= unlockLevel || PlayerData.isAdmin;
+    }
+
     public void resetGame() {
         game.resetBalls();
         game.getRacket().reset();
         game.getRules().reset();
-        if (game.getRules().isInfinite()){
-            game=new Game(new ClassicBall(), new ClassicRacket(), GameConstants.INFINITE_MODE);
-        }else{
+        if (game.getRules().isInfinite()) {
+            game = new Game(new ClassicBall(), new ClassicRacket(), GameConstants.INFINITE_MODE);
+        } else {
             game = new Game(
-                GameConstants.PRECONFIG_GAME_BALL[difficulty],
-                GameConstants.PRECONFIG_GAME_RACKET[difficulty],
-                GameConstants.PRECONFIG_GAME_RULES[difficulty]);
-            }
+                    GameConstants.PRECONFIG_GAME_BALL[difficulty],
+                    GameConstants.PRECONFIG_GAME_RACKET[difficulty],
+                    GameConstants.PRECONFIG_GAME_RULES[difficulty]);
+        }
     }
 
     public void lostAction() {

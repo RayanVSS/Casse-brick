@@ -1,7 +1,5 @@
 package entity.ball;
 
-import org.apache.pdfbox.util.Vector;
-
 import entity.racket.ClassicRacket;
 import physics.entity.Ball;
 import physics.geometry.Coordinates;

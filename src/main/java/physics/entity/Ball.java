@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 
-
 /**
  * Classe Balle
  * 
@@ -36,7 +35,7 @@ public abstract class Ball extends Entity {
     // Collision avec les murs
     private double zoneWidth = GameConstants.DEFAULT_GAME_ROOT_WIDTH;
     private double zoneHeight = GameConstants.DEFAULT_WINDOW_HEIGHT;
-    public boolean CollisionB =false;
+    public boolean CollisionB = false;
     private boolean delete = false;
     public static Racket getRa; // coordonnées de la raquette
 
@@ -125,7 +124,7 @@ public abstract class Ball extends Entity {
         delete = b;
     }
 
-    public boolean delete(){
+    public boolean delete() {
         return delete;
     }
 
@@ -158,19 +157,18 @@ public abstract class Ball extends Entity {
         }
     }
 
-    public void normalizeDirection(){
-        if(getDirection().getX() == 0){
-            getDirection().setX(1*rotation.getAngle()/90);
+    public void normalizeDirection() {
+        if (getDirection().getX() == 0) {
+            getDirection().setX(1 * rotation.getAngle() / 90);
         }
-        if(getDirection().getY() == 0){
-            getDirection().setY(1*rotation.getAngle()/90);
+        if (getDirection().getY() == 0) {
+            getDirection().setY(1 * rotation.getAngle() / 90);
         }
     }
 
     public boolean intersectBrick(Brick b) {
         return PhysicTools.intersectBrick(this.getC(), this.getRadius(), b);
     }
-
 
     public abstract void movement(long dt);
 
@@ -213,16 +211,18 @@ public abstract class Ball extends Entity {
     }
 
     public boolean checkCollision(Brick b) {
-       if(PhysicTools.checkCollision(this.getC(), this.getDirection(), this.radius,b,rotation)){
-           b.absorb(100);
-           return true;
-       }
-       return false;
+        if (PhysicTools.checkCollision(this.getC(), this.getDirection(), this.radius, b, rotation)) {
+            return true;
+        }
+        return false;
     }
 
-    public void checkCollision(Set<Brick> bricks) {
+    public void checkCollision(Set<Brick> bricks, boolean autoDestroy) {
         for (Brick b : bricks) {
-            this.checkCollision(b);
+            boolean destroy = checkCollision(b);
+            if (autoDestroy && destroy) {
+                b.absorb(100);
+            }
         }
     }
 
@@ -233,9 +233,9 @@ public abstract class Ball extends Entity {
     }
 
     public void checkCollisionOtherBall(Set<Ball> balls) {
-        if(!CollisionB){
-            for(Ball b : balls){
-                if(this != b){
+        if (!CollisionB) {
+            for (Ball b : balls) {
+                if (this != b) {
                     checkCollision(b);
                 }
             }
@@ -243,9 +243,9 @@ public abstract class Ball extends Entity {
     }
 
     public void checkCollisionOtherBall(List<Ball> balls) {
-        if(!CollisionB){
-            for(Ball b : balls){
-                if(!this.equals(b)){
+        if (!CollisionB) {
+            for (Ball b : balls) {
+                if (!this.equals(b)) {
                     checkCollision(b);
                 }
             }
@@ -254,72 +254,71 @@ public abstract class Ball extends Entity {
 
     public void checkCollision(Ball ball) {
         if (CollisionB) {
-          return;
+            return;
         }
-        
+
         double distance = this.radius + ball.radius;
         double dx = this.getX() - ball.getX();
         double dy = this.getY() - ball.getY();
-      
+
         if (Math.abs(dx) < distance &&
-            Math.abs(dy) < distance) {
-      
-          distance = Math.sqrt(dx * dx + dy * dy);
-      
-          if (distance <= this.radius + ball.radius) {
-            double overlap = this.radius + ball.radius - distance;
-      
-            double nx = dx / distance;
-            double ny = dy / distance;
-      
-            this.getC().setX(this.getX() + nx * overlap / 2);
-            this.getC().setY(this.getY() + ny * overlap / 2);
-            ball.getC().setX(ball.getX() - nx * overlap / 2);
-            ball.getC().setY(ball.getY() - ny * overlap / 2);
-      
-            double angle = Math.atan2(dy, dx);
-            double sin = Math.sin(angle);
-            double cos = Math.cos(angle);
-      
-            double vx1 = this.getDirection().getX() * cos + this.getDirection().getY() * sin;
-            double vy1 = this.getDirection().getY() * cos - this.getDirection().getX() * sin;
-      
-            double vx2 = ball.getDirection().getX() * cos + ball.getDirection().getY() * sin;
-            double vy2 = ball.getDirection().getY() * cos - ball.getDirection().getX() * sin;
-      
-            this.getDirection().setX(vx2 * cos - vy1 * sin);
-            this.getDirection().setY(vy1 * cos + vx2 * sin);
-      
-            ball.getDirection().setX(vx1 * cos - vy2 * sin);
-            ball.getDirection().setY(vy2 * cos + vx1 * sin);
-      
-            CollisionB = true;
-            ball.CollisionB = true;
-          }
+                Math.abs(dy) < distance) {
+
+            distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance <= this.radius + ball.radius) {
+                double overlap = this.radius + ball.radius - distance;
+
+                double nx = dx / distance;
+                double ny = dy / distance;
+
+                this.getC().setX(this.getX() + nx * overlap / 2);
+                this.getC().setY(this.getY() + ny * overlap / 2);
+                ball.getC().setX(ball.getX() - nx * overlap / 2);
+                ball.getC().setY(ball.getY() - ny * overlap / 2);
+
+                double angle = Math.atan2(dy, dx);
+                double sin = Math.sin(angle);
+                double cos = Math.cos(angle);
+
+                double vx1 = this.getDirection().getX() * cos + this.getDirection().getY() * sin;
+                double vy1 = this.getDirection().getY() * cos - this.getDirection().getX() * sin;
+
+                double vx2 = ball.getDirection().getX() * cos + ball.getDirection().getY() * sin;
+                double vy2 = ball.getDirection().getY() * cos - ball.getDirection().getX() * sin;
+
+                this.getDirection().setX(vx2 * cos - vy1 * sin);
+                this.getDirection().setY(vy1 * cos + vx2 * sin);
+
+                ball.getDirection().setX(vx1 * cos - vy2 * sin);
+                ball.getDirection().setY(vy2 * cos + vx1 * sin);
+
+                CollisionB = true;
+                ball.CollisionB = true;
+            }
         }
-      }
-      
+    }
 
     public boolean checkCollision(Segment segment) {
         return PhysicTools.checkCollision(getC(), getDirection(), radius, segment, rotation);
     }
-    
-    public boolean checkCollision(Racket r){
-        for(Segment l:r.segments){
-            if(checkCollision(l)){
+
+    public boolean checkCollision(Racket r) {
+        for (Segment l : r.segments) {
+            if (checkCollision(l)) {
                 CollisionR = true;
-                rotation.addEffect(-(r.getDirection().getX()*r.speed));
+                rotation.addEffect(-(r.getDirection().getX() * r.speed));
                 return true;
             }
         }
         return false;
     }
 
-    public double getMass(){
+    public double getMass() {
         return physicSetting.getMass();
     }
 
-    public static Ball clone(Ball originalball){
+    public static Ball clone(Ball originalball) {
         if (originalball instanceof MagnetBall) {
             return new MagnetBall();
         } else if (originalball instanceof ClassicBall) {

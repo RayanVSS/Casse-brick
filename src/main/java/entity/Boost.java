@@ -1,7 +1,6 @@
 package entity;
 
 import config.Game;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
@@ -22,8 +21,7 @@ public class Boost extends Bonus {
         color();
         if (type.equals("vitesseP") || type.equals("largeurP") || type.equals("zhonya")) {
             setFill(COLOR_BONUS);
-        } else if (type.equals("infiniteStop")) {
-            setFill(GameConstants.COLOR_INFINITE_STOP);
+            setFill(COLOR_MALUS);
         } else {
             setFill(GameConstants.COLOR_MALUS);
         }
@@ -60,10 +58,6 @@ public class Boost extends Bonus {
                 case "intensityBall":
                     System.out.println("intensityBall");
                     racket.setIntensityBall(true);
-                    break;
-                case "infiniteStop":
-                    System.out.println("infiniteStop");
-                    // game.getRules().infiniteUpdate(game.getMap(), 0);
                     break;
                 default:
                     break;

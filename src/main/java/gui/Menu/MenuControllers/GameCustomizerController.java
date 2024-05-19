@@ -17,6 +17,7 @@ import gui.GameView;
 import gui.Menu.MenuViews.GameCustomizerView;
 import javafx.application.Platform;
 import physics.entity.Ball;
+import physics.entity.Brick;
 import physics.entity.Racket;
 
 public class GameCustomizerController {
@@ -66,6 +67,11 @@ public class GameCustomizerController {
                 .setOnAction(e -> {
                     click.play();
                     gameCustomizerView.getRuleUnbreakable().updateText();
+                });
+        gameCustomizerView.getRuleInfinite().getToggleButton()
+                .setOnAction(e -> {
+                    click.play();
+                    gameCustomizerView.getRuleInfinite().updateText();
                 });
     }
 
@@ -162,13 +168,20 @@ public class GameCustomizerController {
     }
 
     private GameRules getRulesConfig() {
-        GameRules rules = new GameRules(BricksArrangement.DEFAULT,
+        BricksArrangement bricksArrangement;
+        if(gameCustomizerView.getRuleInfinite().getToggleButton().isSelected()){
+            bricksArrangement=BricksArrangement.INFINITE;
+        }
+        else{
+            bricksArrangement=BricksArrangement.DEFAULT;
+        }
+        GameRules rules = new GameRules(bricksArrangement,
                 gameCustomizerView.getRuleLimitedTime().getToggleButton().isSelected(),
                 gameCustomizerView.getRuleLimitedBounces().getToggleButton().isSelected(),
                 gameCustomizerView.getRuleRandomSwitchBricks().getToggleButton().isSelected(),
                 gameCustomizerView.getRuleColorRestricted().getToggleButton().isSelected(),
                 gameCustomizerView.getRuleTransparent().getToggleButton().isSelected(),
-                gameCustomizerView.getRuleUnbreakable().getToggleButton().isSelected(),false);//TODO A CHANGER
+                gameCustomizerView.getRuleUnbreakable().getToggleButton().isSelected(),gameCustomizerView.getRuleInfinite().getToggleButton().isSelected());
         if (gameCustomizerView.getRuleLimitedTime().getToggleButton().isSelected()) {
             rules.redefInitialResetTime((int) gameCustomizerView.getTimeLimit().getSlider().getValue());
         }

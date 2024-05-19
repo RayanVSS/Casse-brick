@@ -7,8 +7,8 @@ import java.util.TimerTask;
 
 import entity.ball.MagnetBall;
 import entity.racket.ClassicRacket;
-import entity.Bonus;
-import entity.Boost;
+import gui.App;
+import javafx.application.Platform;
 import physics.entity.Ball;
 import physics.entity.Brick;
 import physics.entity.Racket;
@@ -98,8 +98,27 @@ public class Game {
                 balls.remove(ball);
                 break;
             }
-            // map.handleCollisionBricks(ball, rules); // gérer la collision des briques
-            map.updateBricksStatus(this);
+            for (Brick brick : map.getBricks()) {
+                boolean breakBrick = false;
+                if (rules.canCollide(brick) && ball.checkCollision(brick)) {
+                    if (rules.isColorRestricted()) {
+                        if (ball.getColor() == brick.getColor()) {
+                            breakBrick = true;
+                        }
+                        ball.setColor(brick.getColor());
+                    } else {
+                        breakBrick = true;
+                    }
+                    if (breakBrick) {
+                        brick.absorb(100);
+                        Bonus bonus = Bonus.createBonus(ball.getC().clone());
+                        if (bonus != null) {
+                            bonuslist.add(bonus);
+                        }
+                    }
+                    break;
+                }
+            }
             // seulement si la balle est une MagnetBall
             if (ball instanceof MagnetBall) {
                 // donne les coordonnées de la raquette a la MagnetBall
@@ -114,7 +133,7 @@ public class Game {
                         ball.CollisionR = true;
                         App.ballSound.update();
                         App.ballSound.play();
-                        updateRulesRacket();
+                        rules.updateRulesRacket(map);
                     }
                 }
             } else {
@@ -122,7 +141,7 @@ public class Game {
                 if (ball.checkCollision(racket)) {
                     if (ball.getC().getX() > racket.getC().getX() // Si la balle est dans la raquette
                             && ball.getC().getX() < racket.getC().getX() + racket.getLargeur() - 2
-                            && ball.getC().getY() + racket.getLongueur()/2 > racket.getC().getY()) {
+                            && ball.getC().getY() + racket.getLongueur() / 2 > racket.getC().getY()) {
                         System.out.println(ball.getC().getX() + "  " + racket.getC().getX());
                         if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur() / 2) {
                             ball.setC(
@@ -147,21 +166,11 @@ public class Game {
                             System.out.println("ball dans la raquette au milieu");
                         }
                     }
-                
 
                     ball.CollisionR = true;
                     App.ballSound.update();
                     App.ballSound.play();
-                    updateRulesRacket();
-                }
-            }
-            for (Brick brick : map.getBricks()) {
-                if (ball.checkCollision(brick)) {
-                    Bonus bonus = Bonus.createBonus(ball.getC().clone());
-                    if (bonus != null) {
-                        bonuslist.add(bonus);
-                    }
-                    break;
+                    rules.updateRulesRacket(map);
                 }
             }
             ball.movement(deltaT);
@@ -175,13 +184,11 @@ public class Game {
             bonuslist.clear();
             racket.reset();
         }
-        // if (rules.isInfinite()) {
-        // if (!isInfiniteBonus()) {
-        // rules.infiniteUpdate(map, 0.60);
-        // } else {
-        // rules.infiniteUpdate(map, 0);
-        // }
-        // }
+        if (rules.isInfinite()) {
+            rules.infiniteUpdate(map, GameConstants.BRICK_SPEED);
+            rules.createBrickInfinite(map);
+        }
+        map.updateBricksStatus(this);
         updateGameStatus();
         racket.getDirection().setX(0);
 

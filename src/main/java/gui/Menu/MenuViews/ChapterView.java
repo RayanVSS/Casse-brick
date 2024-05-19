@@ -1,5 +1,7 @@
 package gui.Menu.MenuViews;
 
+import gui.ViewPosition;
+import gui.GraphicsFactory.ConsoleView;
 import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.ChapterController;
@@ -16,8 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.GameConstants;
 import utils.ImageLoader;
-import gui.ViewPosition;
-import gui.GraphicsFactory.ConsoleView;
 
 public class ChapterView implements Menu, ViewPosition {
     private Stage primaryStage;
