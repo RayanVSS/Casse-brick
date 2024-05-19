@@ -454,7 +454,7 @@ public final class Console {
     }
 
     private static void commandGetInventory() {
-
+        systemDisplay("Pas encore implémenté.");
     }
 
     private static void commandGetSave() {
@@ -472,7 +472,7 @@ public final class Console {
     }
 
     private static void commandGetTheme() {
-
+        systemDisplay("Pas encore implémenté.");
     }
 
     private static void commandGetLoadTuto() {
@@ -564,7 +564,7 @@ public final class Console {
     }
 
     private static void commandSetInventory(String[] parts) {
-
+        systemDisplay("Pas encore implémenté.");
     }
 
     private static void commandSetAdmin(String[] parts) {
@@ -599,7 +599,7 @@ public final class Console {
     }
 
     private static void commandSetTheme(String[] parts) {
-
+        systemDisplay("Pas encore implémenté.");
     }
 
     private static void commandSetLoadTuto(String[] parts) {
