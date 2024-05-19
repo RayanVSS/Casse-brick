@@ -58,13 +58,13 @@ public class RacketGraphics {
 		setShape();
 		getStrokeColor();
 		color();
-		if (!GameConstants.TEXTURE.equals("Null")) {
+		if (GameConstants.TEXTURE.equals("Null")) {
+			shape.setFill(color);
+			shape.setStroke(color);
+		} else {
 			image = ImageLoader.loadImage(GameConstants.TEXTURE);
 			texture = new ImagePattern(image);
 			addTexture();
-		} else {
-			shape.setFill(color);
-			shape.setStroke(color);
 		}
 	}
 

@@ -77,14 +77,8 @@ public class BallGraphics extends Circle implements EntityGraphics {
     }
 
     private void setBall() {
-        if (!GameConstants.SKIN_BALL.equals("Null") && !(ball instanceof MagnetBall)) {
-            System.out.println("Skin ball : " + GameConstants.SKIN_BALL);
-            image = ImageLoader.loadImage(GameConstants.SKIN_BALL);
-            ballImage = new ImagePattern(image);
-            setFill(ballImage);
-        } else {
+        if (GameConstants.SKIN_BALL.equals("Null")) {
             color();
-            System.out.println("Skin ball : " + GameConstants.SKIN_BALL);
             this.setFill(color);
             if (ball instanceof GravityBall) {
                 this.setStrokeWidth(3.5);
@@ -92,7 +86,14 @@ public class BallGraphics extends Circle implements EntityGraphics {
             } else if (ball instanceof HyperBall) {
                 this.setStrokeWidth(3.5);
                 this.setStroke(HYPER);
-            }
+            } 
+        }else if ( (ball instanceof MagnetBall)){
+            color();
+            this.setFill(color);
+        } else {
+            image = ImageLoader.loadImage(GameConstants.SKIN_BALL);
+            ballImage = new ImagePattern(image);
+            setFill(ballImage);
         }
     }
 

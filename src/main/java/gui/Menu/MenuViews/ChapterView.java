@@ -48,7 +48,7 @@ public class ChapterView implements Menu, ViewPosition {
         gridPane.setAlignment(Pos.CENTER);
 
         // Charger les images
-        Image image1 = ImageLoader.loadImage("src/main/ressources/chapitre/cchapitre.png");
+        Image image1 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre1.png");
         Image image2 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre2.png");
         Image image3 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre3.png");
         Image image4 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre4.png");
