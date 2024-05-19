@@ -1,18 +1,23 @@
 package entity.racket;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import org.checkerframework.checker.units.qual.s;
-
 import javafx.scene.input.KeyCode;
 import physics.entity.Ball;
 import physics.entity.Racket;
 import physics.geometry.PhysicTools;
 import utils.GameConstants;
+
+/**
+ * Raquette en forme de rectangle avec un pouvoir magnetique
+ * pouvant etre jouer avec MagnetBall
+ *
+ * @see RaketGraphics
+ * @see Racket
+ * @author Belhassen rayan
+ */
 
 public class MagnetRacket extends Racket {
     // etat de la raquette
@@ -43,51 +48,53 @@ public class MagnetRacket extends Racket {
         }
     }
 
-    public void handleKeyPress(Set<KeyCode> keysPressed,List<Ball> balls) {
+    public void handleKeyPress(Set<KeyCode> keysPressed, List<Ball> balls) {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {
                 if (this.mX() > 0)
                     this.deplaceX(-speed);
-                    this.getDirection().setX(-1);
-                    for (Ball ball : balls) {
-                        if(PhysicTools.checkCollision(ball,this.getSegments().get(3))){
-                            if(ball.getC().getX()-speed > ball.getRadius()){
-                                ball.getC().setX(ball.getC().getX()-speed);
-                                ball.getDirection().setX(ball.getDirection().getX()-speed/Math.abs(ball.getDirection().getX()));
+                this.getDirection().setX(-1);
+                for (Ball ball : balls) {
+                    if (PhysicTools.checkCollision(ball, this.getSegments().get(3))) {
+                        if (ball.getC().getX() - speed > ball.getRadius()) {
+                            ball.getC().setX(ball.getC().getX() - speed);
+                            ball.getDirection()
+                                    .setX(ball.getDirection().getX() - speed / Math.abs(ball.getDirection().getX()));
+                        } else {
+                            int m = 1;
+                            if (ball.getC().getY() > this.getC().getY() + this.longueur) {
+                                m = -1;
                             }
-                            else{
-                                int m=1;
-                                if(ball.getC().getY() > this.getC().getY()+this.longueur){
-                                    m=-1;
-                                }
-                                this.deplaceX(speed);
-                                ball.getC().setY(ball.getC().getY()-m*speed);
-                                ball.getDirection().setY(ball.getDirection().getY()-m*speed/Math.abs(ball.getDirection().getY()));
-                            }
+                            this.deplaceX(speed);
+                            ball.getC().setY(ball.getC().getY() - m * speed);
+                            ball.getDirection().setY(
+                                    ball.getDirection().getY() - m * speed / Math.abs(ball.getDirection().getY()));
                         }
                     }
+                }
             }
             if (key == GameConstants.RIGHT) {
                 if (this.mX() + largeur < super.getWidth())
                     this.deplaceX(speed);
-                    this.getDirection().setX(1);
-                    for (Ball ball : balls) {
-                        if(PhysicTools.checkCollision(ball,this.getSegments().get(1))){
-                            if(ball.getC().getX()+speed < super.getWidth()-ball.getRadius()){
-                                ball.getC().setX(ball.getC().getX()+speed);
-                                ball.getDirection().setX(ball.getDirection().getX()+speed/Math.abs(ball.getDirection().getX()));
+                this.getDirection().setX(1);
+                for (Ball ball : balls) {
+                    if (PhysicTools.checkCollision(ball, this.getSegments().get(1))) {
+                        if (ball.getC().getX() + speed < super.getWidth() - ball.getRadius()) {
+                            ball.getC().setX(ball.getC().getX() + speed);
+                            ball.getDirection()
+                                    .setX(ball.getDirection().getX() + speed / Math.abs(ball.getDirection().getX()));
+                        } else {
+                            int m = 1;
+                            if (ball.getC().getY() > this.getC().getY() + this.longueur) {
+                                m = -1;
                             }
-                            else{
-                                int m=1;
-                                if(ball.getC().getY() > this.getC().getY()+this.longueur){
-                                    m=-1;
-                                }
-                                this.deplaceX(-speed);
-                                ball.getC().setY(ball.getC().getY()-m*speed);
-                                ball.getDirection().setY(ball.getDirection().getY()-m*speed/Math.abs(ball.getDirection().getY()));
-                            }
+                            this.deplaceX(-speed);
+                            ball.getC().setY(ball.getC().getY() - m * speed);
+                            ball.getDirection().setY(
+                                    ball.getDirection().getY() - m * speed / Math.abs(ball.getDirection().getY()));
                         }
                     }
+                }
             }
             if (key == GameConstants.SPACE) {
                 setChange();

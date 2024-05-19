@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import entity.Bonus;
 import entity.Boost;
 import entity.ball.MagnetBall;
@@ -17,8 +16,7 @@ import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
-import gui.App;
-import javafx.application.Platform;
+
 
 public class Game {
 

@@ -17,7 +17,6 @@ import gui.GameView;
 import gui.Menu.MenuViews.GameCustomizerView;
 import javafx.application.Platform;
 import physics.entity.Ball;
-import physics.entity.Brick;
 import physics.entity.Racket;
 
 public class GameCustomizerController {

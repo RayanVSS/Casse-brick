@@ -2,7 +2,6 @@ package entity.racket;
 
 import java.util.List;
 import java.util.Set;
-
 import javafx.scene.input.KeyCode;
 import physics.entity.Ball;
 import physics.entity.Racket;
@@ -12,6 +11,8 @@ import utils.GameConstants;
 /**
  * raquette qui peut monter déscendre et aller a droite et a gauche
  * 
+ * @see RaketGraphics
+ * @see Racket
  * @author Belhassen rayan
  */
 

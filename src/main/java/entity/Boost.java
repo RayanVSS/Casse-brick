@@ -9,7 +9,7 @@ import utils.GameConstants;
 public class Boost extends Bonus {
     private String[] typesList = GameConstants.BONUS_LIST;
     private String type;
-    private Coordinates c;
+    // private Coordinates c;
     private Color COLOR_BONUS;
     private Color COLOR_MALUS;
 
@@ -21,9 +21,8 @@ public class Boost extends Bonus {
         color();
         if (type.equals("vitesseP") || type.equals("largeurP") || type.equals("zhonya")) {
             setFill(COLOR_BONUS);
-            setFill(COLOR_MALUS);
         } else {
-            setFill(GameConstants.COLOR_MALUS);
+            setFill(COLOR_MALUS);
         }
     }
 
