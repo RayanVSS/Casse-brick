@@ -251,7 +251,7 @@ public class PhysicEngine extends Pane{
                 this.getC().setXY(newX,newY);
                 physics.checkWind(this);
                 physics.checkGravity(this.getC(), this.getDirection());
-                
+                this.normalizeDirection();
             }
         };
     }

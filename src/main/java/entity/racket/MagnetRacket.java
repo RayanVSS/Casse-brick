@@ -44,7 +44,7 @@ public class MagnetRacket extends Racket {
                                 }
                                 this.deplaceX(speed);
                                 ball.getC().setY(ball.getC().getY()-m*speed);
-                                ball.getDirection().setY(ball.getDirection().getY()-m*speed/2);
+                                ball.getDirection().setY(ball.getDirection().getY()-m*speed/Math.abs(ball.getDirection().getY()));
                             }
                         }
                     }
@@ -66,7 +66,7 @@ public class MagnetRacket extends Racket {
                                 }
                                 this.deplaceX(-speed);
                                 ball.getC().setY(ball.getC().getY()-m*speed);
-                                ball.getDirection().setY(ball.getDirection().getY()-m*speed/2);
+                                ball.getDirection().setY(ball.getDirection().getY()-m*speed/Math.abs(ball.getDirection().getY()));
                             }
                         }
                     }

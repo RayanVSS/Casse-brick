@@ -47,7 +47,7 @@ public class YNotFixeRacket extends Racket {
                                     }
                                     this.deplaceX(speed);
                                     ball.getC().setY(ball.getC().getY()-m*speed);
-                                    ball.getDirection().setY(ball.getDirection().getY()-m*speed/2);
+                                    ball.getDirection().setY(ball.getDirection().getY()-m*speed/Math.abs(ball.getDirection().getY()));
                                 }
                             }
                         }
@@ -70,7 +70,7 @@ public class YNotFixeRacket extends Racket {
                                     }
                                     this.deplaceX(-speed);
                                     ball.getC().setY(ball.getC().getY()-m*speed);
-                                    ball.getDirection().setY(ball.getDirection().getY()-m*speed/2);
+                                    ball.getDirection().setY(ball.getDirection().getY()-m*speed/Math.abs(ball.getDirection().getY()));
                                 }
                             }
                         }
@@ -93,7 +93,7 @@ public class YNotFixeRacket extends Racket {
                                     }
                                     this.deplaceY(speed);
                                     ball.getC().setX(ball.getC().getX()-m*speed);
-                                    ball.getDirection().setX(ball.getDirection().getX()-m*speed/2);
+                                    ball.getDirection().setX(ball.getDirection().getX()-m*speed/Math.abs(ball.getDirection().getX()));
                                 }
                             }
                         }
@@ -115,7 +115,7 @@ public class YNotFixeRacket extends Racket {
                                         m=-1;
                                     }
                                     this.deplaceY(-speed);
-                                    ball.getC().setX(ball.getC().getX()-m*speed/2);
+                                    ball.getC().setX(ball.getC().getX()-m*speed/Math.abs(ball.getDirection().getX()));
                                 }
                             }
                         }
