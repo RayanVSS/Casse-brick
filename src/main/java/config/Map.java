@@ -13,7 +13,7 @@ public class Map {
     // private Brick[][] bricks;
     private ArrayList<Brick> bricks;
     private GameRules rules;
-    private int columns, rows;
+    private int columnsBricks, rowsBricks;
 
     public Map(GameRules rules, int columnsBricks, int rowsBricks) {
         this.rules = rules;

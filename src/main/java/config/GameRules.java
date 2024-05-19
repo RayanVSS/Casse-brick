@@ -173,7 +173,22 @@ public class GameRules {
                     brick.setUnbreakable(false);
                 }
             }
+            Random random = new Random();
+            while (apply > 0 && map.countBricks() > qty_unbreakable) {
+                Brick rndBrick = tempList.get(random.nextInt(tempList.size()));
+                if (!rndBrick.isUnbreakable()) {
+                    apply--;
+                    rndBrick.setUnbreakable(true);
+                }
+            }
         }
+    }
+
+    public boolean canCollide(Brick brick) {
+        if (transparent) {
+            return !brick.isTransparent();
+        }
+        return true;
     }
 
     public boolean verifyInfinite(Map m, Coordinates raquetCoordinates) {

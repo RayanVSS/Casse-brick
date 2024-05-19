@@ -114,7 +114,7 @@ public class Game {
                         ball.CollisionR = true;
                         App.ballSound.update();
                         App.ballSound.play();
-                        updateRulesRacket();
+                        rules.updateRulesRacket(map);
                     }
                 }
             } else {
@@ -149,7 +149,7 @@ public class Game {
                     ball.CollisionR = true;
                     App.ballSound.update();
                     App.ballSound.play();
-                    updateRulesRacket();
+                    rules.updateRulesRacket(map);
                 }
             }
             for (Brick brick : map.getBricks()) {
