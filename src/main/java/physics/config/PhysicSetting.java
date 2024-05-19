@@ -129,9 +129,9 @@ public class PhysicSetting {
 
     public Vector vectorWind(int Speed, int Direction) {
         switch (Direction) {
-            case 1:
+            case 0:
                 return new Vector(new Coordinates(Speed, 0));
-            case 2:
+            case 1:
                 return new Vector(new Coordinates(-Speed, 0));
             default:
                 return new Vector(new Coordinates(0, 0));
@@ -170,6 +170,12 @@ public class PhysicSetting {
             return true;
         }
         return verifX && verifY;
+    }
+
+    public void checkWind(Ball b){
+        if(b.getC().getX() > Math.abs(Wind.getX()/(10*b.getMass())) && b.getC().getX() -Math.abs(Wind.getX()/(10*b.getMass())) < DEFAULT_WINDOW_WIDTH){
+            b.setC(new Coordinates(b.getC().getX()+Wind.getX()/(10*b.getMass()), b.getC().getY()));
+        }
     }
 
     public void setWind(){

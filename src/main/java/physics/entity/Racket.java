@@ -9,8 +9,6 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.checkerframework.checker.units.qual.g;
-
 import gui.GameRoot;
 import gui.GraphicsFactory.RacketGraphics;
 import physics.geometry.Figure;
@@ -404,7 +402,7 @@ public abstract class Racket extends Figure {
     }
 
     // fonction obligatoire
-    public abstract void handleKeyPress(Set<KeyCode> keysPressed);
+    public abstract void handleKeyPress(Set<KeyCode> keysPressed,List<Ball> balls);
 
     public abstract void handleKeyRelease(KeyCode event);
 

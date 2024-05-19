@@ -22,17 +22,29 @@ public class MagnetRacket extends Racket {
     }
 
     // Mouvement a l'appui des touches
-    public void handleKeyPress(Set<KeyCode> keysPressed) {
+    public void handleKeyPress(Set<KeyCode> keysPressed,List<Ball> balls) {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {
                 if (this.mX() > -largeur / 2)
                     this.deplaceX(-speed);
                     this.getDirection().setX(-1);
+                    for (Ball ball : balls) {
+                        if(ball.checkCollision(this)){
+                            ball.getDirection().setX(ball.getDirection().getX()+this.getDirection().getX());
+                            ball.getC().setX(ball.getC().getX()-speed);
+                        }
+                    }
             }
             if (key == GameConstants.RIGHT) {
                 if (this.mX() < super.getWidth() - longueur - 70)
                     this.deplaceX(speed);
                     this.getDirection().setX(1);
+                    for (Ball ball : balls) {
+                        if(ball.checkCollision(this)){
+                            ball.getDirection().setX(ball.getDirection().getX()+this.getDirection().getX());
+                            ball.getC().setX(ball.getC().getX()+speed);
+                        }
+                    }
             }
             if (key == GameConstants.SPACE) {
                 setChange();

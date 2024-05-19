@@ -2,6 +2,7 @@ package physics.geometry;
 
 import physics.entity.Brick;
 import utils.GameConstants;
+import physics.entity.Ball;
 
 public class PhysicTools {
 
@@ -32,27 +33,36 @@ public class PhysicTools {
         }
     
         double distance = Math.sqrt((c.getX() - closestX) * (c.getX() - closestX) +
-                (c.getY() - closestY) * (c.getY() - closestY));
+                                    (c.getY() - closestY) * (c.getY() - closestY));
     
         if (distance <= radius) {
+            // Calculer le vecteur normal
             double normalX = c.getX() - closestX;
             double normalY = c.getY() - closestY;
             double lenNormal = Math.sqrt(normalX * normalX + normalY * normalY);
             normalX /= lenNormal;
             normalY /= lenNormal;
     
+            // Repositionner la balle juste en dehors du segment
+            c.setX(closestX+ normalX * radius); // Légère marge pour éviter la pénétration
+            c.setY(closestY + normalY * radius);
+    
+            // Corriger le vecteur de direction après la collision
             double d1 = d.getX() * normalX + d.getY() * normalY;
-
+    
             d.setX(d.getX() - 2 * d1 * normalX);
-            d.setY(d.getY() - 2 * d1 * normalY+(rotation.getEffect())/90*normalY);
+            d.setY(d.getY() - 2 * d1 * normalY + (rotation.getEffect() / 90.0) * normalY);
             
             return true;
         }
         return false;
     }
     
-
     
+
+    public static boolean checkCollision(Ball b , Segment s){
+        return checkCollision(b.getC(),b.getDirection(),b.getRadius(),s,b.getRotation());
+    }
 
     public static boolean checkCollision(Coordinates c ,Vector d, double radius ,Brick b,Rotation rotation){
         for (Segment s : b.getSegments()) {

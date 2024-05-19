@@ -20,7 +20,7 @@ public class CircleRacket extends Racket {
         super(180, 40, "rond", 8, false, true);
     }
 
-    public void handleKeyPress(Set<KeyCode> keysPressed) {
+    public void handleKeyPress(Set<KeyCode> keysPressed,List<Ball> balls) {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {
                 if (this.mX() > -largeur / 2)

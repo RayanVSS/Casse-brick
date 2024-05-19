@@ -7,6 +7,7 @@ import java.util.Set;
 import javafx.scene.input.KeyCode;
 import physics.entity.Ball;
 import physics.entity.Racket;
+import physics.geometry.PhysicTools;
 import utils.GameConstants;
 
 /**
@@ -23,7 +24,7 @@ public class YNotFixeRacket extends Racket {
     }
 
     // Mouvement a l'appui des touches
-    public void handleKeyPress(Set<KeyCode> keysPressed) {
+    public void handleKeyPress(Set<KeyCode> keysPressed,List<Ball> balls) {
         for (KeyCode key : keysPressed) {
             switch (key) {
                 case Q:
@@ -31,24 +32,48 @@ public class YNotFixeRacket extends Racket {
                     if (this.mX() > -longueur / 2)
                         this.deplaceX(-speed);
                         this.getDirection().setX(-1);
+                        for (Ball ball : balls) {
+                            if(PhysicTools.checkCollision(ball,this.getSegments().get(3))){
+                                ball.getDirection().setX(ball.getDirection().getX()+this.getDirection().getX());
+                                ball.getC().setX(ball.getC().getX()-speed);
+                            }
+                        }
                     break;
                 case D:
                 case RIGHT:
                     if (this.mX() < super.getWidth() - largeur - 70)
                         this.deplaceX(speed);
                         this.getDirection().setX(1);
+                        for (Ball ball : balls) {
+                            if(PhysicTools.checkCollision(ball,this.getSegments().get(1))){
+                                ball.getDirection().setX(ball.getDirection().getX()+this.getDirection().getX());
+                                ball.getC().setX(ball.getC().getX()+speed);
+                            }
+                        }
                     break;
                 case Z:
                 case UP:
                     if (this.mY() > 50)
                         this.deplaceY(-speed);
                         this.getDirection().setY(-1);
+                        for (Ball ball : balls) {
+                            if(PhysicTools.checkCollision(ball,this.getSegments().get(0))){
+                                ball.getDirection().setY(ball.getDirection().getY()+this.getDirection().getY());
+                                ball.getC().setY(ball.getC().getY()-speed);
+                            }
+                        }
                     break;
                 case S:
                 case DOWN:
                     if (this.mY() < GameConstants.DEFAULT_WINDOW_HEIGHT - 50)
                         this.deplaceY(speed);
                         this.getDirection().setY(1);
+                        for (Ball ball : balls) {
+                            if(PhysicTools.checkCollision(ball,this.getSegments().get(2))){
+                                ball.getDirection().setY(ball.getDirection().getY()+this.getDirection().getY());
+                                ball.getC().setY(ball.getC().getY()+speed);
+                            }
+                        }
                     break;
                 case SPACE:
                     if (jump) {

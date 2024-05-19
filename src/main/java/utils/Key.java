@@ -73,7 +73,7 @@ public class Key {
 
     //fonction qui rassemble toutes les fonctions qui agissent avec une touche
     public void handleInput(Game game) {
-        game.getRacket().handleKeyPress(keysPressed);
+        game.getRacket().handleKeyPress(keysPressed, game.getBalls());
     }
 
     //getters,setters et fonctions qui donne des informations sur la liste de touches

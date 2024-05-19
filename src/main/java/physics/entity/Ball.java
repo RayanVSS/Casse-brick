@@ -165,6 +165,12 @@ public abstract class Ball extends Entity {
         if(getDirection().getY() == 0){
             getDirection().setY(1*rotation.getAngle()/90);
         }
+        if(getDirection().getX()>=10){
+            getDirection().setX(10);
+        }
+        if(getDirection().getY()>=10){
+            getDirection().setY(10);
+        }
     }
 
     public boolean intersectBrick(Brick b) {

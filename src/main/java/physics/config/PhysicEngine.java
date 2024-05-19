@@ -132,7 +132,7 @@ public class PhysicEngine extends Pane{
             public void handle(long now) {
                 KeyPressed();
                 if (racket != null) {
-                    racket.handleKeyPress(key.getKeysPressed());
+                    racket.handleKeyPress(key.getKeysPressed(), new ArrayList<>(listball.keySet()));
                 }
                 if (last == 0) {
                     last = now;
@@ -249,7 +249,7 @@ public class PhysicEngine extends Pane{
                     newX=start_border+this.getRadius();
                 }
                 this.getC().setXY(newX,newY);
-                getC().setX(getX()+physics.getMass()/physics.getWind().getX());
+                physics.checkWind(this);
                 physics.checkGravity(this.getC(), this.getDirection());
                 
             }
@@ -326,33 +326,7 @@ public class PhysicEngine extends Pane{
         });
         Racket.d = key.getKeysPressed();
         for (Ball ball : listball.keySet()) {
-            if(ball.checkCollision(racket)){
-                if (ball.getC().getX() > racket.getC().getX()
-                            && ball.getC().getX() < racket.getC().getX() + racket.getLargeur() - 2
-                            && ball.getC().getY() > racket.getC().getY()) {
-                        System.out.println(ball.getC().getX() + "  " + racket.getC().getX());
-                        if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur()/2) {
-                            ball.setC(
-                                    new Coordinates(ball.getC().getX() - ball.getRadius() - 15, racket.getC().getY()));
-                            ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
-                            ball.getRotation().stopRotation();
-                            System.out.println("ball dans la raquette a gauche");
-                        } else if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
-                                && ball.getC().getX() > racket.getC().getX() + racket.getLargeur()/2) {
-                            ball.setC(
-                                    new Coordinates(ball.getC().getX() + ball.getRadius() + 15, racket.getC().getY()));
-                            ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
-                            ball.getRotation().stopRotation();
-                            System.out.println("ball dans la raquette a droite");
-                        } else {
-                            ball.setC(new Coordinates(ball.getC().getX() + racket.getLargeur() + ball.getRadius() + 30,
-                                    racket.getC().getY()));
-                            ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY()));
-                            ball.getRotation().stopRotation();
-                            System.out.println("ball dans la raquette au milieu");
-                        }
-                    }
-            }
+            ball.checkCollision(racket);
             if (ball.getPreview() != null) {
                 ball.getPreview().update(racket);
             }
