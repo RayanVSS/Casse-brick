@@ -820,4 +820,15 @@ Ajouts :
 - Refonte & facto de BrickGraphics
 - Presets de l'app de démo/physic
 
+### Bencheikh Ilias
 
+- Amélioration de la structure du moteur physique #49 :
+    - Refonte du système des collisions entre la balle et des figures (création d'un système de segment) #64
+- Amélioration de la collision entre les balles de manière réaliste
+- Amélioration de la collision entre une balle et une brique 
+- Amélioration de la collision entre les balles et la rackets (les balles ne rentre plus dans la racket) avec Rayan
+- Amélioration du moteur physique :
+    - création d'un système de preset avec Olivier
+    - Conversion de la gestion des briques du à la refonte dans le jeu
+    - Implémentation du vent en (béta)
+- Améliorer le code pour que le jeu lague moins #74
