@@ -38,7 +38,7 @@ public class App extends Application {
     @Override
     public void start(Stage p) throws Exception {
         try{
-            Font.loadFont(new FileInputStream("src/main/ressources/font/blabla.ttf"),12);
+            Font.loadFont(new FileInputStream("src/main/ressources/font/blabla.ttf"),10);
         }catch(FileNotFoundException e){
             e.printStackTrace();
         }

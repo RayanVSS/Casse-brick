@@ -2,15 +2,17 @@
   "PATH": true,
   "MUSIC": 0,
   "CSS": "CLASSIC",
-  "MONEY": 0,
-  "SKIN_BALL": "src/main/ressources/balle/light/gravity.png",
-  "INVENTAIRE": [],
+  "MONEY": 40,
+  "SKIN_BALL": "Null",
+  "INVENTAIRE": [
+    "PurpleSilk"
+  ],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": true,
   "PSEUDO": "Sans nom",
   "SPACE": "SPACE",
-  "TEXTURE": "src/main/ressources/Texture/rouge.jpg",
+  "TEXTURE": "Null",
   "EXP_LEVEL": 27,
   "PROGRESS": {
     "stages": [
@@ -207,5 +209,5 @@
   },
   "SOUND": 50,
   "RIGHT": "RIGHT",
-  "ADMIN": false
+  "ADMIN": true
 }

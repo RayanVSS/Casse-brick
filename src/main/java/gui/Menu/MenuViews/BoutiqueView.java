@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -47,6 +48,7 @@ public class BoutiqueView implements Menu, ViewPosition {
     private LabelVBox moneyVBox;
 
     private Button back;
+    private Button takeOff;
     private final int startPrice = 5;
 
     private ConsoleView consoleView;
@@ -64,10 +66,16 @@ public class BoutiqueView implements Menu, ViewPosition {
         title = createLabel("Boutique", 0, 0);
         title.getStyleClass().add("title-style");
 
+        HBox h=new HBox();
         back = createButton("Retour", 0, 0);
-
+        takeOff = createButton("Tout enlever", 0, 0);
+        h.getChildren().addAll(back,takeOff);
+        h.setAlignment(javafx.geometry.Pos.CENTER);
+        h.setSpacing(10);
+        StackPane.setMargin(h, new javafx.geometry.Insets(10, 10, 10, 10));
         contentBox.getStyleClass().add("root");
-        contentBox.getChildren().addAll(title, moneyVBox, boutique, back);
+        contentBox.getChildren().addAll(title, moneyVBox, boutique, h);
+        contentBox.setAlignment(javafx.geometry.Pos.CENTER);
 
         consoleView = ConsoleView.getInstance();
         consoleBox.getChildren().add(consoleView);
@@ -93,6 +101,7 @@ public class BoutiqueView implements Menu, ViewPosition {
             labelVBox.getChildren().addAll(initRectangle(raquetteItem[i].getPath()), raquetteItem[i].getButton());
             raquetteGrid.add(labelVBox, i % 4, i / 4);
         }
+
         for (int i = 0; i < GameConstants.LABELS_BALLE.length; i++) {
             balleItem[i] = new Item(GameConstants.LABELS_BALLE[i], GameConstants.PATHS_BALLE[i], startPrice * i + 5,
                     "balle");
@@ -199,6 +208,10 @@ public class BoutiqueView implements Menu, ViewPosition {
 
     public Button getBtnBack() {
         return back;
+    }
+
+    public Button getBtnTakeOff() {
+        return takeOff;
     }
 
     public Item[] getRaquetteItem() {

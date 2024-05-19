@@ -3,8 +3,8 @@
   "MUSIC": 0,
   "CSS": "PINK",
   "MONEY": 0,
-  "INVENTAIRE": [
-  ],
+  "SKIN_BALL": "Null",
+  "INVENTAIRE": [],
   "PARTICLES": true,
   "LEFT": "LEFT",
   "FPS": true,
