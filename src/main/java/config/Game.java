@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.checkerframework.common.returnsreceiver.qual.This;
-
-import entity.ball.GravityBall;
 import entity.ball.MagnetBall;
 import entity.racket.ClassicRacket;
 import entity.Bonus;
@@ -20,7 +17,6 @@ import physics.geometry.Vector;
 import utils.GameConstants;
 import gui.App;
 import javafx.application.Platform;
-import java.util.Iterator;
 
 public class Game {
 

@@ -132,11 +132,7 @@ public class PhysicSetting {
             case 1:
                 return new Vector(new Coordinates(Speed, 0));
             case 2:
-                return new Vector(new Coordinates(0, Speed));
-            case 3:
                 return new Vector(new Coordinates(-Speed, 0));
-            case 4:
-                return new Vector(new Coordinates(0, -Speed));
             default:
                 return new Vector(new Coordinates(0, 0));
         }
@@ -174,6 +170,10 @@ public class PhysicSetting {
             return true;
         }
         return verifX && verifY;
+    }
+
+    public void setWind(){
+        this.Wind = vectorWind(Speed_Wind, Direction_Wind);
     }
 
     // Getters and Setters
