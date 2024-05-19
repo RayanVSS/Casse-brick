@@ -794,3 +794,9 @@ Ajouts :
 - Diagramme des classes 
 - Affichage visuel de l'état d'un niveau (verrouiller ou pas)
 
+
+### Amenah MUSHTAQ
+
+- Mode infini terminé
+- Résolution de bug 
+- Rapport

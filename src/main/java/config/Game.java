@@ -181,6 +181,9 @@ public class Game {
             balls.add(Ball.clone(originalball));
             bonuslist.clear();
             racket.reset();
+            if (rules.isInfinite()){
+                balls.get(0).getC().setXY(racket.getC().getX()+20, racket.getC().getY()-50);
+            }
         }
         if (rules.isInfinite()) {
             rules.infiniteUpdate(map, GameConstants.BRICK_SPEED);
@@ -232,11 +235,6 @@ public class Game {
         // return true; // décommenter ici pour tester les wins
         return map.countBricks() == 0;
     }
-
-    // public Coordinates resetBallInfinite() {
-    //     Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2, map.lastBrick() + 900 / 2);
-    //     return c;
-    // }
 
     // Setters/getters
 

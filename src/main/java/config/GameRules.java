@@ -64,10 +64,6 @@ public class GameRules {
         return verifyLimitedTime() && verifyLimitedBounces() && verifyInfinite(m, cr);
     }
 
-    // public boolean check(Map m, Coordinates cr) {
-    //     return verifyLimitedTime() && verifyLimitedBounces() && verifyInfinitee(m.getBricks());
-    // }
-
     public void initRules(Game game) {
         if (colorRestricted) {
             applyColorOnBricks(game.getMap().getBricks());
@@ -198,7 +194,7 @@ public class GameRules {
         Coordinates c;
         for (int i = brick.size() - 1; i > -1; i--) {
             c = m.getBricks().get(i).getC();
-            if (c.getY() >= raquetCoordinates.getY() - GameConstants.INFINITE_DISTANCE_RACKET) {
+            if (c.getY() >= raquetCoordinates.getY()-GameConstants.INFINITE_DISTANCE_RACKET) {
                 return false;
             }
         }
@@ -304,31 +300,3 @@ public class GameRules {
     }
 
 }
-
-// public void setInfiniteStop(boolean infiniteStop, Map m, int duration) {
-//     if (!this.infiniteStop) {
-//         this.infiniteStop = infiniteStop;
-//         if (this.infiniteStop) {
-//             infiniteStop(m, duration);
-//         }
-//     }
-
-// }
-
-// public void testInfinite(Map m) {
-//     if (!this.infiniteStop) {
-//         infiniteUpdate(m, 0.60);
-//     }
-// }
-
-// public void infiniteStop(Map map, int duration) {
-//     Timer timer = new Timer();
-//     TimerTask task = new TimerTask() {
-//         public void run() {
-//             infiniteUpdate(map, 0);
-//             infiniteStop = false;
-//         }
-//     };
-//     timer.schedule(task, duration);
-
-// }
