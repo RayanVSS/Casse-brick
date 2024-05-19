@@ -9,6 +9,10 @@ public abstract class Entity {
     private Vector direction;
     private boolean isDestroyed;
 
+    public enum EntityColor {
+        RED, GREEN, BLUE;
+    }
+
     protected Entity(Coordinates c, Vector vector) {
         this.c = c;
         this.direction = vector;
