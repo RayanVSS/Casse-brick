@@ -121,6 +121,8 @@ public class GameRules {
                 Coordinates tempC = brick1.getC();
                 brick1.setC(brick2.getC());
                 brick2.setC(tempC);
+                brick1.createsegments();
+                brick2.createsegments();
             }
         }
     }
