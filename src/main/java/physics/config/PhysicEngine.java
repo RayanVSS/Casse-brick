@@ -234,7 +234,7 @@ public class PhysicEngine extends Pane {
                 if ((newX < start_border + this.getRadius())) {
                     newX = start_border + this.getRadius();
                 }
-                this.getC().setXY(newX,newY);
+                this.getC().setXY(newX, newY);
                 physics.checkWind(this);
                 physics.checkGravity(this.getC(), this.getDirection());
                 this.normalizeDirection();
@@ -390,7 +390,8 @@ public class PhysicEngine extends Pane {
     }
 
     public void addBall(Ball ball) {
-        BallGraphics graphBall = new BallGraphics(ToolBox.list_image.get((int) (Math.random() * (ToolBox.list_image.size()))),ball);
+        BallGraphics graphBall = new BallGraphics(
+                ToolBox.list_image.get((int) (Math.random() * ToolBox.list_image.size())), ball);
         this.getChildren().add(graphBall);
         listball.put(ball, graphBall);
     }
