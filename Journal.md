@@ -799,6 +799,9 @@ Ajouts :
 - Nouvelle police du jeu 
 - Diagramme des classes 
 - Affichage visuel de l'état d'un niveau (verrouiller ou pas)
+- Rapport 
+- Factorisation et javadoc 
+- Diagrammes des classes 
 
 
 ### Amenah MUSHTAQ
