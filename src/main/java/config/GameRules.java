@@ -198,11 +198,6 @@ public class GameRules {
         ArrayList<Brick> list = m.getBricks();
         for (Brick b : list) {
             b.getC().setY(b.getC().getY() + vitesse);
-            // Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY() + vitesse);
-            // if (m.inMap((int) c.getIntX() / GameConstants.BRICK_WIDTH,
-            //         (int) c.getIntY() / GameConstants.BRICK_HEIGHT)) {
-            //     b.setC(c);
-            // }
         }
     }
 
@@ -272,22 +267,6 @@ public class GameRules {
         }
     }
 
-    // public ArrayList<Brick> createeBrickInfinite(Map m) {
-    //     ArrayList<Brick> b = new ArrayList<>();
-    //     for (int i = 0; i < m.getColumnsBricks(); i++) {
-    //         for (int j = 0; j < m.getRowsBricks(); j++) {
-    //             Brick brick = new BrickClassic(
-    //                     new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
-    //             if (isColorRestricted()) {
-    //                 EntityColor rndColor = EntityColor.values()[new Random().nextInt(EntityColor.values().length)];
-    //                 brick.setColor(rndColor);
-    //             }
-    //             b.add(brick);
-    //         }
-    //     }
-    //     return b;
-    // }
-
     // Redéfinie les valeurs à appliquer lors du reset
     public void redefInitialResetTime(int resetRemainingTime) {
         if (limitedTime) {
@@ -306,6 +285,7 @@ public class GameRules {
     public void reset() {
         remainingTime = initalRemainingTime;
         remainingBounces = initalRemainingBounces;
+        lastCreatedBrick = null;
     }
 
     // GETTERS/SETTERS
@@ -359,56 +339,3 @@ public class GameRules {
     }
 
 }
-
-// private boolean verifyInfinitee(ArrayList<Brick> bricks) {
-//     for (int i = 0; i < bricks.length; i++) {
-//         if (bricks[i][bricks[0].length - 2] != null) {
-//             return false;
-//         }
-//     }
-//     return true;
-// }
-
-// private boolean verifyInfinitee(ArrayList<Brick> bricks) {
-//     for (int i = bricks.size()-1; i>=0; i--) {
-//         if (bricks.get(i).getC().getY() >= GameConstants.DEFAULT_WINDOW_WIDTH) {
-//             return false;
-//         }
-//     }
-//     return true;
-// }
-
-// public void infiniteUpzdate(Map m, double vitesse) {
-//     ArrayList<Brick> list = m.getBricks();
-//     for (int i = list.size() - 1; i > -1; i--) {
-//         Brick b = list.get(i);
-//         Coordinates c = new Coordinates(b.getC().getX(), b.getC().getY() + vitesse);
-//         if (m.inMap(c.getIntX() / GameConstants.BRICK_WIDTH, c.getIntY() / GameConstants.BRICK_HEIGHT)) {
-//             bricks[(int) b.getC().getX() / GameConstants.BRICK_WIDTH][(int) b.getC().getY()
-//                     / GameConstants.BRICK_HEIGHT] = null;
-//             b.setC(c);
-//             bricks[(int) b.getC().getX() / GameConstants.BRICK_WIDTH][(int) b.getC().getY()
-//                     / GameConstants.BRICK_HEIGHT] = b;
-//         }
-//     }
-// }
-
-// public ArrayList<Brick> createBrickInfinite(Brick[][] bricks){
-//     ArrayList<Brick> b=new ArrayList<>();
-//     for (int i = 0; i < bricks.length; i++) {
-//         for (int j = 0; j < bricks[0].length; j++) {
-//             if (bricks[i][j] == null) {
-//                 bricks[i][j] = new BrickClassic(
-//                         new Coordinates(i * GameConstants.BRICK_WIDTH, j * GameConstants.BRICK_HEIGHT));
-//                 if (isColorRestricted()){
-//                     EntityColor rndColor = EntityColor.values()[new Random().nextInt(EntityColor.values().length)];
-//                     bricks[i][j].setColor(rndColor);
-//                 }
-//                 b.add(bricks[i][j]);
-//             } else {
-//                 break;
-//             }
-//         }
-//     }
-//     return b;
-// }

@@ -56,10 +56,7 @@ public class Map {
     // }
 
     private void initInfiniteBricksArrangement() {
-        // int indexFirstColumn = (GameConstants.MAP_WIDTH - columnsBricks) / 2;
-        int indexFirstColumn = 0;
-        for (int i = indexFirstColumn; i < GameConstants.MAP_WIDTH; i++) { // espace côté
-                                                                                    // gauche/droit
+        for (int i = 0; i < GameConstants.MAP_WIDTH; i++) { 
             for (int j = 0; j < rowsBricks; j++) { // 1 espace en haut
                 bricks.add(new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
                         j * GameConstants.BRICK_HEIGHT)));
@@ -183,47 +180,3 @@ public class Map {
     }
 
 }
-
-// public Brick lastBricks() {
-//         Brick res = null;
-//         for (int i = bricks.size() - 1; i > -1; i--) {
-//                 if (bricks.get(i) != null) {
-//                     res = bricks.get(i);
-//                     break;
-//                 }
-//             }
-//         return res;
-// }
-
-// public boolean inMap(int x, int y) {
-//     return x >= 0 && x < bricks.length && y >= 0 && y < bricks[0].length;
-// }
-// public boolean inMap(int x, int y) {
-//     return x >= 0 && x < rowsBricks && y >= 0 && y < columnsBricks;
-// }
-
-// public int lastBrick() {
-//     int res = 0;
-//     for (int i = bricks.length - 1; i > -1; i--) {
-//         for (int j = bricks[0].length - 1; j > -1; j--) {
-//             if (bricks[i][j] != null) {
-//                 res = i;
-//                 break;
-//             }
-//         }
-//     }
-//     return res;
-// }
-
-// public Brick lastBricks() {
-//     Brick res = null;
-//     for (int i = bricks.length - 1; i > -1; i--) {
-//         for (int j = bricks[0].length - 1; j > -1; j--) {
-//             if (bricks[i][j] != null) {
-//                 res = bricks[i][j];
-//                 break;
-//             }
-//         }
-//     }
-//     return res;
-// }

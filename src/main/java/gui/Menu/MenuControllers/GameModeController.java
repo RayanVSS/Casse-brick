@@ -2,9 +2,16 @@ package gui.Menu.MenuControllers;
 
 import org.checkerframework.checker.units.qual.g;
 
+import config.Game;
+import config.GameRules;
+import config.StageLevel;
+import entity.ball.ClassicBall;
+import entity.racket.ClassicRacket;
 import gui.App;
+import gui.GameView;
 import gui.Menu.MenuViews.GameModeView;
 import javafx.application.Platform;
+import utils.GameConstants;
 import utils.Sound.ClickSound;
 
 public class GameModeController {
@@ -30,7 +37,11 @@ public class GameModeController {
             click.play();
             back();
         });
-        gameModeView.getInfinityButton().setOnAction(e -> showInfinityMode());
+        // gameModeView.getInfinityButton().setOnAction(e -> showInfinityMode());
+        gameModeView.getInfinityButton().setOnAction(e -> {
+            click.play();
+            playInfinite();
+        });
     }
 
     private void showStages() {
@@ -45,10 +56,19 @@ public class GameModeController {
         });
     }
 
-    private void showInfinityMode() {
-        Platform.runLater(() -> {
-            App.menuManager.changeScene(gameModeView.getPrimaryStage(), "InfinityModeView");
-        });
+    // private void showInfinityMode() {
+    //     Platform.runLater(() -> {
+    //         App.menuManager.changeScene(gameModeView.getPrimaryStage(), "InfinityModeView");
+    //     });
+    // }
+
+    public void playInfinite() {
+        ClassicBall ball = new ClassicBall();
+        ClassicRacket racket = new ClassicRacket();
+        GameRules rules = GameConstants.INFINITE_MODE;
+        Game game = new Game(ball, racket, rules);
+        StageLevel level = new StageLevel(game);
+        new GameView(gameModeView.getPrimaryStage(), level);
     }
 
     private void back() {
