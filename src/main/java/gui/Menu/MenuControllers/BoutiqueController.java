@@ -1,6 +1,7 @@
 package gui.Menu.MenuControllers;
 
 import gui.App;
+import gui.Console;
 import gui.Item;
 import gui.Menu.MenuViews.BoutiqueView;
 import save.PlayerData;
@@ -18,8 +19,16 @@ public class BoutiqueController {
             click.play();
             back();
         });
+
+        this.view.getBtnTakeOff().setOnAction(e -> {
+            click.play();
+            takeOff();
+        });
+
+
         setButtonAction(view.getRaquetteItem());
         setButtonAction(view.getBalleItem());
+
     }
 
     private void setButtonAction(Item[] Item) {
@@ -38,7 +47,6 @@ public class BoutiqueController {
 
     private void acheterItem(Item item) {
         if (PlayerData.inventaire.isBought(item.getName())) {
-            System.out.println("Deja achete");
             updateItem(item);
             return;
         } else if (PlayerData.money >= item.getPrice()) {
@@ -49,7 +57,7 @@ public class BoutiqueController {
             PlayerData.inventaire.addItem(item.getName());
             PlayerData.inventaire.afficheInventaire();
         } else {
-            System.out.println("Pas assez d'argent");
+            Console.display("Vous n'avez pas assez d'argent pour acheter cet item");
         }
     }
 
@@ -73,5 +81,22 @@ public class BoutiqueController {
         item.updateChange();
         item.setBought(true);
         item.setWorn(true);
+    }
+
+    public void takeOff() {
+        Item aux;
+        if (GameConstants.RACKET_PORTE != null) {
+            aux = GameConstants.RACKET_PORTE;
+            GameConstants.RACKET_PORTE = null;
+            GameConstants.TEXTURE = "Null";
+        } else if (GameConstants.BALL_PORTE != null) {
+            aux = GameConstants.BALL_PORTE;
+            GameConstants.BALL_PORTE = null;
+            GameConstants.SKIN_BALL = "Null";
+        } else {
+            return;
+        }
+        aux.setWorn(false);
+        aux.updateButtonBuy();
     }
 }

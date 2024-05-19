@@ -3,7 +3,6 @@ package gui;
 import static physics.entity.Racket.AddIntensityBall;
 import static physics.entity.Racket.StopBall;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;

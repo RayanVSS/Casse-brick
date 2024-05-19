@@ -2,6 +2,7 @@ package gui.Menu.MenuViews;
 
 import gui.ViewPosition;
 import gui.GraphicsFactory.ConsoleView;
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuManager;
 import gui.Menu.MenuControllers.SaveController;
@@ -44,7 +45,7 @@ public class SaveView implements Menu, ViewPosition {
     private ComboBox<String> listSave;
 
     private ConsoleView consoleView;
-
+    private BaseView baseView;
     //c'est pour avoir les fonctions de sauvegarde
     private Sauvegarde sauvegarde = new Sauvegarde();
 
@@ -83,6 +84,7 @@ public class SaveView implements Menu, ViewPosition {
         bottomBox.getChildren().add(consoleView);
         root.setCenter(centerBox);
         root.setBottom(bottomBox);
+        baseView = new BaseView(root, centerBox, bottomBox);
         new SaveController(p, this);
     }
 
@@ -179,5 +181,10 @@ public class SaveView implements Menu, ViewPosition {
 
     public MenuManager getSceneManager() {
         return sceneManager;
+    }
+
+    @Override
+    public void update() {
+        baseView.update();
     }
 }

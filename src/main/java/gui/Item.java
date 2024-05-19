@@ -1,13 +1,11 @@
 package gui;
 
-import gui.Menu.Menu;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import save.PlayerData;
 import utils.GameConstants;
 
-public class Item implements Menu{
+public class Item {
 
     private String name;
     private String path;
@@ -23,15 +21,19 @@ public class Item implements Menu{
         this.price = price;
         this.type = type;
         this.bought = PlayerData.inventaire.isBought(this.getName());
-        this.worn = GameConstants.BALL_PORTE==this || GameConstants.RACKET_PORTE==this;
+        this.worn = GameConstants.TEXTURE.equals(this.getPath()) || GameConstants.SKIN_BALL.equals(this.getPath());
+        // GameConstants.BALL_PORTE==this || GameConstants.RACKET_PORTE==this;
 
-        if (worn) {
-            this.button = createButton("Porté");
-        } else if(bought) {
-            this.button = createButton("Acheté");
-        }else{
-            this.button = createButton("Acheter : "+price);
-        }
+        button = new Button("");
+        button.getStyleClass().add("button-boutique");
+        button.setOnMouseEntered(e -> {
+            button.getStyleClass().remove("button-boutique");
+            button.getStyleClass().add("button-hover-boutique");
+        });
+        button.setOnMouseExited(e -> {
+            button.getStyleClass().remove("button-hover-boutique");
+            button.getStyleClass().add("button-boutique");
+        });
     }
 
     public void updateButtonBuy(){
@@ -52,6 +54,12 @@ public class Item implements Menu{
         glow.setColor(javafx.scene.paint.Color.CRIMSON);
         glow.setRadius(10);
         button.setEffect(glow);
+    }
+
+    public void updateNone(){
+        this.getButton().setText("Acheter : " + this.getPrice());
+        this.getButton().setEffect(null);
+
     }
     // GETTERS
 
@@ -92,9 +100,9 @@ public class Item implements Menu{
     }
 
 
-    @Override
-    public Scene getScene() {
-        throw new UnsupportedOperationException("Unimplemented method 'getScene'");
-    }
+    // @Override
+    // public Scene getScene() {
+    //     throw new UnsupportedOperationException("Unimplemented method 'getScene'");
+    // }
 
 }

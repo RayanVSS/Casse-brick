@@ -1,14 +1,9 @@
 package physics.config;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
-
 import java.util.Iterator;
 
-import config.Game;
 import entity.EntityColor;
-import entity.ball.ClassicBall;
 import entity.brick.BrickClassic;
 import entity.racket.CircleRacket;
 import entity.racket.ClassicRacket;
@@ -17,10 +12,8 @@ import entity.racket.DiamondRacket;
 import entity.racket.YNotFixeRacket;
 import gui.GraphicsFactory.RacketGraphics;
 import javafx.animation.AnimationTimer;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import physics.AppPhysic;
 import physics.entity.Ball;
 import physics.entity.Brick;
@@ -34,13 +27,10 @@ import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.BricksGraphics;
 import physics.gui.ToolBox;
 import physics.gui.Preview;
-import physics.gui.TestPreset;
 import utils.GameConstants;
-import utils.ImageLoader;
 import utils.Key;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 

@@ -1,11 +1,15 @@
 package gui;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import gui.GraphicsFactory.ConsoleView;
 import gui.Menu.MenuManager;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import save.PlayerData;
@@ -33,6 +37,18 @@ public class App extends Application {
 
     @Override
     public void start(Stage p) throws Exception {
+        try{
+            Font.loadFont(new FileInputStream("src/main/ressources/font/blabla.ttf"),10);
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+        if (Font.getFamilies().contains("Kode Mono")) {
+            System.out.println("La police est chargée avec succès.");
+        } else {
+            System.out.println("La police n'est pas chargée.");
+        }
+
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

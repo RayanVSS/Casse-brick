@@ -2,6 +2,7 @@ package gui.Menu.MenuViews;
 
 import gui.ViewPosition;
 import gui.GraphicsFactory.ConsoleView;
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.OptionsController;
 import javafx.geometry.Insets;
@@ -43,16 +44,12 @@ public class OptionsView implements Menu, ViewPosition {
     private LabelToggleButtonHBox fps, path, particles;
     private LabelButton buttonleft, buttonpower, buttonright;
 
-    // private List<String> textureNames = loadTextureNames();
-    // private LabelComboBoxHBox texture;
-    // private ImageView textureImageView;
-
-    // public final String TEXTURE_FOLDER = "src/main/ressources/Texture";
 
     private HBox actionButtons;
     private Button backButton;
 
     private ConsoleView consoleView;
+    private BaseView baseView;
 
     public OptionsView(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -73,6 +70,7 @@ public class OptionsView implements Menu, ViewPosition {
         root.setCenter(centerBox);
         root.setBottom(bottomBox);
 
+        baseView = new BaseView(root, centerBox, bottomBox);
         new OptionsController(primaryStage, this);
     }
 
@@ -144,6 +142,11 @@ public class OptionsView implements Menu, ViewPosition {
     @Override
     public void handleDynamicAction() {
         consoleView.setDynamicFocus(scene);
+    }
+
+    @Override
+    public void update() {
+        baseView.update();
     }
 
     public Scene getScene() {
