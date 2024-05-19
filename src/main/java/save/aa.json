@@ -1,19 +1,17 @@
 {
-  "PATH": true,
+  "PATH": false,
   "MUSIC": 0,
   "CSS": "CLASSIC",
-  "MONEY": 40,
-  "SKIN_BALL": "Null",
-  "INVENTAIRE": [
-    "PurpleSilk"
-  ],
+  "MONEY": 0,
+  "SKIN_BALL": "src/main/ressources/balle/black/gravity.png",
+  "INVENTAIRE": [],
   "PARTICLES": true,
   "LEFT": "LEFT",
-  "FPS": true,
+  "FPS": false,
   "PSEUDO": "Sans nom",
   "SPACE": "SPACE",
-  "TEXTURE": "Null",
-  "EXP_LEVEL": 27,
+  "TEXTURE": "src/main/ressources/Texture/stars.jpg",
+  "EXP_LEVEL": 36,
   "PROGRESS": {
     "stages": [
       {
@@ -202,7 +200,8 @@
         "difficulty": 26,
         "unlockLevel": 27,
         "completed": false,
-        "maxScore": 0
+        "maxScore": 0,
+        "customGame": false
       },
       {
         "difficulty": 27,
@@ -269,7 +268,7 @@
       }
     ]
   },
-  "SOUND": 50,
+  "SOUND": 10,
   "RIGHT": "RIGHT",
-  "ADMIN": true
+  "ADMIN": false
 }

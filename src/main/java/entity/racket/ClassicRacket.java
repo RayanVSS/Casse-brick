@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.scene.input.KeyCode;
-import physics.entity.Ball;
 import physics.entity.Racket;
 import utils.GameConstants;
 
@@ -17,6 +16,7 @@ import utils.GameConstants;
  */
 
 public class ClassicRacket extends Racket {
+    private boolean BallFrontRacket = false;
 
     // creation de la raquette
     public ClassicRacket() {
@@ -49,6 +49,14 @@ public class ClassicRacket extends Racket {
          * switch (event) {
          * }
          */
+    }
+
+    public boolean getBallFrontRacket() {
+        return BallFrontRacket;
+    }
+
+    public void setBallFrontRacket(boolean ballFrontRacket) {
+        BallFrontRacket = ballFrontRacket;
     }
 
 }

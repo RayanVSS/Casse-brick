@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.checkerframework.common.returnsreceiver.qual.This;
+
 import entity.ball.GravityBall;
 import entity.ball.MagnetBall;
+import entity.racket.ClassicRacket;
 import entity.Bonus;
 import entity.Boost;
 import physics.entity.Ball;
@@ -34,7 +37,6 @@ public class Game {
     private int timeElapsed = 0; // en secondes
     private List<Bonus> bonuslist = new ArrayList<>();
     private List<Ball> balls = new ArrayList<>();
-    private int repetition; // pour saut
     private List<Boost> boosts = new ArrayList<>();
 
     public Game(Ball ball, Racket racket, GameRules rules) {
@@ -80,12 +82,18 @@ public class Game {
 
     public void update(long deltaT) {
         start();
-
         // Vérifie si la balle est en collision avec une autre balle avant de les
         // déplacer
         for (Ball ball : balls) {
             if (!(ball instanceof MagnetBall)) {
                 ball.checkCollisionOtherBall(balls);
+            }
+            if (racket instanceof ClassicRacket) {
+                if(BallFrontRacket_close(ball)){
+                    ((ClassicRacket) racket).setBallFrontRacket(true);
+                }else{
+                    ((ClassicRacket) racket).setBallFrontRacket(false);
+                }
             }
         }
         for (Ball ball : balls) {
@@ -116,7 +124,7 @@ public class Game {
             } else {
                 // Si la balle touche la raquette
                 if (ball.checkCollision(racket)) {
-                    if (ball.getC().getX() > racket.getC().getX()
+                    if (ball.getC().getX() > racket.getC().getX() // Si la balle est dans la raquette 
                             && ball.getC().getX() < racket.getC().getX() + racket.getLargeur() - 2
                             && ball.getC().getY() > racket.getC().getY()) {
                         System.out.println(ball.getC().getX() + "  " + racket.getC().getX());
@@ -178,33 +186,7 @@ public class Game {
         updateGameStatus();
         racket.getDirection().setX(0);
 
-        if (racket.getJumpUP()) {
-            repetition++;
-            racket.deplaceY(-5);
-            racket.setDirection(new Vector(racket.getDirection().getX(), -1));
-            for (Ball ball : balls) {
-                if (ball.getC().getX() > racket.getC().getX()
-                        && ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
-                        && ball.getC().getY() > racket.getC().getY() - racket.getLongueur()) {
-                    // Ball has entered the racket
-                    // Add your code here to handle the event
-                }
-            }
-            racket.createsegments();
-        }
-        if (racket.getJumpDOWN()) {
-            repetition = 0;
-            racket.deplaceY(2.9);
-            racket.createsegments();
-        }
-        if (racket.getCalibrage()) {
-            Coordinates c = new Coordinates(racket.getC().getX(), GameConstants.DEFAULT_WINDOW_HEIGHT - 50);
-            racket.setC(c);
-            racket.setDirection(new Vector(racket.getDirection().getX(), 0));
-            racket.setCalibrage(false);
-            racket.createsegments();
-
-        }
+        racket.Dojump(racket,balls);
 
     }
 
@@ -242,6 +224,16 @@ public class Game {
         }
         return false;
     }
+
+    public boolean BallFrontRacket_close(Ball b) {
+        if (racket.getC().getX() - b.getC().getX() < 0
+                && (racket.getC().getX() + racket.getLargeur()) - b.getC().getX() > 0
+                && racket.getC().getY() - b.getC().getY() < racket.getLongueur() + 20){
+            return true;
+        }
+        return false;
+    }
+
 
     public void deleteBalls() {
         for (Ball b : balls) {

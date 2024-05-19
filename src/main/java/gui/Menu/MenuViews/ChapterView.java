@@ -30,6 +30,10 @@ public class ChapterView implements Menu, ViewPosition {
     private Button chapter2;
 
     private Button chapter3;
+    private ImageView chapter3Image;
+
+    private Button chapter4;
+    private ImageView chapter4Image;
 
     private Button backButton;
 
@@ -47,16 +51,19 @@ public class ChapterView implements Menu, ViewPosition {
         Image image1 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre1.png");
         Image image2 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre2.png");
         Image image3 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre3.png");
+        Image image4 = ImageLoader.loadImage("src/main/ressources/chapitre/Chapitre4.png");
 
         // Créer les boutons
         chapter1 = createChapterButton(image1, null, -10);
         chapter2 = createChapterButton(image2,  null, 0);
         chapter3 = createChapterButton(image3, null, 10);
+        chapter4 = createChapterButton(image4, null, 20);
+
 
         backButton = createButton("Retour", 0, 0);
 
         // Ajouter les boutons à la box centrale
-        centerBox.getChildren().addAll(chapter1, chapter2, chapter3, backButton);
+        centerBox.getChildren().addAll(chapter1, chapter2, chapter3, chapter4, backButton);
         centerBox.setAlignment(Pos.CENTER);
         centerBox.setPadding(new Insets(50, 0, 0, 0));
 
@@ -134,6 +141,10 @@ public class ChapterView implements Menu, ViewPosition {
 
     public Button getChapter3() {
         return chapter3;
+    }
+
+    public Button getChapter4() {
+        return chapter4;
     }
 
     public Button getBackButton() {
