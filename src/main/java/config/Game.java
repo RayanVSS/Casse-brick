@@ -85,9 +85,9 @@ public class Game {
                 ball.checkCollisionOtherBall(balls);
             }
             if (racket instanceof ClassicRacket) {
-                if(BallFrontRacket_close(ball)){
+                if (BallFrontRacket_close(ball)) {
                     ((ClassicRacket) racket).setBallFrontRacket(true);
-                }else{
+                } else {
                     ((ClassicRacket) racket).setBallFrontRacket(false);
                 }
             }
@@ -120,20 +120,22 @@ public class Game {
             } else {
                 // Si la balle touche la raquette
                 if (ball.checkCollision(racket)) {
-                    if (ball.getC().getX() > racket.getC().getX() // Si la balle est dans la raquette 
+                    if (ball.getC().getX() > racket.getC().getX() // Si la balle est dans la raquette
                             && ball.getC().getX() < racket.getC().getX() + racket.getLargeur() - 2
-                            && ball.getC().getY() > racket.getC().getY()) {
+                            && ball.getC().getY() + racket.getLongueur()/2 > racket.getC().getY()) {
                         System.out.println(ball.getC().getX() + "  " + racket.getC().getX());
-                        if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur()/2) {
+                        if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur() / 2) {
                             ball.setC(
-                                    new Coordinates(ball.getC().getX() - ball.getRadius() - 15, racket.getC().getY()));
+                                    new Coordinates(ball.getC().getX() - ball.getRadius() - 15,
+                                            racket.getC().getY() - ball.getRadius()));
                             ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
                             ball.getRotation().stopRotation();
                             System.out.println("ball dans la raquette a gauche");
                         } else if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
-                                && ball.getC().getX() > racket.getC().getX() + racket.getLargeur()/2) {
+                                && ball.getC().getX() > racket.getC().getX() + racket.getLargeur() / 2) {
                             ball.setC(
-                                    new Coordinates(ball.getC().getX() + ball.getRadius() + 15, racket.getC().getY()));
+                                    new Coordinates(ball.getC().getX() + ball.getRadius() + 15,
+                                            racket.getC().getY() - ball.getRadius()));
                             ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
                             ball.getRotation().stopRotation();
                             System.out.println("ball dans la raquette a droite");
@@ -145,6 +147,7 @@ public class Game {
                             System.out.println("ball dans la raquette au milieu");
                         }
                     }
+                
 
                     ball.CollisionR = true;
                     App.ballSound.update();
@@ -152,8 +155,8 @@ public class Game {
                     updateRulesRacket();
                 }
             }
-            for(Brick brick : map.getBricks()){
-                if(ball.checkCollision(brick)){
+            for (Brick brick : map.getBricks()) {
+                if (ball.checkCollision(brick)) {
                     Bonus bonus = Bonus.createBonus(ball.getC().clone());
                     if (bonus != null) {
                         bonuslist.add(bonus);
@@ -173,16 +176,16 @@ public class Game {
             racket.reset();
         }
         // if (rules.isInfinite()) {
-        //     if (!isInfiniteBonus()) {
-        //         rules.infiniteUpdate(map, 0.60);
-        //     } else {
-        //         rules.infiniteUpdate(map, 0);
-        //     }
+        // if (!isInfiniteBonus()) {
+        // rules.infiniteUpdate(map, 0.60);
+        // } else {
+        // rules.infiniteUpdate(map, 0);
+        // }
         // }
         updateGameStatus();
         racket.getDirection().setX(0);
 
-        racket.Dojump(racket,balls);
+        racket.Dojump(racket, balls);
 
     }
 
@@ -224,12 +227,11 @@ public class Game {
     public boolean BallFrontRacket_close(Ball b) {
         if (racket.getC().getX() - b.getC().getX() < 0
                 && (racket.getC().getX() + racket.getLargeur()) - b.getC().getX() > 0
-                && racket.getC().getY() - b.getC().getY() < racket.getLongueur() + 20){
+                && racket.getC().getY() - b.getC().getY() < racket.getLongueur() + 20) {
             return true;
         }
         return false;
     }
-
 
     public void deleteBalls() {
         for (Ball b : balls) {
@@ -246,8 +248,9 @@ public class Game {
     }
 
     // public Coordinates resetBallInfinite() {
-    //     Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2, map.lastBrick() + 900 / 2);
-    //     return c;
+    // Coordinates c = new Coordinates(GameConstants.DEFAULT_WINDOW_WIDTH / 2,
+    // map.lastBrick() + 900 / 2);
+    // return c;
     // }
 
     // Setters/getters
@@ -298,7 +301,7 @@ public class Game {
     }
 
     public void setRa() {
-        MagnetBall.getRa = racket;
+        Ball.getRa = racket;
     }
 
     public GameRules getRules() {

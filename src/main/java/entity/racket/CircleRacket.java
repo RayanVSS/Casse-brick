@@ -23,12 +23,12 @@ public class CircleRacket extends Racket {
     public void handleKeyPress(Set<KeyCode> keysPressed) {
         for (KeyCode key : keysPressed) {
             if (key == GameConstants.LEFT) {
-                if (this.mX() > -largeur / 2)
+                if (this.mX() > 0)
                     this.deplaceX(-speed);
                     this.getDirection().setX(-1);
             }
             if (key == GameConstants.RIGHT) {
-                if (this.mX() < super.getWidth() - longueur - 70)
+                if (this.mX() + largeur < super.getWidth())
                     this.deplaceX(speed);
                     this.getDirection().setX(1);
             }
