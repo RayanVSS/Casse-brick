@@ -819,6 +819,5 @@ Ajouts :
 - Intégration du niveau infini pour l'arraylist
 - Refonte & facto de BrickGraphics
 - Presets de l'app de démo/physic
-- Rapport
 
 
