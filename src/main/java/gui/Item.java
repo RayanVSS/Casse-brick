@@ -5,6 +5,13 @@ import javafx.scene.effect.DropShadow;
 import save.PlayerData;
 import utils.GameConstants;
 
+/**
+ * Classe représentant un item dans le jeu.
+ * Cette classe est responsable de la gestion des informations relatives à un
+ * item, comme son nom, son prix, son état (acheté ou porté), etc.
+ * 
+ * @author Benmalek Majda
+ */
 public class Item {
 
     private String name;
@@ -15,6 +22,15 @@ public class Item {
     private boolean bought;
     private boolean worn;
 
+    /**
+     * Constructeur de la classe Item.
+     * Initialise un nouvel item avec les informations fournies.
+     *
+     * @param name  Le nom de l'item.
+     * @param path  Le chemin d'accès à l'image de l'item.
+     * @param price Le prix de l'item.
+     * @param type  Le type de l'item.
+     */
     public Item(String name, String path, int price, String type) {
         this.name = name;
         this.path = path;
@@ -22,7 +38,6 @@ public class Item {
         this.type = type;
         this.bought = PlayerData.inventaire.isBought(this.getName());
         this.worn = GameConstants.TEXTURE.equals(this.getPath()) || GameConstants.SKIN_BALL.equals(this.getPath());
-        // GameConstants.BALL_PORTE==this || GameConstants.RACKET_PORTE==this;
 
         button = new Button("");
         button.getStyleClass().add("button-boutique");
@@ -36,7 +51,10 @@ public class Item {
         });
     }
 
-    public void updateButtonBuy(){
+    /**
+     * Met à jour l'état du bouton de l'item pour indiquer qu'il a été acheté.
+     */
+    public void updateButtonBuy() {
         button.setText("Acheté");
         DropShadow glow = new DropShadow();
         glow.setOffsetX(0);
@@ -46,7 +64,12 @@ public class Item {
         button.setEffect(glow);
 
     }
-    public void updateChange(){
+
+    /**
+     * Met à jour l'état du bouton de l'item pour indiquer qu'il est actuellement
+     * porté.
+     */
+    public void updateChange() {
         button.setText("Porté");
         DropShadow glow = new DropShadow();
         glow.setOffsetX(0);
@@ -56,7 +79,11 @@ public class Item {
         button.setEffect(glow);
     }
 
-    public void updateNone(){
+    /**
+     * Réinitialise l'état du bouton de l'item pour indiquer qu'il n'est ni acheté
+     * ni porté.
+     */
+    public void updateNone() {
         this.getButton().setText("Acheter : " + this.getPrice());
         this.getButton().setEffect(null);
 
@@ -98,11 +125,5 @@ public class Item {
     public void setBought(boolean bought) {
         this.bought = bought;
     }
-
-
-    // @Override
-    // public Scene getScene() {
-    //     throw new UnsupportedOperationException("Unimplemented method 'getScene'");
-    // }
 
 }
