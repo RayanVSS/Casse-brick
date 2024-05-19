@@ -5,7 +5,6 @@ import java.util.Map;
 import entity.EntityColor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-// import javafx.scene.layout.StackPane;
 import physics.entity.Brick;
 import physics.entity.Entity;
 import utils.GameConstants;

@@ -17,18 +17,18 @@ public class Map {
 
     public Map(GameRules rules, int columnsBricks, int rowsBricks) {
         this.rules = rules;
-        this.columns = columnsBricks;
-        this.rows = rowsBricks;
-        initBricks(columnsBricks, rowsBricks);
+        this.columnsBricks = columnsBricks;
+        this.rowsBricks = rowsBricks;
+        initBricks();
     }
 
-    private void initBricks(int columnsBricks, int rowsBricks) {
+    private void initBricks() {
         bricks = new ArrayList<>();
-        if (checkDefaultParameters(columnsBricks, rowsBricks)) {
+        if (checkDefaultParameters()) {
             switch (rules.getArrangement()) {
 
                 case DEFAULT:
-                    initDefaultBricksArrangement(columnsBricks, rowsBricks);
+                    initDefaultBricksArrangement();
                     break;
 
                 case INFINITE:
@@ -45,19 +45,15 @@ public class Map {
     }
 
     private void initInfiniteBricksArrangement() {
-        if (checkDefaultParameters(GameConstants.COLUMNS_OF_BRICKS, GameConstants.ROWS_OF_BRICKS)) {
-            for (int i = 0; i < GameConstants.MAP_WIDTH; i++) {
-                for (int j = 0; j < GameConstants.ROWS_OF_BRICKS; j++) {
-                    bricks.add(new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
-                            j * GameConstants.BRICK_HEIGHT)));
-                }
+        for (int i = 0; i < GameConstants.MAP_WIDTH; i++) {
+            for (int j = 0; j < rowsBricks; j++) { // 1 espace en haut
+                bricks.add(new BrickClassic(new Coordinates(i * GameConstants.BRICK_WIDTH,
+                        j * GameConstants.BRICK_HEIGHT)));
             }
-        } else {
-            throw new IllegalArgumentException("Erreur sur la config de la map.");
         }
     }
 
-    private void initDefaultBricksArrangement(int columnsBricks, int rowsBricks) {
+    private void initDefaultBricksArrangement() {
         int indexFirstColumn = (GameConstants.MAP_WIDTH - columnsBricks) / 2;
         for (int i = indexFirstColumn; i < indexFirstColumn + columnsBricks; i++) { // espace côté
                                                                                     // gauche/droit
@@ -69,7 +65,7 @@ public class Map {
 
     }
 
-    private boolean checkDefaultParameters(int columnsBricks, int rowsBricks) {
+    private boolean checkDefaultParameters() {
         return GameConstants.MAP_HEIGHT >= rowsBricks + 2
                 && GameConstants.MAP_WIDTH >= columnsBricks
                 && GameConstants.MAP_HEIGHT
@@ -80,9 +76,9 @@ public class Map {
         return bricks;
     }
 
-    // public boolean inMap(int x, int y) {
-    //     return x >= 0 && x < bricks.length && y >= 0 && y < bricks[0].length;
-    // }
+    public boolean inMap(int x, int y) {
+        return x >= 0 && x <= GameConstants.MAP_WIDTH && y >= 0 && y <= GameConstants.MAP_HEIGHT;
+    }
 
     // public void handleCollisionBricks(Ball ball, GameRules rules) {
 
@@ -164,29 +160,12 @@ public class Map {
         return bricks.size();
     }
 
-    // public int lastBrick() {
-    //     int res = 0;
-    //     for (int i = bricks.length - 1; i > -1; i--) {
-    //         for (int j = bricks[0].length - 1; j > -1; j--) {
-    //             if (bricks[i][j] != null) {
-    //                 res = i;
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     return res;
-    // }
+    public int getRowsBricks() {
+        return rowsBricks;
+    }
 
-    // public Brick lastBricks() {
-    //     Brick res = null;
-    //     for (int i = bricks.length - 1; i > -1; i--) {
-    //         for (int j = bricks[0].length - 1; j > -1; j--) {
-    //             if (bricks[i][j] != null) {
-    //                 res = bricks[i][j];
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     return res;
-    // }
+    public int getColumnsBricks() {
+        return columnsBricks;
+    }
+
 }

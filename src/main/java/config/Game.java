@@ -179,34 +179,12 @@ public class Game {
             bonuslist.clear();
             racket.reset();
         }
-        // if (rules.isInfinite()) {
-        //     if (!isInfiniteBonus()) {
-        //         rules.infiniteUpdate(map, 0.60);
-        //     } else {
-        //         rules.infiniteUpdate(map, 0);
-        //     }
-        // }
+        if (rules.isInfinite()) {
+            rules.infiniteUpdate(map, GameConstants.BRICK_SPEED);
+            rules.createBrickInfinite(map);
+        }
         updateGameStatus();
         racket.getDirection().setX(0);
-
-        racket.Dojump(racket, balls);
-
-    }
-
-    private void updateRulesRacket() { // Vérification des règles qui s'appliquent au contact avec la raquette
-        rules.updateRemainingBounces();
-        rules.updateBricksTransparency(map);
-        rules.updateBricksUnbreakability(map);
-        rules.shuffleBricks(map.getBricks());
-    }
-
-    public boolean isInfiniteBonus() {
-        for (Boost b : boosts) {
-            if (b.getType().equals("infiniteStop")) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private void updateGameStatus() { // Vérifie & MAJ le statut de la Game, gagnée/perdue
