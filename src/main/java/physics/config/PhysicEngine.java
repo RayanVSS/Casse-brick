@@ -193,7 +193,7 @@ public class PhysicEngine extends Pane {
         Iterator<Brick> it = listbrick.keySet().iterator();
         while (it.hasNext()) {
             Brick b = (Brick) it.next();
-            listbrick.get(b).update2();
+            listbrick.get(b).update();
             if (b.isDestroyed()) {
                 it.remove();
             }
