@@ -172,7 +172,7 @@ public class GameRoot {
             if (bonus instanceof Boost) {
                 Boost boost = (Boost) bonus;
                 if (boost.move(game.getRacket().CollisionRacket(boost.getC(), game.getRacket().getShapeType()),
-                        game.getRacket(), game.getBalls())) {
+                        game.getRacket(), game)) {
                     root.getChildren().remove(boost);
                     iterator.remove();
                 } else {
@@ -186,7 +186,7 @@ public class GameRoot {
                 }
             } else {
                 if (bonus.move(game.getRacket().CollisionRacket(bonus.getC(), game.getRacket().getShapeType()),
-                        game.getRacket(),game.getBalls())) {
+                        game.getRacket(),game)) {
                     root.getChildren().remove(bonus);
                     iterator.remove();
                 } else {
