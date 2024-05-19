@@ -169,14 +169,120 @@ public class TestPreset extends VBox {
                 game.addBall(tempBall);
                 break;
             case 4:
+                tempBrick = PhysicEngine
+                        .init_brick(new Coordinates(2 * (width / 4) - 2 * ballRadius, (height / 4)));
+                game.addBrick(tempBrick);
+                tempBrick = PhysicEngine
+                        .init_brick(new Coordinates(3 * (width / 4) - 2 * ballRadius, (height / 4)));
+                game.addBrick(tempBrick);
+                tempBrick = PhysicEngine
+                        .init_brick(new Coordinates(2 * (width / 4) - 2 * ballRadius, 2 * (height / 4)));
+                game.addBrick(tempBrick);
+                tempBrick = PhysicEngine
+                        .init_brick(new Coordinates(3 * (width / 4) - 2 * ballRadius, 2 * (height / 4)));
+                game.addBrick(tempBrick);
+
+                tempBall = PhysicEngine.init_ball(
+                        new Coordinates(2.5 * (width / 4) - 3.5 * brickWidth, (height / 4) - 100),
+                        new Vector(new Coordinates(1, 0.9)));
+                game.addBall(tempBall);
+                tempBall = PhysicEngine.init_ball(
+                        new Coordinates(3.5 * (width / 4), (height / 4) + -3.5 * brickHeight),
+                        new Vector(new Coordinates(-1, 1)));
+                game.addBall(tempBall);
+                tempBall = PhysicEngine.init_ball(
+                        new Coordinates(1.5 * (width / 4) - 100, 2 * (height / 4) + 6 * brickHeight),
+                        new Vector(new Coordinates(1, -0.6)));
+                game.addBall(tempBall);
+                tempBall = PhysicEngine.init_ball(
+                        new Coordinates(3 * (width / 4) + 3 * brickWidth, 2 * (height / 4)),
+                        new Vector(new Coordinates(-1, -0.55)));
+                game.addBall(tempBall);
+                tempBall = PhysicEngine.init_ball(
+                        new Coordinates(2 * (width / 4) - 3 * brickWidth, (height / 4) - 100),
+                        new Vector(new Coordinates(1, 0.9)));
+                game.addBall(tempBall);
+                tempBall = PhysicEngine.init_ball(
+                        new Coordinates(3 * (width / 4), (height / 4) + -3 * brickHeight),
+                        new Vector(new Coordinates(-1, 1)));
+                game.addBall(tempBall);
+                tempBall = PhysicEngine.init_ball(
+                        new Coordinates(1 * (width / 4) - 100, 2 * (height / 4) + 6 * brickHeight),
+                        new Vector(new Coordinates(1, -0.6)));
+                game.addBall(tempBall);
+                tempBall = PhysicEngine.init_ball(
+                        new Coordinates(3 * (width / 4) + 3 * brickWidth, 2 * (height / 4)),
+                        new Vector(new Coordinates(-1, -0.55)));
+                game.addBall(tempBall);
+
                 break;
             case 5:
+                for (int i = 0; i < 6; i++) {
+                    tempBall = PhysicEngine.init_ball(
+                            new Coordinates(3 * (width / 4), 2 * (height / 4) + i * brickHeight),
+                            new Vector(new Coordinates(-3 + random.nextDouble() * 6, -3 + random.nextDouble() * 6)));
+                    game.addBall(tempBall);
+                }
                 break;
             case 6:
+                for (int i = 0; i < 6; i++) {
+                    tempBall = PhysicEngine.init_ball(
+                            new Coordinates(3 * (width / 4), 2 * (height / 4) + i * brickHeight),
+                            new Vector(new Coordinates(-3 + random.nextDouble() * 6, -3 + random.nextDouble() * 6)));
+                    game.addBall(tempBall);
+                }
+                for (int i = 0; i < 6; i++) {
+                    tempBall = PhysicEngine.init_ball(
+                            new Coordinates(2 * (width / 4), 2 * (height / 4) + i * brickHeight),
+                            new Vector(new Coordinates(-3 + random.nextDouble() * 6, -3 + random.nextDouble() * 6)));
+                    game.addBall(tempBall);
+                }
                 break;
             case 7:
+                for (int i = 0; i < 6; i++) {
+                    tempBall = PhysicEngine.init_ball(
+                            new Coordinates(3 * (width / 4), 2 * (height / 4) + i * brickHeight),
+                            new Vector(new Coordinates(-3 + random.nextDouble() * 6, -3 + random.nextDouble() * 6)));
+                    game.addBall(tempBall);
+                }
+                for (int i = 0; i < 6; i++) {
+                    tempBall = PhysicEngine.init_ball(
+                            new Coordinates(2 * (width / 4), 2 * (height / 4) + i * brickHeight),
+                            new Vector(new Coordinates(-3 + random.nextDouble() * 6, -3 + random.nextDouble() * 6)));
+                    game.addBall(tempBall);
+                }
+                for (int i = 0; i < 6; i++) {
+                    tempBall = PhysicEngine.init_ball(
+                            new Coordinates(2 * (width / 4) + i * brickHeight, (height / 4) - 100),
+                            new Vector(new Coordinates(-3 + random.nextDouble() * 6, -3 + random.nextDouble() * 6)));
+                    game.addBall(tempBall);
+                }
                 break;
             case 8:
+                for (int i = 0; i < 6; i++) {
+                    tempBall = PhysicEngine.init_ball(
+                            new Coordinates(3 * (width / 4), 1.5 * (height / 4) + i * brickHeight),
+                            new Vector(new Coordinates(-5 + random.nextDouble() * 10, -5 + random.nextDouble() * 10)));
+                    game.addBall(tempBall);
+                }
+                for (int i = 0; i < 6; i++) {
+                    tempBall = PhysicEngine.init_ball(
+                            new Coordinates(2 * (width / 4), 1.5 * (height / 4) + i * brickHeight),
+                            new Vector(new Coordinates(-5 + random.nextDouble() * 10, -5 + random.nextDouble() * 10)));
+                    game.addBall(tempBall);
+                }
+                for (int i = 0; i < 6; i++) {
+                    tempBall = PhysicEngine.init_ball(
+                            new Coordinates(2 * (width / 4) + i * brickHeight, (height / 4) - 100),
+                            new Vector(new Coordinates(-5 + random.nextDouble() * 10, -5 + random.nextDouble() * 10)));
+                    game.addBall(tempBall);
+                }
+                for (int i = 0; i < 6; i++) {
+                    tempBall = PhysicEngine.init_ball(
+                            new Coordinates(2 * (width / 4) + i * brickHeight, 3.5 * (height / 4) - 100),
+                            new Vector(new Coordinates(-5 + random.nextDouble() * 10, -5 + random.nextDouble() * 10)));
+                    game.addBall(tempBall);
+                }
                 break;
             default:
                 break;
