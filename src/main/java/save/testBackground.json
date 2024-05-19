@@ -2,9 +2,10 @@
   "PATH": true,
   "MUSIC": 0,
   "CSS": "CLASSIC",
-  "MONEY": 40,
-  "SKIN_BALL": "Null",
+  "MONEY": 5,
+  "SKIN_BALL": "src/main/ressources/balle/black/gravity.png",
   "INVENTAIRE": [
+    "GravityBlack",
     "PurpleSilk"
   ],
   "PARTICLES": true,
@@ -12,7 +13,7 @@
   "FPS": true,
   "PSEUDO": "Sans nom",
   "SPACE": "SPACE",
-  "TEXTURE": "Null",
+  "TEXTURE": "src/main/ressources/Texture/purple.jpg",
   "EXP_LEVEL": 27,
   "PROGRESS": {
     "stages": [

@@ -11,6 +11,12 @@ import javafx.scene.shape.Circle;
 import physics.entity.Ball;
 import physics.entity.Entity;
 
+/**
+ * Classe pour la représentation graphique d'une balle.
+ * Étends la classe Circle de JavaFX.
+ * Implémente l'interface EntityGraphics.
+ * @author Benmalek Majda |
+ */
 public class BallGraphics extends Circle implements EntityGraphics {
     private Color color;
     private Color MAGNET_POS;
@@ -27,6 +33,11 @@ public class BallGraphics extends Circle implements EntityGraphics {
     private Image image;
     private ImagePattern ballImage;
 
+    /**
+     * Constructeur de la classe BallGraphics.
+     * 
+     * @param ball la balle à représenter graphiquement.
+     */
     public BallGraphics(Ball ball) {
         super(ball.getRadius());
         this.ball = ball;
@@ -35,6 +46,12 @@ public class BallGraphics extends Circle implements EntityGraphics {
         setCenterY(ball.getC().getY());
     }
 
+    /**
+     * Constructeur de la classe BallGraphics avec une image.
+     * 
+     * @param i    l'image de la balle.
+     * @param ball la balle à représenter graphiquement.
+     */
     public BallGraphics(Image i, Ball ball) {
         super(ball.getRadius());
         this.ball = ball;
@@ -48,6 +65,9 @@ public class BallGraphics extends Circle implements EntityGraphics {
         setCenterY(ball.getC().getY());
     }
 
+    /**
+     * Met à jour la représentation graphique de la balle.
+     */
     public void update() {
         updateBall();
         setWaitingRemoved(ball.isDestroyed());
@@ -73,17 +93,15 @@ public class BallGraphics extends Circle implements EntityGraphics {
                 this.setStrokeWidth(3.5);
                 this.setStroke(HYPER);
             }
-        } 
+        }
     }
 
     private void color() {
         switch (GameConstants.CSS) {
-            // TODO: trouver les bonnes couleurs pour gravity et hyper
             case PINK:
                 color = Color.rgb(199, 21, 133);
                 MAGNET_POS = Color.rgb(255, 255, 0);
                 MAGNET_NEG = Color.rgb(0, 128, 0);
-
                 break;
             case CLASSIC:
                 color = Color.rgb(39, 54, 84);
@@ -201,54 +219,4 @@ public class BallGraphics extends Circle implements EntityGraphics {
         this.waitingRemoved = waitingRemoved;
     }
 
-    // private void setImageBasedOnCSS(Theme css) {
-    // String imagePath = IMAGE_PATH + css.getName().toLowerCase() + "/";
-    // if (ball instanceof ClassicBall) {
-    // setImage(imagePath + "classic.png");
-    // } else if (ball instanceof HyperBall) {
-    // setImage(imagePath + "hyper.png");
-    // } else if (ball instanceof GravityBall) {
-    // setImage(imagePath + "gravity.png");
-    // } else if (ball instanceof MagnetBall) {
-    // setImage(imagePath + ((MagnetBall) ball).getEtat().equals("positif") != null
-    // ? POSITIF_BALL : NEGATIF_BALL);
-    // }
-    // }
-    // if (ball instanceof MagnetBall) {
-    // String newImagePath = ((MagnetBall) ball).getEtat().equals("positif") ?
-    // POSITIF_BALL : NEGATIF_BALL;
-    // setImage(newImagePath);
-    // }
-    // if (ball.getColor() != null) {
-    // switch (ball.getColor()) {
-    // case RED:
-    // setImage(RED_BALL);
-    // break;
-    // case GREEN:
-    // setImage(GREEN_BALL);
-    // break;
-    // case BLUE:
-    // setImage(BLUE_BALL);
-    // break;
-    // default:
-    // break;
-    // }
-    // }
-
-    // private void setImage(String imagePath) {
-    // Image newImage = ImageLoader.loadImage(imagePath);
-    // if (newImage != currentImage) {
-    // currentImage = newImage;
-    // ImagePattern imagePattern = new ImagePattern(currentImage);
-    // this.setFill(imagePattern);
-    // }
-    // }
-
-    // private static final String IMAGE_PATH = "src/main/ressources/balle/";
-    // private static final String POSITIF_BALL = "positif.png";
-    // private static final String NEGATIF_BALL = "negatif.png";
-    // private static final String RED_BALL = IMAGE_PATH + "red.png";
-    // private static final String GREEN_BALL = IMAGE_PATH + "green.png";
-    // private static final String BLUE_BALL = IMAGE_PATH + "blue.png";
-    // private Image currentImage;
 }

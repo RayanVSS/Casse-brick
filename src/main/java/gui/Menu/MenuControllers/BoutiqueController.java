@@ -8,11 +8,20 @@ import save.PlayerData;
 import utils.GameConstants;
 import utils.Sound.ClickSound;
 
+/**
+ * Classe contrôleur pour la vue BoutiqueView.
+ * @author Benmalek Majda
+ */
 public class BoutiqueController {
 
     private BoutiqueView view;
     private ClickSound click = App.clickSoundPlayer;
 
+    /**
+     * Constructeur de la classe BoutiqueController.
+     * 
+     * @param view La vue associée à ce contrôleur.
+     */
     public BoutiqueController(BoutiqueView view) {
         this.view = view;
         this.view.getBtnBack().setOnAction(e -> {
@@ -25,12 +34,16 @@ public class BoutiqueController {
             takeOff();
         });
 
-
         setButtonAction(view.getRaquetteItem());
         setButtonAction(view.getBalleItem());
 
     }
 
+    /**
+     * Définit l'action pour chaque bouton d'item.
+     * 
+     * @param Item Le tableau d'items.
+     */
     private void setButtonAction(Item[] Item) {
         for (int i = 0; i < Item.length; i++) {
             int finalI = i;
@@ -41,10 +54,18 @@ public class BoutiqueController {
         }
     }
 
+    /**
+     * Change la scène pour revenir au menu de départ.
+     */
     private void back() {
         App.menuManager.changeScene(view.getPrimaryStage(), "StartMenuView");
     }
 
+    /**
+     * Achète un item si le joueur a assez d'argent.
+     * 
+     * @param item L'item à acheter.
+     */
     private void acheterItem(Item item) {
         if (PlayerData.inventaire.isBought(item.getName())) {
             updateItem(item);
@@ -61,6 +82,11 @@ public class BoutiqueController {
         }
     }
 
+    /**
+     * Met à jour un item après l'achat ou le port.
+     * 
+     * @param item L'item à mettre à jour.
+     */
     private void updateItem(Item item) {
         Item aux;
         if (item.getType().equals("raquette")) {
@@ -74,7 +100,7 @@ public class BoutiqueController {
         } else {
             return;
         }
-        if(aux != null) {
+        if (aux != null) {
             aux.setWorn(false);
             aux.updateButtonBuy();
         }
@@ -83,6 +109,9 @@ public class BoutiqueController {
         item.setWorn(true);
     }
 
+    /**
+     * Enlève tous les items portés.
+     */
     public void takeOff() {
         Item aux;
         if (GameConstants.RACKET_PORTE != null) {
