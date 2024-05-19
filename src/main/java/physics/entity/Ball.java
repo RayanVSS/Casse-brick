@@ -1,6 +1,5 @@
 package physics.entity;
 
-import entity.EntityColor;
 import entity.ball.ClassicBall;
 import entity.ball.GravityBall;
 import entity.ball.HyperBall;

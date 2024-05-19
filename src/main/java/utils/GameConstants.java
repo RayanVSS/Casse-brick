@@ -32,7 +32,7 @@ public final class GameConstants {
         public static final int MIN_SPACE_BETWEEN_RACKET_BRICKS = 5;
         public static final int BRICK_WIDTH = 60;
         public static final int BRICK_HEIGHT = 32;
-        public static final double BRICK_SPEED = 0.60;
+        public static final double BRICK_SPEED = 0.30;
 
         // ball
         public static final int DEFAULT_BALL_SPEED = 5;
@@ -52,8 +52,8 @@ public final class GameConstants {
         //gravityBall
         public static final boolean LIMITE_SPEED_GRAVITY = true; // limite la vitesse de la balle 
         public static final double GRAVITY_POWER = 0.2; // gravité de la balle
-        public static final double LOOSE_SPEED = 0.6; // perte de vitesse de la balle
-        public static final double VITESSE_MAX_GRAVITY = 12; // vitesse maximale de la balle
+        public static final double LOOSE_SPEED = 0.5; // perte de vitesse de la balle
+        public static final double VITESSE_MAX_GRAVITY = 22; // vitesse maximale de la balle
         public static final double VITESSE_MIN_GRAVITY = 1.5; // vitesse minimale de la balle
         //classicBall
         public static final double VITESSE_MAX_CLASSIC = 15; // vitesse maximale de la balle

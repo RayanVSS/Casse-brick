@@ -2,8 +2,6 @@ package physics.config;
 
 import java.util.Map;
 import java.util.Iterator;
-
-import entity.EntityColor;
 import entity.brick.BrickClassic;
 import entity.racket.CircleRacket;
 import entity.racket.ClassicRacket;
@@ -17,19 +15,18 @@ import javafx.scene.layout.Pane;
 import physics.AppPhysic;
 import physics.entity.Ball;
 import physics.entity.Brick;
+import physics.entity.Entity.EntityColor;
 import physics.entity.Racket;
 import physics.geometry.Coordinates;
 import physics.geometry.Segment;
 import physics.geometry.Vector;
 import javafx.scene.paint.Color;
-
 import gui.GraphicsFactory.BallGraphics;
 import gui.GraphicsFactory.BricksGraphics;
 import physics.gui.ToolBox;
 import physics.gui.Preview;
 import utils.GameConstants;
 import utils.Key;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -201,7 +198,6 @@ public class PhysicEngine extends Pane {
 
         if (RACKET) {
             update_racket();
-            System.out.println("Racket : " + racket.getC().getX() + " " + racket.getC().getY());
         }
 
         // Mise à jour de la position de la raquette
