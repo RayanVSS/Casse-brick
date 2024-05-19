@@ -64,8 +64,6 @@ public class Sound {
         public ClickSound() {
             super("src/main/ressources/sound/clickv2.wav");
             this.update();
-            System.out.println(GameConstants.SOUND);
-            
         }
 
         @Override

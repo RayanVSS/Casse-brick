@@ -5,6 +5,7 @@ import gui.App;
 import gui.Console;
 import gui.GameView;
 import gui.ViewPosition;
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.WinController;
 import javafx.scene.control.Button;
@@ -23,6 +24,7 @@ public class WinView extends VBox implements Menu, ViewPosition {
     private Button btnNext;
     private Label win;
     private Label gain;
+    private BaseView baseView;
 
     public WinView(Stage p, GameView game, StageLevel level) {
         App.levelUp.play();
@@ -54,6 +56,7 @@ public class WinView extends VBox implements Menu, ViewPosition {
         gain.setText("Gain : " + GameConstants.LAST_WIN_MONEY);
         Console.systemDisplay("Vous venez de gagner : " + GameConstants.LAST_WIN_MONEY);
         saveViewPosition();
+        baseView = new BaseView(this);
         new WinController(this);
     }
 
@@ -93,6 +96,11 @@ public class WinView extends VBox implements Menu, ViewPosition {
 
     public StageLevel getLevel() {
         return level;
+    }
+
+    @Override
+    public void update() {
+        baseView.update();
     }
 
 }

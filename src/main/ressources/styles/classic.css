@@ -1,9 +1,10 @@
 /* LES ROOTS */
 .root,
 .root-options {
-    -fx-background-color: #273654;
     -fx-alignment: center;
     -fx-spacing: 20;
+    -fx-font-family: "Kode Mono";
+
 }
 
 .root-options {
@@ -36,8 +37,17 @@
 
 /* LES BOUTONS */
 
+.button-boutique {
+    fx-font-size: 10px;
+}
+
+.button-hover-boutique {
+    -fx-background-color: #d5bbb1;
+    -fx-text-fill: #1b263b;
+}
+
 .scoreL-style {
-    -fx-font-size: 20px;
+    -fx-font-size: 15px;
     -fx-text-fill: #1b263b;
 }
 
@@ -47,16 +57,19 @@
     -fx-font-size: 20px;
 }
 
-.button-style {
+.button-style,
+.button-boutique {
     -fx-background-color: #1b263b;
 }
 
 .button-style,
-.label-style {
+.label-style,
+.button-boutique {
     -fx-text-fill: #d5bbb1;
 }
 
-.button-hover {
+.button-hover,
+.button-boutique {
     -fx-background-color: #d5bbb1;
     -fx-text-fill: #1b263b;
 }
@@ -113,6 +126,15 @@
 
 .label-vbox {
     -fx-background-color: #2f3d57;
+    -fx-border-color: #7a6f6b;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 7px;
+    -fx-padding: 5px;
+    -fx-alignment: center;
+}
+
+.label-vbox-profil {
     -fx-border-color: #7a6f6b;
     -fx-border-width: 2px;
     -fx-border-radius: 5px;

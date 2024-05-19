@@ -16,6 +16,8 @@ public class StageSelectorController {
     public StageSelectorController(StageSelectorView stageSelectorView) {
         this.stageSelectorView = stageSelectorView;
         setButtonsAction();
+
+
     }
 
     private void setButtonsAction() {

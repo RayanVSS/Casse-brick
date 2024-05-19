@@ -3,6 +3,7 @@ package gui.Menu.MenuViews;
 import gui.App;
 import gui.ViewPosition;
 import config.StageLevel;
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.PauseController;
 import javafx.animation.AnimationTimer;
@@ -36,6 +37,8 @@ public class PauseView extends Pane implements Menu, ViewPosition {
     private Image unmuteImage2 = ImageLoader.loadImage("src/main/ressources/unmute.png");
     private ImageView unmuteImageView2 = new ImageView(unmuteImage2);
 
+    private BaseView baseView;
+
     public PauseView(Stage p, Pane game, Pane gameRoot, AnimationTimer animationTimer, StageLevel stageLevel) {
         this.primaryStage = p;
         this.animationTimer = animationTimer;
@@ -60,6 +63,7 @@ public class PauseView extends Pane implements Menu, ViewPosition {
         vBox.setLayoutX((this.getPrefWidth() - vBox.getPrefWidth()) / 2);
         vBox.setLayoutY((this.getPrefHeight() - vBox.getPrefHeight()) / 2.5);
         saveViewPosition();
+        baseView = new BaseView(this);
         new PauseController(p, this);
     }
 
@@ -169,5 +173,10 @@ public class PauseView extends Pane implements Menu, ViewPosition {
 
     public ImageView getUnmuteImageView2() {
         return unmuteImageView2;
+    }
+
+    @Override
+    public void update() {
+        baseView.update();
     }
 }

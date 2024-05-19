@@ -2,6 +2,7 @@ package gui.Menu.MenuViews;
 
 import gui.ViewPosition;
 import gui.GraphicsFactory.ConsoleView;
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.GameCustomizerController;
 import javafx.geometry.Insets;
@@ -37,6 +38,7 @@ public class GameCustomizerView implements Menu, ViewPosition {
     private Button createGame, backButton;
 
     private ConsoleView consoleView;
+    private BaseView baseView;
 
     public GameCustomizerView(Stage primaryStage) {
 
@@ -52,6 +54,7 @@ public class GameCustomizerView implements Menu, ViewPosition {
         initActionButtons();
         addComponents();
         localStyle();
+        baseView = new BaseView(root, centerBox, bottomBox);
 
         new GameCustomizerController(this);
     }
@@ -79,7 +82,7 @@ public class GameCustomizerView implements Menu, ViewPosition {
 
         LabelVBox timeVBox = new LabelVBox("Time", 3);
         ruleLimitedTime = new LabelToggleButtonHBox("Temps limité", false);
-        timeLimit = new LabelSliderHBox("Temps (secondes)", 1, 1800, 300, true, 1); //en secondes
+        timeLimit = new LabelSliderHBox("Temps (s)", 1, 1800, 300, true, 1); //en secondes
         timeVBox.getChildren().addAll(ruleLimitedTime, timeLimit);
 
         LabelVBox bouncesVBox = new LabelVBox("Bounces", 3);
@@ -98,15 +101,15 @@ public class GameCustomizerView implements Menu, ViewPosition {
         life = new LabelSliderHBox("Nombre de vies", 1, 9, 3, false, 1);
 
         LabelVBox mapVBox = new LabelVBox("Map", 5);
-        mapHeight = new LabelSliderHBox("Lignes de briques", 1, 12, 5, false, 1);
-        mapWidht = new LabelSliderHBox("Colonnes de briques", 1, 13, 13, false, 1);
+        mapHeight = new LabelSliderHBox("Lignes briques", 1, 12, 5, false, 1);
+        mapWidht = new LabelSliderHBox("Colonnes briques", 1, 13, 13, false, 1);
         mapVBox.getChildren().addAll(mapHeight, mapWidht);
 
         LabelVBox ballVBox = new LabelVBox("Ball", 5);
         ball = new LabelComboBoxHBox("Type de balle",
                 new String[] { "Classic", "Gravity", "Hyper", "Magnet" }, "Classic");
-        ballSize = new LabelSliderHBox("Taille de la balle", 1, 20, GameConstants.DEFAULT_BALL_RADIUS, false, 1);
-        ballSpeed = new LabelSliderHBox("Vitesse de la balle", 1, 20, 5, false, 1);
+        ballSize = new LabelSliderHBox("Taille balle", 1, 20, GameConstants.DEFAULT_BALL_RADIUS, false, 1);
+        ballSpeed = new LabelSliderHBox("Vitesse balle", 1, 20, 5, false, 1);
         ballVBox.getChildren().addAll(ball, ballSize, ballSpeed);
 
         racket = new LabelComboBoxHBox("Type de raquette", new String[] { "Classic", "Magnet", "YNotFixe" }, "Classic");
@@ -121,7 +124,7 @@ public class GameCustomizerView implements Menu, ViewPosition {
 
         LabelVBox eventVBox = new LabelVBox("Event", 3);
         ruleRandomSwitchBricks = new LabelToggleButtonHBox("Swicth Aléatoire", false);
-        ruleColorRestricted = new LabelToggleButtonHBox("Restriction de Couleur", false);
+        ruleColorRestricted = new LabelToggleButtonHBox("Restriction Couleur", false);
         ruleTransparent = new LabelToggleButtonHBox("Briques Fantôme", false);
         ruleUnbreakable = new LabelToggleButtonHBox("Briques Incassables", false);
         eventVBox.getChildren().addAll(ruleRandomSwitchBricks, ruleColorRestricted, ruleTransparent, ruleUnbreakable);
@@ -157,6 +160,10 @@ public class GameCustomizerView implements Menu, ViewPosition {
         consoleView.setDynamicFocus(scene);
     }
 
+    @Override
+    public void update() {
+        baseView.update();
+    }
     public Stage getPrimaryStage() {
         return primaryStage;
     }

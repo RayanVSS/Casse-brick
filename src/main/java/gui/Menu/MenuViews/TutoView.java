@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import javafx.scene.web.WebView;
 import javafx.scene.web.WebEngine;
 import gui.ViewPosition;
+import gui.Menu.BaseView;
 import gui.Menu.Menu;
 import gui.Menu.MenuControllers.TutoController;
 
@@ -16,6 +17,7 @@ public class TutoView implements Menu, ViewPosition {
     private Scene scene;
     WebView webView = new WebView();
     WebEngine webEngine = webView.getEngine();
+    private BaseView baseView;
 
     public TutoView(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -23,6 +25,7 @@ public class TutoView implements Menu, ViewPosition {
         scene = new Scene(root, 1100, 800);
         StackPane.setMargin(webView, new Insets(15));
         root.getChildren().add(webView);
+        baseView = new BaseView(root);
         new TutoController(primaryStage, this, scene);
     }
 
@@ -43,4 +46,12 @@ public class TutoView implements Menu, ViewPosition {
         return webEngine;
     }
 
+    public BaseView getBaseView() {
+        return baseView;
+    }
+
+    @Override
+    public void update() {
+        baseView.update();
+    }
 }

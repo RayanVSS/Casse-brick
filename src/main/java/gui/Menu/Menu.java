@@ -139,12 +139,13 @@ public interface Menu {
     }
 
 
+
     /**
      * Rien par défaut
      * @Override update spécifique selon la vue.
      */
     default void update() {
-
+        
     }
 
     /**
