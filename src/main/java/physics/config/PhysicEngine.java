@@ -390,8 +390,7 @@ public class PhysicEngine extends Pane {
     }
 
     public void addBall(Ball ball) {
-        BallGraphics graphBall = new BallGraphics(ToolBox.list_image.get((int) (Math.random() * listball.size())),
-                ball);
+        BallGraphics graphBall = new BallGraphics(ToolBox.list_image.get((int) (Math.random() * (ToolBox.list_image.size()))),ball);
         this.getChildren().add(graphBall);
         listball.put(ball, graphBall);
     }
