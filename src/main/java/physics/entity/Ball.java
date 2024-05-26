@@ -38,6 +38,9 @@ public abstract class Ball extends Entity {
     private boolean delete = false;
     public static Racket getRa; // coordonnées de la raquette
 
+    private double newX ;
+    private double newY;
+
     public Ball() {
         super(new Coordinates(0, 0), new Vector(new Coordinates(0, 0)));
         this.speed = 0;
@@ -67,6 +70,33 @@ public abstract class Ball extends Entity {
 
     // Setters/getters
 
+    public void setNewCoordinates(double x, double y) {
+        this.newX = x;
+        this.newY = y;
+    }
+
+    public void setNewCoordinates(){
+        this.getC().setX(newX);
+        this.getC().setY(newY);
+    }
+
+
+    public double getNewX() {
+        return newX;
+    }
+
+    public double getNewY() {
+        return newY;
+    }
+
+    public void setNewX(double newX) {
+        this.newX = newX;
+    }
+
+    public void setNewY(double newY) {
+        this.newY = newY;
+    }
+   
     public double getX() {
         return this.getC().getX();
     }

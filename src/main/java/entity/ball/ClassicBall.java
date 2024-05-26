@@ -100,7 +100,9 @@ public class ClassicBall extends Ball {
                 this.setDirection(new Vector(0, -1));
             }
         }
-        this.setC(new Coordinates(newX, newY));
+        this.setNewX(newX);
+        this.setNewY(newY);
+        
         this.getDirection().add(super.getPhysicSetting().getWind());
         this.normalizeDirection();
     }

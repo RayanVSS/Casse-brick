@@ -174,6 +174,7 @@ public class Game {
                 }
             }
             ball.movement(deltaT);
+            ball.setNewCoordinates();
             ball.CollisionB = false;
 
         }

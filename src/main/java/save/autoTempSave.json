@@ -1,6 +1,6 @@
 {
   "PATH": false,
-  "MUSIC": 50,
+  "MUSIC": 1,
   "CSS": "CLASSIC",
   "MONEY": 0,
   "SKIN_BALL": "Null",
@@ -268,7 +268,7 @@
       }
     ]
   },
-  "SOUND": 50,
+  "SOUND": 31,
   "RIGHT": "RIGHT",
   "ADMIN": false
 }
