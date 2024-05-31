@@ -83,23 +83,6 @@ public class ClassicBall extends Ball {
             super.setDelete(true);
         }
 
-        if (newX < 0) { // si la balle sort de l'écran par la gauche
-            newX = -newX + 5;
-        } else if (newX < -GameConstants.DEFAULT_GAME_ROOT_WIDTH) { // si la balle sort de l'écran par la droite
-            newX = 20;
-        } else if (newX > GameConstants.DEFAULT_GAME_ROOT_WIDTH) { // si la balle sort de l'écran par la droite
-            newX = GameConstants.DEFAULT_GAME_ROOT_WIDTH - 30;
-        } else if (newY < 0) { // si la balle sort de l'écran par le haut
-            newY = -newY + 5;
-        } else { // si la balle sort de l'écran par le haut
-            String newYString = String.valueOf(newY);
-            String newXString = String.valueOf(newX);
-            if (newYString.contains("NaN") || newXString.contains("NaN")) {
-                newY = GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2;
-                newX = GameConstants.DEFAULT_WINDOW_HEIGHT / 2;
-                this.setDirection(new Vector(0, -1));
-            }
-        }
         this.setNewX(newX);
         this.setNewY(newY);
         

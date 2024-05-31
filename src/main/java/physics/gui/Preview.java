@@ -61,7 +61,7 @@ public class Preview {
 
     public void trajectory(){
         for(Segment s:PhysicEngine.LIMIT_SIMULATION){
-            if(PhysicTools.checkCollision(c_trajectory, d_trajectory, ball.getRadius(), s, ball.getRotation())){
+            if(PhysicTools.checkCollision(c_trajectory, c_trajectory,d_trajectory, ball.getRadius(), s, ball.getRotation())){
                 break;
             }
         }
@@ -124,7 +124,7 @@ public class Preview {
 
     public void update(Racket r){
         for(Segment s:r.segments){
-            if(PhysicTools.checkCollision(c_trajectory, d_trajectory, physics.getRadius(), s, ball.getRotation())){
+            if(PhysicTools.checkCollision(c_trajectory,c_trajectory, d_trajectory, physics.getRadius(), s, ball.getRotation())){
                 CollisionR=true;
                 return;
             }
@@ -174,7 +174,7 @@ public class Preview {
 
     public void checkCollisionBrick(Set<Brick> bricks){
         for(Brick b: bricks){
-            PhysicTools.checkCollision(c_trajectory, d_trajectory, ball.getRadius(), b,ball.getRotation());
+            PhysicTools.checkCollision(c_trajectory,c_trajectory, d_trajectory, ball.getRadius(), b,ball.getRotation());
         }
     }
 
@@ -189,7 +189,7 @@ public class Preview {
         }
         for(int i = compt; i<50; i++){
             for(Segment s:PhysicEngine.LIMIT_SIMULATION){
-                if(PhysicTools.checkCollision(c, d, b.getRadius(), s, rotation)){
+                if(PhysicTools.checkCollision(c,c, d, b.getRadius(), s, rotation)){
                     break;
                 }
             }

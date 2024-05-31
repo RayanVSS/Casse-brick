@@ -53,7 +53,7 @@ public final class GameConstants {
         //gravityBall
         public static final boolean LIMITE_SPEED_GRAVITY = true; // limite la vitesse de la balle 
         public static final double GRAVITY_POWER = 0.2; // gravité de la balle
-        public static final double LOOSE_SPEED = 0.5; // perte de vitesse de la balle
+        public static final double LOOSE_SPEED = 0.7; // perte de vitesse de la balle
         public static final double VITESSE_MAX_GRAVITY = 22; // vitesse maximale de la balle
         public static final double VITESSE_MIN_GRAVITY = 1.5; // vitesse minimale de la balle
         //classicBall

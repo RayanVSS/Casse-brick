@@ -270,5 +270,5 @@
   },
   "SOUND": 31,
   "RIGHT": "RIGHT",
-  "ADMIN": false
+  "ADMIN": true
 }

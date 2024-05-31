@@ -73,19 +73,14 @@ public class GravityBall extends Ball {
             super.setDelete(true);
         }
 
-        if (getRa.getC().getY() - this.getRadius() < this.getC().getY()) { // bug qui fait que la balle transperce la
-                                                                           // sraquette
-            this.setC(new Coordinates(newX, getRa.getC().getY() - this.getRadius()));
-        } else if ((!((ClassicRacket) getRa).getBallFrontRacket())) {
-            if (newX < 0)
-                newX += LooseSpeed;
-            if (newX > 0)
-                newX -= LooseSpeed;
-            if (newY > 0)
-                newY += LooseSpeed;
-            if (newY < 0)
-                newY -= LooseSpeed;
-        }
+        if (newX < 0)
+            newX += LooseSpeed;
+        if (newX > 0)
+            newX -= LooseSpeed;
+        if (newY > 0)
+            newY += LooseSpeed;
+        if (newY < 0)
+            newY -= LooseSpeed;
 
         if (newX <= 21) { // bug qui fait que la balle transperce le mur de gauche
             newX = 21;
@@ -113,7 +108,8 @@ public class GravityBall extends Ball {
             }
         }
 
-        this.setC(new Coordinates(newX, newY));
+        this.setNewX(newX);
+        this.setNewY(newY);
         this.getDirection().add(super.getPhysicSetting().getWind());
         super.getPhysicSetting().checkGravity(getC(), getDirection());
         this.normalizeDirection();

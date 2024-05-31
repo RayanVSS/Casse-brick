@@ -17,7 +17,6 @@ import physics.geometry.Coordinates;
 import physics.geometry.Vector;
 import utils.GameConstants;
 
-
 public class Game {
 
     private Ball originalball;
@@ -78,6 +77,20 @@ public class Game {
 
     public void update(long deltaT) {
         start();
+        for (Ball ball : balls) {
+            ball.movement(deltaT); // calcul des prochaines coordonnées de la balle
+            updateBricks(ball); // vérifie si la balle est en collision avec une brique
+            BallCollisionRacket(ball, racket); // vérifie si la balle est en collision avec la raquette
+            ball.checkCollisionOtherBall(balls); // vérifie si la balle est en collision avec une autre balle
+            CheckNewCoordinates(ball); // vérifie si les nouvelles coordonnées de la balle sont valides
+            ball.setNewCoordinates(); // applique les nouvelles coordonnées de la balle
+            looseBall(ball); // vérifie si la balle est perdue
+        }
+
+    }
+
+    public void update(long deltaT, int c) {
+        start();
         // Vérifie si la balle est en collision avec une autre balle avant de les
         // déplacer
         for (Ball ball : balls) {
@@ -91,13 +104,12 @@ public class Game {
                     ((ClassicRacket) racket).setBallFrontRacket(false);
                 }
             }
-        }
-        for (Ball ball : balls) {
             if (ball.delete()) {
                 ball.setDestroyed(true);
                 balls.remove(ball);
                 break;
             }
+
             for (Brick brick : map.getBricks()) {
                 boolean breakBrick = false;
                 if (rules.canCollide(brick) && ball.checkCollision(brick)) {
@@ -121,6 +133,7 @@ public class Game {
             }
             // seulement si la balle est une MagnetBall
             if (ball instanceof MagnetBall) {
+                ball.movement(deltaT); // mouvement de la balle
                 // donne les coordonnées de la raquette a la MagnetBall
                 // actualise l'etat de la raquette
                 if (BallFrontRacket(ball)) {
@@ -185,8 +198,8 @@ public class Game {
             balls.add(Ball.clone(originalball));
             bonuslist.clear();
             racket.reset();
-            if (rules.isInfinite()){
-                balls.get(0).getC().setXY(racket.getC().getX()+20, racket.getC().getY()-50);
+            if (rules.isInfinite()) {
+                balls.get(0).getC().setXY(racket.getC().getX() + 20, racket.getC().getY() - 50);
             }
         }
         if (rules.isInfinite()) {
@@ -197,6 +210,85 @@ public class Game {
         updateGameStatus();
         racket.getDirection().setX(0);
         racket.Dojump(racket, balls);
+    }
+
+    public void CheckNewCoordinates(Ball ball) {
+        if (ball.getNewX() < 0) { // si la balle sort de l'écran par la gauche
+            ball.setNewX(-ball.getNewX() + 5);
+        } else if (ball.getNewX() > GameConstants.DEFAULT_GAME_ROOT_WIDTH) { // si la balle sort de l'écran par la droite
+            ball.setNewX(GameConstants.DEFAULT_GAME_ROOT_WIDTH - 30);
+        } else if (ball.getNewY() < 0) { // si la balle sort de l'écran par le haut
+            ball.setNewY(-ball.getNewY() + 5);
+        } else if (ball.getNewX() > racket.getC().getX() // Si la balle est dans la raquette
+                && ball.getNewX() < racket.getC().getX() + racket.getLargeur() - 5
+                && ball.getNewY() - ball.getRadius() > racket.getC().getY()) {
+            ball.setNewX(ball.getX());
+            ball.setNewY(ball.getY()-ball.getRadius());
+            ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY()));
+            ball.getRotation().stopRotation();
+
+            System.out.println("ball dans la raquette");
+        } else { // si la balle a disparue
+            String newYString = String.valueOf(ball.getNewY());
+            String newXString = String.valueOf(ball.getNewX());
+            if (newYString.contains("NaN") || newXString.contains("NaN")) {
+                ball.setNewY(GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2);
+                ball.setNewX(GameConstants.DEFAULT_WINDOW_HEIGHT / 2);
+                ball.setDirection(new Vector(0, -1));
+            }
+        }
+
+    }
+
+    public void looseBall(Ball ball) {
+        if (ball.delete()) {
+            ball.setDestroyed(true);
+            balls.remove(ball);
+            if (balls.isEmpty()) {
+                life--;
+                balls.add(Ball.clone(originalball));
+                bonuslist.clear();
+                racket.reset();
+                if (rules.isInfinite()) {
+                    balls.get(0).getC().setXY(racket.getC().getX() + 20, racket.getC().getY() - 50);
+                }
+            }
+        }
+    }
+
+    public void BallCollisionRacket(Ball ball, Racket racket) {
+        if (ball.checkCollision(racket)) {
+            ball.CollisionR = true;
+            App.ballSound.update();
+            App.ballSound.play();
+            rules.updateRulesRacket(map);
+        }
+    }
+
+    public void updateBricks(Ball ball) {
+        for (Brick brick : map.getBricks()) {
+            boolean breakBrick = false;
+            if (rules.canCollide(brick) && ball.checkCollision(brick)) {
+                if (rules.isColorRestricted()) {
+                    if (ball.getColor() == brick.getColor()) {
+                        breakBrick = true;
+                    }
+                    ball.setColor(brick.getColor());
+                } else {
+                    breakBrick = true;
+                }
+                if (breakBrick) {
+                    brick.absorb(100);
+                    Bonus bonus = Bonus.createBonus(ball.getC().clone());
+                    if (bonus != null) {
+                        bonuslist.add(bonus);
+                    }
+                }
+                break;
+            }
+        }
+        map.updateBricksStatus(this);
+        updateGameStatus();
     }
 
     public boolean isInfiniteBonus() {

@@ -10,7 +10,7 @@ import physics.entity.Ball;
 
 public class PhysicTools {
 
-    public static boolean checkCollision(Coordinates c, Vector d, double radius, Segment segment, Rotation rotation) {
+    public static boolean checkCollision(Coordinates cNew,Coordinates c, Vector d, double radius, Segment segment, Rotation rotation) {
         double x1 = segment.getStart().getX();
         double y1 = segment.getStart().getY();
         double x2 = segment.getEnd().getX();
@@ -21,7 +21,7 @@ public class PhysicTools {
         dx /= len;
         dy /= len;
     
-        double t = dx * (c.getX() - x1) + dy * (c.getY() - y1);
+        double t = dx * (cNew.getX() - x1) + dy * (cNew.getY() - y1);
     
         // Si le point est proche des rebords du segment
         double closestX, closestY;
@@ -36,23 +36,22 @@ public class PhysicTools {
             closestY = y1 + t * dy;
         }
     
-        double distance = Math.sqrt((c.getX() - closestX) * (c.getX() - closestX) +
-                                    (c.getY() - closestY) * (c.getY() - closestY));
+        double distance = Math.sqrt((cNew.getX() - closestX) * (cNew.getX() - closestX) +
+                                    (cNew.getY() - closestY) * (cNew.getY() - closestY));
     
         if (distance <= radius) {
             // Calculer le vecteur normal
-            double normalX = c.getX() - closestX;
-            double normalY = c.getY() - closestY;
+            double normalX = cNew.getX() - closestX;
+            double normalY = cNew.getY() - closestY;
             double lenNormal = Math.sqrt(normalX * normalX + normalY * normalY);
             normalX /= lenNormal;
             normalY /= lenNormal;
     
             // Repositionner la balle juste en dehors du segment
-            c.setX(closestX+ normalX * (radius)); // Légère marge pour éviter la pénétration
-            c.setY(closestY + normalY * (radius));
+            cNew.setX(c.getX()); 
+            cNew.setY(c.getY());
             // Corriger le vecteur de direction après la collision
             double d1 = d.getX() * normalX + d.getY() * normalY;
-    
             d.setX(d.getX() - 2 * d1 * normalX);
             d.setY(d.getY() - 2 * d1 * normalY + (rotation.getEffect() / 90.0) * normalY);
             
@@ -64,12 +63,12 @@ public class PhysicTools {
     
 
     public static boolean checkCollision(Ball b , Segment s){
-        return checkCollision(b.getC(),b.getDirection(),b.getRadius(),s,b.getRotation());
+        return checkCollision(b.getNewCoordinates(),b.getC(),b.getDirection(),b.getRadius(),s,b.getRotation());
     }
 
-    public static boolean checkCollision(Coordinates c ,Vector d, double radius ,Brick b,Rotation rotation){
+    public static boolean checkCollision(Coordinates cNew,Coordinates c ,Vector d, double radius ,Brick b,Rotation rotation){
         for (Segment s : b.getSegments()) {
-            if(checkCollision(c,d,radius,s,rotation)){
+            if(checkCollision(cNew,c,d,radius,s,rotation)){
                 return true;
             }
         }

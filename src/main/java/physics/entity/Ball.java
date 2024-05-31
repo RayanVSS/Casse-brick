@@ -38,8 +38,8 @@ public abstract class Ball extends Entity {
     private boolean delete = false;
     public static Racket getRa; // coordonnées de la raquette
 
-    private double newX ;
-    private double newY;
+    private double newX = GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2;
+    private double newY = GameConstants.DEFAULT_WINDOW_HEIGHT / 2;
 
     public Ball() {
         super(new Coordinates(0, 0), new Vector(new Coordinates(0, 0)));
@@ -78,6 +78,10 @@ public abstract class Ball extends Entity {
     public void setNewCoordinates(){
         this.getC().setX(newX);
         this.getC().setY(newY);
+    }
+
+    public Coordinates getNewCoordinates() {
+        return new Coordinates(newX, newY);
     }
 
 
@@ -246,7 +250,7 @@ public abstract class Ball extends Entity {
     }
 
     public boolean checkCollision(Brick b) {
-        if (PhysicTools.checkCollision(this.getC(), this.getDirection(), this.radius, b, rotation)) {
+        if (PhysicTools.checkCollision(getNewCoordinates(),getC(), this.getDirection(), this.radius, b, rotation)) {
             return true;
         }
         return false;
@@ -335,14 +339,14 @@ public abstract class Ball extends Entity {
     }
 
     public boolean checkCollision(Segment segment) {
-        return PhysicTools.checkCollision(getC(), getDirection(), radius, segment, rotation);
+        return PhysicTools.checkCollision(getNewCoordinates(),getC(), getDirection(), radius, segment, rotation);
     }
 
     public boolean checkCollision(Racket r) {
         for (Segment l : r.segments) {
             if (checkCollision(l)) {
-                CollisionR = true;
-                rotation.addEffect(-(r.getDirection().getX() * r.speed));
+                this.CollisionR = true;
+                this.rotation.addEffect(-(r.getDirection().getX() * r.speed));
                 return true;
             }
         }
