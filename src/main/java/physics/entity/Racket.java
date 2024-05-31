@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 import gui.GameRoot;
 import gui.GraphicsFactory.RacketGraphics;
 import physics.geometry.Figure;
@@ -262,7 +261,8 @@ public abstract class Racket extends Figure {
             // Calculer le nouvel angle de rebond en fonction de l'angle d'incidence
             double newAngle = Math.PI + (Math.PI - incidentAngle);
 
-            // Mettre à jour la direction de la balle pour refléter le nouvel angle de rebond
+            // Mettre à jour la direction de la balle pour refléter le nouvel angle de
+            // rebond
             double newDirectionX = Math.cos(newAngle) * 1.1;
             double newDirectionY = Math.sin(newAngle) * 1.1;
             b.setDirection(new Vector(newDirectionX, newDirectionY));
@@ -384,28 +384,25 @@ public abstract class Racket extends Figure {
     }
 
     public void BallinRacket(Ball b) {
-       if(shape=="rectangle"){
-            if(segments.get(0).intersect(b.getC(),b.getRadius(),b.getRadius())){
-                b.getC().setY(this.getC().getY()-b.getRadius());
-            }
-            else if(segments.get(2).intersect(b.getC(),b.getRadius(),b.getRadius())){
-                b.getC().setY(this.getC().getX()+getLargeur()+b.getRadius());
-            }
-            else if(segments.get(1).intersect(b.getC(),b.getRadius(),b.getRadius())){
-                b.getC().setX(this.getC().getX()+getLongueur()+b.getRadius());
-            }
-            else if(segments.get(3).intersect(b.getC(),b.getRadius(),b.getRadius())){
-                b.getC().setX(this.getC().getX()-b.getRadius());
+        if (shape == "rectangle") {
+            if (segments.get(0).intersect(b.getC(), b.getRadius(), b.getRadius())) {
+                b.getC().setY(this.getC().getY() - b.getRadius());
+            } else if (segments.get(2).intersect(b.getC(), b.getRadius(), b.getRadius())) {
+                b.getC().setY(this.getC().getX() + getLargeur() + b.getRadius());
+            } else if (segments.get(1).intersect(b.getC(), b.getRadius(), b.getRadius())) {
+                b.getC().setX(this.getC().getX() + getLongueur() + b.getRadius());
+            } else if (segments.get(3).intersect(b.getC(), b.getRadius(), b.getRadius())) {
+                b.getC().setX(this.getC().getX() - b.getRadius());
             }
 
-       }
+        }
     }
 
     // fonction obligatoire
-    public abstract void handleKeyPress(Set<KeyCode> keysPressed,List<Ball> balls);
+    public abstract void handleKeyPress(Set<KeyCode> keysPressed, List<Ball> balls);
 
     public abstract void handleKeyPress(Set<KeyCode> keysPressed);
-    
+
     public abstract void handleKeyRelease(KeyCode event);
 
     public double getWidth() {
@@ -621,9 +618,9 @@ public abstract class Racket extends Figure {
                             }
                         }, 200);
                     }
-                }, 200);
+                }, 250);
             }
-        }, 100);
+        }, 200);
 
     }
 
@@ -636,23 +633,27 @@ public abstract class Racket extends Figure {
         createsegments();
     }
 
-    public void Dojump(Racket racket, List<Ball> balls){
+    public void Dojump(Racket racket, List<Ball> balls) {
         if (racket.getJumpUP()) {
             racket.deplaceY(-5);
             racket.setDirection(new Vector(racket.getDirection().getX(), -1));
             for (Ball ball : balls) {
-                if (ball.getC().getX() > racket.getC().getX()
-                        && ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
-                        && ball.getC().getY() > racket.getC().getY() - racket.getLongueur()) {
-                    ball.setC(new Coordinates(ball.getC().getX(), racket.getC().getY() - racket.getLongueur() - 2));
-                    ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY() * 1.25));
+                if (ball.getNewX() > racket.getC().getX()
+                        && ball.getNewX() < racket.getC().getX() + racket.getLargeur()
+                        && ball.getNewY() > racket.getC().getY() - racket.getLongueur()) {
+                    ball.setNewY(racket.getC().getY() - racket.getLongueur() );
+                    if ((ball.getDirection().getY()) < 0){
+                        ball.setDirection(new Vector(ball.getDirection().getX(), ball.getDirection().getY() * 1.25));
+                    }else {
+                        ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY() * 1.25));
+                    }
                     ball.getRotation().stopRotation();
                 }
             }
             racket.createsegments();
         }
         if (racket.getJumpDOWN()) {
-            racket.deplaceY(2.9);
+            racket.deplaceY(4);
             racket.createsegments();
         }
         if (racket.getCalibrage()) {
@@ -664,7 +665,6 @@ public abstract class Racket extends Figure {
 
         }
     }
-
 
     // GET et SET
     public void setCalibrage(boolean calibrage) {

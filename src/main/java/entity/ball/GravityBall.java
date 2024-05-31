@@ -72,39 +72,24 @@ public class GravityBall extends Ball {
         if (newY > h - this.getRadius()) {
             super.setDelete(true);
         }
-
-        if (newX < 0)
-            newX += LooseSpeed;
-        if (newX > 0)
-            newX -= LooseSpeed;
-        if (newY > 0)
-            newY += LooseSpeed;
-        if (newY < 0)
-            newY -= LooseSpeed;
-
+        if ((!((ClassicRacket) getRa).getBallFrontRacket())) {
+            if (newX < 0)
+                newX += LooseSpeed;
+            if (newX > 0)
+                newX -= LooseSpeed;
+            if (newY > 0)
+                newY += LooseSpeed;
+            if (newY < 0)
+                newY -= LooseSpeed;
+        }else{
+            System.out.println("BallFrontRacket");
+        }
         if (newX <= 21) { // bug qui fait que la balle transperce le mur de gauche
             newX = 21;
         }
         if (this.getC().getX() < 22) {
             if (this.getDirection().getX() < 0) {
                 this.getDirection().setX(-this.getDirection().getX());
-            }
-        }
-        if (newX < 0) { // si la balle sort de l'écran par la gauche
-            newX = -newX + 5;
-        } else if (newX < -GameConstants.DEFAULT_GAME_ROOT_WIDTH) { // si la balle sort de l'écran par la droite
-            newX = 20;
-        } else if (newX > GameConstants.DEFAULT_GAME_ROOT_WIDTH) { // si la balle sort de l'écran par la droite
-            newX = GameConstants.DEFAULT_GAME_ROOT_WIDTH - 30;
-        } else if (newY < 0) { // si la balle sort de l'écran par le haut
-            newY = -newY + 5;
-        } else { // si la balle sort de l'écran par le haut
-            String newYString = String.valueOf(newY);
-            String newXString = String.valueOf(newX);
-            if (newYString.contains("NaN") || newXString.contains("NaN")) {
-                newY = GameConstants.DEFAULT_GAME_ROOT_WIDTH / 2;
-                newX = GameConstants.DEFAULT_WINDOW_HEIGHT / 2;
-                this.getDirection().setY(-1);
             }
         }
 

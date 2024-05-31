@@ -6,8 +6,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import entity.Bonus;
 import entity.Boost;
+import entity.ball.ClassicBall;
 import entity.ball.MagnetBall;
 import entity.racket.ClassicRacket;
+import entity.racket.MagnetRacket;
 import gui.App;
 import javafx.application.Platform;
 import physics.entity.Ball;
@@ -83,133 +85,28 @@ public class Game {
             BallCollisionRacket(ball, racket); // vérifie si la balle est en collision avec la raquette
             ball.checkCollisionOtherBall(balls); // vérifie si la balle est en collision avec une autre balle
             CheckNewCoordinates(ball); // vérifie si les nouvelles coordonnées de la balle sont valides
+            modificationByType(ball); // modifie les attributs de la balle en fonction de son type
             ball.setNewCoordinates(); // applique les nouvelles coordonnées de la balle
             looseBall(ball); // vérifie si la balle est perdue
         }
-
     }
 
-    public void update(long deltaT, int c) {
-        start();
-        // Vérifie si la balle est en collision avec une autre balle avant de les
-        // déplacer
-        for (Ball ball : balls) {
-            if (!(ball instanceof MagnetBall)) {
-                ball.checkCollisionOtherBall(balls);
-            }
-            if (racket instanceof ClassicRacket) {
-                if (BallFrontRacket_close(ball)) {
-                    ((ClassicRacket) racket).setBallFrontRacket(true);
-                } else {
-                    ((ClassicRacket) racket).setBallFrontRacket(false);
-                }
-            }
-            if (ball.delete()) {
-                ball.setDestroyed(true);
-                balls.remove(ball);
-                break;
-            }
-
-            for (Brick brick : map.getBricks()) {
-                boolean breakBrick = false;
-                if (rules.canCollide(brick) && ball.checkCollision(brick)) {
-                    if (rules.isColorRestricted()) {
-                        if (ball.getColor() == brick.getColor()) {
-                            breakBrick = true;
-                        }
-                        ball.setColor(brick.getColor());
-                    } else {
-                        breakBrick = true;
-                    }
-                    if (breakBrick) {
-                        brick.absorb(100);
-                        Bonus bonus = Bonus.createBonus(ball.getC().clone());
-                        if (bonus != null) {
-                            bonuslist.add(bonus);
-                        }
-                    }
-                    break;
-                }
-            }
-            // seulement si la balle est une MagnetBall
-            if (ball instanceof MagnetBall) {
-                ball.movement(deltaT); // mouvement de la balle
-                // donne les coordonnées de la raquette a la MagnetBall
-                // actualise l'etat de la raquette
-                if (BallFrontRacket(ball)) {
-                    ((MagnetBall) ball).setFront(true);
-                } else {
-                    ((MagnetBall) ball).setFront(false);
-                }
-                if (!ball.CollisionR) {
-                    if (ball.checkCollision(racket)) {
-                        ball.CollisionR = true;
-                        App.ballSound.update();
-                        App.ballSound.play();
-                        rules.updateRulesRacket(map);
-                    }
-                }
+    public void modificationByType(Ball ball){
+        if(ball instanceof MagnetBall) {
+            if (BallFrontRacket(ball)) {
+                ((MagnetBall) ball).setFront(true);
             } else {
-                // Si la balle touche la raquette
-                if (ball.checkCollision(racket)) {
-                    if (ball.getC().getX() > racket.getC().getX() // Si la balle est dans la raquette
-                            && ball.getC().getX() < racket.getC().getX() + racket.getLargeur() - 2
-                            && ball.getC().getY() + racket.getLongueur() / 2 > racket.getC().getY()) {
-                        System.out.println(ball.getC().getX() + "  " + racket.getC().getX());
-                        if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur() / 2) {
-                            ball.setC(
-                                    new Coordinates(ball.getC().getX() - ball.getRadius() - 15,
-                                            racket.getC().getY() - ball.getRadius()));
-                            ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
-                            ball.getRotation().stopRotation();
-                            System.out.println("ball dans la raquette a gauche");
-                        } else if (ball.getC().getX() < racket.getC().getX() + racket.getLargeur()
-                                && ball.getC().getX() > racket.getC().getX() + racket.getLargeur() / 2) {
-                            ball.setC(
-                                    new Coordinates(ball.getC().getX() + ball.getRadius() + 15,
-                                            racket.getC().getY() - ball.getRadius()));
-                            ball.setDirection(new Vector(-ball.getDirection().getX(), ball.getDirection().getY()));
-                            ball.getRotation().stopRotation();
-                            System.out.println("ball dans la raquette a droite");
-                        } else {
-                            ball.setC(new Coordinates(ball.getC().getX() + racket.getLargeur() + ball.getRadius() + 30,
-                                    racket.getC().getY()));
-                            ball.setDirection(new Vector(ball.getDirection().getX(), -ball.getDirection().getY()));
-                            ball.getRotation().stopRotation();
-                            System.out.println("ball dans la raquette au milieu");
-                        }
-                    }
-
-                    ball.CollisionR = true;
-                    App.ballSound.update();
-                    App.ballSound.play();
-                    rules.updateRulesRacket(map);
-                }
+                ((MagnetBall) ball).setFront(false);
             }
-            ball.movement(deltaT);
-            ball.setNewCoordinates();
-            ball.CollisionB = false;
-
         }
-
-        // Gere les conditions de perte
-        if (balls.isEmpty()) {
-            life--;
-            balls.add(Ball.clone(originalball));
-            bonuslist.clear();
-            racket.reset();
-            if (rules.isInfinite()) {
-                balls.get(0).getC().setXY(racket.getC().getX() + 20, racket.getC().getY() - 50);
-            }
+        if(racket instanceof ClassicRacket) {
+            BallFrontRacket_close(ball);
+            racket.Dojump(racket, balls);
         }
         if (rules.isInfinite()) {
             rules.infiniteUpdate(map, GameConstants.BRICK_SPEED);
             rules.createBrickInfinite(map);
         }
-        map.updateBricksStatus(this);
-        updateGameStatus();
-        racket.getDirection().setX(0);
-        racket.Dojump(racket, balls);
     }
 
     public void CheckNewCoordinates(Ball ball) {
@@ -259,9 +156,13 @@ public class Game {
     public void BallCollisionRacket(Ball ball, Racket racket) {
         if (ball.checkCollision(racket)) {
             ball.CollisionR = true;
-            App.ballSound.update();
-            App.ballSound.play();
+            if(!(racket instanceof MagnetRacket)){
+                App.ballSound.update();
+                App.ballSound.play();  
+            }
             rules.updateRulesRacket(map);
+        } else {
+            ball.CollisionR = false;
         }
     }
 
@@ -319,13 +220,14 @@ public class Game {
         return false;
     }
 
-    public boolean BallFrontRacket_close(Ball b) {
+    public void BallFrontRacket_close(Ball b) {
         if (racket.getC().getX() - b.getC().getX() < 0
                 && (racket.getC().getX() + racket.getLargeur()) - b.getC().getX() > 0
                 && racket.getC().getY() - b.getC().getY() < racket.getLongueur() + 20) {
-            return true;
+            ((ClassicRacket) racket).setBallFrontRacket(true);
+        } else {
+            ((ClassicRacket) racket).setBallFrontRacket(false);
         }
-        return false;
     }
 
     public void deleteBalls() {
