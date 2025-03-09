@@ -1,6 +1,6 @@
 # 🧱 Casse-Brique « Physique »
 
-Nous sommes le groupe AD1-C qui a eu le [sujet](https://moodle.u-paris.fr/pluginfile.php/2299294/mod_resource/content/4/Projet_breakout.pdf) "Casse-Brique" dans lequel nous devons recréer le jeu éponyme en développant un moteur physique adapté.
+ "Casse-Brique" dans lequel nous avons recréer le jeu éponyme en développant un moteur physique adapté.
 
 ## Sommaire
 
